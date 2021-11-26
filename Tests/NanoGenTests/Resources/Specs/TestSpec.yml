@@ -1,0 +1,432 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: Test Spec
+  license:
+    name: MIT
+security:
+  - test_auth:
+      - read
+servers:
+  - x-name: Test
+    description: Test environment
+    url: https://test.petstore.com/{version}/{space}
+    variables:
+      version:
+        default: v1
+        enum:
+          - v1
+          - v2
+      space:
+        default: main
+  - x-name: Prod
+    description: Prod environment
+    url: http://petstore.swagger.io/v1
+paths:
+  /default-response:
+    get:
+      description: operation with no responses
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /post-form:
+    post:
+      description: "Posts a form"
+      operationId: updateWithForm
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Updated name of the pet
+                  type: string
+                status:
+                  description: Updated status of the pet
+                  type: string
+      responses:
+        "405":
+          description: Invalid input
+  /multiple-path-params{petID}:
+    parameters:
+      - name: petId
+        in: path
+        required: true
+        description: The id of the pet
+        schema:
+          type: string
+    get:
+      description: Has path and operation parameters
+      operationId: getMultipleParams
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the pet
+          schema:
+            type: string
+      responses:
+        "405":
+          description: Invalid input
+  /all-params:
+    post:
+      description: Has all sorts of parameters
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the user
+          schema:
+            type: string
+        - name: petId
+          in: query
+          required: true
+          description: The id of the pet
+          schema:
+            type: string
+        - name: apiKey
+          in: header
+          required: true
+          description: The api key
+          schema:
+            type: string
+        - name: hasPets
+          in: cookie
+          required: true
+          description: Cookie that tracks pets
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Updated name of the pet
+                  type: string
+                status:
+                  description: Updated status of the pet
+                  type: string
+      responses:
+        "405":
+          description: Invalid input
+  /tagged:
+    get:
+      description: operation with a tag
+      operationId: Pets
+      responses:
+        "201":
+          description: Success
+  /inlinebody:
+    post:
+      description: operation with an inline body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+        description: An inline item
+        required: true
+      responses:
+        "201":
+          description: Empty response
+      security:
+        - test_auth:
+            - write
+  /multiple-success:
+    get:
+      description: operation with multiple success responses
+      responses:
+        "200":
+          description: User response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "201":
+          description: Empty response
+      security:
+        - test_auth:
+            - write
+  /inlineEnumResponse:
+    get:
+      description: operation with an enum response
+      responses:
+        "200":
+          description: enum response
+          content:
+            "*/*":
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  x-enum-names:
+                    - one
+                    - two
+                  enum:
+                    - 1
+                    - 2
+  /string:
+    post:
+      description: operation with string body
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        default:
+          description: successful operation
+    get:
+      description: operation with string response
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/400"
+  /file:
+    get:
+      description: Binary response
+      responses:
+        "200":
+          content:
+           text/plain:
+            schema:
+              type: string
+              format: binary
+components:
+  responses:
+    "400":
+      description: 400 response
+      content:
+        "*/*":
+          schema:
+            type: string
+  securitySchemes:
+    test_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://swagger.io/api/oauth/dialog
+          scopes:
+            write: write scope
+            read: read scope
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: integer
+    UserSubclass:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            age:
+              type: integer
+            last_error:
+              allOf:
+                - $ref: "#/components/schemas/Error"
+              nullable: true
+              description: last error reported to user object, or null if they have not seen an error.
+    UserReference:
+      $ref: "#/components/schemas/User"
+    ModelWithAdditionalProperties:
+      description: definition with additional properties
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+    ModelWithBooleanAdditionalProperties:
+      description: definition with bool additional properties
+      type: object
+      additionalProperties:
+        type: boolean
+      properties:
+        name:
+          type: string
+    ModelWithDefinitionAdditionalProperties:
+      description: definition with a Definition as additional properties
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/User"
+      properties:
+        name:
+          type: string
+    ModelWithOnlyAdditionalProperties:
+      description: definition with only additional properties
+      type: object
+      additionalProperties: true
+    ModelWithInlineSpec:
+      type: object
+      properties:
+        myModel:
+          type: object
+          description: an inline model
+          properties:
+            name:
+              description: name of the model
+              type: string
+    ModelWithNullableProperties:
+      type: object
+      required:
+        - requiredNotNullable
+        - requiredNullable
+        - requiredImplicitNotNullable
+      properties:
+        notRequiredNotNullable:
+          type: string
+          description: "a not required and not nullable property"
+          nullable: false
+        notRequiredNullable:
+          type: string
+          description: "a not required and nullable property"
+          nullable: true
+        requiredNotNullable:
+          type: string
+          description: "a required and not nullable property"
+          nullable: false
+        requiredNullable:
+          type: string
+          description: "a required and nullable property"
+          nullable: true
+        requiredImplicitNotNullable:
+          type: string
+          description: "a required and not nullable property with nullable false implicitly declared"
+    Zoo:
+      type: object
+      properties:
+        schemaAnimals:
+          type: array
+          items:
+            - $ref: "#/components/schemas/SingleAnimal"
+        inlineAnimals:
+          type: array
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/Cat"
+              - $ref: "#/components/schemas/Dog"
+            discriminator:
+              propertyName: type
+        inlineAnimal:
+            allOf:
+                - $ref: '#/components/schemas/Animal'
+        oneOfDog:
+            oneOf:
+                - $ref: '#/components/schemas/Dog'
+        anyOfDog:
+            anyOf:
+                - $ref: '#/components/schemas/Dog'
+        allOfDog:
+            allOf:
+                - $ref: '#/components/schemas/Dog'
+        manager:
+          allOf:
+            - $ref: "#/components/schemas/User"
+            - properties:
+                value:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+    SingleAnimal:
+      oneOf:
+        - $ref: "#/components/schemas/Cat"
+        - $ref: "#/components/schemas/Dog"
+      discriminator:
+        propertyName: type
+        mapping:
+          woof: "#/components/schemas/Dog"
+          dog: "#/components/schemas/Dog"
+          cat: "#/components/schemas/Cat"
+    Animal:
+      type: object
+      properties:
+        animal:
+          type: string
+    Cat:
+      allOf:
+        - $ref: "#/components/schemas/Animal"
+        - type: object
+          properties:
+            meows:
+              type: boolean
+    Dog:
+      allOf:
+        - $ref: "#/components/schemas/Animal"
+        - type: object
+          properties:
+            barks:
+              type: boolean
+    Puppi:
+      allOf:
+        - $ref: "#/components/schemas/Dog"
+        - type: object
+          properties:
+            play:
+              type: boolean
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ChildWithNestedObject:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                value:
+                  type: string
+    ObjectHoldingNullableReference:
+      type: object
+      properties:
+        this_property_should_be_optional:
+          $ref: "#/components/schemas/SomeNullableObject"
+      required:
+        - this_property_should_be_optional
+    SomeNullableObject:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+      nullable: true
+    PropertyTypes:
+      properties:
+        decimal:
+          type: number
+          format: decimal
+        float:
+          type: number
+          format: float
+        double:
+          type: number
+          format: double
