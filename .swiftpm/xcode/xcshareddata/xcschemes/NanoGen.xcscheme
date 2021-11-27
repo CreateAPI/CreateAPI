@@ -76,7 +76,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "generate --input ~/Downloads/api.github.com.yaml"
+            argument = "generate --input ~/Developer/NanoGen/Tests/NanoGenTests/Resources/Specs/api.github.com.yaml"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
