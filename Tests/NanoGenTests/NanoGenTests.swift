@@ -1,5 +1,6 @@
 import XCTest
 import class Foundation.Bundle
+@testable import NanoGen
 
 final class NanoGenTests: XCTestCase {
     func testExample() throws {
@@ -34,5 +35,12 @@ final class NanoGenTests: XCTestCase {
       #else
         return Bundle.main.bundleURL
       #endif
+    }
+    
+    func testMakeTypeName() {
+        XCTAssertEqual(makeType("app"), "App")
+        XCTAssertEqual(makeType("app-manifests"), "AppManifests")
+        XCTAssertEqual(makeType("{code}"), "WithCode")
+        XCTAssertEqual(makeType("appManifests"), "AppManifests")
     }
 }
