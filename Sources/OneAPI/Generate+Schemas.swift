@@ -120,7 +120,7 @@ extension Generate {
         }
         
         output += "}"
-        return output.shiftedRight(count: level * 4)
+        return output.shiftedRight(count: level > 0 ? 4 : 0)
     }
     
     private struct GeneratedProperty {
@@ -228,9 +228,9 @@ extension Generate {
             default: break
             }
             return "String"
-        case .object(let coreContext, let objectContext):
+        case .object(let coreContext, _):
             throw GeneratorError("`object` is not supported: \(coreContext)")
-        case .array(let coreContext, let arrayContext):
+        case .array(_, let arrayContext):
             guard let items = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
@@ -253,13 +253,15 @@ extension Generate {
             case .external(let url):
                 throw GeneratorError("External references are not supported: \(url)")
             }
-        case .fragment(let coreContext):
+        case .fragment:
             throw GeneratorError("Fragments are not supported")
         }
     }
     
     // MARK: oneOf
     
+    // TODO: Add support for discriminators
+    // TODO: Add support for nesting
     private func makeOneOf(name: String, _ schemas: [JSONSchema]) throws -> String {
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
         for schema in schemas {
