@@ -9,6 +9,7 @@ import Foundation
 // TODO: Generate initializer
 // TODO: Allow to specify Codable/Decodable
 // TODO: Add an option to skip comments
+// TODO: Option to disable custom key generation
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -73,13 +74,19 @@ extension Generate {
         var output = ""
         var nested: [String] = []
         
+        if let title = coreContext.title, !title.isEmpty {
+            output += "/// \(title)\n"
+        }
         if let description = coreContext.description, !description.isEmpty {
+            if !output.isEmpty {
+                output += "///\n"
+            }
             output += "/// \(description)\n"
         }
         output += "\(access) struct \(type): \(model) {\n"
         let keys = objectContext.properties.keys.sorted()
         var skippedKeys = Set<String>()
-        // TODO: find a better way to order keys
+        // TODO: Find a way to preserve the order of keys
         for key in keys {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
