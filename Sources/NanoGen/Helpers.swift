@@ -20,14 +20,30 @@ extension String {
     
     // Starting with capitalized first letter.
     var toCamelCase: String {
-        components(separatedBy: badCharacters)
+        replacingOccurrences(of: "+", with: "Plus") // GitHub API uses these
+            .replacingOccurrences(of: "-", with: "Minus")
+            .components(separatedBy: badCharacters)
             .filter { !$0.isEmpty }
-            .map { $0.capitalizingFirstLetter() }
+            .enumerated()
+            .map { index, string in
+                if index != 0 && alwaysUppercased.contains(string.lowercased()) {
+                    return string.uppercased()
+                }
+                return string.capitalizingFirstLetter()
+            }
             .joined(separator: "")
+    }
+    
+    func shiftedRight(count: Int) -> String {
+        components(separatedBy: "\n")
+            .map { String(repeating: " ", count: count) + $0 }
+            .joined(separator: "\n")
     }
 }
 
 private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self"])
+
+private let alwaysUppercased = Set(["url", "id", "html"])
 
 extension String {
     var escaped: String {

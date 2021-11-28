@@ -37,10 +37,20 @@ final class NanoGenTests: XCTestCase {
       #endif
     }
     
-    func testMakeTypeName() {
+    func testMakeType() {
         XCTAssertEqual(makeType("app"), "App")
         XCTAssertEqual(makeType("app-manifests"), "AppManifests")
         XCTAssertEqual(makeType("{code}"), "WithCode")
         XCTAssertEqual(makeType("appManifests"), "AppManifests")
+    }
+    
+    func testMakeParameter() {
+        XCTAssertEqual(makeParameter("app"), "app")
+        XCTAssertEqual(makeParameter("app-manifests"), "appManifests")
+        XCTAssertEqual(makeParameter("{code}"), "code")
+        XCTAssertEqual(makeParameter("appManifests"), "appManifests")
+        XCTAssertEqual(makeParameter("avatar_url"), "avatarURL")
+        XCTAssertEqual(makeParameter("node_id"), "nodeID")
+        XCTAssertEqual(makeParameter("+1"), "plus1")
     }
 }

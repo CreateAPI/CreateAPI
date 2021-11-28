@@ -5,6 +5,7 @@
 import OpenAPIKit
 import Foundation
 
+// TODO: Generate initializer
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
         var output = """
@@ -13,28 +14,26 @@ extension Generate {
         import Foundation\n\n
         """
         for (key, schema) in spec.components.schemas {
-            output += makeSchema(for: key, schema: schema)
-            output += "\n\n"
+            output += makeSchema(for: key.rawValue, schema: schema)
+            output += "\n"
         }
         return output
     }
-    
-    private func makeSchema(for key: OpenAPI.ComponentKey, schema: JSONSchema) -> String {
-        
-        
+
+    private func makeSchema(for key: String, schema: JSONSchema, isStandalone: Bool = true) -> String {
         // TODO: Generate struct/classes based on how many fields or what?
         var fields = ""
         switch schema {
         case .boolean(let coreContext):
-            fields = "    #warning(\"TODO:\")"
-        case .number(let coreContext, let numericContext):
-            fields = "    #warning(\"TODO:\")"
-        case .integer(let coreContext, let integerContext):
-            fields = "    #warning(\"TODO:\")"
+            return makePrimitive(name: key, jsonType: schema.jsonType, context: coreContext, isStandalone: isStandalone)
+        case .number(let coreContext, _):
+            return makePrimitive(name: key, jsonType: schema.jsonType, context: coreContext, isStandalone: isStandalone)
+        case .integer(let coreContext, _):
+            return makePrimitive(name: key, jsonType: schema.jsonType, context: coreContext, isStandalone: isStandalone)
         case .string(let coreContext, _):
-            return makeString(key, coreContext)
+            return makePrimitive(name: key, jsonType: schema.jsonType, context: coreContext, isStandalone: isStandalone)
         case .object(let coreContext, let objectContext):
-            fields = "    #warning(\"TODO:\")"
+            return makeObject(key, coreContext, objectContext)
         case .array(let coreContext, let arrayContext):
             fields = "    #warning(\"TODO:\")"
         case .all(let of, let core):
@@ -51,36 +50,100 @@ extension Generate {
             fields = "    #warning(\"TODO:\")"
         }
         
+        if isStandalone {
+            return fields
+        }
+
         var output = """
-        \(access) struct \(makeType(key.rawValue)) {
-        \(fields)
+        \(access) struct \(makeType(key)) {
+            \(fields)
         }
         """
         return output
     }
     
-    private func makeString(_ key: OpenAPI.ComponentKey, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> String {
-        let type = makeType(key.rawValue)
+    private func makeObject(_ key: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext) -> String {
+        let type = makeType(key)
         var output = ""
         if let description = coreContext.description, !description.isEmpty {
             output += "/// \(description)\n"
         }
-        if let example = coreContext.example?.value as? String, !example.isEmpty {
+        output += "\(access) struct \(type) {\n"
+        let keys = objectContext.properties.keys.sorted()
+        for key in keys {
+            let value = objectContext.properties[key]!
+            output += makeSchema(for: key, schema: value, isStandalone: false)
+                .shiftedRight(count: 4)
+            output += "\n"
+        }
+        let hasCustomCodingKeys = keys.contains { makeParameter($0) != $0 }
+        if hasCustomCodingKeys {
+            output += "\n"
+            output += "    private enum CodingKeys: String, CodingKey {\n"
+            for key in keys {
+                let parameter = makeParameter(key)
+                if parameter == key {
+                    output += "        case \(parameter)\n"
+                } else {
+                    output += "        case \(parameter) = \"\(key)\"\n"
+                }
+            }
+            output +=  "    }\n"
+        }
+        output += "}\n"
+        return output
+    }
+
+    private func makePrimitive<T>(
+        name: String,
+        jsonType: JSONType?,
+        context: JSONSchema.CoreContext<T>,
+        isStandalone: Bool
+    ) -> String {
+        var type: String
+        switch jsonType! {
+        case .boolean: type = "Bool"
+        case .object: fatalError()
+        case .array: fatalError()
+        case .number: type = "Double"
+        case .integer: type = "Int"
+        case .string:
+            type = "String"
+            switch (context as! JSONSchema.CoreContext<JSONTypeFormat.StringFormat>).format {
+            case .dateTime:
+                type = "Date"
+            case .other(let other):
+                if other == "uri" {
+                    type = "URL"
+                }
+            default: break
+            }
+        }
+        
+        var output = ""
+        output += makeHeader(for: context, isStandalone: isStandalone)
+
+        if isStandalone {
+            output += "typealias \(makeType(name)) = \(type)"
+        } else {
+            output += "\(access) var \(makeParameter(name)): \(type)\(context.nullable ? "?" : "")"
+        }
+        return output
+    }
+     
+    
+    private func makeHeader<T>(for context: JSONSchema.CoreContext<T>, isStandalone: Bool) -> String {
+        var output = ""
+        if let description = context.description, !description.isEmpty {
+            for line in description.split(separator: "\n") {
+                output += "/// \(line)\n"
+            }
+        }
+        if isStandalone, let example = context.example?.value {
             if !output.isEmpty {
                 output += "///\n"
             }
             output += "/// - example: \(example)\n"
-        }
-        
-        switch coreContext.format {
-        case .dateTime:
-            output += "typealias \(type) = Date"
-        case .other(let other):
-            if other == "uri" {
-                output += "typealias \(type) = URL"
-            }
-        default:
-            output += "typealias \(type) = String"
         }
         return output
     }
