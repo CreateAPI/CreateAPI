@@ -20,7 +20,7 @@ extension Generate {
         for (key, schema) in spec.components.schemas {
             do {
                 output += try makeSchema(for: key.rawValue, schema: schema, level: 0)
-                output += "\n"
+                output += "\n\n"
             } catch {
                 print("WARNING: \(error)")
             }
@@ -202,13 +202,18 @@ extension Generate {
     
     // MARK: Typealiases
             
-    private func makeTypealiasArray(_ name: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
-        var output = ""
-        output += makeHeader(for: coreContext, isShort: true)
-        guard let items = arrayContext.items else {
+    private func makeTypealiasArray(_ key: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
+        guard let item = arrayContext.items else {
             throw GeneratorError("Missing array item type")
         }
-        output += "typealias \(makeType(name)) = \(try getSimpleType(for: items))"
+        if let type = try? getSimpleType(for: item) {
+            return "\(access) typealias \(makeType(key)) = \(type)"
+        }
+        // Requres generation of a separate type
+        var output = ""
+        let name = makeType(key) + "Item"
+        output += "\(access) typealias \(makeType(key)) = [\(name)]\n\n"
+        output += try makeSchema(for: name, schema: item, level: 0)
         return output
     }
         
