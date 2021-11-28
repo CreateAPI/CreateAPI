@@ -11,7 +11,7 @@ import Foundation
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
-// TODO: Fix this  case cOLLABORATOR = "COLLABORATOR"
+// TODO: Do something about NullableSimpleUser (best generic approach)
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -90,7 +90,7 @@ extension Generate {
         let context: JSONSchemaContext?
         var nested: String?
     }
-    
+        
     private func makeChild(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Child {
         func child(named name: String, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Child {
             assert(context != nil) // context is null for references, but the caller needs to dereference
@@ -144,6 +144,12 @@ extension Generate {
             let type = try getSimpleType(for: schema)
             return child(named: key, type: type, context: context)
         }
+    }
+    
+    private func makeNested(for children: [Child]) -> String? {
+        let nested = children.compactMap({ $0.nested })
+        guard !nested.isEmpty else { return nil }
+        return nested.joined(separator: "\n\n")
     }
     
     // MARK: Object
@@ -358,8 +364,6 @@ extension Generate {
     
     // MARK: oneOf
     
-    // TODO: Add support for discs
-    // TODO: Add support for nesting
     // TODO: Special-case double/string?
     private func makeOneOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
         func parameter(for type: String) -> String {
@@ -367,8 +371,14 @@ extension Generate {
             return "\(makeParameter(type))\(isArray ? "s" : "")"
         }
         
+        var genericCount = 1
+        func makeNextGenericName() -> String {
+            defer { genericCount += 1 }
+            return "Object\(genericCount)"
+        }
+        
         let children: [Child] = try schemas.map {
-            let type = (try? getSimpleType(for: $0)) ?? "Object"
+            let type = (try? getSimpleType(for: $0)) ?? makeNextGenericName()
             return try makeChild(key: parameter(for: type), schema: $0, isRequired: true, level: level)
         }
         
@@ -404,15 +414,12 @@ extension Generate {
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
         
-        let nested = children.compactMap({ $0.nested })
-        if !nested.isEmpty {
+        if let nested = makeNested(for: children) {
             output += "\n\n"
-            for object in nested {
-                output += object
-            }
+            output += nested
         }
-        output += "\n"
-        output += "}"
+
+        output += "\n}"
         output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
@@ -423,11 +430,21 @@ extension Generate {
             return "\(makeParameter(type))\(isArray ? "s" : "")"
         }
         
+        var genericCount = 1
+        func makeNextGenericName() -> String {
+            defer { genericCount += 1 }
+            return "Object\(genericCount)"
+        }
+        
+        let children: [Child] = try schemas.map {
+            let type = (try? getSimpleType(for: $0)) ?? makeNextGenericName()
+            return try makeChild(key: parameter(for: type), schema: $0, isRequired: true, level: level)
+        }
+        
         var output = "\(access) struct \(makeType(name)): \(model) {\n"
         
-        for schema in schemas {
-            let type = try getSimpleType(for: schema)
-            output += "    \(access) var \(parameter(for: type)): \(type)?\n"
+        for child in children {
+            output += "    \(access) var \(child.name): \(child.type)?\n"
         }
         output += "\n"
     
@@ -437,15 +454,21 @@ extension Generate {
                 let container = try decoder.singleValueContainer()\n
             """
             
-            for schema in schemas {
-                let type = try getSimpleType(for: schema)
-                output += "    self.\(parameter(for: type)) = try? container.decode(\(type).self)\n"
+            for child in children {
+                output += "    self.\(child.name) = try? container.decode(\(child.type).self)\n"
             }
             output += "}"
             return output
         }
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
+        
+        
+        if let nested = makeNested(for: children) {
+            output += "\n\n"
+            output += nested
+        }
+        
         output += "\n}"
         output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
