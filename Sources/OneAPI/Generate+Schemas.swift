@@ -23,7 +23,7 @@ extension Generate {
         
         for (key, schema) in spec.components.schemas {
             do {
-                let entry = try makeSchema(for: key.rawValue, schema: schema, level: 0)
+                let entry = try makeParent(for: key.rawValue, schema: schema, level: 0)
                 if !entry.isEmpty {
                     output += entry
                     output += "\n\n"
@@ -42,7 +42,7 @@ extension Generate {
         return output
     }
 
-    private func makeSchema(for key: String, schema: JSONSchema, level: Int) throws -> String {
+    private func makeParent(for key: String, schema: JSONSchema, level: Int) throws -> String {
         // TODO: Generate struct/classes based on how many fields or what?
         var fields = ""
         switch schema {
@@ -74,6 +74,71 @@ extension Generate {
         }
         """
         return output
+    }
+    
+    private struct Child {
+        // "files"
+        let name: String
+        // "[File]"
+        let type: String
+        let isOptional: Bool
+        let context: JSONSchemaContext?
+        var nested: String?
+    }
+    
+    private func makeChild(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Child {
+        func child(named name: String, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Child {
+            assert(context != nil) // context is null for references, but the caller needs to dereference
+            let nullable = context?.nullable ?? true
+            return Child(name: makeParameter(name), type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
+        }
+        
+        let key = sanitizedKey(key)
+        switch schema {
+        case .object(let coreContext, let objectContext):
+            if objectContext.properties.isEmpty, let additional = objectContext.additionalProperties {
+                switch additional {
+                case .a:
+                    return child(named: key, type: "[String: AnyJSON]", context: coreContext)
+                case .b(let schema):
+                    let name = key + "Item"
+                    let nested = try makeParent(for: name, schema: schema, level: level + 1)
+                    return child(named: key, type: "[String: \(makeType(name))]", context: coreContext, nested: nested)
+                }
+            }
+            let nested = try makeParent(for: key, schema: schema, level: level + 1)
+            return child(named: key, type: makeType(key), context: coreContext, nested: nested)
+        case .array(let coreContext, let arrayContext):
+            guard let item = arrayContext.items else {
+                throw GeneratorError("Missing array item type")
+            }
+            if let type = try? getSimpleType(for: item) {
+                return child(named: key, type: "[\(type)]", context: coreContext)
+            }
+            let name = key + "Item"
+            let nested = try makeParent(for: name, schema: item, level: level + 1)
+            return child(named: key, type: "[\(makeType(name))]", context: coreContext, nested: nested)
+        case .all, .one, .any:
+            let name = key
+            let nested = try makeParent(for: name, schema: schema, level: level + 1)
+            return child(named: key, type: makeType(name), context: schema.coreContext, nested: nested)
+        case .not(let jSONSchema, let core):
+            throw GeneratorError("`not` properties are not supported")
+        default:
+            var context: JSONSchemaContext?
+            switch schema {
+            case .reference(let ref, _):
+                guard let spec = currentSpec else {
+                    throw GeneratorError("Current spec is missing (internal error)")
+                }
+                let deref = try ref.dereferenced(in: spec.components)
+                context = deref.coreContext
+            default:
+                context = schema.coreContext
+            }
+            let type = try getSimpleType(for: schema)
+            return child(named: key, type: type, context: context)
+        }
     }
     
     // MARK: Object
@@ -141,61 +206,9 @@ extension Generate {
     /// Generates properties, including support for more complex constucts that might require generating
     /// nested objects.
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> GeneratedProperty {
-        let key = sanitizedKey(key)
-        switch schema {
-        case .object(let coreContext, let objectContext):
-            if objectContext.properties.isEmpty, let additional = objectContext.additionalProperties {
-                switch additional {
-                case .a:
-                    let property = makeSimpleProperty(name: key, type: "[String: AnyJSON]", context: coreContext, isRequired: isRequired)
-                    return GeneratedProperty(property: property)
-                case .b(let schema):
-                    let name = key + "Item"
-                    let nested = try makeSchema(for: name, schema: schema, level: level + 1)
-                    let property = makeSimpleProperty(name: key, type: "[String: \(makeType(name))]", context: coreContext, isRequired: isRequired)
-                    return GeneratedProperty(property: property, nested: nested)
-                }
-            }
-            
-            let nested = try makeSchema(for: key, schema: schema, level: level + 1)
-            let property = makeSimpleProperty(name: key, type: makeType(key), context: coreContext, isRequired: isRequired)
-            return GeneratedProperty(property: property, nested: nested)
-        case .array(let coreContext, let arrayContext):
-            guard let item = arrayContext.items else {
-                throw GeneratorError("Missing array item type")
-            }
-            if let type = try? getSimpleType(for: item) {
-                let property = makeSimpleProperty(name: key, type: "[\(type)]", context: coreContext, isRequired: isRequired)
-                return GeneratedProperty(property: property)
-            }
-            // TODO: Is there a better way to generate this?
-            let name = key + "Item"
-            let nested = try makeSchema(for: name, schema: item, level: level + 1)
-            let property = makeSimpleProperty(name: key, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
-            return GeneratedProperty(property: property, nested: nested)
-        case .all, .one, .any:
-            let name = key
-            let nested = try makeSchema(for: name, schema: schema, level: level + 1)
-            let property = makeSimpleProperty(name: key, type: makeType(name), context: schema.coreContext, isRequired: isRequired)
-            return GeneratedProperty(property: property, nested: nested)
-        case .not(let jSONSchema, let core):
-            throw GeneratorError("`not` properties are not supported")
-        default:
-            var context: JSONSchemaContext?
-            switch schema {
-            case .reference(let ref, _):
-                guard let spec = currentSpec else {
-                    throw GeneratorError("Current spec is missing (internal error)")
-                }
-                let deref = try ref.dereferenced(in: spec.components)
-                context = deref.coreContext
-            default:
-                context = schema.coreContext
-            }
-            let type = try getSimpleType(for: schema)
-            let property = makeSimpleProperty(name: key, type: type, context: context, isRequired: isRequired)
-            return GeneratedProperty(property: property)
-        }
+        let child = try makeChild(key: key, schema: schema, isRequired: isRequired, level: level)
+        let property = makeSimpleProperty(for: child)
+        return GeneratedProperty(property: property, nested: child.nested)
     }
     
     /// Renderes simple properties on an object that are using built-in types or existing references.
@@ -211,6 +224,15 @@ extension Generate {
         let modifier = (isRequired && !nullable) ? "" : "?"
         let property = makeParameter(name)
         output += "\(access) var \(property): \(type)\(modifier)"
+        return output
+    }
+    
+    private func makeSimpleProperty(for child: Child) -> String {
+        var output = ""
+        if let context = child.context {
+            output += makeHeader(for: context)
+        }
+        output += "\(access) var \(child.name): \(child.type)\(child.isOptional ? "?" : "")"
         return output
     }
     
@@ -258,7 +280,7 @@ extension Generate {
         var output = ""
         let name = makeType(key) + "Item"
         output += "\(access) typealias \(makeType(key)) = [\(name)]\n\n"
-        output += try makeSchema(for: name, schema: item, level: 0)
+        output += try makeParent(for: name, schema: item, level: 0)
         return output
     }
         
