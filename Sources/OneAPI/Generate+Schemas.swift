@@ -11,8 +11,11 @@ import Foundation
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
 
+
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
+        currentSpec = spec
+        
         var output = """
         // Auto-generated
         
@@ -158,8 +161,19 @@ extension Generate {
             let property = makeSimpleProperty(name: key, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
         default:
+            var context: JSONSchemaContext?
+            switch schema {
+            case .reference(let ref):
+                guard let spec = currentSpec else {
+                    throw GeneratorError("Current spec is missing (internal error)")
+                }
+                let deref = try ref.dereferenced(in: spec.components)
+                context = deref.coreContext
+            default:
+                context = schema.coreContext
+            }
             let type = try getSimpleType(for: schema)
-            let property = makeSimpleProperty(name: key, type: type, context: schema.coreContext, isRequired: isRequired)
+            let property = makeSimpleProperty(name: key, type: type, context: context, isRequired: isRequired)
             return GeneratedProperty(property: property)
         }
     }
@@ -172,7 +186,8 @@ extension Generate {
         if let context = context {
             output += makeHeader(for: context, isShort: true)
         }
-        let nullable = context?.nullable ?? false // `context` is null for references
+        assert(context != nil) // context is null for references, but the caller needs to dereference
+        let nullable = context?.nullable ?? true
         let modifier = (isRequired && !nullable) ? "" : "?"
         let property = makeParameter(name)
         output += "\(access) var \(property): \(type)\(modifier)"
@@ -343,3 +358,5 @@ struct GeneratorError: Error, LocalizedError {
         message
     }
 }
+
+private var currentSpec: OpenAPI.Document? // TODO: Refactor
