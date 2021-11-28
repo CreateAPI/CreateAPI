@@ -5,8 +5,10 @@
 import OpenAPIKit
 import Foundation
 
+// TODO: Add root "/" support (for GitHub)
+
 extension Generate {
-    func generateResources(for spec: OpenAPI.Document) -> String {
+    func generatePaths(for spec: OpenAPI.Document) -> String {
         var output = """
             import Foundation
             import \(`import`)

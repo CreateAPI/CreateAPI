@@ -22,7 +22,7 @@ struct Generate: ParsableCommand {
     
     // TODO: pass as parameters (maybe in YML file?)
     let `import` = "APIClient"
-    let namespace = "Resources"
+    let namespace = "Paths"
     let access = "public"
     let model = "Decodable"
     
@@ -43,7 +43,7 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
-        let resources = generateResources(for: spec)
+        let resources = generatePaths(for: spec)
         let schemas = generateSchemas(for: spec)
         
         let outputPath = (self.output as NSString).expandingTildeInPath
@@ -57,7 +57,7 @@ struct Generate: ParsableCommand {
             }
             try data.write(to: outputURL.appendingPathComponent("\(name).swift"))
         }
-        try write(resources, to: "Resources")
+        try write(resources, to: "Paths")
         try write(schemas, to: "Schemas")
     }
 }
