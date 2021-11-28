@@ -242,7 +242,7 @@ extension Generate {
     private func makeTypealiasPrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
         var output = ""
         output += makeHeader(for: context, isShort: false)
-        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))\n"
+        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
         return output
     }
     
