@@ -143,7 +143,20 @@ extension Generate {
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> GeneratedProperty {
         let key = sanitizedKey(key)
         switch schema {
-        case .object(let coreContext, _):
+        case .object(let coreContext, let objectContext):
+            if objectContext.properties.isEmpty, let additional = objectContext.additionalProperties {
+                switch additional {
+                case .a:
+                    let property = makeSimpleProperty(name: key, type: "[String: AnyJSON]", context: coreContext, isRequired: isRequired)
+                    return GeneratedProperty(property: property)
+                case .b(let schema):
+                    let name = key + "Item"
+                    let nested = try makeSchema(for: name, schema: schema, level: level + 1)
+                    let property = makeSimpleProperty(name: key, type: "[String: \(makeType(name))]", context: coreContext, isRequired: isRequired)
+                    return GeneratedProperty(property: property, nested: nested)
+                }
+            }
+            
             let nested = try makeSchema(for: key, schema: schema, level: level + 1)
             let property = makeSimpleProperty(name: key, type: makeType(key), context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
