@@ -5,8 +5,8 @@
         "package": "OpenAPIKit",
         "repositoryURL": "https://github.com/mattpolzin/OpenAPIKit",
         "state": {
-          "branch": "main",
-          "revision": "79ca11eaaeeef9d4cafe8794fccf3120c412789c",
+          "branch": "release/3_0",
+          "revision": "0ed4858b1843da3ee9b3a381c0b4534b4bcbe09a",
           "version": null
         }
       },

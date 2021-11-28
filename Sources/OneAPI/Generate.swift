@@ -3,7 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 import ArgumentParser
-import OpenAPIKit
+import OpenAPIKit30
 import Foundation
 import Yams
 

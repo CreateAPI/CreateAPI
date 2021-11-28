@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
-import OpenAPIKit
+import OpenAPIKit30
 import Foundation
 
 // TODO: Use SwiftFormat to align stuff?
@@ -10,7 +10,6 @@ import Foundation
 // TODO: Allow to specify Codable/Decodable
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
-
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -21,6 +20,8 @@ extension Generate {
         
         import Foundation\n\n
         """
+        
+        #warning("TEMP")
         for (key, schema) in spec.components.schemas {
             do {
                 output += try makeSchema(for: key.rawValue, schema: schema, level: 0)
@@ -89,6 +90,7 @@ extension Generate {
         output += "\(access) struct \(type): \(model) {\n"
         let keys = objectContext.properties.keys.sorted()
         var skippedKeys = Set<String>()
+    
         // TODO: Find a way to preserve the order of keys
         for key in keys {
             let schema = objectContext.properties[key]!
@@ -163,7 +165,7 @@ extension Generate {
         default:
             var context: JSONSchemaContext?
             switch schema {
-            case .reference(let ref):
+            case .reference(let ref, _):
                 guard let spec = currentSpec else {
                     throw GeneratorError("Current spec is missing (internal error)")
                 }
@@ -279,7 +281,7 @@ extension Generate {
             throw GeneratorError("`anyOf` is not supported: \(of)")
         case .not(let scheme, _):
             throw GeneratorError("`not` is not supported: \(scheme)")
-        case .reference(let reference):
+        case .reference(let reference, _):
             switch reference {
             case .internal(let ref):
                 guard let name = ref.name else {
