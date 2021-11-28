@@ -21,7 +21,6 @@ extension Generate {
         import Foundation\n\n
         """
         
-        #warning("TEMP")
         for (key, schema) in spec.components.schemas {
             do {
                 output += try makeSchema(for: key.rawValue, schema: schema, level: 0)
