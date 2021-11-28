@@ -23,8 +23,11 @@ extension Generate {
         
         for (key, schema) in spec.components.schemas {
             do {
-                output += try makeSchema(for: key.rawValue, schema: schema, level: 0)
-                output += "\n\n"
+                let entry = try makeSchema(for: key.rawValue, schema: schema, level: 0)
+                if !entry.isEmpty {
+                    output += entry
+                    output += "\n\n"
+                }
             } catch {
                 print("WARNING: \(error)")
             }
@@ -37,11 +40,11 @@ extension Generate {
         var fields = ""
         switch schema {
         case .boolean(let coreContext):
-            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
+            return ""
         case .number(let coreContext, _):
-            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
+            return ""
         case .integer(let coreContext, _):
-            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
+            return ""
         case .string(let coreContext, _):
             return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .object(let coreContext, let objectContext):
@@ -244,14 +247,17 @@ extension Generate {
     }
         
     private func makeTypealiasPrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
-        if case .string(let coreContext, _) = json, coreContext.allowedValues != nil { // Special case for enums
-            return try makeEnum(name: name, coreContext: coreContext)
+        if isEnum(json) {
+            return try makeEnum(name: name, coreContext: context)
         }
+        
+        return ""
                 
-        var output = ""
-        output += makeHeader(for: context)
-        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
-        return output
+        // Starting with the new version, we just inline these
+//        var output = ""
+//        output += makeHeader(for: context)
+//        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
+//        return output
     }
     
     private func makeEnum(name: String, coreContext: JSONSchemaContext) throws -> String {
@@ -269,6 +275,17 @@ extension Generate {
         }
         output += "}"
         return output
+    }
+    
+    private func isInlinable(_ schema: JSONSchema) -> Bool {
+        !isEnum(schema)
+    }
+    
+    private func isEnum(_ schema: JSONSchema) -> Bool {
+        if case .string(let coreContext, _) = schema, coreContext.allowedValues != nil {
+            return true
+        }
+        return false
     }
     
     // MARK: Misc
@@ -307,6 +324,11 @@ extension Generate {
         case .reference(let reference, _):
             switch reference {
             case .internal(let ref):
+                if let deref = try? reference.dereferenced(in: currentSpec!.components),
+                   let type = try? getSimpleType(for: deref.jsonSchema),
+                   isInlinable(deref.jsonSchema) {
+                    return type // Inline simple types
+                }
                 guard let name = ref.name else {
                     throw GeneratorError("Internal reference name is missing: \(ref)")
                 }
