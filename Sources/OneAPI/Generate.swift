@@ -7,6 +7,7 @@ import OpenAPIKit
 import Foundation
 import Yams
 
+// TODO: parallelize
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")

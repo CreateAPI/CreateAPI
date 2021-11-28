@@ -1,6 +1,6 @@
 import XCTest
 import class Foundation.Bundle
-@testable import NanoGen
+@testable import OneAPI
 
 final class NanoGenTests: XCTestCase {
     func testExample() throws {

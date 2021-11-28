@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "NanoGen",
+    name: "OneAPI",
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/mattpolzin/OpenAPIKit", branch: "main"),
@@ -12,15 +12,15 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "NanoGen",
+            name: "OneAPI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "OpenAPIKit", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams")
             ]),
         .testTarget(
-            name: "NanoGenTests",
-            dependencies: ["NanoGen"],
+            name: "OneAPITests",
+            dependencies: ["OneAPI"],
             resources: [.process("Resources")]
         )
     ]
