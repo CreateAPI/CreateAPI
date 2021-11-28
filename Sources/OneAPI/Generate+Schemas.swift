@@ -86,11 +86,13 @@ extension Generate {
                 let generated = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
                 output += generated.property.shiftedRight(count: 4)
                 if let object = generated.nested {
-                    output += object
+                    nested += object
                 }
                 output += "\n"
             } catch {
                 skippedKeys.insert(key)
+                #warning("TEMP")
+                output += "    #warning(\"Failed to generate property for \(key)\")\n"
                 print("ERROR: Failed to generate property \(error)")
             }
         }
@@ -133,19 +135,21 @@ extension Generate {
             let nested = try makeObject(key, coreContext, objectContext, level: level + 1)
             let property = makeSimpleProperty(name: key, type: key, context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
-        case .array(let coreContext, let arrayContext):
+        case .array(let arrayCoreContext, let arrayContext):
             guard let item = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try? getSimpleType(for: item) {
-                let property = makeSimpleProperty(name: key, type: type, context: coreContext, isRequired: isRequired)
+                let property = makeSimpleProperty(name: key, type: type, context: arrayCoreContext, isRequired: isRequired)
                 return GeneratedProperty(property: property)
             }
-//            if case .object(let coreContext, let objectContext) = item {
-//                let nested = try makeObject(key, coreContext, objectContext, level: level + 1)
-//                return
-//            }
-            return GeneratedProperty(property: "#warning(\"TODO\")", nested: nil)
+            if case .object(let coreContext, let objectContext) = item {
+                let name = key + "Item"
+                let nested = try makeObject(name, coreContext, objectContext, level: level + 1)
+                let property = makeSimpleProperty(name: name, type: "[\(makeType(name))]", context: arrayCoreContext, isRequired: isRequired)
+                return GeneratedProperty(property: property, nested: nested)
+            }
+            throw GeneratorError("Unsupported property for key: \(key)")
         default:
             let type = try getSimpleType(for: schema)
             let property = makeSimpleProperty(name: key, type: type, context: schema.coreContext, isRequired: isRequired)
