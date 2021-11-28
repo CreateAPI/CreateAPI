@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Add support for enums (see CodeScanningAlertDismissedReason)
 // TODO: Use SwiftFormat to align stuff?
 // TODO: Generate initializer
 // TODO: Allow to specify Codable/Decodable
@@ -48,12 +49,12 @@ extension Generate {
             return try makeObject(key, coreContext, objectContext, level: level)
         case .array(let coreContext, let arrayContext):
             return try makeTypealiasArray(key, coreContext, arrayContext)
-        case .all(let of, let core):
-            fields = "    #warning(\"TODO:\")"
+        case .all(let of, _):
+            return try makeAnyOf(name: key, of, level: level)
         case .one(let of, _):
             return try makeOneOf(name: key, of, level: level)
-        case .any(let of, let core):
-            fields = "    #warning(\"TODO:\")"
+        case .any(let of, _):
+            return try makeAnyOf(name: key, of, level: level)
         case .not(let jSONSchema, let core):
             fields = "    #warning(\"TODO:\")"
         case .reference(let jSONReference):
@@ -80,7 +81,7 @@ extension Generate {
         if let title = coreContext.title, !title.isEmpty {
             output += "/// \(title)\n"
         }
-        if let description = coreContext.description, !description.isEmpty {
+        if let description = coreContext.description, !description.isEmpty, description != coreContext.title {
             if !output.isEmpty {
                 output += "///\n"
             }
@@ -162,15 +163,11 @@ extension Generate {
             let nested = try makeSchema(for: name, schema: item, level: level + 1)
             let property = makeSimpleProperty(name: key, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
-        case .all(let of, let core):
-            throw GeneratorError("`allOf` properties are not supported")
-        case .one(let of, _):
-            let name = key + "Item"
-            let nested = try makeSchema(for: name, schema: schema, level: level)
+        case .all, .one, .any:
+            let name = key
+            let nested = try makeSchema(for: name, schema: schema, level: level + 1)
             let property = makeSimpleProperty(name: key, type: makeType(name), context: schema.coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
-        case .any(let of, let core):
-            throw GeneratorError("`anyOf` properties are not supported")
         case .not(let jSONSchema, let core):
             throw GeneratorError("`not` properties are not supported")
         default:
@@ -352,7 +349,41 @@ extension Generate {
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
         output += "\n}"
-        output = output.shiftedRight(count: level * 4)
+        output = output.shiftedRight(count: level > 0 ? 4 : 0)
+        return output
+    }
+    
+    private func makeAnyOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
+        func parameter(for type: String) -> String {
+            let isArray = type.starts(with: "[") // TODO: Refactor
+            return "\(makeParameter(type))\(isArray ? "s" : "")"
+        }
+        
+        var output = "\(access) struct \(makeType(name)): \(model) {\n"
+        
+        for schema in schemas {
+            let type = try getSimpleType(for: schema)
+            output += "    \(access) var \(parameter(for: type)): \(type)?\n"
+        }
+        output += "\n"
+    
+        func makeInitFromDecoder() throws -> String {
+            var output = """
+            \(access) init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()\n
+            """
+            
+            for schema in schemas {
+                let type = try getSimpleType(for: schema)
+                output += "    self.\(parameter(for: type)) = try? container.decode(\(type).self)\n"
+            }
+            output += "}"
+            return output
+        }
+        
+        output += try makeInitFromDecoder().shiftedRight(count: 4)
+        output += "\n}"
+        output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
 }
