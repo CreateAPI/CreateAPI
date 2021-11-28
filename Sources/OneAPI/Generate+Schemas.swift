@@ -72,8 +72,6 @@ extension Generate {
         }
         output += "\(access) struct \(type) {\n"
         let keys = objectContext.properties.keys.sorted()
-        var skipped = Set<String>()
-        // TODO: make sure we handle nullable/required properly
         for key in keys {
             let value = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
@@ -90,19 +88,20 @@ extension Generate {
                 }
                 output += "\n"
             } catch {
-                skipped.insert(key)
                 print("WARNING: \(error)")
             }
         }
-        let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
+
         if !nested.isEmpty {
             output += "\n"
             output += nested
         }
+
+        let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
         if hasCustomCodingKeys {
             output += "\n"
             output += "    private enum CodingKeys: String, CodingKey {\n"
-            for key in keys where !skipped.contains(key) {
+            for key in keys {
                 let parameter = makeParameter(sanitizedKey(key))
                 if parameter == key {
                     output += "        case \(parameter)\n"
@@ -112,10 +111,11 @@ extension Generate {
             }
             output +=  "    }\n"
         }
+        
         output += "}\n"
         return output.shiftedRight(count: level * 4)
     }
-    
+        
     private func makeArray(_ name: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
         var output = ""
         output += makeHeader(for: coreContext, isShort: true)
@@ -174,13 +174,14 @@ extension Generate {
     
     /// Renderes properties of an object.
     private func makeProperty(name: String, json: JSONSchema, context: JSONSchemaContext?, isRequired: Bool) throws -> String {
-        guard let context = context else {
-            throw GeneratorError("Context is missing")
+        var output = ""
+        if let context = context {
+            output += makeHeader(for: context, isShort: true)
         }
-            
-        var output = makeHeader(for: context, isShort: true)
         let type = try getType(for: json)
-        let modifier = (isRequired && !context.nullable) ? "" : "?"
+        // `context` is null for references
+        let nullable = context?.nullable ?? false
+        let modifier = (isRequired && nullable) ? "" : "?"
         let property = makeParameter(sanitizedKey(name))
         output += "\(access) var \(property): \(type)\(modifier)"
         return output.shiftedRight(count: 4)
