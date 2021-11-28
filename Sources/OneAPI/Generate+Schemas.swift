@@ -46,12 +46,8 @@ extension Generate {
         // TODO: Generate struct/classes based on how many fields or what?
         var fields = ""
         switch schema {
-        case .boolean(let coreContext):
-            return ""
-        case .number(let coreContext, _):
-            return ""
-        case .integer(let coreContext, _):
-            return ""
+        case .boolean, .number, .integer:
+            return "" // Inline them
         case .string(let coreContext, _):
             return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .object(let coreContext, let objectContext):
