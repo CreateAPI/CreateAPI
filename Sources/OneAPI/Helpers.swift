@@ -28,7 +28,7 @@ extension String {
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
-                if index != 0 && alwaysUppercased.contains(string.lowercased()) {
+                if index != 0 && abbreviations.contains(string.lowercased()) {
                     return string.uppercased()
                 }
                 return string.capitalizingFirstLetter()
@@ -48,7 +48,7 @@ extension String {
 
 private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self"])
 
-private let alwaysUppercased = Set(["url", "id", "html", "ssl", "tls"])
+private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 
 extension String {
     var escaped: String {

@@ -5,7 +5,10 @@
 import OpenAPIKit
 import Foundation
 
+// TODO: Use SwiftFormat to align stuff?
 // TODO: Generate initializer
+// TODO: Allow to specify Codable/Decodable
+
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
         var output = """
@@ -29,21 +32,21 @@ extension Generate {
         var fields = ""
         switch schema {
         case .boolean(let coreContext):
-            return try makePrimitive(name: key, json: schema, context: coreContext)
+            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .number(let coreContext, _):
-            return try makePrimitive(name: key, json: schema, context: coreContext)
+            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .integer(let coreContext, _):
-            return try makePrimitive(name: key, json: schema, context: coreContext)
+            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .string(let coreContext, _):
-            return try makePrimitive(name: key, json: schema, context: coreContext)
+            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .object(let coreContext, let objectContext):
             return try makeObject(key, coreContext, objectContext, level: 0)
         case .array(let coreContext, let arrayContext):
-            return try makeArray(key, coreContext, arrayContext)
+            return try makeTypealiasArray(key, coreContext, arrayContext)
         case .all(let of, let core):
             fields = "    #warning(\"TODO:\")"
-        case .one(let of, let core):
-            fields = "    #warning(\"TODO:\")"
+        case .one(let of, _):
+            return try makeOneOf(name: key, of)
         case .any(let of, let core):
             fields = "    #warning(\"TODO:\")"
         case .not(let jSONSchema, let core):
@@ -55,12 +58,14 @@ extension Generate {
         }
         
         var output = """
-        \(access) struct \(makeType(key)) {
+        \(access) struct \(makeType(key)): \(model) {
             \(fields)
         }
         """
         return output
     }
+    
+    // MARK: Object
     
     private func makeObject(_ key: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext, level: Int) throws -> String {
         let type = makeType(key)
@@ -70,26 +75,23 @@ extension Generate {
         if let description = coreContext.description, !description.isEmpty {
             output += "/// \(description)\n"
         }
-        output += "\(access) struct \(type) {\n"
+        output += "\(access) struct \(type): \(model) {\n"
         let keys = objectContext.properties.keys.sorted()
+        var skippedKeys = Set<String>()
         // TODO: find a better way to order keys
         for key in keys {
-            let value = objectContext.properties[key]!
+            let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                if case .object(let coreContext, let objectContext) = value {
-                    // Special handling for nested objects
-                    let object = try makeObject(sanitizedKey(key), coreContext, objectContext, level: level + 1)
-                    let ref = JSONSchema.reference(.internal(.component(name: key)))
-                    let property = try makeProperty(name: key, json: ref, context: coreContext, isRequired: isRequired)
-                    output += property
-                    nested += object
-                } else {
-                    output += try makeProperty(name: key, json: value, context: value.coreContext, isRequired: isRequired)
+                let generated = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
+                output += generated.property.shiftedRight(count: 4)
+                if let object = generated.nested {
+                    output += object
                 }
                 output += "\n"
             } catch {
-                print("WARNING: \(error)")
+                skippedKeys.insert(key)
+                print("ERROR: Failed to generate property \(error)")
             }
         }
 
@@ -102,7 +104,7 @@ extension Generate {
         if hasCustomCodingKeys {
             output += "\n"
             output += "    private enum CodingKeys: String, CodingKey {\n"
-            for key in keys {
+            for key in keys where !skippedKeys.contains(key) {
                 let parameter = makeParameter(sanitizedKey(key))
                 if parameter == key {
                     output += "        case \(parameter)\n"
@@ -116,18 +118,98 @@ extension Generate {
         output += "}\n"
         return output.shiftedRight(count: level * 4)
     }
-        
-    private func makeArray(_ name: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
+    
+    private struct GeneratedProperty {
+        var property: String
+        var nested: String?
+    }
+    
+    /// Generates properties, including support for more complex constucts that might require generating
+    /// nested objects.
+    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> GeneratedProperty {
+        let key = sanitizedKey(key)
+        switch schema {
+        case .object(let coreContext, let objectContext):
+            let nested = try makeObject(key, coreContext, objectContext, level: level + 1)
+            let property = makeSimpleProperty(name: key, type: key, context: coreContext, isRequired: isRequired)
+            return GeneratedProperty(property: property, nested: nested)
+        case .array(let coreContext, let arrayContext):
+            guard let item = arrayContext.items else {
+                throw GeneratorError("Missing array item type")
+            }
+            if let type = try? getSimpleType(for: item) {
+                let property = makeSimpleProperty(name: key, type: type, context: coreContext, isRequired: isRequired)
+                return GeneratedProperty(property: property)
+            }
+//            if case .object(let coreContext, let objectContext) = item {
+//                let nested = try makeObject(key, coreContext, objectContext, level: level + 1)
+//                return
+//            }
+            return GeneratedProperty(property: "#warning(\"TODO\")", nested: nil)
+        default:
+            let type = try getSimpleType(for: schema)
+            let property = makeSimpleProperty(name: key, type: type, context: schema.coreContext, isRequired: isRequired)
+            return GeneratedProperty(property: property)
+        }
+    }
+    
+    /// Renderes simple properties on an object that are using built-in types or existing references.
+    ///
+    /// - warning: Doesn't handle nested object or `oneOf` and similar constructs.
+    private func makeSimpleProperty(name: String, type: String, context: JSONSchemaContext?, isRequired: Bool) -> String {
+        var output = ""
+        if let context = context {
+            output += makeHeader(for: context, isShort: true)
+        }
+        let nullable = context?.nullable ?? false // `context` is null for references
+        let modifier = (isRequired && nullable) ? "" : "?"
+        let property = makeParameter(name)
+        output += "\(access) var \(property): \(type)\(modifier)"
+        return output
+    }
+    
+    // TODO: Add support for deprecated fields
+    private func makeHeader(for context: JSONSchemaContext, isShort: Bool) -> String {
+        var output = ""
+        if let description = context.description, !description.isEmpty {
+            for line in description.split(separator: "\n") {
+                output += "/// \(line)\n"
+            }
+        }
+        if let example = context.example?.value {
+            let value = "\(example)"
+            if value.count > 1 { // Only display if it's something substantial
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                output += "/// Example: \(example)\n"
+            }
+        }
+        return output
+    }
+    
+    // MARK: Typealiases
+            
+    private func makeTypealiasArray(_ name: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
         var output = ""
         output += makeHeader(for: coreContext, isShort: true)
         guard let items = arrayContext.items else {
             throw GeneratorError("Missing array item type")
         }
-        output += "typealias \(makeType(name)) = \(try getType(for: items))"
+        output += "typealias \(makeType(name)) = \(try getSimpleType(for: items))"
+        return output
+    }
+        
+    private func makeTypealiasPrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
+        var output = ""
+        output += makeHeader(for: context, isShort: false)
+        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))\n"
         return output
     }
     
-    private func getType(for json: JSONSchema) throws -> String {
+    // MARK: Misc
+    
+    private func getSimpleType(for json: JSONSchema) throws -> String {
         switch json {
         case .boolean: return "Bool"
         case .number: return "Double"
@@ -149,7 +231,7 @@ extension Generate {
             guard let items = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return "[\(try getType(for: items))]"
+            return "[\(try getSimpleType(for: items))]"
         case .all(let of, _):
             throw GeneratorError("`allOf` is not supported: \(of)")
         case .one(let of, _):
@@ -173,45 +255,43 @@ extension Generate {
         }
     }
     
-    /// Renderes properties of an object.
-    private func makeProperty(name: String, json: JSONSchema, context: JSONSchemaContext?, isRequired: Bool) throws -> String {
-        var output = ""
-        if let context = context {
-            output += makeHeader(for: context, isShort: true)
-        }
-        let type = try getType(for: json)
-        // `context` is null for references
-        let nullable = context?.nullable ?? false
-        let modifier = (isRequired && nullable) ? "" : "?"
-        let property = makeParameter(sanitizedKey(name))
-        output += "\(access) var \(property): \(type)\(modifier)"
-        return output.shiftedRight(count: 4)
-    }
-        
-    private func makePrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
-        var output = ""
-        output += makeHeader(for: context, isShort: false)
-        output += "\(access) typealias \(makeType(name)) = \(try getType(for: json))\n"
-        return output
-    }
+    // MARK: oneOf
     
-    // TODO: Add support for deprecated fields
-    private func makeHeader(for context: JSONSchemaContext, isShort: Bool) -> String {
-        var output = ""
-        if let description = context.description, !description.isEmpty {
-            for line in description.split(separator: "\n") {
-                output += "/// \(line)\n"
-            }
+    private func makeOneOf(name: String, _ schemas: [JSONSchema]) throws -> String {
+        var output = "\(access) enum \(makeType(name)): \(model) {\n"
+        for schema in schemas {
+            let type = try getSimpleType(for: schema)
+            output += "    case \(makeParameter(type))(\(type))\n"
         }
-        if let example = context.example?.value {
-            let value = "\(example)"
-            if value.count > 1 { // Only display if it's something substantial
-                if !output.isEmpty {
-                    output += "///\n"
+        output += "\n"
+        
+        func makeInitFromDecoder() throws -> String {
+            var output = """
+            \(access) init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()\n
+            """
+            output += "    "
+            
+            for schema in schemas {
+                let type = try getSimpleType(for: schema)
+                output += """
+                if let value = try? container.decode(\(type).self) {
+                        self = .\(makeParameter(type))(value)
+                    } else
+                """
+                output += " "
+            }
+            output += """
+            {
+                    throw URLError(.unknown) // Should never happen
                 }
-                output += "/// Example: \(example)\n"
             }
+            """
+            return output
         }
+        
+        output += try makeInitFromDecoder().shiftedRight(count: 4)
+        output += "\n}\n"
         return output
     }
 }

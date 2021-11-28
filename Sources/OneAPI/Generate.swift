@@ -24,6 +24,9 @@ struct Generate: ParsableCommand {
     let `import` = "APIClient"
     let namespace = "Resources"
     let access = "public"
+    let model = "Decodable"
+    
+    // TODO: tabs/spaces + count
     
     // TODO: Add options what to generate
 
@@ -40,6 +43,7 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
+        let group = DispatchGroup()
         let resources = generateResources(for: spec)
         let schemas = generateSchemas(for: spec)
         
