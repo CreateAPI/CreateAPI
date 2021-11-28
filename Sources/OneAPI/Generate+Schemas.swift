@@ -8,6 +8,7 @@ import Foundation
 // TODO: Use SwiftFormat to align stuff?
 // TODO: Generate initializer
 // TODO: Allow to specify Codable/Decodable
+// TODO: Add an option to skip comments
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -18,7 +19,7 @@ extension Generate {
         """
         for (key, schema) in spec.components.schemas {
             do {
-                output += try makeSchema(for: key.rawValue, schema: schema)
+                output += try makeSchema(for: key.rawValue, schema: schema, level: 0)
                 output += "\n"
             } catch {
                 print("WARNING: \(error)")
@@ -27,7 +28,7 @@ extension Generate {
         return output
     }
 
-    private func makeSchema(for key: String, schema: JSONSchema) throws -> String {
+    private func makeSchema(for key: String, schema: JSONSchema, level: Int) throws -> String {
         // TODO: Generate struct/classes based on how many fields or what?
         var fields = ""
         switch schema {
@@ -40,7 +41,7 @@ extension Generate {
         case .string(let coreContext, _):
             return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
         case .object(let coreContext, let objectContext):
-            return try makeObject(key, coreContext, objectContext, level: 0)
+            return try makeObject(key, coreContext, objectContext, level: level)
         case .array(let coreContext, let arrayContext):
             return try makeTypealiasArray(key, coreContext, arrayContext)
         case .all(let of, let core):
@@ -70,7 +71,7 @@ extension Generate {
     private func makeObject(_ key: String, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext, level: Int) throws -> String {
         let type = makeType(key)
         var output = ""
-        var nested = ""
+        var nested: [String] = []
         
         if let description = coreContext.description, !description.isEmpty {
             output += "/// \(description)\n"
@@ -86,7 +87,7 @@ extension Generate {
                 let generated = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
                 output += generated.property.shiftedRight(count: 4)
                 if let object = generated.nested {
-                    nested += object
+                    nested.append(object)
                 }
                 output += "\n"
             } catch {
@@ -97,9 +98,10 @@ extension Generate {
             }
         }
 
-        if !nested.isEmpty {
+        for nested in nested {
             output += "\n"
             output += nested
+            output += "\n"
         }
 
         let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
@@ -117,7 +119,7 @@ extension Generate {
             output +=  "    }\n"
         }
         
-        output += "}\n"
+        output += "}"
         return output.shiftedRight(count: level * 4)
     }
     
@@ -131,25 +133,22 @@ extension Generate {
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> GeneratedProperty {
         let key = sanitizedKey(key)
         switch schema {
-        case .object(let coreContext, let objectContext):
-            let nested = try makeObject(key, coreContext, objectContext, level: level + 1)
-            let property = makeSimpleProperty(name: key, type: key, context: coreContext, isRequired: isRequired)
+        case .object(let coreContext, _):
+            let nested = try makeSchema(for: key, schema: schema, level: level + 1)
+            let property = makeSimpleProperty(name: key, type: makeType(key), context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
-        case .array(let arrayCoreContext, let arrayContext):
+        case .array(let coreContext, let arrayContext):
             guard let item = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try? getSimpleType(for: item) {
-                let property = makeSimpleProperty(name: key, type: type, context: arrayCoreContext, isRequired: isRequired)
+                let property = makeSimpleProperty(name: key, type: type, context: coreContext, isRequired: isRequired)
                 return GeneratedProperty(property: property)
             }
-            if case .object(let coreContext, let objectContext) = item {
-                let name = key + "Item"
-                let nested = try makeObject(name, coreContext, objectContext, level: level + 1)
-                let property = makeSimpleProperty(name: name, type: "[\(makeType(name))]", context: arrayCoreContext, isRequired: isRequired)
-                return GeneratedProperty(property: property, nested: nested)
-            }
-            throw GeneratorError("Unsupported property for key: \(key)")
+            let name = key + "Item"
+            let nested = try makeSchema(for: name, schema: item, level: level + 1)
+            let property = makeSimpleProperty(name: name, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
+            return GeneratedProperty(property: property, nested: nested)
         default:
             let type = try getSimpleType(for: schema)
             let property = makeSimpleProperty(name: key, type: type, context: schema.coreContext, isRequired: isRequired)
