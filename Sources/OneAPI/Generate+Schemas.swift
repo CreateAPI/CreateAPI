@@ -154,7 +154,7 @@ extension Generate {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try? getSimpleType(for: item) {
-                let property = makeSimpleProperty(name: key, type: type, context: coreContext, isRequired: isRequired)
+                let property = makeSimpleProperty(name: key, type: "[\(type)]", context: coreContext, isRequired: isRequired)
                 return GeneratedProperty(property: property)
             }
             // TODO: Is there a better way to generate this?
