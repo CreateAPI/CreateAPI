@@ -77,15 +77,7 @@ extension Generate {
         var output = ""
         var nested: [String] = []
         
-        if let title = coreContext.title, !title.isEmpty {
-            output += "/// \(title)\n"
-        }
-        if let description = coreContext.description, !description.isEmpty, description != coreContext.title {
-            if !output.isEmpty {
-                output += "///\n"
-            }
-            output += "/// \(description)\n"
-        }
+        output += makeHeader(for: coreContext)
         output += "\(access) struct \(type): \(model) {\n"
         let keys = objectContext.properties.keys.sorted()
         var skippedKeys = Set<String>()
@@ -193,7 +185,7 @@ extension Generate {
     private func makeSimpleProperty(name: String, type: String, context: JSONSchemaContext?, isRequired: Bool) -> String {
         var output = ""
         if let context = context {
-            output += makeHeader(for: context, isShort: true)
+            output += makeHeader(for: context)
         }
         assert(context != nil) // context is null for references, but the caller needs to dereference
         let nullable = context?.nullable ?? true
@@ -204,9 +196,12 @@ extension Generate {
     }
     
     // TODO: Add support for deprecated fields
-    private func makeHeader(for context: JSONSchemaContext, isShort: Bool) -> String {
+    private func makeHeader(for context: JSONSchemaContext) -> String {
         var output = ""
-        if let description = context.description, !description.isEmpty {
+        if let title = context.title, !title.isEmpty {
+            output += "/// \(title)\n"
+        }
+        if let description = context.description, !description.isEmpty, description != context.title {
             for line in description.split(separator: "\n") {
                 output += "/// \(line)\n"
             }
@@ -254,7 +249,7 @@ extension Generate {
         }
                 
         var output = ""
-        output += makeHeader(for: context, isShort: false)
+        output += makeHeader(for: context)
         output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
         return output
     }
@@ -266,7 +261,9 @@ extension Generate {
             throw GeneratorError("Enum \(name) has no values")
         }
         
-        var output = "\(access) enum \(makeType(name)): String, Codable, CaseIterable {\n"
+        var output = ""
+        output += makeHeader(for: coreContext)
+        output += "\(access) enum \(makeType(name)): String, Codable, CaseIterable {\n"
         for value in values {
             output += "    case \(makeParameter(value)) = \"\(value)\"\n"
         }
