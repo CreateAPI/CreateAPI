@@ -51,7 +51,7 @@ extension Generate {
         case .all(let of, let core):
             fields = "    #warning(\"TODO:\")"
         case .one(let of, _):
-            return try makeOneOf(name: key, of)
+            return try makeOneOf(name: key, of, level: level)
         case .any(let of, let core):
             fields = "    #warning(\"TODO:\")"
         case .not(let jSONSchema, let core):
@@ -161,6 +161,17 @@ extension Generate {
             let nested = try makeSchema(for: name, schema: item, level: level + 1)
             let property = makeSimpleProperty(name: key, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
+        case .all(let of, let core):
+            throw GeneratorError("`allOf` properties are not supported")
+        case .one(let of, _):
+            let name = key + "Item"
+            let nested = try makeSchema(for: name, schema: schema, level: level)
+            let property = makeSimpleProperty(name: key, type: makeType(name), context: schema.coreContext, isRequired: isRequired)
+            return GeneratedProperty(property: property, nested: nested)
+        case .any(let of, let core):
+            throw GeneratorError("`anyOf` properties are not supported")
+        case .not(let jSONSchema, let core):
+            throw GeneratorError("`not` properties are not supported")
         default:
             var context: JSONSchemaContext?
             switch schema {
@@ -300,11 +311,16 @@ extension Generate {
     // TODO: Add support for discs
     // TODO: Add support for nesting
     // TODO: Special-case double/string?
-    private func makeOneOf(name: String, _ schemas: [JSONSchema]) throws -> String {
+    private func makeOneOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
+        func parameter(for type: String) -> String {
+            let isArray = type.starts(with: "[") // TODO: Refactor
+            return "\(makeParameter(type))\(isArray ? "s" : "")"
+        }
+        
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
         for schema in schemas {
             let type = try getSimpleType(for: schema)
-            output += "    case \(makeParameter(type))(\(type))\n"
+            output += "    case \(parameter(for: type))(\(type))\n"
         }
         output += "\n"
         
@@ -319,7 +335,7 @@ extension Generate {
                 let type = try getSimpleType(for: schema)
                 output += """
                 if let value = try? container.decode(\(type).self) {
-                        self = .\(makeParameter(type))(value)
+                        self = .\(parameter(for: type))(value)
                     } else
                 """
                 output += " "
@@ -335,6 +351,7 @@ extension Generate {
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
         output += "\n}"
+        output = output.shiftedRight(count: level * 4)
         return output
     }
 }
