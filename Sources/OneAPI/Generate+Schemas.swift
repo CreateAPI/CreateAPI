@@ -11,6 +11,7 @@ import Foundation
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
+// TODO: Fix this  case cOLLABORATOR = "COLLABORATOR"
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {

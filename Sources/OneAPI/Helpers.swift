@@ -24,8 +24,12 @@ extension String {
     
     // Starting with capitalized first letter.
     var toCamelCase: String {
-        replacingOccurrences(of: "'", with: "")
+        var components = replacingOccurrences(of: "'", with: "")
             .components(separatedBy: badCharacters)
+        if !components.contains(where: { $0.contains(where: { $0.isLowercase }) }) {
+            components = components.map { $0.lowercased() }
+        }
+        return components
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
