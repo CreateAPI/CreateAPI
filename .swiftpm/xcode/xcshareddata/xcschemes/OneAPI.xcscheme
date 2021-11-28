@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1310"
+   LastUpgradeVersion = "1320"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NanoGen"
-               BuildableName = "NanoGen"
-               BlueprintName = "NanoGen"
+               BlueprintIdentifier = "OneAPI_OneAPITests"
+               BuildableName = "OneAPI_OneAPITests"
+               BlueprintName = "OneAPI_OneAPITests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OneAPI"
+               BuildableName = "OneAPI"
+               BlueprintName = "OneAPI"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NanoGenTests"
-               BuildableName = "NanoGenTests"
-               BlueprintName = "NanoGenTests"
+               BlueprintIdentifier = "OneAPITests"
+               BuildableName = "OneAPITests"
+               BlueprintName = "OneAPITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +60,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NanoGenTests"
-               BuildableName = "NanoGenTests"
-               BlueprintName = "NanoGenTests"
+               BlueprintIdentifier = "OneAPITests"
+               BuildableName = "OneAPITests"
+               BlueprintName = "OneAPITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -68,15 +82,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NanoGen"
-            BuildableName = "NanoGen"
-            BlueprintName = "NanoGen"
+            BlueprintIdentifier = "OneAPI"
+            BuildableName = "OneAPI"
+            BlueprintName = "OneAPI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "generate --input ~/Developer/NanoGen/Tests/NanoGenTests/Resources/Specs/api.github.com.yaml --output ~/Desktop/nanogen"
+            argument = "generate --input ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Desktop/nanogen"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -91,9 +105,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NanoGen"
-            BuildableName = "NanoGen"
-            BlueprintName = "NanoGen"
+            BlueprintIdentifier = "OneAPI"
+            BuildableName = "OneAPI"
+            BlueprintName = "OneAPI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
