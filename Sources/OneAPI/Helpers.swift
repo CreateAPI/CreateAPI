@@ -79,16 +79,14 @@ public enum AnyJSON: Equatable {
     case object([String: AnyJSON])
     case array([AnyJSON])
     case bool(Bool)
-    case null
     
-    var value: Any? {
+    var value: Any {
         switch self {
         case .string(let string): return string
         case .number(let double): return double
         case .object(let dictionary): return dictionary
         case .array(let array): return array
         case .bool(let bool): return bool
-        case .null: return nil
         }
     }
 }
@@ -109,8 +107,6 @@ extension AnyJSON: Codable {
             try container.encode(number)
         case let .bool(bool):
             try container.encode(bool)
-        case .null:
-            try container.encodeNil()
         }
     }
 
@@ -127,8 +123,6 @@ extension AnyJSON: Codable {
             self = .bool(bool)
         } else if let number = try? container.decode(Double.self) {
             self = .number(number)
-        } else if container.decodeNil() {
-            self = .null
         } else {
             throw DecodingError.dataCorrupted(
                 .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
@@ -147,8 +141,6 @@ extension AnyJSON: CustomDebugStringConvertible {
             return num.debugDescription
         case .bool(let bool):
             return bool.description
-        case .null:
-            return "null"
         default:
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.prettyPrinted]
