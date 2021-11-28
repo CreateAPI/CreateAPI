@@ -93,7 +93,7 @@ extension Generate {
             } catch {
                 skippedKeys.insert(key)
                 #warning("TEMP")
-                output += "    #warning(\"Failed to generate property for \(key)\")\n"
+                output += "    #warning(\"Failed to generate property '\(key)'\")\n"
                 print("ERROR: Failed to generate property \(error)")
             }
         }
@@ -145,9 +145,10 @@ extension Generate {
                 let property = makeSimpleProperty(name: key, type: type, context: coreContext, isRequired: isRequired)
                 return GeneratedProperty(property: property)
             }
+            // TODO: Is there a better way to generate this?
             let name = key + "Item"
             let nested = try makeSchema(for: name, schema: item, level: level + 1)
-            let property = makeSimpleProperty(name: name, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
+            let property = makeSimpleProperty(name: key, type: "[\(makeType(name))]", context: coreContext, isRequired: isRequired)
             return GeneratedProperty(property: property, nested: nested)
         default:
             let type = try getSimpleType(for: schema)
@@ -185,7 +186,15 @@ extension Generate {
                 if !output.isEmpty {
                     output += "///\n"
                 }
-                output += "/// Example: \(example)\n"
+                let lines = value.split(separator: "\n")
+                if lines.count == 1 {
+                    output += "/// Example: \(value)\n"
+                } else {
+                    output += "/// Example:\n\n"
+                    for line in lines {
+                        output += "/// \(line)\n"
+                    }
+                }
             }
         }
         return output
