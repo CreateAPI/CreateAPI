@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "OneAPI",
+    platforms: [.macOS(.v10_13)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/mattpolzin/OpenAPIKit", branch: "release/3_0"),

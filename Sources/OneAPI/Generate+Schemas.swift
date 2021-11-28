@@ -248,7 +248,18 @@ extension Generate {
             }
         }
         if let example = context.example?.value {
-            let value = "\(example)"
+            let value: String
+            func format(dictionary: [String: Any]) -> String {
+                let values = dictionary.keys.sorted().map { "  \"\($0)\": \"\(dictionary[$0]!)\"" }
+                return "{\n\(values.joined(separator: ",\n"))\n}"
+            }
+            
+            if JSONSerialization.isValidJSONObject(example) {
+                let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
+                value = String(data: data ?? Data(), encoding: .utf8) ?? ""
+            } else {
+                value = "\(example)"
+            }
             if value.count > 1 { // Only display if it's something substantial
                 if !output.isEmpty {
                     output += "///\n"
@@ -291,6 +302,7 @@ extension Generate {
         
         return ""
                 
+        // TODO: cleanup
         // Starting with the new version, we just inline these
 //        var output = ""
 //        output += makeHeader(for: context)
