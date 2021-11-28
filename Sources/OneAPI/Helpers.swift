@@ -37,7 +37,10 @@ extension String {
     }
     
     func shiftedRight(count: Int) -> String {
-        components(separatedBy: "\n")
+        guard count > 0 else {
+            return self
+        }
+        return components(separatedBy: "\n")
             .map { String(repeating: " ", count: count) + $0 }
             .joined(separator: "\n")
     }
