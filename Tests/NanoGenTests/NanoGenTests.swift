@@ -51,6 +51,5 @@ final class NanoGenTests: XCTestCase {
         XCTAssertEqual(makeParameter("appManifests"), "appManifests")
         XCTAssertEqual(makeParameter("avatar_url"), "avatarURL")
         XCTAssertEqual(makeParameter("node_id"), "nodeID")
-        XCTAssertEqual(makeParameter("+1"), "plus1")
     }
 }

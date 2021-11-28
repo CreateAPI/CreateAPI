@@ -72,16 +72,16 @@ extension Generate {
         let keys = objectContext.properties.keys.sorted()
         for key in keys {
             let value = objectContext.properties[key]!
-            output += makeSchema(for: key, schema: value, isStandalone: false)
+            output += makeSchema(for: sanitizedKey(key), schema: value, isStandalone: false)
                 .shiftedRight(count: 4)
             output += "\n"
         }
-        let hasCustomCodingKeys = keys.contains { makeParameter($0) != $0 }
+        let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
         if hasCustomCodingKeys {
             output += "\n"
             output += "    private enum CodingKeys: String, CodingKey {\n"
             for key in keys {
-                let parameter = makeParameter(key)
+                let parameter = makeParameter(sanitizedKey(key))
                 if parameter == key {
                     output += "        case \(parameter)\n"
                 } else {
@@ -147,4 +147,14 @@ extension Generate {
         }
         return output
     }
+}
+
+private func sanitizedKey(_ key: String) -> String {
+    if key.first == "+" {
+        return "plus\(key.dropFirst())"
+    }
+    if key.first == "-" {
+        return "minus\(key.dropFirst())"
+    }
+    return key
 }

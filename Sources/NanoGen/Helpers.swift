@@ -6,7 +6,11 @@ import Foundation
 
 func makeType(_ string: String) -> String {
     let name = string.toCamelCase
-    return string.isParameter ? "With\(name)" : name
+    let output = string.isParameter ? "With\(name)" : name
+    if output == "Self" {
+        return "`Self`"
+    }
+    return output
 }
 
 func makeParameter(_ string: String) -> String {
@@ -20,9 +24,7 @@ extension String {
     
     // Starting with capitalized first letter.
     var toCamelCase: String {
-        replacingOccurrences(of: "+", with: "Plus") // GitHub API uses these
-            .replacingOccurrences(of: "-", with: "Minus")
-            .components(separatedBy: badCharacters)
+        components(separatedBy: badCharacters)
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
@@ -47,7 +49,7 @@ private let alwaysUppercased = Set(["url", "id", "html"])
 
 extension String {
     var escaped: String {
-        guard keywords.contains(self) else { return self }
+        guard keywords.contains(self.lowercased()) else { return self }
         return "`\(self)`"
     }
 }
