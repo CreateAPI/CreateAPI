@@ -32,6 +32,13 @@ extension Generate {
                 print("WARNING: \(error)")
             }
         }
+        
+        if isAnyJSONUsed {
+            output += "\n"
+            output += anyJSON
+            output += "\n"
+        }
+        
         return output
     }
 
@@ -337,7 +344,8 @@ extension Generate {
                 throw GeneratorError("External references are not supported: \(url)")
             }
         case .fragment:
-            throw GeneratorError("Fragments are not supported")
+            setAnyJsonNeeded()
+            return "AnyJSON"
         }
     }
     
@@ -448,3 +456,11 @@ struct GeneratorError: Error, LocalizedError {
 }
 
 private var currentSpec: OpenAPI.Document? // TODO: Refactor
+private var isAnyJSONUsed = false
+private let lock = NSLock()
+
+func setAnyJsonNeeded() {
+    lock.lock()
+    isAnyJSONUsed = true
+    lock.unlock()
+}
