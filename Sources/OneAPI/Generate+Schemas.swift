@@ -48,9 +48,12 @@ extension Generate {
         var fields = ""
         switch schema {
         case .boolean, .number, .integer:
-            return "" // Inline them
+            return "" // Inline
         case .string(let coreContext, _):
-            return try makeTypealiasPrimitive(name: key, json: schema, context: coreContext)
+            if isEnum(schema) {
+                return try makeEnum(name: key, coreContext: coreContext)
+            }
+            return "" // Inline 'String'
         case .object(let coreContext, let objectContext):
             return try makeObject(key, coreContext, objectContext, level: level)
         case .array(let coreContext, let arrayContext):
@@ -267,21 +270,8 @@ extension Generate {
         output += try makeParent(for: name, schema: item, level: 0)
         return output
     }
-        
-    private func makeTypealiasPrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
-        if isEnum(json) {
-            return try makeEnum(name: name, coreContext: context)
-        }
-        
-        return ""
-                
-        // TODO: cleanup
-        // Starting with the new version, we just inline these
-//        var output = ""
-//        output += makeHeader(for: context)
-//        output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
-//        return output
-    }
+    
+    // MARK: Enums
     
     private func makeEnum(name: String, coreContext: JSONSchemaContext) throws -> String {
         let values = (coreContext.allowedValues ?? [])
