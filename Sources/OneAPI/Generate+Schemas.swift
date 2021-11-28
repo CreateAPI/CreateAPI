@@ -72,6 +72,7 @@ extension Generate {
         }
         output += "\(access) struct \(type) {\n"
         let keys = objectContext.properties.keys.sorted()
+        // TODO: find a better way to order keys
         for key in keys {
             let value = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
@@ -190,10 +191,11 @@ extension Generate {
     private func makePrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
         var output = ""
         output += makeHeader(for: context, isShort: false)
-        output += "typealias \(makeType(name)) = \(try getType(for: json))"
+        output += "\(access) typealias \(makeType(name)) = \(try getType(for: json))\n"
         return output
     }
     
+    // TODO: Add support for deprecated fields
     private func makeHeader(for context: JSONSchemaContext, isShort: Bool) -> String {
         var output = ""
         if let description = context.description, !description.isEmpty {
@@ -201,11 +203,14 @@ extension Generate {
                 output += "/// \(line)\n"
             }
         }
-        if !isShort, let example = context.example?.value {
-            if !output.isEmpty {
-                output += "///\n"
+        if let example = context.example?.value {
+            let value = "\(example)"
+            if value.count > 1 { // Only display if it's something substantial
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                output += "/// Example: \(example)\n"
             }
-            output += "/// - example: \(example)\n"
         }
         return output
     }

@@ -48,7 +48,7 @@ extension String {
 
 private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self"])
 
-private let alwaysUppercased = Set(["url", "id", "html"])
+private let alwaysUppercased = Set(["url", "id", "html", "ssl", "tls"])
 
 extension String {
     var escaped: String {
