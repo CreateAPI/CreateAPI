@@ -332,7 +332,7 @@ extension Generate {
         }
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
-        output += "\n}\n"
+        output += "\n}"
         return output
     }
 }
