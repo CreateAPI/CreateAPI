@@ -115,9 +115,12 @@ extension Generate {
     }
     
     // TODO: Inject offset as a parameter
+    // TODO: Add support for operationId
+    // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String {
-        """
-                \(access) func \(method)() -> Request<Void> {
+        let response = operation.operationId == "users/get-by-username" ? "PublicUser" : "Void"
+        return """
+                \(access) func \(method)() -> Request<\(response)> {
                     .\(method)(path)
                 }
         """

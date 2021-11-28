@@ -166,7 +166,7 @@ extension Generate {
             output += makeHeader(for: context, isShort: true)
         }
         let nullable = context?.nullable ?? false // `context` is null for references
-        let modifier = (isRequired && nullable) ? "" : "?"
+        let modifier = (isRequired && !nullable) ? "" : "?"
         let property = makeParameter(name)
         output += "\(access) var \(property): \(type)\(modifier)"
         return output
