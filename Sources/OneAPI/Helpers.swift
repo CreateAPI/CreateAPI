@@ -24,7 +24,8 @@ extension String {
     
     // Starting with capitalized first letter.
     var toCamelCase: String {
-        components(separatedBy: badCharacters)
+        replacingOccurrences(of: "'", with: "")
+            .components(separatedBy: badCharacters)
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
@@ -46,7 +47,7 @@ extension String {
     }
 }
 
-private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self"])
+private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self", "none"])
 
 private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 

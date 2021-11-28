@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add support for enums (see CodeScanningAlertDismissedReason)
 // TODO: Use SwiftFormat to align stuff?
 // TODO: Generate initializer
 // TODO: Allow to specify Codable/Decodable
@@ -250,9 +249,28 @@ extension Generate {
     }
         
     private func makeTypealiasPrimitive<T>(name: String, json: JSONSchema, context: JSONSchema.CoreContext<T>) throws -> String {
+        if case .string(let coreContext, _) = json, coreContext.allowedValues != nil { // Special case for enums
+            return try makeEnum(name: name, coreContext: coreContext)
+        }
+                
         var output = ""
         output += makeHeader(for: context, isShort: false)
         output += "\(access) typealias \(makeType(name)) = \(try getSimpleType(for: json))"
+        return output
+    }
+    
+    private func makeEnum(name: String, coreContext: JSONSchemaContext) throws -> String {
+        let values = (coreContext.allowedValues ?? [])
+            .compactMap { $0.value as? String }
+        guard !values.isEmpty else {
+            throw GeneratorError("Enum \(name) has no values")
+        }
+        
+        var output = "\(access) enum \(makeType(name)): String, Codable, CaseIterable {\n"
+        for value in values {
+            output += "    case \(makeParameter(value)) = \"\(value)\"\n"
+        }
+        output += "}"
         return output
     }
     
