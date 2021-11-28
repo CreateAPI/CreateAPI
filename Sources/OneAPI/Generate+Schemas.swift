@@ -356,20 +356,9 @@ extension Generate {
     
     // TODO: Special-case double/string?
     private func makeOneOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
-        func parameter(for type: String) -> String {
-            let isArray = type.starts(with: "[") // TODO: Refactor
-            return "\(makeParameter(type))\(isArray ? "s" : "")"
-        }
-        
-        var genericCount = 1
-        func makeNextGenericName() -> String {
-            defer { genericCount += 1 }
-            return "Object\(genericCount == 1 ? "" : "\(genericCount)")"
-        }
-        
-        let children: [Child] = try schemas.map {
-            let type = (try? getSimpleType(for: $0)) ?? makeNextGenericName()
-            return try makeChild(key: parameter(for: type), schema: $0, isRequired: true, level: level)
+        let types = makeTypeNames(for: schemas)
+        let children: [Child] = try zip(types, schemas).map { type, schema in
+            try makeChild(key: type, schema: schema, isRequired: true, level: level)
         }
         
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
@@ -413,22 +402,11 @@ extension Generate {
         output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
-    
+        
     private func makeAnyOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
-        func parameter(for type: String) -> String {
-            let isArray = type.starts(with: "[") // TODO: Refactor
-            return "\(makeParameter(type))\(isArray ? "s" : "")"
-        }
-        
-        var genericCount = 1
-        func makeNextGenericName() -> String {
-            defer { genericCount += 1 }
-            return "Object\(genericCount == 1 ? "" : "\(genericCount)")"
-        }
-        
-        let children: [Child] = try schemas.map {
-            let type = (try? getSimpleType(for: $0)) ?? makeNextGenericName()
-            return try makeChild(key: parameter(for: type), schema: $0, isRequired: true, level: level)
+        let types = makeTypeNames(for: schemas)
+        let children: [Child] = try zip(types, schemas).map { type, schema in
+            try makeChild(key: type, schema: schema, isRequired: true, level: level)
         }
         
         var output = "\(access) struct \(makeType(name)): \(model) {\n"
@@ -462,6 +440,35 @@ extension Generate {
         output += "\n}"
         output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
+    }
+    
+    private func makeTypeNames(for schemas: [JSONSchema]) -> [String] {
+        var types = Array<String?>(repeating: nil, count: schemas.count)
+        
+        // Assign known types (references, primitive)
+        for (index, schema) in schemas.enumerated() {
+            types[index] = try? getSimpleType(for: schema)
+        }
+        
+        // Generate names for anonymous nested objects
+        let unnamedCount = types.filter { $0 == nil }.count
+        var genericCount = 1
+        func makeNextGenericName() -> String {
+            defer { genericCount += 1 }
+            return "Object\((unnamedCount == 1 && genericCount == 1) ? "" : "\(genericCount)")"
+        }
+        for (index, _) in schemas.enumerated() {
+            if types[index] == nil {
+                types[index] = makeNextGenericName()
+            }
+        }
+        
+        // Disambiguate arrays
+        func parameter(for type: String) -> String {
+            let isArray = type.starts(with: "[") // TODO: Refactor
+            return "\(makeParameter(type))\(isArray ? "s" : "")"
+        }
+        return types.map { parameter(for: $0!) }
     }
 }
 
