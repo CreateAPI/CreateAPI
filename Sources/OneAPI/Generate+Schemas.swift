@@ -342,7 +342,7 @@ extension Generate {
             }
             output += """
             {
-                    throw URLError(.unknown) // Should never happen
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize \(name)")
                 }
             }
             """
