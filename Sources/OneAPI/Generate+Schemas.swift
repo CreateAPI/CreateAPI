@@ -366,10 +366,14 @@ extension Generate {
             return "\(makeParameter(type))\(isArray ? "s" : "")"
         }
         
+        let children: [Child] = try schemas.map {
+            let type = (try? getSimpleType(for: $0)) ?? "Object"
+            return try makeChild(key: parameter(for: type), schema: $0, isRequired: true, level: level)
+        }
+        
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
-        for schema in schemas {
-            let type = try getSimpleType(for: schema)
-            output += "    case \(parameter(for: type))(\(type))\n"
+        for child in children {
+            output += "    case \(child.name)(\(child.type))\n"
         }
         output += "\n"
         
@@ -380,11 +384,10 @@ extension Generate {
             """
             output += "    "
             
-            for schema in schemas {
-                let type = try getSimpleType(for: schema)
+            for child in children {
                 output += """
-                if let value = try? container.decode(\(type).self) {
-                        self = .\(parameter(for: type))(value)
+                if let value = try? container.decode(\(child.type).self) {
+                        self = .\(child.name)(value)
                     } else
                 """
                 output += " "
@@ -399,7 +402,16 @@ extension Generate {
         }
         
         output += try makeInitFromDecoder().shiftedRight(count: 4)
-        output += "\n}"
+        
+        let nested = children.compactMap({ $0.nested })
+        if !nested.isEmpty {
+            output += "\n\n"
+            for object in nested {
+                output += object
+            }
+        }
+        output += "\n"
+        output += "}"
         output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
