@@ -43,15 +43,21 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
-        let group = DispatchGroup()
         let resources = generateResources(for: spec)
         let schemas = generateSchemas(for: spec)
         
-        let outputURL = URL(fileURLWithPath: (self.output as NSString).expandingTildeInPath)
-        // TODO: Is this safe? Overwrite files instead?
-        try? FileManager.default.removeItem(at: outputURL)
-        try FileManager.default.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
-        try resources.data(using: .utf8)?.write(to: outputURL.appendingPathComponent("Resources.swift"))
-        try schemas.data(using: .utf8)?.write(to: outputURL.appendingPathComponent("Schemas.swift"))
+        let outputPath = (self.output as NSString).expandingTildeInPath
+        let outputURL = URL(fileURLWithPath: outputPath)
+        if !FileManager.default.fileExists(atPath: outputPath) {
+            try FileManager.default.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
+        }
+        func write(_ content: String, to name: String) throws {
+            guard let data = content.data(using: .utf8) else {
+                throw GeneratorError("Failed to convert output to a data blob")
+            }
+            try data.write(to: outputURL.appendingPathComponent("\(name).swift"))
+        }
+        try write(resources, to: "Resources")
+        try write(schemas, to: "Schemas")
     }
 }

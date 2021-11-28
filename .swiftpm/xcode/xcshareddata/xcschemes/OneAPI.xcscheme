@@ -90,7 +90,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "generate --input ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Desktop/nanogen"
+            argument = "generate --input ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Developer/OctoKit/Sources/OctoKit"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
