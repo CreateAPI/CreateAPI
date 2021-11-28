@@ -10,6 +10,7 @@ import Foundation
 // TODO: Allow to specify Codable/Decodable
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
+// TODO: Add support for deprecated fields
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -158,9 +159,9 @@ extension Generate {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                let generated = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
-                output += generated.property.shiftedRight(count: 4)
-                if let object = generated.nested {
+                let child = try makeChild(key: key, schema: schema, isRequired: isRequired, level: level)
+                output += makeProperty(for: child).shiftedRight(count: 4)
+                if let object = child.nested {
                     nested.append(object)
                 }
                 output += "\n"
@@ -198,36 +199,8 @@ extension Generate {
         return output.shiftedRight(count: level > 0 ? 4 : 0)
     }
     
-    private struct GeneratedProperty {
-        var property: String
-        var nested: String?
-    }
-    
-    /// Generates properties, including support for more complex constucts that might require generating
-    /// nested objects.
-    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> GeneratedProperty {
-        let child = try makeChild(key: key, schema: schema, isRequired: isRequired, level: level)
-        let property = makeSimpleProperty(for: child)
-        return GeneratedProperty(property: property, nested: child.nested)
-    }
-    
-    /// Renderes simple properties on an object that are using built-in types or existing references.
-    ///
-    /// - warning: Doesn't handle nested object or `oneOf` and similar constructs.
-    private func makeSimpleProperty(name: String, type: String, context: JSONSchemaContext?, isRequired: Bool) -> String {
-        var output = ""
-        if let context = context {
-            output += makeHeader(for: context)
-        }
-        assert(context != nil) // context is null for references, but the caller needs to dereference
-        let nullable = context?.nullable ?? true
-        let modifier = (isRequired && !nullable) ? "" : "?"
-        let property = makeParameter(name)
-        output += "\(access) var \(property): \(type)\(modifier)"
-        return output
-    }
-    
-    private func makeSimpleProperty(for child: Child) -> String {
+    /// Example: "public var files: [Files]?"
+    private func makeProperty(for child: Child) -> String {
         var output = ""
         if let context = child.context {
             output += makeHeader(for: context)
@@ -236,7 +209,7 @@ extension Generate {
         return output
     }
     
-    // TODO: Add support for deprecated fields
+    /// Adds title, description, examples, etc.
     private func makeHeader(for context: JSONSchemaContext) -> String {
         var output = ""
         if let title = context.title, !title.isEmpty {
