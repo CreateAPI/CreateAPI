@@ -25,13 +25,12 @@ extension Generate {
         
         for (key, schema) in spec.components.schemas {
             do {
-                let entry = try makeParent(for: key.rawValue, schema: schema, level: 0)
-                if !entry.isEmpty {
+                if let entry = try makeParent(for: key.rawValue, schema: schema, level: 0) {
                     output += entry
                     output += "\n\n"
                 }
             } catch {
-                print("WARNING: \(error)")
+                print("ERROR: Failed to generate entity for \(key): \(error)")
             }
         }
         
@@ -44,17 +43,15 @@ extension Generate {
         return output
     }
 
-    private func makeParent(for key: String, schema: JSONSchema, level: Int) throws -> String {
-        // TODO: Generate struct/classes based on how many fields or what?
-        var fields = ""
+    private func makeParent(for key: String, schema: JSONSchema, level: Int) throws -> String? {
         switch schema {
         case .boolean, .number, .integer:
-            return "" // Inline
+            return nil // Inline
         case .string(let coreContext, _):
             if isEnum(schema) {
                 return try makeEnum(name: key, coreContext: coreContext)
             }
-            return "" // Inline 'String'
+            return nil // Inline 'String'
         case .object(let coreContext, let objectContext):
             return try makeObject(key, coreContext, objectContext, level: level)
         case .array(let coreContext, let arrayContext):
@@ -65,20 +62,13 @@ extension Generate {
             return try makeOneOf(name: key, of, level: level)
         case .any(let of, _):
             return try makeAnyOf(name: key, of, level: level)
-        case .not(let jSONSchema, let core):
-            fields = "    #warning(\"TODO:\")"
-        case .reference(let jSONReference):
-            fields = "    #warning(\"TODO:\")"
-        case .fragment(let coreContext):
-            fields = "    #warning(\"TODO:\")"
+        case .not:
+            throw GeneratorError("`not` is not supported: \(key)")
+        case .reference:
+            return nil // Can't appear in this context
+        case .fragment:
+            return nil // Can't appear in this context
         }
-        
-        var output = """
-        \(access) struct \(makeType(key)): \(model) {
-            \(fields)
-        }
-        """
-        return output
     }
     
     private struct Child {
@@ -274,7 +264,7 @@ extension Generate {
         var output = ""
         let name = makeType(key) + "Item"
         output += "\(access) typealias \(makeType(key)) = [\(name)]\n\n"
-        output += try makeParent(for: name, schema: item, level: 0)
+        output += (try makeParent(for: name, schema: item, level: 0)) ?? ""
         return output
     }
     
@@ -362,7 +352,7 @@ extension Generate {
         }
     }
     
-    // MARK: oneOf
+    // MARK: oneOf/anyOf/allOf
     
     // TODO: Special-case double/string?
     private func makeOneOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
@@ -374,7 +364,7 @@ extension Generate {
         var genericCount = 1
         func makeNextGenericName() -> String {
             defer { genericCount += 1 }
-            return "Object\(genericCount)"
+            return "Object\(genericCount == 1 ? "" : "\(genericCount)")"
         }
         
         let children: [Child] = try schemas.map {
@@ -433,7 +423,7 @@ extension Generate {
         var genericCount = 1
         func makeNextGenericName() -> String {
             defer { genericCount += 1 }
-            return "Object\(genericCount)"
+            return "Object\(genericCount == 1 ? "" : "\(genericCount)")"
         }
         
         let children: [Child] = try schemas.map {
