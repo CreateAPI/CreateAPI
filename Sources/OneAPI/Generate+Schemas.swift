@@ -297,8 +297,9 @@ extension Generate {
     
     // MARK: oneOf
     
-    // TODO: Add support for discriminators
+    // TODO: Add support for discs
     // TODO: Add support for nesting
+    // TODO: Special-case double/string?
     private func makeOneOf(name: String, _ schemas: [JSONSchema]) throws -> String {
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
         for schema in schemas {
