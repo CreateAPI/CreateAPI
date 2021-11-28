@@ -116,7 +116,7 @@ extension Generate {
             output += nested
             output += "\n"
         }
-
+        
         // TODO: Is generating init/deinit faster for compilation?
         let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
         if hasCustomCodingKeys {
