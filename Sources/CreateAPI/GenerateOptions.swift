@@ -20,6 +20,11 @@ final class GenerateOptions {
         }
     }
     
+    enum CodableGenerationStrategy: String {
+        case customInit
+        case codingKeys
+    }
+    
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
         self.generateComments = options.generateComments ?? true

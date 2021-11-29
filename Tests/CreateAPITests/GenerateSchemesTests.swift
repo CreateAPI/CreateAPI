@@ -70,5 +70,16 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-expanded-schemes-generate-default", actual: output)
     }
+    
+    func testPetstoreAllDefault() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-generate-default", actual: output)
+    }
 }
-
