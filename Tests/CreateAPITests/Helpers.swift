@@ -17,7 +17,7 @@ func spec(named name: String) -> OpenAPI.Document {
     return try! YAMLDecoder().decode(OpenAPI.Document.self, from: data)
 }
 
-func txt(named name: String) -> String {
-    let data = file(named: name, ext: "txt")
+func generated(named name: String) -> String {
+    let data = file(named: name, ext: "swift")
     return String(data: data, encoding: .utf8)!
 }

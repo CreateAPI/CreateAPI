@@ -12,10 +12,10 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     
     if env["GENERATE_SNAPSHOTS"] == "true" {
         let projectPath = (projectPath as NSString).expandingTildeInPath
-        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
+        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).swift")
         try! actual.data(using: .utf8)!.write(to: url)
     } else {
-        let expectedText = txt(named: expected)
+        let expectedText = generated(named: expected)
         if expectedText != actual {
             let expectedURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".swift")
             let actualURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".swift")
