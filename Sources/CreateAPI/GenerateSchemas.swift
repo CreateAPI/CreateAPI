@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
 // TODO: Do something about NullableSimpleUser (best generic approach)
@@ -269,6 +268,9 @@ final class GenerateSchemas {
     
     /// Adds title, description, examples, etc.
     private func makeHeader(for context: JSONSchemaContext) -> String {
+        guard options.generateComments else {
+            return ""
+        }
         var output = ""
         if let title = context.title, !title.isEmpty {
             output += "/// \(title)\n"

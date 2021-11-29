@@ -5,6 +5,7 @@
 final class GenerateOptions {
     var access: String?
     var schemes: Schemes
+    var generateComments: Bool
     
     struct Schemes {
         var isGeneratingStructs: Bool
@@ -21,6 +22,7 @@ final class GenerateOptions {
     
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
+        self.generateComments = options.generateComments ?? true
         self.schemes = Schemes(options.schemes)
     }
 }
@@ -28,6 +30,7 @@ final class GenerateOptions {
 final class GenerateOptionsScheme: Decodable {
     var access: String?
     var schemes: Schemes?
+    var generateComments: Bool?
 
     struct Schemes: Codable {
         var isGeneratingStructs: Bool?

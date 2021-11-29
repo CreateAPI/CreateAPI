@@ -44,5 +44,18 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-schemes-generate-internal-default", actual: output)
     }
+    
+    func testDisableCommentsGeneration() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.generateComments = false
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-generate-disable-comments", actual: output)
+    }
 }
 
