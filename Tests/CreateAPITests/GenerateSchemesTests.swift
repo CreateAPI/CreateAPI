@@ -82,4 +82,16 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-all-schemes-generate-default", actual: output)
     }
+
+    func testGenerateGithub() {
+        // GIVEN
+        let spec = spec(named: "github")
+        let options = GenerateOptions()
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+        
+        // THEN
+        compare(expected: "github-schemes-generate-default", actual: output)
+    }
 }
