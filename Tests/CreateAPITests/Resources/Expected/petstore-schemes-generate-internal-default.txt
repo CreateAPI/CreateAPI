@@ -4,8 +4,12 @@
 
 import Foundation
 
+/// A pet title
+///
+/// A pet description
 struct Pet: Decodable {
     var id: Int
+    /// Example: Buddy
     var name: String
     var tag: String?
 

@@ -4,8 +4,12 @@
 
 import Foundation
 
+/// A pet title
+///
+/// A pet description
 public final class Pet: Decodable {
     public var id: Int
+    /// Example: Buddy
     public var name: String
     public var tag: String?
 

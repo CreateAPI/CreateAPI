@@ -274,6 +274,9 @@ final class GenerateSchemas {
             output += "/// \(title)\n"
         }
         if let description = context.description, !description.isEmpty, description != context.title {
+            if !output.isEmpty {
+                output += "///\n"
+            }
             for line in description.split(separator: "\n") {
                 output += "/// \(line)\n"
             }

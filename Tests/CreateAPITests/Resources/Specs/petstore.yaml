@@ -82,6 +82,8 @@ paths:
 components:
   schemas:
     Pet:
+      title: A pet title
+      description: A pet description
       type: object
       required:
         - id
@@ -91,6 +93,7 @@ components:
           type: integer
           format: int64
         name:
+          example: "Buddy"
           type: string
         tag:
           type: string
