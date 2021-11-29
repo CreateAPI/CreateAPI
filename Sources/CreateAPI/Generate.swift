@@ -41,6 +41,7 @@ struct Generate: ParsableCommand {
             print("Parsing the spec")
         }
         
+        // TODO: Optimize spec parsing perforamnce
         let input = (input as NSString).expandingTildeInPath
         let data = try Data(contentsOf: URL(fileURLWithPath: input))
         let spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)

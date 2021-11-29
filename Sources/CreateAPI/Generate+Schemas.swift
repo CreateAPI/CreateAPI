@@ -5,8 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add parallelism
-// TODO: Generate initializer
 // TODO: Allow to specify Codable/Decodable
 // TODO: Add mechanism to pass options (with --option to override)
 // TODO: Add an option to skip comments
@@ -19,8 +17,6 @@ import Foundation
 // TODO: Inline typealias for array
 // TODO: Make inline-typealias an option
 // TODO: Add an option to parallellize
-
-
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -63,6 +59,10 @@ extension Generate {
             output += anyJSON
             output += "\n"
         }
+        
+        output += "\n"
+        output += stringCodingKey
+        output += "\n"
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         if verbose {
@@ -184,25 +184,27 @@ extension Generate {
         output += makeHeader(for: coreContext)
         output += "\(access) struct \(name): \(model) {\n"
         let keys = objectContext.properties.keys.sorted()
+        var properties: [String: Property] = [:]
         var skippedKeys = Set<String>()
-    
-        // TODO: Find a way to preserve the order of keys
         for key in keys {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                let child = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
-                output += makeProperty(for: child).shiftedRight(count: 4)
-                if let object = child.nested {
-                    nested.append(object)
-                }
-                output += "\n"
+                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
             } catch {
                 skippedKeys.insert(key)
-                #warning("TEMP")
-                output += "    #warning(\"Failed to generate property '\(key)'\")\n"
                 print("ERROR: Failed to generate property \(error)")
             }
+        }
+    
+        // TODO: Find a way to preserve the order of keys
+        for key in keys {
+            guard let property = properties[key] else { continue }
+            output += makeProperty(for: property).shiftedRight(count: 4)
+            if let object = property.nested {
+                nested.append(object)
+            }
+            output += "\n"
         }
 
         for nested in nested {
@@ -211,21 +213,34 @@ extension Generate {
             output += "\n"
         }
         
-        // TODO: Is generating init/deinit faster for compilation?
-        let hasCustomCodingKeys = keys.contains { PropertyName($0).rawValue != $0 }
-        if hasCustomCodingKeys {
+        if !properties.isEmpty {
             output += "\n"
-            output += "    private enum CodingKeys: String, CodingKey {\n"
-            for key in keys where !skippedKeys.contains(key) {
-                let parameter = PropertyName(key).rawValue
-                if parameter == key {
-                    output += "        case \(parameter)\n"
-                } else {
-                    output += "        case \(parameter) = \"\(key)\"\n"
-                }
+            output += "    \(access) init(from decoder: Decoder) throws {\n"
+            output += "        let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
+            for key in keys {
+                guard let property = properties[key] else { continue }
+                let decode = property.isOptional ? "decodeIfPresent" : "decode"
+                output += "        self.\(property.name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")\n"
             }
-            output +=  "    }\n"
+            output += "    }\n"
         }
+        
+        
+        // TODO: Add this an an options
+//        let hasCustomCodingKeys = keys.contains { PropertyName($0).rawValue != $0 }
+//        if hasCustomCodingKeys {
+//            output += "\n"
+//            output += "    private enum CodingKeys: String, CodingKey {\n"
+//            for key in keys where !skippedKeys.contains(key) {
+//                let parameter = PropertyName(key).rawValue
+//                if parameter == key {
+//                    output += "        case \(parameter)\n"
+//                } else {
+//                    output += "        case \(parameter) = \"\(key)\"\n"
+//                }
+//            }
+//            output +=  "    }\n"
+//        }
         
         output += "}"
         return output.shiftedRight(count: level > 0 ? 4 : 0)

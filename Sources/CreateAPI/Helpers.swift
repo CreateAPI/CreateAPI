@@ -207,3 +207,33 @@ extension AnyJSON: CustomDebugStringConvertible {
     }
 }
 """
+
+let stringCodingKey = """
+struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
+
+    private let string: String
+    private let int: Int?
+
+    var stringValue: String { return string }
+
+    init(string: String) {
+        self.string = string
+        int = nil
+    }
+    init?(stringValue: String) {
+        string = stringValue
+        int = nil
+    }
+
+    var intValue: Int? { return int }
+    init?(intValue: Int) {
+        string = String(describing: intValue)
+        int = intValue
+    }
+
+    init(stringLiteral value: String) {
+        string = value
+        int = nil
+    }
+}
+"""
