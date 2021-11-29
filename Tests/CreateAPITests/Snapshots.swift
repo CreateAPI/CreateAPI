@@ -12,6 +12,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     
     if env["GENERATE_SNAPSHOTS"] == "true" {
         let projectPath = (projectPath as NSString).expandingTildeInPath
+        // Unfortunately, I can't used `.swift` because SPM ignores these files
         let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
         try! actual.data(using: .utf8)!.write(to: url)
     } else {
