@@ -12321,10 +12321,10 @@ public struct TimelineReviewedEvent: Decodable {
     public var user: SimpleUser
 
     public struct Links: Decodable {
-        public var html: Html
+        public var html: HTML
         public var pullRequest: PullRequest
 
-        public struct Html: Decodable {
+        public struct HTML: Decodable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
@@ -12344,7 +12344,7 @@ public struct TimelineReviewedEvent: Decodable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.html = try values.decode(Html.self, forKey: "html")
+            self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
         }
     }
@@ -12447,11 +12447,11 @@ public struct PullRequestReviewComment: Decodable {
     public var user: SimpleUser
 
     public struct Links: Decodable {
-        public var html: Html
+        public var html: HTML
         public var pullRequest: PullRequest
         public var `self`: `Self`
 
-        public struct Html: Decodable {
+        public struct HTML: Decodable {
             public var href: URL
 
             public init(from decoder: Decoder) throws {
@@ -12480,7 +12480,7 @@ public struct PullRequestReviewComment: Decodable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.html = try values.decode(Html.self, forKey: "html")
+            self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
             self.`self` = try values.decode(`Self`.self, forKey: "self")
         }
@@ -14031,10 +14031,10 @@ public struct PullRequestReview: Decodable {
     public var user: NullableSimpleUser?
 
     public struct Links: Decodable {
-        public var html: Html
+        public var html: HTML
         public var pullRequest: PullRequest
 
-        public struct Html: Decodable {
+        public struct HTML: Decodable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
@@ -14054,7 +14054,7 @@ public struct PullRequestReview: Decodable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.html = try values.decode(Html.self, forKey: "html")
+            self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
         }
     }

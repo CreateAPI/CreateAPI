@@ -12,7 +12,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     
     if env["GENERATE_SNAPSHOTS"] == "true" {
         let projectPath = (projectPath as NSString).expandingTildeInPath
-        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).swift")
+        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
         try! actual.data(using: .utf8)!.write(to: url)
     } else {
         let expectedText = generated(named: expected)

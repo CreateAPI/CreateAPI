@@ -18,6 +18,6 @@ func spec(named name: String) -> OpenAPI.Document {
 }
 
 func generated(named name: String) -> String {
-    let data = file(named: name, ext: "swift")
+    let data = file(named: name, ext: "txt")
     return String(data: data, encoding: .utf8)!
 }

@@ -15,16 +15,18 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(TypeName("CamelCase").rawValue, "CamelCase")
         XCTAssertEqual(TypeName("camelCase").rawValue, "CamelCase")
         XCTAssertEqual(TypeName("nsw").rawValue, "Nsw")
-        XCTAssertEqual(TypeName("NSW").rawValue, "NSW")
+        XCTAssertEqual(TypeName("NSW").rawValue, "Nsw")
+        XCTAssertEqual(TypeName("UBUNTU").rawValue, "Ubuntu")
         XCTAssertEqual(TypeName("userURL").rawValue, "UserURL")
         XCTAssertEqual(TypeName("url").rawValue, "URL")
-        XCTAssertEqual(TypeName("a-z").rawValue, "Az")
+        XCTAssertEqual(TypeName("a-z").rawValue, "AZ")
         XCTAssertEqual(TypeName("A-Z").rawValue, "AZ")
-        XCTAssertEqual(PropertyName("123List").rawValue, "_123List")
+        XCTAssertEqual(TypeName("123List").rawValue, "_123List")
         XCTAssertEqual(TypeName("user_url").rawValue, "UserURL")
         XCTAssertEqual(TypeName("snake_case").rawValue, "SnakeCase")
         XCTAssertEqual(TypeName("SNAKE_CASE").rawValue, "SnakeCase")
         XCTAssertEqual(TypeName("UserServiceDeviceHasAccessTo").rawValue, "UserServiceDeviceHasAccessTo")
+        XCTAssertEqual(TypeName("Won't").rawValue, "Wont")
     }
     
     func testPropertyName() {
@@ -49,5 +51,6 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(PropertyName("snake_case").rawValue, "snakeCase")
         XCTAssertEqual(PropertyName("UserServiceDeviceHasAccessTo").rawValue, "userServiceDeviceHasAccessTo")
         XCTAssertEqual(PropertyName("UserService.getCustomerDevices").rawValue, "userServiceGetCustomerDevices")
+        XCTAssertEqual(PropertyName("won't").rawValue, "wont")
     }
 }

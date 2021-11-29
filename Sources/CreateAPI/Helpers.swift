@@ -16,7 +16,7 @@ struct TypeName: CustomStringConvertible {
     }
     
     init(_ rawValue: String) {
-        self.rawValue = rawValue.toCamelCase.escapedTypeName
+        self.rawValue = rawValue.process(isProperty: false)
     }
 
     private init(processedRawValue: String) {
@@ -38,7 +38,7 @@ struct PropertyName: CustomStringConvertible {
     let rawValue: String
     
     init(_ rawValue: String) {
-        self.rawValue = rawValue.sanitized.toCamelCase.lowercasedFirstLetter().escapedPropertyName
+        self.rawValue = rawValue.process(isProperty: true)
     }
     
     var description: String { rawValue }
@@ -67,23 +67,38 @@ private extension String {
         return self
     }
 
-    // Starting with capitalized first letter.
-    var toCamelCase: String {
-        var components = replacingOccurrences(of: "'", with: "")
+    func process(isProperty: Bool) -> String {
+        // Special-case: remove `'` from words like "won't"
+        var components = sanitized.replacingOccurrences(of: "'", with: "")
             .components(separatedBy: badCharacters)
-        if !components.contains(where: { $0.contains(where: { $0.isLowercase }) }) {
+        // If all letters are uppercased (but skip one-letter words)
+        if !components.contains(where: { $0.count > 1 && $0.contains(where: { $0.isLowercase }) }) {
             components = components.map { $0.lowercased() }
         }
-        return components
+        // To camelCase
+        var output = components
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
-                if index != 0 && abbreviations.contains(string.lowercased()) {
+                // Special-case for abbreviations, e.g. "URL"
+                if (!isProperty || index != 0) && abbreviations.contains(string.lowercased()) {
                     return string.uppercased()
+                }
+                if (isProperty && index == 0) {
+                    return string.lowercasedFirstLetter()
                 }
                 return string.capitalizingFirstLetter()
             }
             .joined(separator: "")
+        guard let first = output.first else {
+            return output
+        }
+        // Make sure it starts with a valid chatecter, e.g. "213List" doesn't pass.
+        if !CharacterSet(charactersIn: String(first)).isSubset(of: .letters) {
+            output = "_" + output
+        }
+        output = isProperty ? output.escapedPropertyName : output.escapedTypeName
+        return output
     }
     
     func capitalizingFirstLetter() -> String {
