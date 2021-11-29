@@ -137,7 +137,7 @@ public enum AnyJSON: Equatable {
     case object([String: AnyJSON])
     case array([AnyJSON])
     case bool(Bool)
-    
+
     var value: Any {
         switch self {
         case .string(let string): return string

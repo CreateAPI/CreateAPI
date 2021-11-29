@@ -7,7 +7,7 @@ import OpenAPIKit30
 import Foundation
 import Yams
 
-// TODO: parallelize
+// TODO: Add a mechanism ot pass generator option directly (--options)
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")
@@ -16,7 +16,7 @@ struct Generate: ParsableCommand {
     // TODO: update if I change the name
     @Option(help: "The OpenAPI spec output folder")
     var output: String = "./nanogen"
-
+    
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false
     
