@@ -17,12 +17,12 @@ import Foundation
 // TODO: Add Linux support
 // TODO: Add SwiftLint disable all
 
-final class GenerateSchemes {
+final class GenerateSchemas {
     let spec: OpenAPI.Document
     let options: GenerateOptions
     let verbose: Bool
     
-    var access: String { options.access }
+    var access: String { options.access.map { "\($0) " } ?? "" }
     var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
     var baseClass: String { options.schemes.baseClass ?? "" }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
@@ -192,7 +192,7 @@ final class GenerateSchemes {
         var nested: [String] = []
         
         output += makeHeader(for: coreContext)
-        output += "\(access) \(modelType) \(name): \(protocols) {\n"
+        output += "\(access)\(modelType) \(name): \(protocols) {\n"
         let keys = objectContext.properties.keys.sorted()
         var properties: [String: Property] = [:]
         var skippedKeys = Set<String>()
@@ -225,7 +225,7 @@ final class GenerateSchemes {
         
         if !properties.isEmpty {
             output += "\n"
-            output += "    \(access) init(from decoder: Decoder) throws {\n"
+            output += "    \(access)init(from decoder: Decoder) throws {\n"
             output += "        let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
             for key in keys {
                 guard let property = properties[key] else { continue }
@@ -263,7 +263,7 @@ final class GenerateSchemes {
         if let context = child.context {
             output += makeHeader(for: context)
         }
-        output += "\(access) var \(child.name): \(child.type)\(child.isOptional ? "?" : "")"
+        output += "\(access)var \(child.name): \(child.type)\(child.isOptional ? "?" : "")"
         return output
     }
     
@@ -316,12 +316,12 @@ final class GenerateSchemes {
             throw GeneratorError("Missing array item type")
         }
         if let type = try? getSimpleType(for: item) {
-            return "\(access) typealias \(name) = \(type)"
+            return "\(access)typealias \(name) = \(type)"
         }
         // Requres generation of a separate type
         var output = ""
         let itemName = name.appending("Item")
-        output += "\(access) typealias \(name) = [\(itemName)]\n\n"
+        output += "\(access)typealias \(name) = [\(itemName)]\n\n"
         output += (try makeParent(name: itemName, schema: item, level: 0)) ?? ""
         return output
     }
@@ -337,7 +337,7 @@ final class GenerateSchemes {
         
         var output = ""
         output += makeHeader(for: coreContext)
-        output += "\(access) enum \(name): String, Codable, CaseIterable {\n"
+        output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
         for value in values {
             output += "    case \(PropertyName(value)) = \"\(value)\"\n"
         }
@@ -419,7 +419,7 @@ final class GenerateSchemes {
             try makeProperty(key: type, schema: schema, isRequired: true, level: level)
         }
         
-        var output = "\(access) enum \(name): \(protocols) {\n"
+        var output = "\(access)enum \(name): \(protocols) {\n"
         for child in children {
             output += "    case \(child.name)(\(child.type))\n"
         }
@@ -427,7 +427,7 @@ final class GenerateSchemes {
         
         func makeInitFromDecoder() throws -> String {
             var output = """
-            \(access) init(from decoder: Decoder) throws {
+            \(access)init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()\n
             """
             output += "    "
@@ -467,16 +467,16 @@ final class GenerateSchemes {
             try makeProperty(key: type, schema: schema, isRequired: true, level: level)
         }
         
-        var output = "\(access) struct \(name): \(protocols) {\n"
+        var output = "\(access)struct \(name): \(protocols) {\n"
         
         for child in children {
-            output += "    \(access) var \(child.name): \(child.type)?\n"
+            output += "    \(access)var \(child.name): \(child.type)?\n"
         }
         output += "\n"
     
         func makeInitFromDecoder() throws -> String {
             var output = """
-            \(access) init(from decoder: Decoder) throws {
+            \(access)init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()\n
             """
             

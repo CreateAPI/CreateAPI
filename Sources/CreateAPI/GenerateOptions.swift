@@ -3,7 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 final class GenerateOptions {
-    var access: String
+    var access: String?
     var schemes: Schemes
     
     struct Schemes {

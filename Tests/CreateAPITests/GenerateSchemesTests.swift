@@ -13,7 +13,7 @@ final class GenerateSchemesTests: XCTestCase {
         let options = GenerateOptions()
         
         // WHEN
-        let output = GenerateSchemes(spec: spec, options: options, verbose: false).run()
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
                 
         // THEN
         compare(expected: "petstore-schemes-default", actual: output)
@@ -26,10 +26,23 @@ final class GenerateSchemesTests: XCTestCase {
         options.schemes.isGeneratingStructs = false
         
         // WHEN
-        let output = GenerateSchemes(spec: spec, options: options, verbose: false).run()
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-classes", actual: output)
+    }
+    
+    func testChangeAccessControl() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.access = nil
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-generate-internal-default", actual: output)
     }
 }
 

@@ -44,8 +44,8 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "GENERATE_SNAPSHOTS"
-            value = "false"
-            isEnabled = "YES">
+            value = "true"
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "OPEN_DIFF"

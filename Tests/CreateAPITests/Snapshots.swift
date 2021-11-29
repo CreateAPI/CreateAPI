@@ -10,7 +10,7 @@ private var projectPath = "~/Developer/CreateAPI/" // TODO: Find it automaticall
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) {
     let env = ProcessInfo.processInfo.environment
     
-    if env["GENERATING_SNAPSHOTS"] == "true" {
+    if env["GENERATE_SNAPSHOTS"] == "true" {
         let projectPath = (projectPath as NSString).expandingTildeInPath
         let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
         try! actual.data(using: .utf8)!.write(to: url)

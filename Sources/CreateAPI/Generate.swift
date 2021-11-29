@@ -59,7 +59,7 @@ struct Generate: ParsableCommand {
     
         let options = try makeOptions(at: config)
         let resources = generatePaths(for: spec)
-        let schemas = GenerateSchemes(spec: spec, options: options, verbose: verbose).run()
+        let schemas = GenerateSchemas(spec: spec, options: options, verbose: verbose).run()
         
         let outputPath = (self.output as NSString).expandingTildeInPath
         let outputURL = URL(fileURLWithPath: outputPath)
