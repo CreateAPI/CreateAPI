@@ -19,6 +19,6 @@ let package = Package(
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams")
             ]),
-        .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"])
+        .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"], resources: [.process("Resources")])
     ]
 )

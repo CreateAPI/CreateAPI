@@ -7,13 +7,13 @@ import OpenAPIKit30
 import Foundation
 import Yams
 
-struct OneAPI: ParsableCommand {
+struct CreateAPI: ParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName: "oneapi",
-        abstract: "A Swift command-line tool to auto-generate code for OneAPI framework",
+        commandName: "create-api",
+        abstract: "A Swift command-line tool to auto-generate code for OpenAPI specs",
         subcommands: [Generate.self])
 
     init() { }
 }
 
-OneAPI.main()
+CreateAPI.main()

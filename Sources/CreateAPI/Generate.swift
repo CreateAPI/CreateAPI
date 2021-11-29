@@ -14,8 +14,11 @@ struct Generate: ParsableCommand {
     var input: String
     
     // TODO: update if I change the name
-    @Option(help: "The OpenAPI spec output folder")
-    var output: String = "./nanogen"
+    @Option(help: "The output folder")
+    var output: String = "./.create-api/"
+    
+    @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
+    var config: String = "./createAPI"
     
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false
@@ -51,12 +54,12 @@ struct Generate: ParsableCommand {
             print("Finished parsing the spec \(timeElapsed) s.")
         }
         
-        
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
+        let options = try makeOptions(at: config)
         let resources = generatePaths(for: spec)
-        let schemas = generateSchemas(for: spec)
+        let schemas = GenerateSchemes(spec: spec, options: options, verbose: verbose).run()
         
         let outputPath = (self.output as NSString).expandingTildeInPath
         let outputURL = URL(fileURLWithPath: outputPath)
@@ -72,4 +75,17 @@ struct Generate: ParsableCommand {
         try write(resources, to: "Paths")
         try write(schemas, to: "Schemas")
     }
+}
+
+private func makeOptions(at configPath: String) throws -> GenerateOptions {
+    let url = URL(fileURLWithPath: configPath)
+    if let data = try? Data(contentsOf: url) {
+        do {
+            let scheme = try JSONDecoder().decode(GenerateOptionsScheme.self, from: data)
+            return GenerateOptions(scheme)
+        } catch {
+            throw GeneratorError("Failed to read configuration: \(error)")
+        }
+    }
+    return GenerateOptions() // Use default options
 }
