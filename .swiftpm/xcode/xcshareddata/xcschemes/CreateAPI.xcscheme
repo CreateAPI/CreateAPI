@@ -76,7 +76,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "generate --input ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Developer/OctoKit/Sources/OctoKit"
+            argument = "generate --input ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Developer/OctoKit/Sources/OctoKit --verbose"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

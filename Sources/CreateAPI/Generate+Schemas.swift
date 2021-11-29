@@ -15,6 +15,10 @@ import Foundation
 // TODO: Do something about NullableSimpleUser (best generic approach)
 // TODO: Get rid of remainig typealiases
 // TODO: Add verbose mode
+// TODO: Add warnings for unsupported features
+// TODO: Inline typealias for array
+// TODO: Make inline-typealias an option
+// TODO: Add an option to parallellize
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -26,6 +30,11 @@ extension Generate {
         import Foundation\n\n
         """
         
+        let startTime = CFAbsoluteTimeGetCurrent()
+        if verbose {
+            print("Start generating schemas (\(spec.components.schemas.count))")
+        }
+    
         for (key, schema) in spec.components.schemas {
             do {
                 if let entry = try makeParent(for: key.rawValue, schema: schema, level: 0) {
@@ -33,6 +42,7 @@ extension Generate {
                     output += "\n\n"
                 }
             } catch {
+                errorsCount += 1
                 print("ERROR: Failed to generate entity for \(key): \(error)")
             }
         }
@@ -43,9 +53,17 @@ extension Generate {
             output += "\n"
         }
         
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        if verbose {
+            print("Generated schemas in \(timeElapsed) s.")
+        }
+        
         return output
     }
 
+    // Recursively creates a type: `struct`, `class`, `enum` – depending on the
+    // schema and the user options. Primitive types often used in specs to reuse
+    // documentation are inlined.
     private func makeParent(for key: String, schema: JSONSchema, level: Int) throws -> String? {
         switch schema {
         case .boolean, .number, .integer:
@@ -74,21 +92,21 @@ extension Generate {
         }
     }
     
-    private struct Child {
-        // "files"
+    private struct Property {
+        // Example: "files"
         let name: String
-        // "[File]"
+        // Example: "[File]"
         let type: String
         let isOptional: Bool
         let context: JSONSchemaContext?
         var nested: String?
     }
         
-    private func makeChild(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Child {
-        func child(named name: String, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Child {
+    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Property {
+        func child(named name: String, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference
             let nullable = context?.nullable ?? true
-            return Child(name: makeParameter(name), type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
+            return Property(name: makeParameter(name), type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
         
         let key = sanitizedKey(key)
@@ -139,7 +157,7 @@ extension Generate {
         }
     }
     
-    private func makeNested(for children: [Child]) -> String? {
+    private func makeNested(for children: [Property]) -> String? {
         let nested = children.compactMap({ $0.nested })
         guard !nested.isEmpty else { return nil }
         return nested.joined(separator: "\n\n")
@@ -162,7 +180,7 @@ extension Generate {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                let child = try makeChild(key: key, schema: schema, isRequired: isRequired, level: level)
+                let child = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
                 output += makeProperty(for: child).shiftedRight(count: 4)
                 if let object = child.nested {
                     nested.append(object)
@@ -203,7 +221,7 @@ extension Generate {
     }
     
     /// Example: "public var files: [Files]?"
-    private func makeProperty(for child: Child) -> String {
+    private func makeProperty(for child: Property) -> String {
         var output = ""
         if let context = child.context {
             output += makeHeader(for: context)
@@ -360,8 +378,8 @@ extension Generate {
     // TODO: Special-case double/string?
     private func makeOneOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
         let types = makeTypeNames(for: schemas)
-        let children: [Child] = try zip(types, schemas).map { type, schema in
-            try makeChild(key: type, schema: schema, isRequired: true, level: level)
+        let children: [Property] = try zip(types, schemas).map { type, schema in
+            try makeProperty(key: type, schema: schema, isRequired: true, level: level)
         }
         
         var output = "\(access) enum \(makeType(name)): \(model) {\n"
@@ -408,8 +426,8 @@ extension Generate {
         
     private func makeAnyOf(name: String, _ schemas: [JSONSchema], level: Int) throws -> String {
         let types = makeTypeNames(for: schemas)
-        let children: [Child] = try zip(types, schemas).map { type, schema in
-            try makeChild(key: type, schema: schema, isRequired: true, level: level)
+        let children: [Property] = try zip(types, schemas).map { type, schema in
+            try makeProperty(key: type, schema: schema, isRequired: true, level: level)
         }
         
         var output = "\(access) struct \(makeType(name)): \(model) {\n"
