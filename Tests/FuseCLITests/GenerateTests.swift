@@ -1,8 +1,8 @@
 import XCTest
 import class Foundation.Bundle
-@testable import OneAPI
+@testable import FuseCLI
 
-final class NanoGenTests: XCTestCase {
+final class GenerateTests: XCTestCase {
     func testExample() throws {
         // Mac Catalyst won't have `Process`, but it is supported for executables.
         #if !targetEnvironment(macCatalyst)

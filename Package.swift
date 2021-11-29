@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "OneAPI",
+    name: "FuseCLI",
     platforms: [.macOS(.v10_13)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
@@ -13,15 +13,15 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "OneAPI",
+            name: "FuseCLI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams")
             ]),
         .testTarget(
-            name: "OneAPITests",
-            dependencies: ["OneAPI"],
+            name: "FuseCLITests",
+            dependencies: ["FuseCLI"],
             resources: [.process("Resources")]
         )
     ]

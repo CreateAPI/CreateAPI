@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1320"
+   LastUpgradeVersion = "1310"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OneAPI_OneAPITests"
-               BuildableName = "OneAPI_OneAPITests"
-               BlueprintName = "OneAPI_OneAPITests"
+               BlueprintIdentifier = "FuseCLI_FuseCLITests"
+               BuildableName = "FuseCLI_FuseCLITests"
+               BlueprintName = "FuseCLI_FuseCLITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OneAPI"
-               BuildableName = "OneAPI"
-               BlueprintName = "OneAPI"
+               BlueprintIdentifier = "FuseCLI"
+               BuildableName = "FuseCLI"
+               BlueprintName = "FuseCLI"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OneAPITests"
-               BuildableName = "OneAPITests"
-               BlueprintName = "OneAPITests"
+               BlueprintIdentifier = "FuseCLITests"
+               BuildableName = "FuseCLITests"
+               BlueprintName = "FuseCLITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -60,9 +60,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OneAPITests"
-               BuildableName = "OneAPITests"
-               BlueprintName = "OneAPITests"
+               BlueprintIdentifier = "FuseCLITests"
+               BuildableName = "FuseCLITests"
+               BlueprintName = "FuseCLITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -82,9 +82,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OneAPI"
-            BuildableName = "OneAPI"
-            BlueprintName = "OneAPI"
+            BlueprintIdentifier = "FuseCLI"
+            BuildableName = "FuseCLI"
+            BlueprintName = "FuseCLI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -105,9 +105,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OneAPI"
-            BuildableName = "OneAPI"
-            BlueprintName = "OneAPI"
+            BlueprintIdentifier = "FuseCLI"
+            BuildableName = "FuseCLI"
+            BlueprintName = "FuseCLI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
