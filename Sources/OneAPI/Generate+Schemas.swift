@@ -12,6 +12,7 @@ import Foundation
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
 // TODO: Do something about NullableSimpleUser (best generic approach)
+// TODO: Get rid of remainig typealiases
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
