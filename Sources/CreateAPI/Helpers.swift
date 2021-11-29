@@ -112,6 +112,19 @@ private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
+func concurrentPerform<T>(on array: [T], _ work: (Int, T) -> Void) {
+    let coreCount = suggestedCoreCount
+    let iterations = array.count > (coreCount * 2) ? coreCount : 1
+    
+    DispatchQueue.concurrentPerform(iterations: iterations) { index in
+        let start = index * array.indices.count / iterations
+        let end = (index + 1) * array.indices.count / iterations
+        for index in start..<end {
+            work(index, array[index])
+        }
+    }
+}
+
 // TODO: Find a better way to do concurrent perform.
 var suggestedCoreCount: Int {
     ProcessInfo.processInfo.processorCount

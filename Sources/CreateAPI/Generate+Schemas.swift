@@ -39,27 +39,20 @@ extension Generate {
         
         let schemas = Array(spec.components.schemas)
         var generated = Array<String?>(repeating: nil, count: schemas.count)
-        let coreCount = suggestedCoreCount
-        let iterations = schemas.count > (coreCount * 2) ? coreCount : 1
         let lock = NSLock()
-        DispatchQueue.concurrentPerform(iterations: iterations) { index in
-            let start = index * schemas.indices.count / iterations
-            let end = (index + 1) * schemas.indices.count / iterations
-        
-            for index in start..<end {
-                let (key, schema) = schemas[index]
-                do {
-                    if let entry = try makeParent(name: TypeName(key), schema: schema, level: 0) {
-                        lock.lock()
-                        generated[index] = entry
-                        lock.unlock()
-                    }
-                } catch {
-                    print("ERROR: Failed to generate entity for \(key): \(error)")
+        concurrentPerform(on: schemas) { index, item in
+            let (key, schema) = schemas[index]
+            do {
+                if let entry = try makeParent(name: TypeName(key), schema: schema, level: 0) {
+                    lock.lock()
+                    generated[index] = entry
+                    lock.unlock()
                 }
+            } catch {
+                print("ERROR: Failed to generate entity for \(key): \(error)")
             }
         }
-        
+
         for entry in generated where entry != nil {
             output += entry!
             output += "\n\n"
