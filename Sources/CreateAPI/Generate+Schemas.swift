@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Allow to specify Codable/Decodable
 // TODO: Add mechanism to pass options (with --option to override)
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
@@ -16,7 +15,7 @@ import Foundation
 // TODO: Add warnings for unsupported features
 // TODO: Inline typealias for array
 // TODO: Make inline-typealias an option
-// TODO: Add an option to parallellize
+// TODO: Add Linux support
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {
@@ -220,7 +219,8 @@ extension Generate {
             for key in keys {
                 guard let property = properties[key] else { continue }
                 let decode = property.isOptional ? "decodeIfPresent" : "decode"
-                output += "        self.\(property.name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")\n"
+                output += "        self.\(property.name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
+                output += "\n"
             }
             output += "    }\n"
         }
