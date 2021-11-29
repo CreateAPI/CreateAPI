@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Add Encodable support
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
@@ -17,12 +18,11 @@ import Foundation
 // TODO: Add support for deprecated fields
 // TODO: Better naming for inline/nested objects
 // TODO: Do something about NullableSimpleUser (best generic approach)
-// TODO: Get rid of remainig typealiases
 // TODO: Print more in verbose mode
 // TODO: Add warnings for unsupported features
-// TODO: Inline typealias for array
 // TODO: Add Linux support
 // TODO: Add SwiftLint disable all
+// TODO: Remove remainig dereferencing
 
 final class GenerateSchemas {
     let spec: OpenAPI.Document
@@ -63,7 +63,7 @@ final class GenerateSchemas {
         concurrentPerform(on: schemas) { index, item in
             let (key, schema) = schemas[index]
             do {
-                if let entry = try makeParent(name: TypeName(key), schema: schema, level: 0) {
+                if let entry = try makeParent(name: TypeName(key), schema: schema, level: 0), !entry.isEmpty {
                     lock.lock()
                     generated[index] = entry
                     lock.unlock()
@@ -103,7 +103,7 @@ final class GenerateSchemas {
         case .boolean, .number, .integer:
             return nil // Inline
         case .string(let coreContext, _):
-            if isEnum(schema) {
+            if isEnum(coreContext) {
                 return try makeEnum(name: name, coreContext: coreContext)
             }
             return nil // Inline 'String'
@@ -284,6 +284,9 @@ final class GenerateSchemas {
             throw GeneratorError("Missing array item type")
         }
         if let type = try? getPrimitiveType(for: item) {
+            guard !options.isInliningPrimitiveTypes else {
+                return ""
+            }
             return "\(access)typealias \(name) = [\(type)]"
         }
         // Requres generation of a separate type
@@ -314,14 +317,29 @@ final class GenerateSchemas {
     }
     
     private func isInlinable(_ schema: JSONSchema) -> Bool {
-        !isEnum(schema)
+        switch schema {
+        case .boolean: return true
+        case .number: return true
+        case .integer: return true
+        case .string(let coreContext, _):
+            return !isEnum(coreContext)
+        case .object: return false
+        case .array(_, let arrayContext):
+            if let item = arrayContext.items {
+                return (try? getPrimitiveType(for: item)) != nil
+            }
+            return false
+        case .all: return false
+        case .one: return false
+        case .any: return false
+        case .not: return false
+        case .reference: return false
+        case .fragment: return false
+        }
     }
     
-    private func isEnum(_ schema: JSONSchema) -> Bool {
-        if case .string(let coreContext, _) = schema, coreContext.allowedValues != nil {
-            return true
-        }
-        return false
+    private func isEnum(_ coreContext: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> Bool {
+        coreContext.allowedValues != nil
     }
     
     // MARK: Misc
@@ -361,10 +379,14 @@ final class GenerateSchemas {
         case .reference(let reference, _):
             switch reference {
             case .internal(let ref):
-                if options.schemes.isInliningPrimitiveTypes,
-                   let deref = try? reference.dereferenced(in: spec.components),
-                   let type = try? getPrimitiveType(for: deref.jsonSchema),
-                   isInlinable(deref.jsonSchema) {
+                // Note: while dereferencing, it does it recursively.
+                // So if you have `typealias Pets = [Pet]`, it'll dereference
+                // `Pet` to an `.object`, not a `.reference`.
+                if options.isInliningPrimitiveTypes,
+                   let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
+                   let scheme = spec.components.schemas[key],
+                    let type = try? getPrimitiveType(for: scheme),
+                    isInlinable(scheme) {
                     return type // Inline simple types
                 }
                 guard let name = ref.name else {
@@ -503,7 +525,7 @@ final class GenerateSchemas {
     
     /// Adds title, description, examples, etc.
     private func makeHeader(for context: JSONSchemaContext) -> String {
-        guard options.generateComments else {
+        guard options.isGeneratingComments else {
             return ""
         }
         var output = ""

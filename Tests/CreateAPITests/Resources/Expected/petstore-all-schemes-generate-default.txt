@@ -203,8 +203,6 @@ public struct Animal: Decodable {
     }
 }
 
-public typealias AnimalFarm = [Animal]
-
 public struct FormatTest: Decodable {
     public var binary: String?
     public var byte: String

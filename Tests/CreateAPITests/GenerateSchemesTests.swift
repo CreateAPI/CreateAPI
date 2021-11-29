@@ -49,7 +49,7 @@ final class GenerateSchemesTests: XCTestCase {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
-        options.generateComments = false
+        options.isGeneratingComments = false
         
         // WHEN
         let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
@@ -75,7 +75,7 @@ final class GenerateSchemesTests: XCTestCase {
         // GIVEN
         let spec = spec(named: "petstore-expanded")
         let options = GenerateOptions()
-        options.generateComments = false
+        options.isGeneratingComments = false
         
         // WHEN
         let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()

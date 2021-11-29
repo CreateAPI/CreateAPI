@@ -4,23 +4,22 @@
 
 final class GenerateOptions {
     var access: String?
-    var schemes: Schemes
-    var generateComments: Bool
+    var isGeneratingComments: Bool
+    var isInliningPrimitiveTypes: Bool
+    var schemes: SchemesOptions
     
-    struct Schemes {
+    struct SchemesOptions {
         var isGeneratingStructs: Bool
         var isGeneratingInitWithCoder: Bool
         // TODO: Implement baseClass and adoptedProtocols
         var baseClass: String?
         var adoptedProtocols: [String]
-        var isInliningPrimitiveTypes: Bool
         
-        init(_ schemes: GenerateOptionsScheme.Schemes?) {
+        init(_ schemes: GenerateOptionsScheme.SchemesOptions?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
-            self.isInliningPrimitiveTypes = schemes?.isInliningPrimitiveTypes ?? true
         }
     }
     
@@ -31,21 +30,22 @@ final class GenerateOptions {
     
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
-        self.generateComments = options.generateComments ?? true
-        self.schemes = Schemes(options.schemes)
+        self.isGeneratingComments = options.isGeneratingComments ?? true
+        self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
+        self.schemes = SchemesOptions(options.schemes)
     }
 }
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
-    var schemes: Schemes?
-    var generateComments: Bool?
-
-    struct Schemes: Codable {
+    var schemes: SchemesOptions?
+    var isGeneratingComments: Bool?
+    var isInliningPrimitiveTypes: Bool?
+    
+    struct SchemesOptions: Codable {
         var isGeneratingStructs: Bool?
         var isGeneratingInitWithCoder: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
-        var isInliningPrimitiveTypes: Bool?
     }
 }

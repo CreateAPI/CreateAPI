@@ -97,6 +97,14 @@ components:
           type: string
         tag:
           type: string
+    Store:
+      description:
+      type: object
+      required:
+        - pets
+      properties:
+        pets:
+          $ref: "#/components/schemas/Pets"
     Pets:
       type: array
       items:

@@ -14369,8 +14369,6 @@ public struct Stargazer: Decodable {
     }
 }
 
-public typealias CodeFrequencyStat = [Int]
-
 /// Commit Activity
 public struct CommitActivity: Decodable {
     /// Example:

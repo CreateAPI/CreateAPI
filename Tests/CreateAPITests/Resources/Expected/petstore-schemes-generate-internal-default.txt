@@ -21,7 +21,14 @@ struct Pet: Decodable {
     }
 }
 
-typealias Pets = [Pet]
+struct Store: Decodable {
+    var pets: [Pet]
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.pets = try values.decode([Pet].self, forKey: "pets")
+    }
+}
 
 struct Error: Decodable {
     var code: Int
