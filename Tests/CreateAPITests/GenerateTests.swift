@@ -37,6 +37,22 @@ final class GenerateTests: XCTestCase {
       #endif
     }
     
+    func testTypeName() {
+        XCTAssertEqual(TypeName("app").rawValue, "App")
+        XCTAssertEqual(TypeName("app-manifests").rawValue, "AppManifests")
+        // XCTAssertEqual(TypeName("{code}").rawValue, "WithCode")
+        XCTAssertEqual(TypeName("appManifests").rawValue, "AppManifests")
+    }
+    
+    func testPropertyName() {
+        XCTAssertEqual(PropertyName("app").rawValue, "app")
+        XCTAssertEqual(PropertyName("app-manifests").rawValue, "appManifests")
+        XCTAssertEqual(PropertyName("{code}").rawValue, "code")
+        XCTAssertEqual(PropertyName("appManifests").rawValue, "appManifests")
+        XCTAssertEqual(PropertyName("avatar_url").rawValue, "avatarURL")
+        XCTAssertEqual(PropertyName("node_id").rawValue, "nodeID")
+    }
+    
     func testMakeType() {
         XCTAssertEqual(makeType("app"), "App")
         XCTAssertEqual(makeType("app-manifests"), "AppManifests")

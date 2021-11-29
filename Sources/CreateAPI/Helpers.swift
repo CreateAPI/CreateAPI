@@ -5,8 +5,60 @@
 import Foundation
 import OpenAPIKit30
 
+/// A camel-case  type name.
+///
+/// Using these types add type-safety and allows the client to avoid redundant computations.
+struct TypeName: CustomStringConvertible {
+    let rawValue: String
+    
+    init(_ key: OpenAPI.ComponentKey) {
+        self.init(key.rawValue)
+    }
+    
+    init(_ rawValue: String) {
+        self.rawValue = rawValue.toCamelCase.escapedTypeName
+    }
+
+    private init(processedRawValue: String) {
+        self.rawValue = processedRawValue
+    }
+
+    var description: String { rawValue }
+    
+    // Appends the name without re-doing most of the processing.
+    func appending(_ text: String) -> TypeName {
+        TypeName(processedRawValue: rawValue + text)
+    }
+}
+
+/// A property/parameter  name in a camel-case format, e.g. `gistsURL`.
+///
+/// If the name matches one of the Swift keywords, it's automatically escaped.
+struct PropertyName: CustomStringConvertible {
+    let rawValue: String
+    
+    init(_ rawValue: String) {
+        self.rawValue = rawValue.sanitized.toCamelCase.lowercasedFirstLetter().escapedPropertyName
+    }
+    
+    var description: String { rawValue }
+}
+
+private extension String {
+    var sanitized: String {
+        if first == "+" {
+            return "plus\(dropFirst())"
+        }
+        if first == "-" {
+            return "minus\(dropFirst())"
+        }
+        return self
+    }
+}
+
+// TODO: remove
 func makeType(_ string: String) -> String {
-    let name = string.toCamelCase
+    let name = string.sanitized.toCamelCase
     let output = string.isParameter ? "With\(name)" : name
     if output == "Self" {
         return "`Self`"
@@ -14,8 +66,9 @@ func makeType(_ string: String) -> String {
     return output
 }
 
+// TODO: remove
 func makeParameter(_ string: String) -> String {
-    string.toCamelCase.lowercasedFirstLetter().escaped
+    string.toCamelCase.lowercasedFirstLetter().escapedPropertyName
 }
 
 extension String {
@@ -57,9 +110,16 @@ private let keywords = Set(["public", "private", "open", "fileprivate", "default
 private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 
 extension String {
-    var escaped: String {
+    var escapedPropertyName: String {
         guard keywords.contains(self.lowercased()) else { return self }
         return "`\(self)`"
+    }
+    
+    var escapedTypeName: String {
+        if self == "Self" {
+            return "`Self`"
+        }
+        return self
     }
 }
 

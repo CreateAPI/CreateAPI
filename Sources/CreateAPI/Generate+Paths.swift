@@ -84,7 +84,7 @@ extension Generate {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat) var \(type.lowercasedFirstLetter().escaped): \(type) {
+                        \(access)\(stat) var \(type.lowercasedFirstLetter().escapedPropertyName): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                         
