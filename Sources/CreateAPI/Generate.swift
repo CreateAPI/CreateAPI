@@ -36,9 +36,20 @@ struct Generate: ParsableCommand {
         }
         
         // TODO: Add JSON support
+        let startTime = CFAbsoluteTimeGetCurrent()
+        if verbose {
+            print("Parsing the spec")
+        }
+        
         let input = (input as NSString).expandingTildeInPath
         let data = try Data(contentsOf: URL(fileURLWithPath: input))
         let spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
+        
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        if verbose {
+            print("Finished parsing the spec \(timeElapsed) s.")
+        }
+        
         
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
