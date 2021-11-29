@@ -5,11 +5,18 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Add Encodable support
+// TODO: Add an option to use CodingKeys instead of custom init
+// TODO: Option to just use automatic CodingKeys (if you backend is perfect)
+// TODO: Add an option to generate an initializer
+// TODO: See what needs to be fixed in petstore-all
+// TODO: Add support for default values
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
+// TODO: Better naming for inline/nested objects
 // TODO: Do something about NullableSimpleUser (best generic approach)
 // TODO: Get rid of remainig typealiases
-// TODO: Add verbose mode
+// TODO: Print more in verbose mode
 // TODO: Add warnings for unsupported features
 // TODO: Inline typealias for array
 // TODO: Make inline-typealias an option
@@ -25,6 +32,9 @@ final class GenerateSchemas {
     var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
     var baseClass: String { options.schemes.baseClass ?? "" }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
+    
+    private var isAnyJSONUsed = false
+    private let lock = NSLock()
     
     init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool) {
         self.spec = spec
@@ -266,54 +276,6 @@ final class GenerateSchemas {
         return output
     }
     
-    /// Adds title, description, examples, etc.
-    private func makeHeader(for context: JSONSchemaContext) -> String {
-        guard options.generateComments else {
-            return ""
-        }
-        var output = ""
-        if let title = context.title, !title.isEmpty {
-            output += "/// \(title)\n"
-        }
-        if let description = context.description, !description.isEmpty, description != context.title {
-            if !output.isEmpty {
-                output += "///\n"
-            }
-            for line in description.split(separator: "\n") {
-                output += "/// \(line)\n"
-            }
-        }
-        if let example = context.example?.value {
-            let value: String
-            func format(dictionary: [String: Any]) -> String {
-                let values = dictionary.keys.sorted().map { "  \"\($0)\": \"\(dictionary[$0]!)\"" }
-                return "{\n\(values.joined(separator: ",\n"))\n}"
-            }
-            
-            if JSONSerialization.isValidJSONObject(example) {
-                let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
-                value = String(data: data ?? Data(), encoding: .utf8) ?? ""
-            } else {
-                value = "\(example)"
-            }
-            if value.count > 1 { // Only display if it's something substantial
-                if !output.isEmpty {
-                    output += "///\n"
-                }
-                let lines = value.split(separator: "\n")
-                if lines.count == 1 {
-                    output += "/// Example: \(value)\n"
-                } else {
-                    output += "/// Example:\n\n"
-                    for line in lines {
-                        output += "/// \(line)\n"
-                    }
-                }
-            }
-        }
-        return output
-    }
-    
     // MARK: Typealiases
             
     private func makeTypealiasArray(_ name: TypeName, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, _ arrayContext: JSONSchema.ArrayContext) throws -> String {
@@ -533,6 +495,62 @@ final class GenerateSchemas {
         }
         return types.map { parameter(for: $0!) }
     }
+    
+    // MARK: Helpers
+    
+    /// Adds title, description, examples, etc.
+    private func makeHeader(for context: JSONSchemaContext) -> String {
+        guard options.generateComments else {
+            return ""
+        }
+        var output = ""
+        if let title = context.title, !title.isEmpty {
+            output += "/// \(title)\n"
+        }
+        if let description = context.description, !description.isEmpty, description != context.title {
+            if !output.isEmpty {
+                output += "///\n"
+            }
+            for line in description.split(separator: "\n") {
+                output += "/// \(line)\n"
+            }
+        }
+        if let example = context.example?.value {
+            let value: String
+            func format(dictionary: [String: Any]) -> String {
+                let values = dictionary.keys.sorted().map { "  \"\($0)\": \"\(dictionary[$0]!)\"" }
+                return "{\n\(values.joined(separator: ",\n"))\n}"
+            }
+            
+            if JSONSerialization.isValidJSONObject(example) {
+                let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
+                value = String(data: data ?? Data(), encoding: .utf8) ?? ""
+            } else {
+                value = "\(example)"
+            }
+            if value.count > 1 { // Only display if it's something substantial
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                let lines = value.split(separator: "\n")
+                if lines.count == 1 {
+                    output += "/// Example: \(value)\n"
+                } else {
+                    output += "/// Example:\n\n"
+                    for line in lines {
+                        output += "/// \(line)\n"
+                    }
+                }
+            }
+        }
+        return output
+    }
+
+    func setAnyJsonNeeded() {
+        lock.lock()
+        isAnyJSONUsed = true
+        lock.unlock()
+    }
 }
 
 struct GeneratorError: Error, LocalizedError {
@@ -545,13 +563,4 @@ struct GeneratorError: Error, LocalizedError {
     var errorDescription: String? {
         message
     }
-}
-
-private var isAnyJSONUsed = false
-private let lock = NSLock()
-
-func setAnyJsonNeeded() {
-    lock.lock()
-    isAnyJSONUsed = true
-    lock.unlock()
 }
