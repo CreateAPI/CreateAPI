@@ -5,14 +5,16 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Use SwiftFormat to align stuff?
 // TODO: Generate initializer
+// TODO: Add parallelism
 // TODO: Allow to specify Codable/Decodable
+// TODO: Add mechanism to pass options (with --option to override)
 // TODO: Add an option to skip comments
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
 // TODO: Do something about NullableSimpleUser (best generic approach)
 // TODO: Get rid of remainig typealiases
+// TODO: Add verbose mode
 
 extension Generate {
     func generateSchemas(for spec: OpenAPI.Document) -> String {

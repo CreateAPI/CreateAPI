@@ -46,7 +46,7 @@ extension String {
             return self
         }
         return components(separatedBy: "\n")
-            .map { String(repeating: " ", count: count) + $0 }
+            .map { $0.isEmpty ? $0 : String(repeating: " ", count: count) + $0 }
             .joined(separator: "\n")
     }
 }

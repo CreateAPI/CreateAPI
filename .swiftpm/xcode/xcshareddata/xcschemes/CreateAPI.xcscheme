@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FuseCLI_FuseCLITests"
-               BuildableName = "FuseCLI_FuseCLITests"
-               BlueprintName = "FuseCLI_FuseCLITests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FuseCLI"
-               BuildableName = "FuseCLI"
-               BlueprintName = "FuseCLI"
+               BlueprintIdentifier = "CreateAPI"
+               BuildableName = "CreateAPI"
+               BlueprintName = "CreateAPI"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FuseCLITests"
-               BuildableName = "FuseCLITests"
-               BlueprintName = "FuseCLITests"
+               BlueprintIdentifier = "CreateAPITests"
+               BuildableName = "CreateAPITests"
+               BlueprintName = "CreateAPITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -60,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FuseCLITests"
-               BuildableName = "FuseCLITests"
-               BlueprintName = "FuseCLITests"
+               BlueprintIdentifier = "CreateAPITests"
+               BuildableName = "CreateAPITests"
+               BlueprintName = "CreateAPITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -82,9 +68,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FuseCLI"
-            BuildableName = "FuseCLI"
-            BlueprintName = "FuseCLI"
+            BlueprintIdentifier = "CreateAPI"
+            BuildableName = "CreateAPI"
+            BlueprintName = "CreateAPI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -105,9 +91,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FuseCLI"
-            BuildableName = "FuseCLI"
-            BlueprintName = "FuseCLI"
+            BlueprintIdentifier = "CreateAPI"
+            BuildableName = "CreateAPI"
+            BlueprintName = "CreateAPI"
             ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
