@@ -5,12 +5,12 @@
 import Foundation
 import XCTest
 
-private var isGeneratingExpected = false
-private var isOpeningDiff = true
 private var projectPath = "~/Developer/CreateAPI/" // TODO: Find it automatically
 
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) {
-    if isGeneratingExpected {
+    let env = ProcessInfo.processInfo.environment
+    
+    if env["GENERATING_SNAPSHOTS"] == "true" {
         let projectPath = (projectPath as NSString).expandingTildeInPath
         let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
         try! actual.data(using: .utf8)!.write(to: url)
@@ -21,7 +21,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
             let actualURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".swift")
             try! expectedText.data(using: .utf8)!.write(to: expectedURL)
             try! actual.data(using: .utf8)!.write(to: actualURL)
-            if isOpeningDiff {
+            if env["OPEN_DIFF"] == "true" {
                 shell("opendiff", expectedURL.path, actualURL.path)
             }
             XCTFail("Specs don't match")
