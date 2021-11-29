@@ -1,13 +1,13 @@
 import XCTest
 import class Foundation.Bundle
-@testable import FuseCLI
+@testable import CreateAPI
 
 final class GenerateTests: XCTestCase {
     func testExample() throws {
         // Mac Catalyst won't have `Process`, but it is supported for executables.
         #if !targetEnvironment(macCatalyst)
 
-        let fooBinary = productsDirectory.appendingPathComponent("NanoGen")
+        let fooBinary = productsDirectory.appendingPathComponent("create-api")
 
         let process = Process()
         process.executableURL = fooBinary
