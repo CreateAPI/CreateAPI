@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct Pet: Decodable {
+public final class Pet: Decodable {
     public var id: Int
     public var name: String
     public var tag: String?
@@ -19,7 +19,7 @@ public struct Pet: Decodable {
 
 public typealias Pets = Pet
 
-public struct Error: Decodable {
+public final class Error: Decodable {
     public var code: Int
     public var message: String
 

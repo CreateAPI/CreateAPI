@@ -23,7 +23,7 @@ final class GenerateSchemes {
     let verbose: Bool
     
     var access: String { options.access }
-    var modelType: String { options.schemes.isGeneratingStructs ? "final class" : "struct" }
+    var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
     var baseClass: String { options.schemes.baseClass ?? "" }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
     

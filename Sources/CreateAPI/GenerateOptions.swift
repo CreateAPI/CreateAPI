@@ -3,8 +3,8 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 final class GenerateOptions {
-    let access: String
-    let schemes: Schemes
+    var access: String
+    var schemes: Schemes
     
     struct Schemes {
         var isGeneratingStructs: Bool
