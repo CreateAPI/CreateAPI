@@ -9,12 +9,14 @@ final class GenerateOptions {
     
     struct Schemes {
         var isGeneratingStructs: Bool
+        var isGeneratingInitWithCoder: Bool
         // TODO: Implement baseClass and adoptedProtocols
         var baseClass: String?
         var adoptedProtocols: [String]
         
         init(_ schemes: GenerateOptionsScheme.Schemes?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
+            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
         }
@@ -39,6 +41,7 @@ final class GenerateOptionsScheme: Decodable {
 
     struct Schemes: Codable {
         var isGeneratingStructs: Bool?
+        var isGeneratingInitWithCoder: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
     }

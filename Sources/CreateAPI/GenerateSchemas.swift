@@ -10,6 +10,8 @@ import Foundation
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: Add an option to generate an initializer
 // TODO: See what needs to be fixed in petstore-all
+// TODO: Add an option to map/customize properties
+// TODO: Add "is" to properties + exceptions
 // TODO: Add support for default values
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
@@ -232,7 +234,7 @@ final class GenerateSchemas {
             output += "\n"
         }
         
-        if !properties.isEmpty {
+        if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
             output += "\n"
             output += "    \(access)init(from decoder: Decoder) throws {\n"
             output += "        let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
