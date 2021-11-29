@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Add an option to disable inlining (not implemented yet)
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Add Encodable support
 // TODO: Add an option to use CodingKeys instead of custom init
