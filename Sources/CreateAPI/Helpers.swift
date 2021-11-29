@@ -3,6 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
+import OpenAPIKit30
 
 func makeType(_ string: String) -> String {
     let name = string.toCamelCase

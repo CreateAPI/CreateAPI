@@ -42,7 +42,6 @@ extension Generate {
                     output += "\n\n"
                 }
             } catch {
-                errorsCount += 1
                 print("ERROR: Failed to generate entity for \(key): \(error)")
             }
         }
