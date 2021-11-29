@@ -112,6 +112,11 @@ private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
+// TODO: Find a better way to do concurrent perform.
+var suggestedCoreCount: Int {
+    ProcessInfo.processInfo.processorCount
+}
+
 let anyJSON = """
 public enum AnyJSON: Equatable {
     case string(String)
