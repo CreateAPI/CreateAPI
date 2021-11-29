@@ -492,17 +492,6 @@ extension Generate {
     }
 }
 
-// TODO: Remove
-private func sanitizedKey(_ key: String) -> String {
-    if key.first == "+" {
-        return "plus\(key.dropFirst())"
-    }
-    if key.first == "-" {
-        return "minus\(key.dropFirst())"
-    }
-    return key
-}
-
 struct GeneratorError: Error, LocalizedError {
     let message: String
 
