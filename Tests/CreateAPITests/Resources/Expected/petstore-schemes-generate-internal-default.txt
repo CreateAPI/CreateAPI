@@ -21,7 +21,7 @@ struct Pet: Decodable {
     }
 }
 
-typealias Pets = Pet
+typealias Pets = [Pet]
 
 struct Error: Decodable {
     var code: Int

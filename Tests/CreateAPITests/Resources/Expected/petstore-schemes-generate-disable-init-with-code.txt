@@ -14,7 +14,7 @@ public struct Pet: Decodable {
     public var tag: String?
 }
 
-public typealias Pets = Pet
+public typealias Pets = [Pet]
 
 public struct Error: Decodable {
     public var code: Int

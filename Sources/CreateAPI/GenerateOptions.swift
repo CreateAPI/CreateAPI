@@ -13,12 +13,14 @@ final class GenerateOptions {
         // TODO: Implement baseClass and adoptedProtocols
         var baseClass: String?
         var adoptedProtocols: [String]
+        var isInliningPrimitiveTypes: Bool
         
         init(_ schemes: GenerateOptionsScheme.Schemes?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
+            self.isInliningPrimitiveTypes = schemes?.isInliningPrimitiveTypes ?? true
         }
     }
     
@@ -44,5 +46,6 @@ final class GenerateOptionsScheme: Decodable {
         var isGeneratingInitWithCoder: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
+        var isInliningPrimitiveTypes: Bool?
     }
 }

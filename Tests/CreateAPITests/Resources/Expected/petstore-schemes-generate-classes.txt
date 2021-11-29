@@ -21,7 +21,7 @@ public final class Pet: Decodable {
     }
 }
 
-public typealias Pets = Pet
+public typealias Pets = [Pet]
 
 public final class Error: Decodable {
     public var code: Int

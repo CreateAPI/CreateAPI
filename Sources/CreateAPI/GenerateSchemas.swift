@@ -21,7 +21,6 @@ import Foundation
 // TODO: Print more in verbose mode
 // TODO: Add warnings for unsupported features
 // TODO: Inline typealias for array
-// TODO: Make inline-typealias an option
 // TODO: Add Linux support
 // TODO: Add SwiftLint disable all
 
@@ -164,7 +163,7 @@ final class GenerateSchemas {
             guard let item = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if let type = try? getSimpleType(for: item) {
+            if let type = try? getPrimitiveType(for: item) {
                 return child(name: propertyName, type: "[\(type)]", context: coreContext)
             }
             let name = TypeName(key).appending("Item")
@@ -185,7 +184,7 @@ final class GenerateSchemas {
             default:
                 context = schema.coreContext
             }
-            let type = try getSimpleType(for: schema)
+            let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, context: context)
         }
     }
@@ -284,8 +283,8 @@ final class GenerateSchemas {
         guard let item = arrayContext.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try? getSimpleType(for: item) {
-            return "\(access)typealias \(name) = \(type)"
+        if let type = try? getPrimitiveType(for: item) {
+            return "\(access)typealias \(name) = [\(type)]"
         }
         // Requres generation of a separate type
         var output = ""
@@ -327,7 +326,8 @@ final class GenerateSchemas {
     
     // MARK: Misc
     
-    private func getSimpleType(for json: JSONSchema) throws -> String {
+    // Anything that's not an object or a reference.
+    private func getPrimitiveType(for json: JSONSchema) throws -> String {
         switch json {
         case .boolean: return "Bool"
         case .number: return "Double"
@@ -349,7 +349,7 @@ final class GenerateSchemas {
             guard let items = arrayContext.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return "[\(try getSimpleType(for: items))]"
+            return "[\(try getPrimitiveType(for: items))]"
         case .all(let of, _):
             throw GeneratorError("`allOf` is not supported: \(of)")
         case .one(let of, _):
@@ -361,8 +361,9 @@ final class GenerateSchemas {
         case .reference(let reference, _):
             switch reference {
             case .internal(let ref):
-                if let deref = try? reference.dereferenced(in: spec.components),
-                   let type = try? getSimpleType(for: deref.jsonSchema),
+                if options.schemes.isInliningPrimitiveTypes,
+                   let deref = try? reference.dereferenced(in: spec.components),
+                   let type = try? getPrimitiveType(for: deref.jsonSchema),
                    isInlinable(deref.jsonSchema) {
                     return type // Inline simple types
                 }
@@ -474,7 +475,7 @@ final class GenerateSchemas {
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
-            types[index] = try? getSimpleType(for: schema)
+            types[index] = try? getPrimitiveType(for: schema)
         }
         
         // Generate names for anonymous nested objects
