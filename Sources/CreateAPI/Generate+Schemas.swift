@@ -200,12 +200,12 @@ extension Generate {
         }
         
         // TODO: Is generating init/deinit faster for compilation?
-        let hasCustomCodingKeys = keys.contains { makeParameter(sanitizedKey($0)) != $0 }
+        let hasCustomCodingKeys = keys.contains { PropertyName($0).rawValue != $0 }
         if hasCustomCodingKeys {
             output += "\n"
             output += "    private enum CodingKeys: String, CodingKey {\n"
             for key in keys where !skippedKeys.contains(key) {
-                let parameter = makeParameter(sanitizedKey(key))
+                let parameter = PropertyName(key).rawValue
                 if parameter == key {
                     output += "        case \(parameter)\n"
                 } else {
@@ -362,7 +362,7 @@ extension Generate {
                 guard let name = ref.name else {
                     throw GeneratorError("Internal reference name is missing: \(ref)")
                 }
-                return makeType(name)
+                return TypeName(name).rawValue
             case .external(let url):
                 throw GeneratorError("External references are not supported: \(url)")
             }
@@ -486,7 +486,7 @@ extension Generate {
         // Disambiguate arrays
         func parameter(for type: String) -> String {
             let isArray = type.starts(with: "[") // TODO: Refactor
-            return "\(makeParameter(type))\(isArray ? "s" : "")"
+            return "\(PropertyName(type))\(isArray ? "s" : "")"
         }
         return types.map { parameter(for: $0!) }
     }

@@ -31,7 +31,7 @@ struct TypeName: CustomStringConvertible {
     }
 }
 
-/// A property/parameter  name in a camel-case format, e.g. `gistsURL`.
+/// A property/parameter name in a camel-case format, e.g. `gistsURL`.
 ///
 /// If the name matches one of the Swift keywords, it's automatically escaped.
 struct PropertyName: CustomStringConvertible {
@@ -54,28 +54,19 @@ private extension String {
         }
         return self
     }
-}
-
-// TODO: remove
-func makeType(_ string: String) -> String {
-    let name = string.sanitized.toCamelCase
-    let output = string.isParameter ? "With\(name)" : name
-    if output == "Self" {
-        return "`Self`"
-    }
-    return output
-}
-
-// TODO: remove
-func makeParameter(_ string: String) -> String {
-    string.toCamelCase.lowercasedFirstLetter().escapedPropertyName
-}
-
-extension String {
-    var isParameter: Bool {
-        starts(with: "{")
+    
+    var escapedPropertyName: String {
+        guard keywords.contains(self.lowercased()) else { return self }
+        return "`\(self)`"
     }
     
+    var escapedTypeName: String {
+        if self == "Self" {
+            return "`Self`"
+        }
+        return self
+    }
+
     // Starting with capitalized first letter.
     var toCamelCase: String {
         var components = replacingOccurrences(of: "'", with: "")
@@ -95,6 +86,16 @@ extension String {
             .joined(separator: "")
     }
     
+    func capitalizingFirstLetter() -> String {
+        prefix(1).capitalized + dropFirst()
+    }
+
+    func lowercasedFirstLetter() -> String {
+        prefix(1).lowercased() + dropFirst()
+    }
+}
+
+extension String {
     func shiftedRight(count: Int) -> String {
         guard count > 0 else {
             return self
@@ -108,32 +109,6 @@ extension String {
 private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self", "none"])
 
 private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
-
-extension String {
-    var escapedPropertyName: String {
-        guard keywords.contains(self.lowercased()) else { return self }
-        return "`\(self)`"
-    }
-    
-    var escapedTypeName: String {
-        if self == "Self" {
-            return "`Self`"
-        }
-        return self
-    }
-}
-
-extension String {
-    func capitalizingFirstLetter() -> String {
-        prefix(1).capitalized + dropFirst()
-    }
-}
-
-extension String {
-    func lowercasedFirstLetter() -> String {
-        prefix(1).lowercased() + dropFirst()
-    }
-}
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
