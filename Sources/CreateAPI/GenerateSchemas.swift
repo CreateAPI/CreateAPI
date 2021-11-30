@@ -5,9 +5,8 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add an option to disable inlining (not implemented yet)
-// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Add Encodable support
+// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
@@ -33,7 +32,7 @@ final class GenerateSchemas {
     
     var access: String { options.access.map { "\($0) " } ?? "" }
     var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
-    var baseClass: String { options.schemes.baseClass ?? "" }
+    var baseClass: String? { !options.schemes.isGeneratingStructs ? options.schemes.baseClass: nil }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
     
     private var isAnyJSONUsed = false
@@ -204,7 +203,8 @@ final class GenerateSchemas {
         var nested: [String] = []
         
         output += makeHeader(for: coreContext)
-        output += "\(access)\(modelType) \(name): \(protocols) {\n"
+        let base = ([baseClass] + options.schemes.adoptedProtocols).compactMap { $0 }.joined(separator: ", ")
+        output += "\(access)\(modelType) \(name): \(base) {\n"
         let keys = objectContext.properties.keys.sorted()
         var properties: [String: Property] = [:]
         var skippedKeys = Set<String>()

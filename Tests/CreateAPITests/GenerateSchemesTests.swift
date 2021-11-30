@@ -32,6 +32,20 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-classes", actual: output)
     }
     
+    func testPetstoreGenerateClassesWithBaseClass() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.schemes.isGeneratingStructs = false
+        options.schemes.baseClass = "NSObject"
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-generate-classes-with-base", actual: output)
+    }
+    
     func testChangeAccessControl() {
         // GIVEN
         let spec = spec(named: "petstore")

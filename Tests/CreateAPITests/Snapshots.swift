@@ -10,7 +10,7 @@ private var projectPath = "~/Developer/CreateAPI/" // TODO: Find it automaticall
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) {
     let env = ProcessInfo.processInfo.environment
     
-    if env["GENERATE_SNAPSHOTS"] == "true" {
+    if env["GENERATE_SNAPSHOTS"] == "true" || !fileExists(named: expected, ext: "txt") {
         let projectPath = (projectPath as NSString).expandingTildeInPath
         // Unfortunately, I can't used `.swift` because SPM ignores these files
         let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")

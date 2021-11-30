@@ -27,7 +27,6 @@ struct Generate: ParsableCommand {
     let `import` = "APIClient"
     let namespace = "Paths"
     let access = "public"
-    let model = "Decodable"
     
     // TODO: tabs/spaces + count
     

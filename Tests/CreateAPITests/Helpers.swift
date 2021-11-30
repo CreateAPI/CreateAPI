@@ -12,6 +12,10 @@ func file(named name: String, ext: String) -> Data {
     return try! Data(contentsOf: url!)
 }
 
+func fileExists(named name: String, ext: String) -> Bool {
+    Bundle.module.url(forResource: name, withExtension: ext) != nil
+}
+
 func spec(named name: String) -> OpenAPI.Document {
     let data = file(named: name, ext: "yaml")
     return try! YAMLDecoder().decode(OpenAPI.Document.self, from: data)
