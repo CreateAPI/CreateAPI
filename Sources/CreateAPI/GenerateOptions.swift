@@ -5,13 +5,13 @@
 final class GenerateOptions {
     var access: String?
     var isGeneratingComments: Bool
+    var isGeneratingEnums: Bool
     var isInliningPrimitiveTypes: Bool
     var schemes: SchemesOptions
     
     struct SchemesOptions {
         var isGeneratingStructs: Bool
         var isGeneratingInitWithCoder: Bool
-        // TODO: Implement baseClass and adoptedProtocols
         var baseClass: String?
         var adoptedProtocols: [String]
         
@@ -31,6 +31,7 @@ final class GenerateOptions {
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
         self.isGeneratingComments = options.isGeneratingComments ?? true
+        self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.schemes = SchemesOptions(options.schemes)
     }
@@ -38,9 +39,10 @@ final class GenerateOptions {
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
-    var schemes: SchemesOptions?
     var isGeneratingComments: Bool?
+    var isGeneratingEnums: Bool?
     var isInliningPrimitiveTypes: Bool?
+    var schemes: SchemesOptions?
     
     struct SchemesOptions: Codable {
         var isGeneratingStructs: Bool?

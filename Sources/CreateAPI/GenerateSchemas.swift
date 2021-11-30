@@ -376,7 +376,7 @@ final class GenerateSchemas {
     }
     
     private func isEnum(_ coreContext: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> Bool {
-        coreContext.allowedValues != nil
+        options.isGeneratingEnums && coreContext.allowedValues != nil
     }
     
     // MARK: Misc

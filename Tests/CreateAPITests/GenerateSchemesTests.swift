@@ -122,6 +122,19 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-all-schemes-generate-default", actual: output)
     }
+    
+    func testPetstoreAllDisableEnumGeneration() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.isGeneratingEnums = false
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-disable-enums", actual: output)
+    }
 
     func testGenerateGithub() {
         // GIVEN
