@@ -44,7 +44,7 @@ final class GenerateSchemas {
     private var isAnyJSONUsed = false
     private let lock = NSLock()
     
-    init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool, parallel: Bool) {
+    init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool = false, parallel: Bool = false) {
         self.spec = spec
         self.options = options
         self.verbose = verbose
