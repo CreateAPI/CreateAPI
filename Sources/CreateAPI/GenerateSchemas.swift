@@ -7,7 +7,6 @@ import Foundation
 
 // TODO: Add "is" to properties + exceptions
 // TODO: Add an option to map/customize properties
-// TODO: Fix case `none` = "none"
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
@@ -368,9 +367,10 @@ final class GenerateSchemas {
         var output = ""
         output += makeHeader(for: coreContext)
         output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
+        let escaped = CharacterSet(charactersIn: "`")
         for value in values {
             let caseName = PropertyName(value).rawValue
-            if caseName != value {
+            if caseName.trimmingCharacters(in: escaped) != value {
                 output += "    case \(caseName) = \"\(value)\"\n"
             } else {
                 output += "    case \(caseName)\n"
