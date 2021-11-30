@@ -5,9 +5,8 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add an option to disable parallelization (disable by default)
-// TODO: Add JSON tests
-// TODO: Parallelize decoding (examples + as much as possible separately)
+// TODO: Add "is" to properties + exceptions
+// TODO: Add an option to map/customize properties
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Parse "/"
@@ -17,8 +16,6 @@ import Foundation
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: Add an option to generate an initializer
 // TODO: See what needs to be fixed in petstore-all
-// TODO: Add an option to map/customize properties
-// TODO: Add "is" to properties + exceptions
 // TODO: Add support for default values
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
@@ -29,6 +26,7 @@ import Foundation
 // TODO: Add Linux support
 // TODO: Add SwiftLint disable all
 // TODO: Remove remainig dereferencing
+// TODO: Add JSON tests
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
