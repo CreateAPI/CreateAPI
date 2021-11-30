@@ -32,6 +32,33 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-classes", actual: output)
     }
     
+    func testPetstoreOverrideGenerateAsClasses() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.schemes.entitiesGeneratedAsClasses = ["Store"]
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-entitites-generated-as-classes", actual: output)
+    }
+    
+    func testPetstoreOverrideGenerateAsStructs() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.schemes.isGeneratingStructs = false
+        options.schemes.entitiesGeneratedAsStructs = ["Error"]
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-entitites-generated-as-structs", actual: output)
+    }
+    
     func testPetstoreMapPropertyNames() {
         // GIVEN
         let spec = spec(named: "petstore-all")

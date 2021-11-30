@@ -13,6 +13,8 @@ final class GenerateOptions {
     // TODO: Inline this?
     struct SchemesOptions {
         var isGeneratingStructs: Bool
+        var entitiesGeneratedAsClasses: Set<String>
+        var entitiesGeneratedAsStructs: Set<String>
         var isGeneratingInitWithCoder: Bool
         var baseClass: String?
         var adoptedProtocols: [String]
@@ -21,6 +23,8 @@ final class GenerateOptions {
         
         init(_ schemes: GenerateOptionsScheme.SchemesOptions?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
+            self.entitiesGeneratedAsClasses = Set(schemes?.entitiesGeneratedAsClasses ?? [])
+            self.entitiesGeneratedAsStructs = Set(schemes?.entitiesGeneratedAsStructs ?? [])
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
@@ -49,6 +53,8 @@ final class GenerateOptionsScheme: Decodable {
     
     struct SchemesOptions: Codable {
         var isGeneratingStructs: Bool?
+        var entitiesGeneratedAsClasses: [String]?
+        var entitiesGeneratedAsStructs: [String]?
         var isGeneratingInitWithCoder: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?

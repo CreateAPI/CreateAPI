@@ -28,14 +28,16 @@ import Foundation
 // TODO: Add OpenAPI 3.1 support
 // TODO: Autocapitilize description/title
 
+// TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
+// TODO: Separate mapped* dictionary for enums
+// TODO: entitiesGeneratedAsClasses - add support for nesting
+
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
     private let options: GenerateOptions
     private let arguments: GenerateArguments
     
     var access: String { options.access.map { "\($0) " } ?? "" }
-    var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
-    var baseClass: String? { !options.schemes.isGeneratingStructs ? options.schemes.baseClass: nil }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
 
     private var isAnyJSONUsed = false
@@ -285,9 +287,16 @@ final class GenerateSchemas {
         var output = ""
         var nested: [String] = []
         
+        // Generate header and type defifition
         output += makeHeader(for: coreContext)
-        let base = ([baseClass] + options.schemes.adoptedProtocols).compactMap { $0 }.joined(separator: ", ")
-        output += "\(access)\(modelType) \(name): \(base) {\n"
+        let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
+        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
+            .compactMap { $0 }.joined(separator: " ")
+        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
+            .compactMap { $0 }.joined(separator: ", ")
+        output += "\(lhs): \(rhs) {\n"
+
+        // Generate properties
         let keys = objectContext.properties.keys.sorted()
         var properties: [String: Property] = [:]
         var skippedKeys = Set<String>()
@@ -313,12 +322,14 @@ final class GenerateSchemas {
             output += "\n"
         }
 
+        // Add nested types
         for nested in nested {
             output += "\n"
             output += nested.shiftedRight(count: 4)
             output += "\n"
         }
         
+        // Generate initializer
         if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
             output += "\n"
             output += "    \(access)init(from decoder: Decoder) throws {\n"
