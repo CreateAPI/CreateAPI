@@ -2501,7 +2501,7 @@ public struct Feed: Decodable {
     /// [
     ///   0
     /// ]
-    public var currentUserOrganizationUrls: [URL]?
+    public var currentUserOrganizationURLs: [URL]?
     public var currentUserPublicURL: String?
     public var currentUserURL: String?
     public var securityAdvisoriesURL: String?
@@ -2557,7 +2557,7 @@ public struct Feed: Decodable {
         self.links = try values.decode(Links.self, forKey: "_links")
         self.currentUserActorURL = try values.decodeIfPresent(String.self, forKey: "current_user_actor_url")
         self.currentUserOrganizationURL = try values.decodeIfPresent(String.self, forKey: "current_user_organization_url")
-        self.currentUserOrganizationUrls = try values.decodeIfPresent([URL].self, forKey: "current_user_organization_urls")
+        self.currentUserOrganizationURLs = try values.decodeIfPresent([URL].self, forKey: "current_user_organization_urls")
         self.currentUserPublicURL = try values.decodeIfPresent(String.self, forKey: "current_user_public_url")
         self.currentUserURL = try values.decodeIfPresent(String.self, forKey: "current_user_url")
         self.securityAdvisoriesURL = try values.decodeIfPresent(String.self, forKey: "security_advisories_url")
@@ -13864,7 +13864,7 @@ public struct ScimGroupListEnterprise: Decodable {
 
     public struct ResourcesItem: Decodable {
         public var displayName: String?
-        public var externalId: String?
+        public var externalID: String?
         public var id: String
         public var members: [MembersItem]?
         public var meta: Meta?
@@ -13901,7 +13901,7 @@ public struct ScimGroupListEnterprise: Decodable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
-            self.externalId = try values.decodeIfPresent(String.self, forKey: "externalId")
+            self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
             self.id = try values.decode(String.self, forKey: "id")
             self.members = try values.decodeIfPresent([MembersItem].self, forKey: "members")
             self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
@@ -13921,7 +13921,7 @@ public struct ScimGroupListEnterprise: Decodable {
 
 public struct ScimEnterpriseGroup: Decodable {
     public var displayName: String?
-    public var externalId: String?
+    public var externalID: String?
     public var id: String
     public var members: [MembersItem]?
     public var meta: Meta?
@@ -13958,7 +13958,7 @@ public struct ScimEnterpriseGroup: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
-        self.externalId = try values.decodeIfPresent(String.self, forKey: "externalId")
+        self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
         self.id = try values.decode(String.self, forKey: "id")
         self.members = try values.decodeIfPresent([MembersItem].self, forKey: "members")
         self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
@@ -13976,7 +13976,7 @@ public struct ScimUserListEnterprise: Decodable {
     public struct ResourcesItem: Decodable {
         public var isActive: Bool?
         public var emails: [EmailsItem]?
-        public var externalId: String?
+        public var externalID: String?
         public var groups: [GroupsItem]?
         public var id: String
         public var meta: Meta?
@@ -14036,7 +14036,7 @@ public struct ScimUserListEnterprise: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
             self.emails = try values.decodeIfPresent([EmailsItem].self, forKey: "emails")
-            self.externalId = try values.decodeIfPresent(String.self, forKey: "externalId")
+            self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
             self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
             self.id = try values.decode(String.self, forKey: "id")
             self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
@@ -14059,7 +14059,7 @@ public struct ScimUserListEnterprise: Decodable {
 public struct ScimEnterpriseUser: Decodable {
     public var isActive: Bool?
     public var emails: [EmailsItem]?
-    public var externalId: String?
+    public var externalID: String?
     public var groups: [GroupsItem]?
     public var id: String
     public var meta: Meta?
@@ -14119,7 +14119,7 @@ public struct ScimEnterpriseUser: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
         self.emails = try values.decodeIfPresent([EmailsItem].self, forKey: "emails")
-        self.externalId = try values.decodeIfPresent(String.self, forKey: "externalId")
+        self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
         self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
         self.id = try values.decode(String.self, forKey: "id")
         self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
@@ -14159,7 +14159,7 @@ public struct ScimUser: Decodable {
     /// The ID of the User.
     ///
     /// Example: a7b0f98395
-    public var externalId: String?
+    public var externalID: String?
     /// associated groups
     public var groups: [GroupsItem]?
     /// Unique identifier of an external identity
@@ -14301,7 +14301,7 @@ public struct ScimUser: Decodable {
         self.isActive = try values.decode(Bool.self, forKey: "active")
         self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
         self.emails = try values.decode([EmailsItem].self, forKey: "emails")
-        self.externalId = try values.decodeIfPresent(String.self, forKey: "externalId")
+        self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
         self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
         self.id = try values.decode(String.self, forKey: "id")
         self.meta = try values.decode(Meta.self, forKey: "meta")

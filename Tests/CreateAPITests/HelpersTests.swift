@@ -28,6 +28,17 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(TypeName("UserServiceDeviceHasAccessTo").rawValue, "UserServiceDeviceHasAccessTo")
         XCTAssertEqual(TypeName("Won't").rawValue, "Wont")
 
+        // Abbreviations
+        XCTAssertEqual(TypeName("petId").rawValue, "PetID")
+        XCTAssertEqual(TypeName("pedIdentifer").rawValue, "PedIdentifer")
+        XCTAssertEqual(TypeName("gistUrl").rawValue, "GistURL")
+        XCTAssertEqual(TypeName("gistUrls").rawValue, "GistURLs")
+        XCTAssertEqual(TypeName("urlForGists").rawValue, "URLForGists")
+        XCTAssertEqual(TypeName("protocolHttpTest").rawValue, "ProtocolHTTPTest")
+        XCTAssertEqual(TypeName("protocolHttpsTest").rawValue, "ProtocolHTTPSTest")
+        XCTAssertEqual(TypeName("HttpTest").rawValue, "HTTPTest")
+        XCTAssertEqual(TypeName("HttpsTest").rawValue, "HTTPSTest")
+        
         // Keywords
         XCTAssertEqual(TypeName("Type").rawValue, "`Type`")
         XCTAssertEqual(TypeName("Self").rawValue, "`Self`")
@@ -59,6 +70,15 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(PropertyName("UserServiceDeviceHasAccessTo").rawValue, "userServiceDeviceHasAccessTo")
         XCTAssertEqual(PropertyName("UserService.getCustomerDevices").rawValue, "userServiceGetCustomerDevices")
         XCTAssertEqual(PropertyName("won't").rawValue, "wont")
+        
+        // Abbreviations
+        XCTAssertEqual(PropertyName("petId").rawValue, "petID")
+        XCTAssertEqual(PropertyName("petIdentifer").rawValue, "petIdentifer")
+        XCTAssertEqual(PropertyName("gistUrl").rawValue, "gistURL")
+        XCTAssertEqual(PropertyName("gistUrls").rawValue, "gistURLs")
+        XCTAssertEqual(PropertyName("urlForGists").rawValue, "urlForGists")
+        XCTAssertEqual(PropertyName("protocolHttpTest").rawValue, "protocolHTTPTest")
+        XCTAssertEqual(PropertyName("protocolHttpsTest").rawValue, "protocolHTTPSTest")
         
         // Keywords
         XCTAssertEqual(PropertyName("self").rawValue, "`self`")

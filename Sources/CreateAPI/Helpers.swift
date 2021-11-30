@@ -196,10 +196,12 @@ struct PropertyName: CustomStringConvertible {
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 
 private extension String {
+    // Returns separate words in a camelCase strings
     var words: [String] {
+        // TODO: Refactor (not sure it's correct either)
         var output: [String] = []
         var remainig = self[...]
-        while let index = remainig.firstIndex(where: { $0.isUppercase }) {
+        while var index = remainig.firstIndex(where: { $0.isUppercase }) {
             output.append(String(remainig[..<index]))
             if !remainig.isEmpty {
                 let start = remainig.startIndex
@@ -252,10 +254,6 @@ private extension String {
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
-                // Special-case for abbreviations, e.g. "URL"
-                if (!isProperty || index != 0) && abbreviations.contains(string.lowercased()) {
-                    return string.uppercased()
-                }
                 if (isProperty && index == 0) {
                     return string.lowercasedFirstLetter()
                 }
@@ -269,6 +267,16 @@ private extension String {
         if !CharacterSet(charactersIn: String(first)).isSubset(of: .letters) {
             output = "_" + output
         }
+        // Replace abbreviations (but only at code boundries)
+        // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
+        // TODO: Refactor
+        for abbreviation in abbreviations {
+            if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
+               (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
+                output.replaceSubrange(range, with: abbreviation.uppercased())
+            }
+        }
+        
         output = isProperty ? output.escapedPropertyName : output.escapedTypeName
         return output
     }
@@ -297,7 +305,8 @@ private let keywords = Set(["public", "private", "open", "fileprivate", "default
 
 private let capitilizedKeywords = Set(["Self", "Type"])
 
-private let abbreviations = Set(["url", "id", "html", "ssl", "tls", "http", "https", "dns", "ftp"])
+// WARNING: Order is important (consuming the longer one first)
+private let abbreviations = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp"]
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [

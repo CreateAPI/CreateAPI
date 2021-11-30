@@ -7,7 +7,7 @@ import Foundation
 public struct Order: Decodable {
     public var isComplete: Bool?
     public var id: Int?
-    public var petId: Int?
+    public var petID: Int?
     public var quantity: Int?
     public var shipDate: Date?
     /// Order Status
@@ -17,7 +17,7 @@ public struct Order: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete")
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-        self.petId = try values.decodeIfPresent(Int.self, forKey: "petId")
+        self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
         self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(String.self, forKey: "status")
@@ -75,7 +75,7 @@ public struct Pet: Decodable {
     public var id: Int?
     /// Example: doggie
     public var name: String
-    public var photoUrls: [String]
+    public var photoURLs: [String]
     /// pet status in the store
     public var status: String?
     public var tags: [Tag]?
@@ -85,7 +85,7 @@ public struct Pet: Decodable {
         self.category = try values.decodeIfPresent(Category.self, forKey: "category")
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
-        self.photoUrls = try values.decode([String].self, forKey: "photoUrls")
+        self.photoURLs = try values.decode([String].self, forKey: "photoUrls")
         self.status = try values.decodeIfPresent(String.self, forKey: "status")
         self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
     }

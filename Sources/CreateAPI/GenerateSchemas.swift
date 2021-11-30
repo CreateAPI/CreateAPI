@@ -27,6 +27,7 @@ import Foundation
 // TODO: Add OpenAPI 3.1 support
 // TODO: Autocapitilize description/title
 // TODO: Add an option to ignore errors in arrays
+// TODO: Rename to GenerateEntities
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Separate mapped* dictionary for enums
@@ -199,8 +200,9 @@ final class GenerateSchemas {
             let name = makePropertyName(for: name, type: type)
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
-                
+
         let propertyName = PropertyName(key)
+   
         switch schema {
         case .object(let coreContext, let objectContext):
             if objectContext.properties.isEmpty, let additional = objectContext.additionalProperties {
