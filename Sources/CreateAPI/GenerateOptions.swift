@@ -6,6 +6,7 @@ final class GenerateOptions {
     var access: String?
     var isGeneratingComments: Bool
     var isGeneratingEnums: Bool
+    var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
     var schemes: SchemesOptions
     
@@ -32,6 +33,7 @@ final class GenerateOptions {
         self.access = options.access ?? "public"
         self.isGeneratingComments = options.isGeneratingComments ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
+        self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.schemes = SchemesOptions(options.schemes)
     }
@@ -41,6 +43,7 @@ final class GenerateOptionsScheme: Decodable {
     var access: String?
     var isGeneratingComments: Bool?
     var isGeneratingEnums: Bool?
+    var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
     var schemes: SchemesOptions?
     

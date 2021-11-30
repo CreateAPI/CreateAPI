@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add "is" to properties + exceptions
 // TODO: Add an option to map/customize properties
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
@@ -168,7 +167,7 @@ final class GenerateSchemas {
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
-            let name = type == "Bool" ? name.asBoolean() : name
+            let name = (options.isGeneratingSwiftyBooleanPropertyNames && type == "Bool") ? name.asBoolean() : name
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
                 

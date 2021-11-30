@@ -12192,7 +12192,7 @@ public struct PagesHealthCheck: Decodable {
 
     public struct AltDomain: Decodable {
         public var caaError: String?
-        public var isDNSResolves: Bool?
+        public var dnsResolves: Bool?
         public var enforcesHTTPS: Bool?
         public var hasCnameRecord: Bool?
         public var hasMxRecordsPresent: Bool?
@@ -12223,7 +12223,7 @@ public struct PagesHealthCheck: Decodable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.caaError = try values.decodeIfPresent(String.self, forKey: "caa_error")
-            self.isDNSResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
+            self.dnsResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
             self.enforcesHTTPS = try values.decodeIfPresent(Bool.self, forKey: "enforces_https")
             self.hasCnameRecord = try values.decodeIfPresent(Bool.self, forKey: "has_cname_record")
             self.hasMxRecordsPresent = try values.decodeIfPresent(Bool.self, forKey: "has_mx_records_present")
@@ -12255,7 +12255,7 @@ public struct PagesHealthCheck: Decodable {
 
     public struct Domain: Decodable {
         public var caaError: String?
-        public var isDNSResolves: Bool?
+        public var dnsResolves: Bool?
         public var enforcesHTTPS: Bool?
         public var hasCnameRecord: Bool?
         public var hasMxRecordsPresent: Bool?
@@ -12286,7 +12286,7 @@ public struct PagesHealthCheck: Decodable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.caaError = try values.decodeIfPresent(String.self, forKey: "caa_error")
-            self.isDNSResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
+            self.dnsResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
             self.enforcesHTTPS = try values.decodeIfPresent(Bool.self, forKey: "enforces_https")
             self.hasCnameRecord = try values.decodeIfPresent(Bool.self, forKey: "has_cname_record")
             self.hasMxRecordsPresent = try values.decodeIfPresent(Bool.self, forKey: "has_mx_records_present")
