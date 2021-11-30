@@ -646,188 +646,188 @@ public struct AppPermissions: Decodable {
 
     /// The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`.
     public enum Actions: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`.
     public enum Administration: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`.
     public enum Checks: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`.
     public enum ContentReferences: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`.
     public enum Contents: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`.
     public enum Deployments: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`.
     public enum Environments: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`.
     public enum Issues: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`.
     public enum Members: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`.
     public enum Metadata: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`.
     public enum OrganizationAdministration: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`.
     public enum OrganizationHooks: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for organization packages published to GitHub Packages. Can be one of: `read` or `write`.
     public enum OrganizationPackages: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`.
     public enum OrganizationPlan: String, Codable, CaseIterable {
-        case read = "read"
+        case read
     }
 
     /// The level of permission to grant the access token to manage organization projects and projects beta (where available). Can be one of: `read`, `write`, or `admin`.
     public enum OrganizationProjects: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
-        case admin = "admin"
+        case read
+        case write
+        case admin
     }
 
     /// The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`.
     public enum OrganizationSecrets: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`.
     public enum OrganizationSelfHostedRunners: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`.
     public enum OrganizationUserBlocking: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`.
     public enum Packages: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`.
     public enum Pages: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`.
     public enum PullRequests: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`.
     public enum RepositoryHooks: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`.
     public enum RepositoryProjects: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
-        case admin = "admin"
+        case read
+        case write
+        case admin
     }
 
     /// The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`.
     public enum SecretScanningAlerts: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`.
     public enum Secrets: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`.
     public enum SecurityEvents: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`.
     public enum SingleFile: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`.
     public enum Statuses: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`.
     public enum TeamDiscussions: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to manage Dependabot alerts. Can be one of: `read` or `write`.
     public enum VulnerabilityAlerts: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
+        case read
+        case write
     }
 
     /// The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`.
     public enum Workflows: String, Codable, CaseIterable {
-        case write = "write"
+        case write
     }
 
     public init(from decoder: Decoder) throws {
@@ -929,8 +929,8 @@ public struct Installation: Decodable {
 
     /// Describe whether all repositories have been selected or there's a selection involved
     public enum RepositorySelection: String, Codable, CaseIterable {
-        case all = "all"
-        case selected = "selected"
+        case all
+        case selected
     }
 
     public init(from decoder: Decoder) throws {
@@ -1511,8 +1511,8 @@ public struct InstallationToken: Decodable {
     public var token: String
 
     public enum RepositorySelection: String, Codable, CaseIterable {
-        case all = "all"
-        case selected = "selected"
+        case all
+        case selected
     }
 
     public init(from decoder: Decoder) throws {
@@ -1607,8 +1607,8 @@ public struct NullableScopedInstallation: Decodable {
 
     /// Describe whether all repositories have been selected or there's a selection involved
     public enum RepositorySelection: String, Codable, CaseIterable {
-        case all = "all"
-        case selected = "selected"
+        case all
+        case selected
     }
 
     public init(from decoder: Decoder) throws {
@@ -1733,16 +1733,16 @@ public struct CodeOfConduct: Decodable {
 
 /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
 public enum EnabledOrganizations: String, Codable, CaseIterable {
-    case all = "all"
+    case all
     case `none` = "none"
-    case selected = "selected"
+    case selected
 }
 
 /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
 public enum AllowedActions: String, Codable, CaseIterable {
-    case all = "all"
+    case all
     case localOnly = "local_only"
-    case selected = "selected"
+    case selected
 }
 
 public struct ActionsEnterprisePermissions: Decodable {
@@ -1868,7 +1868,7 @@ public struct Runner: Decodable {
         /// The type of label. Read-only labels are applied automatically when the runner is configured.
         public enum `Type`: String, Codable, CaseIterable {
             case readOnly = "read-only"
-            case custom = "custom"
+            case custom
         }
 
         public init(from decoder: Decoder) throws {
@@ -1946,8 +1946,8 @@ public struct AuthenticationToken: Decodable {
 
     /// Describe whether all repositories have been selected or there's a selection involved
     public enum RepositorySelection: String, Codable, CaseIterable {
-        case all = "all"
-        case selected = "selected"
+        case all
+        case selected
     }
 
     public init(from decoder: Decoder) throws {
@@ -2250,7 +2250,7 @@ public struct NullableMilestone: Decodable {
     /// Example: open
     public enum State: String, Codable, CaseIterable {
         case `open` = "open"
-        case closed = "closed"
+        case closed
     }
 
     public init(from decoder: Decoder) throws {
@@ -4536,9 +4536,9 @@ public struct OrganizationFull: Decodable {
 
 /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
 public enum EnabledRepositories: String, Codable, CaseIterable {
-    case all = "all"
+    case all
     case `none` = "none"
-    case selected = "selected"
+    case selected
 }
 
 public struct ActionsOrganizationPermissions: Decodable {
@@ -4602,9 +4602,9 @@ public struct OrganizationActionsSecret: Decodable {
 
     /// Visibility of a secret
     public enum Visibility: String, Codable, CaseIterable {
-        case all = "all"
+        case all
         case `private` = "private"
-        case selected = "selected"
+        case selected
     }
 
     public init(from decoder: Decoder) throws {
@@ -5160,8 +5160,8 @@ public struct OrgMembership: Decodable {
     ///
     /// Example: admin
     public enum Role: String, Codable, CaseIterable {
-        case admin = "admin"
-        case member = "member"
+        case admin
+        case member
         case billingManager = "billing_manager"
     }
 
@@ -5169,8 +5169,8 @@ public struct OrgMembership: Decodable {
     ///
     /// Example: active
     public enum State: String, Codable, CaseIterable {
-        case active = "active"
-        case pending = "pending"
+        case active
+        case pending
     }
 
     public init(from decoder: Decoder) throws {
@@ -5489,12 +5489,12 @@ public struct Package: Decodable {
 
     /// Example: docker
     public enum PackageType: String, Codable, CaseIterable {
-        case npm = "npm"
-        case maven = "maven"
-        case rubygems = "rubygems"
-        case docker = "docker"
-        case nuget = "nuget"
-        case container = "container"
+        case npm
+        case maven
+        case rubygems
+        case docker
+        case nuget
+        case container
     }
 
     /// Example: private
@@ -5577,12 +5577,12 @@ public struct PackageVersion: Decodable {
 
         /// Example: docker
         public enum PackageType: String, Codable, CaseIterable {
-            case npm = "npm"
-            case maven = "maven"
-            case rubygems = "rubygems"
-            case docker = "docker"
-            case nuget = "nuget"
-            case container = "container"
+            case npm
+            case maven
+            case rubygems
+            case docker
+            case nuget
+            case container
         }
 
         public init(from decoder: Decoder) throws {
@@ -5647,9 +5647,9 @@ public struct Project: Decodable {
 
     /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
     public enum OrganizationPermission: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
-        case admin = "admin"
+        case read
+        case write
+        case admin
         case `none` = "none"
     }
 
@@ -5676,14 +5676,14 @@ public struct Project: Decodable {
 /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
 public enum SecretScanningAlertState: String, Codable, CaseIterable {
     case `open` = "open"
-    case resolved = "resolved"
+    case resolved
 }
 
 /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
 public enum SecretScanningAlertResolution: String, Codable, CaseIterable {
     case falsePositive = "false_positive"
     case wontFix = "wont_fix"
-    case revoked = "revoked"
+    case revoked
     case usedInTests = "used_in_tests"
 }
 
@@ -5843,8 +5843,8 @@ public struct TeamFull: Decodable {
     ///
     /// Example: closed
     public enum Privacy: String, Codable, CaseIterable {
-        case closed = "closed"
-        case secret = "secret"
+        case closed
+        case secret
     }
 
     public init(from decoder: Decoder) throws {
@@ -6013,12 +6013,12 @@ public struct Reaction: Decodable {
     public enum Content: String, Codable, CaseIterable {
         case plus1 = "+1"
         case minus1 = "-1"
-        case laugh = "laugh"
-        case confused = "confused"
-        case heart = "heart"
-        case hooray = "hooray"
-        case rocket = "rocket"
-        case eyes = "eyes"
+        case laugh
+        case confused
+        case heart
+        case hooray
+        case rocket
+        case eyes
     }
 
     public init(from decoder: Decoder) throws {
@@ -6045,14 +6045,14 @@ public struct TeamMembership: Decodable {
     ///
     /// Example: member
     public enum Role: String, Codable, CaseIterable {
-        case member = "member"
-        case maintainer = "maintainer"
+        case member
+        case maintainer
     }
 
     /// The state of the user's membership in the team.
     public enum State: String, Codable, CaseIterable {
-        case active = "active"
-        case pending = "pending"
+        case active
+        case pending
     }
 
     public init(from decoder: Decoder) throws {
@@ -6736,8 +6736,8 @@ public struct FullRepository: Decodable {
             public var status: Status?
 
             public enum Status: String, Codable, CaseIterable {
-                case enabled = "enabled"
-                case disabled = "disabled"
+                case enabled
+                case disabled
             }
 
             public init(from decoder: Decoder) throws {
@@ -6750,8 +6750,8 @@ public struct FullRepository: Decodable {
             public var status: Status?
 
             public enum Status: String, Codable, CaseIterable {
-                case enabled = "enabled"
-                case disabled = "disabled"
+                case enabled
+                case disabled
             }
 
             public init(from decoder: Decoder) throws {
@@ -6975,9 +6975,9 @@ public struct Job: Decodable {
     ///
     /// Example: queued
     public enum Status: String, Codable, CaseIterable {
-        case queued = "queued"
+        case queued
         case inProgress = "in_progress"
-        case completed = "completed"
+        case completed
     }
 
     public struct StepsItem: Decodable {
@@ -7007,9 +7007,9 @@ public struct Job: Decodable {
         ///
         /// Example: queued
         public enum Status: String, Codable, CaseIterable {
-            case queued = "queued"
+            case queued
             case inProgress = "in_progress"
-            case completed = "completed"
+            case completed
         }
 
         public init(from decoder: Decoder) throws {
@@ -7339,8 +7339,8 @@ public struct EnvironmentApprovals: Decodable {
     ///
     /// Example: approved
     public enum State: String, Codable, CaseIterable {
-        case approved = "approved"
-        case rejected = "rejected"
+        case approved
+        case rejected
     }
 
     public init(from decoder: Decoder) throws {
@@ -7670,8 +7670,8 @@ public struct Workflow: Decodable {
 
     /// Example: active
     public enum State: String, Codable, CaseIterable {
-        case active = "active"
-        case deleted = "deleted"
+        case active
+        case deleted
         case disabledFork = "disabled_fork"
         case disabledInactivity = "disabled_inactivity"
         case disabledManually = "disabled_manually"
@@ -8217,13 +8217,13 @@ public struct DiffEntry: Decodable {
 
     /// Example: added
     public enum Status: String, Codable, CaseIterable {
-        case added = "added"
-        case removed = "removed"
-        case modified = "modified"
-        case renamed = "renamed"
-        case copied = "copied"
-        case changed = "changed"
-        case unchanged = "unchanged"
+        case added
+        case removed
+        case modified
+        case renamed
+        case copied
+        case changed
+        case unchanged
     }
 
     public init(from decoder: Decoder) throws {
@@ -8646,11 +8646,11 @@ public struct CheckRun: Decodable {
 
     /// Example: neutral
     public enum Conclusion: String, Codable, CaseIterable {
-        case success = "success"
-        case failure = "failure"
-        case neutral = "neutral"
-        case cancelled = "cancelled"
-        case skipped = "skipped"
+        case success
+        case failure
+        case neutral
+        case cancelled
+        case skipped
         case timedOut = "timed_out"
         case actionRequired = "action_required"
     }
@@ -8676,9 +8676,9 @@ public struct CheckRun: Decodable {
     ///
     /// Example: queued
     public enum Status: String, Codable, CaseIterable {
-        case queued = "queued"
+        case queued
         case inProgress = "in_progress"
-        case completed = "completed"
+        case completed
     }
 
     public init(from decoder: Decoder) throws {
@@ -8817,20 +8817,20 @@ public struct CheckSuite: Decodable {
 
     /// Example: neutral
     public enum Conclusion: String, Codable, CaseIterable {
-        case success = "success"
-        case failure = "failure"
-        case neutral = "neutral"
-        case cancelled = "cancelled"
-        case skipped = "skipped"
+        case success
+        case failure
+        case neutral
+        case cancelled
+        case skipped
         case timedOut = "timed_out"
         case actionRequired = "action_required"
     }
 
     /// Example: completed
     public enum Status: String, Codable, CaseIterable {
-        case queued = "queued"
+        case queued
         case inProgress = "in_progress"
-        case completed = "completed"
+        case completed
     }
 
     public init(from decoder: Decoder) throws {
@@ -8893,9 +8893,9 @@ public struct CheckSuitePreference: Decodable {
 /// State of a code scanning alert.
 public enum CodeScanningAlertState: String, Codable, CaseIterable {
     case `open` = "open"
-    case closed = "closed"
-    case dismissed = "dismissed"
-    case fixed = "fixed"
+    case closed
+    case dismissed
+    case fixed
 }
 
 /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
@@ -8918,9 +8918,9 @@ public struct CodeScanningAlertRuleSummary: Decodable {
     /// The severity of the alert.
     public enum Severity: String, Codable, CaseIterable {
         case `none` = "none"
-        case note = "note"
-        case warning = "warning"
-        case error = "error"
+        case note
+        case warning
+        case error
     }
 
     public init(from decoder: Decoder) throws {
@@ -8968,10 +8968,10 @@ public struct CodeScanningAlertLocation: Decodable {
 
 /// A classification of the file. For example to identify it as generated.
 public enum CodeScanningAlertClassification: String, Codable, CaseIterable {
-    case source = "source"
-    case generated = "generated"
-    case test = "test"
-    case library = "library"
+    case source
+    case generated
+    case test
+    case library
 }
 
 public struct CodeScanningAlertInstance: Decodable {
@@ -9079,18 +9079,18 @@ public struct CodeScanningAlertRule: Decodable {
 
     /// The security severity of the alert.
     public enum SecuritySeverityLevel: String, Codable, CaseIterable {
-        case low = "low"
-        case medium = "medium"
-        case high = "high"
-        case critical = "critical"
+        case low
+        case medium
+        case high
+        case critical
     }
 
     /// The severity of the alert.
     public enum Severity: String, Codable, CaseIterable {
         case `none` = "none"
-        case note = "note"
-        case warning = "warning"
-        case error = "error"
+        case note
+        case warning
+        case error
     }
 
     public init(from decoder: Decoder) throws {
@@ -9149,7 +9149,7 @@ public struct CodeScanningAlert: Decodable {
 /// Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
 public enum CodeScanningAlertSetState: String, Codable, CaseIterable {
     case `open` = "open"
-    case dismissed = "dismissed"
+    case dismissed
 }
 
 public struct CodeScanningAnalysis: Decodable {
@@ -9248,9 +9248,9 @@ public struct CodeScanningSarifsStatus: Decodable {
 
     /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored. `failed` files have either not been processed at all, or could only be partially processed.
     public enum ProcessingStatus: String, Codable, CaseIterable {
-        case pending = "pending"
-        case complete = "complete"
-        case failed = "failed"
+        case pending
+        case complete
+        case failed
     }
 
     public init(from decoder: Decoder) throws {
@@ -9297,8 +9297,8 @@ public struct NullableCodespaceMachine: Decodable {
     /// Example: blob
     public enum PrebuildAvailability: String, Codable, CaseIterable {
         case `none` = "none"
-        case blob = "blob"
-        case pool = "pool"
+        case blob
+        case pool
     }
 
     public init(from decoder: Decoder) throws {
@@ -9497,8 +9497,8 @@ public struct CodespaceMachine: Decodable {
     /// Example: blob
     public enum PrebuildAvailability: String, Codable, CaseIterable {
         case `none` = "none"
-        case blob = "blob"
-        case pool = "pool"
+        case blob
+        case pool
     }
 
     public init(from decoder: Decoder) throws {
@@ -9618,11 +9618,11 @@ public struct RepositoryInvitation: Decodable {
     ///
     /// Example: read
     public enum Permissions: String, Codable, CaseIterable {
-        case read = "read"
-        case write = "write"
-        case admin = "admin"
-        case triage = "triage"
-        case maintain = "maintain"
+        case read
+        case write
+        case admin
+        case triage
+        case maintain
     }
 
     public init(from decoder: Decoder) throws {
@@ -9825,9 +9825,9 @@ public struct AutoMerge: Decodable {
 
     /// The merge method to use.
     public enum MergeMethod: String, Codable, CaseIterable {
-        case merge = "merge"
-        case squash = "squash"
-        case rebase = "rebase"
+        case merge
+        case squash
+        case rebase
     }
 
     public init(from decoder: Decoder) throws {
@@ -10251,10 +10251,10 @@ public struct CommitComparison: Decodable {
 
     /// Example: ahead
     public enum Status: String, Codable, CaseIterable {
-        case diverged = "diverged"
-        case ahead = "ahead"
-        case behind = "behind"
-        case identical = "identical"
+        case diverged
+        case ahead
+        case behind
+        case identical
     }
 
     public init(from decoder: Decoder) throws {
@@ -10816,12 +10816,12 @@ public struct DeploymentStatus: Decodable {
     ///
     /// Example: success
     public enum State: String, Codable, CaseIterable {
-        case error = "error"
-        case failure = "failure"
-        case inactive = "inactive"
-        case pending = "pending"
-        case success = "success"
-        case queued = "queued"
+        case error
+        case failure
+        case inactive
+        case pending
+        case success
+        case queued
         case inProgress = "in_progress"
     }
 
@@ -11491,19 +11491,19 @@ public struct Import: Decodable {
     }
 
     public enum Status: String, Codable, CaseIterable {
-        case auth = "auth"
-        case error = "error"
+        case auth
+        case error
         case `none` = "none"
-        case detecting = "detecting"
-        case choose = "choose"
+        case detecting
+        case choose
         case authFailed = "auth_failed"
-        case importing = "importing"
-        case mapping = "mapping"
+        case importing
+        case mapping
         case waitingToPush = "waiting_to_push"
-        case pushing = "pushing"
-        case complete = "complete"
-        case setup = "setup"
-        case unknown = "unknown"
+        case pushing
+        case complete
+        case setup
+        case unknown
         case detectionFoundMultiple = "detection_found_multiple"
         case detectionFoundNothing = "detection_found_nothing"
         case detectionNeedsAuth = "detection_needs_auth"
@@ -13312,7 +13312,7 @@ public struct MergedUpstream: Decodable {
     public var message: String?
 
     public enum MergeType: String, Codable, CaseIterable {
-        case merge = "merge"
+        case merge
         case fastForward = "fast-forward"
         case `none` = "none"
     }
@@ -13368,7 +13368,7 @@ public struct Milestone: Decodable {
     /// Example: open
     public enum State: String, Codable, CaseIterable {
         case `open` = "open"
-        case closed = "closed"
+        case closed
     }
 
     public init(from decoder: Decoder) throws {
@@ -13423,15 +13423,15 @@ public struct PagesHttpsCertificate: Decodable {
 
     /// Example: approved
     public enum State: String, Codable, CaseIterable {
-        case new = "new"
+        case new
         case authorizationCreated = "authorization_created"
         case authorizationPending = "authorization_pending"
-        case authorized = "authorized"
+        case authorized
         case authorizationRevoked = "authorization_revoked"
-        case issued = "issued"
-        case uploaded = "uploaded"
-        case approved = "approved"
-        case errored = "errored"
+        case issued
+        case uploaded
+        case approved
+        case errored
         case badAuthz = "bad_authz"
         case destroyPending = "destroy_pending"
         case dnsChanged = "dns_changed"
@@ -13489,18 +13489,18 @@ public struct Page: Decodable {
     ///
     /// Example: pending
     public enum ProtectedDomainState: String, Codable, CaseIterable {
-        case pending = "pending"
-        case verified = "verified"
-        case unverified = "unverified"
+        case pending
+        case verified
+        case unverified
     }
 
     /// The status of the most recent build of the Page.
     ///
     /// Example: built
     public enum Status: String, Codable, CaseIterable {
-        case built = "built"
-        case building = "building"
-        case errored = "errored"
+        case built
+        case building
+        case errored
     }
 
     public init(from decoder: Decoder) throws {
@@ -14532,7 +14532,7 @@ public struct PullRequest: Decodable {
     /// Example: open
     public enum State: String, Codable, CaseIterable {
         case `open` = "open"
-        case closed = "closed"
+        case closed
     }
 
     public init(from decoder: Decoder) throws {
@@ -14842,7 +14842,7 @@ public struct ReleaseAsset: Decodable {
 
     /// State of the release asset.
     public enum State: String, Codable, CaseIterable {
-        case uploaded = "uploaded"
+        case uploaded
         case `open` = "open"
     }
 
@@ -15642,9 +15642,9 @@ public struct ScimUser: Decodable {
         public var value: Value?
 
         public enum Op: String, Codable, CaseIterable {
-            case add = "add"
-            case remove = "remove"
-            case replace = "replace"
+            case add
+            case remove
+            case replace
         }
 
         public enum Value: Decodable {
@@ -16556,9 +16556,9 @@ public struct CodespacesSecret: Decodable {
 
     /// Visibility of a secret
     public enum Visibility: String, Codable, CaseIterable {
-        case all = "all"
+        case all
         case `private` = "private"
-        case selected = "selected"
+        case selected
     }
 
     public init(from decoder: Decoder) throws {

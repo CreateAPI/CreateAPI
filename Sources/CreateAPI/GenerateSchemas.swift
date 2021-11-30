@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Remove reduncant enum case = ""
 // TODO: Fix public enum MapOfEnumStringItem: String, Codable, CaseIterable { alignment
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
@@ -344,7 +343,12 @@ final class GenerateSchemas {
         output += makeHeader(for: coreContext)
         output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
         for value in values {
-            output += "    case \(PropertyName(value)) = \"\(value)\"\n"
+            let caseName = PropertyName(value).rawValue
+            if caseName != value {
+                output += "    case \(caseName) = \"\(value)\"\n"
+            } else {
+                output += "    case \(caseName)\n"
+            }
         }
         output += "}"
         return output

@@ -15,9 +15,9 @@ public struct Order: Decodable {
 
     /// Order Status
     public enum Status: String, Codable, CaseIterable {
-        case placed = "placed"
-        case approved = "approved"
-        case delivered = "delivered"
+        case placed
+        case approved
+        case delivered
     }
 
     public init(from decoder: Decoder) throws {
@@ -89,9 +89,9 @@ public struct Pet: Decodable {
 
     /// pet status in the store
     public enum Status: String, Codable, CaseIterable {
-        case available = "available"
-        case pending = "pending"
-        case sold = "sold"
+        case available
+        case pending
+        case sold
     }
 
     public init(from decoder: Decoder) throws {
@@ -264,7 +264,7 @@ public struct EnumTest: Decodable {
 
     public enum EnumString: String, Codable, CaseIterable {
         case upper = "UPPER"
-        case lower = "lower"
+        case lower
     }
 
     public init(from decoder: Decoder) throws {
@@ -366,7 +366,7 @@ public struct MapTest: Decodable {
 
 public enum MapOfEnumStringItem: String, Codable, CaseIterable {
     case upper = "UPPER"
-    case lower = "lower"
+    case lower
 }
 
     public init(from decoder: Decoder) throws {
@@ -421,8 +421,8 @@ public struct EnumArrays: Decodable {
     public var justSymbol: JustSymbol?
 
 public enum ArrayEnumItem: String, Codable, CaseIterable {
-    case fish = "fish"
-    case crab = "crab"
+    case fish
+    case crab
 }
 
     public enum JustSymbol: String, Codable, CaseIterable {
@@ -438,9 +438,9 @@ public enum ArrayEnumItem: String, Codable, CaseIterable {
 }
 
 public enum OuterEnum: String, Codable, CaseIterable {
-    case placed = "placed"
-    case approved = "approved"
-    case delivered = "delivered"
+    case placed
+    case approved
+    case delivered
 }
 
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
