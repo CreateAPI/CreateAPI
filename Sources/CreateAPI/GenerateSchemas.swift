@@ -5,7 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add an option to disable parallelization
+// TODO: Add an option to disable parallelization (disable by default)
 // TODO: Add JSON tests
 // TODO: Parallelize decoding (examples + as much as possible separately)
 // TODO: Check why public struct ConfigItem: Decodable { is empty
