@@ -32,6 +32,24 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-classes", actual: output)
     }
     
+    func testPetstoreMapPropertyNames() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.schemes.mappedPropertyNames = [
+            "id": "identifier",
+            "Category.name": "title", // Only Categy.name should be affected, but not anything else, e.g. Tag.name
+            "Pet.status": "state", // Check that enum name also changes
+            "complete": "isDone" // Applied before boolean logic
+        ]
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-mapped-property-names", actual: output)
+    }
+    
     func testPetstoreGenerateClassesWithBaseClass() {
         // GIVEN
         let spec = spec(named: "petstore")

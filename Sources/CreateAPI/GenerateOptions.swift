@@ -10,17 +10,20 @@ final class GenerateOptions {
     var isInliningPrimitiveTypes: Bool
     var schemes: SchemesOptions
     
+    // TODO: Inline this?
     struct SchemesOptions {
         var isGeneratingStructs: Bool
         var isGeneratingInitWithCoder: Bool
         var baseClass: String?
         var adoptedProtocols: [String]
+        var mappedPropertyNames: [String: String]
         
         init(_ schemes: GenerateOptionsScheme.SchemesOptions?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
+            self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
         }
     }
     
@@ -52,6 +55,7 @@ final class GenerateOptionsScheme: Decodable {
         var isGeneratingInitWithCoder: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
+        var mappedPropertyNames: [String: String]?
     }
 }
 

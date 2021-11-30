@@ -25,6 +25,7 @@ import Foundation
 // TODO: Remove remainig dereferencing
 // TODO: Add JSON tests
 // TODO: Add OpenAPI 3.1 support
+// TODO: Autocapitilize description/title
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
@@ -152,6 +153,10 @@ final class GenerateSchemas {
             return nil // Can't appear in this context
         }
     }
+        
+    private struct PropertyContainer {
+        let name: TypeName
+    }
     
     private struct Property {
         // Example: "files"
@@ -163,11 +168,26 @@ final class GenerateSchemas {
         var nested: String?
     }
                 
-    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool) throws -> Property {
+    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in container: PropertyContainer) throws -> Property {
+        func makePropertyName(for name: PropertyName, type: String) -> PropertyName {
+            if !options.schemes.mappedPropertyNames.isEmpty {
+                if let mapped = options.schemes.mappedPropertyNames[name.rawValue] {
+                    return PropertyName(processedRawValue: mapped)
+                }
+                if let mapped = options.schemes.mappedPropertyNames["\(container.name).\(name)"] {
+                    return PropertyName(processedRawValue: mapped)
+                }
+            }
+            if options.isGeneratingSwiftyBooleanPropertyNames && type == "Bool" {
+                return name.asBoolean()
+            }
+            return name
+        }
+        
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
-            let name = (options.isGeneratingSwiftyBooleanPropertyNames && type == "Bool") ? name.asBoolean() : name
+            let name = makePropertyName(for: name, type: type)
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
                 
@@ -219,9 +239,9 @@ final class GenerateSchemas {
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
         case .string(let coreContext, _):
             if isEnum(coreContext) {
-                let name = TypeName(key)
-                let nested = try makeEnum(name: name, coreContext: coreContext)
-                return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
+                let typeName = TypeName(makePropertyName(for: propertyName, type: "CreateAPIEnumPlaceholderName").rawValue)
+                let nested = try makeEnum(name: typeName, coreContext: coreContext)
+                return child(name: propertyName, type: typeName.rawValue, context: schema.coreContext, nested: nested)
             }
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, context: coreContext)
@@ -264,11 +284,12 @@ final class GenerateSchemas {
         let keys = objectContext.properties.keys.sorted()
         var properties: [String: Property] = [:]
         var skippedKeys = Set<String>()
+        let container = PropertyContainer(name: name)
         for key in keys {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired)
+                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired, in: container)
             } catch {
                 skippedKeys.insert(key)
                 print("ERROR: Failed to generate property \(error)")
@@ -478,8 +499,9 @@ final class GenerateSchemas {
     // TODO: Special-case double/string?
     private func makeOneOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
         let types = makeTypeNames(for: schemas)
+        let container = PropertyContainer(name: name)
         let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true)
+            try makeProperty(key: type, schema: schema, isRequired: true, in: container)
         }
         
         var output = "\(access)enum \(name): \(protocols) {\n"
@@ -525,8 +547,9 @@ final class GenerateSchemas {
         
     private func makeAnyOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
         let types = makeTypeNames(for: schemas)
+        let container = PropertyContainer(name: name)
         let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true)
+            try makeProperty(key: type, schema: schema, isRequired: true, in: container)
         }
         
         var output = "\(access)struct \(name): \(protocols) {\n"
