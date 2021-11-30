@@ -258,28 +258,25 @@ public struct EnumTest: Decodable {
 }
 
 public struct AdditionalPropertiesClass: Decodable {
-    public var mapOfMapProperty: [String: MapOfMapPropertyItem]?
-    public var mapProperty: [String: MapPropertyItem]?
-
-    public struct MapOfMapPropertyItem: Decodable {
-    }
+    public var mapOfMapProperty: [String: [String: String]]?
+    public var mapProperty: [String: String]?
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.mapOfMapProperty = try values.decodeIfPresent([String: MapOfMapPropertyItem].self, forKey: "map_of_map_property")
-        self.mapProperty = try values.decodeIfPresent([String: MapPropertyItem].self, forKey: "map_property")
+        self.mapOfMapProperty = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_of_map_property")
+        self.mapProperty = try values.decodeIfPresent([String: String].self, forKey: "map_property")
     }
 }
 
 public struct MixedPropertiesAndAdditionalPropertiesClass: Decodable {
     public var dateTime: Date?
-    public var map: [String: MapItem]?
+    public var map: [String: Animal]?
     public var uuid: String?
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
-        self.map = try values.decodeIfPresent([String: MapItem].self, forKey: "map")
+        self.map = try values.decodeIfPresent([String: Animal].self, forKey: "map")
         self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
     }
 }
@@ -345,21 +342,13 @@ public struct Capitalization: Decodable {
 }
 
 public struct MapTest: Decodable {
-    public var mapMapOfString: [String: MapMapOfStringItem]?
-    public var mapOfEnumString: [String: MapOfEnumStringItem]?
-
-    public struct MapMapOfStringItem: Decodable {
-    }
-
-public enum MapOfEnumStringItem: String, Codable, CaseIterable {
-    case upper = "UPPER"
-    case lower = "lower"
-}
+    public var mapMapOfString: [String: [String: String]]?
+    public var mapOfEnumString: [String: String]?
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.mapMapOfString = try values.decodeIfPresent([String: MapMapOfStringItem].self, forKey: "map_map_of_string")
-        self.mapOfEnumString = try values.decodeIfPresent([String: MapOfEnumStringItem].self, forKey: "map_of_enum_string")
+        self.mapMapOfString = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_map_of_string")
+        self.mapOfEnumString = try values.decodeIfPresent([String: String].self, forKey: "map_of_enum_string")
     }
 }
 

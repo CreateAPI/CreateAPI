@@ -95,7 +95,7 @@ final class GenerateSchemas {
         
         return output
     }
-
+    
     // Recursively creates a type: `struct`, `class`, `enum` – depending on the
     // schema and the user options. Primitive types often used in specs to reuse
     // documentation are inlined.
@@ -136,14 +136,14 @@ final class GenerateSchemas {
         let context: JSONSchemaContext?
         var nested: String?
     }
-        
+            
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Property {
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
-        
+                
         let propertyName = PropertyName(key)
         switch schema {
         case .object(let coreContext, let objectContext):
@@ -152,6 +152,25 @@ final class GenerateSchemas {
                 case .a:
                     return child(name: propertyName, type: "[String: AnyJSON]", context: coreContext)
                 case .b(let schema):
+                    // TODO: Do this recursively, but for now two levels will suffice (map of map)
+                    if case .object(let coreContext, let objectContext) = schema,
+                       objectContext.properties.isEmpty,
+                       let additional = objectContext.additionalProperties {
+                        switch additional {
+                        case .a:
+                            return child(name: propertyName, type: "[String: [String: AnyJSON]]", context: coreContext)
+                        case .b(let schema):
+                            if let type = try? getPrimitiveType(for: schema) {
+                                return child(name: propertyName, type: "[String: [String: \(type)]]", context: coreContext, nested: nil)
+                            }
+                            let nestedTypeName = TypeName(key).appending("Item")
+                            let nested = try makeParent(name: nestedTypeName, schema: schema, level: level + 1)
+                            return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", context: coreContext, nested: nested)
+                        }
+                    }
+                    if let type = try? getPrimitiveType(for: schema) {
+                        return child(name: propertyName, type: "[String: \(type)]", context: coreContext, nested: nil)
+                    }
                     let nestedTypeName = TypeName(key).appending("Item")
                     let nested = try makeParent(name: nestedTypeName, schema: schema, level: level + 1)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
@@ -218,7 +237,7 @@ final class GenerateSchemas {
                 print("ERROR: Failed to generate property \(error)")
             }
         }
-    
+        
         // TODO: Find a way to preserve the order of keys
         for key in keys {
             guard let property = properties[key] else { continue }
