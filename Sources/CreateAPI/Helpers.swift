@@ -46,6 +46,10 @@ struct PropertyName: CustomStringConvertible {
 
 private extension String {
     var sanitized: String {
+        if let replacement = replacements[self] {
+            return replacement
+        }
+        
         if first == "+" {
             return "plus\(dropFirst())"
         }
@@ -126,6 +130,21 @@ private let keywords = Set(["public", "private", "open", "fileprivate", "default
 private let capitilizedKeywords = Set(["Self", "Type"])
 
 private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
+
+// In reality, no one should be using case names like this.
+private let replacements: [String: String] = [
+    ">=": "greaterThanOrEqualTo",
+    "<=": "lessThanOrEqualTo",
+    ">": "greaterThan",
+    "<": "lessThan",
+    "$": "dollar",
+    "%": "percent",
+    "#": "hash",
+    "@": "alpha",
+    "&": "and",
+    "-": "munus",
+    "+": "plus"
+]
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
