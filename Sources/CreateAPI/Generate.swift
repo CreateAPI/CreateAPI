@@ -18,7 +18,7 @@ struct Generate: ParsableCommand {
     var output: String = "./.create-api/"
     
     @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
-    var config: String = "./createAPI"
+    var config: String = "/.createAPI"
     
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false

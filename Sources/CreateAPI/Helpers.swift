@@ -61,8 +61,8 @@ private extension String {
     }
     
     var escapedTypeName: String {
-        if self == "Self" {
-            return "`Self`"
+        if capitilizedKeywords.contains(self) {
+            return "`\(self)`"
         }
         return self
     }
@@ -122,6 +122,8 @@ extension String {
 }
 
 private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self", "none"])
+
+private let capitilizedKeywords = Set(["Self", "Type"])
 
 private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
 
@@ -226,7 +228,7 @@ extension AnyJSON: CustomDebugStringConvertible {
 let stringCodingKey = """
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
-    private let int: Int?
+    private var int: Int?
 
     var stringValue: String { return string }
 

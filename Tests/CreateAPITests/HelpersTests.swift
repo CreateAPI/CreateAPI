@@ -27,6 +27,10 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(TypeName("SNAKE_CASE").rawValue, "SnakeCase")
         XCTAssertEqual(TypeName("UserServiceDeviceHasAccessTo").rawValue, "UserServiceDeviceHasAccessTo")
         XCTAssertEqual(TypeName("Won't").rawValue, "Wont")
+
+        // Keywords
+        XCTAssertEqual(TypeName("Type").rawValue, "`Type`")
+        XCTAssertEqual(TypeName("Self").rawValue, "`Self`")
     }
     
     func testPropertyName() {
@@ -52,5 +56,8 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(PropertyName("UserServiceDeviceHasAccessTo").rawValue, "userServiceDeviceHasAccessTo")
         XCTAssertEqual(PropertyName("UserService.getCustomerDevices").rawValue, "userServiceGetCustomerDevices")
         XCTAssertEqual(PropertyName("won't").rawValue, "wont")
+        
+        // Keywords
+        XCTAssertEqual(PropertyName("self").rawValue, "`self`")
     }
 }

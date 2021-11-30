@@ -5,6 +5,9 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Remove reduncant enum case = ""
+// TODO: Fix public enum MapOfEnumStringItem: String, Codable, CaseIterable { alignment
+// TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
@@ -172,6 +175,7 @@ final class GenerateSchemas {
                         return child(name: propertyName, type: "[String: \(type)]", context: coreContext, nested: nil)
                     }
                     let nestedTypeName = TypeName(key).appending("Item")
+                    // TODO: implement shiftRight (fix nested enums)
                     let nested = try makeParent(name: nestedTypeName, schema: schema, level: level + 1)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
                 }
@@ -189,6 +193,14 @@ final class GenerateSchemas {
             let name = TypeName(key).appending("Item")
             let nested = try makeParent(name: name, schema: item, level: level + 1)
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
+        case .string(let coreContext, _):
+            if isEnum(coreContext) {
+                let name = TypeName(key)
+                let nested = try makeEnum(name: name, coreContext: coreContext).shiftedRight(count: 4)
+                return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
+            }
+            let type = try getPrimitiveType(for: schema)
+            return child(name: propertyName, type: type, context: coreContext)
         case .all, .one, .any:
             let name = TypeName(key)
             let nested = try makeParent(name: name, schema: schema, level: level + 1)
@@ -198,6 +210,7 @@ final class GenerateSchemas {
         default:
             var context: JSONSchemaContext?
             switch schema {
+                // TODO: rewrite
             case .reference(let ref, _):
                 let deref = try ref.dereferenced(in: spec.components)
                 context = deref.coreContext
@@ -372,6 +385,9 @@ final class GenerateSchemas {
         case .number: return "Double"
         case .integer: return "Int"
         case .string(let coreContext, _):
+            if isEnum(coreContext) {
+                throw GeneratorError("Enum isn't a primitive type")
+            }
             switch coreContext.format {
             case .dateTime:
                 return "Date"
