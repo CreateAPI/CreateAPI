@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.macOS(.v10_13)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
-        .package(url: "https://github.com/mattpolzin/OpenAPIKit", branch: "release/3_0"),
+        .package(url: "https://github.com/kean/OpenAPIKit", branch: "release/3_0"),
         .package(url: "https://github.com/jpsim/Yams.git", from: "4.0.0")
     ],
     targets: [
