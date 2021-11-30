@@ -20,6 +20,9 @@ struct Generate: ParsableCommand {
     @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
     var config: String = "/.createAPI"
     
+    @Option(help: "If enabled, saturates all cores in the system. By default, enabled.")
+    var parallel: Bool = true
+    
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false
     
@@ -41,14 +44,25 @@ struct Generate: ParsableCommand {
         
         // TODO: Optimize spec parsing perforamnce
         let input = (input as NSString).expandingTildeInPath
-        let data = try Data(contentsOf: URL(fileURLWithPath: input))
+        let inputURL = URL(fileURLWithPath: input)
+        let data = try Data(contentsOf: inputURL)
         
         let startTime = CFAbsoluteTimeGetCurrent()
         if verbose {
             print("Parsing the spec")
         }
         
-        let spec = try YAMLDecoder().decode(ParallelDocumentParser.self, from: data).document
+        let spec: OpenAPI.Document
+        if inputURL.pathExtension == "json" {
+            // JSONDecoder doesn't appear to be thread-safe.
+            spec = try JSONDecoder().decode(OpenAPI.Document.self, from: data)
+        } else {
+            if parallel {
+                spec = try YAMLDecoder().decode(ParallelDocumentParser.self, from: data).document
+            } else {
+                spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
+            }
+        }
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         if verbose {
@@ -60,7 +74,7 @@ struct Generate: ParsableCommand {
     
         let options = try makeOptions(at: config)
         let resources = generatePaths(for: spec)
-        let schemas = GenerateSchemas(spec: spec, options: options, verbose: verbose).run()
+        let schemas = GenerateSchemas(spec: spec, options: options, verbose: verbose, parallel: parallel).run()
         
         let outputPath = (self.output as NSString).expandingTildeInPath
         let outputURL = URL(fileURLWithPath: outputPath)

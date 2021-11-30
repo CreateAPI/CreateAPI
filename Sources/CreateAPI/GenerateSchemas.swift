@@ -10,6 +10,7 @@ import Foundation
 // TODO: Parallelize decoding (examples + as much as possible separately)
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
+// TODO: Parse "/"
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
@@ -30,22 +31,24 @@ import Foundation
 // TODO: Remove remainig dereferencing
 
 final class GenerateSchemas {
-    let spec: OpenAPI.Document
-    let options: GenerateOptions
-    let verbose: Bool
+    private let spec: OpenAPI.Document
+    private let options: GenerateOptions
+    private let verbose: Bool
+    private let parallel: Bool
     
     var access: String { options.access.map { "\($0) " } ?? "" }
     var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
     var baseClass: String? { !options.schemes.isGeneratingStructs ? options.schemes.baseClass: nil }
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
-    
+
     private var isAnyJSONUsed = false
     private let lock = NSLock()
     
-    init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool) {
+    init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool, parallel: Bool) {
         self.spec = spec
         self.options = options
         self.verbose = verbose
+        self.parallel = parallel
     }
 
     func run() -> String {
@@ -65,7 +68,7 @@ final class GenerateSchemas {
         let schemas = Array(spec.components.schemas)
         var generated = Array<String?>(repeating: nil, count: schemas.count)
         let lock = NSLock()
-        concurrentPerform(on: schemas) { index, item in
+        concurrentPerform(on: schemas, parallel: parallel) { index, item in
             let (key, schema) = schemas[index]
             do {
                 if let entry = try makeParent(name: TypeName(key), schema: schema), !entry.isEmpty {

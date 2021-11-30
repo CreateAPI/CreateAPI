@@ -275,9 +275,9 @@ private let replacements: [String: String] = [
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
-func concurrentPerform<T>(on array: [T], _ work: (Int, T) -> Void) {
+func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {
     let coreCount = suggestedCoreCount
-    let iterations = array.count > (coreCount * 2) ? coreCount : 1
+    let iterations = !parallel ? 1 : (array.count > (coreCount * 2) ? coreCount : 1)
     
     DispatchQueue.concurrentPerform(iterations: iterations) { index in
         let start = index * array.indices.count / iterations
