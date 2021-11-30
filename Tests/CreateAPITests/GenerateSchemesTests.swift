@@ -71,6 +71,19 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-disable-init-with-code", actual: output)
     }
     
+    func testPetstoreDisableInlining() {
+        // GIVEN
+        let spec = spec(named: "petstore")
+        let options = GenerateOptions()
+        options.isInliningPrimitiveTypes = false
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, verbose: false).run()
+                
+        // THEN
+        compare(expected: "petstore-schemes-generate-disable-inlining", actual: output)
+    }
+    
     func testPetstoreExpanded() {
         // GIVEN
         let spec = spec(named: "petstore-expanded")

@@ -8,6 +8,7 @@ import Foundation
 // TODO: Add an option to disable inlining (not implemented yet)
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Add Encodable support
+// TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: Add an option to generate an initializer
