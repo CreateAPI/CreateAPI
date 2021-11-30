@@ -38,14 +38,16 @@ struct Generate: ParsableCommand {
         }
         
         // TODO: Add JSON support
+        
+        // TODO: Optimize spec parsing perforamnce
+        let input = (input as NSString).expandingTildeInPath
+        let data = try Data(contentsOf: URL(fileURLWithPath: input))
+        
         let startTime = CFAbsoluteTimeGetCurrent()
         if verbose {
             print("Parsing the spec")
         }
         
-        // TODO: Optimize spec parsing perforamnce
-        let input = (input as NSString).expandingTildeInPath
-        let data = try Data(contentsOf: URL(fileURLWithPath: input))
         let spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime

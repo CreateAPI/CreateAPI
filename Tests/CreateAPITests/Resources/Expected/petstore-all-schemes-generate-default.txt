@@ -426,8 +426,8 @@ public struct EnumArrays: Decodable {
     }
 
     public enum JustSymbol: String, Codable, CaseIterable {
-        case  = ">="
-        case  = "$"
+        case greaterThanOrEqualTo = ">="
+        case dollar = "$"
     }
 
     public init(from decoder: Decoder) throws {
