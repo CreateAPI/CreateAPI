@@ -7,9 +7,9 @@ import Foundation
 
 // TODO: Add "is" to properties + exceptions
 // TODO: Add an option to map/customize properties
+// TODO: Fix case `none` = "none"
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
-// TODO: Parse "/"
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
@@ -20,19 +20,18 @@ import Foundation
 // TODO: Option to disable custom key generation
 // TODO: Add support for deprecated fields
 // TODO: Better naming for inline/nested objects
-// TODO: Do something about NullableSimpleUser (best generic approach)
 // TODO: Print more in verbose mode
 // TODO: Add warnings for unsupported features
 // TODO: Add Linux support
 // TODO: Add SwiftLint disable all
 // TODO: Remove remainig dereferencing
 // TODO: Add JSON tests
+// TODO: Add OpenAPI 3.1 support
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
     private let options: GenerateOptions
-    private let verbose: Bool
-    private let parallel: Bool
+    private let arguments: GenerateArguments
     
     var access: String { options.access.map { "\($0) " } ?? "" }
     var modelType: String { options.schemes.isGeneratingStructs ? "struct" : "final class" }
@@ -42,11 +41,10 @@ final class GenerateSchemas {
     private var isAnyJSONUsed = false
     private let lock = NSLock()
     
-    init(spec: OpenAPI.Document, options: GenerateOptions, verbose: Bool = false, parallel: Bool = false) {
+    init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
         self.spec = spec
         self.options = options
-        self.verbose = verbose
-        self.parallel = parallel
+        self.arguments = arguments
     }
 
     func run() -> String {
@@ -59,17 +57,25 @@ final class GenerateSchemas {
         """
         
         let startTime = CFAbsoluteTimeGetCurrent()
-        if verbose {
+        if arguments.isVerbose {
             print("Start generating schemas (\(spec.components.schemas.count))")
         }
         
         let schemas = Array(spec.components.schemas)
         var generated = Array<String?>(repeating: nil, count: schemas.count)
         let lock = NSLock()
-        concurrentPerform(on: schemas, parallel: parallel) { index, item in
+        concurrentPerform(on: schemas, parallel: arguments.isParallel) { index, item in
             let (key, schema) = schemas[index]
+            
+            guard let name = makeTypeNameFor(key: key, schema: schema) else {
+                if arguments.isVerbose {
+                    print("Skipping generation for \(key)")
+                }
+                return
+            }
+                        
             do {
-                if let entry = try makeParent(name: TypeName(key), schema: schema), !entry.isEmpty {
+                if let entry = try makeParent(name: name, schema: schema), !entry.isEmpty {
                     lock.lock()
                     generated[index] = entry
                     lock.unlock()
@@ -94,11 +100,28 @@ final class GenerateSchemas {
         output += "\n"
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        if verbose {
+        if arguments.isVerbose {
             print("Generated schemas in \(timeElapsed) s.")
         }
         
         return output
+    }
+    
+    /// Return `nil` to skip generation.
+    private func makeTypeNameFor(key: OpenAPI.ComponentKey, schema: JSONSchema) -> TypeName? {
+        if arguments.vendor == "github" {
+            if key.rawValue.hasPrefix("nullable-") {
+                let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
+                if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
+                   spec.components.schemas[counterpartKey] != nil {
+                    return nil
+                } else {
+                    // Some types in GitHub specs are only defined once as Nullable
+                    return TypeName(counterpart)
+                }
+            }
+        }
+        return TypeName(key)
     }
     
     // Recursively creates a type: `struct`, `class`, `enum` – depending on the
@@ -423,6 +446,10 @@ final class GenerateSchemas {
         case .reference(let reference, _):
             switch reference {
             case .internal(let ref):
+                if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
+                    return TypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue
+                }
+ 
                 // Note: while dereferencing, it does it recursively.
                 // So if you have `typealias Pets = [Pet]`, it'll dereference
                 // `Pet` to an `.object`, not a `.reference`.

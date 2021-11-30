@@ -26,6 +26,9 @@ struct Generate: ParsableCommand {
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false
     
+    @Option(help: "Enabled vendor-specific logic")
+    var vendor: String?
+        
     // TODO: pass as parameters (maybe in YML file?)
     let `import` = "APIClient"
     let namespace = "Paths"
@@ -72,9 +75,10 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
+        let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor)
         let options = try makeOptions(at: config)
         let resources = generatePaths(for: spec)
-        let schemas = GenerateSchemas(spec: spec, options: options, verbose: verbose, parallel: parallel).run()
+        let schemas = GenerateSchemas(spec: spec, options: options, arguments: arguments).run()
         
         let outputPath = (self.output as NSString).expandingTildeInPath
         let outputURL = URL(fileURLWithPath: outputPath)

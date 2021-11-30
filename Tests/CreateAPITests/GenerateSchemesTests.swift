@@ -13,7 +13,7 @@ final class GenerateSchemesTests: XCTestCase {
         let options = GenerateOptions()
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-default", actual: output)
@@ -26,7 +26,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.schemes.isGeneratingStructs = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-classes", actual: output)
@@ -40,7 +40,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.schemes.baseClass = "NSObject"
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-classes-with-base", actual: output)
@@ -53,7 +53,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.access = nil
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-internal-default", actual: output)
@@ -66,7 +66,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.isGeneratingComments = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-disable-comments", actual: output)
@@ -79,7 +79,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.schemes.isGeneratingInitWithCoder = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-disable-init-with-code", actual: output)
@@ -92,7 +92,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.isInliningPrimitiveTypes = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-schemes-generate-disable-inlining", actual: output)
@@ -105,7 +105,7 @@ final class GenerateSchemesTests: XCTestCase {
         options.isGeneratingComments = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
                 
         // THEN
         compare(expected: "petstore-expanded-schemes-generate-default", actual: output)
@@ -117,7 +117,7 @@ final class GenerateSchemesTests: XCTestCase {
         let options = GenerateOptions()
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
         
         // THEN
         compare(expected: "petstore-all-schemes-generate-default", actual: output)
@@ -130,21 +130,31 @@ final class GenerateSchemesTests: XCTestCase {
         options.isGeneratingEnums = false
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
         
         // THEN
         compare(expected: "petstore-all-schemes-disable-enums", actual: output)
     }
 
-    func testGenerateGithub() {
+    func testGenerateGitHub() {
         // GIVEN
         let spec = spec(named: "github")
         let options = GenerateOptions()
         
+        let arguments = GenerateArguments(
+            isVerbose: false,
+            isParallel: false,
+            vendor: "github"
+        )
+        
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options).run()
+        let output = GenerateSchemas(spec: spec, options: options, arguments: arguments).run()
         
         // THEN
         compare(expected: "github-schemes-generate-default", actual: output)
     }
+}
+
+extension GenerateArguments {
+    static let `default` = GenerateArguments(isVerbose: false, isParallel: false, vendor: nil)
 }

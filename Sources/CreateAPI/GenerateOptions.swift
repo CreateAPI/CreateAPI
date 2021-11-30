@@ -51,3 +51,9 @@ final class GenerateOptionsScheme: Decodable {
         var adoptedProtocols: [String]?
     }
 }
+
+struct GenerateArguments {
+    let isVerbose: Bool
+    let isParallel: Bool
+    let vendor: String?
+}
