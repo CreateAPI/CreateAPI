@@ -168,10 +168,51 @@ struct PropertyName: CustomStringConvertible {
         self.rawValue = rawValue.process(isProperty: true)
     }
     
+    private init(processedRawValue: String) {
+        self.rawValue = processedRawValue
+    }
+    
     var description: String { rawValue }
+    
+    func asBoolean() -> PropertyName {
+        var string = rawValue.trimmingCharacters(in: ticks)
+        let words = string.words
+        guard !words.isEmpty else {
+            return self
+        }
+        if words.contains(where: booleanExceptions.contains) {
+            return self
+        }
+        let first = words[0]
+        if abbreviations.contains(first.lowercased()) {
+            string.removeFirst(first.count)
+            string = first.uppercased() + string
+        }
+        return PropertyName(processedRawValue: "is" + string.capitalizingFirstLetter())
+    }
 }
 
+// We can't list everything, but these are the most common words
+private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
+
 private extension String {
+    var words: [String] {
+        var output: [String] = []
+        var remainig = self[...]
+        while let index = remainig.firstIndex(where: { $0.isUppercase }) {
+            output.append(String(remainig[..<index]))
+            if !remainig.isEmpty {
+                let start = remainig.startIndex
+                remainig.replaceSubrange(start...start, with: remainig[start].lowercased())
+            }
+            remainig = remainig[index...]
+        }
+        if !remainig.isEmpty {
+            output.append(String(remainig))
+        }
+        return output
+    }
+    
     var sanitized: String {
         if let replacement = replacements[self] {
             return replacement
@@ -256,7 +297,7 @@ private let keywords = Set(["public", "private", "open", "fileprivate", "default
 
 private let capitilizedKeywords = Set(["Self", "Type"])
 
-private let abbreviations = Set(["url", "id", "html", "ssl", "tls"])
+private let abbreviations = Set(["url", "id", "html", "ssl", "tls", "http", "https", "dns", "ftp"])
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [
@@ -274,6 +315,8 @@ private let replacements: [String: String] = [
 ]
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
+
+private let ticks = CharacterSet(charactersIn: "`")
 
 func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {
     let coreCount = suggestedCoreCount

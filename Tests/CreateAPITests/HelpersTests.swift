@@ -66,4 +66,43 @@ final class HelpersTests: XCTestCase {
         // Replacements
         XCTAssertEqual(PropertyName(">=").rawValue, "greaterThanOrEqualTo")
     }
+    
+    func testAsBoolean() {
+        func asBoolean(_ name: String) -> String {
+            PropertyName(name).asBoolean().rawValue
+        }
+        
+        // Simple
+        XCTAssertEqual(asBoolean("redelivery"), "isRedelivery")
+        XCTAssertEqual(asBoolean("siteAdmin"), "isSiteAdmin")
+        XCTAssertEqual(asBoolean("archived"), "isArchived")
+        
+        // Keywords (have ticks)
+        XCTAssertEqual(asBoolean("private"), "isPrivate") // Ticks
+        
+        // Exceptions (first word)
+        XCTAssertEqual(asBoolean("hasChanges"), "hasChanges")
+        XCTAssertEqual(asBoolean("allowRebase"), "allowRebase")
+        XCTAssertEqual(asBoolean("allowsRebase"), "allowsRebase")
+        XCTAssertEqual(asBoolean("enableMerges"), "enableMerges")
+        XCTAssertEqual(asBoolean("enablesMerges"), "enablesMerges")
+        XCTAssertEqual(asBoolean("canMerge"), "canMerge")
+        XCTAssertEqual(asBoolean("useLFS"), "useLFS")
+        XCTAssertEqual(asBoolean("dismissStaleReviews"), "dismissStaleReviews")
+        XCTAssertEqual(asBoolean("dismissesStaleReviews"), "dismissesStaleReviews")
+        XCTAssertEqual(asBoolean("requireCodeOwnerReviews"), "requireCodeOwnerReviews")
+        XCTAssertEqual(asBoolean("requiresCodeOwnerReviews"), "requiresCodeOwnerReviews")
+        // See `booleanExceptions`, no reason to test configuration
+        
+        // Exceptinons (not the first word)
+        XCTAssertEqual(asBoolean("changesHas"), "changesHas")
+        XCTAssertEqual(asBoolean("dnsResolves"), "dnsResolves")
+        XCTAssertEqual(asBoolean("activeWas"), "activeWas") // yes
+        XCTAssertEqual(asBoolean("maintainerCanModify"), "maintainerCanModify")
+        XCTAssertEqual(asBoolean("currentUserCanApprove"), "currentUserCanApprove")
+        XCTAssertEqual(asBoolean("memberCanCreateInternalRepositories"), "memberCanCreateInternalRepositories")
+        
+        // Uppercasing
+        XCTAssertEqual(asBoolean("httpsEnforced"), "isHTTPSEnforced")
+    }
 }

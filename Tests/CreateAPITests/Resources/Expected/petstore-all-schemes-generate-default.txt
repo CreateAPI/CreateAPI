@@ -5,7 +5,7 @@
 import Foundation
 
 public struct Order: Decodable {
-    public var complete: Bool?
+    public var isComplete: Bool?
     public var id: Int?
     public var petId: Int?
     public var quantity: Int?
@@ -22,7 +22,7 @@ public struct Order: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.complete = try values.decodeIfPresent(Bool.self, forKey: "complete")
+        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete")
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
         self.petId = try values.decodeIfPresent(Int.self, forKey: "petId")
         self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
@@ -197,11 +197,11 @@ public struct Cat: Decodable {
     }
 
     public struct Object: Decodable {
-        public var declawed: Bool?
+        public var isDeclawed: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.declawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
+            self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
         }
     }
 }

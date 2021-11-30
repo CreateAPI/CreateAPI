@@ -163,11 +163,12 @@ final class GenerateSchemas {
         let context: JSONSchemaContext?
         var nested: String?
     }
-            
+                
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool) throws -> Property {
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
+            let name = type == "Bool" ? name.asBoolean() : name
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
                 
