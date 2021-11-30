@@ -5,6 +5,57 @@
 import Foundation
 import OpenAPIKit30
 
+// Experimental.
+struct ParallelDocumentParser: Decodable {
+    let document: OpenAPI.Document
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let version = try container.decode(OpenAPI.Document.Version.self, forKey: .openAPIVersion)
+        let info = try container.decode(OpenAPI.Document.Info.self, forKey: .info)
+        
+        let group = DispatchGroup()
+        
+        var componentsResult: Result<OpenAPI.Components, Error>!
+        group.enter()
+        DispatchQueue.global().async {
+            componentsResult = Result(catching: { try container.decodeIfPresent(OpenAPI.Components.self, forKey: .components) ?? .noComponents })
+            group.leave()
+        }
+        
+        var pathsResult: Result<OpenAPI.PathItem.Map, Error>!
+        group.enter()
+        DispatchQueue.global().async {
+            pathsResult = Result(catching: { try container.decode(OpenAPI.PathItem.Map.self, forKey: .paths) })
+            group.leave()
+        }
+
+        group.wait()
+                
+        // Skip fields that we don't need for code generation
+
+        self.document = OpenAPI.Document(
+            openAPIVersion: version,
+            info: info,
+            servers: [],
+            paths: try pathsResult.get(),
+            components: try componentsResult.get(),
+            security: [],
+            tags: nil,
+            externalDocs: nil,
+            vendorExtensions: [:]
+        )
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case openAPIVersion = "openapi"
+        case info
+        case paths
+        case components
+    }
+}
+
 /// A camel-case  type name.
 ///
 /// Using these types add type-safety and allows the client to avoid redundant computations.

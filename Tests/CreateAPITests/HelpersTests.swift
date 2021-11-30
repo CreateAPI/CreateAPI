@@ -33,7 +33,7 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(TypeName("Self").rawValue, "`Self`")
         
         // Replacements
-        XCTAssertEqual(TypeName(">=").rawValue, "GreaterThanOrEqual")
+        XCTAssertEqual(TypeName(">=").rawValue, "GreaterThanOrEqualTo")
     }
     
     func testPropertyName() {
@@ -64,6 +64,6 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(PropertyName("self").rawValue, "`self`")
         
         // Replacements
-        XCTAssertEqual(TypeName(">=").rawValue, "greaterThanOrEqual")
+        XCTAssertEqual(TypeName(">=").rawValue, "greaterThanOrEqualTo")
     }
 }

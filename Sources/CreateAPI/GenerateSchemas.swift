@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: Parallelize decoding (examples + as much as possible separately)
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]

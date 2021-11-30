@@ -8,6 +8,7 @@ import Foundation
 import Yams
 
 // TODO: Add a mechanism ot pass generator option directly (--options)
+// TODO: Add an option to disable parallelization
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")
@@ -48,7 +49,7 @@ struct Generate: ParsableCommand {
             print("Parsing the spec")
         }
         
-        let spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
+        let spec = try YAMLDecoder().decode(ParallelDocumentParser.self, from: data).document
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         if verbose {
