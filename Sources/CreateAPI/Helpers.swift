@@ -146,7 +146,7 @@ struct TypeName: CustomStringConvertible {
         self.rawValue = rawValue.process(isProperty: false)
     }
 
-    private init(processedRawValue: String) {
+    init(processedRawValue: String) {
         self.rawValue = processedRawValue
     }
 

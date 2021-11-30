@@ -17,6 +17,7 @@ final class GenerateOptions {
         var baseClass: String?
         var adoptedProtocols: [String]
         var mappedPropertyNames: [String: String]
+        var mappedTypeNames: [String: String] // Currently doesn't work for nested types
         
         init(_ schemes: GenerateOptionsScheme.SchemesOptions?) {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
@@ -24,14 +25,10 @@ final class GenerateOptions {
             self.baseClass = schemes?.baseClass
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
             self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
+            self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
         }
     }
-    
-    enum CodableGenerationStrategy: String {
-        case customInit
-        case codingKeys
-    }
-    
+
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
         self.isGeneratingComments = options.isGeneratingComments ?? true
@@ -56,6 +53,7 @@ final class GenerateOptionsScheme: Decodable {
         var baseClass: String?
         var adoptedProtocols: [String]?
         var mappedPropertyNames: [String: String]?
+        var mappedTypeNames: [String: String]?
     }
 }
 

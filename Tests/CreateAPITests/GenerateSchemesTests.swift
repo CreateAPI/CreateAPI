@@ -153,6 +153,22 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-all-schemes-disable-enums", actual: output)
     }
+    
+    func testPetstoreMappedTypeNames() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.schemes.mappedTypeNames = [
+            "ApiResponse": "APIResponse",
+            "Status": "State"
+        ]
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-map-types", actual: output)
+    }
 
     func testGenerateGitHub() {
         // GIVEN

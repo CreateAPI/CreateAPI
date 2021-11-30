@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 
 // TODO: Add an option to map/customize properties
+// TODO: Find discrepancise with -test-all
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
@@ -118,6 +119,12 @@ final class GenerateSchemas {
                     // Some types in GitHub specs are only defined once as Nullable
                     return TypeName(counterpart)
                 }
+            }
+        }
+        let name = TypeName(key)
+        if !options.schemes.mappedTypeNames.isEmpty {
+            if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
+                return TypeName(processedRawValue: mapped)
             }
         }
         return TypeName(key)
@@ -470,7 +477,6 @@ final class GenerateSchemas {
                 if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
                     return TypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue
                 }
- 
                 // Note: while dereferencing, it does it recursively.
                 // So if you have `typealias Pets = [Pet]`, it'll dereference
                 // `Pet` to an `.object`, not a `.reference`.
@@ -484,6 +490,12 @@ final class GenerateSchemas {
                 guard let name = ref.name else {
                     throw GeneratorError("Internal reference name is missing: \(ref)")
                 }
+                // TODO: Remove duplication
+                if !options.schemes.mappedTypeNames.isEmpty {
+                    if let mapped = options.schemes.mappedTypeNames[name] {
+                        return mapped
+                    }
+                }
                 return TypeName(name).rawValue
             case .external(let url):
                 throw GeneratorError("External references are not supported: \(url)")
@@ -493,7 +505,7 @@ final class GenerateSchemas {
             return "AnyJSON"
         }
     }
-    
+        
     // MARK: oneOf/anyOf/allOf
     
     // TODO: Special-case double/string?
