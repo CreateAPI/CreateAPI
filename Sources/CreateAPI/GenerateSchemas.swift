@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Fix public enum MapOfEnumStringItem: String, Codable, CaseIterable { alignment
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
@@ -66,7 +65,7 @@ final class GenerateSchemas {
         concurrentPerform(on: schemas) { index, item in
             let (key, schema) = schemas[index]
             do {
-                if let entry = try makeParent(name: TypeName(key), schema: schema, level: 0), !entry.isEmpty {
+                if let entry = try makeParent(name: TypeName(key), schema: schema), !entry.isEmpty {
                     lock.lock()
                     generated[index] = entry
                     lock.unlock()
@@ -101,7 +100,7 @@ final class GenerateSchemas {
     // Recursively creates a type: `struct`, `class`, `enum` – depending on the
     // schema and the user options. Primitive types often used in specs to reuse
     // documentation are inlined.
-    private func makeParent(name: TypeName, schema: JSONSchema, level: Int) throws -> String? {
+    private func makeParent(name: TypeName, schema: JSONSchema) throws -> String? {
         switch schema {
         case .boolean, .number, .integer:
             return nil // Inline
@@ -111,15 +110,15 @@ final class GenerateSchemas {
             }
             return nil // Inline 'String'
         case .object(let coreContext, let objectContext):
-            return try makeObject(name: name, coreContext, objectContext, level: level)
+            return try makeObject(name: name, coreContext, objectContext)
         case .array(let coreContext, let arrayContext):
             return try makeTypealiasArray(name, coreContext, arrayContext)
         case .all(let of, _):
-            return try makeAnyOf(name: name, of, level: level)
+            return try makeAnyOf(name: name, of)
         case .one(let of, _):
-            return try makeOneOf(name: name, of, level: level)
+            return try makeOneOf(name: name, of)
         case .any(let of, _):
-            return try makeAnyOf(name: name, of, level: level)
+            return try makeAnyOf(name: name, of)
         case .not:
             throw GeneratorError("`not` is not supported: \(name)")
         case .reference:
@@ -139,7 +138,7 @@ final class GenerateSchemas {
         var nested: String?
     }
             
-    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, level: Int) throws -> Property {
+    private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool) throws -> Property {
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
@@ -166,7 +165,7 @@ final class GenerateSchemas {
                                 return child(name: propertyName, type: "[String: [String: \(type)]]", context: coreContext, nested: nil)
                             }
                             let nestedTypeName = TypeName(key).appending("Item")
-                            let nested = try makeParent(name: nestedTypeName, schema: schema, level: level + 1)
+                            let nested = try makeParent(name: nestedTypeName, schema: schema)
                             return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", context: coreContext, nested: nested)
                         }
                     }
@@ -175,12 +174,12 @@ final class GenerateSchemas {
                     }
                     let nestedTypeName = TypeName(key).appending("Item")
                     // TODO: implement shiftRight (fix nested enums)
-                    let nested = try makeParent(name: nestedTypeName, schema: schema, level: level + 1)
+                    let nested = try makeParent(name: nestedTypeName, schema: schema)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
                 }
             }
             let type = TypeName(key)
-            let nested = try makeParent(name: type, schema: schema, level: level + 1)
+            let nested = try makeParent(name: type, schema: schema)
             return child(name: propertyName, type: type.rawValue, context: coreContext, nested: nested)
         case .array(let coreContext, let arrayContext):
             guard let item = arrayContext.items else {
@@ -190,19 +189,19 @@ final class GenerateSchemas {
                 return child(name: propertyName, type: "[\(type)]", context: coreContext)
             }
             let name = TypeName(key).appending("Item")
-            let nested = try makeParent(name: name, schema: item, level: level + 1)
+            let nested = try makeParent(name: name, schema: item)
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
         case .string(let coreContext, _):
             if isEnum(coreContext) {
                 let name = TypeName(key)
-                let nested = try makeEnum(name: name, coreContext: coreContext).shiftedRight(count: 4)
+                let nested = try makeEnum(name: name, coreContext: coreContext)
                 return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
             }
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, context: coreContext)
         case .all, .one, .any:
             let name = TypeName(key)
-            let nested = try makeParent(name: name, schema: schema, level: level + 1)
+            let nested = try makeParent(name: name, schema: schema)
             return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
         case .not(let jSONSchema, let core):
             throw GeneratorError("`not` properties are not supported")
@@ -222,14 +221,14 @@ final class GenerateSchemas {
     }
     
     private func makeNested(for children: [Property]) -> String? {
-        let nested = children.compactMap({ $0.nested })
+        let nested = children.compactMap({ $0.nested?.shiftedRight(count: 4) })
         guard !nested.isEmpty else { return nil }
         return nested.joined(separator: "\n\n")
     }
     
     // MARK: Object
     
-    private func makeObject(name: TypeName, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext, level: Int) throws -> String {
+    private func makeObject(name: TypeName, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext) throws -> String {
         var output = ""
         var nested: [String] = []
         
@@ -243,7 +242,7 @@ final class GenerateSchemas {
             let schema = objectContext.properties[key]!
             let isRequired = objectContext.requiredProperties.contains(key)
             do {
-                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired, level: level)
+                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired)
             } catch {
                 skippedKeys.insert(key)
                 print("ERROR: Failed to generate property \(error)")
@@ -262,7 +261,7 @@ final class GenerateSchemas {
 
         for nested in nested {
             output += "\n"
-            output += nested
+            output += nested.shiftedRight(count: 4)
             output += "\n"
         }
         
@@ -297,7 +296,7 @@ final class GenerateSchemas {
 //        }
         
         output += "}"
-        return output.shiftedRight(count: level > 0 ? 4 : 0)
+        return output
     }
     
     /// Example: "public var files: [Files]?"
@@ -326,7 +325,7 @@ final class GenerateSchemas {
         var output = ""
         let itemName = name.appending("Item")
         output += "\(access)typealias \(name) = [\(itemName)]\n\n"
-        output += (try makeParent(name: itemName, schema: item, level: 0)) ?? ""
+        output += (try makeParent(name: itemName, schema: item)) ?? ""
         return output
     }
     
@@ -446,10 +445,10 @@ final class GenerateSchemas {
     // MARK: oneOf/anyOf/allOf
     
     // TODO: Special-case double/string?
-    private func makeOneOf(name: TypeName, _ schemas: [JSONSchema], level: Int) throws -> String {
+    private func makeOneOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
         let types = makeTypeNames(for: schemas)
         let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true, level: level)
+            try makeProperty(key: type, schema: schema, isRequired: true)
         }
         
         var output = "\(access)enum \(name): \(protocols) {\n"
@@ -490,14 +489,13 @@ final class GenerateSchemas {
         }
 
         output += "\n}"
-        output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
         
-    private func makeAnyOf(name: TypeName, _ schemas: [JSONSchema], level: Int) throws -> String {
+    private func makeAnyOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
         let types = makeTypeNames(for: schemas)
         let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true, level: level)
+            try makeProperty(key: type, schema: schema, isRequired: true)
         }
         
         var output = "\(access)struct \(name): \(protocols) {\n"
@@ -529,7 +527,6 @@ final class GenerateSchemas {
         }
         
         output += "\n}"
-        output = output.shiftedRight(count: level > 0 ? 4 : 0)
         return output
     }
     

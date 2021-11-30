@@ -364,10 +364,10 @@ public struct MapTest: Decodable {
     public var mapMapOfString: [String: [String: String]]?
     public var mapOfEnumString: [String: MapOfEnumStringItem]?
 
-public enum MapOfEnumStringItem: String, Codable, CaseIterable {
-    case upper = "UPPER"
-    case lower
-}
+    public enum MapOfEnumStringItem: String, Codable, CaseIterable {
+        case upper = "UPPER"
+        case lower
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -420,10 +420,10 @@ public struct EnumArrays: Decodable {
     public var arrayEnum: [ArrayEnumItem]?
     public var justSymbol: JustSymbol?
 
-public enum ArrayEnumItem: String, Codable, CaseIterable {
-    case fish
-    case crab
-}
+    public enum ArrayEnumItem: String, Codable, CaseIterable {
+        case fish
+        case crab
+    }
 
     public enum JustSymbol: String, Codable, CaseIterable {
         case  = ">="
