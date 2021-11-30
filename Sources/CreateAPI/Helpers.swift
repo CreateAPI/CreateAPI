@@ -225,7 +225,6 @@ extension AnyJSON: CustomDebugStringConvertible {
 
 let stringCodingKey = """
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
-
     private let string: String
     private let int: Int?
 
@@ -233,22 +232,21 @@ struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
 
     init(string: String) {
         self.string = string
-        int = nil
     }
+
     init?(stringValue: String) {
-        string = stringValue
-        int = nil
+        self.string = stringValue
     }
 
     var intValue: Int? { return int }
+
     init?(intValue: Int) {
-        string = String(describing: intValue)
-        int = intValue
+        self.string = String(describing: intValue)
+        self.int = intValue
     }
 
     init(stringLiteral value: String) {
-        string = value
-        int = nil
+        self.string = value
     }
 }
 """
