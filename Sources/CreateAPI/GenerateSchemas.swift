@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Add an option to map/customize properties
 // TODO: Find discrepancise with -test-all
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
@@ -27,6 +26,7 @@ import Foundation
 // TODO: Add JSON tests
 // TODO: Add OpenAPI 3.1 support
 // TODO: Autocapitilize description/title
+// TODO: Add an option to ignore errors in arrays
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Separate mapped* dictionary for enums
