@@ -8,7 +8,6 @@ import Foundation
 import Yams
 
 // TODO: Add a mechanism ot pass generator option directly (--options)
-// TODO: Add an option to disable parallelization
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")

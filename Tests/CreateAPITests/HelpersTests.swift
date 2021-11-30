@@ -64,6 +64,6 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(PropertyName("self").rawValue, "`self`")
         
         // Replacements
-        XCTAssertEqual(TypeName(">=").rawValue, "greaterThanOrEqualTo")
+        XCTAssertEqual(PropertyName(">=").rawValue, "greaterThanOrEqualTo")
     }
 }
