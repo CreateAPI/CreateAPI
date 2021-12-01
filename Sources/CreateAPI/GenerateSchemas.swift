@@ -5,12 +5,19 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Find discrepancise with -test-all
-// TODO: Add int32/int64 support (and a way to disable)
+// TODO: allOf should use composition (see Petstore all dog)
+// TODO: Add not support and fix warnings
+// TODO: Add File (Data) support (see FormatTest.date)
+// TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
+// TODO: Add UUID support (and test it!)
+// TODO: Review OpenAPI spec for -all
+// TODO: Add int32/int64 support (optional) (and a way to disable)
 // TODO: Check why public struct ConfigItem: Decodable { is empty
+// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
+// TODO: Final imporvementes to OctoKit
+
 // TODO: Add Encodable support
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
-// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
@@ -31,7 +38,6 @@ import Foundation
 // TODO: Add an option to ignore errors in arrays
 // TODO: Rename to GenerateEntities
 // TODO: Add an option to set a custom header
-// TODO: Add opt-in for Encodable
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Separate mapped* dictionary for enums
