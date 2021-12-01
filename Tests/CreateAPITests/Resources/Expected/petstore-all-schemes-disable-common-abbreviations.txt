@@ -125,7 +125,7 @@ public struct Return: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.`return` = try values.decodeIfPresent(Int.self, forKey: "return")
+        self.return = try values.decodeIfPresent(Int.self, forKey: "return")
     }
 }
 
@@ -152,7 +152,7 @@ public struct _200Response: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.`class` = try values.decodeIfPresent(String.self, forKey: "class")
+        self.class = try values.decodeIfPresent(String.self, forKey: "class")
         self.name = try values.decodeIfPresent(Int.self, forKey: "name")
     }
 }
@@ -163,7 +163,7 @@ public struct ClassModel: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.`class` = try values.decodeIfPresent(String.self, forKey: "_class")
+        self.class = try values.decodeIfPresent(String.self, forKey: "_class")
     }
 }
 

@@ -350,7 +350,11 @@ final class GenerateSchemas {
             for key in keys {
                 guard let property = properties[key] else { continue }
                 let decode = property.isOptional ? "decodeIfPresent" : "decode"
-                output += "        self.\(property.name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
+                var name = property.name.rawValue
+                if name != "`self`" { // Most names are allowed, but not all
+                    name = name.trimmingCharacters(in: CharacterSet.ticks)
+                }
+                output += "        self.\(name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
                 output += "\n"
             }
             output += "    }\n"

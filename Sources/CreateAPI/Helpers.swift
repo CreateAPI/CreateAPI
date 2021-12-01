@@ -171,7 +171,7 @@ struct PropertyName: CustomStringConvertible {
     var description: String { rawValue }
     
     func asBoolean() -> PropertyName {
-        var string = rawValue.trimmingCharacters(in: ticks)
+        var string = rawValue.trimmingCharacters(in: CharacterSet.ticks)
         let words = string.words
         guard !words.isEmpty else {
             return self
@@ -325,7 +325,9 @@ private let replacements: [String: String] = [
 
 private let badCharacters = CharacterSet.alphanumerics.inverted
 
-private let ticks = CharacterSet(charactersIn: "`")
+extension CharacterSet {
+    static let ticks = CharacterSet(charactersIn: "`")
+}
 
 func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {
     let coreCount = suggestedCoreCount
