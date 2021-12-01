@@ -172,7 +172,7 @@ final class GenerateSchemesTests: XCTestCase {
         // GIVEN
         let spec = spec(named: "petstore-all")
         let options = GenerateOptions()
-        options.isReplacingCommongAbbreviations = false
+        options.isReplacingCommonAbbreviations = false
         
         // WHEN
         let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()

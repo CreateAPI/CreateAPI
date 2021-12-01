@@ -266,7 +266,7 @@ private extension String {
         // Replace abbreviations (but only at code boundries)
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
-        if options.isReplacingCommongAbbreviations {
+        if options.isReplacingCommonAbbreviations {
             for abbreviation in abbreviations {
                 if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
                    (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
