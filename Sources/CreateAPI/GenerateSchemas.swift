@@ -8,6 +8,7 @@ import Foundation
 // TODO: Find discrepancise with -test-all
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Add Encodable support
+// TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
