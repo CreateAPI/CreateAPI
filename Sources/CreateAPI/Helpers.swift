@@ -267,7 +267,7 @@ private extension String {
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
         if options.isReplacingCommonAbbreviations {
-            for abbreviation in abbreviations {
+            for abbreviation in abbreviations + options.additionalAbbreviations {
                 if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
                    (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
                     output.replaceSubrange(range, with: abbreviation.uppercased())

@@ -4,12 +4,15 @@
 
 final class GenerateOptions {
     var access: String?
+    var schemes: SchemesOptions
+    
+    // Neatpicking
     var isGeneratingComments: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
     var isReplacingCommonAbbreviations: Bool
-    var schemes: SchemesOptions
+    var additionalAbbreviations: [String]
     
     // TODO: Inline this?
     struct SchemesOptions {
@@ -41,6 +44,7 @@ final class GenerateOptions {
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.isReplacingCommonAbbreviations = options.isReplacingCommonAbbreviations ?? true
+        self.additionalAbbreviations = (options.additionalAbbreviations ?? []).map { $0.lowercased() }
         self.schemes = SchemesOptions(options.schemes)
     }
 }
@@ -52,6 +56,7 @@ final class GenerateOptionsScheme: Decodable {
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
     var isReplacingCommonAbbreviations: Bool?
+    var additionalAbbreviations: [String]?
     var schemes: SchemesOptions?
     
     struct SchemesOptions: Codable {

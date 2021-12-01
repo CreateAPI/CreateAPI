@@ -45,6 +45,13 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(typeName("HttpTest"), "HTTPTest")
         XCTAssertEqual(typeName("HttpsTest"), "HTTPSTest")
         
+        // Additional abbreviations
+        do {
+            var options = GenerateOptions()
+            options.additionalAbbreviations = ["nft"]
+            XCTAssertEqual(TypeName("myNft", options: options).rawValue, "MyNFT")
+        }
+        
         // Keywords
         XCTAssertEqual(typeName("Type"), "`Type`")
         XCTAssertEqual(typeName("Self"), "`Self`")
