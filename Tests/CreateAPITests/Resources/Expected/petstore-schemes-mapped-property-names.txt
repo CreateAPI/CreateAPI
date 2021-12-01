@@ -84,11 +84,11 @@ public struct Pet: Decodable {
     /// Example: doggie
     public var name: String
     public var photoURLs: [String]
-    /// pet status in the store
+    /// Pet status in the store
     public var state: State?
     public var tags: [Tag]?
 
-    /// pet status in the store
+    /// Pet status in the store
     public enum State: String, Codable, CaseIterable {
         case available
         case pending

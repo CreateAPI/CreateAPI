@@ -278,7 +278,9 @@ private extension String {
         output = isProperty ? output.escapedPropertyName : output.escapedTypeName
         return output
     }
-    
+}
+
+extension String {
     func capitalizingFirstLetter() -> String {
         prefix(1).capitalized + dropFirst()
     }

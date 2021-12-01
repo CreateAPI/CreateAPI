@@ -77,7 +77,7 @@ public struct Pet: Decodable {
     /// Example: doggie
     public var name: String
     public var photoURLs: [String]
-    /// pet status in the store
+    /// Pet status in the store
     public var status: String?
     public var tags: [Tag]?
 

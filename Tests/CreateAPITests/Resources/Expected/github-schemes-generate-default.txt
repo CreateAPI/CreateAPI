@@ -2129,7 +2129,7 @@ public struct Actor: Decodable {
     }
 }
 
-/// author_association
+/// Author_association
 ///
 /// How the author is associated with the repository.
 ///
@@ -2181,7 +2181,7 @@ public struct Issue: Decodable {
     /// Simple User
     public var assignee: SimpleUser?
     public var assignees: [SimpleUser]?
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -2346,7 +2346,7 @@ public struct Issue: Decodable {
 ///
 /// Comments provide a way for people to collaborate on an issue.
 public struct IssueComment: Decodable {
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -2929,7 +2929,7 @@ public struct GistSimple: Decodable {
 ///
 /// A comment made to a gist.
 public struct GistComment: Decodable {
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -4730,7 +4730,7 @@ public struct GroupMapping: Decodable {
     public var groups: [GroupsItem]?
 
     public struct GroupsItem: Decodable {
-        /// a description of the group
+        /// A description of the group
         ///
         /// Example: A group of Developers working on AzureAD SAML SSO
         public var groupDescription: String
@@ -4742,11 +4742,11 @@ public struct GroupMapping: Decodable {
         ///
         /// Example: saml-azuread-test
         public var groupName: String
-        /// synchronization status for this group mapping
+        /// Synchronization status for this group mapping
         ///
         /// Example: unsynced
         public var status: String?
-        /// the time of the last sync for this group-mapping
+        /// The time of the last sync for this group-mapping
         ///
         /// Example: 1635
         public var syncedAt: String?
@@ -7997,7 +7997,7 @@ public struct CodeScanningAlertItems: Decodable {
 public struct CodeScanningAlertRule: Decodable {
     /// A short description of the rule used to detect the alert.
     public var description: String?
-    /// description of the rule used to detect the alert.
+    /// Description of the rule used to detect the alert.
     public var fullDescription: String?
     /// Detailed documentation for the rule as GitHub Flavored Markdown.
     public var help: String?
@@ -8541,7 +8541,7 @@ public struct RepositoryCollaboratorPermission: Decodable {
 
 /// Commit Comment
 public struct CommitComment: Decodable {
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -8656,7 +8656,7 @@ public struct PullRequestSimple: Decodable {
     /// Simple User
     public var assignee: SimpleUser?
     public var assignees: [SimpleUser]?
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -10442,7 +10442,7 @@ public struct IssueEvent: Decodable {
     public var assignee: SimpleUser?
     /// Simple User
     public var assigner: SimpleUser?
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -11239,7 +11239,7 @@ public struct Label: Decodable {
 public struct TimelineCommentEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -11460,7 +11460,7 @@ public struct TimelineCommittedEvent: Decodable {
 /// Timeline Reviewed Event
 public struct TimelineReviewedEvent: Decodable {
     public var links: Links
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -11544,7 +11544,7 @@ public struct TimelineReviewedEvent: Decodable {
 /// Pull Request Review Comments are comments on a portion of the Pull Request's diff.
 public struct PullRequestReviewComment: Decodable {
     public var links: Links
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -12389,7 +12389,7 @@ public struct PullRequest: Decodable {
     /// Simple User
     public var assignee: SimpleUser?
     public var assignees: [SimpleUser]?
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -13239,7 +13239,7 @@ public struct PullRequestReviewRequest: Decodable {
 /// Pull Request Reviews are reviews on pull requests.
 public struct PullRequestReview: Decodable {
     public var links: Links
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -13319,7 +13319,7 @@ public struct PullRequestReview: Decodable {
 /// Legacy Review Comment
 public struct ReviewComment: Decodable {
     public var links: Links
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
@@ -13498,7 +13498,7 @@ public struct Release: Decodable {
     public var createdAt: Date
     /// The URL of the release discussion.
     public var discussionURL: URL?
-    /// true to create a draft (unpublished) release, false to create a published one.
+    /// True to create a draft (unpublished) release, false to create a published one.
     ///
     /// Example: false
     public var isDraft: Bool
@@ -14142,7 +14142,7 @@ public struct ScimUser: Decodable {
     ///
     /// Example: Jon Doe
     public var displayName: String?
-    /// user emails
+    /// User emails
     ///
     /// Example:
 
@@ -14161,7 +14161,7 @@ public struct ScimUser: Decodable {
     ///
     /// Example: a7b0f98395
     public var externalID: String?
-    /// associated groups
+    /// Associated groups
     public var groups: [GroupsItem]?
     /// Unique identifier of an external identity
     ///
@@ -14512,7 +14512,7 @@ public struct IssueSearchResultItem: Decodable {
     /// Simple User
     public var assignee: SimpleUser?
     public var assignees: [SimpleUser]?
-    /// author_association
+    /// Author_association
     ///
     /// How the author is associated with the repository.
     ///

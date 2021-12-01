@@ -84,7 +84,7 @@ extension Generate {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat) var \(PropertyName(type, options: .init()))): \(type) {
+                        \(access)\(stat) var \(PropertyName(type, options: .init())): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                         
