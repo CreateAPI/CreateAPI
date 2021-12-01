@@ -92,7 +92,7 @@ public struct Pet: Decodable {
     }
 }
 
-public struct ApiResponse: Decodable {
+public struct APIResponse: Decodable {
     public var code: Int?
     public var message: String?
     public var type: String?

@@ -83,7 +83,7 @@ final class GenerateSchemas {
             
             guard let name = makeTypeNameFor(key: key, schema: schema) else {
                 if arguments.isVerbose {
-                    print("Skipping generation for \(key)")
+                    print("Skipping generation for \(key.rawValue)")
                 }
                 return
             }
@@ -95,7 +95,7 @@ final class GenerateSchemas {
                     lock.unlock()
                 }
             } catch {
-                print("ERROR: Failed to generate entity for \(key): \(error)")
+                print("ERROR: Failed to generate entity for \(key.rawValue): \(error)")
             }
         }
 
