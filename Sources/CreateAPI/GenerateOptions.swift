@@ -13,6 +13,7 @@ final class GenerateOptions {
     var isInliningPrimitiveTypes: Bool
     var isReplacingCommonAbbreviations: Bool
     var additionalAbbreviations: [String]
+    var isSwiftLintDisabled: Bool
     
     // TODO: Inline this?
     struct SchemesOptions {
@@ -45,6 +46,7 @@ final class GenerateOptions {
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.isReplacingCommonAbbreviations = options.isReplacingCommonAbbreviations ?? true
         self.additionalAbbreviations = (options.additionalAbbreviations ?? []).map { $0.lowercased() }
+        self.isSwiftLintDisabled = options.isSwiftLintDisabled ?? true
         self.schemes = SchemesOptions(options.schemes)
     }
 }
@@ -57,6 +59,7 @@ final class GenerateOptionsScheme: Decodable {
     var isInliningPrimitiveTypes: Bool?
     var isReplacingCommonAbbreviations: Bool?
     var additionalAbbreviations: [String]?
+    var isSwiftLintDisabled: Bool?
     var schemes: SchemesOptions?
     
     struct SchemesOptions: Codable {
