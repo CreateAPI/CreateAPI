@@ -3243,7 +3243,7 @@ public struct MarketplacePurchase: Decodable {
 }
 
 /// Api Overview
-public struct ApiOverview: Decodable {
+public struct APIOverview: Decodable {
     /// Example:
 
     /// [

@@ -306,7 +306,7 @@ private let keywords = Set(["public", "private", "open", "fileprivate", "default
 private let capitilizedKeywords = Set(["Self", "Type"])
 
 // WARNING: Order is important (consuming the longer one first)
-private let abbreviations = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp"]
+private let abbreviations = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api"]
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [
