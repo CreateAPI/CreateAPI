@@ -120,17 +120,17 @@ final class GenerateSchemas {
                     return nil
                 } else {
                     // Some types in GitHub specs are only defined once as Nullable
-                    return TypeName(counterpart)
+                    return makeTypeName(counterpart)
                 }
             }
         }
-        let name = TypeName(key)
+        let name = makeTypeName(key.rawValue)
         if !options.schemes.mappedTypeNames.isEmpty {
             if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
                 return TypeName(processedRawValue: mapped)
             }
         }
-        return TypeName(key)
+        return makeTypeName(key.rawValue)
     }
     
     // Recursively creates a type: `struct`, `class`, `enum` – depending on the
@@ -179,7 +179,7 @@ final class GenerateSchemas {
     }
                 
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in container: PropertyContainer) throws -> Property {
-        func makePropertyName(for name: PropertyName, type: String) -> PropertyName {
+        func makeChildPropertyName(for name: PropertyName, type: String) -> PropertyName {
             if !options.schemes.mappedPropertyNames.isEmpty {
                 if let mapped = options.schemes.mappedPropertyNames[name.rawValue] {
                     return PropertyName(processedRawValue: mapped)
@@ -197,11 +197,11 @@ final class GenerateSchemas {
         func child(name: PropertyName, type: String, context: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
-            let name = makePropertyName(for: name, type: type)
+            let name = makeChildPropertyName(for: name, type: type)
             return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
         }
 
-        let propertyName = PropertyName(key)
+        let propertyName = makePropertyName(key)
    
         switch schema {
         case .object(let coreContext, let objectContext):
@@ -221,7 +221,7 @@ final class GenerateSchemas {
                             if let type = try? getPrimitiveType(for: schema) {
                                 return child(name: propertyName, type: "[String: [String: \(type)]]", context: coreContext, nested: nil)
                             }
-                            let nestedTypeName = TypeName(key).appending("Item")
+                            let nestedTypeName = makeTypeName(key).appending("Item")
                             let nested = try makeParent(name: nestedTypeName, schema: schema)
                             return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", context: coreContext, nested: nested)
                         }
@@ -229,13 +229,13 @@ final class GenerateSchemas {
                     if let type = try? getPrimitiveType(for: schema) {
                         return child(name: propertyName, type: "[String: \(type)]", context: coreContext, nested: nil)
                     }
-                    let nestedTypeName = TypeName(key).appending("Item")
+                    let nestedTypeName = makeTypeName(key).appending("Item")
                     // TODO: implement shiftRight (fix nested enums)
                     let nested = try makeParent(name: nestedTypeName, schema: schema)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
                 }
             }
-            let type = TypeName(key)
+            let type = makeTypeName(key)
             let nested = try makeParent(name: type, schema: schema)
             return child(name: propertyName, type: type.rawValue, context: coreContext, nested: nested)
         case .array(let coreContext, let arrayContext):
@@ -245,19 +245,19 @@ final class GenerateSchemas {
             if let type = try? getPrimitiveType(for: item) {
                 return child(name: propertyName, type: "[\(type)]", context: coreContext)
             }
-            let name = TypeName(key).appending("Item")
+            let name = makeTypeName(key).appending("Item")
             let nested = try makeParent(name: name, schema: item)
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
         case .string(let coreContext, _):
             if isEnum(coreContext) {
-                let typeName = TypeName(makePropertyName(for: propertyName, type: "CreateAPIEnumPlaceholderName").rawValue)
+                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: "CreateAPIEnumPlaceholderName").rawValue)
                 let nested = try makeEnum(name: typeName, coreContext: coreContext)
                 return child(name: propertyName, type: typeName.rawValue, context: schema.coreContext, nested: nested)
             }
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, context: coreContext)
         case .all, .one, .any:
-            let name = TypeName(key)
+            let name = makeTypeName(key)
             let nested = try makeParent(name: name, schema: schema)
             return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
         case .not(let jSONSchema, let core):
@@ -410,7 +410,7 @@ final class GenerateSchemas {
         output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
         let escaped = CharacterSet(charactersIn: "`")
         for value in values {
-            let caseName = PropertyName(value).rawValue
+            let caseName = makePropertyName(value).rawValue
             if caseName.trimmingCharacters(in: escaped) != value {
                 output += "    case \(caseName) = \"\(value)\"\n"
             } else {
@@ -488,7 +488,7 @@ final class GenerateSchemas {
             switch reference {
             case .internal(let ref):
                 if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
-                    return TypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue
+                    return makeTypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue
                 }
                 // Note: while dereferencing, it does it recursively.
                 // So if you have `typealias Pets = [Pet]`, it'll dereference
@@ -509,7 +509,7 @@ final class GenerateSchemas {
                         return mapped
                     }
                 }
-                return TypeName(name).rawValue
+                return makeTypeName(name).rawValue
             case .external(let url):
                 throw GeneratorError("External references are not supported: \(url)")
             }
@@ -633,7 +633,7 @@ final class GenerateSchemas {
         // Disambiguate arrays
         func parameter(for type: String) -> String {
             let isArray = type.starts(with: "[") // TODO: Refactor
-            return "\(PropertyName(type))\(isArray ? "s" : "")"
+            return "\(makePropertyName(type))\(isArray ? "s" : "")"
         }
         return types.map { parameter(for: $0!) }
     }
@@ -692,6 +692,14 @@ final class GenerateSchemas {
         lock.lock()
         isAnyJSONUsed = true
         lock.unlock()
+    }
+    
+    private func makePropertyName(_ rawValue: String) -> PropertyName {
+        PropertyName(rawValue, options: options)
+    }
+    
+    private func makeTypeName(_ rawValue: String) -> TypeName {
+        TypeName(rawValue, options: options)
     }
 }
 

@@ -168,6 +168,19 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-all-schemes-generate-default", actual: output)
     }
     
+    func testPetstoreAllDisableAbbreviations() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.isReplacingCommongAbbreviations = false
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-disable-common-abbreviations", actual: output)
+    }
+    
     func testPetstoreAllDisableEnumGeneration() {
         // GIVEN
         let spec = spec(named: "petstore-all")

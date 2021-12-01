@@ -8,6 +8,7 @@ final class GenerateOptions {
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
+    var isReplacingCommongAbbreviations: Bool
     var schemes: SchemesOptions
     
     // TODO: Inline this?
@@ -39,6 +40,7 @@ final class GenerateOptions {
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
+        self.isReplacingCommongAbbreviations = options.isReplacingCommongAbbreviations ?? true
         self.schemes = SchemesOptions(options.schemes)
     }
 }
@@ -49,6 +51,7 @@ final class GenerateOptionsScheme: Decodable {
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
+    var isReplacingCommongAbbreviations: Bool?
     var schemes: SchemesOptions?
     
     struct SchemesOptions: Codable {

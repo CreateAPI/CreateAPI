@@ -137,13 +137,9 @@ private func perform(in group: DispatchGroup, _ closure: @escaping () -> Void) {
 /// Using these types add type-safety and allows the client to avoid redundant computations.
 struct TypeName: CustomStringConvertible {
     let rawValue: String
-    
-    init(_ key: OpenAPI.ComponentKey) {
-        self.init(key.rawValue)
-    }
-    
-    init(_ rawValue: String) {
-        self.rawValue = rawValue.process(isProperty: false)
+        
+    init(_ rawValue: String, options: GenerateOptions) {
+        self.rawValue = rawValue.process(isProperty: false, options: options)
     }
 
     init(processedRawValue: String) {
@@ -164,8 +160,8 @@ struct TypeName: CustomStringConvertible {
 struct PropertyName: CustomStringConvertible {
     let rawValue: String
     
-    init(_ rawValue: String) {
-        self.rawValue = rawValue.process(isProperty: true)
+    init(_ rawValue: String, options: GenerateOptions) {
+        self.rawValue = rawValue.process(isProperty: true, options: options)
     }
     
     init(processedRawValue: String) {
@@ -241,7 +237,7 @@ private extension String {
         return self
     }
 
-    func process(isProperty: Bool) -> String {
+    func process(isProperty: Bool, options: GenerateOptions) -> String {
         // Special-case: remove `'` from words like "won't"
         var components = sanitized.replacingOccurrences(of: "'", with: "")
             .components(separatedBy: badCharacters)
@@ -270,10 +266,12 @@ private extension String {
         // Replace abbreviations (but only at code boundries)
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
-        for abbreviation in abbreviations {
-            if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
-               (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
-                output.replaceSubrange(range, with: abbreviation.uppercased())
+        if options.isReplacingCommongAbbreviations {
+            for abbreviation in abbreviations {
+                if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
+                   (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
+                    output.replaceSubrange(range, with: abbreviation.uppercased())
+                }
             }
         }
         

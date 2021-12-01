@@ -71,7 +71,7 @@ extension Generate {
                 """
                 
                 if isParameter {
-                    let parameter = PropertyName(component)
+                    let parameter = PropertyName(component, options: .init())
                     output += """
                     extension \(extensionOf) {
                         \(access)\(stat) func \(parameter)(_ \(parameter): String) -> \(type) {
@@ -84,7 +84,7 @@ extension Generate {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat) var \(PropertyName(type)): \(type) {
+                        \(access)\(stat) var \(PropertyName(type, options: .init()))): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                         
@@ -128,7 +128,7 @@ extension Generate {
 }
 
 private func makeType(_ string: String) -> String {
-    let name = TypeName(string)
+    let name = TypeName(string, options: .init())
     if string.starts(with: "{") {
         return "With\(name.rawValue)"
     }
