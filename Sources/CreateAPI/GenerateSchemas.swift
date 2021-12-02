@@ -352,18 +352,7 @@ final class GenerateSchemas {
             }
         }
     }
-    
-    #warning("TODO: remove")
-    // E.g. "public final class User: Codable {\n"
-    private func makeEntityDeclaration(name: TypeName) -> String {
-        let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
-        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
-            .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
-            .compactMap { $0 }.joined(separator: ", ")
-        return "\(lhs): \(rhs) {\n"
-    }
-    
+
     #warning("remove")
     // Example: "public var files: [Files]?"
     private func makeProperty(for child: Property) -> String {
