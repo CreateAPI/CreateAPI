@@ -77,7 +77,7 @@ struct Generate: ParsableCommand {
     
         let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor)
         let options = try makeOptions(at: config)
-        let resources = generatePaths(for: spec)
+        let resources = GeneratePaths(spec: spec, options: options, arguments: arguments).run()
         let schemas = GenerateSchemas(spec: spec, options: options, arguments: arguments).run()
         
         let outputPath = (self.output as NSString).expandingTildeInPath

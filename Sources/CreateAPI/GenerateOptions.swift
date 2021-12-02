@@ -4,6 +4,7 @@
 
 final class GenerateOptions {
     var access: String?
+    var paths: Paths
     var schemes: SchemesOptions
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
@@ -53,6 +54,14 @@ final class GenerateOptions {
         }
     }
     
+    struct Paths {
+        var namespace: String
+        
+        init(_ paths: GenerateOptionsScheme.Paths?) {
+            self.namespace = paths?.namespace ?? "Paths"
+        }
+    }
+    
     // TODO: Inline this?
     struct SchemesOptions {
         var isGeneratingStructs: Bool
@@ -79,6 +88,7 @@ final class GenerateOptions {
 
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
+        self.paths = Paths(options.paths)
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
@@ -97,6 +107,7 @@ final class GenerateOptions {
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
+    var paths: Paths?
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
@@ -124,6 +135,10 @@ final class GenerateOptionsScheme: Decodable {
         var addExamples: Bool?
         var capitilizeTitle: Bool?
         var capitilizeDescription: Bool?
+    }
+    
+    struct Paths: Decodable {
+        var namespace: String?
     }
     
     struct SchemesOptions: Decodable {

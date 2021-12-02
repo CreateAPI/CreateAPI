@@ -63,13 +63,24 @@ final class GenerateSchemas {
     }
 
     func run() -> String {
-        var output = templates.fileHeader
-        output += "\n\n"
-        
         let startTime = CFAbsoluteTimeGetCurrent()
         if arguments.isVerbose {
-            print("Start generating schemas (\(spec.components.schemas.count))")
+            print("Generating schemas (\(spec.components.schemas.count))")
         }
+        
+        let output = _run()
+        
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        if arguments.isVerbose {
+            print("Generated schemas in \(timeElapsed) s.")
+        }
+        
+        return output
+    }
+    
+    func _run() -> String {
+        var output = templates.fileHeader
+        output += "\n\n"
         
         let schemas = Array(spec.components.schemas)
         var generated = Array<String?>(repeating: nil, count: schemas.count)
@@ -109,12 +120,7 @@ final class GenerateSchemas {
 
         output += stringCodingKey
         output += "\n"
-        
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        if arguments.isVerbose {
-            print("Generated schemas in \(timeElapsed) s.")
-        }
-        
+    
         return output.indent(using: options)
     }
     

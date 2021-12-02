@@ -1,16 +1,18 @@
 #!/bin/sh
 
-set -eo pipefail
+// TODO: Reimplement (compile using Swift Package Manager)
 
-for filename in ./Tests/CreateAPITests/Resources/Expected/*.txt; do
-    cp -- "$filename" "${filename%.txt}.swift"
-done
-
-for filename in ./Tests/CreateAPITests/Resources/Expected/*.swift; do
-    swiftc $filename -o temp-bin
-    rm temp-bin
-done
-
-for filename in ./Tests/CreateAPITests/Resources/Expected/*.swift; do
-    rm "$filename"
-done
+#set -eo pipefail
+#
+#for filename in ./Tests/CreateAPITests/Resources/Expected/*.txt; do
+#    cp -- "$filename" "${filename%.txt}.swift"
+#done
+#
+#for filename in ./Tests/CreateAPITests/Resources/Expected/*.swift; do
+#    swiftc $filename -o temp-bin
+#    rm temp-bin
+#done
+#
+#for filename in ./Tests/CreateAPITests/Resources/Expected/*.swift; do
+#    rm "$filename"
+#done

@@ -4,21 +4,51 @@
 
 import OpenAPIKit30
 import Foundation
+import GrammaticalNumber
 
-// TODO: Add root "/" support (for GitHub)
+// TODO: Add root "/"
+final class GeneratePaths {
+    private let spec: OpenAPI.Document
+    private let options: GenerateOptions
+    private let arguments: GenerateArguments
+    private let templates: Templates
+    
+    #warning("refactor")
+    var access: String { options.access.map { "\($0) " } ?? "" }
 
-extension Generate {
-    func generatePaths(for spec: OpenAPI.Document) -> String {
-        var output = """
-            import Foundation
-            import \(`import`)
-            
-            \(access) struct \(namespace) {}
-            """
+    init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
+        self.spec = spec
+        self.options = options
+        self.arguments = arguments
+        self.templates = Templates(options: options)
+    }
+    
+    func run() -> String {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        if arguments.isVerbose {
+            print("Generating paths (\(spec.paths.count))")
+        }
+        
+        let output = _run()
+        
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        if arguments.isVerbose {
+            print("Generated paths in \(timeElapsed) s.")
+        }
+        
+        return output
+    }
+    
+    func _run() -> String {
+        var output = templates.fileHeader
+        
+        output += "\nimport Get"
+        output += "\n\n"
+        output += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
         
         // TODO: Only generate for one path
         
-        output.append("\n\n")
+        output += "\n\n"
 
         var generated = Set<OpenAPI.Path>()
         
@@ -41,9 +71,9 @@ extension Generate {
                 let isTopLevel = components.count == 1
                 let type = makeType(component)
                 let isParameter = component.starts(with: "{")
-                let stat = isTopLevel ? " static" : ""
+                let stat = isTopLevel ? "static " : ""
                 
-                let extensionOf = ([namespace] + components.dropLast().map(makeType)).joined(separator: ".")
+                let extensionOf = ([options.paths.namespace] + components.dropLast().map(makeType)).joined(separator: ".")
 
                 // TODO: percent-encode path?
                 
@@ -55,9 +85,9 @@ extension Generate {
                 
                 // TODO: refactor and add remaining niceness
                 var generatedType = """
-                    \(access) struct \(type) {
+                    \(access)struct \(type) {
                         // \(subpath.rawValue)
-                        \(access) let path: String\n
+                        \(access)let path: String\n
                 """
                 
                 if isLast {
@@ -74,7 +104,7 @@ extension Generate {
                     let parameter = PropertyName(component, options: .init())
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat) func \(parameter)(_ \(parameter): String) -> \(type) {
+                        \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
                         }
                     
@@ -84,7 +114,7 @@ extension Generate {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat) var \(PropertyName(type, options: .init())): \(type) {
+                        \(access)\(stat)var \(PropertyName(type, options: .init())): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                         
@@ -95,8 +125,7 @@ extension Generate {
             }
         }
         
-        // TODO: implement indentation
-        return output
+        return output.indent(using: options)
     }
     
     // TODO: Add remaining methods
@@ -121,7 +150,7 @@ extension Generate {
     private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String {
         let response = operation.operationId == "users/get-by-username" ? "PublicUser" : "Void"
         return """
-                \(access) func \(method)() -> Request<\(response)> {
+                \(access)func \(method)() -> Request<\(response)> {
                     .\(method)(path)
                 }
         """
