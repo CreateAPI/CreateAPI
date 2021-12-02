@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
+// TODO: Change number of spaces + allow tabs
 // TODO: Fix empty public struct Object: Decodable {} in GitHub spec
 // TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
@@ -18,6 +19,7 @@ import Foundation
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Final imporvementes to OctoKit
 // TODO: anyOf should be class or struct?
+// TODO: Add an option to skip types
 
 // TODO: Add Encodable support
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
@@ -52,11 +54,6 @@ final class GenerateSchemas {
     private let spec: OpenAPI.Document
     private let options: GenerateOptions
     private let arguments: GenerateArguments
-    
-    var access: String { options.access.map { "\($0) " } ?? "" }
-    // TODO: remove
-    var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
-
     private let templates: Templates
     private var isAnyJSONUsed = false
     private let lock = NSLock()
@@ -189,7 +186,7 @@ final class GenerateSchemas {
                 }
             }
             if options.isGeneratingSwiftyBooleanPropertyNames && type == "Bool" {
-                return name.asBoolean()
+                return name.asBoolean
             }
             return name
         }
@@ -334,16 +331,17 @@ final class GenerateSchemas {
         guard let item = arrayContext.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try? getPrimitiveType(for: item) {
+        if let type = try? getTypeName(for: item) {
             guard !options.isInliningPrimitiveTypes else {
                 return ""
             }
-            return "\(access)typealias \(name) = [\(type)]"
+            return templates.typealias(name: name, type: type.asArray)
         }
         // Requres generation of a separate type
         var output = ""
         let itemName = name.appending("Item")
-        output += "\(access)typealias \(name) = [\(itemName)]\n\n"
+        output += templates.typealias(name: name, type: itemName.asArray)
+        output += "\n\n"
         output += (try makeTopDeclaration(name: itemName, schema: item)) ?? ""
         return output
     }
@@ -356,20 +354,12 @@ final class GenerateSchemas {
         guard !values.isEmpty else {
             throw GeneratorError("Enum \(name) has no values")
         }
-        
-        var output = ""
-        output += templates.comments(for: coreContext, name: name.rawValue)
-        output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
-        let escaped = CharacterSet(charactersIn: "`")
-        for value in values {
-            let caseName = makePropertyName(value).rawValue
-            if caseName.trimmingCharacters(in: escaped) != value {
-                output += "    case \(caseName) = \"\(value)\"\n"
-            } else {
-                output += "    case \(caseName)\n"
-            }
-        }
-        output += "}"
+        var output = templates.comments(for: coreContext, name: name.rawValue)
+        let cases = values.map {
+            let caseName = makePropertyName($0).rawValue
+            return templates.case(name: caseName, value: $0)
+        }.joined(separator: "\n")
+        output += templates.enumOfStrings(name: name, contents: cases)
         return output
     }
     
@@ -400,6 +390,10 @@ final class GenerateSchemas {
     }
     
     // MARK: Misc
+    
+    private func getTypeName(for json: JSONSchema) throws -> TypeName {
+        TypeName(processedRawValue: try getPrimitiveType(for: json))
+    }
     
     // Anything that's not an object or a reference.
     private func getPrimitiveType(for json: JSONSchema) throws -> String {

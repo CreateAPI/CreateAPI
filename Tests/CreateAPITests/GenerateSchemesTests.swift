@@ -200,8 +200,7 @@ final class GenerateSchemesTests: XCTestCase {
         let options = GenerateOptions()
         options.schemes.mappedTypeNames = [
             "ApiResponse": "APIResponse",
-            "Status": "State",
-            "ContainerB.Child.Child": "RenamedChild"
+            "Status": "State"
         ]
         
         // WHEN

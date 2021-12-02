@@ -34,7 +34,7 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(typeName("UserServiceDeviceHasAccessTo"), "UserServiceDeviceHasAccessTo")
         XCTAssertEqual(typeName("Won't"), "Wont")
 
-        // Abbreviations
+        // Acronyms
         XCTAssertEqual(typeName("petId"), "PetID")
         XCTAssertEqual(typeName("pedIdentifer"), "PedIdentifer")
         XCTAssertEqual(typeName("gistUrl"), "GistURL")
@@ -45,9 +45,9 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(typeName("HttpTest"), "HTTPTest")
         XCTAssertEqual(typeName("HttpsTest"), "HTTPSTest")
         
-        // Additional abbreviations
+        // Additional acronyms
         do {
-            var options = GenerateOptions()
+            let options = GenerateOptions()
             options.additionalAcronyms = ["nft"]
             XCTAssertEqual(TypeName("myNft", options: options).rawValue, "MyNFT")
         }
@@ -110,7 +110,7 @@ final class HelpersTests: XCTestCase {
         let options = GenerateOptions()
         
         func asBoolean(_ name: String) -> String {
-            PropertyName(name, options: options).asBoolean().rawValue
+            PropertyName(name, options: options).asBoolean.rawValue
         }
         
         // Simple

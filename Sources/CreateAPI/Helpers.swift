@@ -132,10 +132,13 @@ private func perform(in group: DispatchGroup, _ closure: @escaping () -> Void) {
 
 // MARK: Strings
 
+/// A valid declaration name.
+protocol DeclarationName: CustomStringConvertible {}
+
 /// A camel-case  type name.
 ///
 /// Using these types add type-safety and allows the client to avoid redundant computations.
-struct TypeName: CustomStringConvertible {
+struct TypeName: CustomStringConvertible, DeclarationName {
     let rawValue: String
         
     init(_ rawValue: String, options: GenerateOptions) {
@@ -152,12 +155,16 @@ struct TypeName: CustomStringConvertible {
     func appending(_ text: String) -> TypeName {
         TypeName(processedRawValue: rawValue + text)
     }
+    
+    var asArray: TypeName {
+        TypeName(processedRawValue: "[\(rawValue)]")
+    }
 }
 
 /// A property/parameter name in a camel-case format, e.g. `gistsURL`.
 ///
 /// If the name matches one of the Swift keywords, it's automatically escaped.
-struct PropertyName: CustomStringConvertible {
+struct PropertyName: CustomStringConvertible, DeclarationName {
     let rawValue: String
     
     init(_ rawValue: String, options: GenerateOptions) {
@@ -170,8 +177,8 @@ struct PropertyName: CustomStringConvertible {
     
     var description: String { rawValue }
     
-    /// TODO: Move escaping to usage points.
-    func asBoolean() -> PropertyName {
+    /// Creates a Swifty property name, e.g. "finished" becomes "isFinished".
+    var asBoolean: PropertyName {
         var string = rawValue.trimmingCharacters(in: CharacterSet.ticks)
         let words = string.words
         guard !words.isEmpty else {

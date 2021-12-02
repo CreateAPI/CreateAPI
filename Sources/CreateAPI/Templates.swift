@@ -73,6 +73,22 @@ final class Templates {
         "case \(property.name)(\(property.type))"
     }
     
+    func `case`(name: String, value: String) -> String {
+        if name.trimmingCharacters(in: CharacterSet.ticks) != value {
+            return "case \(name) = \"\(value)\""
+        } else {
+            return "case \(name)"
+        }
+    }
+    
+    func enumOfStrings(name: TypeName, contents: String) -> String {
+        return """
+        \(access)enum \(name): String, Codable, CaseIterable {
+        \(contents.shiftedRight(count: 4))
+        }
+        """
+    }
+    
     // MARK: Decoding
     
     func decode(properties: [Property]) -> String {
@@ -160,6 +176,12 @@ final class Templates {
         }
         output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
+    }
+    
+    // MARK: Typealias
+    
+    func `typealias`(name: DeclarationName, type: DeclarationName) -> String {
+        "\(access)typealias \(name) = \(type)"
     }
     
     // MARK: Comments
