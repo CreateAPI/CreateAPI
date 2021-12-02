@@ -7,7 +7,17 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Refactor so we could easily reuse code with GenerateSchemas
-// TODO: Add support for query parametrs (separate struct?)
+// TODO: Figure out unit-testing situation for paths
+// TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
+//    - allowReserved
+//    - components.parameters
+//    - inline parameters
+//    - constant parameters
+//    - style
+//    - explode
+//    - deprecated
+//    - path-level parameters
+//    - common parameters in components (inline?)
 // TODO: Add root "/"
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
@@ -18,6 +28,7 @@ import GrammaticalNumber
 // TODO: Test that this enum description works enum: [user, poweruser, admin]
 // TODO: Add an option to use operationId as method name
 // TODO: Add support for deprecated methods
+// TODO: Support path parameters like this GET /report.{format}
 
 final class GeneratePaths {
     private let spec: OpenAPI.Document
