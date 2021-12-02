@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "GrammaticalNumber",
+        "repositoryURL": "https://github.com/Cosmo/GrammaticalNumber",
+        "state": {
+          "branch": null,
+          "revision": "3827665bd38a0fd5f215220b26c92df876539af0",
+          "version": "0.0.3"
+        }
+      },
+      {
         "package": "OpenAPIKit",
         "repositoryURL": "https://github.com/kean/OpenAPIKit",
         "state": {

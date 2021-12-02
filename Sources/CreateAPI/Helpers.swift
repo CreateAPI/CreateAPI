@@ -213,7 +213,7 @@ struct PropertyName: CustomStringConvertible, DeclarationName {
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 
-private extension String {
+extension String {
     // Returns separate words in a camelCase strings
     var words: [String] {
         // TODO: Refactor (not sure it's correct either)
@@ -230,7 +230,7 @@ private extension String {
         if !remainig.isEmpty {
             output.append(String(remainig))
         }
-        return output
+        return output.filter { !$0.isEmpty } // TODO: refactor
     }
     
     var sanitized: String {

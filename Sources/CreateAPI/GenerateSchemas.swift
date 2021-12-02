@@ -4,6 +4,7 @@
 
 import OpenAPIKit30
 import Foundation
+import GrammaticalNumber
 
 // TODO: Fix empty public struct Object: Decodable {} in GitHub spec
 // TODO: GitHub: test why Permissions are empty
@@ -245,7 +246,7 @@ final class GenerateSchemas {
             if let type = try? getPrimitiveType(for: item) {
                 return child(name: propertyName, type: "[\(type)]", info: info)
             }
-            let name = makeTypeName(key).appending("Item")
+            let name = makeNestedArrayTypeName(for: key)
             let nested = try makeTopDeclaration(name: name, schema: item, context: context)
             return child(name: propertyName, type: "[\(name)]", info: info, nested: nested)
         }
@@ -338,6 +339,20 @@ final class GenerateSchemas {
                 return nil
             }
         }
+    }
+    
+    private func makeNestedArrayTypeName(for key: String) -> TypeName {
+        let name = makeTypeName(key)
+        if options.isPluralizationEnabled, !options.pluralizationExceptions.contains(name.rawValue) {
+            // Some know words that the library doesn't handle well
+            if name.rawValue == "Environments" { return TypeName(processedRawValue: "Environment") }
+            let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
+            let sing = (words.dropLast() + [words.last?.singularized()])
+                .compactMap { $0?.capitalizingFirstLetter() }
+                .joined(separator: "")
+            return makeTypeName(sing) // TODO: refactor
+        }
+        return name.appending("Item")
     }
     
     // MARK: Typealiases
@@ -562,8 +577,10 @@ final class GenerateSchemas {
         
         // Disambiguate arrays
         func parameter(for type: String) -> String {
+            let name = makePropertyName(type).rawValue
+            guard options.isPluralizationEnabled else { return name }
             let isArray = type.starts(with: "[") // TODO: Refactor
-            return "\(makePropertyName(type))\(isArray ? "s" : "")"
+            return isArray ? name.pluralized() : name
         }
         return types.map { parameter(for: $0!) }
     }

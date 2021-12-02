@@ -14,6 +14,8 @@ final class GenerateOptions {
     var comments: Comments
     var indentation: Indentation
     var spaceWidth: Int
+    var isPluralizationEnabled: Bool
+    var pluralizationExceptions: Set<String>
     
     enum Indentation: String, Codable {
         case spaces
@@ -86,6 +88,8 @@ final class GenerateOptions {
         self.comments = Comments(options.comments)
         self.indentation = options.indentation ?? .spaces
         self.spaceWidth = options.spaceWidth ?? 4
+        self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
+        self.pluralizationExceptions = Set(options.pluralizationExceptions ?? ["ConfigWas", "EventsWere"])
     }
 }
 
@@ -101,6 +105,8 @@ final class GenerateOptionsScheme: Decodable {
     var comments: Comments?
     var indentation: GenerateOptions.Indentation?
     var spaceWidth: Int?
+    var isPluralizationEnabled: Bool?
+    var pluralizationExceptions: [String]?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?
