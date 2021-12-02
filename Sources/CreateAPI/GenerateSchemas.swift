@@ -295,6 +295,7 @@ final class GenerateSchemas {
         }
     }
     
+    #warning("TODO: remove")
     private func makeNested(for children: [Property]) -> String? {
         let nested = children.compactMap({ $0.nested?.shiftedRight(count: 4) })
         guard !nested.isEmpty else { return nil }
@@ -614,49 +615,26 @@ final class GenerateSchemas {
             switch schema {
             case .object(_, let objectContext):
                 // Inline properties for nested objects (differnt from other OpenAPI constructs)
-                // TODO: refactor
-                return try objectContext.properties.keys.sorted().map { key in
-                    let schema = objectContext.properties[key]!
-                    let isRequired = objectContext.requiredProperties.contains(key)
-                    return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: container)
-                }
+                return makeProperties(for: objectContext, name: makeTypeName("Anonymous"))
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: container)]
             }
         }
         
-        var output = makeEntityDeclaration(name: name)
-        for property in properties {
-            output += "    \(access)var \(property.name): \(property.type)\n"
-        }
-        output += "\n"
-        
-        func makeInitFromDecoder() throws -> String {
-            var output = "\(access)init(from decoder: Decoder) throws {\n"
-            output += "    let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
-            for property in properties {
-                switch property.schema {
-                case .reference:
-                    output += "    self.\(property.name.accessor) = try \(property.type)(from: decoder)"
-                default:
-                    let decode = property.isOptional ? "decodeIfPresent" : "decode"
-                    output += "    self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
-                }
-                output += "\n"
+        var contents: [String] = []
+        contents.append(templates.properties(properties))
+        contents += properties.compactMap { $0.nested }
+        let decoderContents = properties.map {
+            switch $0.schema {
+            case .reference:
+                return templates.decodeFromDecoder(property: $0)
+            default:
+                return templates.decode(property: $0)
             }
-            output += "}\n"
-            return output
-        }
-        
-        output += try makeInitFromDecoder().shiftedRight(count: 4)
-         
-        if let nested = makeNested(for: properties) {
-            output += "\n\n"
-            output += nested
-        }
-        
-        output += "\n}"
-        return output
+        }.joined(separator: "\n")
+        contents.append(templates.initFromDecoder(contents: decoderContents))
+
+        return templates.entity(name: name, contents: contents)
     }
         
     private func makeTypeNames(for schemas: [JSONSchema]) -> [String] {

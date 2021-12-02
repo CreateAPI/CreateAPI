@@ -14,7 +14,6 @@ public struct Pet: Decodable {
         self.newPet = try NewPet(from: decoder)
         self.id = try values.decode(Int.self, forKey: "id")
     }
-
 }
 
 public struct NewPet: Decodable {

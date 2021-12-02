@@ -37,6 +37,11 @@ final class Templates {
         return output
     }
     
+    /// Generates an entity declaration:
+    ///
+    ///     public struct <name>: Decodable {
+    ///         <contents>
+    ///     }
     func entity(name: TypeName, contents: [String]) -> String {
         let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
         let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
@@ -51,12 +56,27 @@ final class Templates {
         """
     }
     
+    func decode(properties: [GenerateSchemas.Property]) -> String {
+        properties.map(decode).joined(separator: "\n")
+    }
+    
+    /// Generates a decode statement.
+    ///
+    ///     self.id = values.decode(Int.self, forKey: "id")
+    func decode(property: GenerateSchemas.Property) -> String {
+        let decode = property.isOptional ? "decodeIfPresent" : "decode"
+        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
+    }
+    
+    /// Generated decoding of the directly inlined nested object.
+    ///
+    ///     self.animal = try Animal(from: decoder)
+    func decodeFromDecoder(property: GenerateSchemas.Property) -> String {
+        "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
+    }
+
     func initFromDecoder(properties: [GenerateSchemas.Property]) -> String {
-        let contents = properties.map {
-            let decode = $0.isOptional ? "decodeIfPresent" : "decode"
-            return "self.\($0.name.accessor) = try values.\(decode)(\($0.type).self, forKey: \"\($0.key)\")"
-        }.joined(separator: "\n")
-        return initFromDecoder(contents: contents)
+        initFromDecoder(contents: decode(properties: properties))
     }
     
     func initFromDecoder(contents: String) -> String {
@@ -75,7 +95,7 @@ final class Templates {
     
     /// Generates a property with comments and everything.
     ///
-    /// Example: "public var files: [Files]?"
+    ///     public var files: [Files]?
     func property(_ property: GenerateSchemas.Property) -> String {
         var output = ""
         if let context = property.context {

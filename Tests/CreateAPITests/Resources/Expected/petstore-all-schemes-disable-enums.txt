@@ -155,26 +155,24 @@ public struct ClassModel: Decodable {
 
 public struct Dog: Decodable {
     public var animal: Animal
-    public var breed: String
+    public var breed: String?
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
     }
-
 }
 
 public struct Cat: Decodable {
     public var animal: Animal
-    public var isDeclawed: Bool
+    public var isDeclawed: Bool?
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
         self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
     }
-
 }
 
 public struct Animal: Decodable {
