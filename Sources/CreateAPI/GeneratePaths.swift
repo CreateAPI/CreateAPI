@@ -6,10 +6,19 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Refactor so we could easily reuse code with GenerateSchemas
+// TODO: Add support for query parametrs (separate struct?)
 // TODO: Add root "/"
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
 // TODO: Add a link to external docs
+// TODO: Parse in: path parameters and support types other than just String
+// TODO: Remove Markdown from description (or keep if it it looks OK - test)
+// TODO: Add an option to generate a plain list of APIs instead of using namespaces
+// TODO: Test that this enum description works enum: [user, poweruser, admin]
+// TODO: Add an option to use operationId as method name
+// TODO: Add support for deprecated methods
+
 final class GeneratePaths {
     private let spec: OpenAPI.Document
     private let options: GenerateOptions
@@ -161,7 +170,7 @@ final class GeneratePaths {
     }
     
     private func makeResponse(for operation: OpenAPI.Operation) -> String {
-        // TODO: What if there is more than one?
+        // TODO: What if there is more than one? (find only successful)
         guard let response = operation.responses.first?.value else {
             return "Void"
         }
