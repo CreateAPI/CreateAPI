@@ -1864,6 +1864,7 @@ public struct AuthenticationToken: Decodable {
     ///   "issues" : "read"
     /// }
     public struct Permissions: Decodable {
+
     }
 
     /// Describe whether all repositories have been selected or there's a selection involved
@@ -1948,15 +1949,19 @@ public struct AuditLogEvent: Decodable {
     }
 
     public struct ConfigItem: Decodable {
+
     }
 
     public struct ConfigWasItem: Decodable {
+
     }
 
     public struct EventsItem: Decodable {
+
     }
 
     public struct EventsWereItem: Decodable {
+
     }
 
     public init(from decoder: Decoder) throws {
@@ -3907,6 +3912,7 @@ public struct ActionsPublicKey: Decodable {
 ///
 /// An object without any properties.
 public struct EmptyObject: Decodable {
+
 }
 
 /// Credential Authorization
@@ -11873,6 +11879,7 @@ public struct DeployKey: Decodable {
 
 /// Language
 public struct Language: Decodable {
+
 }
 
 /// License Content
@@ -14286,6 +14293,7 @@ public struct ScimUser: Decodable {
             }
 
             public struct Object: Decodable {
+
             }
         }
 

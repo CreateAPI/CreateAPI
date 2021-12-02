@@ -7,6 +7,7 @@ import Foundation
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Add an option to inline all properties on allOf from referenes (dereference)
+// TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
 // TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
@@ -89,7 +90,7 @@ final class GenerateSchemas {
             }
                         
             do {
-                if let entry = try makeParent(name: name, schema: schema), !entry.isEmpty {
+                if let entry = try makeTypeDeclaration(name: name, schema: schema), !entry.isEmpty {
                     lock.lock()
                     generated[index] = entry
                     lock.unlock()
@@ -121,10 +122,34 @@ final class GenerateSchemas {
         return output
     }
     
-    // Recursively creates a type: `struct`, `class`, `enum` – depending on the
-    // schema and the user options. Primitive types often used in specs to reuse
-    // documentation are inlined.
-    private func makeParent(name: TypeName, schema: JSONSchema) throws -> String? {
+    /// Return `nil` to skip generation.
+    private func makeTypeNameFor(key: OpenAPI.ComponentKey, schema: JSONSchema) -> TypeName? {
+        if arguments.vendor == "github" {
+            // This makes sense only for the GitHub API spec where types like
+            // `simple-user` and `nullable-simple-user` exist which are duplicate
+            // and the only different is that the latter is nullable.
+            if key.rawValue.hasPrefix("nullable-") {
+                let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
+                if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
+                   spec.components.schemas[counterpartKey] != nil {
+                    return nil
+                } else {
+                    // Some types in GitHub specs are only defined once as Nullable
+                    return makeTypeName(counterpart)
+                }
+            }
+        }
+        let name = makeTypeName(key.rawValue)
+        if !options.schemes.mappedTypeNames.isEmpty {
+            if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
+                return TypeName(processedRawValue: mapped)
+            }
+        }
+        return makeTypeName(key.rawValue)
+    }
+    
+    // Recursively creates a complete type declaration: a struct, a class, an enum, etc.
+    private func makeTypeDeclaration(name: TypeName, schema: JSONSchema) throws -> String? {
         switch schema {
         case .boolean, .number, .integer:
             return nil // Inline
@@ -151,36 +176,13 @@ final class GenerateSchemas {
             return nil // Can't appear in this context
         }
     }
-    
-    
-    /// Return `nil` to skip generation.
-    private func makeTypeNameFor(key: OpenAPI.ComponentKey, schema: JSONSchema) -> TypeName? {
-        if arguments.vendor == "github" {
-            if key.rawValue.hasPrefix("nullable-") {
-                let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
-                if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
-                   spec.components.schemas[counterpartKey] != nil {
-                    return nil
-                } else {
-                    // Some types in GitHub specs are only defined once as Nullable
-                    return makeTypeName(counterpart)
-                }
-            }
-        }
-        let name = makeTypeName(key.rawValue)
-        if !options.schemes.mappedTypeNames.isEmpty {
-            if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
-                return TypeName(processedRawValue: mapped)
-            }
-        }
-        return makeTypeName(key.rawValue)
-    }
         
     private struct PropertyContainer {
         let name: TypeName
     }
     
-    private struct Property {
+    #warning("move to other files")
+    struct Property {
         // Example: "files"
         let name: PropertyName
         // Example: "[File]"
@@ -238,7 +240,7 @@ final class GenerateSchemas {
                                 return child(name: propertyName, type: "[String: [String: \(type)]]", context: coreContext, nested: nil)
                             }
                             let nestedTypeName = makeTypeName(key).appending("Item")
-                            let nested = try makeParent(name: nestedTypeName, schema: schema)
+                            let nested = try makeTypeDeclaration(name: nestedTypeName, schema: schema)
                             return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", context: coreContext, nested: nested)
                         }
                     }
@@ -247,12 +249,12 @@ final class GenerateSchemas {
                     }
                     let nestedTypeName = makeTypeName(key).appending("Item")
                     // TODO: implement shiftRight (fix nested enums)
-                    let nested = try makeParent(name: nestedTypeName, schema: schema)
+                    let nested = try makeTypeDeclaration(name: nestedTypeName, schema: schema)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
                 }
             }
             let type = makeTypeName(key)
-            let nested = try makeParent(name: type, schema: schema)
+            let nested = try makeTypeDeclaration(name: type, schema: schema)
             return child(name: propertyName, type: type.rawValue, context: coreContext, nested: nested)
         case .array(let coreContext, let arrayContext):
             guard let item = arrayContext.items else {
@@ -262,7 +264,7 @@ final class GenerateSchemas {
                 return child(name: propertyName, type: "[\(type)]", context: coreContext)
             }
             let name = makeTypeName(key).appending("Item")
-            let nested = try makeParent(name: name, schema: item)
+            let nested = try makeTypeDeclaration(name: name, schema: item)
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
         case .string(let coreContext, _):
             if isEnum(coreContext) {
@@ -274,12 +276,12 @@ final class GenerateSchemas {
             return child(name: propertyName, type: type, context: coreContext)
         case .all, .one, .any:
             let name = makeTypeName(key)
-            let nested = try makeParent(name: name, schema: schema)
+            let nested = try makeTypeDeclaration(name: name, schema: schema)
             return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
-        case .not(let jSONSchema, let core):
+        case .not:
             throw GeneratorError("`not` properties are not supported")
         default:
-            var context: JSONSchemaContext?
+            let context: JSONSchemaContext?
             switch schema {
                 // TODO: rewrite
             case .reference(let ref, _):
@@ -302,59 +304,16 @@ final class GenerateSchemas {
     // MARK: Object
     
     private func makeObject(name: TypeName, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext) throws -> String {
-        var output = ""
-
-        output += templates.comments(for: coreContext)
-        output += makeEntityDeclaration(name: name)
-
-        // Generate properties
-        let keys = objectContext.properties.keys.sorted()
-        var properties: [String: Property] = [:]
-        var skippedKeys = Set<String>()
-        let container = PropertyContainer(name: name)
-        for key in keys {
-            let schema = objectContext.properties[key]!
-            let isRequired = objectContext.requiredProperties.contains(key)
-            do {
-                properties[key] = try makeProperty(key: key, schema: schema, isRequired: isRequired, in: container)
-            } catch {
-                skippedKeys.insert(key)
-                print("ERROR: Failed to generate property \(error)")
-            }
-        }
+        var contents: [String] = []
+        let properties = makeProperties(for: objectContext, name: name)
         
-        // TODO: Find a way to preserve the order of keys
-        var nested: [String] = []
-        for key in keys {
-            guard let property = properties[key] else { continue }
-            output += makeProperty(for: property).shiftedRight(count: 4)
-            if let object = property.nested {
-                nested.append(object)
-            }
-            output += "\n"
-        }
-
-        // Add nested types
-        for nested in nested {
-            output += "\n"
-            output += nested.shiftedRight(count: 4)
-            output += "\n"
-        }
+        contents.append(templates.properties(properties))
+        contents += properties.compactMap { $0.nested }
         
         // Generate initializer
         if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
-            output += "\n"
-            output += "    \(access)init(from decoder: Decoder) throws {\n"
-            output += "        let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
-            for key in keys {
-                guard let property = properties[key] else { continue }
-                let decode = property.isOptional ? "decodeIfPresent" : "decode"
-                output += "        self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
-                output += "\n"
-            }
-            output += "    }\n"
+            contents.append(templates.initFromDecoder(properties: properties))
         }
-        
         
         // TODO: Add this an an options
 //        let hasCustomCodingKeys = keys.contains { PropertyName($0).rawValue != $0 }
@@ -372,10 +331,28 @@ final class GenerateSchemas {
 //            output +=  "    }\n"
 //        }
         
-        output += "}"
+        
+        var output = templates.comments(for: coreContext)
+        output += templates.entity(name: name, contents: contents)
         return output
     }
     
+    private func makeProperties(for object: JSONSchema.ObjectContext, name: TypeName) -> [Property] {
+        let container = PropertyContainer(name: name)
+        let keys = object.properties.keys.sorted()
+        return keys.compactMap { key in
+            let schema = object.properties[key]!
+            let isRequired = object.requiredProperties.contains(key)
+            do {
+                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: container)
+            } catch {
+                print("ERROR: Failed to generate property \(error)")
+                return nil
+            }
+        }
+    }
+    
+    #warning("TODO: remove")
     // E.g. "public final class User: Codable {\n"
     private func makeEntityDeclaration(name: TypeName) -> String {
         let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
@@ -386,6 +363,7 @@ final class GenerateSchemas {
         return "\(lhs): \(rhs) {\n"
     }
     
+    #warning("remove")
     // Example: "public var files: [Files]?"
     private func makeProperty(for child: Property) -> String {
         var output = ""
@@ -412,7 +390,7 @@ final class GenerateSchemas {
         var output = ""
         let itemName = name.appending("Item")
         output += "\(access)typealias \(name) = [\(itemName)]\n\n"
-        output += (try makeParent(name: itemName, schema: item)) ?? ""
+        output += (try makeTypeDeclaration(name: itemName, schema: item)) ?? ""
         return output
     }
     

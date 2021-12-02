@@ -8,6 +8,8 @@ import Foundation
 final class Templates {
     let options: GenerateOptions
     
+    var access: String { options.access.map { "\($0) " } ?? "" }
+    
     init(options: GenerateOptions) {
         self.options = options
     }
@@ -32,6 +34,54 @@ final class Templates {
 
         output += "\n\nimport Foundation"
         
+        return output
+    }
+    
+    func entity(name: TypeName, contents: [String]) -> String {
+        let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
+        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
+            .compactMap { $0 }.joined(separator: " ")
+        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
+            .compactMap { $0 }.joined(separator: ", ")
+
+        return """
+        \(lhs): \(rhs) {
+        \(contents.joined(separator: "\n\n").shiftedRight(count: 4))
+        }
+        """
+    }
+    
+    func initFromDecoder(properties: [GenerateSchemas.Property]) -> String {
+        let contents = properties.map {
+            let decode = $0.isOptional ? "decodeIfPresent" : "decode"
+            return "self.\($0.name.accessor) = try values.\(decode)(\($0.type).self, forKey: \"\($0.key)\")"
+        }.joined(separator: "\n")
+        return initFromDecoder(contents: contents)
+    }
+    
+    func initFromDecoder(contents: String) -> String {
+        """
+        \(access)init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+        \(contents.shiftedRight(count: 4))
+        }
+        """
+    }
+    
+    /// Generates a list of properties.
+    func properties(_ properties: [GenerateSchemas.Property]) -> String {
+        properties.map(property).joined(separator: "\n")
+    }
+    
+    /// Generates a property with comments and everything.
+    ///
+    /// Example: "public var files: [Files]?"
+    func property(_ property: GenerateSchemas.Property) -> String {
+        var output = ""
+        if let context = property.context {
+            output += comments(for: context)
+        }
+        output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
     }
     
