@@ -48,7 +48,7 @@ final class HelpersTests: XCTestCase {
         // Additional abbreviations
         do {
             var options = GenerateOptions()
-            options.additionalAbbreviations = ["nft"]
+            options.additionalAcronyms = ["nft"]
             XCTAssertEqual(TypeName("myNft", options: options).rawValue, "MyNFT")
         }
         

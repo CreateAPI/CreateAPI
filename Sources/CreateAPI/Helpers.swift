@@ -181,7 +181,7 @@ struct PropertyName: CustomStringConvertible {
             return self
         }
         let first = words[0]
-        if abbreviations.contains(first.lowercased()) {
+        if acronyms.contains(first.lowercased()) {
             string.removeFirst(first.count)
             string = first.uppercased() + string
         }
@@ -281,8 +281,8 @@ private extension String {
         // Replace abbreviations (but only at code boundries)
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
-        if options.isReplacingCommonAbbreviations {
-            for abbreviation in abbreviations + options.additionalAbbreviations {
+        if options.isReplacingCommonAcronyms {
+            for abbreviation in acronyms + options.additionalAcronyms {
                 if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
                    (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
                     output.replaceSubrange(range, with: abbreviation.uppercased())
@@ -316,12 +316,12 @@ extension String {
     }
 }
 
-private let keywords = Set(["public", "private", "open", "fileprivate", "default", "extension", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "enum", "struct", "class", "if", "self", "none"])
+private let keywords = Set(["func", "public", "private", "open", "fileprivate", "internal", "default", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "where", "associatedtype", "guard", "enum", "struct", "class", "protocol", "extension", "if", "else", "self", "none", "throw", "throws", "rethrows", "inout", "operator", "static", "subscript", "case", "break", "continue", "defer", "do", "fallthrough", "repeat", "while", "as", "some", "super", "catch", "false", "true", "is", "nil"])
 
-private let capitilizedKeywords = Set(["Self", "Type"])
+private let capitilizedKeywords = Set(["Self", "Type", "Protocol", "Any", "AnyObject"])
 
-// WARNING: Order is important (consuming the longer one first)
-private let abbreviations = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api"]
+// WARNING: Order is important (consuming the longer ones first)
+private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api"]
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [

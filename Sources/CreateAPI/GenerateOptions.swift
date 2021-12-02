@@ -5,13 +5,11 @@
 final class GenerateOptions {
     var access: String?
     var schemes: SchemesOptions
-    
-    // Neatpicking
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
-    var isReplacingCommonAbbreviations: Bool
-    var additionalAbbreviations: [String]
+    var isReplacingCommonAcronyms: Bool
+    var additionalAcronyms: [String]
     var fileHeader: FileHeader
     var comments: Comments
 
@@ -73,8 +71,8 @@ final class GenerateOptions {
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
-        self.isReplacingCommonAbbreviations = options.isReplacingCommonAbbreviations ?? true
-        self.additionalAbbreviations = (options.additionalAbbreviations ?? []).map { $0.lowercased() }
+        self.isReplacingCommonAcronyms = options.isReplacingCommonAcronyms ?? true
+        self.additionalAcronyms = (options.additionalAcronyms ?? []).map { $0.lowercased() }
         self.schemes = SchemesOptions(options.schemes)
         self.fileHeader = FileHeader(options.fileHeader)
         self.comments = Comments(options.comments)
@@ -86,11 +84,8 @@ final class GenerateOptionsScheme: Decodable {
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
-    var isReplacingCommonAbbreviations: Bool?
-    var additionalAbbreviations: [String]?
-    var isSwiftLintDisabled: Bool?
-    var isCapitalizingTitle: Bool?
-    var isCapitalizingDescription: Bool?
+    var isReplacingCommonAcronyms: Bool?
+    var additionalAcronyms: [String]?
     var schemes: SchemesOptions?
     var fileHeader: FileHeader?
     var comments: Comments?
