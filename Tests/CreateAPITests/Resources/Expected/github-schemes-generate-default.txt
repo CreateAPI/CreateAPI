@@ -853,10 +853,7 @@ public struct Installation: Decodable {
     public var updatedAt: Date
 
     public struct Account: Decodable {
-        /// Simple User
         public var simpleUser: SimpleUser?
-        /// Enterprise
-        ///
         /// An enterprise account
         public var enterprise: Enterprise?
 
@@ -2196,8 +2193,6 @@ public struct Issue: Decodable {
     public var labels: [LabelsItem]
     public var labelsURL: String
     public var isLocked: Bool
-    /// Milestone
-    ///
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
     public var nodeID: String
@@ -2212,8 +2207,6 @@ public struct Issue: Decodable {
     public var pullRequest: PullRequest?
     /// Reaction Rollup
     public var reactions: ReactionRollup?
-    /// Repository
-    ///
     /// A git repository
     public var repository: Repository?
     public var repositoryURL: URL
@@ -2380,7 +2373,6 @@ public struct IssueComment: Decodable {
 }
 
 public struct Event: Decodable {
-    /// Actor
     public var actor: Actor
     public var createdAt: Date?
     public var id: String
@@ -2397,8 +2389,6 @@ public struct Event: Decodable {
         ///
         /// Comments provide a way for people to collaborate on an issue.
         public var comment: IssueComment?
-        /// Issue
-        ///
         /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
         public var issue: Issue?
         public var pages: [PagesItem]?
@@ -3206,7 +3196,6 @@ public struct MarketplacePurchase: Decodable {
     }
 }
 
-/// Api Overview
 public struct APIOverview: Decodable {
     /// Example:
 
@@ -3311,7 +3300,6 @@ public struct MinimalRepository: Decodable {
     public var blobsURL: String
     public var branchesURL: String
     public var cloneURL: String?
-    /// Code Of Conduct
     public var codeOfConduct: CodeOfConduct?
     public var collaboratorsURL: String
     public var commentsURL: String
@@ -3831,8 +3819,6 @@ public struct OrganizationActionsSecret: Decodable {
     }
 }
 
-/// ActionsPublicKey
-///
 /// The public key used for setting Actions Secrets.
 public struct ActionsPublicKey: Decodable {
     /// Example: 2011-01-26T19:01:12Z
@@ -3932,8 +3918,6 @@ public struct CredentialAuthorization: Decodable {
     }
 }
 
-/// ExternalGroup
-///
 /// Information about an external group's usage and its members
 public struct ExternalGroup: Decodable {
     /// The internal ID of the group
@@ -4031,8 +4015,6 @@ public struct ExternalGroup: Decodable {
     }
 }
 
-/// ExternalGroups
-///
 /// A list of external groups available to be connected to a team
 public struct ExternalGroups: Decodable {
     /// An array of external groups available to be mapped to a team
@@ -4650,8 +4632,6 @@ public struct OrganizationSecretScanningAlert: Decodable {
     }
 }
 
-/// GroupMapping
-///
 /// External Groups to be mapped to a team for membership
 public struct GroupMapping: Decodable {
     /// Array of groups to be mapped to this team
@@ -6260,10 +6240,7 @@ public struct PendingDeployment: Decodable {
         public var type: DeploymentReviewerType?
 
         public struct Reviewer: Decodable {
-            /// Simple User
             public var simpleUser: SimpleUser?
-            /// Team
-            ///
             /// Groups of organization members that gives permissions on specified repositories.
             public var team: Team?
 
@@ -7108,7 +7085,6 @@ public struct Commit: Decodable {
         public var message: String
         public var tree: Tree
         public var url: URL
-        /// Verification
         public var verification: Verification?
 
         public struct Tree: Decodable {
@@ -7180,7 +7156,6 @@ public struct Commit: Decodable {
 
 public struct BranchWithProtection: Decodable {
     public var links: Links
-    /// Commit
     public var commit: Commit
     public var name: String
     /// Example: "mas*"
@@ -7420,8 +7395,6 @@ public struct DeploymentSimple: Decodable {
     }
 }
 
-/// CheckRun
-///
 /// A check performed on the code of a given code change
 public struct CheckRun: Decodable {
     /// GitHub app
@@ -7433,8 +7406,6 @@ public struct CheckRun: Decodable {
     public var completedAt: Date?
     /// Example: neutral
     public var conclusion: Conclusion?
-    /// Deployment
-    ///
     /// A deployment created as the result of an Actions check run from a workflow that references an environment
     public var deployment: DeploymentSimple?
     public var detailsURL: String?
@@ -7607,8 +7578,6 @@ public struct SimpleCommit: Decodable {
     }
 }
 
-/// CheckSuite
-///
 /// A suite of checks performed on the code of a given code change
 public struct CheckSuite: Decodable {
     /// Example: d6fde92930d4715a2b49857d24b940956b26d2d3
@@ -8538,8 +8507,6 @@ public struct PullRequestSimple: Decodable {
     ///
     /// Example: OWNER
     public var authorAssociation: AuthorAssociation
-    /// Auto merge
-    ///
     /// The status of auto merging a pull request.
     public var autoMerge: AutoMerge?
     public var base: Base
@@ -8567,8 +8534,6 @@ public struct PullRequestSimple: Decodable {
     public var mergeCommitSha: String?
     /// Example: 2011-01-26T19:01:12Z
     public var mergedAt: Date?
-    /// Milestone
-    ///
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
     /// Example: MDExOlB1bGxSZXF1ZXN0MQ==
@@ -8933,8 +8898,6 @@ public struct CommitComparison: Decodable {
     }
 }
 
-/// ContentReferenceAttachment
-///
 /// Content Reference attachments allow you to provide context around URLs posted in comments
 public struct ContentReferenceAttachment: Decodable {
     /// The body of the attachment
@@ -9581,10 +9544,7 @@ public struct Environment: Decodable {
                 public var type: DeploymentReviewerType?
 
                 public struct Reviewer: Decodable {
-                    /// Simple User
                     public var simpleUser: SimpleUser?
-                    /// Team
-                    ///
                     /// Groups of organization members that gives permissions on specified repositories.
                     public var team: Team?
 
@@ -9860,7 +9820,6 @@ public struct GitTag: Decodable {
     public var tagger: Tagger
     /// URL for the tag
     public var url: URL
-    /// Verification
     public var verification: Verification?
 
     public struct Object: Decodable {
@@ -10304,8 +10263,6 @@ public struct IssueEvent: Decodable {
     /// Example: closed
     public var event: String
     public var id: Int
-    /// Issue
-    ///
     /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
     public var issue: Issue?
     /// Issue Event Label
@@ -10995,35 +10952,20 @@ public struct ConvertedNoteToIssueIssueEvent: Decodable {
 }
 
 public struct IssueEventForIssue: Decodable {
-    /// Labeled Issue Event
     public var labeledIssueEvent: LabeledIssueEvent?
-    /// Unlabeled Issue Event
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
-    /// Assigned Issue Event
     public var assignedIssueEvent: AssignedIssueEvent?
-    /// Unassigned Issue Event
     public var unassignedIssueEvent: UnassignedIssueEvent?
-    /// Milestoned Issue Event
     public var milestonedIssueEvent: MilestonedIssueEvent?
-    /// Demilestoned Issue Event
     public var demilestonedIssueEvent: DemilestonedIssueEvent?
-    /// Renamed Issue Event
     public var renamedIssueEvent: RenamedIssueEvent?
-    /// Review Requested Issue Event
     public var reviewRequestedIssueEvent: ReviewRequestedIssueEvent?
-    /// Review Request Removed Issue Event
     public var reviewRequestRemovedIssueEvent: ReviewRequestRemovedIssueEvent?
-    /// Review Dismissed Issue Event
     public var reviewDismissedIssueEvent: ReviewDismissedIssueEvent?
-    /// Locked Issue Event
     public var lockedIssueEvent: LockedIssueEvent?
-    /// Added to Project Issue Event
     public var addedToProjectIssueEvent: AddedToProjectIssueEvent?
-    /// Moved Column in Project Issue Event
     public var movedColumnInProjectIssueEvent: MovedColumnInProjectIssueEvent?
-    /// Removed from Project Issue Event
     public var removedFromProjectIssueEvent: RemovedFromProjectIssueEvent?
-    /// Converted Note to Issue Issue Event
     public var convertedNoteToIssueIssueEvent: ConvertedNoteToIssueIssueEvent?
 
     public init(from decoder: Decoder) throws {
@@ -11147,8 +11089,6 @@ public struct TimelineCrossReferencedEvent: Decodable {
     public var updatedAt: Date
 
     public struct Source: Decodable {
-        /// Issue
-        ///
         /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
         public var issue: Issue?
         public var type: String?
@@ -11633,47 +11573,26 @@ public struct TimelineUnassignedIssueEvent: Decodable {
 }
 
 public struct TimelineIssueEvents: Decodable {
-    /// Labeled Issue Event
     public var labeledIssueEvent: LabeledIssueEvent?
-    /// Unlabeled Issue Event
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
-    /// Milestoned Issue Event
     public var milestonedIssueEvent: MilestonedIssueEvent?
-    /// Demilestoned Issue Event
     public var demilestonedIssueEvent: DemilestonedIssueEvent?
-    /// Renamed Issue Event
     public var renamedIssueEvent: RenamedIssueEvent?
-    /// Review Requested Issue Event
     public var reviewRequestedIssueEvent: ReviewRequestedIssueEvent?
-    /// Review Request Removed Issue Event
     public var reviewRequestRemovedIssueEvent: ReviewRequestRemovedIssueEvent?
-    /// Review Dismissed Issue Event
     public var reviewDismissedIssueEvent: ReviewDismissedIssueEvent?
-    /// Locked Issue Event
     public var lockedIssueEvent: LockedIssueEvent?
-    /// Added to Project Issue Event
     public var addedToProjectIssueEvent: AddedToProjectIssueEvent?
-    /// Moved Column in Project Issue Event
     public var movedColumnInProjectIssueEvent: MovedColumnInProjectIssueEvent?
-    /// Removed from Project Issue Event
     public var removedFromProjectIssueEvent: RemovedFromProjectIssueEvent?
-    /// Converted Note to Issue Issue Event
     public var convertedNoteToIssueIssueEvent: ConvertedNoteToIssueIssueEvent?
-    /// Timeline Comment Event
     public var timelineCommentEvent: TimelineCommentEvent?
-    /// Timeline Cross Referenced Event
     public var timelineCrossReferencedEvent: TimelineCrossReferencedEvent?
-    /// Timeline Committed Event
     public var timelineCommittedEvent: TimelineCommittedEvent?
-    /// Timeline Reviewed Event
     public var timelineReviewedEvent: TimelineReviewedEvent?
-    /// Timeline Line Commented Event
     public var timelineLineCommentedEvent: TimelineLineCommentedEvent?
-    /// Timeline Commit Commented Event
     public var timelineCommitCommentedEvent: TimelineCommitCommentedEvent?
-    /// Timeline Assigned Issue Event
     public var timelineAssignedIssueEvent: TimelineAssignedIssueEvent?
-    /// Timeline Unassigned Issue Event
     public var timelineUnassignedIssueEvent: TimelineUnassignedIssueEvent?
 
     public init(from decoder: Decoder) throws {
@@ -11871,7 +11790,6 @@ public struct PagesSourceHash: Decodable {
     }
 }
 
-/// Pages Https Certificate
 public struct PagesHTTPSCertificate: Decodable {
     /// Example: Certificate is approved
     public var description: String
@@ -12236,8 +12154,6 @@ public struct PullRequest: Decodable {
     ///
     /// Example: OWNER
     public var authorAssociation: AuthorAssociation
-    /// Auto merge
-    ///
     /// The status of auto merging a pull request.
     public var autoMerge: AutoMerge?
     public var base: Base
@@ -12281,8 +12197,6 @@ public struct PullRequest: Decodable {
     public var mergedAt: Date?
     /// Simple User
     public var mergedBy: SimpleUser?
-    /// Milestone
-    ///
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
     /// Example: MDExOlB1bGxSZXF1ZXN0MQ==
@@ -14256,7 +14170,6 @@ public struct CommitSearchResultItem: Decodable {
         public var message: String
         public var tree: Tree
         public var url: URL
-        /// Verification
         public var verification: Verification?
 
         public struct Author: Decodable {
@@ -14350,8 +14263,6 @@ public struct IssueSearchResultItem: Decodable {
     public var labels: [LabelsItem]
     public var labelsURL: String
     public var isLocked: Bool
-    /// Milestone
-    ///
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
     public var nodeID: String
@@ -14363,8 +14274,6 @@ public struct IssueSearchResultItem: Decodable {
     public var pullRequest: PullRequest?
     /// Reaction Rollup
     public var reactions: ReactionRollup?
-    /// Repository
-    ///
     /// A git repository
     public var repository: Repository?
     public var repositoryURL: URL
@@ -15002,8 +14911,6 @@ public struct CodespacesSecret: Decodable {
     }
 }
 
-/// CodespacesUserPublicKey
-///
 /// The public key used for setting user Codespaces' Secrets.
 public struct CodespacesUserPublicKey: Decodable {
     /// The Base64 encoded public key.
