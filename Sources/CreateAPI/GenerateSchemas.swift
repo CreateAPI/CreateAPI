@@ -592,7 +592,6 @@ private struct PropertyContainer {
     let name: TypeName
 }
 
-#warning("move to other files")
 struct Property {
     // Example: "files"
     let name: PropertyName
