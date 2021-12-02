@@ -194,13 +194,16 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-all-schemes-disable-enums", actual: output)
     }
     
-    func testPetstoreAllMappedTypeNames() {
+    func testPetstoreAllRename() {
         // GIVEN
         let spec = spec(named: "petstore-all")
         let options = GenerateOptions()
         options.schemes.mappedTypeNames = [
             "ApiResponse": "APIResponse",
             "Status": "State"
+        ]
+        options.schemes.mappedPropertyNames = [
+            "ContainerA.Child.Child.renameMe": "onlyItRenamed"
         ]
         
         // WHEN

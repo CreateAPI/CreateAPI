@@ -437,7 +437,7 @@ public struct ContainerA: Decodable {
 
         public struct Child: Decodable {
             public var `enum`: Enum
-            public var renameMe: String
+            public var onlyItRenamed: String
 
             public enum Enum: String, Codable, CaseIterable {
                 case a
@@ -447,7 +447,7 @@ public struct ContainerA: Decodable {
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.enum = try values.decode(Enum.self, forKey: "enum")
-                self.renameMe = try values.decode(String.self, forKey: "rename-me")
+                self.onlyItRenamed = try values.decode(String.self, forKey: "rename-me")
             }
         }
 
