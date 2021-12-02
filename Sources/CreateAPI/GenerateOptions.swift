@@ -51,6 +51,7 @@ final class GenerateOptions {
         var isGeneratingInitWithCoder: Bool
         var baseClass: String?
         var adoptedProtocols: [String]
+        // TODO: Move to separate "Rename" object
         var mappedPropertyNames: [String: String]
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
         

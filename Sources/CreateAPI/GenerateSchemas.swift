@@ -174,6 +174,8 @@ final class GenerateSchemas {
     }
                         
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
+        let propertyName = makePropertyName(key)
+        
         func makeChildPropertyName(for name: PropertyName, type: String) -> PropertyName {
             if !options.schemes.mappedPropertyNames.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
@@ -195,45 +197,49 @@ final class GenerateSchemas {
             let name = makeChildPropertyName(for: name, type: type)
             return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, context: info, nested: nested)
         }
-
-        let propertyName = makePropertyName(key)
    
-        switch schema {
-        case .object(let info, let details):
-            if details.properties.isEmpty, let additional = details.additionalProperties {
-                switch additional {
-                case .a:
-                    return child(name: propertyName, type: "[String: AnyJSON]", info: info)
-                case .b(let schema):
-                    // TODO: Do this recursively, but for now two levels will suffice (map of map)
-                    if case .object(let info, let details) = schema,
-                       details.properties.isEmpty,
-                       let additional = details.additionalProperties {
-                        switch additional {
-                        case .a:
-                            return child(name: propertyName, type: "[String: [String: AnyJSON]]", info: info)
-                        case .b(let schema):
-                            if let type = try? getPrimitiveType(for: schema) {
-                                return child(name: propertyName, type: "[String: [String: \(type)]]", info: info, nested: nil)
-                            }
-                            let nestedTypeName = makeTypeName(key).appending("Item")
-                            let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-                            return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", info: info, nested: nested)
+        /// E.g. [String: String], [String: [String: AnyJSON]]
+        func makeDictionary(info: JSONSchemaContext, properties: Either<Bool, JSONSchema>) throws -> Property {
+            switch properties {
+            case .a:
+                return child(name: propertyName, type: "[String: AnyJSON]", info: info)
+            case .b(let schema):
+                // TODO: Do this recursively, but for now two levels will suffice (map of map)
+                if case .object(let info, let details) = schema,
+                   details.properties.isEmpty,
+                   let additional = details.additionalProperties {
+                    switch additional {
+                    case .a:
+                        return child(name: propertyName, type: "[String: [String: AnyJSON]]", info: info)
+                    case .b(let schema):
+                        if let type = try? getPrimitiveType(for: schema) {
+                            return child(name: propertyName, type: "[String: [String: \(type)]]", info: info, nested: nil)
                         }
+                        let nestedTypeName = makeTypeName(key).appending("Item")
+                        let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
+                        return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", info: info, nested: nested)
                     }
-                    if let type = try? getPrimitiveType(for: schema) {
-                        return child(name: propertyName, type: "[String: \(type)]", info: info, nested: nil)
-                    }
-                    let nestedTypeName = makeTypeName(key).appending("Item")
-                    // TODO: implement shiftRight (fix nested enums)
-                    let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-                    return child(name: propertyName, type: "[String: \(nestedTypeName)]", info: info, nested: nested)
                 }
+                if let type = try? getPrimitiveType(for: schema) {
+                    return child(name: propertyName, type: "[String: \(type)]", info: info, nested: nil)
+                }
+                let nestedTypeName = makeTypeName(key).appending("Item")
+                // TODO: implement shiftRight (fix nested enums)
+                let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
+                return child(name: propertyName, type: "[String: \(nestedTypeName)]", info: info, nested: nested)
+            }
+        }
+        
+        func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
+            if details.properties.isEmpty, let additional = details.additionalProperties {
+                return try makeDictionary(info: info, properties: additional)
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
             return child(name: propertyName, type: type.rawValue, info: info, nested: nested)
-        case .array(let info, let details):
+        }
+        
+        func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
@@ -243,7 +249,9 @@ final class GenerateSchemas {
             let name = makeTypeName(key).appending("Item")
             let nested = try makeTopDeclaration(name: name, schema: item, context: context)
             return child(name: propertyName, type: "[\(name)]", info: info, nested: nested)
-        case .string(let info, _):
+        }
+        
+        func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
                 let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: "CreateAPIEnumPlaceholderName").rawValue)
                 let nested = try makeEnum(name: typeName, info: info)
@@ -251,13 +259,15 @@ final class GenerateSchemas {
             }
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, info: info)
-        case .all, .one, .any:
+        }
+        
+        func makeSomeOf() throws -> Property {
             let name = makeTypeName(key)
             let nested = try makeTopDeclaration(name: name, schema: schema, context: context)
             return child(name: propertyName, type: name.rawValue, info: schema.coreContext, nested: nested)
-        case .not:
-            throw GeneratorError("`not` properties are not supported")
-        default:
+        }
+        
+        func makeProperty(schema: JSONSchema) throws -> Property {
             let info: JSONSchemaContext?
             switch schema {
                 // TODO: rewrite
@@ -269,6 +279,15 @@ final class GenerateSchemas {
             }
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, info: info)
+        }
+        
+        switch schema {
+        case .object(let info, let details): return try makeObject(info: info, details: details)
+        case .array(let info, let details): return try makeArray(info: info, details: details)
+        case .string(let info, _): return try makeString(info: info)
+        case .all, .one, .any: return try makeSomeOf()
+        case .not: throw GeneratorError("`not` properties are not supported")
+        default: return try makeProperty(schema: schema)
         }
     }
     
@@ -382,7 +401,7 @@ final class GenerateSchemas {
         }
     }
     
-    private func isEnum(_ info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> Bool {
+    private func isEnum(_ info: JSONSchemaContext) -> Bool {
         options.isGeneratingEnums && info.allowedValues != nil
     }
     
