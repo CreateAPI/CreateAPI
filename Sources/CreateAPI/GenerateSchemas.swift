@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: allOf should use composition (see Petstore all dog)
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
 // TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
@@ -15,6 +14,7 @@ import Foundation
 // TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Final imporvementes to OctoKit
+// TODO: anyOf should be class or struct?
 
 // TODO: Add Encodable support
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
@@ -39,9 +39,12 @@ import Foundation
 // TODO: Rename to GenerateEntities
 // TODO: Add an option to set a custom header
 
+// TODO: Add an obeserver for a file (and keep tool running)
+
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Separate mapped* dictionary for enums
 // TODO: entitiesGeneratedAsClasses - add support for nesting
+// TODO: Add an option how allOf is generated (inline properties, craete protocols)
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
@@ -167,7 +170,7 @@ final class GenerateSchemas {
         case .array(let coreContext, let arrayContext):
             return try makeTypealiasArray(name, coreContext, arrayContext)
         case .all(let of, _):
-            return try makeAnyOf(name: name, of)
+            return try makeAllOf(name: name, schemas: of)
         case .one(let of, _):
             return try makeOneOf(name: name, of)
         case .any(let of, _):
@@ -191,6 +194,10 @@ final class GenerateSchemas {
         // Example: "[File]"
         let type: String
         let isOptional: Bool
+        // Key in the JSON
+        let key: String
+
+        let schema: JSONSchema
         let context: JSONSchemaContext?
         var nested: String?
     }
@@ -215,7 +222,7 @@ final class GenerateSchemas {
             assert(context != nil) // context is null for references, but the caller needs to dereference first
             let nullable = context?.nullable ?? true
             let name = makeChildPropertyName(for: name, type: type)
-            return Property(name: name, type: type, isOptional: !isRequired || nullable, context: context, nested: nested)
+            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, context: context, nested: nested)
         }
 
         let propertyName = makePropertyName(key)
@@ -304,16 +311,9 @@ final class GenerateSchemas {
     
     private func makeObject(name: TypeName, _ coreContext: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, _ objectContext: JSONSchema.ObjectContext) throws -> String {
         var output = ""
-        var nested: [String] = []
-        
-        // Generate header and type defifition
+
         output += makeHeader(for: coreContext)
-        let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
-        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
-            .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
-            .compactMap { $0 }.joined(separator: ", ")
-        output += "\(lhs): \(rhs) {\n"
+        output += makeEntityDeclaration(name: name)
 
         // Generate properties
         let keys = objectContext.properties.keys.sorted()
@@ -332,6 +332,7 @@ final class GenerateSchemas {
         }
         
         // TODO: Find a way to preserve the order of keys
+        var nested: [String] = []
         for key in keys {
             guard let property = properties[key] else { continue }
             output += makeProperty(for: property).shiftedRight(count: 4)
@@ -356,11 +357,7 @@ final class GenerateSchemas {
             for key in keys {
                 guard let property = properties[key] else { continue }
                 let decode = property.isOptional ? "decodeIfPresent" : "decode"
-                var name = property.name.rawValue
-                if name != "`self`" { // Most names are allowed, but not all
-                    name = name.trimmingCharacters(in: CharacterSet.ticks)
-                }
-                output += "        self.\(name) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
+                output += "        self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(key)\")"
                 output += "\n"
             }
             output += "    }\n"
@@ -387,7 +384,17 @@ final class GenerateSchemas {
         return output
     }
     
-    /// Example: "public var files: [Files]?"
+    // E.g. "public final class User: Codable {\n"
+    private func makeEntityDeclaration(name: TypeName) -> String {
+        let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
+        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
+            .compactMap { $0 }.joined(separator: " ")
+        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
+            .compactMap { $0 }.joined(separator: ", ")
+        return "\(lhs): \(rhs) {\n"
+    }
+    
+    // Example: "public var files: [Files]?"
     private func makeProperty(for child: Property) -> String {
         var output = ""
         if let context = child.context {
@@ -630,6 +637,58 @@ final class GenerateSchemas {
         return output
     }
     
+    private func makeAllOf(name: TypeName, schemas: [JSONSchema]) throws -> String {
+        let types = makeTypeNames(for: schemas)
+        let container = PropertyContainer(name: name)
+        let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
+            switch schema {
+            case .object(_, let objectContext):
+                // Inline properties for nested objects (differnt from other OpenAPI constructs)
+                // TODO: refactor
+                return try objectContext.properties.keys.sorted().map { key in
+                    let schema = objectContext.properties[key]!
+                    let isRequired = objectContext.requiredProperties.contains(key)
+                    return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: container)
+                }
+            default:
+                return [try makeProperty(key: type, schema: schema, isRequired: true, in: container)]
+            }
+        }
+        
+        var output = makeEntityDeclaration(name: name)
+        for property in properties {
+            output += "    \(access)var \(property.name): \(property.type)\n"
+        }
+        output += "\n"
+        
+        func makeInitFromDecoder() throws -> String {
+            var output = "\(access)init(from decoder: Decoder) throws {\n"
+            output += "    let values = try decoder.container(keyedBy: StringCodingKey.self)\n"
+            for property in properties {
+                switch property.schema {
+                case .reference:
+                    output += "    self.\(property.name.accessor) = try \(property.type)(from: decoder)"
+                default:
+                    let decode = property.isOptional ? "decodeIfPresent" : "decode"
+                    output += "    self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
+                }
+                output += "\n"
+            }
+            output += "}\n"
+            return output
+        }
+        
+        output += try makeInitFromDecoder().shiftedRight(count: 4)
+         
+        if let nested = makeNested(for: properties) {
+            output += "\n\n"
+            output += nested
+        }
+        
+        output += "\n}"
+        return output
+    }
+        
     private func makeTypeNames(for schemas: [JSONSchema]) -> [String] {
         var types = Array<String?>(repeating: nil, count: schemas.count)
         

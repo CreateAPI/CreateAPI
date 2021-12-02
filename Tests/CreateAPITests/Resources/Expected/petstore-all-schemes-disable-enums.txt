@@ -154,43 +154,27 @@ public struct ClassModel: Decodable {
 }
 
 public struct Dog: Decodable {
-    public var animal: Animal?
-    public var object: Object?
+    public var animal: Animal
+    public var breed: String
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        self.animal = try? container.decode(Animal.self)
-        self.object = try? container.decode(Object.self)
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.animal = try Animal(from: decoder)
+        self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
     }
 
-    public struct Object: Decodable {
-        public var breed: String?
-
-        public init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
-        }
-    }
 }
 
 public struct Cat: Decodable {
-    public var animal: Animal?
-    public var object: Object?
+    public var animal: Animal
+    public var isDeclawed: Bool
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        self.animal = try? container.decode(Animal.self)
-        self.object = try? container.decode(Object.self)
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.animal = try Animal(from: decoder)
+        self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
     }
 
-    public struct Object: Decodable {
-        public var isDeclawed: Bool?
-
-        public init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
-        }
-    }
 }
 
 public struct Animal: Decodable {

@@ -170,6 +170,7 @@ struct PropertyName: CustomStringConvertible {
     
     var description: String { rawValue }
     
+    /// TODO: Move escaping to usage points.
     func asBoolean() -> PropertyName {
         var string = rawValue.trimmingCharacters(in: CharacterSet.ticks)
         let words = string.words
@@ -186,6 +187,20 @@ struct PropertyName: CustomStringConvertible {
         }
         return PropertyName(processedRawValue: "is" + string.capitalizingFirstLetter())
     }
+    
+    // TODO: Adopt this everywhere when it's needed
+    
+    // For use when accessing the property:
+    //
+    //    self.default = 1
+    //
+    // Ticks are not needed for most keywords, but there are exceptions.
+    var accessor: String {
+        if rawValue != "`self`" { // Most names are allowed, but not all
+            return rawValue.trimmingCharacters(in: CharacterSet.ticks)
+        }
+        return rawValue
+    }
 }
 
 // We can't list everything, but these are the most common words
@@ -197,7 +212,7 @@ private extension String {
         // TODO: Refactor (not sure it's correct either)
         var output: [String] = []
         var remainig = self[...]
-        while var index = remainig.firstIndex(where: { $0.isUppercase }) {
+        while let index = remainig.firstIndex(where: { $0.isUppercase }) {
             output.append(String(remainig[..<index]))
             if !remainig.isEmpty {
                 let start = remainig.startIndex
