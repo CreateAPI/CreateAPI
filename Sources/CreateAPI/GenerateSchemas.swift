@@ -352,17 +352,6 @@ final class GenerateSchemas {
             }
         }
     }
-
-    #warning("remove")
-    // Example: "public var files: [Files]?"
-    private func makeProperty(for child: Property) -> String {
-        var output = ""
-        if let context = child.context {
-            output += templates.comments(for: context)
-        }
-        output += "\(access)var \(child.name): \(child.type)\(child.isOptional ? "?" : "")"
-        return output
-    }
     
     // MARK: Typealiases
             
