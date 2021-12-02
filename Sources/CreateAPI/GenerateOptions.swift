@@ -7,15 +7,43 @@ final class GenerateOptions {
     var schemes: SchemesOptions
     
     // Neatpicking
-    var isGeneratingComments: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
     var isReplacingCommonAbbreviations: Bool
     var additionalAbbreviations: [String]
-    var isSwiftLintDisabled: Bool
-    var isCapitalizingTitle: Bool
-    var isCapitalizingDescription: Bool
+    var fileHeader: FileHeader
+    var comments: Comments
+
+    struct FileHeader {
+        var addSwiftLintDisabled: Bool
+        var addGetImport: Bool
+        var header: String?
+        
+        init(_ fileHeader: GenerateOptionsScheme.FileHeader?) {
+            self.addSwiftLintDisabled = fileHeader?.addSwiftLintDisabled ?? true
+            self.addGetImport = fileHeader?.addGetImport ?? true
+            self.header = fileHeader?.header
+        }
+    }
+    
+    struct Comments {
+        var isEnabled: Bool
+        var addTitle: Bool
+        var addDescription: Bool
+        var addExamples: Bool
+        var capitilizeTitle: Bool
+        var capitilizeDescription: Bool
+        
+        init(_ comments: GenerateOptionsScheme.Comments?) {
+            self.isEnabled = comments?.isEnabled ?? true
+            self.addTitle = comments?.addTitle ?? true
+            self.addDescription = comments?.addDescription ?? true
+            self.addExamples = comments?.addExamples ?? true
+            self.capitilizeTitle = comments?.capitilizeTitle ?? true
+            self.capitilizeDescription = comments?.capitilizeDescription ?? true
+        }
+    }
     
     // TODO: Inline this?
     struct SchemesOptions {
@@ -42,22 +70,19 @@ final class GenerateOptions {
 
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
-        self.isGeneratingComments = options.isGeneratingComments ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.isReplacingCommonAbbreviations = options.isReplacingCommonAbbreviations ?? true
         self.additionalAbbreviations = (options.additionalAbbreviations ?? []).map { $0.lowercased() }
-        self.isSwiftLintDisabled = options.isSwiftLintDisabled ?? true
-        self.isCapitalizingTitle = options.isCapitalizingTitle ?? true
-        self.isCapitalizingDescription = options.isCapitalizingDescription ?? true
         self.schemes = SchemesOptions(options.schemes)
+        self.fileHeader = FileHeader(options.fileHeader)
+        self.comments = Comments(options.comments)
     }
 }
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
-    var isGeneratingComments: Bool?
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
@@ -67,8 +92,25 @@ final class GenerateOptionsScheme: Decodable {
     var isCapitalizingTitle: Bool?
     var isCapitalizingDescription: Bool?
     var schemes: SchemesOptions?
+    var fileHeader: FileHeader?
+    var comments: Comments?
     
-    struct SchemesOptions: Codable {
+    struct FileHeader: Decodable {
+        var addSwiftLintDisabled: Bool?
+        var addGetImport: Bool?
+        var header: String?
+    }
+    
+    struct Comments: Decodable {
+        var isEnabled: Bool?
+        var addTitle: Bool?
+        var addDescription: Bool?
+        var addExamples: Bool?
+        var capitilizeTitle: Bool?
+        var capitilizeDescription: Bool?
+    }
+    
+    struct SchemesOptions: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
