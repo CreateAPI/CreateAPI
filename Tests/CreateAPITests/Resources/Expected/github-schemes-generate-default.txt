@@ -150,7 +150,7 @@ public enum WebhookConfigInsecureSSL: Decodable {
         } else if let value = try? container.decode(Double.self) {
             self = .double(value)
         } else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize WebhookConfigInsecureSSL")
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
         }
     }
 }
@@ -293,7 +293,7 @@ public struct ValidationError: Decodable {
                 } else if let value = try? container.decode([String].self) {
                     self = .strings(value)
                 } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize Value")
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
         }
@@ -2263,17 +2263,6 @@ public struct Issue: Decodable {
         case string(String)
         case object(Object)
 
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let value = try? container.decode(String.self) {
-                self = .string(value)
-            } else if let value = try? container.decode(Object.self) {
-                self = .object(value)
-            } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize LabelsItem")
-            }
-        }
-
         public struct Object: Decodable {
             public var color: String?
             public var isDefault: Bool?
@@ -2292,6 +2281,17 @@ public struct Issue: Decodable {
                 self.name = try values.decodeIfPresent(String.self, forKey: "name")
                 self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
                 self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+            }
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let value = try? container.decode(String.self) {
+                self = .string(value)
+            } else if let value = try? container.decode(Object.self) {
+                self = .object(value)
+            } else {
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
             }
         }
     }
@@ -6450,7 +6450,7 @@ public struct Deployment: Decodable {
             } else if let value = try? container.decode(String.self) {
                 self = .string(value)
             } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize Payload")
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
             }
         }
     }
@@ -14327,6 +14327,10 @@ public struct ScimUser: Decodable {
             case object(Object)
             case anyJSONs([AnyJSON])
 
+            public struct Object: Decodable {
+
+            }
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 if let value = try? container.decode(String.self) {
@@ -14336,12 +14340,8 @@ public struct ScimUser: Decodable {
                 } else if let value = try? container.decode([AnyJSON].self) {
                     self = .anyJSONs(value)
                 } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize Value")
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
-            }
-
-            public struct Object: Decodable {
-
             }
         }
 

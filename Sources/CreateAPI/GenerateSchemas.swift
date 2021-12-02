@@ -7,6 +7,7 @@ import Foundation
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
 // TODO: Add an option to inline all properties on allOf from referenes (dereference)
+// TODO: Fix empty public struct Object: Decodable {} in GitHub spec
 // TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
@@ -54,6 +55,7 @@ final class GenerateSchemas {
     private let arguments: GenerateArguments
     
     var access: String { options.access.map { "\($0) " } ?? "" }
+    // TODO: remove
     var protocols: String { options.schemes.adoptedProtocols.joined(separator: ", ") }
 
     private let templates: Templates
@@ -500,59 +502,16 @@ final class GenerateSchemas {
     
     // TODO: Special-case double/string?
     private func makeOneOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
-        let types = makeTypeNames(for: schemas)
-        let container = PropertyContainer(name: name)
-        let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true, in: container)
-        }
-        
-        var output = "\(access)enum \(name): \(protocols) {\n"
-        for child in children {
-            output += "    case \(child.name)(\(child.type))\n"
-        }
-        output += "\n"
-        
-        func makeInitFromDecoder() throws -> String {
-            var output = """
-            \(access)init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()\n
-            """
-            output += "    "
-            
-            for child in children {
-                output += """
-                if let value = try? container.decode(\(child.type).self) {
-                        self = .\(child.name)(value)
-                    } else
-                """
-                output += " "
-            }
-            output += """
-            {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize \(name)")
-                }
-            }
-            """
-            return output
-        }
-        
-        output += try makeInitFromDecoder().shiftedRight(count: 4)
-        
-        if let nested = makeNested(for: children) {
-            output += "\n\n"
-            output += nested
-        }
-
-        output += "\n}"
-        return output
+        let properties = try makeProperties(for: schemas, name: name)
+        var contents: [String] = []
+        contents.append(properties.map(templates.case).joined(separator: "\n"))
+        contents += properties.compactMap { $0.nested }
+        contents.append(templates.initFromDecoderOneOf(properties: properties))
+        return templates.enumOneOf(name: name, contents: contents)
     }
         
     private func makeAnyOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
-        let types = makeTypeNames(for: schemas)
-        let container = PropertyContainer(name: name)
-        let properties: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: false, in: container)
-        }
+        let properties = try makeProperties(for: schemas, name: name)
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
@@ -588,7 +547,17 @@ final class GenerateSchemas {
 
         return templates.entity(name: name, contents: contents)
     }
+    
+    private func makeProperties(for schemas: [JSONSchema], name: TypeName) throws -> [Property] {
+        let types = makeTypeNames(for: schemas)
+        let container = PropertyContainer(name: name)
+        return try zip(types, schemas).map { type, schema in
+            try makeProperty(key: type, schema: schema, isRequired: false, in: container)
+        }
+    }
         
+    /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
+    /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema]) -> [String] {
         var types = Array<String?>(repeating: nil, count: schemas.count)
         

@@ -37,6 +37,8 @@ final class Templates {
         return output
     }
     
+    // MARK: Entity
+    
     /// Generates an entity declaration:
     ///
     ///     public struct <name>: Decodable {
@@ -55,6 +57,23 @@ final class Templates {
         }
         """
     }
+    
+    // MARK: Enum
+    
+    func enumOneOf(name: TypeName, contents: [String]) -> String {
+        let protocols = options.schemes.adoptedProtocols.joined(separator: ", ")
+        return """
+        \(access)enum \(name): \(protocols) {
+        \(contents.joined(separator: "\n\n").shiftedRight(count: 4))
+        }
+        """
+    }
+        
+    func `case`(property: GenerateSchemas.Property) -> String {
+        "case \(property.name)(\(property.type))"
+    }
+    
+    // MARK: Decoding
     
     func decode(properties: [GenerateSchemas.Property]) -> String {
         properties.map(decode).joined(separator: "\n")
@@ -100,6 +119,32 @@ final class Templates {
         """
     }
     
+    func initFromDecoderOneOf(properties: [GenerateSchemas.Property]) -> String {
+        var output = """
+        \(access)init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()\n
+        """
+        output += "    "
+        
+        for property in properties {
+            output += """
+            if let value = try? container.decode(\(property.type).self) {
+                    self = .\(property.name)(value)
+                } else
+            """
+            output += " "
+        }
+        output += """
+        {
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            }
+        }
+        """
+        return output
+    }
+    
+    // MARK: Properties
+    
     /// Generates a list of properties.
     func properties(_ properties: [GenerateSchemas.Property]) -> String {
         properties.map(property).joined(separator: "\n")
@@ -116,6 +161,8 @@ final class Templates {
         output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
     }
+    
+    // MARK: Comments
     
     /// Generates inline comments for a declaration containing a title, description, and examples.
     func comments(for context: JSONSchemaContext) -> String {
