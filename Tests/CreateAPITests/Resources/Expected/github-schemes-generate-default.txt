@@ -109,7 +109,6 @@ public struct Integration: Decodable {
     }
 }
 
-/// Basic Error
 public struct BasicError: Decodable {
     public var documentationURL: String?
     public var message: String?
@@ -125,7 +124,6 @@ public struct BasicError: Decodable {
     }
 }
 
-/// Validation Error Simple
 public struct ValidationErrorSimple: Decodable {
     public var documentationURL: String
     public var errors: [String]?
@@ -245,7 +243,6 @@ public struct HookDeliveryItem: Decodable {
     }
 }
 
-/// Scim Error
 public struct ScimError: Decodable {
     public var detail: String?
     public var documentationURL: String?
@@ -265,7 +262,6 @@ public struct ScimError: Decodable {
     }
 }
 
-/// Validation Error
 public struct ValidationError: Decodable {
     public var documentationURL: String
     public var errors: [ErrorsItem]?
@@ -415,7 +411,6 @@ public struct HookDelivery: Decodable {
     }
 }
 
-/// Simple User
 public struct SimpleUser: Decodable {
     public var avatarURL: URL
     public var email: String?
@@ -470,8 +465,6 @@ public struct SimpleUser: Decodable {
     }
 }
 
-/// Enterprise
-///
 /// An enterprise account
 public struct Enterprise: Decodable {
     public var avatarURL: URL
@@ -514,8 +507,6 @@ public struct Enterprise: Decodable {
     }
 }
 
-/// App Permissions
-///
 /// The permissions granted to the user-to-server access token.
 ///
 /// Example:
@@ -812,7 +803,6 @@ public struct AppPermissions: Decodable {
     }
 }
 
-/// Installation
 public struct Installation: Decodable {
     public var accessTokensURL: URL
     public var account: Account?
@@ -908,8 +898,6 @@ public struct Installation: Decodable {
     }
 }
 
-/// Repository
-///
 /// A git repository
 public struct Repository: Decodable {
     /// Whether to allow Auto-merge to be used on pull requests.
@@ -1403,8 +1391,6 @@ public struct Repository: Decodable {
     }
 }
 
-/// Installation Token
-///
 /// Authentication token for a GitHub App installed on a user or org.
 public struct InstallationToken: Decodable {
     public var expiresAt: String
@@ -1454,8 +1440,6 @@ public struct InstallationToken: Decodable {
     }
 }
 
-/// Application Grant
-///
 /// The authorization associated with an OAuth Access.
 public struct ApplicationGrant: Decodable {
     public var app: App
@@ -1499,7 +1483,6 @@ public struct ApplicationGrant: Decodable {
     }
 }
 
-/// Scoped Installation
 public struct ScopedInstallation: Decodable {
     /// Simple User
     public var account: SimpleUser
@@ -1549,8 +1532,6 @@ public struct ScopedInstallation: Decodable {
     }
 }
 
-/// Authorization
-///
 /// The authorization for an OAuth app, GitHub App, or a Personal Access Token.
 public struct Authorization: Decodable {
     public var app: App
@@ -1605,7 +1586,6 @@ public struct Authorization: Decodable {
     }
 }
 
-/// Code Of Conduct
 public struct CodeOfConduct: Decodable {
     /// Example:
 
@@ -1690,7 +1670,6 @@ public struct ActionsEnterprisePermissions: Decodable {
     }
 }
 
-/// Organization Simple
 public struct OrganizationSimple: Decodable {
     public var avatarURL: String
     /// Example: A great organization
@@ -1816,7 +1795,6 @@ public struct Runner: Decodable {
     }
 }
 
-/// Runner Application
 public struct RunnerApplication: Decodable {
     public var architecture: String
     public var downloadURL: String
@@ -1837,7 +1815,6 @@ public struct RunnerApplication: Decodable {
     }
 }
 
-/// Authentication Token
 public struct AuthenticationToken: Decodable {
     /// The time this token expires
     ///
@@ -2118,7 +2095,6 @@ public struct CombinedBillingUsage: Decodable {
     }
 }
 
-/// Actor
 public struct Actor: Decodable {
     public var avatarURL: URL
     public var displayLogin: String?
@@ -2154,7 +2130,6 @@ public enum AuthorAssociation: String, Codable, CaseIterable {
     case owner = "OWNER"
 }
 
-/// Reaction Rollup
 public struct ReactionRollup: Decodable {
     public var plus1: Int
     public var minus1: Int
@@ -2182,8 +2157,6 @@ public struct ReactionRollup: Decodable {
     }
 }
 
-/// Issue
-///
 /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
 public struct Issue: Decodable {
     public var activeLockReason: String?
@@ -2351,8 +2324,6 @@ public struct Issue: Decodable {
     }
 }
 
-/// Issue Comment
-///
 /// Comments provide a way for people to collaborate on an issue.
 public struct IssueComment: Decodable {
     /// Author_association
@@ -2408,7 +2379,6 @@ public struct IssueComment: Decodable {
     }
 }
 
-/// Event
 public struct Event: Decodable {
     /// Actor
     public var actor: Actor
@@ -2487,8 +2457,6 @@ public struct Event: Decodable {
     }
 }
 
-/// Link With Type
-///
 /// Hypermedia Link with Type
 public struct LinkWithType: Decodable {
     public var href: String
@@ -2501,7 +2469,6 @@ public struct LinkWithType: Decodable {
     }
 }
 
-/// Feed
 public struct Feed: Decodable {
     public var links: Links
     public var currentUserActorURL: String?
@@ -2576,7 +2543,6 @@ public struct Feed: Decodable {
     }
 }
 
-/// Base Gist
 public struct BaseGist: Decodable {
     public var comments: Int
     public var commentsURL: URL
@@ -2643,7 +2609,6 @@ public struct BaseGist: Decodable {
     }
 }
 
-/// Public User
 public struct PublicUser: Decodable {
     public var avatarURL: URL
     public var bio: String?
@@ -2744,7 +2709,6 @@ public struct PublicUser: Decodable {
     }
 }
 
-/// Gist History
 public struct GistHistory: Decodable {
     public var changeStatus: ChangeStatus?
     public var committedAt: Date?
@@ -2776,7 +2740,6 @@ public struct GistHistory: Decodable {
     }
 }
 
-/// Gist Simple
 public struct GistSimple: Decodable {
     public var comments: Int?
     public var commentsURL: String?
@@ -2934,8 +2897,6 @@ public struct GistSimple: Decodable {
     }
 }
 
-/// Gist Comment
-///
 /// A comment made to a gist.
 public struct GistComment: Decodable {
     /// Author_association
@@ -2972,7 +2933,6 @@ public struct GistComment: Decodable {
     }
 }
 
-/// Gist Commit
 public struct GistCommit: Decodable {
     public var changeStatus: ChangeStatus
     /// Example: 2010-04-14T02:15:15Z
@@ -3006,7 +2966,6 @@ public struct GistCommit: Decodable {
     }
 }
 
-/// Gitignore Template
 public struct GitignoreTemplate: Decodable {
     public var name: String
     /// Example:
@@ -3034,7 +2993,6 @@ public struct GitignoreTemplate: Decodable {
     }
 }
 
-/// License Simple
 public struct LicenseSimple: Decodable {
     public var htmlURL: URL?
     /// Example: mit
@@ -3058,7 +3016,6 @@ public struct LicenseSimple: Decodable {
     }
 }
 
-/// License
 public struct License: Decodable {
     /// Example:
 
@@ -3137,7 +3094,6 @@ public struct License: Decodable {
     }
 }
 
-/// Marketplace Listing Plan
 public struct MarketplaceListingPlan: Decodable {
     public var accountsURL: URL
     /// Example:
@@ -3185,7 +3141,6 @@ public struct MarketplaceListingPlan: Decodable {
     }
 }
 
-/// Marketplace Purchase
 public struct MarketplacePurchase: Decodable {
     public var email: String?
     public var id: Int
@@ -3348,7 +3303,6 @@ public struct APIOverview: Decodable {
     }
 }
 
-/// Minimal Repository
 public struct MinimalRepository: Decodable {
     public var allowForking: Bool?
     public var archiveURL: String
@@ -3574,7 +3528,6 @@ public struct MinimalRepository: Decodable {
     }
 }
 
-/// Thread
 public struct Thread: Decodable {
     public var id: String
     public var lastReadAt: String?
@@ -3616,7 +3569,6 @@ public struct Thread: Decodable {
     }
 }
 
-/// Thread Subscription
 public struct ThreadSubscription: Decodable {
     /// Example: 2012-10-06T21:34:12Z
     public var createdAt: Date?
@@ -3640,8 +3592,6 @@ public struct ThreadSubscription: Decodable {
     }
 }
 
-/// Organization Custom Repository Role
-///
 /// Custom repository roles created by organization administrators
 public struct OrganizationCustomRepositoryRole: Decodable {
     public var id: Int
@@ -3654,7 +3604,6 @@ public struct OrganizationCustomRepositoryRole: Decodable {
     }
 }
 
-/// Organization Full
 public struct OrganizationFull: Decodable {
     public var avatarURL: String
     /// Example: org@example.com
@@ -3912,14 +3861,11 @@ public struct ActionsPublicKey: Decodable {
     }
 }
 
-/// Empty Object
-///
 /// An object without any properties.
 public struct EmptyObject: Decodable {
 
 }
 
-/// Credential Authorization
 public struct CredentialAuthorization: Decodable {
     /// The expiry for the token. This will only be present when the credential is a token.
     public var authorizedCredentialExpiresAt: Date?
@@ -4133,7 +4079,6 @@ public struct ExternalGroups: Decodable {
     }
 }
 
-/// Organization Invitation
 public struct OrganizationInvitation: Decodable {
     public var createdAt: String
     public var email: String?
@@ -4166,7 +4111,6 @@ public struct OrganizationInvitation: Decodable {
     }
 }
 
-/// Org Hook
 public struct OrgHook: Decodable {
     /// Example: true
     public var isActive: Bool
@@ -4286,8 +4230,6 @@ public struct InteractionLimit: Decodable {
     }
 }
 
-/// Team
-///
 /// Groups of organization members that gives permissions on specified repositories.
 public struct Team: Decodable {
     public var description: String?
@@ -4342,7 +4284,6 @@ public struct Team: Decodable {
     }
 }
 
-/// Org Membership
 public struct OrgMembership: Decodable {
     /// Organization Simple
     public var organization: OrganizationSimple
@@ -4398,8 +4339,6 @@ public struct OrgMembership: Decodable {
     }
 }
 
-/// Migration
-///
 /// A migration.
 public struct Migration: Decodable {
     public var archiveURL: URL?
@@ -4449,8 +4388,6 @@ public struct Migration: Decodable {
     }
 }
 
-/// Package
-///
 /// A software package
 public struct Package: Decodable {
     public var createdAt: Date
@@ -4506,8 +4443,6 @@ public struct Package: Decodable {
     }
 }
 
-/// Package Version
-///
 /// A version of a software package
 public struct PackageVersion: Decodable {
     /// Example: 2011-04-10T20:09:31Z
@@ -4596,8 +4531,6 @@ public struct PackageVersion: Decodable {
     }
 }
 
-/// Project
-///
 /// Projects are a way to organize columns and cards of work.
 public struct Project: Decodable {
     /// Body of the project
@@ -4857,8 +4790,6 @@ public struct TeamFull: Decodable {
     }
 }
 
-/// Team Discussion
-///
 /// A team discussion is a persistent record of a free-form conversation within a team.
 public struct TeamDiscussion: Decodable {
     /// Simple User
@@ -4927,8 +4858,6 @@ public struct TeamDiscussion: Decodable {
     }
 }
 
-/// Team Discussion Comment
-///
 /// A reply to a discussion within a team.
 public struct TeamDiscussionComment: Decodable {
     /// Simple User
@@ -4978,8 +4907,6 @@ public struct TeamDiscussionComment: Decodable {
     }
 }
 
-/// Reaction
-///
 /// Reactions to conversations provide a way to help people express their feelings more simply and effectively.
 public struct Reaction: Decodable {
     /// The reaction to use
@@ -5018,7 +4945,6 @@ public struct Reaction: Decodable {
     }
 }
 
-/// Team Membership
 public struct TeamMembership: Decodable {
     /// The role of the user in the team.
     ///
@@ -5050,8 +4976,6 @@ public struct TeamMembership: Decodable {
     }
 }
 
-/// Team Project
-///
 /// A team's access to a project.
 public struct TeamProject: Decodable {
     public var body: String?
@@ -5108,8 +5032,6 @@ public struct TeamProject: Decodable {
     }
 }
 
-/// Team Repository
-///
 /// A team's access to a repository.
 public struct TeamRepository: Decodable {
     /// Whether to allow Auto-merge to be used on pull requests.
@@ -5374,8 +5296,6 @@ public struct TeamRepository: Decodable {
     }
 }
 
-/// Project Card
-///
 /// Project cards represent a scope of work.
 public struct ProjectCard: Decodable {
     /// Whether or not the card is archived
@@ -5421,8 +5341,6 @@ public struct ProjectCard: Decodable {
     }
 }
 
-/// Project Column
-///
 /// Project columns contain cards of work.
 public struct ProjectColumn: Decodable {
     public var cardsURL: URL
@@ -5456,7 +5374,6 @@ public struct ProjectColumn: Decodable {
     }
 }
 
-/// Project Collaborator Permission
 public struct ProjectCollaboratorPermission: Decodable {
     public var permission: String
     /// Simple User
@@ -5469,7 +5386,6 @@ public struct ProjectCollaboratorPermission: Decodable {
     }
 }
 
-/// Rate Limit
 public struct RateLimit: Decodable {
     public var limit: Int
     public var remaining: Int
@@ -5485,7 +5401,6 @@ public struct RateLimit: Decodable {
     }
 }
 
-/// Rate Limit Overview
 public struct RateLimitOverview: Decodable {
     /// Rate Limit
     public var rate: RateLimit
@@ -5529,8 +5444,6 @@ public struct RateLimitOverview: Decodable {
     }
 }
 
-/// Code Of Conduct Simple
-///
 /// Code of Conduct Simple
 public struct CodeOfConductSimple: Decodable {
     public var htmlURL: URL?
@@ -5549,7 +5462,6 @@ public struct CodeOfConductSimple: Decodable {
     }
 }
 
-/// Full Repository
 public struct FullRepository: Decodable {
     /// Example: false
     public var allowAutoMerge: Bool?
@@ -5853,8 +5765,6 @@ public struct FullRepository: Decodable {
     }
 }
 
-/// Artifact
-///
 /// An artifact
 public struct Artifact: Decodable {
     public var archiveDownloadURL: String
@@ -5891,8 +5801,6 @@ public struct Artifact: Decodable {
     }
 }
 
-/// Job
-///
 /// Information of a job execution in a workflow run
 public struct Job: Decodable {
     public var checkRunURL: String
@@ -6051,7 +5959,6 @@ public struct ActionsRepositoryPermissions: Decodable {
     }
 }
 
-/// Pull Request Minimal
 public struct PullRequestMinimal: Decodable {
     public var base: Base
     public var head: Head
@@ -6121,8 +6028,6 @@ public struct PullRequestMinimal: Decodable {
     }
 }
 
-/// Workflow Run
-///
 /// An invocation of a workflow
 public struct WorkflowRun: Decodable {
     /// The URL to the artifacts for the workflow run.
@@ -6305,8 +6210,6 @@ public enum DeploymentReviewerType: String, Codable, CaseIterable {
     case team = "Team"
 }
 
-/// Pending Deployment
-///
 /// Details of a deployment that is waiting for protection rules to pass
 public struct PendingDeployment: Decodable {
     /// Whether the currently authenticated user can approve the deployment
@@ -6388,8 +6291,6 @@ public struct PendingDeployment: Decodable {
     }
 }
 
-/// Deployment
-///
 /// A request for a specific ref(branch,sha,tag) to be deployed
 public struct Deployment: Decodable {
     /// Example: 2012-07-20T01:19:13Z
@@ -6478,7 +6379,6 @@ public struct Deployment: Decodable {
     }
 }
 
-/// Workflow Run Usage
 public struct WorkflowRunUsage: Decodable {
     public var billable: Billable
     public var runDurationMs: Int?
@@ -6575,8 +6475,6 @@ public struct WorkflowRunUsage: Decodable {
     }
 }
 
-/// Actions Secret
-///
 /// Set secrets for GitHub Actions.
 public struct ActionsSecret: Decodable {
     public var createdAt: Date
@@ -6594,8 +6492,6 @@ public struct ActionsSecret: Decodable {
     }
 }
 
-/// Workflow
-///
 /// A GitHub Actions workflow
 public struct Workflow: Decodable {
     public var badgeURL: String
@@ -6642,7 +6538,6 @@ public struct Workflow: Decodable {
     }
 }
 
-/// Workflow Usage
 public struct WorkflowUsage: Decodable {
     public var billable: Billable
 
@@ -6712,7 +6607,6 @@ public struct Autolink: Decodable {
     }
 }
 
-/// Protected Branch Admin Enforced
 public struct ProtectedBranchAdminEnforced: Decodable {
     /// Example: true
     public var isEnabled: Bool
@@ -6725,7 +6619,6 @@ public struct ProtectedBranchAdminEnforced: Decodable {
     }
 }
 
-/// Protected Branch Pull Request Review
 public struct ProtectedBranchPullRequestReview: Decodable {
     /// Example: true
     public var dismissStaleReviews: Bool
@@ -6767,7 +6660,6 @@ public struct ProtectedBranchPullRequestReview: Decodable {
     }
 }
 
-/// Branch Restriction Policy
 public struct BranchRestrictionPolicy: Decodable {
     public var apps: [AppsItem]
     public var appsURL: URL
@@ -6973,7 +6865,6 @@ public struct BranchRestrictionPolicy: Decodable {
     }
 }
 
-/// Branch Protection
 public struct BranchProtection: Decodable {
     public var allowDeletions: AllowDeletions?
     public var allowForcePushes: AllowForcePushes?
@@ -7077,7 +6968,6 @@ public struct BranchProtection: Decodable {
     }
 }
 
-/// Short Branch
 public struct ShortBranch: Decodable {
     public var commit: Commit
     public var name: String
@@ -7107,8 +6997,6 @@ public struct ShortBranch: Decodable {
     }
 }
 
-/// Git User
-///
 /// Metaproperties for Git author/committer information.
 public struct GitUser: Decodable {
     /// Example: "2007-10-29T02:42:39.000-07:00"
@@ -7126,7 +7014,6 @@ public struct GitUser: Decodable {
     }
 }
 
-/// Verification
 public struct Verification: Decodable {
     public var payload: String?
     public var reason: String
@@ -7142,7 +7029,6 @@ public struct Verification: Decodable {
     }
 }
 
-/// Diff Entry
 public struct DiffEntry: Decodable {
     /// Example: 103
     public var additions: Int
@@ -7191,7 +7077,6 @@ public struct DiffEntry: Decodable {
     }
 }
 
-/// Commit
 public struct Commit: Decodable {
     /// Simple User
     public var author: SimpleUser?
@@ -7293,7 +7178,6 @@ public struct Commit: Decodable {
     }
 }
 
-/// Branch With Protection
 public struct BranchWithProtection: Decodable {
     public var links: Links
     /// Commit
@@ -7331,7 +7215,6 @@ public struct BranchWithProtection: Decodable {
     }
 }
 
-/// Status Check Policy
 public struct StatusCheckPolicy: Decodable {
     /// Example:
 
@@ -7353,8 +7236,6 @@ public struct StatusCheckPolicy: Decodable {
     }
 }
 
-/// Protected Branch
-///
 /// Branch protections protect branches
 public struct ProtectedBranch: Decodable {
     public var allowDeletions: AllowDeletions?
@@ -7652,7 +7533,6 @@ public struct CheckRun: Decodable {
     }
 }
 
-/// Check Annotation
 public struct CheckAnnotation: Decodable {
     /// Example: warning
     public var annotationLevel: String?
@@ -7686,7 +7566,6 @@ public struct CheckAnnotation: Decodable {
     }
 }
 
-/// Simple Commit
 public struct SimpleCommit: Decodable {
     public var author: Author?
     public var committer: Committer?
@@ -7804,8 +7683,6 @@ public struct CheckSuite: Decodable {
     }
 }
 
-/// Check Suite Preference
-///
 /// Check suite configuration preferences for a repository.
 public struct CheckSuitePreference: Decodable {
     public var preferences: Preferences
@@ -8210,8 +8087,6 @@ public struct CodeScanningSarifsStatus: Decodable {
     }
 }
 
-/// Codespace
-///
 /// A codespace.
 public struct Codespace: Decodable {
     /// Simple User
@@ -8358,8 +8233,6 @@ public struct Codespace: Decodable {
     }
 }
 
-/// Codespace machine
-///
 /// A description of the machine powering a codespace.
 public struct CodespaceMachine: Decodable {
     /// How many cores are available to the codespace.
@@ -8410,7 +8283,6 @@ public struct CodespaceMachine: Decodable {
     }
 }
 
-/// Collaborator
 public struct Collaborator: Decodable {
     public var avatarURL: URL
     public var email: String?
@@ -8484,8 +8356,6 @@ public struct Collaborator: Decodable {
     }
 }
 
-/// Repository Invitation
-///
 /// Repository invitations let you manage who you collaborate with.
 public struct RepositoryInvitation: Decodable {
     /// Example: 2016-06-13T14:52:50-05:00
@@ -8537,7 +8407,6 @@ public struct RepositoryInvitation: Decodable {
     }
 }
 
-/// Repository Collaborator Permission
 public struct RepositoryCollaboratorPermission: Decodable {
     public var permission: String
     /// Example: admin
@@ -8553,7 +8422,6 @@ public struct RepositoryCollaboratorPermission: Decodable {
     }
 }
 
-/// Commit Comment
 public struct CommitComment: Decodable {
     /// Author_association
     ///
@@ -8596,7 +8464,6 @@ public struct CommitComment: Decodable {
     }
 }
 
-/// Branch Short
 public struct BranchShort: Decodable {
     public var commit: Commit
     public var name: String
@@ -8621,8 +8488,6 @@ public struct BranchShort: Decodable {
     }
 }
 
-/// Link
-///
 /// Hypermedia Link
 public struct Link: Decodable {
     public var href: String
@@ -8633,8 +8498,6 @@ public struct Link: Decodable {
     }
 }
 
-/// Auto merge
-///
 /// The status of auto merging a pull request.
 public struct AutoMerge: Decodable {
     /// Commit message for the merge commit.
@@ -8662,7 +8525,6 @@ public struct AutoMerge: Decodable {
     }
 }
 
-/// Pull Request Simple
 public struct PullRequestSimple: Decodable {
     public var links: Links
     /// Example: too heated
@@ -8880,7 +8742,6 @@ public struct PullRequestSimple: Decodable {
     }
 }
 
-/// Simple Commit Status
 public struct SimpleCommitStatus: Decodable {
     public var avatarURL: URL?
     public var context: String
@@ -8910,7 +8771,6 @@ public struct SimpleCommitStatus: Decodable {
     }
 }
 
-/// Combined Commit Status
 public struct CombinedCommitStatus: Decodable {
     public var commitURL: URL
     /// Minimal Repository
@@ -8933,8 +8793,6 @@ public struct CombinedCommitStatus: Decodable {
     }
 }
 
-/// Status
-///
 /// The status of a commit.
 public struct Status: Decodable {
     public var avatarURL: String?
@@ -8966,7 +8824,6 @@ public struct Status: Decodable {
     }
 }
 
-/// Community Health File
 public struct CommunityHealthFile: Decodable {
     public var htmlURL: URL
     public var url: URL
@@ -8978,7 +8835,6 @@ public struct CommunityHealthFile: Decodable {
     }
 }
 
-/// Community Profile
 public struct CommunityProfile: Decodable {
     /// Example: true
     public var isContentReportsEnabled: Bool?
@@ -9033,7 +8889,6 @@ public struct CommunityProfile: Decodable {
     }
 }
 
-/// Commit Comparison
 public struct CommitComparison: Decodable {
     public var aheadBy: Int
     /// Commit
@@ -9108,7 +8963,6 @@ public struct ContentReferenceAttachment: Decodable {
     }
 }
 
-/// Content Tree
 public struct ContentTree: Decodable {
     public var links: Links
     public var content: AnyJSON
@@ -9241,7 +9095,6 @@ public struct ContentDirectoryItem: Decodable {
     }
 }
 
-/// Content File
 public struct ContentFile: Decodable {
     public var links: Links
     public var content: String
@@ -9382,7 +9235,6 @@ public struct ContentSubmodule: Decodable {
     }
 }
 
-/// File Commit
 public struct FileCommit: Decodable {
     public var commit: Commit
     public var content: Content?
@@ -9526,7 +9378,6 @@ public struct FileCommit: Decodable {
     }
 }
 
-/// Contributor
 public struct Contributor: Decodable {
     public var avatarURL: URL?
     public var contributions: Int
@@ -9576,8 +9427,6 @@ public struct Contributor: Decodable {
     }
 }
 
-/// Deployment Status
-///
 /// The status of a deployment.
 public struct DeploymentStatus: Decodable {
     /// Example: 2012-07-20T01:19:13Z
@@ -9662,8 +9511,6 @@ public struct DeploymentBranchPolicy: Decodable {
     }
 }
 
-/// Environment
-///
 /// Details of a deployment environment
 public struct Environment: Decodable {
     /// The time that the environment was created, in ISO 8601 format.
@@ -9802,7 +9649,6 @@ public struct Environment: Decodable {
     }
 }
 
-/// Short Blob
 public struct ShortBlob: Decodable {
     public var sha: String
     public var url: String
@@ -9814,7 +9660,6 @@ public struct ShortBlob: Decodable {
     }
 }
 
-/// Blob
 public struct Blob: Decodable {
     public var content: String
     public var encoding: String
@@ -9836,8 +9681,6 @@ public struct Blob: Decodable {
     }
 }
 
-/// Git Commit
-///
 /// Low-level Git commit operations within a repository
 public struct GitCommit: Decodable {
     /// Identifying information for the git-user
@@ -9999,8 +9842,6 @@ public struct GitRef: Decodable {
     }
 }
 
-/// Git Tag
-///
 /// Metadata for a Git tag
 public struct GitTag: Decodable {
     /// Message describing the purpose of the tag
@@ -10061,8 +9902,6 @@ public struct GitTag: Decodable {
     }
 }
 
-/// Git Tree
-///
 /// The hierarchy between files in a Git repository.
 public struct GitTree: Decodable {
     public var sha: String
@@ -10145,7 +9984,6 @@ public struct GitTree: Decodable {
     }
 }
 
-/// Hook Response
 public struct HookResponse: Decodable {
     public var code: Int?
     public var message: String?
@@ -10255,8 +10093,6 @@ public struct Hook: Decodable {
     }
 }
 
-/// Import
-///
 /// A repository import from an external source.
 public struct Import: Decodable {
     public var authorsCount: Int?
@@ -10344,7 +10180,6 @@ public struct Import: Decodable {
     }
 }
 
-/// Porter Author
 public struct PorterAuthor: Decodable {
     public var email: String
     public var id: Int
@@ -10366,7 +10201,6 @@ public struct PorterAuthor: Decodable {
     }
 }
 
-/// Porter Large File
 public struct PorterLargeFile: Decodable {
     public var oid: String
     public var path: String
@@ -10382,7 +10216,6 @@ public struct PorterLargeFile: Decodable {
     }
 }
 
-/// Issue Event Label
 public struct IssueEventLabel: Decodable {
     public var color: String?
     public var name: String?
@@ -10394,7 +10227,6 @@ public struct IssueEventLabel: Decodable {
     }
 }
 
-/// Issue Event Dismissed Review
 public struct IssueEventDismissedReview: Decodable {
     public var dismissalCommitID: String?
     public var dismissalMessage: String?
@@ -10410,7 +10242,6 @@ public struct IssueEventDismissedReview: Decodable {
     }
 }
 
-/// Issue Event Milestone
 public struct IssueEventMilestone: Decodable {
     public var title: String
 
@@ -10420,7 +10251,6 @@ public struct IssueEventMilestone: Decodable {
     }
 }
 
-/// Issue Event Project Card
 public struct IssueEventProjectCard: Decodable {
     public var columnName: String
     public var id: Int
@@ -10440,7 +10270,6 @@ public struct IssueEventProjectCard: Decodable {
     }
 }
 
-/// Issue Event Rename
 public struct IssueEventRename: Decodable {
     public var from: String
     public var to: String
@@ -10452,7 +10281,6 @@ public struct IssueEventRename: Decodable {
     }
 }
 
-/// Issue Event
 public struct IssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser?
@@ -10532,7 +10360,6 @@ public struct IssueEvent: Decodable {
     }
 }
 
-/// Labeled Issue Event
 public struct LabeledIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10575,7 +10402,6 @@ public struct LabeledIssueEvent: Decodable {
     }
 }
 
-/// Unlabeled Issue Event
 public struct UnlabeledIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10618,7 +10444,6 @@ public struct UnlabeledIssueEvent: Decodable {
     }
 }
 
-/// Assigned Issue Event
 public struct AssignedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10654,7 +10479,6 @@ public struct AssignedIssueEvent: Decodable {
     }
 }
 
-/// Unassigned Issue Event
 public struct UnassignedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10690,7 +10514,6 @@ public struct UnassignedIssueEvent: Decodable {
     }
 }
 
-/// Milestoned Issue Event
 public struct MilestonedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10731,7 +10554,6 @@ public struct MilestonedIssueEvent: Decodable {
     }
 }
 
-/// Demilestoned Issue Event
 public struct DemilestonedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10772,7 +10594,6 @@ public struct DemilestonedIssueEvent: Decodable {
     }
 }
 
-/// Renamed Issue Event
 public struct RenamedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10815,7 +10636,6 @@ public struct RenamedIssueEvent: Decodable {
     }
 }
 
-/// Review Requested Issue Event
 public struct ReviewRequestedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10856,7 +10676,6 @@ public struct ReviewRequestedIssueEvent: Decodable {
     }
 }
 
-/// Review Request Removed Issue Event
 public struct ReviewRequestRemovedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10897,7 +10716,6 @@ public struct ReviewRequestRemovedIssueEvent: Decodable {
     }
 }
 
-/// Review Dismissed Issue Event
 public struct ReviewDismissedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10944,7 +10762,6 @@ public struct ReviewDismissedIssueEvent: Decodable {
     }
 }
 
-/// Locked Issue Event
 public struct LockedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -10977,7 +10794,6 @@ public struct LockedIssueEvent: Decodable {
     }
 }
 
-/// Added to Project Issue Event
 public struct AddedToProjectIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11028,7 +10844,6 @@ public struct AddedToProjectIssueEvent: Decodable {
     }
 }
 
-/// Moved Column in Project Issue Event
 public struct MovedColumnInProjectIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11079,7 +10894,6 @@ public struct MovedColumnInProjectIssueEvent: Decodable {
     }
 }
 
-/// Removed from Project Issue Event
 public struct RemovedFromProjectIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11130,7 +10944,6 @@ public struct RemovedFromProjectIssueEvent: Decodable {
     }
 }
 
-/// Converted Note to Issue Issue Event
 public struct ConvertedNoteToIssueIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11233,8 +11046,6 @@ public struct IssueEventForIssue: Decodable {
     }
 }
 
-/// Label
-///
 /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
 public struct Label: Decodable {
     /// 6-character hex code, without the leading #, identifying the color
@@ -11268,7 +11079,6 @@ public struct Label: Decodable {
     }
 }
 
-/// Timeline Comment Event
 public struct TimelineCommentEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11328,7 +11138,6 @@ public struct TimelineCommentEvent: Decodable {
     }
 }
 
-/// Timeline Cross Referenced Event
 public struct TimelineCrossReferencedEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser?
@@ -11361,7 +11170,6 @@ public struct TimelineCrossReferencedEvent: Decodable {
     }
 }
 
-/// Timeline Committed Event
 public struct TimelineCommittedEvent: Decodable {
     /// Identifying information for the git-user
     public var author: Author
@@ -11490,7 +11298,6 @@ public struct TimelineCommittedEvent: Decodable {
     }
 }
 
-/// Timeline Reviewed Event
 public struct TimelineReviewedEvent: Decodable {
     public var links: Links
     /// Author_association
@@ -11572,8 +11379,6 @@ public struct TimelineReviewedEvent: Decodable {
     }
 }
 
-/// Pull Request Review Comment
-///
 /// Pull Request Review Comments are comments on a portion of the Pull Request's diff.
 public struct PullRequestReviewComment: Decodable {
     public var links: Links
@@ -11735,7 +11540,6 @@ public struct PullRequestReviewComment: Decodable {
     }
 }
 
-/// Timeline Line Commented Event
 public struct TimelineLineCommentedEvent: Decodable {
     public var comments: [PullRequestReviewComment]?
     public var event: String?
@@ -11749,7 +11553,6 @@ public struct TimelineLineCommentedEvent: Decodable {
     }
 }
 
-/// Timeline Commit Commented Event
 public struct TimelineCommitCommentedEvent: Decodable {
     public var comments: [CommitComment]?
     public var commitID: String?
@@ -11765,7 +11568,6 @@ public struct TimelineCommitCommentedEvent: Decodable {
     }
 }
 
-/// Timeline Assigned Issue Event
 public struct TimelineAssignedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11798,7 +11600,6 @@ public struct TimelineAssignedIssueEvent: Decodable {
     }
 }
 
-/// Timeline Unassigned Issue Event
 public struct TimelineUnassignedIssueEvent: Decodable {
     /// Simple User
     public var actor: SimpleUser
@@ -11901,8 +11702,6 @@ public struct TimelineIssueEvents: Decodable {
     }
 }
 
-/// Deploy Key
-///
 /// An SSH key granting access to a single repository.
 public struct DeployKey: Decodable {
     public var createdAt: String
@@ -11925,12 +11724,10 @@ public struct DeployKey: Decodable {
     }
 }
 
-/// Language
 public struct Language: Decodable {
 
 }
 
-/// License Content
 public struct LicenseContent: Decodable {
     public var links: Links
     public var content: String
@@ -11978,8 +11775,6 @@ public struct LicenseContent: Decodable {
     }
 }
 
-/// Merged upstream
-///
 /// Results of a successful merge upstream request
 public struct MergedUpstream: Decodable {
     public var baseBranch: String?
@@ -12000,8 +11795,6 @@ public struct MergedUpstream: Decodable {
     }
 }
 
-/// Milestone
-///
 /// A collection of related issues and pull requests.
 public struct Milestone: Decodable {
     /// Example: 2013-02-12T13:22:01Z
@@ -12067,7 +11860,6 @@ public struct Milestone: Decodable {
     }
 }
 
-/// Pages Source Hash
 public struct PagesSourceHash: Decodable {
     public var branch: String
     public var path: String
@@ -12194,7 +11986,6 @@ public struct Page: Decodable {
     }
 }
 
-/// Page Build
 public struct PageBuild: Decodable {
     public var commit: String
     public var createdAt: Date
@@ -12228,7 +12019,6 @@ public struct PageBuild: Decodable {
     }
 }
 
-/// Page Build Status
 public struct PageBuildStatus: Decodable {
     /// Example: queued
     public var status: String
@@ -12379,8 +12169,6 @@ public struct PagesHealthCheck: Decodable {
     }
 }
 
-/// Team Simple
-///
 /// Groups of organization members that gives permissions on specified repositories.
 public struct TeamSimple: Decodable {
     /// Description of the team
@@ -12432,8 +12220,6 @@ public struct TeamSimple: Decodable {
     }
 }
 
-/// Pull Request
-///
 /// Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
 public struct PullRequest: Decodable {
     public var links: Links
@@ -13263,7 +13049,6 @@ public struct PullRequest: Decodable {
     }
 }
 
-/// Pull Request Merge Result
 public struct PullRequestMergeResult: Decodable {
     public var isMerged: Bool
     public var message: String
@@ -13277,7 +13062,6 @@ public struct PullRequestMergeResult: Decodable {
     }
 }
 
-/// Pull Request Review Request
 public struct PullRequestReviewRequest: Decodable {
     public var teams: [Team]
     public var users: [SimpleUser]
@@ -13289,8 +13073,6 @@ public struct PullRequestReviewRequest: Decodable {
     }
 }
 
-/// Pull Request Review
-///
 /// Pull Request Reviews are reviews on pull requests.
 public struct PullRequestReview: Decodable {
     public var links: Links
@@ -13492,8 +13274,6 @@ public struct ReviewComment: Decodable {
     }
 }
 
-/// Release Asset
-///
 /// Data related to a release.
 public struct ReleaseAsset: Decodable {
     public var browserDownloadURL: URL
@@ -13539,8 +13319,6 @@ public struct ReleaseAsset: Decodable {
     }
 }
 
-/// Release
-///
 /// A release.
 public struct Release: Decodable {
     public var assets: [ReleaseAsset]
@@ -13668,7 +13446,6 @@ public struct SecretScanningAlert: Decodable {
     }
 }
 
-/// Stargazer
 public struct Stargazer: Decodable {
     public var starredAt: Date
     /// Simple User
@@ -13681,7 +13458,6 @@ public struct Stargazer: Decodable {
     }
 }
 
-/// Commit Activity
 public struct CommitActivity: Decodable {
     /// Example:
 
@@ -13708,7 +13484,6 @@ public struct CommitActivity: Decodable {
     }
 }
 
-/// Contributor Activity
 public struct ContributorActivity: Decodable {
     /// Simple User
     public var author: SimpleUser?
@@ -13749,7 +13524,6 @@ public struct ContributorActivity: Decodable {
     }
 }
 
-/// Participation Stats
 public struct ParticipationStats: Decodable {
     public var all: [Int]
     public var owner: [Int]
@@ -13788,7 +13562,6 @@ public struct RepositorySubscription: Decodable {
     }
 }
 
-/// Tag
 public struct Tag: Decodable {
     public var commit: Commit
     /// Example: v0.1
@@ -13818,8 +13591,6 @@ public struct Tag: Decodable {
     }
 }
 
-/// Topic
-///
 /// A topic aggregates entities that are related to a subject.
 public struct Topic: Decodable {
     public var names: [String]
@@ -13830,7 +13601,6 @@ public struct Topic: Decodable {
     }
 }
 
-/// Traffic
 public struct Traffic: Decodable {
     public var count: Int
     public var timestamp: Date
@@ -13844,7 +13614,6 @@ public struct Traffic: Decodable {
     }
 }
 
-/// Clone Traffic
 public struct CloneTraffic: Decodable {
     public var clones: [Traffic]
     /// Example: 173
@@ -13860,7 +13629,6 @@ public struct CloneTraffic: Decodable {
     }
 }
 
-/// Content Traffic
 public struct ContentTraffic: Decodable {
     /// Example: 3542
     public var count: Int
@@ -13880,7 +13648,6 @@ public struct ContentTraffic: Decodable {
     }
 }
 
-/// Referrer Traffic
 public struct ReferrerTraffic: Decodable {
     public var count: Int
     /// Example: Google
@@ -13895,7 +13662,6 @@ public struct ReferrerTraffic: Decodable {
     }
 }
 
-/// View Traffic
 public struct ViewTraffic: Decodable {
     /// Example: 14850
     public var count: Int
@@ -14370,7 +14136,6 @@ public struct ScimUser: Decodable {
     }
 }
 
-/// SCIM User List
 public struct ScimUserList: Decodable {
     public var resources: [ScimUser]
     /// Example: 10
@@ -14420,7 +14185,6 @@ public struct SearchResultTextMatchesItem: Decodable {
     }
 }
 
-/// Code Search Result Item
 public struct CodeSearchResultItem: Decodable {
     public var fileSize: Int?
     public var gitURL: URL
@@ -14462,7 +14226,6 @@ public struct CodeSearchResultItem: Decodable {
     }
 }
 
-/// Commit Search Result Item
 public struct CommitSearchResultItem: Decodable {
     /// Simple User
     public var author: SimpleUser?
@@ -14562,7 +14325,6 @@ public struct CommitSearchResultItem: Decodable {
     }
 }
 
-/// Issue Search Result Item
 public struct IssueSearchResultItem: Decodable {
     public var activeLockReason: String?
     /// Simple User
@@ -14694,7 +14456,6 @@ public struct IssueSearchResultItem: Decodable {
     }
 }
 
-/// Label Search Result Item
 public struct LabelSearchResultItem: Decodable {
     public var color: String
     public var isDefault: Bool
@@ -14721,7 +14482,6 @@ public struct LabelSearchResultItem: Decodable {
     }
 }
 
-/// Repo Search Result Item
 public struct RepoSearchResultItem: Decodable {
     public var allowAutoMerge: Bool?
     public var allowForking: Bool?
@@ -14925,7 +14685,6 @@ public struct RepoSearchResultItem: Decodable {
     }
 }
 
-/// Topic Search Result Item
 public struct TopicSearchResultItem: Decodable {
     public var aliases: [AliasesItem]?
     public var createdAt: Date
@@ -15014,7 +14773,6 @@ public struct TopicSearchResultItem: Decodable {
     }
 }
 
-/// User Search Result Item
 public struct UserSearchResultItem: Decodable {
     public var avatarURL: URL
     public var bio: String?
@@ -15091,7 +14849,6 @@ public struct UserSearchResultItem: Decodable {
     }
 }
 
-/// Private User
 public struct PrivateUser: Decodable {
     public var avatarURL: URL
     /// Example: There once was...
@@ -15216,8 +14973,6 @@ public struct PrivateUser: Decodable {
     }
 }
 
-/// Codespaces Secret
-///
 /// Secrets for a GitHub Codespace.
 public struct CodespacesSecret: Decodable {
     public var createdAt: Date
@@ -15267,7 +15022,6 @@ public struct CodespacesUserPublicKey: Decodable {
     }
 }
 
-/// Email
 public struct Email: Decodable {
     /// Example: octocat@github.com
     public var email: String
@@ -15287,8 +15041,6 @@ public struct Email: Decodable {
     }
 }
 
-/// GPG Key
-///
 /// A unique encryption key
 public struct GpgKey: Decodable {
     /// Example: true
@@ -15400,7 +15152,6 @@ public struct GpgKey: Decodable {
     }
 }
 
-/// Key
 public struct Key: Decodable {
     public var createdAt: Date
     public var id: Int
@@ -15422,7 +15173,6 @@ public struct Key: Decodable {
     }
 }
 
-/// Marketplace Account
 public struct MarketplaceAccount: Decodable {
     public var email: String?
     public var id: Int
@@ -15444,7 +15194,6 @@ public struct MarketplaceAccount: Decodable {
     }
 }
 
-/// User Marketplace Purchase
 public struct UserMarketplacePurchase: Decodable {
     /// Marketplace Account
     public var account: MarketplaceAccount
@@ -15475,7 +15224,6 @@ public struct UserMarketplacePurchase: Decodable {
     }
 }
 
-/// Starred Repository
 public struct StarredRepository: Decodable {
     /// Repository
     ///
@@ -15490,7 +15238,6 @@ public struct StarredRepository: Decodable {
     }
 }
 
-/// Hovercard
 public struct Hovercard: Decodable {
     public var contexts: [ContextsItem]
 
@@ -15511,7 +15258,6 @@ public struct Hovercard: Decodable {
     }
 }
 
-/// Key Simple
 public struct KeySimple: Decodable {
     public var id: Int
     public var key: String

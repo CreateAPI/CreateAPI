@@ -156,7 +156,7 @@ final class Templates {
     func property(_ property: Property) -> String {
         var output = ""
         if let context = property.context {
-            output += comments(for: context)
+            output += comments(for: context, name: property.name.rawValue)
         }
         output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
@@ -165,17 +165,27 @@ final class Templates {
     // MARK: Comments
     
     /// Generates inline comments for a declaration containing a title, description, and examples.
-    func comments(for context: JSONSchemaContext) -> String {
+    func comments(for context: JSONSchemaContext, name: String) -> String {
         let options = options.comments
         guard options.isEnabled else {
             return ""
         }
         var output = ""
-        if options.addTitle, let title = context.title, !title.isEmpty {
+        
+        var title = context.title ?? ""
+        var description = context.description ?? ""
+        if title == description && options.addTitle && options.addDescription {
+            description = ""
+        }
+        if title.capitalized.components(separatedBy: .whitespaces).joined(separator: "") == name {
+            title = ""
+        }
+        
+        if options.addTitle, !title.isEmpty {
             let title = options.capitilizeTitle ? title.capitalizingFirstLetter() : title
             output += "/// \(title)\n"
         }
-        if options.addDescription, let description = context.description, !description.isEmpty, description != context.title {
+        if options.addDescription, !description.isEmpty, description != context.title {
             if !output.isEmpty {
                 output += "///\n"
             }

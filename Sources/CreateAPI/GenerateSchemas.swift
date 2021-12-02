@@ -6,7 +6,6 @@ import OpenAPIKit30
 import Foundation
 
 // TODO: mappedPropertyNames and mappedTypeNames to work with nested names: "A.B.C"
-// TODO: Add an option to inline all properties on allOf from referenes (dereference)
 // TODO: Fix empty public struct Object: Decodable {} in GitHub spec
 // TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
@@ -47,7 +46,7 @@ import Foundation
 
 // TODO: Separate mapped* dictionary for enums
 // TODO: entitiesGeneratedAsClasses - add support for nesting
-// TODO: Add an option how allOf is generated (inline properties, craete protocols)
+// TODO: Add an option how allOf is generated (inline properties, create protocols)
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document
@@ -309,7 +308,7 @@ final class GenerateSchemas {
 //        }
         
         
-        var output = templates.comments(for: coreContext)
+        var output = templates.comments(for: coreContext, name: name.rawValue)
         output += templates.entity(name: name, contents: contents)
         return output
     }
@@ -359,7 +358,7 @@ final class GenerateSchemas {
         }
         
         var output = ""
-        output += templates.comments(for: coreContext)
+        output += templates.comments(for: coreContext, name: name.rawValue)
         output += "\(access)enum \(name): String, Codable, CaseIterable {\n"
         let escaped = CharacterSet(charactersIn: "`")
         for value in values {
