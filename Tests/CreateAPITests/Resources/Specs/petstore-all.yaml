@@ -1214,3 +1214,85 @@ components:
         - placed
         - approved
         - delivered
+    ContainerA:
+      type: object
+      required:
+        - refChild
+      properties:
+        child:
+          type: object
+          required:
+            - enum
+            - rename-me
+            - child
+          properties:
+            enum:
+              type: string
+              enum:
+                - a
+                - b
+            rename-me:
+              type: string
+            child:
+              type: object
+              required:
+                - enum
+                - rename-me
+              properties:
+                enum:
+                  type: string
+                  enum:
+                    - a
+                    - b
+                rename-me:
+                  type: string
+    ContainerB:
+      type: object
+      required:
+        - child
+      properties:
+        child:
+          type: object
+          required:
+            - enum
+            - rename-me
+            - child
+          properties:
+            enum:
+              type: string
+              enum:
+                - a
+                - b
+            rename-me:
+              type: string
+            child:
+              type: object
+              required:
+                - enum
+                - rename-me
+              properties:
+                enum:
+                  type: string
+                  enum:
+                    - a
+                    - b
+                rename-me:
+                  type: string
+    ContainerC:
+      type: object
+      required:
+        - child
+      properties:
+        child:
+          type: object
+          required:
+            - enum
+            - rename-me
+          properties:
+            enum:
+              type: string
+              enum:
+                - a
+                - b
+            rename-me:
+              type: string

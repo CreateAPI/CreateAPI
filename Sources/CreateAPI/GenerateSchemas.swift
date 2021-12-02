@@ -92,7 +92,7 @@ final class GenerateSchemas {
             }
                         
             do {
-                if let entry = try makeTypeDeclaration(name: name, schema: schema), !entry.isEmpty {
+                if let entry = try makeTopDeclaration(name: name, schema: schema), !entry.isEmpty {
                     lock.lock()
                     generated[index] = entry
                     lock.unlock()
@@ -151,7 +151,7 @@ final class GenerateSchemas {
     }
     
     // Recursively creates a complete type declaration: a struct, a class, an enum, etc.
-    private func makeTypeDeclaration(name: TypeName, schema: JSONSchema) throws -> String? {
+    private func makeTopDeclaration(name: TypeName, schema: JSONSchema) throws -> String? {
         switch schema {
         case .boolean, .number, .integer:
             return nil // Inline
@@ -178,26 +178,7 @@ final class GenerateSchemas {
             return nil // Can't appear in this context
         }
     }
-        
-    private struct PropertyContainer {
-        let name: TypeName
-    }
-    
-    #warning("move to other files")
-    struct Property {
-        // Example: "files"
-        let name: PropertyName
-        // Example: "[File]"
-        let type: String
-        let isOptional: Bool
-        // Key in the JSON
-        let key: String
-
-        let schema: JSONSchema
-        let context: JSONSchemaContext?
-        var nested: String?
-    }
-                
+                        
     private func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in container: PropertyContainer) throws -> Property {
         func makeChildPropertyName(for name: PropertyName, type: String) -> PropertyName {
             if !options.schemes.mappedPropertyNames.isEmpty {
@@ -242,7 +223,7 @@ final class GenerateSchemas {
                                 return child(name: propertyName, type: "[String: [String: \(type)]]", context: coreContext, nested: nil)
                             }
                             let nestedTypeName = makeTypeName(key).appending("Item")
-                            let nested = try makeTypeDeclaration(name: nestedTypeName, schema: schema)
+                            let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema)
                             return child(name: propertyName, type: "[String: [String: \(nestedTypeName)]]", context: coreContext, nested: nested)
                         }
                     }
@@ -251,12 +232,12 @@ final class GenerateSchemas {
                     }
                     let nestedTypeName = makeTypeName(key).appending("Item")
                     // TODO: implement shiftRight (fix nested enums)
-                    let nested = try makeTypeDeclaration(name: nestedTypeName, schema: schema)
+                    let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema)
                     return child(name: propertyName, type: "[String: \(nestedTypeName)]", context: coreContext, nested: nested)
                 }
             }
             let type = makeTypeName(key)
-            let nested = try makeTypeDeclaration(name: type, schema: schema)
+            let nested = try makeTopDeclaration(name: type, schema: schema)
             return child(name: propertyName, type: type.rawValue, context: coreContext, nested: nested)
         case .array(let coreContext, let arrayContext):
             guard let item = arrayContext.items else {
@@ -266,7 +247,7 @@ final class GenerateSchemas {
                 return child(name: propertyName, type: "[\(type)]", context: coreContext)
             }
             let name = makeTypeName(key).appending("Item")
-            let nested = try makeTypeDeclaration(name: name, schema: item)
+            let nested = try makeTopDeclaration(name: name, schema: item)
             return child(name: propertyName, type: "[\(name)]", context: coreContext, nested: nested)
         case .string(let coreContext, _):
             if isEnum(coreContext) {
@@ -278,7 +259,7 @@ final class GenerateSchemas {
             return child(name: propertyName, type: type, context: coreContext)
         case .all, .one, .any:
             let name = makeTypeName(key)
-            let nested = try makeTypeDeclaration(name: name, schema: schema)
+            let nested = try makeTopDeclaration(name: name, schema: schema)
             return child(name: propertyName, type: name.rawValue, context: schema.coreContext, nested: nested)
         case .not:
             throw GeneratorError("`not` properties are not supported")
@@ -295,13 +276,6 @@ final class GenerateSchemas {
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, context: context)
         }
-    }
-    
-    #warning("TODO: remove")
-    private func makeNested(for children: [Property]) -> String? {
-        let nested = children.compactMap({ $0.nested?.shiftedRight(count: 4) })
-        guard !nested.isEmpty else { return nil }
-        return nested.joined(separator: "\n\n")
     }
     
     // MARK: Object
@@ -371,7 +345,7 @@ final class GenerateSchemas {
         var output = ""
         let itemName = name.appending("Item")
         output += "\(access)typealias \(name) = [\(itemName)]\n\n"
-        output += (try makeTypeDeclaration(name: itemName, schema: item)) ?? ""
+        output += (try makeTopDeclaration(name: itemName, schema: item)) ?? ""
         return output
     }
     
@@ -612,4 +586,23 @@ struct GeneratorError: Error, LocalizedError {
     var errorDescription: String? {
         message
     }
+}
+
+private struct PropertyContainer {
+    let name: TypeName
+}
+
+#warning("move to other files")
+struct Property {
+    // Example: "files"
+    let name: PropertyName
+    // Example: "[File]"
+    let type: String
+    let isOptional: Bool
+    // Key in the JSON
+    let key: String
+
+    let schema: JSONSchema
+    let context: JSONSchemaContext?
+    var nested: String?
 }

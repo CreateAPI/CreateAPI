@@ -69,20 +69,20 @@ final class Templates {
         """
     }
         
-    func `case`(property: GenerateSchemas.Property) -> String {
+    func `case`(property: Property) -> String {
         "case \(property.name)(\(property.type))"
     }
     
     // MARK: Decoding
     
-    func decode(properties: [GenerateSchemas.Property]) -> String {
+    func decode(properties: [Property]) -> String {
         properties.map(decode).joined(separator: "\n")
     }
     
     /// Generates a decode statement.
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
-    func decode(property: GenerateSchemas.Property) -> String {
+    func decode(property: Property) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
     }
@@ -90,11 +90,11 @@ final class Templates {
     /// Generated decoding of the directly inlined nested object.
     ///
     ///     self.animal = try Animal(from: decoder)
-    func decodeFromDecoder(property: GenerateSchemas.Property) -> String {
+    func decodeFromDecoder(property: Property) -> String {
         "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
     }
     
-    func initFromDecoder(properties: [GenerateSchemas.Property]) -> String {
+    func initFromDecoder(properties: [Property]) -> String {
         initFromDecoder(contents: decode(properties: properties))
     }
     
@@ -107,7 +107,7 @@ final class Templates {
         """
     }
     
-    func initFromDecoderAnyOf(properties: [GenerateSchemas.Property]) -> String {
+    func initFromDecoderAnyOf(properties: [Property]) -> String {
         let contents = properties.map {
             "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
         }.joined(separator: "\n")
@@ -119,7 +119,7 @@ final class Templates {
         """
     }
     
-    func initFromDecoderOneOf(properties: [GenerateSchemas.Property]) -> String {
+    func initFromDecoderOneOf(properties: [Property]) -> String {
         var output = """
         \(access)init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()\n
@@ -146,14 +146,14 @@ final class Templates {
     // MARK: Properties
     
     /// Generates a list of properties.
-    func properties(_ properties: [GenerateSchemas.Property]) -> String {
+    func properties(_ properties: [Property]) -> String {
         properties.map(property).joined(separator: "\n")
     }
     
     /// Generates a property with comments and everything.
     ///
     ///     public var files: [Files]?
-    func property(_ property: GenerateSchemas.Property) -> String {
+    func property(_ property: Property) -> String {
         var output = ""
         if let context = property.context {
             output += comments(for: context)
