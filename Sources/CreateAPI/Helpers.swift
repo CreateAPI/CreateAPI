@@ -310,16 +310,17 @@ extension String {
     func lowercasedFirstLetter() -> String {
         prefix(1).lowercased() + dropFirst()
     }
-}
-
-extension String {
-    func shiftedRight(count: Int) -> String {
-        guard count > 0 else {
+    
+    func indent(using options: GenerateOptions) -> String {
+        let indetation: String
+        switch options.indentation {
+        case .tabs: indetation = "\t"
+        case .spaces: indetation = String(repeating: " ", count: options.spaceWidth)
+        }
+        guard indetation != "    " else {
             return self
         }
-        return components(separatedBy: "\n")
-            .map { $0.isEmpty ? $0 : String(repeating: " ", count: count) + $0 }
-            .joined(separator: "\n")
+        return replacingOccurrences(of: "    ", with: indetation)
     }
 }
 

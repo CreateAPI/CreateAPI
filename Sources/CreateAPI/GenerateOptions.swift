@@ -12,6 +12,13 @@ final class GenerateOptions {
     var additionalAcronyms: [String]
     var fileHeader: FileHeader
     var comments: Comments
+    var indentation: Indentation
+    var spaceWidth: Int
+    
+    enum Indentation: String, Codable {
+        case spaces
+        case tabs
+    }
 
     struct FileHeader {
         var addSwiftLintDisabled: Bool
@@ -77,6 +84,8 @@ final class GenerateOptions {
         self.schemes = SchemesOptions(options.schemes)
         self.fileHeader = FileHeader(options.fileHeader)
         self.comments = Comments(options.comments)
+        self.indentation = options.indentation ?? .spaces
+        self.spaceWidth = options.spaceWidth ?? 4
     }
 }
 
@@ -90,6 +99,8 @@ final class GenerateOptionsScheme: Decodable {
     var schemes: SchemesOptions?
     var fileHeader: FileHeader?
     var comments: Comments?
+    var indentation: GenerateOptions.Indentation?
+    var spaceWidth: Int?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?

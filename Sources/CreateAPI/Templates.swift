@@ -53,7 +53,7 @@ final class Templates {
 
         return """
         \(lhs): \(rhs) {
-        \(contents.joined(separator: "\n\n").shiftedRight(count: 4))
+        \(contents.joined(separator: "\n\n").indented)
         }
         """
     }
@@ -64,7 +64,7 @@ final class Templates {
         let protocols = options.schemes.adoptedProtocols.joined(separator: ", ")
         return """
         \(access)enum \(name): \(protocols) {
-        \(contents.joined(separator: "\n\n").shiftedRight(count: 4))
+        \(contents.joined(separator: "\n\n").indented)
         }
         """
     }
@@ -84,7 +84,7 @@ final class Templates {
     func enumOfStrings(name: TypeName, contents: String) -> String {
         return """
         \(access)enum \(name): String, Codable, CaseIterable {
-        \(contents.shiftedRight(count: 4))
+        \(contents.indented)
         }
         """
     }
@@ -118,7 +118,7 @@ final class Templates {
         """
         \(access)init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-        \(contents.shiftedRight(count: 4))
+        \(contents.indented)
         }
         """
     }
@@ -130,33 +130,34 @@ final class Templates {
         return """
         \(access)init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-        \(contents.shiftedRight(count: 4))
+        \(contents.indented)
         }
         """
     }
     
     func initFromDecoderOneOf(properties: [Property]) -> String {
-        var output = """
-        \(access)init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()\n
-        """
-        output += "    "
-        
+        var contents = ""
         for property in properties {
-            output += """
+            contents += """
             if let value = try? container.decode(\(property.type).self) {
-                    self = .\(property.name)(value)
-                } else
+                self = .\(property.name)(value)
+            } else
             """
-            output += " "
+            contents += " "
         }
-        output += """
+        
+        contents += """
         {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-            }
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
         }
         """
-        return output
+        
+        return """
+        \(access)init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+        \(contents.indented)
+        }
+        """
     }
     
     // MARK: Properties
@@ -245,5 +246,13 @@ final class Templates {
             }
         }
         return output
+    }
+}
+
+private extension String {
+    var indented: String {
+        components(separatedBy: "\n")
+            .map { $0.isEmpty ? $0 : String(repeating: " ", count: 4) + $0 }
+            .joined(separator: "\n")
     }
 }

@@ -7,7 +7,7 @@ import OpenAPIKit30
 @testable import CreateAPI
 
 final class GenerateSchemesTests: XCTestCase {
-    func testGenerateWithDefaultOptions() {
+    func testBasicDetault() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -19,7 +19,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-default", actual: output)
     }
     
-    func testGenerateClasses() {
+    func testBasicGenerateClasses() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -32,7 +32,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-classes", actual: output)
     }
     
-    func testPetstoreOverrideGenerateAsClasses() {
+    func testBasicOverrideGenerateAsClasses() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -59,7 +59,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-entitites-generated-as-structs", actual: output)
     }
     
-    func testPetstoreMapPropertyNames() {
+    func testBasicMapPropertyNames() {
         // GIVEN
         let spec = spec(named: "petstore-all")
         let options = GenerateOptions()
@@ -77,7 +77,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-mapped-property-names", actual: output)
     }
     
-    func testPetstoreGenerateClassesWithBaseClass() {
+    func testBasicGenerateClassesWithBaseClass() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -91,7 +91,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-classes-with-base", actual: output)
     }
     
-    func testChangeAccessControl() {
+    func testBasicChangeAccessControl() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -104,7 +104,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-internal-default", actual: output)
     }
     
-    func testDisableCommentsGeneration() {
+    func testBasicDisableCommentsGeneration() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -117,7 +117,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-disable-comments", actual: output)
     }
     
-    func testDisableInitWithCoder() {
+    func testBasicDisableInitWithCoder() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -130,7 +130,7 @@ final class GenerateSchemesTests: XCTestCase {
         compare(expected: "petstore-schemes-generate-disable-init-with-code", actual: output)
     }
     
-    func testPetstoreDisableInlining() {
+    func testBasicDisableInlining() {
         // GIVEN
         let spec = spec(named: "petstore")
         let options = GenerateOptions()
@@ -142,7 +142,7 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-schemes-generate-disable-inlining", actual: output)
     }
-    
+        
     func testPetstoreExpanded() {
         // GIVEN
         let spec = spec(named: "petstore-expanded")
@@ -212,7 +212,33 @@ final class GenerateSchemesTests: XCTestCase {
         // THEN
         compare(expected: "petstore-all-schemes-map-types", actual: output)
     }
-
+    
+    func testPetstoreAllIndentWithTabs() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.indentation = .tabs
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-indent-with-tabs", actual: output)
+    }
+    
+    func testPetstoreAllIndentWithTwoWidthSpaces() {
+        // GIVEN
+        let spec = spec(named: "petstore-all")
+        let options = GenerateOptions()
+        options.spaceWidth = 2
+        
+        // WHEN
+        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        
+        // THEN
+        compare(expected: "petstore-all-schemes-indent-with-two-width-spaces", actual: output)
+    }
+    
     func testGenerateGitHub() {
         // GIVEN
         let spec = spec(named: "github")

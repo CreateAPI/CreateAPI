@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 
-// TODO: Change number of spaces + allow tabs
 // TODO: Fix empty public struct Object: Decodable {} in GitHub spec
 // TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
@@ -117,7 +116,7 @@ final class GenerateSchemas {
             print("Generated schemas in \(timeElapsed) s.")
         }
         
-        return output
+        return output.indent(using: options)
     }
     
     /// Return `nil` to skip generation.
