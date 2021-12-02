@@ -863,7 +863,11 @@ public struct Installation: Decodable {
     public var updatedAt: Date
 
     public struct Account: Decodable {
+        /// Simple User
         public var simpleUser: SimpleUser?
+        /// Enterprise
+        ///
+        /// An enterprise account
         public var enterprise: Enterprise?
 
         public init(from decoder: Decoder) throws {
@@ -6353,7 +6357,11 @@ public struct PendingDeployment: Decodable {
         public var type: DeploymentReviewerType?
 
         public struct Reviewer: Decodable {
+            /// Simple User
             public var simpleUser: SimpleUser?
+            /// Team
+            ///
+            /// Groups of organization members that gives permissions on specified repositories.
             public var team: Team?
 
             public init(from decoder: Decoder) throws {
@@ -9687,13 +9695,6 @@ public struct Environment: Decodable {
         public var object2: Object2?
         public var object3: Object3?
 
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            self.object1 = try? container.decode(Object1.self)
-            self.object2 = try? container.decode(Object2.self)
-            self.object3 = try? container.decode(Object3.self)
-        }
-
         public struct Object1: Decodable {
             /// Example: 3515
             public var id: Int
@@ -9733,7 +9734,11 @@ public struct Environment: Decodable {
                 public var type: DeploymentReviewerType?
 
                 public struct Reviewer: Decodable {
+                    /// Simple User
                     public var simpleUser: SimpleUser?
+                    /// Team
+                    ///
+                    /// Groups of organization members that gives permissions on specified repositories.
                     public var team: Team?
 
                     public init(from decoder: Decoder) throws {
@@ -9773,6 +9778,13 @@ public struct Environment: Decodable {
                 self.nodeID = try values.decode(String.self, forKey: "node_id")
                 self.type = try values.decode(String.self, forKey: "type")
             }
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            self.object1 = try? container.decode(Object1.self)
+            self.object2 = try? container.decode(Object2.self)
+            self.object3 = try? container.decode(Object3.self)
         }
     }
 
@@ -11170,20 +11182,35 @@ public struct ConvertedNoteToIssueIssueEvent: Decodable {
 }
 
 public struct IssueEventForIssue: Decodable {
+    /// Labeled Issue Event
     public var labeledIssueEvent: LabeledIssueEvent?
+    /// Unlabeled Issue Event
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
+    /// Assigned Issue Event
     public var assignedIssueEvent: AssignedIssueEvent?
+    /// Unassigned Issue Event
     public var unassignedIssueEvent: UnassignedIssueEvent?
+    /// Milestoned Issue Event
     public var milestonedIssueEvent: MilestonedIssueEvent?
+    /// Demilestoned Issue Event
     public var demilestonedIssueEvent: DemilestonedIssueEvent?
+    /// Renamed Issue Event
     public var renamedIssueEvent: RenamedIssueEvent?
+    /// Review Requested Issue Event
     public var reviewRequestedIssueEvent: ReviewRequestedIssueEvent?
+    /// Review Request Removed Issue Event
     public var reviewRequestRemovedIssueEvent: ReviewRequestRemovedIssueEvent?
+    /// Review Dismissed Issue Event
     public var reviewDismissedIssueEvent: ReviewDismissedIssueEvent?
+    /// Locked Issue Event
     public var lockedIssueEvent: LockedIssueEvent?
+    /// Added to Project Issue Event
     public var addedToProjectIssueEvent: AddedToProjectIssueEvent?
+    /// Moved Column in Project Issue Event
     public var movedColumnInProjectIssueEvent: MovedColumnInProjectIssueEvent?
+    /// Removed from Project Issue Event
     public var removedFromProjectIssueEvent: RemovedFromProjectIssueEvent?
+    /// Converted Note to Issue Issue Event
     public var convertedNoteToIssueIssueEvent: ConvertedNoteToIssueIssueEvent?
 
     public init(from decoder: Decoder) throws {
@@ -11805,26 +11832,47 @@ public struct TimelineUnassignedIssueEvent: Decodable {
 }
 
 public struct TimelineIssueEvents: Decodable {
+    /// Labeled Issue Event
     public var labeledIssueEvent: LabeledIssueEvent?
+    /// Unlabeled Issue Event
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
+    /// Milestoned Issue Event
     public var milestonedIssueEvent: MilestonedIssueEvent?
+    /// Demilestoned Issue Event
     public var demilestonedIssueEvent: DemilestonedIssueEvent?
+    /// Renamed Issue Event
     public var renamedIssueEvent: RenamedIssueEvent?
+    /// Review Requested Issue Event
     public var reviewRequestedIssueEvent: ReviewRequestedIssueEvent?
+    /// Review Request Removed Issue Event
     public var reviewRequestRemovedIssueEvent: ReviewRequestRemovedIssueEvent?
+    /// Review Dismissed Issue Event
     public var reviewDismissedIssueEvent: ReviewDismissedIssueEvent?
+    /// Locked Issue Event
     public var lockedIssueEvent: LockedIssueEvent?
+    /// Added to Project Issue Event
     public var addedToProjectIssueEvent: AddedToProjectIssueEvent?
+    /// Moved Column in Project Issue Event
     public var movedColumnInProjectIssueEvent: MovedColumnInProjectIssueEvent?
+    /// Removed from Project Issue Event
     public var removedFromProjectIssueEvent: RemovedFromProjectIssueEvent?
+    /// Converted Note to Issue Issue Event
     public var convertedNoteToIssueIssueEvent: ConvertedNoteToIssueIssueEvent?
+    /// Timeline Comment Event
     public var timelineCommentEvent: TimelineCommentEvent?
+    /// Timeline Cross Referenced Event
     public var timelineCrossReferencedEvent: TimelineCrossReferencedEvent?
+    /// Timeline Committed Event
     public var timelineCommittedEvent: TimelineCommittedEvent?
+    /// Timeline Reviewed Event
     public var timelineReviewedEvent: TimelineReviewedEvent?
+    /// Timeline Line Commented Event
     public var timelineLineCommentedEvent: TimelineLineCommentedEvent?
+    /// Timeline Commit Commented Event
     public var timelineCommitCommentedEvent: TimelineCommitCommentedEvent?
+    /// Timeline Assigned Issue Event
     public var timelineAssignedIssueEvent: TimelineAssignedIssueEvent?
+    /// Timeline Unassigned Issue Event
     public var timelineUnassignedIssueEvent: TimelineUnassignedIssueEvent?
 
     public init(from decoder: Decoder) throws {

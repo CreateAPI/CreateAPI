@@ -74,7 +74,7 @@ final class Templates {
     func decodeFromDecoder(property: GenerateSchemas.Property) -> String {
         "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
     }
-
+    
     func initFromDecoder(properties: [GenerateSchemas.Property]) -> String {
         initFromDecoder(contents: decode(properties: properties))
     }
@@ -83,6 +83,18 @@ final class Templates {
         """
         \(access)init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
+        \(contents.shiftedRight(count: 4))
+        }
+        """
+    }
+    
+    func initFromDecoderAnyOf(properties: [GenerateSchemas.Property]) -> String {
+        let contents = properties.map {
+            "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
+        }.joined(separator: "\n")
+        return """
+        \(access)init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
         \(contents.shiftedRight(count: 4))
         }
         """

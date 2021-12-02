@@ -550,40 +550,14 @@ final class GenerateSchemas {
     private func makeAnyOf(name: TypeName, _ schemas: [JSONSchema]) throws -> String {
         let types = makeTypeNames(for: schemas)
         let container = PropertyContainer(name: name)
-        let children: [Property] = try zip(types, schemas).map { type, schema in
-            try makeProperty(key: type, schema: schema, isRequired: true, in: container)
+        let properties: [Property] = try zip(types, schemas).map { type, schema in
+            try makeProperty(key: type, schema: schema, isRequired: false, in: container)
         }
-        
-        var output = "\(access)struct \(name): \(protocols) {\n"
-        
-        for child in children {
-            output += "    \(access)var \(child.name): \(child.type)?\n"
-        }
-        output += "\n"
-    
-        func makeInitFromDecoder() throws -> String {
-            var output = """
-            \(access)init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()\n
-            """
-            
-            for child in children {
-                output += "    self.\(child.name) = try? container.decode(\(child.type).self)\n"
-            }
-            output += "}"
-            return output
-        }
-        
-        output += try makeInitFromDecoder().shiftedRight(count: 4)
-        
-        
-        if let nested = makeNested(for: children) {
-            output += "\n\n"
-            output += nested
-        }
-        
-        output += "\n}"
-        return output
+        var contents: [String] = []
+        contents.append(templates.properties(properties))
+        contents += properties.compactMap { $0.nested }
+        contents.append(templates.initFromDecoderAnyOf(properties: properties))
+        return templates.entity(name: name, contents: contents)
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema]) throws -> String {
