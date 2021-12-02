@@ -16,6 +16,7 @@ final class GenerateOptions {
     var spaceWidth: Int
     var isPluralizationEnabled: Bool
     var pluralizationExceptions: Set<String>
+    var isInterpretingEmptyObjectsAsDictionary: Bool
     
     enum Indentation: String, Codable {
         case spaces
@@ -89,7 +90,8 @@ final class GenerateOptions {
         self.indentation = options.indentation ?? .spaces
         self.spaceWidth = options.spaceWidth ?? 4
         self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
-        self.pluralizationExceptions = Set(options.pluralizationExceptions ?? ["ConfigWas", "EventsWere"])
+        self.pluralizationExceptions = Set(options.pluralizationExceptions ?? [])
+        self.isInterpretingEmptyObjectsAsDictionary = options.isInterpretingEmptyObjectsAsDictionary ?? false
     }
 }
 
@@ -107,6 +109,7 @@ final class GenerateOptionsScheme: Decodable {
     var spaceWidth: Int?
     var isPluralizationEnabled: Bool?
     var pluralizationExceptions: [String]?
+    var isInterpretingEmptyObjectsAsDictionary: Bool?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?

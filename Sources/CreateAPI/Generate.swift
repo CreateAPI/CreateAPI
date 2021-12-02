@@ -18,7 +18,7 @@ struct Generate: ParsableCommand {
     var output: String = "./.create-api/"
     
     @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
-    var config: String = "/.createAPI"
+    var config: String = "/.create-api"
     
     @Option(help: "If enabled, saturates all cores in the system. By default, enabled.")
     var parallel: Bool = true
@@ -97,7 +97,7 @@ struct Generate: ParsableCommand {
 }
 
 private func makeOptions(at configPath: String) throws -> GenerateOptions {
-    let url = URL(fileURLWithPath: configPath)
+    let url = URL(fileURLWithPath: (configPath as NSString).expandingTildeInPath)
     if let data = try? Data(contentsOf: url) {
         do {
             let scheme = try JSONDecoder().decode(GenerateOptionsScheme.self, from: data)

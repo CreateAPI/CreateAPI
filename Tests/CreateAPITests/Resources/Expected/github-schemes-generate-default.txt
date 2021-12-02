@@ -264,10 +264,10 @@ public struct ScimError: Decodable {
 
 public struct ValidationError: Decodable {
     public var documentationURL: String
-    public var errors: [ErrorsItem]?
+    public var errors: [Error]?
     public var message: String
 
-    public struct ErrorsItem: Decodable {
+    public struct Error: Decodable {
         public var code: String
         public var field: String?
         public var index: Int?
@@ -308,7 +308,7 @@ public struct ValidationError: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.documentationURL = try values.decode(String.self, forKey: "documentation_url")
-        self.errors = try values.decodeIfPresent([ErrorsItem].self, forKey: "errors")
+        self.errors = try values.decodeIfPresent([Error].self, forKey: "errors")
         self.message = try values.decode(String.self, forKey: "message")
     }
 }
@@ -1745,7 +1745,7 @@ public struct Runner: Decodable {
     public var isBusy: Bool
     /// The id of the runner.
     public var id: Int
-    public var labels: [LabelsItem]
+    public var labels: [Label]
     /// The name of the runner.
     ///
     /// Example: iMac
@@ -1759,7 +1759,7 @@ public struct Runner: Decodable {
     /// Example: online
     public var status: String
 
-    public struct LabelsItem: Decodable {
+    public struct Label: Decodable {
         /// Unique identifier of the label.
         public var id: Int?
         /// Name of the label.
@@ -1785,7 +1785,7 @@ public struct Runner: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isBusy = try values.decode(Bool.self, forKey: "busy")
         self.id = try values.decode(Int.self, forKey: "id")
-        self.labels = try values.decode([LabelsItem].self, forKey: "labels")
+        self.labels = try values.decode([Label].self, forKey: "labels")
         self.name = try values.decode(String.self, forKey: "name")
         self.os = try values.decode(String.self, forKey: "os")
         self.status = try values.decode(String.self, forKey: "status")
@@ -1823,7 +1823,7 @@ public struct AuthenticationToken: Decodable {
     ///   "deployments" : "write",
     ///   "issues" : "read"
     /// }
-    public var permissions: Permissions?
+    public var permissions: [String: AnyJSON]?
     /// The repositories this token has access to
     public var repositories: [Repository]?
     /// Describe whether all repositories have been selected or there's a selection involved
@@ -1835,16 +1835,6 @@ public struct AuthenticationToken: Decodable {
     /// Example: v1.1f699f1069f60xxx
     public var token: String
 
-    /// Example:
-
-    /// {
-    ///   "deployments" : "write",
-    ///   "issues" : "read"
-    /// }
-    public struct Permissions: Decodable {
-
-    }
-
     /// Describe whether all repositories have been selected or there's a selection involved
     public enum RepositorySelection: String, Codable, CaseIterable {
         case all
@@ -1854,7 +1844,7 @@ public struct AuthenticationToken: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.expiresAt = try values.decode(Date.self, forKey: "expires_at")
-        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+        self.permissions = try values.decodeIfPresent([String: AnyJSON].self, forKey: "permissions")
         self.repositories = try values.decodeIfPresent([Repository].self, forKey: "repositories")
         self.repositorySelection = try values.decodeIfPresent(RepositorySelection.self, forKey: "repository_selection")
         self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
@@ -1887,7 +1877,7 @@ public struct AuditLogEvent: Decodable {
     public var data: [String: AnyJSON]?
     public var deployKeyFingerprint: String?
     public var emoji: String?
-    public var events: [EventsItem]?
+    public var events: [Event]?
     public var eventsWere: [EventsWereItem]?
     public var explanation: String?
     public var fingerprint: String?
@@ -1934,7 +1924,7 @@ public struct AuditLogEvent: Decodable {
 
     }
 
-    public struct EventsItem: Decodable {
+    public struct Event: Decodable {
 
     }
 
@@ -1961,7 +1951,7 @@ public struct AuditLogEvent: Decodable {
         self.data = try values.decodeIfPresent([String: AnyJSON].self, forKey: "data")
         self.deployKeyFingerprint = try values.decodeIfPresent(String.self, forKey: "deploy_key_fingerprint")
         self.emoji = try values.decodeIfPresent(String.self, forKey: "emoji")
-        self.events = try values.decodeIfPresent([EventsItem].self, forKey: "events")
+        self.events = try values.decodeIfPresent([Event].self, forKey: "events")
         self.eventsWere = try values.decodeIfPresent([EventsWereItem].self, forKey: "events_were")
         self.explanation = try values.decodeIfPresent(String.self, forKey: "explanation")
         self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
@@ -2190,7 +2180,7 @@ public struct Issue: Decodable {
     ///   "bug",
     ///   "registration"
     /// ]
-    public var labels: [LabelsItem]
+    public var labels: [Label]
     public var labelsURL: String
     public var isLocked: Bool
     /// A collection of related issues and pull requests.
@@ -2225,7 +2215,7 @@ public struct Issue: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public enum LabelsItem: Decodable {
+    public enum Label: Decodable {
         case string(String)
         case object(Object)
 
@@ -2297,7 +2287,7 @@ public struct Issue: Decodable {
         self.eventsURL = try values.decode(URL.self, forKey: "events_url")
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.id = try values.decode(Int.self, forKey: "id")
-        self.labels = try values.decode([LabelsItem].self, forKey: "labels")
+        self.labels = try values.decode([Label].self, forKey: "labels")
         self.labelsURL = try values.decode(String.self, forKey: "labels_url")
         self.isLocked = try values.decode(Bool.self, forKey: "locked")
         self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
@@ -2391,9 +2381,9 @@ public struct Event: Decodable {
         public var comment: IssueComment?
         /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
         public var issue: Issue?
-        public var pages: [PagesItem]?
+        public var pages: [Page]?
 
-        public struct PagesItem: Decodable {
+        public struct Page: Decodable {
             public var action: String?
             public var htmlURL: String?
             public var pageName: String?
@@ -2417,7 +2407,7 @@ public struct Event: Decodable {
             self.action = try values.decodeIfPresent(String.self, forKey: "action")
             self.comment = try values.decodeIfPresent(IssueComment.self, forKey: "comment")
             self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
-            self.pages = try values.decodeIfPresent([PagesItem].self, forKey: "pages")
+            self.pages = try values.decodeIfPresent([Page].self, forKey: "pages")
         }
     }
 
@@ -2739,7 +2729,7 @@ public struct GistSimple: Decodable {
     public var files: [String: FilesItem]?
     /// Gist
     public var forkOf: ForkOf?
-    public var forks: [ForksItem]?
+    public var forks: [Fork]?
     public var forksURL: String?
     public var gitPullURL: String?
     public var gitPushURL: String?
@@ -2843,7 +2833,7 @@ public struct GistSimple: Decodable {
         }
     }
 
-    public struct ForksItem: Decodable {
+    public struct Fork: Decodable {
         public var createdAt: Date?
         public var id: String?
         public var updatedAt: Date?
@@ -2870,7 +2860,7 @@ public struct GistSimple: Decodable {
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
         self.files = try values.decodeIfPresent([String: FilesItem].self, forKey: "files")
         self.forkOf = try values.decodeIfPresent(ForkOf.self, forKey: "fork_of")
-        self.forks = try values.decodeIfPresent([ForksItem].self, forKey: "forks")
+        self.forks = try values.decodeIfPresent([Fork].self, forKey: "forks")
         self.forksURL = try values.decodeIfPresent(String.self, forKey: "forks_url")
         self.gitPullURL = try values.decodeIfPresent(String.self, forKey: "git_pull_url")
         self.gitPushURL = try values.decodeIfPresent(String.self, forKey: "git_push_url")
@@ -3944,7 +3934,7 @@ public struct ExternalGroup: Decodable {
     ///     "member_name" : "Octo Lisa"
     ///   }
     /// ]
-    public var members: [MembersItem]
+    public var members: [Member]
     /// An array of teams linked to this group
     ///
     /// Example:
@@ -3959,13 +3949,13 @@ public struct ExternalGroup: Decodable {
     ///     "team_name" : "team-test2"
     ///   }
     /// ]
-    public var teams: [TeamsItem]
+    public var teams: [Team]
     /// The date when the group was last updated_at
     ///
     /// Example: 1635
     public var updatedAt: String?
 
-    public struct MembersItem: Decodable {
+    public struct Member: Decodable {
         /// An email attached to a user
         ///
         /// Example: mona_lisa@github.com
@@ -3990,7 +3980,7 @@ public struct ExternalGroup: Decodable {
         }
     }
 
-    public struct TeamsItem: Decodable {
+    public struct Team: Decodable {
         /// The id for a team
         public var teamID: Int
         /// The name of the team
@@ -4009,8 +3999,8 @@ public struct ExternalGroup: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.groupID = try values.decode(Int.self, forKey: "group_id")
         self.groupName = try values.decode(String.self, forKey: "group_name")
-        self.members = try values.decode([MembersItem].self, forKey: "members")
-        self.teams = try values.decode([TeamsItem].self, forKey: "teams")
+        self.members = try values.decode([Member].self, forKey: "members")
+        self.teams = try values.decode([Team].self, forKey: "teams")
         self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
     }
 }
@@ -4033,9 +4023,9 @@ public struct ExternalGroups: Decodable {
     ///     "updated_at" : 1635
     ///   }
     /// ]
-    public var groups: [GroupsItem]?
+    public var groups: [Group]?
 
-    public struct GroupsItem: Decodable {
+    public struct Group: Decodable {
         /// The internal ID of the group
         public var groupID: Int
         /// The display name of the group
@@ -4057,7 +4047,7 @@ public struct ExternalGroups: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
     }
 }
 
@@ -4650,9 +4640,9 @@ public struct GroupMapping: Decodable {
     ///     "group_name" : "saml-azuread-test2"
     ///   }
     /// ]
-    public var groups: [GroupsItem]?
+    public var groups: [Group]?
 
-    public struct GroupsItem: Decodable {
+    public struct Group: Decodable {
         /// A description of the group
         ///
         /// Example: A group of Developers working on AzureAD SAML SSO
@@ -4686,7 +4676,7 @@ public struct GroupMapping: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
     }
 }
 
@@ -5843,7 +5833,7 @@ public struct Job: Decodable {
     /// Example: queued
     public var status: Status
     /// Steps in this job.
-    public var steps: [StepsItem]?
+    public var steps: [Step]?
     public var url: String
 
     /// The phase of the lifecycle that the job is currently in.
@@ -5855,7 +5845,7 @@ public struct Job: Decodable {
         case completed
     }
 
-    public struct StepsItem: Decodable {
+    public struct Step: Decodable {
         /// The time that the job finished, in ISO 8601 format.
         ///
         /// Example: 2019-08-08T08:00:00-07:00
@@ -5918,7 +5908,7 @@ public struct Job: Decodable {
         self.runnerName = try values.decodeIfPresent(String.self, forKey: "runner_name")
         self.startedAt = try values.decode(Date.self, forKey: "started_at")
         self.status = try values.decode(Status.self, forKey: "status")
-        self.steps = try values.decodeIfPresent([StepsItem].self, forKey: "steps")
+        self.steps = try values.decodeIfPresent([Step].self, forKey: "steps")
         self.url = try values.decode(String.self, forKey: "url")
     }
 }
@@ -6123,7 +6113,7 @@ public struct EnvironmentApprovals: Decodable {
     /// Example: Ship it!
     public var comment: String
     /// The list of environments that were approved or rejected
-    public var environments: [EnvironmentsItem]
+    public var environments: [Environment]
     /// Whether deployment to the environment(s) was approved or rejected
     ///
     /// Example: approved
@@ -6131,7 +6121,7 @@ public struct EnvironmentApprovals: Decodable {
     /// Simple User
     public var user: SimpleUser
 
-    public struct EnvironmentsItem: Decodable {
+    public struct Environment: Decodable {
         /// The time that the environment was created, in ISO 8601 format.
         ///
         /// Example: 2020-11-23T22:00:40Z
@@ -6176,7 +6166,7 @@ public struct EnvironmentApprovals: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.comment = try values.decode(String.self, forKey: "comment")
-        self.environments = try values.decode([EnvironmentsItem].self, forKey: "environments")
+        self.environments = try values.decode([Environment].self, forKey: "environments")
         self.state = try values.decode(State.self, forKey: "state")
         self.user = try values.decode(SimpleUser.self, forKey: "user")
     }
@@ -6198,7 +6188,7 @@ public struct PendingDeployment: Decodable {
     public var currentUserCanApprove: Bool
     public var environment: Environment
     /// The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
-    public var reviewers: [ReviewersItem]
+    public var reviewers: [Reviewer]
     /// The set duration of the wait timer
     ///
     /// Example: 30
@@ -6232,7 +6222,7 @@ public struct PendingDeployment: Decodable {
         }
     }
 
-    public struct ReviewersItem: Decodable {
+    public struct Reviewer: Decodable {
         public var reviewer: Reviewer?
         /// The type of reviewer. Must be one of: `User` or `Team`
         ///
@@ -6262,7 +6252,7 @@ public struct PendingDeployment: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.currentUserCanApprove = try values.decode(Bool.self, forKey: "current_user_can_approve")
         self.environment = try values.decode(Environment.self, forKey: "environment")
-        self.reviewers = try values.decode([ReviewersItem].self, forKey: "reviewers")
+        self.reviewers = try values.decode([Reviewer].self, forKey: "reviewers")
         self.waitTimer = try values.decode(Int.self, forKey: "wait_timer")
         self.waitTimerStartedAt = try values.decodeIfPresent(Date.self, forKey: "wait_timer_started_at")
     }
@@ -6366,11 +6356,11 @@ public struct WorkflowRunUsage: Decodable {
         public var windows: Windows?
 
         public struct Macos: Decodable {
-            public var jobRuns: [JobRunsItem]?
+            public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRunsItem: Decodable {
+            public struct JobRun: Decodable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6383,18 +6373,18 @@ public struct WorkflowRunUsage: Decodable {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.jobRuns = try values.decodeIfPresent([JobRunsItem].self, forKey: "job_runs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
             }
         }
 
         public struct Ubuntu: Decodable {
-            public var jobRuns: [JobRunsItem]?
+            public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRunsItem: Decodable {
+            public struct JobRun: Decodable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6407,18 +6397,18 @@ public struct WorkflowRunUsage: Decodable {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.jobRuns = try values.decodeIfPresent([JobRunsItem].self, forKey: "job_runs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
             }
         }
 
         public struct Windows: Decodable {
-            public var jobRuns: [JobRunsItem]?
+            public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRunsItem: Decodable {
+            public struct JobRun: Decodable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6431,7 +6421,7 @@ public struct WorkflowRunUsage: Decodable {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.jobRuns = try values.decodeIfPresent([JobRunsItem].self, forKey: "job_runs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
             }
@@ -6638,15 +6628,15 @@ public struct ProtectedBranchPullRequestReview: Decodable {
 }
 
 public struct BranchRestrictionPolicy: Decodable {
-    public var apps: [AppsItem]
+    public var apps: [App]
     public var appsURL: URL
-    public var teams: [TeamsItem]
+    public var teams: [Team]
     public var teamsURL: URL
     public var url: URL
-    public var users: [UsersItem]
+    public var users: [User]
     public var usersURL: URL
 
-    public struct AppsItem: Decodable {
+    public struct App: Decodable {
         public var createdAt: String?
         public var description: String?
         public var events: [String]?
@@ -6756,7 +6746,7 @@ public struct BranchRestrictionPolicy: Decodable {
         }
     }
 
-    public struct TeamsItem: Decodable {
+    public struct Team: Decodable {
         public var description: String?
         public var htmlURL: String?
         public var id: Int?
@@ -6787,7 +6777,7 @@ public struct BranchRestrictionPolicy: Decodable {
         }
     }
 
-    public struct UsersItem: Decodable {
+    public struct User: Decodable {
         public var avatarURL: String?
         public var eventsURL: String?
         public var followersURL: String?
@@ -6832,12 +6822,12 @@ public struct BranchRestrictionPolicy: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.apps = try values.decode([AppsItem].self, forKey: "apps")
+        self.apps = try values.decode([App].self, forKey: "apps")
         self.appsURL = try values.decode(URL.self, forKey: "apps_url")
-        self.teams = try values.decode([TeamsItem].self, forKey: "teams")
+        self.teams = try values.decode([Team].self, forKey: "teams")
         self.teamsURL = try values.decode(URL.self, forKey: "teams_url")
         self.url = try values.decode(URL.self, forKey: "url")
-        self.users = try values.decode([UsersItem].self, forKey: "users")
+        self.users = try values.decode([User].self, forKey: "users")
         self.usersURL = try values.decode(URL.self, forKey: "users_url")
     }
 }
@@ -7065,7 +7055,7 @@ public struct Commit: Decodable {
     public var htmlURL: URL
     /// Example: MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ==
     public var nodeID: String
-    public var parents: [ParentsItem]
+    public var parents: [Parent]
     /// Example: 6dcb09b5b57875f334f61aebed695e2e4193db5e
     public var sha: String
     public var stats: Stats?
@@ -7111,7 +7101,7 @@ public struct Commit: Decodable {
         }
     }
 
-    public struct ParentsItem: Decodable {
+    public struct Parent: Decodable {
         public var htmlURL: URL?
         /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
         public var sha: String
@@ -7147,7 +7137,7 @@ public struct Commit: Decodable {
         self.files = try values.decodeIfPresent([DiffEntry].self, forKey: "files")
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.parents = try values.decode([ParentsItem].self, forKey: "parents")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
         self.sha = try values.decode(String.self, forKey: "sha")
         self.stats = try values.decodeIfPresent(Stats.self, forKey: "stats")
         self.url = try values.decode(URL.self, forKey: "url")
@@ -7659,9 +7649,9 @@ public struct CheckSuitePreference: Decodable {
     public var repository: MinimalRepository
 
     public struct Preferences: Decodable {
-        public var autoTriggerChecks: [AutoTriggerChecksItem]?
+        public var autoTriggerChecks: [AutoTriggerCheck]?
 
-        public struct AutoTriggerChecksItem: Decodable {
+        public struct AutoTriggerCheck: Decodable {
             public var appID: Int
             public var isSetting: Bool
 
@@ -7674,7 +7664,7 @@ public struct CheckSuitePreference: Decodable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerChecksItem].self, forKey: "auto_trigger_checks")
+            self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerCheck].self, forKey: "auto_trigger_checks")
         }
     }
 
@@ -8527,7 +8517,7 @@ public struct PullRequestSimple: Decodable {
     public var htmlURL: URL
     public var id: Int
     public var issueURL: URL
-    public var labels: [LabelsItem]
+    public var labels: [Label]
     /// Example: true
     public var isLocked: Bool
     /// Example: e5bd3914e2e596debea16f433f57875b5b90bcd6
@@ -8645,7 +8635,7 @@ public struct PullRequestSimple: Decodable {
         }
     }
 
-    public struct LabelsItem: Decodable {
+    public struct Label: Decodable {
         public var color: String
         public var isDefault: Bool
         public var description: String
@@ -8686,7 +8676,7 @@ public struct PullRequestSimple: Decodable {
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.id = try values.decode(Int.self, forKey: "id")
         self.issueURL = try values.decode(URL.self, forKey: "issue_url")
-        self.labels = try values.decode([LabelsItem].self, forKey: "labels")
+        self.labels = try values.decode([Label].self, forKey: "labels")
         self.isLocked = try values.decode(Bool.self, forKey: "locked")
         self.mergeCommitSha = try values.decodeIfPresent(String.self, forKey: "merge_commit_sha")
         self.mergedAt = try values.decodeIfPresent(Date.self, forKey: "merged_at")
@@ -8931,7 +8921,7 @@ public struct ContentTree: Decodable {
     public var content: AnyJSON
     public var downloadURL: URL?
     public var encoding: AnyJSON
-    public var entries: [EntriesItem]?
+    public var entries: [Entry]?
     public var gitURL: URL?
     public var htmlURL: URL?
     public var name: String
@@ -8954,7 +8944,7 @@ public struct ContentTree: Decodable {
         }
     }
 
-    public struct EntriesItem: Decodable {
+    public struct Entry: Decodable {
         public var links: Links
         public var content: String?
         public var downloadURL: URL?
@@ -9002,7 +8992,7 @@ public struct ContentTree: Decodable {
         self.content = try values.decode(AnyJSON.self, forKey: "content")
         self.downloadURL = try values.decodeIfPresent(URL.self, forKey: "download_url")
         self.encoding = try values.decode(AnyJSON.self, forKey: "encoding")
-        self.entries = try values.decodeIfPresent([EntriesItem].self, forKey: "entries")
+        self.entries = try values.decodeIfPresent([Entry].self, forKey: "entries")
         self.gitURL = try values.decodeIfPresent(URL.self, forKey: "git_url")
         self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
         self.name = try values.decode(String.self, forKey: "name")
@@ -9208,7 +9198,7 @@ public struct FileCommit: Decodable {
         public var htmlURL: String?
         public var message: String?
         public var nodeID: String?
-        public var parents: [ParentsItem]?
+        public var parents: [Parent]?
         public var sha: String?
         public var tree: Tree?
         public var url: String?
@@ -9240,7 +9230,7 @@ public struct FileCommit: Decodable {
             }
         }
 
-        public struct ParentsItem: Decodable {
+        public struct Parent: Decodable {
             public var htmlURL: String?
             public var sha: String?
             public var url: String?
@@ -9286,7 +9276,7 @@ public struct FileCommit: Decodable {
             self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
             self.message = try values.decodeIfPresent(String.self, forKey: "message")
             self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
-            self.parents = try values.decodeIfPresent([ParentsItem].self, forKey: "parents")
+            self.parents = try values.decodeIfPresent([Parent].self, forKey: "parents")
             self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
             self.tree = try values.decodeIfPresent(Tree.self, forKey: "tree")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
@@ -9493,14 +9483,14 @@ public struct Environment: Decodable {
     public var name: String
     /// Example: MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
     public var nodeID: String
-    public var protectionRules: [ProtectionRulesItem]?
+    public var protectionRules: [ProtectionRule]?
     /// The time that the environment was last updated, in ISO 8601 format.
     ///
     /// Example: 2020-11-23T22:00:40Z
     public var updatedAt: Date
     public var url: String
 
-    public struct ProtectionRulesItem: Decodable {
+    public struct ProtectionRule: Decodable {
         public var object1: Object1?
         public var object2: Object2?
         public var object3: Object3?
@@ -9532,11 +9522,11 @@ public struct Environment: Decodable {
             /// Example: MDQ6R2F0ZTM3NTU=
             public var nodeID: String
             /// The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
-            public var reviewers: [ReviewersItem]?
+            public var reviewers: [Reviewer]?
             /// Example: required_reviewers
             public var type: String
 
-            public struct ReviewersItem: Decodable {
+            public struct Reviewer: Decodable {
                 public var reviewer: Reviewer?
                 /// The type of reviewer. Must be one of: `User` or `Team`
                 ///
@@ -9566,7 +9556,7 @@ public struct Environment: Decodable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decode(Int.self, forKey: "id")
                 self.nodeID = try values.decode(String.self, forKey: "node_id")
-                self.reviewers = try values.decodeIfPresent([ReviewersItem].self, forKey: "reviewers")
+                self.reviewers = try values.decodeIfPresent([Reviewer].self, forKey: "reviewers")
                 self.type = try values.decode(String.self, forKey: "type")
             }
         }
@@ -9603,7 +9593,7 @@ public struct Environment: Decodable {
         self.id = try values.decode(Int.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.protectionRules = try values.decodeIfPresent([ProtectionRulesItem].self, forKey: "protection_rules")
+        self.protectionRules = try values.decodeIfPresent([ProtectionRule].self, forKey: "protection_rules")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
@@ -9653,7 +9643,7 @@ public struct GitCommit: Decodable {
     /// Example: Fix #42
     public var message: String
     public var nodeID: String
-    public var parents: [ParentsItem]
+    public var parents: [Parent]
     /// SHA for the commit
     ///
     /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
@@ -9708,7 +9698,7 @@ public struct GitCommit: Decodable {
         }
     }
 
-    public struct ParentsItem: Decodable {
+    public struct Parent: Decodable {
         public var htmlURL: URL
         /// SHA for the commit
         ///
@@ -9760,7 +9750,7 @@ public struct GitCommit: Decodable {
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.message = try values.decode(String.self, forKey: "message")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.parents = try values.decode([ParentsItem].self, forKey: "parents")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
         self.sha = try values.decode(String.self, forKey: "sha")
         self.tree = try values.decode(Tree.self, forKey: "tree")
         self.url = try values.decode(URL.self, forKey: "url")
@@ -10065,7 +10055,7 @@ public struct Import: Decodable {
     public var largeFilesCount: Int?
     public var largeFilesSize: Int?
     public var message: String?
-    public var projectChoices: [ProjectChoicesItem]?
+    public var projectChoices: [ProjectChoice]?
     public var pushPercent: Int?
     public var repositoryURL: URL
     public var status: Status
@@ -10079,7 +10069,7 @@ public struct Import: Decodable {
     /// The URL of the originating repository.
     public var vcsURL: String
 
-    public struct ProjectChoicesItem: Decodable {
+    public struct ProjectChoice: Decodable {
         public var humanName: String?
         public var tfvcProject: String?
         public var vcs: String?
@@ -10124,7 +10114,7 @@ public struct Import: Decodable {
         self.largeFilesCount = try values.decodeIfPresent(Int.self, forKey: "large_files_count")
         self.largeFilesSize = try values.decodeIfPresent(Int.self, forKey: "large_files_size")
         self.message = try values.decodeIfPresent(String.self, forKey: "message")
-        self.projectChoices = try values.decodeIfPresent([ProjectChoicesItem].self, forKey: "project_choices")
+        self.projectChoices = try values.decodeIfPresent([ProjectChoice].self, forKey: "project_choices")
         self.pushPercent = try values.decodeIfPresent(Int.self, forKey: "push_percent")
         self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
         self.status = try values.decode(Status.self, forKey: "status")
@@ -11122,7 +11112,7 @@ public struct TimelineCommittedEvent: Decodable {
     /// Example: Fix #42
     public var message: String
     public var nodeID: String
-    public var parents: [ParentsItem]
+    public var parents: [Parent]
     /// SHA for the commit
     ///
     /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
@@ -11177,7 +11167,7 @@ public struct TimelineCommittedEvent: Decodable {
         }
     }
 
-    public struct ParentsItem: Decodable {
+    public struct Parent: Decodable {
         public var htmlURL: URL
         /// SHA for the commit
         ///
@@ -11230,7 +11220,7 @@ public struct TimelineCommittedEvent: Decodable {
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.message = try values.decode(String.self, forKey: "message")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.parents = try values.decode([ParentsItem].self, forKey: "parents")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
         self.sha = try values.decode(String.self, forKey: "sha")
         self.tree = try values.decode(Tree.self, forKey: "tree")
         self.url = try values.decode(URL.self, forKey: "url")
@@ -12179,7 +12169,7 @@ public struct PullRequest: Decodable {
     public var htmlURL: URL
     public var id: Int
     public var issueURL: URL
-    public var labels: [LabelsItem]
+    public var labels: [Label]
     /// Example: true
     public var isLocked: Bool
     /// Indicates whether maintainers can modify the pull request.
@@ -12881,7 +12871,7 @@ public struct PullRequest: Decodable {
         }
     }
 
-    public struct LabelsItem: Decodable {
+    public struct Label: Decodable {
         public var color: String
         public var isDefault: Bool
         public var description: String?
@@ -12935,7 +12925,7 @@ public struct PullRequest: Decodable {
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.id = try values.decode(Int.self, forKey: "id")
         self.issueURL = try values.decode(URL.self, forKey: "issue_url")
-        self.labels = try values.decode([LabelsItem].self, forKey: "labels")
+        self.labels = try values.decode([Label].self, forKey: "labels")
         self.isLocked = try values.decode(Bool.self, forKey: "locked")
         self.maintainerCanModify = try values.decode(Bool.self, forKey: "maintainer_can_modify")
         self.mergeCommitSha = try values.decodeIfPresent(String.self, forKey: "merge_commit_sha")
@@ -13413,9 +13403,9 @@ public struct ContributorActivity: Decodable {
     ///     "w" : "1367712000"
     ///   }
     /// ]
-    public var weeks: [WeeksItem]
+    public var weeks: [Week]
 
-    public struct WeeksItem: Decodable {
+    public struct Week: Decodable {
         public var a: Int?
         public var c: Int?
         public var d: Int?
@@ -13434,7 +13424,7 @@ public struct ContributorActivity: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.author = try values.decodeIfPresent(SimpleUser.self, forKey: "author")
         self.total = try values.decode(Int.self, forKey: "total")
-        self.weeks = try values.decode([WeeksItem].self, forKey: "weeks")
+        self.weeks = try values.decode([Week].self, forKey: "weeks")
     }
 }
 
@@ -13592,21 +13582,21 @@ public struct ViewTraffic: Decodable {
 }
 
 public struct ScimGroupListEnterprise: Decodable {
-    public var resources: [ResourcesItem]
+    public var resources: [Resource]
     public var itemsPerPage: Double
     public var schemas: [String]
     public var startIndex: Double
     public var totalResults: Double
 
-    public struct ResourcesItem: Decodable {
+    public struct Resource: Decodable {
         public var displayName: String?
         public var externalID: String?
         public var id: String
-        public var members: [MembersItem]?
+        public var members: [Member]?
         public var meta: Meta?
         public var schemas: [String]
 
-        public struct MembersItem: Decodable {
+        public struct Member: Decodable {
             public var ref: String?
             public var display: String?
             public var value: String?
@@ -13639,7 +13629,7 @@ public struct ScimGroupListEnterprise: Decodable {
             self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
             self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
             self.id = try values.decode(String.self, forKey: "id")
-            self.members = try values.decodeIfPresent([MembersItem].self, forKey: "members")
+            self.members = try values.decodeIfPresent([Member].self, forKey: "members")
             self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
             self.schemas = try values.decode([String].self, forKey: "schemas")
         }
@@ -13647,7 +13637,7 @@ public struct ScimGroupListEnterprise: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.resources = try values.decode([ResourcesItem].self, forKey: "Resources")
+        self.resources = try values.decode([Resource].self, forKey: "Resources")
         self.itemsPerPage = try values.decode(Double.self, forKey: "itemsPerPage")
         self.schemas = try values.decode([String].self, forKey: "schemas")
         self.startIndex = try values.decode(Double.self, forKey: "startIndex")
@@ -13659,11 +13649,11 @@ public struct ScimEnterpriseGroup: Decodable {
     public var displayName: String?
     public var externalID: String?
     public var id: String
-    public var members: [MembersItem]?
+    public var members: [Member]?
     public var meta: Meta?
     public var schemas: [String]
 
-    public struct MembersItem: Decodable {
+    public struct Member: Decodable {
         public var ref: String?
         public var display: String?
         public var value: String?
@@ -13696,31 +13686,31 @@ public struct ScimEnterpriseGroup: Decodable {
         self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
         self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
         self.id = try values.decode(String.self, forKey: "id")
-        self.members = try values.decodeIfPresent([MembersItem].self, forKey: "members")
+        self.members = try values.decodeIfPresent([Member].self, forKey: "members")
         self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
         self.schemas = try values.decode([String].self, forKey: "schemas")
     }
 }
 
 public struct ScimUserListEnterprise: Decodable {
-    public var resources: [ResourcesItem]
+    public var resources: [Resource]
     public var itemsPerPage: Double
     public var schemas: [String]
     public var startIndex: Double
     public var totalResults: Double
 
-    public struct ResourcesItem: Decodable {
+    public struct Resource: Decodable {
         public var isActive: Bool?
-        public var emails: [EmailsItem]?
+        public var emails: [Email]?
         public var externalID: String?
-        public var groups: [GroupsItem]?
+        public var groups: [Group]?
         public var id: String
         public var meta: Meta?
         public var name: Name?
         public var schemas: [String]
         public var userName: String?
 
-        public struct EmailsItem: Decodable {
+        public struct Email: Decodable {
             public var isPrimary: Bool?
             public var type: String?
             public var value: String?
@@ -13733,7 +13723,7 @@ public struct ScimUserListEnterprise: Decodable {
             }
         }
 
-        public struct GroupsItem: Decodable {
+        public struct Group: Decodable {
             public var value: String?
 
             public init(from decoder: Decoder) throws {
@@ -13771,9 +13761,9 @@ public struct ScimUserListEnterprise: Decodable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-            self.emails = try values.decodeIfPresent([EmailsItem].self, forKey: "emails")
+            self.emails = try values.decodeIfPresent([Email].self, forKey: "emails")
             self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
-            self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
+            self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
             self.id = try values.decode(String.self, forKey: "id")
             self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
             self.name = try values.decodeIfPresent(Name.self, forKey: "name")
@@ -13784,7 +13774,7 @@ public struct ScimUserListEnterprise: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.resources = try values.decode([ResourcesItem].self, forKey: "Resources")
+        self.resources = try values.decode([Resource].self, forKey: "Resources")
         self.itemsPerPage = try values.decode(Double.self, forKey: "itemsPerPage")
         self.schemas = try values.decode([String].self, forKey: "schemas")
         self.startIndex = try values.decode(Double.self, forKey: "startIndex")
@@ -13794,16 +13784,16 @@ public struct ScimUserListEnterprise: Decodable {
 
 public struct ScimEnterpriseUser: Decodable {
     public var isActive: Bool?
-    public var emails: [EmailsItem]?
+    public var emails: [Email]?
     public var externalID: String?
-    public var groups: [GroupsItem]?
+    public var groups: [Group]?
     public var id: String
     public var meta: Meta?
     public var name: Name?
     public var schemas: [String]
     public var userName: String?
 
-    public struct EmailsItem: Decodable {
+    public struct Email: Decodable {
         public var isPrimary: Bool?
         public var type: String?
         public var value: String?
@@ -13816,7 +13806,7 @@ public struct ScimEnterpriseUser: Decodable {
         }
     }
 
-    public struct GroupsItem: Decodable {
+    public struct Group: Decodable {
         public var value: String?
 
         public init(from decoder: Decoder) throws {
@@ -13854,9 +13844,9 @@ public struct ScimEnterpriseUser: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-        self.emails = try values.decodeIfPresent([EmailsItem].self, forKey: "emails")
+        self.emails = try values.decodeIfPresent([Email].self, forKey: "emails")
         self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
-        self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
         self.id = try values.decode(String.self, forKey: "id")
         self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
         self.name = try values.decodeIfPresent(Name.self, forKey: "name")
@@ -13891,13 +13881,13 @@ public struct ScimUser: Decodable {
     ///     "value" : "another@example.com"
     ///   }
     /// ]
-    public var emails: [EmailsItem]
+    public var emails: [Email]
     /// The ID of the User.
     ///
     /// Example: a7b0f98395
     public var externalID: String?
     /// Associated groups
-    public var groups: [GroupsItem]?
+    public var groups: [Group]?
     /// Unique identifier of an external identity
     ///
     /// Example: 1b78eada-9baa-11e6-9eb6-a431576d590e
@@ -13922,7 +13912,7 @@ public struct ScimUser: Decodable {
     ///     }
     ///   }
     /// ]
-    public var operations: [OperationsItem]?
+    public var operations: [Operation]?
     /// The ID of the organization.
     public var organizationID: Int?
     /// SCIM schema used.
@@ -13932,7 +13922,7 @@ public struct ScimUser: Decodable {
     /// Example: someone@example.com
     public var userName: String?
 
-    public struct EmailsItem: Decodable {
+    public struct Email: Decodable {
         public var isPrimary: Bool?
         public var value: String
 
@@ -13943,7 +13933,7 @@ public struct ScimUser: Decodable {
         }
     }
 
-    public struct GroupsItem: Decodable {
+    public struct Group: Decodable {
         public var display: String?
         public var value: String?
 
@@ -13991,7 +13981,7 @@ public struct ScimUser: Decodable {
         }
     }
 
-    public struct OperationsItem: Decodable {
+    public struct Operation: Decodable {
         public var op: Op
         public var path: String?
         public var value: Value?
@@ -14004,18 +13994,14 @@ public struct ScimUser: Decodable {
 
         public enum Value: Decodable {
             case string(String)
-            case object(Object)
+            case object([String: AnyJSON])
             case anyJSONs([AnyJSON])
-
-            public struct Object: Decodable {
-
-            }
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 if let value = try? container.decode(String.self) {
                     self = .string(value)
-                } else if let value = try? container.decode(Object.self) {
+                } else if let value = try? container.decode([String: AnyJSON].self) {
                     self = .object(value)
                 } else if let value = try? container.decode([AnyJSON].self) {
                     self = .anyJSONs(value)
@@ -14037,13 +14023,13 @@ public struct ScimUser: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isActive = try values.decode(Bool.self, forKey: "active")
         self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
-        self.emails = try values.decode([EmailsItem].self, forKey: "emails")
+        self.emails = try values.decode([Email].self, forKey: "emails")
         self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
-        self.groups = try values.decodeIfPresent([GroupsItem].self, forKey: "groups")
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
         self.id = try values.decode(String.self, forKey: "id")
         self.meta = try values.decode(Meta.self, forKey: "meta")
         self.name = try values.decode(Name.self, forKey: "name")
-        self.operations = try values.decodeIfPresent([OperationsItem].self, forKey: "operations")
+        self.operations = try values.decodeIfPresent([Operation].self, forKey: "operations")
         self.organizationID = try values.decodeIfPresent(Int.self, forKey: "organization_id")
         self.schemas = try values.decode([String].self, forKey: "schemas")
         self.userName = try values.decodeIfPresent(String.self, forKey: "userName")
@@ -14073,12 +14059,12 @@ public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 
 public struct SearchResultTextMatchesItem: Decodable {
     public var fragment: String?
-    public var matches: [MatchesItem]?
+    public var matches: [Match]?
     public var objectType: String?
     public var objectURL: String?
     public var property: String?
 
-    public struct MatchesItem: Decodable {
+    public struct Match: Decodable {
         public var indices: [Int]?
         public var text: String?
 
@@ -14092,7 +14078,7 @@ public struct SearchResultTextMatchesItem: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.fragment = try values.decodeIfPresent(String.self, forKey: "fragment")
-        self.matches = try values.decodeIfPresent([MatchesItem].self, forKey: "matches")
+        self.matches = try values.decodeIfPresent([Match].self, forKey: "matches")
         self.objectType = try values.decodeIfPresent(String.self, forKey: "object_type")
         self.objectURL = try values.decodeIfPresent(String.self, forKey: "object_url")
         self.property = try values.decodeIfPresent(String.self, forKey: "property")
@@ -14151,7 +14137,7 @@ public struct CommitSearchResultItem: Decodable {
     public var committer: GitUser?
     public var htmlURL: URL
     public var nodeID: String
-    public var parents: [ParentsItem]
+    public var parents: [Parent]
     /// Minimal Repository
     public var repository: MinimalRepository
     public var score: Double
@@ -14208,7 +14194,7 @@ public struct CommitSearchResultItem: Decodable {
         }
     }
 
-    public struct ParentsItem: Decodable {
+    public struct Parent: Decodable {
         public var htmlURL: String?
         public var sha: String?
         public var url: String?
@@ -14229,7 +14215,7 @@ public struct CommitSearchResultItem: Decodable {
         self.committer = try values.decodeIfPresent(GitUser.self, forKey: "committer")
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.parents = try values.decode([ParentsItem].self, forKey: "parents")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
         self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
         self.score = try values.decode(Double.self, forKey: "score")
         self.sha = try values.decode(String.self, forKey: "sha")
@@ -14260,7 +14246,7 @@ public struct IssueSearchResultItem: Decodable {
     public var eventsURL: URL
     public var htmlURL: URL
     public var id: Int
-    public var labels: [LabelsItem]
+    public var labels: [Label]
     public var labelsURL: String
     public var isLocked: Bool
     /// A collection of related issues and pull requests.
@@ -14288,7 +14274,7 @@ public struct IssueSearchResultItem: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct LabelsItem: Decodable {
+    public struct Label: Decodable {
         public var color: String?
         public var isDefault: Bool?
         public var description: String?
@@ -14343,7 +14329,7 @@ public struct IssueSearchResultItem: Decodable {
         self.eventsURL = try values.decode(URL.self, forKey: "events_url")
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.id = try values.decode(Int.self, forKey: "id")
-        self.labels = try values.decode([LabelsItem].self, forKey: "labels")
+        self.labels = try values.decode([Label].self, forKey: "labels")
         self.labelsURL = try values.decode(String.self, forKey: "labels_url")
         self.isLocked = try values.decode(Bool.self, forKey: "locked")
         self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
@@ -14595,7 +14581,7 @@ public struct RepoSearchResultItem: Decodable {
 }
 
 public struct TopicSearchResultItem: Decodable {
-    public var aliases: [AliasesItem]?
+    public var aliases: [Alias]?
     public var createdAt: Date
     public var createdBy: String?
     public var isCurated: Bool
@@ -14613,7 +14599,7 @@ public struct TopicSearchResultItem: Decodable {
     public var textMatches: SearchResultTextMatches?
     public var updatedAt: Date
 
-    public struct AliasesItem: Decodable {
+    public struct Alias: Decodable {
         public var topicRelation: TopicRelation?
 
         public struct TopicRelation: Decodable {
@@ -14663,7 +14649,7 @@ public struct TopicSearchResultItem: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.aliases = try values.decodeIfPresent([AliasesItem].self, forKey: "aliases")
+        self.aliases = try values.decodeIfPresent([Alias].self, forKey: "aliases")
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
         self.createdBy = try values.decodeIfPresent(String.self, forKey: "created_by")
         self.isCurated = try values.decode(Bool.self, forKey: "curated")
@@ -14966,7 +14952,7 @@ public struct GpgKey: Decodable {
     ///     "verified" : true
     ///   }
     /// ]
-    public var emails: [EmailsItem]
+    public var emails: [Email]
     public var expiresAt: Date?
     public var id: Int
     /// Example: 3262EFF25BA0D270
@@ -14995,9 +14981,9 @@ public struct GpgKey: Decodable {
     ///     ]
     ///   }
     /// ]
-    public var subkeys: [SubkeysItem]
+    public var subkeys: [Subkey]
 
-    public struct EmailsItem: Decodable {
+    public struct Email: Decodable {
         public var email: String?
         public var isVerified: Bool?
 
@@ -15008,7 +14994,7 @@ public struct GpgKey: Decodable {
         }
     }
 
-    public struct SubkeysItem: Decodable {
+    public struct Subkey: Decodable {
         public var canCertify: Bool?
         public var canEncryptComms: Bool?
         public var canEncryptStorage: Bool?
@@ -15048,14 +15034,14 @@ public struct GpgKey: Decodable {
         self.canEncryptStorage = try values.decode(Bool.self, forKey: "can_encrypt_storage")
         self.canSign = try values.decode(Bool.self, forKey: "can_sign")
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
-        self.emails = try values.decode([EmailsItem].self, forKey: "emails")
+        self.emails = try values.decode([Email].self, forKey: "emails")
         self.expiresAt = try values.decodeIfPresent(Date.self, forKey: "expires_at")
         self.id = try values.decode(Int.self, forKey: "id")
         self.keyID = try values.decode(String.self, forKey: "key_id")
         self.primaryKeyID = try values.decodeIfPresent(Int.self, forKey: "primary_key_id")
         self.publicKey = try values.decode(String.self, forKey: "public_key")
         self.rawKey = try values.decodeIfPresent(String.self, forKey: "raw_key")
-        self.subkeys = try values.decode([SubkeysItem].self, forKey: "subkeys")
+        self.subkeys = try values.decode([Subkey].self, forKey: "subkeys")
     }
 }
 
@@ -15146,9 +15132,9 @@ public struct StarredRepository: Decodable {
 }
 
 public struct Hovercard: Decodable {
-    public var contexts: [ContextsItem]
+    public var contexts: [Context]
 
-    public struct ContextsItem: Decodable {
+    public struct Context: Decodable {
         public var message: String
         public var octicon: String
 
@@ -15161,7 +15147,7 @@ public struct Hovercard: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.contexts = try values.decode([ContextsItem].self, forKey: "contexts")
+        self.contexts = try values.decode([Context].self, forKey: "contexts")
     }
 }
 

@@ -6,8 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Fix empty public struct Object: Decodable {} in GitHub spec
-// TODO: GitHub: test why Permissions are empty
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
 // TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
@@ -231,8 +229,14 @@ final class GenerateSchemas {
         }
         
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
-            if details.properties.isEmpty, let additional = details.additionalProperties {
-                return try makeDictionary(info: info, properties: additional)
+            if details.properties.isEmpty {
+                var additional = details.additionalProperties
+                if options.isInterpretingEmptyObjectsAsDictionary {
+                    additional = additional ?? .a(true)
+                }
+                if let additional = additional {
+                    return try makeDictionary(info: info, properties: additional)
+                }
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
@@ -347,10 +351,12 @@ final class GenerateSchemas {
             // Some know words that the library doesn't handle well
             if name.rawValue == "Environments" { return TypeName(processedRawValue: "Environment") }
             let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
-            let sing = (words.dropLast() + [words.last?.singularized()])
-                .compactMap { $0?.capitalizingFirstLetter() }
-                .joined(separator: "")
-            return makeTypeName(sing) // TODO: refactor
+            if words.last?.singularized() != words.last {
+                let sing = (words.dropLast() + [words.last?.singularized()])
+                    .compactMap { $0?.capitalizingFirstLetter() }
+                    .joined(separator: "")
+                return makeTypeName(sing) // TODO: refactor
+            }
         }
         return name.appending("Item")
     }
@@ -499,7 +505,7 @@ final class GenerateSchemas {
     
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
-        let properties = try makeProperties(for: schemas, context: context)
+        let properties: [Property] = try makeProperties(for: schemas, context: context)
         var contents: [String] = []
         contents.append(properties.map(templates.case).joined(separator: "\n"))
         contents += properties.compactMap { $0.nested }

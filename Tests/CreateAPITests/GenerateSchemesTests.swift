@@ -243,6 +243,7 @@ final class GenerateSchemesTests: XCTestCase {
         // GIVEN
         let spec = spec(named: "github")
         let options = GenerateOptions()
+        options.isInterpretingEmptyObjectsAsDictionary = true
         
         let arguments = GenerateArguments(
             isVerbose: false,
