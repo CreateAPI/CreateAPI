@@ -7,6 +7,9 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Add root "/"
+// TODO: Add summary and description
+// TODO: Figure out what to do with operationId
+// TODO: Add a link to external docs
 final class GeneratePaths {
     private let spec: OpenAPI.Document
     private let options: GenerateOptions
@@ -148,12 +151,53 @@ final class GeneratePaths {
     // TODO: Add support for operationId
     // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String {
-        let response = operation.operationId == "users/get-by-username" ? "PublicUser" : "Void"
+        let response = makeResponse(for: operation)
+        
         return """
                 \(access)func \(method)() -> Request<\(response)> {
                     .\(method)(path)
                 }
         """
+    }
+    
+    private func makeResponse(for operation: OpenAPI.Operation) -> String {
+        // TODO: What if there is more than one?
+        guard let response = operation.responses.first?.value else {
+            return "Void"
+        }
+        switch response {
+        case .a(let reference):
+            // TODO: Use code from GenerateSchemes
+            return reference.name ?? "Void"
+        case .b(let scheme):
+            if let content = scheme.content.values.first {
+                // TODO: Parse example
+                switch content.schema {
+                case .a(let reference):
+                    if let name = reference.name {
+                        return makeTypeName(name).rawValue
+                    } else {
+                        print("ERROR: refernence name missing \(operation.description ?? "")")
+                    }
+                case .b(let schema):
+                    print("ERROR: response inline scheme not handled \(operation.description ?? "")")
+                default:
+                    print("ERROR: response not handled \(operation.description ?? "")")
+                }
+            } else {
+                print("ERROR: (???) more than one response type \(operation.description ?? "")")
+            }
+            return "Void"
+        }
+    }
+    
+    #warning("TODO: resuse")
+    private func makePropertyName(_ rawValue: String) -> PropertyName {
+        PropertyName(rawValue, options: options)
+    }
+    
+    private func makeTypeName(_ rawValue: String) -> TypeName {
+        TypeName(rawValue, options: options)
     }
 }
 
