@@ -14,7 +14,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     if env["GENERATE_SNAPSHOTS"] == "true" || !fileExists(named: expected, ext: "txt") {
         let projectPath = (projectPath as NSString).expandingTildeInPath
         // Unfortunately, I can't used `.swift` because SPM ignores these files
-        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(expected).txt")
+        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Expected/\(expected).txt")
         try! actual.data(using: .utf8)!.write(to: url)
     } else {
         let expectedText = generated(named: expected)
@@ -39,7 +39,7 @@ func compare2(expected: String, actual: String, file: StaticString = #file, line
     let actualURL = URL(fileURLWithPath: actual)
     if env["GENERATE_SNAPSHOTS"] == "true" || !FileManager.default.fileExists(atPath: expectedURL.path) {
         let projectPath = (projectPath as NSString).expandingTildeInPath
-        let destinationURL = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Resources/Expected/\(actualURL.lastPathComponent)")
+        let destinationURL = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Expected/\(actualURL.lastPathComponent)")
         try FileManager.default.copyItem(at: actualURL, to: destinationURL)
     } else {
         try diff(expectedURL: expectedURL, actualURL: actualURL, file: file, line: line)

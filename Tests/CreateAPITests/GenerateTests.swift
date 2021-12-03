@@ -6,7 +6,7 @@ import XCTest
 import OpenAPIKit30
 @testable import CreateAPI
 
-final class GenerateSchemesTests: XCTestCase {
+final class GenerateTests: XCTestCase {
     var temp: TemporaryDirectory!
     
     override func setUp() {
