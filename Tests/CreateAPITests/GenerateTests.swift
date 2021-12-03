@@ -242,126 +242,161 @@ final class GenerateTests: XCTestCase {
         try compare(package: "edgecases-change-access-control")
     }
     
-    func testBasicDisableInlining() {
+    func testPetstoreDisableInlining() throws {
         // GIVEN
-        let spec = spec(named: "petstore")
-        let options = GenerateOptions()
-        options.isInliningPrimitiveTypes = false
-        
-        // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-disable-inlining",
+            "--config", config("""
+            {
+                "isInliningPrimitiveTypes": false
+            }
+            """)
+        ])
                 
-        // THEN
-        CreateAPITests.compare(expected: "petstore-schemes-generate-disable-inlining", actual: output)
-    }
-        
-    func testPetstoreExpanded() {
-        // GIVEN
-        let spec = spec(named: "petstore-expanded")
-        let options = GenerateOptions()
-        options.comments.isEnabled = false
-        
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-disable-inlining")
+    }
                 
-        // THEN
-        CreateAPITests.compare(expected: "petstore-expanded-schemes-generate-default", actual: output)
-    }
-        
-    func testPetstoreAllDisableAbbreviations() {
+    func testEdgecasesDisableAcronyms() throws {
         // GIVEN
-        let spec = spec(named: "petstore-all")
-        let options = GenerateOptions()
-        options.isReplacingCommonAcronyms = false
-        
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-disable-acronyms",
+            "--config", config("""
+            {
+                "isReplacingCommonAcronyms": false
+            }
+            """)
+        ])
+                
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        try command.run()
         
         // THEN
-        CreateAPITests.compare(expected: "petstore-all-schemes-disable-common-abbreviations", actual: output)
-    }
-    
-    func testPetstoreAllDisableEnumGeneration() {
-        // GIVEN
-        let spec = spec(named: "petstore-all")
-        let options = GenerateOptions()
-        options.isGeneratingEnums = false
-        
-        // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
-        
-        // THEN
-        CreateAPITests.compare(expected: "petstore-all-schemes-disable-enums", actual: output)
+        try compare(package: "edgecases-disable-acronyms")
     }
     
-    func testPetstoreAllRename() {
+    func testEdgecasesDisableEnumGeneration() throws {
         // GIVEN
-        let spec = spec(named: "petstore-all")
-        let options = GenerateOptions()
-        options.schemes.mappedTypeNames = [
-            "ApiResponse": "APIResponse",
-            "Status": "State"
-        ]
-        options.schemes.mappedPropertyNames = [
-            "ContainerA.Child.Child.renameMe": "onlyItRenamed"
-        ]
-        
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-disable-enums",
+            "--config", config("""
+            {
+                "isGeneratingEnums": false
+            }
+            """)
+        ])
+                
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        try command.run()
         
         // THEN
-        CreateAPITests.compare(expected: "petstore-all-schemes-map-types", actual: output)
+        try compare(package: "edgecases-disable-enums")
     }
     
-    func testPetstoreAllIndentWithTabs() {
+    func testEdgecasesRename() throws {
         // GIVEN
-        let spec = spec(named: "petstore-all")
-        let options = GenerateOptions()
-        options.indentation = .tabs
-        
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-rename",
+            "--config", config("""
+            {
+                "schemes": {
+                    "mappedTypeNames": {
+                        "ApiResponse": "APIResponse",
+                        "Status": "State"
+                    },
+                    "mappedPropertyNames": {
+                        "ContainerA.Child.Child.renameMe": "onlyItRenamed"
+                    }
+                }
+            }
+            """)
+        ])
+                
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        try command.run()
         
         // THEN
-        CreateAPITests.compare(expected: "petstore-all-schemes-indent-with-tabs", actual: output)
+        // "Status" is not affected because it's an enum
+        try compare(package: "edgecases-rename")
     }
     
-    func testPetstoreAllIndentWithTwoWidthSpaces() {
+    func testEdgecasesIndentWithTabs() throws {
         // GIVEN
-        let spec = spec(named: "petstore-all")
-        let options = GenerateOptions()
-        options.spaceWidth = 2
-        
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-tabs",
+            "--config", config("""
+            {
+                "indentation": "tabs"
+            }
+            """)
+        ])
+                
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
+        try command.run()
         
         // THEN
-        CreateAPITests.compare(expected: "petstore-all-schemes-indent-with-two-width-spaces", actual: output)
+        try compare(package: "edgecases-tabs")
     }
     
-    func testGenerateGitHub() {
+    func testEdgecasesIndentWithTwoWidthSpaces() throws {
         // GIVEN
-        let spec = spec(named: "github")
-        let options = GenerateOptions()
-        options.isInterpretingEmptyObjectsAsDictionary = true
-        
-        let arguments = GenerateArguments(
-            isVerbose: false,
-            isParallel: false,
-            vendor: "github"
-        )
-        
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-indent-with-two-width-spaces",
+            "--config", config("""
+            {
+                "spaceWidth": 2
+            }
+            """)
+        ])
+                
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: arguments).run()
+        try command.run()
         
         // THEN
-        CreateAPITests.compare(expected: "github-schemes-generate-default", actual: output)
+        try compare(package: "edgecases-indent-with-two-width-spaces")
+    }
+    
+    func testGenerateGitHub() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "github"),
+            "--output", temp.url.path,
+            "--package", "github",
+            "--vendor", "github",
+            "--config", config("""
+            {
+                "isInterpretingEmptyObjectsAsDictionary": true,
+                "pluralizationExceptions": ["ConfigWas", "EventsWere"]
+            }
+            """)
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "github")
     }
 }
 
 extension GenerateTests {
     func compare(package: String, file: StaticString = #file, line: UInt = #line) throws {
-        try compare2(expected: package, actual: temp.path(for: package), file: file, line: line)
+        try CreateAPITests.compare(expected: package, actual: temp.path(for: package), file: file, line: line)
     }
     
     func config(_ contents: String) -> String {
@@ -369,8 +404,4 @@ extension GenerateTests {
         try! contents.data(using: .utf8)!.write(to: url)
         return url.path
     }
-}
-
-extension GenerateArguments {
-    static let `default` = GenerateArguments(isVerbose: false, isParallel: false, vendor: nil)
 }

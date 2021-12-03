@@ -8,31 +8,7 @@ import XCTest
 // TODO: Find it automatically
 var projectPath = ("~/Developer/CreateAPI/" as NSString).expandingTildeInPath
 
-#warning("TODO: remove")
-func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) {
-    let env = ProcessInfo.processInfo.environment
-    
-    if env["GENERATE_SNAPSHOTS"] == "true" || !fileExists(named: expected, ext: "txt") {
-        let projectPath = (projectPath as NSString).expandingTildeInPath
-        // Unfortunately, I can't used `.swift` because SPM ignores these files
-        let url = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Expected/\(expected).txt")
-        try! actual.data(using: .utf8)!.write(to: url)
-    } else {
-        let expectedText = generated(named: expected)
-        if expectedText != actual {
-            let expectedURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".swift")
-            let actualURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".swift")
-            try! expectedText.data(using: .utf8)!.write(to: expectedURL)
-            try! actual.data(using: .utf8)!.write(to: actualURL)
-            if env["OPEN_DIFF"] == "true" {
-                shell("opendiff", expectedURL.path, actualURL.path)
-            }
-            XCTFail("Specs don't match")
-        }
-    }
-}
-
-func compare2(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) throws {
+func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) throws {
     let env = ProcessInfo.processInfo.environment
     let expectedURL = Bundle.module.resourceURL!
         .appendingPathComponent("Expected")

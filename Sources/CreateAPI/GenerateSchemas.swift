@@ -8,6 +8,9 @@ import GrammaticalNumber
 
 // TODO: Fix AnyJSON and StringCodingKeys layout
 // TODO: Add option to hide AnyJSON
+// TODO: testEdgecasesRename "Status": "State" is not working
+// TODO: New APIs in spec for renams
+// TODO: Rename enums as separate properrty
 
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
