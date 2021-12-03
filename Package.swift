@@ -20,7 +20,8 @@ let package = Package(
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams"),
                 .product(name: "GrammaticalNumber", package: "GrammaticalNumber"),
-            ]),
+            ]
+        ),
         .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"], resources: [.copy("Expected"), .copy("Specs")])
     ]
 )

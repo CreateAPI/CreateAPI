@@ -37,7 +37,7 @@ final class GeneratePaths {
     private let templates: Templates
     
     #warning("refactor")
-    var access: String { options.access.map { "\($0) " } ?? "" }
+    var access: String { options.access.isEmpty ? "" :  options.access + " " }
 
     init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
         self.spec = spec

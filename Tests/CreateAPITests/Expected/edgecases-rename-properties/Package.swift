@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "petstore-default",
+    name: "edgecases-rename-properties",
     platforms: [.iOS(.v15), .macCatalyst(.v15), .macOS(.v12), .watchOS(.v8), .tvOS(.v15)],
     products: [
-        .library(name: "petstore-default", targets: ["petstore-default"]),
+        .library(name: "edgecases-rename-properties", targets: ["edgecases-rename-properties"]),
     ],
     dependencies: [
         .package(url: "https://github.com/kean/APIClient", branch: "main"),
     ],
     targets: [
-        .target(name: "petstore-default", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "edgecases-rename-properties", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
     ]
 )

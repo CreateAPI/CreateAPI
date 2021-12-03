@@ -6,6 +6,9 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Fix AnyJSON and StringCodingKeys layout
+// TODO: Add option to hide AnyJSON
+
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
 // TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
@@ -46,6 +49,7 @@ import GrammaticalNumber
 // TODO: Separate mapped* dictionary for enums
 // TODO: entitiesGeneratedAsClasses - add support for nesting
 // TODO: Add an option how allOf is generated (inline properties, create protocols)
+// TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
 
 final class GenerateSchemas {
     private let spec: OpenAPI.Document

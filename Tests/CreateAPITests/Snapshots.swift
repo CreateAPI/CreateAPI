@@ -8,6 +8,7 @@ import XCTest
 // TODO: Find it automatically
 var projectPath = ("~/Developer/CreateAPI/" as NSString).expandingTildeInPath
 
+#warning("TODO: remove")
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) {
     let env = ProcessInfo.processInfo.environment
     

@@ -99,10 +99,10 @@ struct Generate: ParsableCommand {
             let packageURL = outputURL.appendingPathComponent(package)
             try? FileManager.default.createDirectory(at: packageURL, withIntermediateDirectories: true, attributes: nil)
             try write(makePackageFile(name: package), to: "\(package)/Package.swift")
-            let sourcesURL = packageURL.appendingPathComponent("Sources/\(package)")
+            let sourcesURL = packageURL.appendingPathComponent("Sources")
             try? FileManager.default.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
-            try write(resources, to: "\(package)/Sources/\(package)/Paths.swift")
-            try write(schemas, to: "\(package)/Sources/\(package)/Schemas.swift")
+            try write(resources, to: "\(package)/Sources/Paths.swift")
+            try write(schemas, to: "\(package)/Sources/Schemas.swift")
         } else {
             try write(resources, to: "Paths.swift")
             try write(schemas, to: "Schemas.swift")
@@ -140,7 +140,7 @@ private func makePackageFile(name: String) -> String {
             .package(url: "https://github.com/kean/APIClient", branch: "main"),
         ],
         targets: [
-            .target(name: "\(name)", dependencies: [.product(name: "APIClient", package: "APIClient")]),
+            .target(name: "\(name)", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
         ]
     )
     """

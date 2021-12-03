@@ -3,7 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 final class GenerateOptions {
-    var access: String?
+    var access: String
     var paths: Paths
     var schemes: SchemesOptions
     var isGeneratingEnums: Bool
@@ -67,9 +67,10 @@ final class GenerateOptions {
         var isGeneratingStructs: Bool
         var entitiesGeneratedAsClasses: Set<String>
         var entitiesGeneratedAsStructs: Set<String>
-        var isGeneratingInitWithCoder: Bool
+        var isMakingClassesFinal: Bool
         var baseClass: String?
         var adoptedProtocols: [String]
+        var isGeneratingInitWithCoder: Bool
         // TODO: Move to separate "Rename" object
         var mappedPropertyNames: [String: String]
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
@@ -78,8 +79,9 @@ final class GenerateOptions {
             self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
             self.entitiesGeneratedAsClasses = Set(schemes?.entitiesGeneratedAsClasses ?? [])
             self.entitiesGeneratedAsStructs = Set(schemes?.entitiesGeneratedAsStructs ?? [])
-            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
+            self.isMakingClassesFinal = schemes?.isMakingClassesFinal ?? true
             self.baseClass = schemes?.baseClass
+            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
             self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
             self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
@@ -145,9 +147,10 @@ final class GenerateOptionsScheme: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
-        var isGeneratingInitWithCoder: Bool?
+        var isMakingClassesFinal: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
+        var isGeneratingInitWithCoder: Bool?
         var mappedPropertyNames: [String: String]?
         var mappedTypeNames: [String: String]?
     }

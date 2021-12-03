@@ -8,7 +8,7 @@ import Foundation
 final class Templates {
     let options: GenerateOptions
     
-    var access: String { options.access.map { "\($0) " } ?? "" }
+    var access: String { options.access.isEmpty ? "" :  options.access + " " }
     
     init(options: GenerateOptions) {
         self.options = options
@@ -46,7 +46,8 @@ final class Templates {
     ///     }
     func entity(name: TypeName, contents: [String]) -> String {
         let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
-        let lhs = [options.access, (isStruct ? "struct" : "final class"), name.rawValue]
+        let type = isStruct ? "struct" : (options.schemes.isMakingClassesFinal ? "final class" : "class")
+        let lhs = [options.access, type, name.rawValue]
             .compactMap { $0 }.joined(separator: " ")
         let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
             .compactMap { $0 }.joined(separator: ", ")
