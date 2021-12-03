@@ -21,6 +21,6 @@ let package = Package(
                 .product(name: "Yams", package: "Yams"),
                 .product(name: "GrammaticalNumber", package: "GrammaticalNumber"),
             ]),
-        .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"], resources: [.process("Resources")])
+        .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"], resources: [.copy("Resources/Expected"), .copy("Resources/Specs")])
     ]
 )

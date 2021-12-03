@@ -7,16 +7,33 @@ import OpenAPIKit30
 @testable import CreateAPI
 
 final class GenerateSchemesTests: XCTestCase {
-    func testBasicDetault() {
+    var temp: TemporaryDirectory!
+    
+    override func setUp() {
+        super.setUp()
+        
+        temp = TemporaryDirectory()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        temp.remove()
+    }
+    
+    func testBasicDetault() throws {
         // GIVEN
-        let spec = spec(named: "petstore")
-        let options = GenerateOptions()
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-default"
+        ])
         
         // WHEN
-        let output = GenerateSchemas(spec: spec, options: options, arguments: .default).run()
-                
+        try command.run()
+        
         // THEN
-        compare(expected: "petstore-schemes-default", actual: output)
+        try compare2(expected: "petstore-default", actual: temp.path(for: "petstore-default"))
     }
     
     func testBasicGenerateClasses() {

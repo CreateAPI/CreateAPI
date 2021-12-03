@@ -27,6 +27,9 @@ struct Generate: ParsableCommand {
     @Flag(help: "Show extra logging for debugging purposes")
     var verbose = false
     
+    @Option(help: "Generates a complete package with a given name")
+    var package: String?
+    
     @Option(help: "Enabled vendor-specific logic")
     var vendor: String?
         
@@ -90,10 +93,20 @@ struct Generate: ParsableCommand {
             guard let data = content.data(using: .utf8) else {
                 throw GeneratorError("Failed to convert output to a data blob")
             }
-            try data.write(to: outputURL.appendingPathComponent("\(name).swift"))
+            try data.write(to: outputURL.appendingPathComponent("\(name)"))
         }
-        try write(resources, to: "Paths")
-        try write(schemas, to: "Schemas")
+        if let package = package {
+            let packageURL = outputURL.appendingPathComponent(package)
+            try? FileManager.default.createDirectory(at: packageURL, withIntermediateDirectories: true, attributes: nil)
+            try write(makePackageFile(name: package), to: "\(package)/Package.swift")
+            let sourcesURL = packageURL.appendingPathComponent("Sources/\(package)")
+            try? FileManager.default.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
+            try write(resources, to: "\(package)/Sources/\(package)/Paths.swift")
+            try write(schemas, to: "\(package)/Sources/\(package)/Schemas.swift")
+        } else {
+            try write(resources, to: "Paths.swift")
+            try write(schemas, to: "Schemas.swift")
+        }
     }
 }
 
@@ -108,4 +121,27 @@ private func makeOptions(at configPath: String) throws -> GenerateOptions {
         }
     }
     return GenerateOptions() // Use default options
+}
+
+private func makePackageFile(name: String) -> String {
+    """
+    // swift-tools-version:5.5
+    // The swift-tools-version declares the minimum version of Swift required to build this package.
+
+    import PackageDescription
+
+    let package = Package(
+        name: "\(name)",
+        platforms: [.iOS(.v15), .macCatalyst(.v15), .macOS(.v12), .watchOS(.v8), .tvOS(.v15)],
+        products: [
+            .library(name: "\(name)", targets: ["\(name)"]),
+        ],
+        dependencies: [
+            .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        ],
+        targets: [
+            .target(name: "\(name)", dependencies: [.product(name: "APIClient", package: "APIClient")]),
+        ]
+    )
+    """
 }

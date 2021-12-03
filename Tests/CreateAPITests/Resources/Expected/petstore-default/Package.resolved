@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "APIClient",
+        "repositoryURL": "https://github.com/kean/APIClient",
+        "state": {
+          "branch": "main",
+          "revision": "6cb396ea7dc2ffeb4cb80dec6889409c517217a4",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

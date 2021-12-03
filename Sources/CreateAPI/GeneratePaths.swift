@@ -65,7 +65,8 @@ final class GeneratePaths {
     func _run() -> String {
         var output = templates.fileHeader
         
-        output += "\nimport Get"
+        #warning("TODO: replace with Get")
+        output += "\nimport APIClient"
         output += "\n\n"
         output += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
         
