@@ -54,38 +54,11 @@ import GrammaticalNumber
 // TODO: Add an option how allOf is generated (inline properties, create protocols)
 // TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
 
-final class GenerateSchemas {
-    private let spec: OpenAPI.Document
-    private let options: GenerateOptions
-    private let arguments: GenerateArguments
-    private let templates: Templates
-    private var isAnyJSONUsed = false
-    private let lock = NSLock()
-    
-    init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
-        self.spec = spec
-        self.options = options
-        self.arguments = arguments
-        self.templates = Templates(options: options)
-    }
+extension Generator {
 
-    func run() -> String {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        if arguments.isVerbose {
-            print("Generating schemas (\(spec.components.schemas.count))")
-        }
+    func schemes() -> String {
+        startMeasuring("generating schemes (\(spec.components.schemas.count))")
         
-        let output = _run()
-        
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        if arguments.isVerbose {
-            print("Generated schemas in \(timeElapsed) s.")
-        }
-        
-        return output
-    }
-    
-    func _run() -> String {
         var output = templates.fileHeader
         output += "\n\n"
         
@@ -114,10 +87,14 @@ final class GenerateSchemas {
             }
         }
 
+        var generatedCount = 0
         for entry in generated where entry != nil {
+            generatedCount += 1
             output += entry!
             output += "\n\n"
         }
+        
+        stopMeasuring("generating schemes (\(generatedCount))")
         
         if isAnyJSONUsed {
             output += "\n"

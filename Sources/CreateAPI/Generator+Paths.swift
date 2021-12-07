@@ -30,39 +30,14 @@ import GrammaticalNumber
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
 
-final class GeneratePaths {
-    private let spec: OpenAPI.Document
-    private let options: GenerateOptions
-    private let arguments: GenerateArguments
-    private let templates: Templates
+extension Generator {
     
     #warning("refactor")
     var access: String { options.access.isEmpty ? "" :  options.access + " " }
-
-    init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
-        self.spec = spec
-        self.options = options
-        self.arguments = arguments
-        self.templates = Templates(options: options)
-    }
     
-    func run() -> String {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        if arguments.isVerbose {
-            print("Generating paths (\(spec.paths.count))")
-        }
+    func paths() -> String {
+        startMeasuring("generating paths (\(spec.paths.count))")
         
-        let output = _run()
-        
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        if arguments.isVerbose {
-            print("Generated paths in \(timeElapsed) s.")
-        }
-        
-        return output
-    }
-    
-    func _run() -> String {
         var output = templates.fileHeader
         
         #warning("TODO: replace with Get")
@@ -148,6 +123,8 @@ final class GeneratePaths {
                 }
             }
         }
+        
+        stopMeasuring("generating paths (\(spec.paths.count))")
         
         return output.indent(using: options)
     }

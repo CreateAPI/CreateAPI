@@ -9,6 +9,7 @@ import Yams
 
 // TODO: Add a mechanism ot pass generator option directly (--options)
 // TODO: Add a way to observe changes to file
+// TODO: Add a single package for all test packages?
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")
@@ -81,8 +82,10 @@ struct Generate: ParsableCommand {
     
         let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor)
         let options = try makeOptions(at: config)
-        let resources = GeneratePaths(spec: spec, options: options, arguments: arguments).run()
-        let schemas = GenerateSchemas(spec: spec, options: options, arguments: arguments).run()
+
+        let generator = Generator(spec: spec, options: options, arguments: arguments)
+        let paths = generator.paths()
+        let schemas = generator.schemes()
         
         let outputPath = (self.output as NSString).expandingTildeInPath
         let outputURL = URL(fileURLWithPath: outputPath)
@@ -101,10 +104,10 @@ struct Generate: ParsableCommand {
             try write(makePackageFile(name: package), to: "\(package)/Package.swift")
             let sourcesURL = packageURL.appendingPathComponent("Sources")
             try? FileManager.default.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
-            try write(resources, to: "\(package)/Sources/Paths.swift")
+            try write(paths, to: "\(package)/Sources/Paths.swift")
             try write(schemas, to: "\(package)/Sources/Schemas.swift")
         } else {
-            try write(resources, to: "Paths.swift")
+            try write(paths, to: "Paths.swift")
             try write(schemas, to: "Schemas.swift")
         }
     }
