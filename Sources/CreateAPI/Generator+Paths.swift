@@ -29,6 +29,7 @@ import GrammaticalNumber
 // TODO: Add an option to use operationId as method name
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
+// TODO: Add namespace to schems (package?)
 
 extension Generator {
     
@@ -187,15 +188,6 @@ extension Generator {
             }
             return "Void"
         }
-    }
-    
-    #warning("TODO: resuse")
-    private func makePropertyName(_ rawValue: String) -> PropertyName {
-        PropertyName(rawValue, options: options)
-    }
-    
-    private func makeTypeName(_ rawValue: String) -> TypeName {
-        TypeName(rawValue, options: options)
     }
 }
 
