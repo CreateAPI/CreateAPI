@@ -251,9 +251,9 @@ final class Templates {
     
     // MARK: Method
     
-    func method(name: String, returning type: String, contents: String) -> String {
+    func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
         """
-        \(access)func \(name)() -> \(type) {
+        \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
         \(contents.indented)
         }
         """
