@@ -27,7 +27,14 @@ import GrammaticalNumber
 // TODO: Add an option to use operationId as method name
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
+// TODO: Group operations by tags https://swagger.io/docs/specification/2-0/grouping-operations-with-tags/?sbsearch=tags
+// TODO: Add operationId
 
+// TODO: - Apply overridden names based on spec, not output file
+// TODO: - Generate phantom ID types
+// TODO: - Allow to override types for specific properties
+// TODO: - Add in documentation additional context, eg inlyvalues from 100 to 500
+// TODO: - Automatically apply more specific rename rules first
 extension Generator {
     
     #warning("refactor")
@@ -114,7 +121,7 @@ extension Generator {
                         \(access)\(stat)var \(PropertyName(type, options: .init())): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
-                        
+                    
                     \(generatedType)
                     }\n\n
                     """
@@ -140,6 +147,7 @@ extension Generator {
 //            item.trace.map { makeMethod(for: $0, method: "trace") },
         ]
             .compactMap { $0 }
+            .map { $0.indented }
             .joined(separator: "\n\n")
     }
     
@@ -149,14 +157,17 @@ extension Generator {
     // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String? {
         do {
-        let response = try makeResponse(for: operation)
-        return """
-                \(access)func \(method)() -> Request<\(response)> {
-                    .\(method)(path)
+            let response = try makeResponse(for: operation)
+            var output = ""
+            if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
+                for line in summary.split(separator: "\n") {
+                    output += "/// \(line)\n"
                 }
-        """
+            }
+            output += templates.method(name: method, returning: "Request<\(response)>", contents: ".\(method)(path)")
+            return output.indented
         } catch {
-            print("ERROR: Failed to generate path \(method) for \(operation): \(error)")
+            print("ERROR: Failed to generate path \(method) for \(operation.operationId ?? "\(operation)"): \(error)")
             return nil
         }
     }
@@ -174,24 +185,29 @@ extension Generator {
         }
         switch response {
         case .a(let reference):
-            // TODO: Use code from GenerateSchemes
-            return reference.name ?? "Void"
+            switch reference {
+            case .internal(let reference):
+                return reference.name ?? "Void"
+            case .external(_):
+                throw GeneratorError("External references are not supported")
+            }
         case .b(let scheme):
-            if let content = scheme.content.values.first {
+            if scheme.content.values.isEmpty {
+                return "Void"
+            } else if let content = scheme.content.values.first {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
                     return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
                 case .b(let schema):
-                    print("ERROR: response inline scheme not handled \(operation.description ?? "")")
+                    throw GeneratorError("ERROR: response inline scheme not handled \(operation.description ?? "")")
                 default:
-                    print("ERROR: response not handled \(operation.description ?? "")")
+                    throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
                 }
             } else {
-                print("ERROR: (???) more than one response type \(operation.description ?? "")")
+                throw GeneratorError("More than one schema in content which is not currently supported")
             }
-            return "Void"
         }
     }
 }

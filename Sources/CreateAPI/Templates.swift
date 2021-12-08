@@ -248,9 +248,19 @@ final class Templates {
         }
         return output
     }
+    
+    // MARK: Method
+    
+    func method(name: String, returning type: String, contents: String) -> String {
+        """
+        \(access)func \(name)() -> \(type) {
+        \(contents.indented)
+        }
+        """
+    }
 }
 
-private extension String {
+extension String {
     var indented: String {
         components(separatedBy: "\n")
             .map { $0.isEmpty ? $0 : String(repeating: " ", count: 4) + $0 }

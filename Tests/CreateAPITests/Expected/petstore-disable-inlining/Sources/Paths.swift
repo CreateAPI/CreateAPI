@@ -12,11 +12,12 @@ extension Paths {
     public static var pets: Pets {
         Pets(path: "/pets")
     }
-    
+
     public struct Pets {
         // /pets
         public let path: String
 
+        /// List all pets
         public func get() -> Request<Pets> {
             .get(path)
         }
@@ -32,6 +33,7 @@ extension Paths.Pets {
         // /pets/{petId}
         public let path: String
 
+        /// Info for a specific pet
         public func get() -> Request<Pet> {
             .get(path)
         }

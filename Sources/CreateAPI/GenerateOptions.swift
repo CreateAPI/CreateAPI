@@ -41,6 +41,7 @@ final class GenerateOptions {
         var addTitle: Bool
         var addDescription: Bool
         var addExamples: Bool
+        var addSummary: Bool
         var capitilizeTitle: Bool
         var capitilizeDescription: Bool
         
@@ -49,6 +50,7 @@ final class GenerateOptions {
             self.addTitle = comments?.addTitle ?? true
             self.addDescription = comments?.addDescription ?? true
             self.addExamples = comments?.addExamples ?? true
+            self.addSummary = comments?.addSummary ?? true
             self.capitilizeTitle = comments?.capitilizeTitle ?? true
             self.capitilizeDescription = comments?.capitilizeDescription ?? true
         }
@@ -135,6 +137,7 @@ final class GenerateOptionsScheme: Decodable {
         var addTitle: Bool?
         var addDescription: Bool?
         var addExamples: Bool?
+        var addSummary: Bool?
         var capitilizeTitle: Bool?
         var capitilizeDescription: Bool?
     }

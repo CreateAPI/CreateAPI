@@ -12,11 +12,12 @@ extension Paths {
     public static var app: App {
         App(path: "/app")
     }
-    
+
     public struct App {
         // /app
         public let path: String
 
+        /// Get the authenticated app
         public func get() -> Request<Integration> {
             .get(path)
         }
@@ -27,7 +28,7 @@ extension Paths {
     public static var appManifests: AppManifests {
         AppManifests(path: "/app-manifests")
     }
-    
+
     public struct AppManifests {
         // /app-manifests
         public let path: String
@@ -49,7 +50,7 @@ extension Paths.AppManifests.WithCode {
     public var conversions: Conversions {
         Conversions(path: path + "/conversions")
     }
-    
+
     public struct Conversions {
         // /app-manifests/{code}/conversions
         public let path: String
@@ -62,7 +63,7 @@ extension Paths.App {
     public var hook: Hook {
         Hook(path: path + "/hook")
     }
-    
+
     public struct Hook {
         // /app/hook
         public let path: String
@@ -73,11 +74,12 @@ extension Paths.App.Hook {
     public var config: Config {
         Config(path: path + "/config")
     }
-    
+
     public struct Config {
         // /app/hook/config
         public let path: String
 
+        /// Get a webhook configuration for an app
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -88,14 +90,12 @@ extension Paths.App.Hook {
     public var deliveries: Deliveries {
         Deliveries(path: path + "/deliveries")
     }
-    
+
     public struct Deliveries {
         // /app/hook/deliveries
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -108,6 +108,7 @@ extension Paths.App.Hook.Deliveries {
         // /app/hook/deliveries/{delivery_id}
         public let path: String
 
+        /// Get a delivery for an app webhook
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -118,7 +119,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
     public var attempts: Attempts {
         Attempts(path: path + "/attempts")
     }
-    
+
     public struct Attempts {
         // /app/hook/deliveries/{delivery_id}/attempts
         public let path: String
@@ -131,14 +132,12 @@ extension Paths.App {
     public var installations: Installations {
         Installations(path: path + "/installations")
     }
-    
+
     public struct Installations {
         // /app/installations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -151,6 +150,7 @@ extension Paths.App.Installations {
         // /app/installations/{installation_id}
         public let path: String
 
+        /// Get an installation for the authenticated app
         public func get() -> Request<Installation> {
             .get(path)
         }
@@ -161,7 +161,7 @@ extension Paths.App.Installations.WithInstallationID {
     public var accessTokens: AccessTokens {
         AccessTokens(path: path + "/access_tokens")
     }
-    
+
     public struct AccessTokens {
         // /app/installations/{installation_id}/access_tokens
         public let path: String
@@ -174,7 +174,7 @@ extension Paths.App.Installations.WithInstallationID {
     public var suspended: Suspended {
         Suspended(path: path + "/suspended")
     }
-    
+
     public struct Suspended {
         // /app/installations/{installation_id}/suspended
         public let path: String
@@ -187,7 +187,7 @@ extension Paths {
     public static var applications: Applications {
         Applications(path: "/applications")
     }
-    
+
     public struct Applications {
         // /applications
         public let path: String
@@ -198,14 +198,12 @@ extension Paths.Applications {
     public var grants: Grants {
         Grants(path: path + "/grants")
     }
-    
+
     public struct Grants {
         // /applications/grants
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -218,6 +216,7 @@ extension Paths.Applications.Grants {
         // /applications/grants/{grant_id}
         public let path: String
 
+        /// Get a single grant
         public func get() -> Request<ApplicationGrant> {
             .get(path)
         }
@@ -239,7 +238,7 @@ extension Paths.Applications.WithClientID {
     public var grant: Grant {
         Grant(path: path + "/grant")
     }
-    
+
     public struct Grant {
         // /applications/{client_id}/grant
         public let path: String
@@ -252,7 +251,7 @@ extension Paths.Applications.WithClientID {
     public var token: Token {
         Token(path: path + "/token")
     }
-    
+
     public struct Token {
         // /applications/{client_id}/token
         public let path: String
@@ -265,7 +264,7 @@ extension Paths.Applications.WithClientID.Token {
     public var scoped: Scoped {
         Scoped(path: path + "/scoped")
     }
-    
+
     public struct Scoped {
         // /applications/{client_id}/token/scoped
         public let path: String
@@ -278,7 +277,7 @@ extension Paths {
     public static var apps: Apps {
         Apps(path: "/apps")
     }
-    
+
     public struct Apps {
         // /apps
         public let path: String
@@ -294,6 +293,7 @@ extension Paths.Apps {
         // /apps/{app_slug}
         public let path: String
 
+        /// Get an app
         public func get() -> Request<Integration> {
             .get(path)
         }
@@ -304,14 +304,12 @@ extension Paths {
     public static var authorizations: Authorizations {
         Authorizations(path: "/authorizations")
     }
-    
+
     public struct Authorizations {
         // /authorizations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -319,7 +317,7 @@ extension Paths.Authorizations {
     public var clients: Clients {
         Clients(path: path + "/clients")
     }
-    
+
     public struct Clients {
         // /authorizations/clients
         public let path: String
@@ -361,6 +359,7 @@ extension Paths.Authorizations {
         // /authorizations/{authorization_id}
         public let path: String
 
+        /// Get a single authorization
         public func get() -> Request<Authorization> {
             .get(path)
         }
@@ -371,14 +370,12 @@ extension Paths {
     public static var codesOfConduct: CodesOfConduct {
         CodesOfConduct(path: "/codes_of_conduct")
     }
-    
+
     public struct CodesOfConduct {
         // /codes_of_conduct
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -391,6 +388,7 @@ extension Paths.CodesOfConduct {
         // /codes_of_conduct/{key}
         public let path: String
 
+        /// Get a code of conduct
         public func get() -> Request<CodeOfConduct> {
             .get(path)
         }
@@ -401,14 +399,12 @@ extension Paths {
     public static var emojis: Emojis {
         Emojis(path: "/emojis")
     }
-    
+
     public struct Emojis {
         // /emojis
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -416,7 +412,7 @@ extension Paths {
     public static var enterprises: Enterprises {
         Enterprises(path: "/enterprises")
     }
-    
+
     public struct Enterprises {
         // /enterprises
         public let path: String
@@ -438,7 +434,7 @@ extension Paths.Enterprises.WithEnterprise {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /enterprises/{enterprise}/actions
         public let path: String
@@ -449,11 +445,12 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     public var permissions: Permissions {
         Permissions(path: path + "/permissions")
     }
-    
+
     public struct Permissions {
         // /enterprises/{enterprise}/actions/permissions
         public let path: String
 
+        /// Get GitHub Actions permissions for an enterprise
         public func get() -> Request<ActionsEnterprisePermissions> {
             .get(path)
         }
@@ -464,14 +461,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
     public var organizations: Organizations {
         Organizations(path: path + "/organizations")
     }
-    
+
     public struct Organizations {
         // /enterprises/{enterprise}/actions/permissions/organizations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -492,11 +487,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
     public var selectedActions: SelectedActions {
         SelectedActions(path: path + "/selected-actions")
     }
-    
+
     public struct SelectedActions {
         // /enterprises/{enterprise}/actions/permissions/selected-actions
         public let path: String
 
+        /// Get allowed actions for an enterprise
         public func get() -> Request<SelectedActions> {
             .get(path)
         }
@@ -507,14 +503,12 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     public var runnerGroups: RunnerGroups {
         RunnerGroups(path: path + "/runner-groups")
     }
-    
+
     public struct RunnerGroups {
         // /enterprises/{enterprise}/actions/runner-groups
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -527,6 +521,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}
         public let path: String
 
+        /// Get a self-hosted runner group for an enterprise
         public func get() -> Request<RunnerGroupsEnterprise> {
             .get(path)
         }
@@ -537,14 +532,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     public var organizations: Organizations {
         Organizations(path: path + "/organizations")
     }
-    
+
     public struct Organizations {
         // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -565,14 +558,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     public var runners: Runners {
         Runners(path: path + "/runners")
     }
-    
+
     public struct Runners {
         // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -593,14 +584,12 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     public var runners: Runners {
         Runners(path: path + "/runners")
     }
-    
+
     public struct Runners {
         // /enterprises/{enterprise}/actions/runners
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -608,14 +597,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     public var downloads: Downloads {
         Downloads(path: path + "/downloads")
     }
-    
+
     public struct Downloads {
         // /enterprises/{enterprise}/actions/runners/downloads
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -623,7 +610,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     public var registrationToken: RegistrationToken {
         RegistrationToken(path: path + "/registration-token")
     }
-    
+
     public struct RegistrationToken {
         // /enterprises/{enterprise}/actions/runners/registration-token
         public let path: String
@@ -636,7 +623,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     public var removeToken: RemoveToken {
         RemoveToken(path: path + "/remove-token")
     }
-    
+
     public struct RemoveToken {
         // /enterprises/{enterprise}/actions/runners/remove-token
         public let path: String
@@ -654,6 +641,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         // /enterprises/{enterprise}/actions/runners/{runner_id}
         public let path: String
 
+        /// Get a self-hosted runner for an enterprise
         public func get() -> Request<Runner> {
             .get(path)
         }
@@ -664,14 +652,12 @@ extension Paths.Enterprises.WithEnterprise {
     public var auditLog: AuditLog {
         AuditLog(path: path + "/audit-log")
     }
-    
+
     public struct AuditLog {
         // /enterprises/{enterprise}/audit-log
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -679,7 +665,7 @@ extension Paths.Enterprises.WithEnterprise {
     public var settings: Settings {
         Settings(path: path + "/settings")
     }
-    
+
     public struct Settings {
         // /enterprises/{enterprise}/settings
         public let path: String
@@ -690,7 +676,7 @@ extension Paths.Enterprises.WithEnterprise.Settings {
     public var billing: Billing {
         Billing(path: path + "/billing")
     }
-    
+
     public struct Billing {
         // /enterprises/{enterprise}/settings/billing
         public let path: String
@@ -701,11 +687,12 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /enterprises/{enterprise}/settings/billing/actions
         public let path: String
 
+        /// Get GitHub Actions billing for an enterprise
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -716,11 +703,12 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     public var advancedSecurity: AdvancedSecurity {
         AdvancedSecurity(path: path + "/advanced-security")
     }
-    
+
     public struct AdvancedSecurity {
         // /enterprises/{enterprise}/settings/billing/advanced-security
         public let path: String
 
+        /// Get GitHub Advanced Security active committers for an enterprise
         public func get() -> Request<AdvancedSecurityActiveCommitters> {
             .get(path)
         }
@@ -731,11 +719,12 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /enterprises/{enterprise}/settings/billing/packages
         public let path: String
 
+        /// Get GitHub Packages billing for an enterprise
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -746,11 +735,12 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     public var sharedStorage: SharedStorage {
         SharedStorage(path: path + "/shared-storage")
     }
-    
+
     public struct SharedStorage {
         // /enterprises/{enterprise}/settings/billing/shared-storage
         public let path: String
 
+        /// Get shared storage billing for an enterprise
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }
@@ -761,14 +751,12 @@ extension Paths {
     public static var events: Events {
         Events(path: "/events")
     }
-    
+
     public struct Events {
         // /events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -776,11 +764,12 @@ extension Paths {
     public static var feeds: Feeds {
         Feeds(path: "/feeds")
     }
-    
+
     public struct Feeds {
         // /feeds
         public let path: String
 
+        /// Get feeds
         public func get() -> Request<Feed> {
             .get(path)
         }
@@ -791,14 +780,12 @@ extension Paths {
     public static var gists: Gists {
         Gists(path: "/gists")
     }
-    
+
     public struct Gists {
         // /gists
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -806,14 +793,12 @@ extension Paths.Gists {
     public var `public`: Public {
         Public(path: path + "/public")
     }
-    
+
     public struct Public {
         // /gists/public
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -821,14 +806,12 @@ extension Paths.Gists {
     public var starred: Starred {
         Starred(path: path + "/starred")
     }
-    
+
     public struct Starred {
         // /gists/starred
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -841,6 +824,7 @@ extension Paths.Gists {
         // /gists/{gist_id}
         public let path: String
 
+        /// Get a gist
         public func get() -> Request<GistSimple> {
             .get(path)
         }
@@ -851,14 +835,12 @@ extension Paths.Gists.WithGistID {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /gists/{gist_id}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -871,6 +853,7 @@ extension Paths.Gists.WithGistID.Comments {
         // /gists/{gist_id}/comments/{comment_id}
         public let path: String
 
+        /// Get a gist comment
         public func get() -> Request<GistComment> {
             .get(path)
         }
@@ -881,14 +864,12 @@ extension Paths.Gists.WithGistID {
     public var commits: Commits {
         Commits(path: path + "/commits")
     }
-    
+
     public struct Commits {
         // /gists/{gist_id}/commits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -896,14 +877,12 @@ extension Paths.Gists.WithGistID {
     public var forks: Forks {
         Forks(path: path + "/forks")
     }
-    
+
     public struct Forks {
         // /gists/{gist_id}/forks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -911,11 +890,12 @@ extension Paths.Gists.WithGistID {
     public var star: Star {
         Star(path: path + "/star")
     }
-    
+
     public struct Star {
         // /gists/{gist_id}/star
         public let path: String
 
+        /// Check if a gist is starred
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -931,6 +911,7 @@ extension Paths.Gists.WithGistID {
         // /gists/{gist_id}/{sha}
         public let path: String
 
+        /// Get a gist revision
         public func get() -> Request<GistSimple> {
             .get(path)
         }
@@ -941,7 +922,7 @@ extension Paths {
     public static var gitignore: Gitignore {
         Gitignore(path: "/gitignore")
     }
-    
+
     public struct Gitignore {
         // /gitignore
         public let path: String
@@ -952,14 +933,12 @@ extension Paths.Gitignore {
     public var templates: Templates {
         Templates(path: path + "/templates")
     }
-    
+
     public struct Templates {
         // /gitignore/templates
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -972,6 +951,7 @@ extension Paths.Gitignore.Templates {
         // /gitignore/templates/{name}
         public let path: String
 
+        /// Get a gitignore template
         public func get() -> Request<GitignoreTemplate> {
             .get(path)
         }
@@ -982,7 +962,7 @@ extension Paths {
     public static var installation: Installation {
         Installation(path: "/installation")
     }
-    
+
     public struct Installation {
         // /installation
         public let path: String
@@ -993,14 +973,12 @@ extension Paths.Installation {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /installation/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1008,7 +986,7 @@ extension Paths.Installation {
     public var token: Token {
         Token(path: path + "/token")
     }
-    
+
     public struct Token {
         // /installation/token
         public let path: String
@@ -1021,14 +999,12 @@ extension Paths {
     public static var issues: Issues {
         Issues(path: "/issues")
     }
-    
+
     public struct Issues {
         // /issues
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1036,14 +1012,12 @@ extension Paths {
     public static var licenses: Licenses {
         Licenses(path: "/licenses")
     }
-    
+
     public struct Licenses {
         // /licenses
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1056,6 +1030,7 @@ extension Paths.Licenses {
         // /licenses/{license}
         public let path: String
 
+        /// Get a license
         public func get() -> Request<License> {
             .get(path)
         }
@@ -1066,7 +1041,7 @@ extension Paths {
     public static var markdown: Markdown {
         Markdown(path: "/markdown")
     }
-    
+
     public struct Markdown {
         // /markdown
         public let path: String
@@ -1079,7 +1054,7 @@ extension Paths.Markdown {
     public var raw: Raw {
         Raw(path: path + "/raw")
     }
-    
+
     public struct Raw {
         // /markdown/raw
         public let path: String
@@ -1092,7 +1067,7 @@ extension Paths {
     public static var marketplaceListing: MarketplaceListing {
         MarketplaceListing(path: "/marketplace_listing")
     }
-    
+
     public struct MarketplaceListing {
         // /marketplace_listing
         public let path: String
@@ -1103,7 +1078,7 @@ extension Paths.MarketplaceListing {
     public var accounts: Accounts {
         Accounts(path: path + "/accounts")
     }
-    
+
     public struct Accounts {
         // /marketplace_listing/accounts
         public let path: String
@@ -1119,6 +1094,7 @@ extension Paths.MarketplaceListing.Accounts {
         // /marketplace_listing/accounts/{account_id}
         public let path: String
 
+        /// Get a subscription plan for an account
         public func get() -> Request<MarketplacePurchase> {
             .get(path)
         }
@@ -1129,14 +1105,12 @@ extension Paths.MarketplaceListing {
     public var plans: Plans {
         Plans(path: path + "/plans")
     }
-    
+
     public struct Plans {
         // /marketplace_listing/plans
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1155,14 +1129,12 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
     public var accounts: Accounts {
         Accounts(path: path + "/accounts")
     }
-    
+
     public struct Accounts {
         // /marketplace_listing/plans/{plan_id}/accounts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1170,7 +1142,7 @@ extension Paths.MarketplaceListing {
     public var stubbed: Stubbed {
         Stubbed(path: path + "/stubbed")
     }
-    
+
     public struct Stubbed {
         // /marketplace_listing/stubbed
         public let path: String
@@ -1181,7 +1153,7 @@ extension Paths.MarketplaceListing.Stubbed {
     public var accounts: Accounts {
         Accounts(path: path + "/accounts")
     }
-    
+
     public struct Accounts {
         // /marketplace_listing/stubbed/accounts
         public let path: String
@@ -1197,6 +1169,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         // /marketplace_listing/stubbed/accounts/{account_id}
         public let path: String
 
+        /// Get a subscription plan for an account (stubbed)
         public func get() -> Request<MarketplacePurchase> {
             .get(path)
         }
@@ -1207,14 +1180,12 @@ extension Paths.MarketplaceListing.Stubbed {
     public var plans: Plans {
         Plans(path: path + "/plans")
     }
-    
+
     public struct Plans {
         // /marketplace_listing/stubbed/plans
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1233,14 +1204,12 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
     public var accounts: Accounts {
         Accounts(path: path + "/accounts")
     }
-    
+
     public struct Accounts {
         // /marketplace_listing/stubbed/plans/{plan_id}/accounts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1248,11 +1217,12 @@ extension Paths {
     public static var meta: Meta {
         Meta(path: "/meta")
     }
-    
+
     public struct Meta {
         // /meta
         public let path: String
 
+        /// Get GitHub meta information
         public func get() -> Request<APIOverview> {
             .get(path)
         }
@@ -1263,7 +1233,7 @@ extension Paths {
     public static var networks: Networks {
         Networks(path: "/networks")
     }
-    
+
     public struct Networks {
         // /networks
         public let path: String
@@ -1296,14 +1266,12 @@ extension Paths.Networks.WithOwner.WithRepo {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /networks/{owner}/{repo}/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1311,14 +1279,12 @@ extension Paths {
     public static var notifications: Notifications {
         Notifications(path: "/notifications")
     }
-    
+
     public struct Notifications {
         // /notifications
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1326,7 +1292,7 @@ extension Paths.Notifications {
     public var threads: Threads {
         Threads(path: path + "/threads")
     }
-    
+
     public struct Threads {
         // /notifications/threads
         public let path: String
@@ -1342,6 +1308,7 @@ extension Paths.Notifications.Threads {
         // /notifications/threads/{thread_id}
         public let path: String
 
+        /// Get a thread
         public func get() -> Request<Thread> {
             .get(path)
         }
@@ -1352,11 +1319,12 @@ extension Paths.Notifications.Threads.WithThreadID {
     public var subscription: Subscription {
         Subscription(path: path + "/subscription")
     }
-    
+
     public struct Subscription {
         // /notifications/threads/{thread_id}/subscription
         public let path: String
 
+        /// Get a thread subscription for the authenticated user
         public func get() -> Request<ThreadSubscription> {
             .get(path)
         }
@@ -1367,14 +1335,12 @@ extension Paths {
     public static var octocat: Octocat {
         Octocat(path: "/octocat")
     }
-    
+
     public struct Octocat {
         // /octocat
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1382,14 +1348,12 @@ extension Paths {
     public static var organizations: Organizations {
         Organizations(path: "/organizations")
     }
-    
+
     public struct Organizations {
         // /organizations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1408,14 +1372,12 @@ extension Paths.Organizations.WithOrganizationID {
     public var customRoles: CustomRoles {
         CustomRoles(path: path + "/custom_roles")
     }
-    
+
     public struct CustomRoles {
         // /organizations/{organization_id}/custom_roles
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1423,7 +1385,7 @@ extension Paths {
     public static var orgs: Orgs {
         Orgs(path: "/orgs")
     }
-    
+
     public struct Orgs {
         // /orgs
         public let path: String
@@ -1439,6 +1401,7 @@ extension Paths.Orgs {
         // /orgs/{org}
         public let path: String
 
+        /// Get an organization
         public func get() -> Request<OrganizationFull> {
             .get(path)
         }
@@ -1449,7 +1412,7 @@ extension Paths.Orgs.WithOrg {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /orgs/{org}/actions
         public let path: String
@@ -1460,11 +1423,12 @@ extension Paths.Orgs.WithOrg.Actions {
     public var permissions: Permissions {
         Permissions(path: path + "/permissions")
     }
-    
+
     public struct Permissions {
         // /orgs/{org}/actions/permissions
         public let path: String
 
+        /// Get GitHub Actions permissions for an organization
         public func get() -> Request<ActionsOrganizationPermissions> {
             .get(path)
         }
@@ -1475,14 +1439,12 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /orgs/{org}/actions/permissions/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1503,11 +1465,12 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
     public var selectedActions: SelectedActions {
         SelectedActions(path: path + "/selected-actions")
     }
-    
+
     public struct SelectedActions {
         // /orgs/{org}/actions/permissions/selected-actions
         public let path: String
 
+        /// Get allowed actions for an organization
         public func get() -> Request<SelectedActions> {
             .get(path)
         }
@@ -1518,14 +1481,12 @@ extension Paths.Orgs.WithOrg.Actions {
     public var runnerGroups: RunnerGroups {
         RunnerGroups(path: path + "/runner-groups")
     }
-    
+
     public struct RunnerGroups {
         // /orgs/{org}/actions/runner-groups
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1538,6 +1499,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         // /orgs/{org}/actions/runner-groups/{runner_group_id}
         public let path: String
 
+        /// Get a self-hosted runner group for an organization
         public func get() -> Request<RunnerGroupsOrg> {
             .get(path)
         }
@@ -1548,14 +1510,12 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /orgs/{org}/actions/runner-groups/{runner_group_id}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1576,14 +1536,12 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
     public var runners: Runners {
         Runners(path: path + "/runners")
     }
-    
+
     public struct Runners {
         // /orgs/{org}/actions/runner-groups/{runner_group_id}/runners
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1604,14 +1562,12 @@ extension Paths.Orgs.WithOrg.Actions {
     public var runners: Runners {
         Runners(path: path + "/runners")
     }
-    
+
     public struct Runners {
         // /orgs/{org}/actions/runners
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1619,14 +1575,12 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     public var downloads: Downloads {
         Downloads(path: path + "/downloads")
     }
-    
+
     public struct Downloads {
         // /orgs/{org}/actions/runners/downloads
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1634,7 +1588,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     public var registrationToken: RegistrationToken {
         RegistrationToken(path: path + "/registration-token")
     }
-    
+
     public struct RegistrationToken {
         // /orgs/{org}/actions/runners/registration-token
         public let path: String
@@ -1647,7 +1601,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     public var removeToken: RemoveToken {
         RemoveToken(path: path + "/remove-token")
     }
-    
+
     public struct RemoveToken {
         // /orgs/{org}/actions/runners/remove-token
         public let path: String
@@ -1665,6 +1619,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         // /orgs/{org}/actions/runners/{runner_id}
         public let path: String
 
+        /// Get a self-hosted runner for an organization
         public func get() -> Request<Runner> {
             .get(path)
         }
@@ -1675,14 +1630,12 @@ extension Paths.Orgs.WithOrg.Actions {
     public var secrets: Secrets {
         Secrets(path: path + "/secrets")
     }
-    
+
     public struct Secrets {
         // /orgs/{org}/actions/secrets
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1690,11 +1643,12 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
     public var publicKey: PublicKey {
         PublicKey(path: path + "/public-key")
     }
-    
+
     public struct PublicKey {
         // /orgs/{org}/actions/secrets/public-key
         public let path: String
 
+        /// Get an organization public key
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -1710,6 +1664,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         // /orgs/{org}/actions/secrets/{secret_name}
         public let path: String
 
+        /// Get an organization secret
         public func get() -> Request<OrganizationActionsSecret> {
             .get(path)
         }
@@ -1720,14 +1675,12 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /orgs/{org}/actions/secrets/{secret_name}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1748,14 +1701,12 @@ extension Paths.Orgs.WithOrg {
     public var auditLog: AuditLog {
         AuditLog(path: path + "/audit-log")
     }
-    
+
     public struct AuditLog {
         // /orgs/{org}/audit-log
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1763,14 +1714,12 @@ extension Paths.Orgs.WithOrg {
     public var blocks: Blocks {
         Blocks(path: path + "/blocks")
     }
-    
+
     public struct Blocks {
         // /orgs/{org}/blocks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1783,6 +1732,7 @@ extension Paths.Orgs.WithOrg.Blocks {
         // /orgs/{org}/blocks/{username}
         public let path: String
 
+        /// Check if a user is blocked by an organization
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -1793,14 +1743,12 @@ extension Paths.Orgs.WithOrg {
     public var credentialAuthorizations: CredentialAuthorizations {
         CredentialAuthorizations(path: path + "/credential-authorizations")
     }
-    
+
     public struct CredentialAuthorizations {
         // /orgs/{org}/credential-authorizations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1821,14 +1769,12 @@ extension Paths.Orgs.WithOrg {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /orgs/{org}/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1836,7 +1782,7 @@ extension Paths.Orgs.WithOrg {
     public var externalGroup: ExternalGroup {
         ExternalGroup(path: path + "/external-group")
     }
-    
+
     public struct ExternalGroup {
         // /orgs/{org}/external-group
         public let path: String
@@ -1852,6 +1798,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         // /orgs/{org}/external-group/{group_id}
         public let path: String
 
+        /// Get an external group
         public func get() -> Request<ExternalGroup> {
             .get(path)
         }
@@ -1862,11 +1809,12 @@ extension Paths.Orgs.WithOrg {
     public var externalGroups: ExternalGroups {
         ExternalGroups(path: path + "/external-groups")
     }
-    
+
     public struct ExternalGroups {
         // /orgs/{org}/external-groups
         public let path: String
 
+        /// List external groups in an organization
         public func get() -> Request<ExternalGroups> {
             .get(path)
         }
@@ -1877,14 +1825,12 @@ extension Paths.Orgs.WithOrg {
     public var failedInvitations: FailedInvitations {
         FailedInvitations(path: path + "/failed_invitations")
     }
-    
+
     public struct FailedInvitations {
         // /orgs/{org}/failed_invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1892,14 +1838,12 @@ extension Paths.Orgs.WithOrg {
     public var hooks: Hooks {
         Hooks(path: path + "/hooks")
     }
-    
+
     public struct Hooks {
         // /orgs/{org}/hooks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1912,6 +1856,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         // /orgs/{org}/hooks/{hook_id}
         public let path: String
 
+        /// Get an organization webhook
         public func get() -> Request<OrgHook> {
             .get(path)
         }
@@ -1922,11 +1867,12 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     public var config: Config {
         Config(path: path + "/config")
     }
-    
+
     public struct Config {
         // /orgs/{org}/hooks/{hook_id}/config
         public let path: String
 
+        /// Get a webhook configuration for an organization
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -1937,14 +1883,12 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     public var deliveries: Deliveries {
         Deliveries(path: path + "/deliveries")
     }
-    
+
     public struct Deliveries {
         // /orgs/{org}/hooks/{hook_id}/deliveries
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -1957,6 +1901,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
         // /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}
         public let path: String
 
+        /// Get a webhook delivery for an organization webhook
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -1967,7 +1912,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
     public var attempts: Attempts {
         Attempts(path: path + "/attempts")
     }
-    
+
     public struct Attempts {
         // /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts
         public let path: String
@@ -1980,7 +1925,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     public var pings: Pings {
         Pings(path: path + "/pings")
     }
-    
+
     public struct Pings {
         // /orgs/{org}/hooks/{hook_id}/pings
         public let path: String
@@ -1993,11 +1938,12 @@ extension Paths.Orgs.WithOrg {
     public var installation: Installation {
         Installation(path: path + "/installation")
     }
-    
+
     public struct Installation {
         // /orgs/{org}/installation
         public let path: String
 
+        /// Get an organization installation for the authenticated app
         public func get() -> Request<Installation> {
             .get(path)
         }
@@ -2008,14 +1954,12 @@ extension Paths.Orgs.WithOrg {
     public var installations: Installations {
         Installations(path: path + "/installations")
     }
-    
+
     public struct Installations {
         // /orgs/{org}/installations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2023,14 +1967,12 @@ extension Paths.Orgs.WithOrg {
     public var interactionLimits: InteractionLimits {
         InteractionLimits(path: path + "/interaction-limits")
     }
-    
+
     public struct InteractionLimits {
         // /orgs/{org}/interaction-limits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2038,14 +1980,12 @@ extension Paths.Orgs.WithOrg {
     public var invitations: Invitations {
         Invitations(path: path + "/invitations")
     }
-    
+
     public struct Invitations {
         // /orgs/{org}/invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2066,14 +2006,12 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /orgs/{org}/invitations/{invitation_id}/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2081,14 +2019,12 @@ extension Paths.Orgs.WithOrg {
     public var issues: Issues {
         Issues(path: path + "/issues")
     }
-    
+
     public struct Issues {
         // /orgs/{org}/issues
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2096,14 +2032,12 @@ extension Paths.Orgs.WithOrg {
     public var members: Members {
         Members(path: path + "/members")
     }
-    
+
     public struct Members {
         // /orgs/{org}/members
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2116,6 +2050,7 @@ extension Paths.Orgs.WithOrg.Members {
         // /orgs/{org}/members/{username}
         public let path: String
 
+        /// Check organization membership for a user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -2126,7 +2061,7 @@ extension Paths.Orgs.WithOrg {
     public var memberships: Memberships {
         Memberships(path: path + "/memberships")
     }
-    
+
     public struct Memberships {
         // /orgs/{org}/memberships
         public let path: String
@@ -2142,6 +2077,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         // /orgs/{org}/memberships/{username}
         public let path: String
 
+        /// Get organization membership for a user
         public func get() -> Request<OrgMembership> {
             .get(path)
         }
@@ -2152,14 +2088,12 @@ extension Paths.Orgs.WithOrg {
     public var migrations: Migrations {
         Migrations(path: path + "/migrations")
     }
-    
+
     public struct Migrations {
         // /orgs/{org}/migrations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2172,6 +2106,7 @@ extension Paths.Orgs.WithOrg.Migrations {
         // /orgs/{org}/migrations/{migration_id}
         public let path: String
 
+        /// Get an organization migration status
         public func get() -> Request<Migration> {
             .get(path)
         }
@@ -2182,11 +2117,12 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     public var archive: Archive {
         Archive(path: path + "/archive")
     }
-    
+
     public struct Archive {
         // /orgs/{org}/migrations/{migration_id}/archive
         public let path: String
 
+        /// Download an organization migration archive
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -2197,7 +2133,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /orgs/{org}/migrations/{migration_id}/repos
         public let path: String
@@ -2219,7 +2155,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
     public var lock: Lock {
         Lock(path: path + "/lock")
     }
-    
+
     public struct Lock {
         // /orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock
         public let path: String
@@ -2232,14 +2168,12 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /orgs/{org}/migrations/{migration_id}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2247,14 +2181,12 @@ extension Paths.Orgs.WithOrg {
     public var outsideCollaborators: OutsideCollaborators {
         OutsideCollaborators(path: path + "/outside_collaborators")
     }
-    
+
     public struct OutsideCollaborators {
         // /orgs/{org}/outside_collaborators
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2275,14 +2207,12 @@ extension Paths.Orgs.WithOrg {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /orgs/{org}/packages
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2306,6 +2236,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         // /orgs/{org}/packages/{package_type}/{package_name}
         public let path: String
 
+        /// Get a package for an organization
         public func get() -> Request<Package> {
             .get(path)
         }
@@ -2316,7 +2247,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /orgs/{org}/packages/{package_type}/{package_name}/restore
         public let path: String
@@ -2329,14 +2260,12 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
     public var versions: Versions {
         Versions(path: path + "/versions")
     }
-    
+
     public struct Versions {
         // /orgs/{org}/packages/{package_type}/{package_name}/versions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2349,6 +2278,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         // /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}
         public let path: String
 
+        /// Get a package version for an organization
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
@@ -2359,7 +2289,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions.W
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
         public let path: String
@@ -2372,14 +2302,12 @@ extension Paths.Orgs.WithOrg {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /orgs/{org}/projects
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2387,14 +2315,12 @@ extension Paths.Orgs.WithOrg {
     public var publicMembers: PublicMembers {
         PublicMembers(path: path + "/public_members")
     }
-    
+
     public struct PublicMembers {
         // /orgs/{org}/public_members
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2407,6 +2333,7 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         // /orgs/{org}/public_members/{username}
         public let path: String
 
+        /// Check public organization membership for a user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -2417,14 +2344,12 @@ extension Paths.Orgs.WithOrg {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /orgs/{org}/repos
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2432,7 +2357,7 @@ extension Paths.Orgs.WithOrg {
     public var secretScanning: SecretScanning {
         SecretScanning(path: path + "/secret-scanning")
     }
-    
+
     public struct SecretScanning {
         // /orgs/{org}/secret-scanning
         public let path: String
@@ -2443,14 +2368,12 @@ extension Paths.Orgs.WithOrg.SecretScanning {
     public var alerts: Alerts {
         Alerts(path: path + "/alerts")
     }
-    
+
     public struct Alerts {
         // /orgs/{org}/secret-scanning/alerts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2458,7 +2381,7 @@ extension Paths.Orgs.WithOrg {
     public var settings: Settings {
         Settings(path: path + "/settings")
     }
-    
+
     public struct Settings {
         // /orgs/{org}/settings
         public let path: String
@@ -2469,7 +2392,7 @@ extension Paths.Orgs.WithOrg.Settings {
     public var billing: Billing {
         Billing(path: path + "/billing")
     }
-    
+
     public struct Billing {
         // /orgs/{org}/settings/billing
         public let path: String
@@ -2480,11 +2403,12 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /orgs/{org}/settings/billing/actions
         public let path: String
 
+        /// Get GitHub Actions billing for an organization
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -2495,11 +2419,12 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     public var advancedSecurity: AdvancedSecurity {
         AdvancedSecurity(path: path + "/advanced-security")
     }
-    
+
     public struct AdvancedSecurity {
         // /orgs/{org}/settings/billing/advanced-security
         public let path: String
 
+        /// Get GitHub Advanced Security active committers for an organization
         public func get() -> Request<AdvancedSecurityActiveCommitters> {
             .get(path)
         }
@@ -2510,11 +2435,12 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /orgs/{org}/settings/billing/packages
         public let path: String
 
+        /// Get GitHub Packages billing for an organization
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -2525,11 +2451,12 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     public var sharedStorage: SharedStorage {
         SharedStorage(path: path + "/shared-storage")
     }
-    
+
     public struct SharedStorage {
         // /orgs/{org}/settings/billing/shared-storage
         public let path: String
 
+        /// Get shared storage billing for an organization
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }
@@ -2540,7 +2467,7 @@ extension Paths.Orgs.WithOrg {
     public var teamSync: TeamSync {
         TeamSync(path: path + "/team-sync")
     }
-    
+
     public struct TeamSync {
         // /orgs/{org}/team-sync
         public let path: String
@@ -2551,11 +2478,12 @@ extension Paths.Orgs.WithOrg.TeamSync {
     public var groups: Groups {
         Groups(path: path + "/groups")
     }
-    
+
     public struct Groups {
         // /orgs/{org}/team-sync/groups
         public let path: String
 
+        /// List IdP groups for an organization
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -2566,14 +2494,12 @@ extension Paths.Orgs.WithOrg {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /orgs/{org}/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2586,6 +2512,7 @@ extension Paths.Orgs.WithOrg.Teams {
         // /orgs/{org}/teams/{team_slug}
         public let path: String
 
+        /// Get a team by name
         public func get() -> Request<TeamFull> {
             .get(path)
         }
@@ -2596,14 +2523,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var discussions: Discussions {
         Discussions(path: path + "/discussions")
     }
-    
+
     public struct Discussions {
         // /orgs/{org}/teams/{team_slug}/discussions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2616,6 +2541,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}
         public let path: String
 
+        /// Get a discussion
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
@@ -2626,14 +2552,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2646,6 +2570,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}
         public let path: String
 
+        /// Get a discussion comment
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
@@ -2656,14 +2581,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2684,14 +2607,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2712,7 +2633,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var externalGroups: ExternalGroups {
         ExternalGroups(path: path + "/external-groups")
     }
-    
+
     public struct ExternalGroups {
         // /orgs/{org}/teams/{team_slug}/external-groups
         public let path: String
@@ -2725,14 +2646,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var invitations: Invitations {
         Invitations(path: path + "/invitations")
     }
-    
+
     public struct Invitations {
         // /orgs/{org}/teams/{team_slug}/invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2740,14 +2659,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var members: Members {
         Members(path: path + "/members")
     }
-    
+
     public struct Members {
         // /orgs/{org}/teams/{team_slug}/members
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2755,7 +2672,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var memberships: Memberships {
         Memberships(path: path + "/memberships")
     }
-    
+
     public struct Memberships {
         // /orgs/{org}/teams/{team_slug}/memberships
         public let path: String
@@ -2771,6 +2688,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         // /orgs/{org}/teams/{team_slug}/memberships/{username}
         public let path: String
 
+        /// Get team membership for a user
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
@@ -2781,14 +2699,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /orgs/{org}/teams/{team_slug}/projects
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2801,6 +2717,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         // /orgs/{org}/teams/{team_slug}/projects/{project_id}
         public let path: String
 
+        /// Check team permissions for a project
         public func get() -> Request<TeamProject> {
             .get(path)
         }
@@ -2811,14 +2728,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /orgs/{org}/teams/{team_slug}/repos
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2842,6 +2757,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         // /orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}
         public let path: String
 
+        /// Check team permissions for a repository
         public func get() -> Request<TeamRepository> {
             .get(path)
         }
@@ -2852,7 +2768,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var teamSync: TeamSync {
         TeamSync(path: path + "/team-sync")
     }
-    
+
     public struct TeamSync {
         // /orgs/{org}/teams/{team_slug}/team-sync
         public let path: String
@@ -2863,11 +2779,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
     public var groupMappings: GroupMappings {
         GroupMappings(path: path + "/group-mappings")
     }
-    
+
     public struct GroupMappings {
         // /orgs/{org}/teams/{team_slug}/team-sync/group-mappings
         public let path: String
 
+        /// List IdP groups for a team
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -2878,14 +2795,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /orgs/{org}/teams/{team_slug}/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2893,7 +2808,7 @@ extension Paths {
     public static var projects: Projects {
         Projects(path: "/projects")
     }
-    
+
     public struct Projects {
         // /projects
         public let path: String
@@ -2904,7 +2819,7 @@ extension Paths.Projects {
     public var columns: Columns {
         Columns(path: path + "/columns")
     }
-    
+
     public struct Columns {
         // /projects/columns
         public let path: String
@@ -2915,7 +2830,7 @@ extension Paths.Projects.Columns {
     public var cards: Cards {
         Cards(path: path + "/cards")
     }
-    
+
     public struct Cards {
         // /projects/columns/cards
         public let path: String
@@ -2931,6 +2846,7 @@ extension Paths.Projects.Columns.Cards {
         // /projects/columns/cards/{card_id}
         public let path: String
 
+        /// Get a project card
         public func get() -> Request<ProjectCard> {
             .get(path)
         }
@@ -2941,7 +2857,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
     public var moves: Moves {
         Moves(path: path + "/moves")
     }
-    
+
     public struct Moves {
         // /projects/columns/cards/{card_id}/moves
         public let path: String
@@ -2959,6 +2875,7 @@ extension Paths.Projects.Columns {
         // /projects/columns/{column_id}
         public let path: String
 
+        /// Get a project column
         public func get() -> Request<ProjectColumn> {
             .get(path)
         }
@@ -2969,14 +2886,12 @@ extension Paths.Projects.Columns.WithColumnID {
     public var cards: Cards {
         Cards(path: path + "/cards")
     }
-    
+
     public struct Cards {
         // /projects/columns/{column_id}/cards
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -2984,7 +2899,7 @@ extension Paths.Projects.Columns.WithColumnID {
     public var moves: Moves {
         Moves(path: path + "/moves")
     }
-    
+
     public struct Moves {
         // /projects/columns/{column_id}/moves
         public let path: String
@@ -3002,6 +2917,7 @@ extension Paths.Projects {
         // /projects/{project_id}
         public let path: String
 
+        /// Get a project
         public func get() -> Request<Project> {
             .get(path)
         }
@@ -3012,14 +2928,12 @@ extension Paths.Projects.WithProjectID {
     public var collaborators: Collaborators {
         Collaborators(path: path + "/collaborators")
     }
-    
+
     public struct Collaborators {
         // /projects/{project_id}/collaborators
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3040,11 +2954,12 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
     public var permission: Permission {
         Permission(path: path + "/permission")
     }
-    
+
     public struct Permission {
         // /projects/{project_id}/collaborators/{username}/permission
         public let path: String
 
+        /// Get project permission for a user
         public func get() -> Request<ProjectCollaboratorPermission> {
             .get(path)
         }
@@ -3055,14 +2970,12 @@ extension Paths.Projects.WithProjectID {
     public var columns: Columns {
         Columns(path: path + "/columns")
     }
-    
+
     public struct Columns {
         // /projects/{project_id}/columns
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3070,11 +2983,12 @@ extension Paths {
     public static var rateLimit: RateLimit {
         RateLimit(path: "/rate_limit")
     }
-    
+
     public struct RateLimit {
         // /rate_limit
         public let path: String
 
+        /// Get rate limit status for the authenticated user
         public func get() -> Request<RateLimitOverview> {
             .get(path)
         }
@@ -3085,7 +2999,7 @@ extension Paths {
     public static var reactions: Reactions {
         Reactions(path: "/reactions")
     }
-    
+
     public struct Reactions {
         // /reactions
         public let path: String
@@ -3109,7 +3023,7 @@ extension Paths {
     public static var repos: Repos {
         Repos(path: "/repos")
     }
-    
+
     public struct Repos {
         // /repos
         public let path: String
@@ -3136,6 +3050,7 @@ extension Paths.Repos.WithOwner {
         // /repos/{owner}/{repo}
         public let path: String
 
+        /// Get a repository
         public func get() -> Request<FullRepository> {
             .get(path)
         }
@@ -3146,7 +3061,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /repos/{owner}/{repo}/actions
         public let path: String
@@ -3157,14 +3072,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var artifacts: Artifacts {
         Artifacts(path: path + "/artifacts")
     }
-    
+
     public struct Artifacts {
         // /repos/{owner}/{repo}/actions/artifacts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3177,6 +3090,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         // /repos/{owner}/{repo}/actions/artifacts/{artifact_id}
         public let path: String
 
+        /// Get an artifact
         public func get() -> Request<Artifact> {
             .get(path)
         }
@@ -3192,6 +3106,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts.WithArtifactID {
         // /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}
         public let path: String
 
+        /// Download an artifact
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3202,7 +3117,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var jobs: Jobs {
         Jobs(path: path + "/jobs")
     }
-    
+
     public struct Jobs {
         // /repos/{owner}/{repo}/actions/jobs
         public let path: String
@@ -3218,6 +3133,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
         // /repos/{owner}/{repo}/actions/jobs/{job_id}
         public let path: String
 
+        /// Get a job for a workflow run
         public func get() -> Request<Job> {
             .get(path)
         }
@@ -3228,11 +3144,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs.WithJobID {
     public var logs: Logs {
         Logs(path: path + "/logs")
     }
-    
+
     public struct Logs {
         // /repos/{owner}/{repo}/actions/jobs/{job_id}/logs
         public let path: String
 
+        /// Download job logs for a workflow run
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3243,11 +3160,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var permissions: Permissions {
         Permissions(path: path + "/permissions")
     }
-    
+
     public struct Permissions {
         // /repos/{owner}/{repo}/actions/permissions
         public let path: String
 
+        /// Get GitHub Actions permissions for a repository
         public func get() -> Request<ActionsRepositoryPermissions> {
             .get(path)
         }
@@ -3258,11 +3176,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
     public var selectedActions: SelectedActions {
         SelectedActions(path: path + "/selected-actions")
     }
-    
+
     public struct SelectedActions {
         // /repos/{owner}/{repo}/actions/permissions/selected-actions
         public let path: String
 
+        /// Get allowed actions for a repository
         public func get() -> Request<SelectedActions> {
             .get(path)
         }
@@ -3273,14 +3192,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var runners: Runners {
         Runners(path: path + "/runners")
     }
-    
+
     public struct Runners {
         // /repos/{owner}/{repo}/actions/runners
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3288,14 +3205,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     public var downloads: Downloads {
         Downloads(path: path + "/downloads")
     }
-    
+
     public struct Downloads {
         // /repos/{owner}/{repo}/actions/runners/downloads
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3303,7 +3218,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     public var registrationToken: RegistrationToken {
         RegistrationToken(path: path + "/registration-token")
     }
-    
+
     public struct RegistrationToken {
         // /repos/{owner}/{repo}/actions/runners/registration-token
         public let path: String
@@ -3316,7 +3231,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     public var removeToken: RemoveToken {
         RemoveToken(path: path + "/remove-token")
     }
-    
+
     public struct RemoveToken {
         // /repos/{owner}/{repo}/actions/runners/remove-token
         public let path: String
@@ -3334,6 +3249,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         // /repos/{owner}/{repo}/actions/runners/{runner_id}
         public let path: String
 
+        /// Get a self-hosted runner for a repository
         public func get() -> Request<Runner> {
             .get(path)
         }
@@ -3344,14 +3260,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var runs: Runs {
         Runs(path: path + "/runs")
     }
-    
+
     public struct Runs {
         // /repos/{owner}/{repo}/actions/runs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3364,6 +3278,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         // /repos/{owner}/{repo}/actions/runs/{run_id}
         public let path: String
 
+        /// Get a workflow run
         public func get() -> Request<WorkflowRun> {
             .get(path)
         }
@@ -3374,14 +3289,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var approvals: Approvals {
         Approvals(path: path + "/approvals")
     }
-    
+
     public struct Approvals {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/approvals
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3389,7 +3302,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var approve: Approve {
         Approve(path: path + "/approve")
     }
-    
+
     public struct Approve {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/approve
         public let path: String
@@ -3402,14 +3315,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var artifacts: Artifacts {
         Artifacts(path: path + "/artifacts")
     }
-    
+
     public struct Artifacts {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3417,7 +3328,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var attempts: Attempts {
         Attempts(path: path + "/attempts")
     }
-    
+
     public struct Attempts {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts
         public let path: String
@@ -3433,6 +3344,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}
         public let path: String
 
+        /// Get a workflow run attempt
         public func get() -> Request<WorkflowRun> {
             .get(path)
         }
@@ -3443,14 +3355,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
     public var jobs: Jobs {
         Jobs(path: path + "/jobs")
     }
-    
+
     public struct Jobs {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3458,11 +3368,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
     public var logs: Logs {
         Logs(path: path + "/logs")
     }
-    
+
     public struct Logs {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs
         public let path: String
 
+        /// Download workflow run attempt logs
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3473,7 +3384,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var cancel: Cancel {
         Cancel(path: path + "/cancel")
     }
-    
+
     public struct Cancel {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/cancel
         public let path: String
@@ -3486,14 +3397,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var jobs: Jobs {
         Jobs(path: path + "/jobs")
     }
-    
+
     public struct Jobs {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/jobs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3501,11 +3410,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var logs: Logs {
         Logs(path: path + "/logs")
     }
-    
+
     public struct Logs {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/logs
         public let path: String
 
+        /// Download workflow run logs
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3516,14 +3426,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var pendingDeployments: PendingDeployments {
         PendingDeployments(path: path + "/pending_deployments")
     }
-    
+
     public struct PendingDeployments {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3531,7 +3439,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var rerun: Rerun {
         Rerun(path: path + "/rerun")
     }
-    
+
     public struct Rerun {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/rerun
         public let path: String
@@ -3544,11 +3452,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     public var timing: Timing {
         Timing(path: path + "/timing")
     }
-    
+
     public struct Timing {
         // /repos/{owner}/{repo}/actions/runs/{run_id}/timing
         public let path: String
 
+        /// Get workflow run usage
         public func get() -> Request<WorkflowRunUsage> {
             .get(path)
         }
@@ -3559,14 +3468,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var secrets: Secrets {
         Secrets(path: path + "/secrets")
     }
-    
+
     public struct Secrets {
         // /repos/{owner}/{repo}/actions/secrets
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3574,11 +3481,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
     public var publicKey: PublicKey {
         PublicKey(path: path + "/public-key")
     }
-    
+
     public struct PublicKey {
         // /repos/{owner}/{repo}/actions/secrets/public-key
         public let path: String
 
+        /// Get a repository public key
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -3594,6 +3502,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         // /repos/{owner}/{repo}/actions/secrets/{secret_name}
         public let path: String
 
+        /// Get a repository secret
         public func get() -> Request<ActionsSecret> {
             .get(path)
         }
@@ -3604,14 +3513,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var workflows: Workflows {
         Workflows(path: path + "/workflows")
     }
-    
+
     public struct Workflows {
         // /repos/{owner}/{repo}/actions/workflows
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3624,6 +3531,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}
         public let path: String
 
+        /// Get a workflow
         public func get() -> Request<Workflow> {
             .get(path)
         }
@@ -3634,7 +3542,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     public var disable: Disable {
         Disable(path: path + "/disable")
     }
-    
+
     public struct Disable {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable
         public let path: String
@@ -3647,7 +3555,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     public var dispatches: Dispatches {
         Dispatches(path: path + "/dispatches")
     }
-    
+
     public struct Dispatches {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
         public let path: String
@@ -3660,7 +3568,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     public var enable: Enable {
         Enable(path: path + "/enable")
     }
-    
+
     public struct Enable {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable
         public let path: String
@@ -3673,14 +3581,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     public var runs: Runs {
         Runs(path: path + "/runs")
     }
-    
+
     public struct Runs {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3688,11 +3594,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     public var timing: Timing {
         Timing(path: path + "/timing")
     }
-    
+
     public struct Timing {
         // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing
         public let path: String
 
+        /// Get workflow usage
         public func get() -> Request<WorkflowUsage> {
             .get(path)
         }
@@ -3703,14 +3610,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var assignees: Assignees {
         Assignees(path: path + "/assignees")
     }
-    
+
     public struct Assignees {
         // /repos/{owner}/{repo}/assignees
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3723,6 +3628,7 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
         // /repos/{owner}/{repo}/assignees/{assignee}
         public let path: String
 
+        /// Check if a user can be assigned
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3733,14 +3639,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var autolinks: Autolinks {
         Autolinks(path: path + "/autolinks")
     }
-    
+
     public struct Autolinks {
         // /repos/{owner}/{repo}/autolinks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3753,6 +3657,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         // /repos/{owner}/{repo}/autolinks/{autolink_id}
         public let path: String
 
+        /// Get an autolink reference of a repository
         public func get() -> Request<Autolink> {
             .get(path)
         }
@@ -3763,7 +3668,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var automatedSecurityFixes: AutomatedSecurityFixes {
         AutomatedSecurityFixes(path: path + "/automated-security-fixes")
     }
-    
+
     public struct AutomatedSecurityFixes {
         // /repos/{owner}/{repo}/automated-security-fixes
         public let path: String
@@ -3776,14 +3681,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var branches: Branches {
         Branches(path: path + "/branches")
     }
-    
+
     public struct Branches {
         // /repos/{owner}/{repo}/branches
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3796,6 +3699,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
         // /repos/{owner}/{repo}/branches/{branch}
         public let path: String
 
+        /// Get a branch
         public func get() -> Request<BranchWithProtection> {
             .get(path)
         }
@@ -3806,11 +3710,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
     public var protection: Protection {
         Protection(path: path + "/protection")
     }
-    
+
     public struct Protection {
         // /repos/{owner}/{repo}/branches/{branch}/protection
         public let path: String
 
+        /// Get branch protection
         public func get() -> Request<BranchProtection> {
             .get(path)
         }
@@ -3821,11 +3726,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     public var enforceAdmins: EnforceAdmins {
         EnforceAdmins(path: path + "/enforce_admins")
     }
-    
+
     public struct EnforceAdmins {
         // /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins
         public let path: String
 
+        /// Get admin branch protection
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
         }
@@ -3836,11 +3742,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     public var requiredPullRequestReviews: RequiredPullRequestReviews {
         RequiredPullRequestReviews(path: path + "/required_pull_request_reviews")
     }
-    
+
     public struct RequiredPullRequestReviews {
         // /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews
         public let path: String
 
+        /// Get pull request review protection
         public func get() -> Request<ProtectedBranchPullRequestReview> {
             .get(path)
         }
@@ -3851,11 +3758,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     public var requiredSignatures: RequiredSignatures {
         RequiredSignatures(path: path + "/required_signatures")
     }
-    
+
     public struct RequiredSignatures {
         // /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures
         public let path: String
 
+        /// Get commit signature protection
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
         }
@@ -3866,11 +3774,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     public var requiredStatusChecks: RequiredStatusChecks {
         RequiredStatusChecks(path: path + "/required_status_checks")
     }
-    
+
     public struct RequiredStatusChecks {
         // /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks
         public let path: String
 
+        /// Get status checks protection
         public func get() -> Request<StatusCheckPolicy> {
             .get(path)
         }
@@ -3881,14 +3790,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
     public var contexts: Contexts {
         Contexts(path: path + "/contexts")
     }
-    
+
     public struct Contexts {
         // /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3896,11 +3803,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     public var restrictions: Restrictions {
         Restrictions(path: path + "/restrictions")
     }
-    
+
     public struct Restrictions {
         // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions
         public let path: String
 
+        /// Get access restrictions
         public func get() -> Request<BranchRestrictionPolicy> {
             .get(path)
         }
@@ -3911,14 +3819,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     public var apps: Apps {
         Apps(path: path + "/apps")
     }
-    
+
     public struct Apps {
         // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3926,14 +3832,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3941,14 +3845,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     public var users: Users {
         Users(path: path + "/users")
     }
-    
+
     public struct Users {
         // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -3956,7 +3858,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
     public var rename: Rename {
         Rename(path: path + "/rename")
     }
-    
+
     public struct Rename {
         // /repos/{owner}/{repo}/branches/{branch}/rename
         public let path: String
@@ -3969,7 +3871,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var checkRuns: CheckRuns {
         CheckRuns(path: path + "/check-runs")
     }
-    
+
     public struct CheckRuns {
         // /repos/{owner}/{repo}/check-runs
         public let path: String
@@ -3987,6 +3889,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         // /repos/{owner}/{repo}/check-runs/{check_run_id}
         public let path: String
 
+        /// Get a check run
         public func get() -> Request<CheckRun> {
             .get(path)
         }
@@ -3997,14 +3900,12 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
     public var annotations: Annotations {
         Annotations(path: path + "/annotations")
     }
-    
+
     public struct Annotations {
         // /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4012,7 +3913,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
     public var rerequest: Rerequest {
         Rerequest(path: path + "/rerequest")
     }
-    
+
     public struct Rerequest {
         // /repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest
         public let path: String
@@ -4025,7 +3926,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var checkSuites: CheckSuites {
         CheckSuites(path: path + "/check-suites")
     }
-    
+
     public struct CheckSuites {
         // /repos/{owner}/{repo}/check-suites
         public let path: String
@@ -4038,7 +3939,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
     public var preferences: Preferences {
         Preferences(path: path + "/preferences")
     }
-    
+
     public struct Preferences {
         // /repos/{owner}/{repo}/check-suites/preferences
         public let path: String
@@ -4056,6 +3957,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         // /repos/{owner}/{repo}/check-suites/{check_suite_id}
         public let path: String
 
+        /// Get a check suite
         public func get() -> Request<CheckSuite> {
             .get(path)
         }
@@ -4066,14 +3968,12 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
     public var checkRuns: CheckRuns {
         CheckRuns(path: path + "/check-runs")
     }
-    
+
     public struct CheckRuns {
         // /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4081,7 +3981,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
     public var rerequest: Rerequest {
         Rerequest(path: path + "/rerequest")
     }
-    
+
     public struct Rerequest {
         // /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest
         public let path: String
@@ -4094,7 +3994,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var codeScanning: CodeScanning {
         CodeScanning(path: path + "/code-scanning")
     }
-    
+
     public struct CodeScanning {
         // /repos/{owner}/{repo}/code-scanning
         public let path: String
@@ -4105,14 +4005,12 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     public var alerts: Alerts {
         Alerts(path: path + "/alerts")
     }
-    
+
     public struct Alerts {
         // /repos/{owner}/{repo}/code-scanning/alerts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4125,6 +4023,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         // /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}
         public let path: String
 
+        /// Get a code scanning alert
         public func get() -> Request<CodeScanningAlert> {
             .get(path)
         }
@@ -4135,14 +4034,12 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
     public var instances: Instances {
         Instances(path: path + "/instances")
     }
-    
+
     public struct Instances {
         // /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4150,14 +4047,12 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     public var analyses: Analyses {
         Analyses(path: path + "/analyses")
     }
-    
+
     public struct Analyses {
         // /repos/{owner}/{repo}/code-scanning/analyses
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4170,9 +4065,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         // /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4180,7 +4073,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     public var sarifs: Sarifs {
         Sarifs(path: path + "/sarifs")
     }
-    
+
     public struct Sarifs {
         // /repos/{owner}/{repo}/code-scanning/sarifs
         public let path: String
@@ -4198,6 +4091,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
         // /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}
         public let path: String
 
+        /// Get information about a SARIF upload
         public func get() -> Request<CodeScanningSarifsStatus> {
             .get(path)
         }
@@ -4208,14 +4102,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var codespaces: Codespaces {
         Codespaces(path: path + "/codespaces")
     }
-    
+
     public struct Codespaces {
         // /repos/{owner}/{repo}/codespaces
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4223,14 +4115,12 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
     public var machines: Machines {
         Machines(path: path + "/machines")
     }
-    
+
     public struct Machines {
         // /repos/{owner}/{repo}/codespaces/machines
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4238,14 +4128,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var collaborators: Collaborators {
         Collaborators(path: path + "/collaborators")
     }
-    
+
     public struct Collaborators {
         // /repos/{owner}/{repo}/collaborators
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4258,6 +4146,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         // /repos/{owner}/{repo}/collaborators/{username}
         public let path: String
 
+        /// Check if a user is a repository collaborator
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -4268,11 +4157,12 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
     public var permission: Permission {
         Permission(path: path + "/permission")
     }
-    
+
     public struct Permission {
         // /repos/{owner}/{repo}/collaborators/{username}/permission
         public let path: String
 
+        /// Get repository permissions for a user
         public func get() -> Request<RepositoryCollaboratorPermission> {
             .get(path)
         }
@@ -4283,14 +4173,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4303,6 +4191,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         // /repos/{owner}/{repo}/comments/{comment_id}
         public let path: String
 
+        /// Get a commit comment
         public func get() -> Request<CommitComment> {
             .get(path)
         }
@@ -4313,14 +4202,12 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /repos/{owner}/{repo}/comments/{comment_id}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4341,14 +4228,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var commits: Commits {
         Commits(path: path + "/commits")
     }
-    
+
     public struct Commits {
         // /repos/{owner}/{repo}/commits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4367,14 +4252,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     public var branchesWhereHead: BranchesWhereHead {
         BranchesWhereHead(path: path + "/branches-where-head")
     }
-    
+
     public struct BranchesWhereHead {
         // /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4382,14 +4265,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/commits/{commit_sha}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4397,14 +4278,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     public var pulls: Pulls {
         Pulls(path: path + "/pulls")
     }
-    
+
     public struct Pulls {
         // /repos/{owner}/{repo}/commits/{commit_sha}/pulls
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4417,6 +4296,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         // /repos/{owner}/{repo}/commits/{ref}
         public let path: String
 
+        /// Get a commit
         public func get() -> Request<Commit> {
             .get(path)
         }
@@ -4427,14 +4307,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     public var checkRuns: CheckRuns {
         CheckRuns(path: path + "/check-runs")
     }
-    
+
     public struct CheckRuns {
         // /repos/{owner}/{repo}/commits/{ref}/check-runs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4442,14 +4320,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     public var checkSuites: CheckSuites {
         CheckSuites(path: path + "/check-suites")
     }
-    
+
     public struct CheckSuites {
         // /repos/{owner}/{repo}/commits/{ref}/check-suites
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4457,11 +4333,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     public var status: Status {
         Status(path: path + "/status")
     }
-    
+
     public struct Status {
         // /repos/{owner}/{repo}/commits/{ref}/status
         public let path: String
 
+        /// Get the combined status for a specific reference
         public func get() -> Request<CombinedCommitStatus> {
             .get(path)
         }
@@ -4472,14 +4349,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     public var statuses: Statuses {
         Statuses(path: path + "/statuses")
     }
-    
+
     public struct Statuses {
         // /repos/{owner}/{repo}/commits/{ref}/statuses
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4487,7 +4362,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var community: Community {
         Community(path: path + "/community")
     }
-    
+
     public struct Community {
         // /repos/{owner}/{repo}/community
         public let path: String
@@ -4498,11 +4373,12 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
     public var profile: Profile {
         Profile(path: path + "/profile")
     }
-    
+
     public struct Profile {
         // /repos/{owner}/{repo}/community/profile
         public let path: String
 
+        /// Get community profile metrics
         public func get() -> Request<CommunityProfile> {
             .get(path)
         }
@@ -4513,7 +4389,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var compare: Compare {
         Compare(path: path + "/compare")
     }
-    
+
     public struct Compare {
         // /repos/{owner}/{repo}/compare
         public let path: String
@@ -4529,6 +4405,7 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         // /repos/{owner}/{repo}/compare/{basehead}
         public let path: String
 
+        /// Compare two commits
         public func get() -> Request<CommitComparison> {
             .get(path)
         }
@@ -4539,7 +4416,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var contentReferences: ContentReferences {
         ContentReferences(path: path + "/content_references")
     }
-    
+
     public struct ContentReferences {
         // /repos/{owner}/{repo}/content_references
         public let path: String
@@ -4561,7 +4438,7 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
     public var attachments: Attachments {
         Attachments(path: path + "/attachments")
     }
-    
+
     public struct Attachments {
         // /repos/{owner}/{repo}/content_references/{content_reference_id}/attachments
         public let path: String
@@ -4574,7 +4451,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var contents: Contents {
         Contents(path: path + "/contents")
     }
-    
+
     public struct Contents {
         // /repos/{owner}/{repo}/contents
         public let path: String
@@ -4590,6 +4467,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         // /repos/{owner}/{repo}/contents/{path}
         public let path: String
 
+        /// Get repository content
         public func get() -> Request<ContentTree> {
             .get(path)
         }
@@ -4600,14 +4478,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var contributors: Contributors {
         Contributors(path: path + "/contributors")
     }
-    
+
     public struct Contributors {
         // /repos/{owner}/{repo}/contributors
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4615,14 +4491,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var deployments: Deployments {
         Deployments(path: path + "/deployments")
     }
-    
+
     public struct Deployments {
         // /repos/{owner}/{repo}/deployments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4635,6 +4509,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         // /repos/{owner}/{repo}/deployments/{deployment_id}
         public let path: String
 
+        /// Get a deployment
         public func get() -> Request<Deployment> {
             .get(path)
         }
@@ -4645,14 +4520,12 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
     public var statuses: Statuses {
         Statuses(path: path + "/statuses")
     }
-    
+
     public struct Statuses {
         // /repos/{owner}/{repo}/deployments/{deployment_id}/statuses
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4665,6 +4538,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
         // /repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}
         public let path: String
 
+        /// Get a deployment status
         public func get() -> Request<DeploymentStatus> {
             .get(path)
         }
@@ -4675,7 +4549,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var dispatches: Dispatches {
         Dispatches(path: path + "/dispatches")
     }
-    
+
     public struct Dispatches {
         // /repos/{owner}/{repo}/dispatches
         public let path: String
@@ -4688,14 +4562,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var environments: Environments {
         Environments(path: path + "/environments")
     }
-    
+
     public struct Environments {
         // /repos/{owner}/{repo}/environments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4708,6 +4580,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         // /repos/{owner}/{repo}/environments/{environment_name}
         public let path: String
 
+        /// Get an environment
         public func get() -> Request<Environment> {
             .get(path)
         }
@@ -4718,14 +4591,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /repos/{owner}/{repo}/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4733,14 +4604,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var forks: Forks {
         Forks(path: path + "/forks")
     }
-    
+
     public struct Forks {
         // /repos/{owner}/{repo}/forks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4748,7 +4617,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var git: Git {
         Git(path: path + "/git")
     }
-    
+
     public struct Git {
         // /repos/{owner}/{repo}/git
         public let path: String
@@ -4759,7 +4628,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var blobs: Blobs {
         Blobs(path: path + "/blobs")
     }
-    
+
     public struct Blobs {
         // /repos/{owner}/{repo}/git/blobs
         public let path: String
@@ -4777,6 +4646,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         // /repos/{owner}/{repo}/git/blobs/{file_sha}
         public let path: String
 
+        /// Get a blob
         public func get() -> Request<Blob> {
             .get(path)
         }
@@ -4787,7 +4657,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var commits: Commits {
         Commits(path: path + "/commits")
     }
-    
+
     public struct Commits {
         // /repos/{owner}/{repo}/git/commits
         public let path: String
@@ -4805,6 +4675,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         // /repos/{owner}/{repo}/git/commits/{commit_sha}
         public let path: String
 
+        /// Get a commit
         public func get() -> Request<GitCommit> {
             .get(path)
         }
@@ -4815,7 +4686,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var matchingRefs: MatchingRefs {
         MatchingRefs(path: path + "/matching-refs")
     }
-    
+
     public struct MatchingRefs {
         // /repos/{owner}/{repo}/git/matching-refs
         public let path: String
@@ -4831,9 +4702,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         // /repos/{owner}/{repo}/git/matching-refs/{ref}
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4841,7 +4710,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var ref: Ref {
         Ref(path: path + "/ref")
     }
-    
+
     public struct Ref {
         // /repos/{owner}/{repo}/git/ref
         public let path: String
@@ -4857,6 +4726,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         // /repos/{owner}/{repo}/git/ref/{ref}
         public let path: String
 
+        /// Get a reference
         public func get() -> Request<GitRef> {
             .get(path)
         }
@@ -4867,7 +4737,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var refs: Refs {
         Refs(path: path + "/refs")
     }
-    
+
     public struct Refs {
         // /repos/{owner}/{repo}/git/refs
         public let path: String
@@ -4893,7 +4763,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var tags: Tags {
         Tags(path: path + "/tags")
     }
-    
+
     public struct Tags {
         // /repos/{owner}/{repo}/git/tags
         public let path: String
@@ -4911,6 +4781,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         // /repos/{owner}/{repo}/git/tags/{tag_sha}
         public let path: String
 
+        /// Get a tag
         public func get() -> Request<GitTag> {
             .get(path)
         }
@@ -4921,7 +4792,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     public var trees: Trees {
         Trees(path: path + "/trees")
     }
-    
+
     public struct Trees {
         // /repos/{owner}/{repo}/git/trees
         public let path: String
@@ -4939,6 +4810,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         // /repos/{owner}/{repo}/git/trees/{tree_sha}
         public let path: String
 
+        /// Get a tree
         public func get() -> Request<GitTree> {
             .get(path)
         }
@@ -4949,14 +4821,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var hooks: Hooks {
         Hooks(path: path + "/hooks")
     }
-    
+
     public struct Hooks {
         // /repos/{owner}/{repo}/hooks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -4969,6 +4839,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         // /repos/{owner}/{repo}/hooks/{hook_id}
         public let path: String
 
+        /// Get a repository webhook
         public func get() -> Request<Hook> {
             .get(path)
         }
@@ -4979,11 +4850,12 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     public var config: Config {
         Config(path: path + "/config")
     }
-    
+
     public struct Config {
         // /repos/{owner}/{repo}/hooks/{hook_id}/config
         public let path: String
 
+        /// Get a webhook configuration for a repository
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -4994,14 +4866,12 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     public var deliveries: Deliveries {
         Deliveries(path: path + "/deliveries")
     }
-    
+
     public struct Deliveries {
         // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5014,6 +4884,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries {
         // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}
         public let path: String
 
+        /// Get a delivery for a repository webhook
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -5024,7 +4895,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
     public var attempts: Attempts {
         Attempts(path: path + "/attempts")
     }
-    
+
     public struct Attempts {
         // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts
         public let path: String
@@ -5037,7 +4908,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     public var pings: Pings {
         Pings(path: path + "/pings")
     }
-    
+
     public struct Pings {
         // /repos/{owner}/{repo}/hooks/{hook_id}/pings
         public let path: String
@@ -5050,7 +4921,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     public var tests: Tests {
         Tests(path: path + "/tests")
     }
-    
+
     public struct Tests {
         // /repos/{owner}/{repo}/hooks/{hook_id}/tests
         public let path: String
@@ -5063,11 +4934,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var `import`: Import {
         Import(path: path + "/import")
     }
-    
+
     public struct Import {
         // /repos/{owner}/{repo}/import
         public let path: String
 
+        /// Get an import status
         public func get() -> Request<Import> {
             .get(path)
         }
@@ -5078,14 +4950,12 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     public var authors: Authors {
         Authors(path: path + "/authors")
     }
-    
+
     public struct Authors {
         // /repos/{owner}/{repo}/import/authors
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5106,14 +4976,12 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     public var largeFiles: LargeFiles {
         LargeFiles(path: path + "/large_files")
     }
-    
+
     public struct LargeFiles {
         // /repos/{owner}/{repo}/import/large_files
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5121,7 +4989,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     public var lfs: Lfs {
         Lfs(path: path + "/lfs")
     }
-    
+
     public struct Lfs {
         // /repos/{owner}/{repo}/import/lfs
         public let path: String
@@ -5134,11 +5002,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var installation: Installation {
         Installation(path: path + "/installation")
     }
-    
+
     public struct Installation {
         // /repos/{owner}/{repo}/installation
         public let path: String
 
+        /// Get a repository installation for the authenticated app
         public func get() -> Request<Installation> {
             .get(path)
         }
@@ -5149,14 +5018,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var interactionLimits: InteractionLimits {
         InteractionLimits(path: path + "/interaction-limits")
     }
-    
+
     public struct InteractionLimits {
         // /repos/{owner}/{repo}/interaction-limits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5164,14 +5031,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var invitations: Invitations {
         Invitations(path: path + "/invitations")
     }
-    
+
     public struct Invitations {
         // /repos/{owner}/{repo}/invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5192,14 +5057,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var issues: Issues {
         Issues(path: path + "/issues")
     }
-    
+
     public struct Issues {
         // /repos/{owner}/{repo}/issues
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5207,14 +5070,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/issues/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5227,6 +5088,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         // /repos/{owner}/{repo}/issues/comments/{comment_id}
         public let path: String
 
+        /// Get an issue comment
         public func get() -> Request<IssueComment> {
             .get(path)
         }
@@ -5237,14 +5099,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5265,14 +5125,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /repos/{owner}/{repo}/issues/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5285,6 +5143,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
         // /repos/{owner}/{repo}/issues/events/{event_id}
         public let path: String
 
+        /// Get an issue event
         public func get() -> Request<IssueEvent> {
             .get(path)
         }
@@ -5300,6 +5159,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         // /repos/{owner}/{repo}/issues/{issue_number}
         public let path: String
 
+        /// Get an issue
         public func get() -> Request<Issue> {
             .get(path)
         }
@@ -5310,7 +5170,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var assignees: Assignees {
         Assignees(path: path + "/assignees")
     }
-    
+
     public struct Assignees {
         // /repos/{owner}/{repo}/issues/{issue_number}/assignees
         public let path: String
@@ -5323,14 +5183,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/issues/{issue_number}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5338,14 +5196,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /repos/{owner}/{repo}/issues/{issue_number}/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5353,14 +5209,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var labels: Labels {
         Labels(path: path + "/labels")
     }
-    
+
     public struct Labels {
         // /repos/{owner}/{repo}/issues/{issue_number}/labels
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5381,7 +5235,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var lock: Lock {
         Lock(path: path + "/lock")
     }
-    
+
     public struct Lock {
         // /repos/{owner}/{repo}/issues/{issue_number}/lock
         public let path: String
@@ -5394,14 +5248,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /repos/{owner}/{repo}/issues/{issue_number}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5422,14 +5274,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public var timeline: Timeline {
         Timeline(path: path + "/timeline")
     }
-    
+
     public struct Timeline {
         // /repos/{owner}/{repo}/issues/{issue_number}/timeline
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5437,14 +5287,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var keys: Keys {
         Keys(path: path + "/keys")
     }
-    
+
     public struct Keys {
         // /repos/{owner}/{repo}/keys
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5457,6 +5305,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         // /repos/{owner}/{repo}/keys/{key_id}
         public let path: String
 
+        /// Get a deploy key
         public func get() -> Request<DeployKey> {
             .get(path)
         }
@@ -5467,14 +5316,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var labels: Labels {
         Labels(path: path + "/labels")
     }
-    
+
     public struct Labels {
         // /repos/{owner}/{repo}/labels
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5487,6 +5334,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         // /repos/{owner}/{repo}/labels/{name}
         public let path: String
 
+        /// Get a label
         public func get() -> Request<Label> {
             .get(path)
         }
@@ -5497,11 +5345,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var languages: Languages {
         Languages(path: path + "/languages")
     }
-    
+
     public struct Languages {
         // /repos/{owner}/{repo}/languages
         public let path: String
 
+        /// List repository languages
         public func get() -> Request<Language> {
             .get(path)
         }
@@ -5512,7 +5361,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var lfs: Lfs {
         Lfs(path: path + "/lfs")
     }
-    
+
     public struct Lfs {
         // /repos/{owner}/{repo}/lfs
         public let path: String
@@ -5525,11 +5374,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var license: License {
         License(path: path + "/license")
     }
-    
+
     public struct License {
         // /repos/{owner}/{repo}/license
         public let path: String
 
+        /// Get the license for a repository
         public func get() -> Request<LicenseContent> {
             .get(path)
         }
@@ -5540,7 +5390,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var mergeUpstream: MergeUpstream {
         MergeUpstream(path: path + "/merge-upstream")
     }
-    
+
     public struct MergeUpstream {
         // /repos/{owner}/{repo}/merge-upstream
         public let path: String
@@ -5553,7 +5403,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var merges: Merges {
         Merges(path: path + "/merges")
     }
-    
+
     public struct Merges {
         // /repos/{owner}/{repo}/merges
         public let path: String
@@ -5566,14 +5416,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var milestones: Milestones {
         Milestones(path: path + "/milestones")
     }
-    
+
     public struct Milestones {
         // /repos/{owner}/{repo}/milestones
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5586,6 +5434,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         // /repos/{owner}/{repo}/milestones/{milestone_number}
         public let path: String
 
+        /// Get a milestone
         public func get() -> Request<Milestone> {
             .get(path)
         }
@@ -5596,14 +5445,12 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
     public var labels: Labels {
         Labels(path: path + "/labels")
     }
-    
+
     public struct Labels {
         // /repos/{owner}/{repo}/milestones/{milestone_number}/labels
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5611,14 +5458,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var notifications: Notifications {
         Notifications(path: path + "/notifications")
     }
-    
+
     public struct Notifications {
         // /repos/{owner}/{repo}/notifications
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5626,11 +5471,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var pages: Pages {
         Pages(path: path + "/pages")
     }
-    
+
     public struct Pages {
         // /repos/{owner}/{repo}/pages
         public let path: String
 
+        /// Get a GitHub Pages site
         public func get() -> Request<Page> {
             .get(path)
         }
@@ -5641,14 +5487,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
     public var builds: Builds {
         Builds(path: path + "/builds")
     }
-    
+
     public struct Builds {
         // /repos/{owner}/{repo}/pages/builds
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5656,11 +5500,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
     public var latest: Latest {
         Latest(path: path + "/latest")
     }
-    
+
     public struct Latest {
         // /repos/{owner}/{repo}/pages/builds/latest
         public let path: String
 
+        /// Get latest Pages build
         public func get() -> Request<PageBuild> {
             .get(path)
         }
@@ -5676,6 +5521,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         // /repos/{owner}/{repo}/pages/builds/{build_id}
         public let path: String
 
+        /// Get GitHub Pages build
         public func get() -> Request<PageBuild> {
             .get(path)
         }
@@ -5686,11 +5532,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
     public var health: Health {
         Health(path: path + "/health")
     }
-    
+
     public struct Health {
         // /repos/{owner}/{repo}/pages/health
         public let path: String
 
+        /// Get a DNS health check for GitHub Pages
         public func get() -> Request<PagesHealthCheck> {
             .get(path)
         }
@@ -5701,14 +5548,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /repos/{owner}/{repo}/projects
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5716,14 +5561,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var pulls: Pulls {
         Pulls(path: path + "/pulls")
     }
-    
+
     public struct Pulls {
         // /repos/{owner}/{repo}/pulls
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5731,14 +5574,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/pulls/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5751,6 +5592,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         // /repos/{owner}/{repo}/pulls/comments/{comment_id}
         public let path: String
 
+        /// Get a review comment for a pull request
         public func get() -> Request<PullRequestReviewComment> {
             .get(path)
         }
@@ -5761,14 +5603,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5794,6 +5634,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         // /repos/{owner}/{repo}/pulls/{pull_number}
         public let path: String
 
+        /// Get a pull request
         public func get() -> Request<PullRequest> {
             .get(path)
         }
@@ -5804,7 +5645,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var codespaces: Codespaces {
         Codespaces(path: path + "/codespaces")
     }
-    
+
     public struct Codespaces {
         // /repos/{owner}/{repo}/pulls/{pull_number}/codespaces
         public let path: String
@@ -5817,14 +5658,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/pulls/{pull_number}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5843,7 +5682,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
     public var replies: Replies {
         Replies(path: path + "/replies")
     }
-    
+
     public struct Replies {
         // /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies
         public let path: String
@@ -5856,14 +5695,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var commits: Commits {
         Commits(path: path + "/commits")
     }
-    
+
     public struct Commits {
         // /repos/{owner}/{repo}/pulls/{pull_number}/commits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5871,14 +5708,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var files: Files {
         Files(path: path + "/files")
     }
-    
+
     public struct Files {
         // /repos/{owner}/{repo}/pulls/{pull_number}/files
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5886,11 +5721,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var merge: Merge {
         Merge(path: path + "/merge")
     }
-    
+
     public struct Merge {
         // /repos/{owner}/{repo}/pulls/{pull_number}/merge
         public let path: String
 
+        /// Check if a pull request has been merged
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -5901,11 +5737,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var requestedReviewers: RequestedReviewers {
         RequestedReviewers(path: path + "/requested_reviewers")
     }
-    
+
     public struct RequestedReviewers {
         // /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers
         public let path: String
 
+        /// List requested reviewers for a pull request
         public func get() -> Request<PullRequestReviewRequest> {
             .get(path)
         }
@@ -5916,14 +5753,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var reviews: Reviews {
         Reviews(path: path + "/reviews")
     }
-    
+
     public struct Reviews {
         // /repos/{owner}/{repo}/pulls/{pull_number}/reviews
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5936,6 +5771,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}
         public let path: String
 
+        /// Get a review for a pull request
         public func get() -> Request<PullRequestReview> {
             .get(path)
         }
@@ -5946,14 +5782,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -5961,7 +5795,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     public var dismissals: Dismissals {
         Dismissals(path: path + "/dismissals")
     }
-    
+
     public struct Dismissals {
         // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals
         public let path: String
@@ -5974,7 +5808,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events
         public let path: String
@@ -5987,7 +5821,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     public var updateBranch: UpdateBranch {
         UpdateBranch(path: path + "/update-branch")
     }
-    
+
     public struct UpdateBranch {
         // /repos/{owner}/{repo}/pulls/{pull_number}/update-branch
         public let path: String
@@ -6000,11 +5834,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var readme: Readme {
         Readme(path: path + "/readme")
     }
-    
+
     public struct Readme {
         // /repos/{owner}/{repo}/readme
         public let path: String
 
+        /// Get a repository README
         public func get() -> Request<ContentFile> {
             .get(path)
         }
@@ -6020,6 +5855,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         // /repos/{owner}/{repo}/readme/{dir}
         public let path: String
 
+        /// Get a repository README for a directory
         public func get() -> Request<ContentFile> {
             .get(path)
         }
@@ -6030,14 +5866,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var releases: Releases {
         Releases(path: path + "/releases")
     }
-    
+
     public struct Releases {
         // /repos/{owner}/{repo}/releases
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6045,7 +5879,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     public var assets: Assets {
         Assets(path: path + "/assets")
     }
-    
+
     public struct Assets {
         // /repos/{owner}/{repo}/releases/assets
         public let path: String
@@ -6061,6 +5895,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         // /repos/{owner}/{repo}/releases/assets/{asset_id}
         public let path: String
 
+        /// Get a release asset
         public func get() -> Request<ReleaseAsset> {
             .get(path)
         }
@@ -6071,7 +5906,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     public var generateNotes: GenerateNotes {
         GenerateNotes(path: path + "/generate-notes")
     }
-    
+
     public struct GenerateNotes {
         // /repos/{owner}/{repo}/releases/generate-notes
         public let path: String
@@ -6084,11 +5919,12 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     public var latest: Latest {
         Latest(path: path + "/latest")
     }
-    
+
     public struct Latest {
         // /repos/{owner}/{repo}/releases/latest
         public let path: String
 
+        /// Get the latest release
         public func get() -> Request<Release> {
             .get(path)
         }
@@ -6099,7 +5935,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     public var tags: Tags {
         Tags(path: path + "/tags")
     }
-    
+
     public struct Tags {
         // /repos/{owner}/{repo}/releases/tags
         public let path: String
@@ -6115,6 +5951,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
         // /repos/{owner}/{repo}/releases/tags/{tag}
         public let path: String
 
+        /// Get a release by tag name
         public func get() -> Request<Release> {
             .get(path)
         }
@@ -6130,6 +5967,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         // /repos/{owner}/{repo}/releases/{release_id}
         public let path: String
 
+        /// Get a release
         public func get() -> Request<Release> {
             .get(path)
         }
@@ -6140,14 +5978,12 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
     public var assets: Assets {
         Assets(path: path + "/assets")
     }
-    
+
     public struct Assets {
         // /repos/{owner}/{repo}/releases/{release_id}/assets
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6155,7 +5991,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /repos/{owner}/{repo}/releases/{release_id}/reactions
         public let path: String
@@ -6168,7 +6004,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var secretScanning: SecretScanning {
         SecretScanning(path: path + "/secret-scanning")
     }
-    
+
     public struct SecretScanning {
         // /repos/{owner}/{repo}/secret-scanning
         public let path: String
@@ -6179,14 +6015,12 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
     public var alerts: Alerts {
         Alerts(path: path + "/alerts")
     }
-    
+
     public struct Alerts {
         // /repos/{owner}/{repo}/secret-scanning/alerts
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6199,6 +6033,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         // /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}
         public let path: String
 
+        /// Get a secret scanning alert
         public func get() -> Request<SecretScanningAlert> {
             .get(path)
         }
@@ -6209,14 +6044,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var stargazers: Stargazers {
         Stargazers(path: path + "/stargazers")
     }
-    
+
     public struct Stargazers {
         // /repos/{owner}/{repo}/stargazers
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6224,7 +6057,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var stats: Stats {
         Stats(path: path + "/stats")
     }
-    
+
     public struct Stats {
         // /repos/{owner}/{repo}/stats
         public let path: String
@@ -6235,14 +6068,12 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     public var codeFrequency: CodeFrequency {
         CodeFrequency(path: path + "/code_frequency")
     }
-    
+
     public struct CodeFrequency {
         // /repos/{owner}/{repo}/stats/code_frequency
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6250,14 +6081,12 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     public var commitActivity: CommitActivity {
         CommitActivity(path: path + "/commit_activity")
     }
-    
+
     public struct CommitActivity {
         // /repos/{owner}/{repo}/stats/commit_activity
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6265,14 +6094,12 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     public var contributors: Contributors {
         Contributors(path: path + "/contributors")
     }
-    
+
     public struct Contributors {
         // /repos/{owner}/{repo}/stats/contributors
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6280,11 +6107,12 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     public var participation: Participation {
         Participation(path: path + "/participation")
     }
-    
+
     public struct Participation {
         // /repos/{owner}/{repo}/stats/participation
         public let path: String
 
+        /// Get the weekly commit count
         public func get() -> Request<ParticipationStats> {
             .get(path)
         }
@@ -6295,14 +6123,12 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     public var punchCard: PunchCard {
         PunchCard(path: path + "/punch_card")
     }
-    
+
     public struct PunchCard {
         // /repos/{owner}/{repo}/stats/punch_card
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6310,7 +6136,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var statuses: Statuses {
         Statuses(path: path + "/statuses")
     }
-    
+
     public struct Statuses {
         // /repos/{owner}/{repo}/statuses
         public let path: String
@@ -6334,14 +6160,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var subscribers: Subscribers {
         Subscribers(path: path + "/subscribers")
     }
-    
+
     public struct Subscribers {
         // /repos/{owner}/{repo}/subscribers
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6349,11 +6173,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var subscription: Subscription {
         Subscription(path: path + "/subscription")
     }
-    
+
     public struct Subscription {
         // /repos/{owner}/{repo}/subscription
         public let path: String
 
+        /// Get a repository subscription
         public func get() -> Request<RepositorySubscription> {
             .get(path)
         }
@@ -6364,14 +6189,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var tags: Tags {
         Tags(path: path + "/tags")
     }
-    
+
     public struct Tags {
         // /repos/{owner}/{repo}/tags
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6379,7 +6202,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var tarball: Tarball {
         Tarball(path: path + "/tarball")
     }
-    
+
     public struct Tarball {
         // /repos/{owner}/{repo}/tarball
         public let path: String
@@ -6395,6 +6218,7 @@ extension Paths.Repos.WithOwner.WithRepo.Tarball {
         // /repos/{owner}/{repo}/tarball/{ref}
         public let path: String
 
+        /// Download a repository archive (tar)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -6405,14 +6229,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /repos/{owner}/{repo}/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6420,11 +6242,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var topics: Topics {
         Topics(path: path + "/topics")
     }
-    
+
     public struct Topics {
         // /repos/{owner}/{repo}/topics
         public let path: String
 
+        /// Get all repository topics
         public func get() -> Request<Topic> {
             .get(path)
         }
@@ -6435,7 +6258,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var traffic: Traffic {
         Traffic(path: path + "/traffic")
     }
-    
+
     public struct Traffic {
         // /repos/{owner}/{repo}/traffic
         public let path: String
@@ -6446,11 +6269,12 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     public var clones: Clones {
         Clones(path: path + "/clones")
     }
-    
+
     public struct Clones {
         // /repos/{owner}/{repo}/traffic/clones
         public let path: String
 
+        /// Get repository clones
         public func get() -> Request<CloneTraffic> {
             .get(path)
         }
@@ -6461,7 +6285,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     public var popular: Popular {
         Popular(path: path + "/popular")
     }
-    
+
     public struct Popular {
         // /repos/{owner}/{repo}/traffic/popular
         public let path: String
@@ -6472,14 +6296,12 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
     public var paths: Paths {
         Paths(path: path + "/paths")
     }
-    
+
     public struct Paths {
         // /repos/{owner}/{repo}/traffic/popular/paths
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6487,14 +6309,12 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
     public var referrers: Referrers {
         Referrers(path: path + "/referrers")
     }
-    
+
     public struct Referrers {
         // /repos/{owner}/{repo}/traffic/popular/referrers
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6502,11 +6322,12 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     public var views: Views {
         Views(path: path + "/views")
     }
-    
+
     public struct Views {
         // /repos/{owner}/{repo}/traffic/views
         public let path: String
 
+        /// Get page views
         public func get() -> Request<ViewTraffic> {
             .get(path)
         }
@@ -6517,7 +6338,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var transfer: Transfer {
         Transfer(path: path + "/transfer")
     }
-    
+
     public struct Transfer {
         // /repos/{owner}/{repo}/transfer
         public let path: String
@@ -6530,11 +6351,12 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var vulnerabilityAlerts: VulnerabilityAlerts {
         VulnerabilityAlerts(path: path + "/vulnerability-alerts")
     }
-    
+
     public struct VulnerabilityAlerts {
         // /repos/{owner}/{repo}/vulnerability-alerts
         public let path: String
 
+        /// Check if vulnerability alerts are enabled for a repository
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -6545,7 +6367,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     public var zipball: Zipball {
         Zipball(path: path + "/zipball")
     }
-    
+
     public struct Zipball {
         // /repos/{owner}/{repo}/zipball
         public let path: String
@@ -6561,6 +6383,7 @@ extension Paths.Repos.WithOwner.WithRepo.Zipball {
         // /repos/{owner}/{repo}/zipball/{ref}
         public let path: String
 
+        /// Download a repository archive (zip)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -6593,7 +6416,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
     public var generate: Generate {
         Generate(path: path + "/generate")
     }
-    
+
     public struct Generate {
         // /repos/{template_owner}/{template_repo}/generate
         public let path: String
@@ -6606,14 +6429,12 @@ extension Paths {
     public static var repositories: Repositories {
         Repositories(path: "/repositories")
     }
-    
+
     public struct Repositories {
         // /repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6632,7 +6453,7 @@ extension Paths.Repositories.WithRepositoryID {
     public var environments: Environments {
         Environments(path: path + "/environments")
     }
-    
+
     public struct Environments {
         // /repositories/{repository_id}/environments
         public let path: String
@@ -6654,14 +6475,12 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
     public var secrets: Secrets {
         Secrets(path: path + "/secrets")
     }
-    
+
     public struct Secrets {
         // /repositories/{repository_id}/environments/{environment_name}/secrets
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6669,11 +6488,12 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
     public var publicKey: PublicKey {
         PublicKey(path: path + "/public-key")
     }
-    
+
     public struct PublicKey {
         // /repositories/{repository_id}/environments/{environment_name}/secrets/public-key
         public let path: String
 
+        /// Get an environment public key
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -6689,6 +6509,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         // /repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}
         public let path: String
 
+        /// Get an environment secret
         public func get() -> Request<ActionsSecret> {
             .get(path)
         }
@@ -6699,7 +6520,7 @@ extension Paths {
     public static var scim: Scim {
         Scim(path: "/scim")
     }
-    
+
     public struct Scim {
         // /scim
         public let path: String
@@ -6710,7 +6531,7 @@ extension Paths.Scim {
     public var v2: V2 {
         V2(path: path + "/v2")
     }
-    
+
     public struct V2 {
         // /scim/v2
         public let path: String
@@ -6721,7 +6542,7 @@ extension Paths.Scim.V2 {
     public var enterprises: Enterprises {
         Enterprises(path: path + "/enterprises")
     }
-    
+
     public struct Enterprises {
         // /scim/v2/enterprises
         public let path: String
@@ -6743,11 +6564,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
     public var groups: Groups {
         Groups(path: path + "/Groups")
     }
-    
+
     public struct Groups {
         // /scim/v2/enterprises/{enterprise}/Groups
         public let path: String
 
+        /// List provisioned SCIM groups for an enterprise
         public func get() -> Request<ScimGroupListEnterprise> {
             .get(path)
         }
@@ -6763,6 +6585,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         // /scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}
         public let path: String
 
+        /// Get SCIM provisioning information for an enterprise group
         public func get() -> Request<ScimEnterpriseGroup> {
             .get(path)
         }
@@ -6773,11 +6596,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
     public var users: Users {
         Users(path: path + "/Users")
     }
-    
+
     public struct Users {
         // /scim/v2/enterprises/{enterprise}/Users
         public let path: String
 
+        /// List SCIM provisioned identities for an enterprise
         public func get() -> Request<ScimUserListEnterprise> {
             .get(path)
         }
@@ -6793,6 +6617,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         // /scim/v2/enterprises/{enterprise}/Users/{scim_user_id}
         public let path: String
 
+        /// Get SCIM provisioning information for an enterprise user
         public func get() -> Request<ScimEnterpriseUser> {
             .get(path)
         }
@@ -6803,7 +6628,7 @@ extension Paths.Scim.V2 {
     public var organizations: Organizations {
         Organizations(path: path + "/organizations")
     }
-    
+
     public struct Organizations {
         // /scim/v2/organizations
         public let path: String
@@ -6825,11 +6650,12 @@ extension Paths.Scim.V2.Organizations.WithOrg {
     public var users: Users {
         Users(path: path + "/Users")
     }
-    
+
     public struct Users {
         // /scim/v2/organizations/{org}/Users
         public let path: String
 
+        /// List SCIM provisioned identities
         public func get() -> Request<ScimUserList> {
             .get(path)
         }
@@ -6845,6 +6671,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         // /scim/v2/organizations/{org}/Users/{scim_user_id}
         public let path: String
 
+        /// Get SCIM provisioning information for a user
         public func get() -> Request<ScimUser> {
             .get(path)
         }
@@ -6855,7 +6682,7 @@ extension Paths {
     public static var search: Search {
         Search(path: "/search")
     }
-    
+
     public struct Search {
         // /search
         public let path: String
@@ -6866,14 +6693,12 @@ extension Paths.Search {
     public var code: Code {
         Code(path: path + "/code")
     }
-    
+
     public struct Code {
         // /search/code
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6881,14 +6706,12 @@ extension Paths.Search {
     public var commits: Commits {
         Commits(path: path + "/commits")
     }
-    
+
     public struct Commits {
         // /search/commits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6896,14 +6719,12 @@ extension Paths.Search {
     public var issues: Issues {
         Issues(path: path + "/issues")
     }
-    
+
     public struct Issues {
         // /search/issues
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6911,14 +6732,12 @@ extension Paths.Search {
     public var labels: Labels {
         Labels(path: path + "/labels")
     }
-    
+
     public struct Labels {
         // /search/labels
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6926,14 +6745,12 @@ extension Paths.Search {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /search/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6941,14 +6758,12 @@ extension Paths.Search {
     public var topics: Topics {
         Topics(path: path + "/topics")
     }
-    
+
     public struct Topics {
         // /search/topics
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6956,14 +6771,12 @@ extension Paths.Search {
     public var users: Users {
         Users(path: path + "/users")
     }
-    
+
     public struct Users {
         // /search/users
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6971,7 +6784,7 @@ extension Paths {
     public static var teams: Teams {
         Teams(path: "/teams")
     }
-    
+
     public struct Teams {
         // /teams
         public let path: String
@@ -6987,6 +6800,7 @@ extension Paths.Teams {
         // /teams/{team_id}
         public let path: String
 
+        /// Get a team (Legacy)
         public func get() -> Request<TeamFull> {
             .get(path)
         }
@@ -6997,14 +6811,12 @@ extension Paths.Teams.WithTeamID {
     public var discussions: Discussions {
         Discussions(path: path + "/discussions")
     }
-    
+
     public struct Discussions {
         // /teams/{team_id}/discussions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7017,6 +6829,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         // /teams/{team_id}/discussions/{discussion_number}
         public let path: String
 
+        /// Get a discussion (Legacy)
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
@@ -7027,14 +6840,12 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
     public var comments: Comments {
         Comments(path: path + "/comments")
     }
-    
+
     public struct Comments {
         // /teams/{team_id}/discussions/{discussion_number}/comments
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7047,6 +6858,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         // /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}
         public let path: String
 
+        /// Get a discussion comment (Legacy)
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
@@ -7057,14 +6869,12 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7072,14 +6882,12 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
     public var reactions: Reactions {
         Reactions(path: path + "/reactions")
     }
-    
+
     public struct Reactions {
         // /teams/{team_id}/discussions/{discussion_number}/reactions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7087,14 +6895,12 @@ extension Paths.Teams.WithTeamID {
     public var invitations: Invitations {
         Invitations(path: path + "/invitations")
     }
-    
+
     public struct Invitations {
         // /teams/{team_id}/invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7102,14 +6908,12 @@ extension Paths.Teams.WithTeamID {
     public var members: Members {
         Members(path: path + "/members")
     }
-    
+
     public struct Members {
         // /teams/{team_id}/members
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7122,6 +6926,7 @@ extension Paths.Teams.WithTeamID.Members {
         // /teams/{team_id}/members/{username}
         public let path: String
 
+        /// Get team member (Legacy)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7132,7 +6937,7 @@ extension Paths.Teams.WithTeamID {
     public var memberships: Memberships {
         Memberships(path: path + "/memberships")
     }
-    
+
     public struct Memberships {
         // /teams/{team_id}/memberships
         public let path: String
@@ -7148,6 +6953,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         // /teams/{team_id}/memberships/{username}
         public let path: String
 
+        /// Get team membership for a user (Legacy)
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
@@ -7158,14 +6964,12 @@ extension Paths.Teams.WithTeamID {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /teams/{team_id}/projects
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7178,6 +6982,7 @@ extension Paths.Teams.WithTeamID.Projects {
         // /teams/{team_id}/projects/{project_id}
         public let path: String
 
+        /// Check team permissions for a project (Legacy)
         public func get() -> Request<TeamProject> {
             .get(path)
         }
@@ -7188,14 +6993,12 @@ extension Paths.Teams.WithTeamID {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /teams/{team_id}/repos
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7219,6 +7022,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         // /teams/{team_id}/repos/{owner}/{repo}
         public let path: String
 
+        /// Check team permissions for a repository (Legacy)
         public func get() -> Request<TeamRepository> {
             .get(path)
         }
@@ -7229,7 +7033,7 @@ extension Paths.Teams.WithTeamID {
     public var teamSync: TeamSync {
         TeamSync(path: path + "/team-sync")
     }
-    
+
     public struct TeamSync {
         // /teams/{team_id}/team-sync
         public let path: String
@@ -7240,11 +7044,12 @@ extension Paths.Teams.WithTeamID.TeamSync {
     public var groupMappings: GroupMappings {
         GroupMappings(path: path + "/group-mappings")
     }
-    
+
     public struct GroupMappings {
         // /teams/{team_id}/team-sync/group-mappings
         public let path: String
 
+        /// List IdP groups for a team (Legacy)
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -7255,14 +7060,12 @@ extension Paths.Teams.WithTeamID {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /teams/{team_id}/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7270,14 +7073,12 @@ extension Paths {
     public static var user: User {
         User(path: "/user")
     }
-    
+
     public struct User {
         // /user
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7285,14 +7086,12 @@ extension Paths.User {
     public var blocks: Blocks {
         Blocks(path: path + "/blocks")
     }
-    
+
     public struct Blocks {
         // /user/blocks
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7305,6 +7104,7 @@ extension Paths.User.Blocks {
         // /user/blocks/{username}
         public let path: String
 
+        /// Check if a user is blocked by the authenticated user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7315,14 +7115,12 @@ extension Paths.User {
     public var codespaces: Codespaces {
         Codespaces(path: path + "/codespaces")
     }
-    
+
     public struct Codespaces {
         // /user/codespaces
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7330,14 +7128,12 @@ extension Paths.User.Codespaces {
     public var secrets: Secrets {
         Secrets(path: path + "/secrets")
     }
-    
+
     public struct Secrets {
         // /user/codespaces/secrets
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7345,11 +7141,12 @@ extension Paths.User.Codespaces.Secrets {
     public var publicKey: PublicKey {
         PublicKey(path: path + "/public-key")
     }
-    
+
     public struct PublicKey {
         // /user/codespaces/secrets/public-key
         public let path: String
 
+        /// Get public key for the authenticated user
         public func get() -> Request<CodespacesUserPublicKey> {
             .get(path)
         }
@@ -7365,6 +7162,7 @@ extension Paths.User.Codespaces.Secrets {
         // /user/codespaces/secrets/{secret_name}
         public let path: String
 
+        /// Get a secret for the authenticated user
         public func get() -> Request<CodespacesSecret> {
             .get(path)
         }
@@ -7375,14 +7173,12 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /user/codespaces/secrets/{secret_name}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7408,6 +7204,7 @@ extension Paths.User.Codespaces {
         // /user/codespaces/{codespace_name}
         public let path: String
 
+        /// Get a codespace for the authenticated user
         public func get() -> Request<Codespace> {
             .get(path)
         }
@@ -7418,14 +7215,12 @@ extension Paths.User.Codespaces.WithCodespaceName {
     public var machines: Machines {
         Machines(path: path + "/machines")
     }
-    
+
     public struct Machines {
         // /user/codespaces/{codespace_name}/machines
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7433,7 +7228,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
     public var start: Start {
         Start(path: path + "/start")
     }
-    
+
     public struct Start {
         // /user/codespaces/{codespace_name}/start
         public let path: String
@@ -7446,7 +7241,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
     public var stop: Stop {
         Stop(path: path + "/stop")
     }
-    
+
     public struct Stop {
         // /user/codespaces/{codespace_name}/stop
         public let path: String
@@ -7459,7 +7254,7 @@ extension Paths.User {
     public var email: Email {
         Email(path: path + "/email")
     }
-    
+
     public struct Email {
         // /user/email
         public let path: String
@@ -7470,7 +7265,7 @@ extension Paths.User.Email {
     public var visibility: Visibility {
         Visibility(path: path + "/visibility")
     }
-    
+
     public struct Visibility {
         // /user/email/visibility
         public let path: String
@@ -7483,14 +7278,12 @@ extension Paths.User {
     public var emails: Emails {
         Emails(path: path + "/emails")
     }
-    
+
     public struct Emails {
         // /user/emails
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7498,14 +7291,12 @@ extension Paths.User {
     public var followers: Followers {
         Followers(path: path + "/followers")
     }
-    
+
     public struct Followers {
         // /user/followers
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7513,14 +7304,12 @@ extension Paths.User {
     public var following: Following {
         Following(path: path + "/following")
     }
-    
+
     public struct Following {
         // /user/following
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7533,6 +7322,7 @@ extension Paths.User.Following {
         // /user/following/{username}
         public let path: String
 
+        /// Check if a person is followed by the authenticated user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7543,14 +7333,12 @@ extension Paths.User {
     public var gpgKeys: GpgKeys {
         GpgKeys(path: path + "/gpg_keys")
     }
-    
+
     public struct GpgKeys {
         // /user/gpg_keys
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7563,6 +7351,7 @@ extension Paths.User.GpgKeys {
         // /user/gpg_keys/{gpg_key_id}
         public let path: String
 
+        /// Get a GPG key for the authenticated user
         public func get() -> Request<GpgKey> {
             .get(path)
         }
@@ -7573,14 +7362,12 @@ extension Paths.User {
     public var installations: Installations {
         Installations(path: path + "/installations")
     }
-    
+
     public struct Installations {
         // /user/installations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7599,14 +7386,12 @@ extension Paths.User.Installations.WithInstallationID {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /user/installations/{installation_id}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7627,14 +7412,12 @@ extension Paths.User {
     public var interactionLimits: InteractionLimits {
         InteractionLimits(path: path + "/interaction-limits")
     }
-    
+
     public struct InteractionLimits {
         // /user/interaction-limits
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7642,14 +7425,12 @@ extension Paths.User {
     public var issues: Issues {
         Issues(path: path + "/issues")
     }
-    
+
     public struct Issues {
         // /user/issues
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7657,14 +7438,12 @@ extension Paths.User {
     public var keys: Keys {
         Keys(path: path + "/keys")
     }
-    
+
     public struct Keys {
         // /user/keys
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7677,6 +7456,7 @@ extension Paths.User.Keys {
         // /user/keys/{key_id}
         public let path: String
 
+        /// Get a public SSH key for the authenticated user
         public func get() -> Request<Key> {
             .get(path)
         }
@@ -7687,14 +7467,12 @@ extension Paths.User {
     public var marketplacePurchases: MarketplacePurchases {
         MarketplacePurchases(path: path + "/marketplace_purchases")
     }
-    
+
     public struct MarketplacePurchases {
         // /user/marketplace_purchases
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7702,14 +7480,12 @@ extension Paths.User.MarketplacePurchases {
     public var stubbed: Stubbed {
         Stubbed(path: path + "/stubbed")
     }
-    
+
     public struct Stubbed {
         // /user/marketplace_purchases/stubbed
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7717,7 +7493,7 @@ extension Paths.User {
     public var memberships: Memberships {
         Memberships(path: path + "/memberships")
     }
-    
+
     public struct Memberships {
         // /user/memberships
         public let path: String
@@ -7728,14 +7504,12 @@ extension Paths.User.Memberships {
     public var orgs: Orgs {
         Orgs(path: path + "/orgs")
     }
-    
+
     public struct Orgs {
         // /user/memberships/orgs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7748,6 +7522,7 @@ extension Paths.User.Memberships.Orgs {
         // /user/memberships/orgs/{org}
         public let path: String
 
+        /// Get an organization membership for the authenticated user
         public func get() -> Request<OrgMembership> {
             .get(path)
         }
@@ -7758,14 +7533,12 @@ extension Paths.User {
     public var migrations: Migrations {
         Migrations(path: path + "/migrations")
     }
-    
+
     public struct Migrations {
         // /user/migrations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7778,6 +7551,7 @@ extension Paths.User.Migrations {
         // /user/migrations/{migration_id}
         public let path: String
 
+        /// Get a user migration status
         public func get() -> Request<Migration> {
             .get(path)
         }
@@ -7788,11 +7562,12 @@ extension Paths.User.Migrations.WithMigrationID {
     public var archive: Archive {
         Archive(path: path + "/archive")
     }
-    
+
     public struct Archive {
         // /user/migrations/{migration_id}/archive
         public let path: String
 
+        /// Download a user migration archive
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7803,7 +7578,7 @@ extension Paths.User.Migrations.WithMigrationID {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /user/migrations/{migration_id}/repos
         public let path: String
@@ -7825,7 +7600,7 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
     public var lock: Lock {
         Lock(path: path + "/lock")
     }
-    
+
     public struct Lock {
         // /user/migrations/{migration_id}/repos/{repo_name}/lock
         public let path: String
@@ -7838,14 +7613,12 @@ extension Paths.User.Migrations.WithMigrationID {
     public var repositories: Repositories {
         Repositories(path: path + "/repositories")
     }
-    
+
     public struct Repositories {
         // /user/migrations/{migration_id}/repositories
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7853,14 +7626,12 @@ extension Paths.User {
     public var orgs: Orgs {
         Orgs(path: path + "/orgs")
     }
-    
+
     public struct Orgs {
         // /user/orgs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7868,14 +7639,12 @@ extension Paths.User {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /user/packages
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7899,6 +7668,7 @@ extension Paths.User.Packages.WithPackageType {
         // /user/packages/{package_type}/{package_name}
         public let path: String
 
+        /// Get a package for the authenticated user
         public func get() -> Request<Package> {
             .get(path)
         }
@@ -7909,7 +7679,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /user/packages/{package_type}/{package_name}/restore
         public let path: String
@@ -7922,14 +7692,12 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
     public var versions: Versions {
         Versions(path: path + "/versions")
     }
-    
+
     public struct Versions {
         // /user/packages/{package_type}/{package_name}/versions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7942,6 +7710,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         // /user/packages/{package_type}/{package_name}/versions/{package_version_id}
         public let path: String
 
+        /// Get a package version for the authenticated user
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
@@ -7952,7 +7721,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions.WithPacka
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
         public let path: String
@@ -7965,7 +7734,7 @@ extension Paths.User {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /user/projects
         public let path: String
@@ -7978,14 +7747,12 @@ extension Paths.User {
     public var publicEmails: PublicEmails {
         PublicEmails(path: path + "/public_emails")
     }
-    
+
     public struct PublicEmails {
         // /user/public_emails
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -7993,14 +7760,12 @@ extension Paths.User {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /user/repos
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8008,14 +7773,12 @@ extension Paths.User {
     public var repositoryInvitations: RepositoryInvitations {
         RepositoryInvitations(path: path + "/repository_invitations")
     }
-    
+
     public struct RepositoryInvitations {
         // /user/repository_invitations
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8036,14 +7799,12 @@ extension Paths.User {
     public var starred: Starred {
         Starred(path: path + "/starred")
     }
-    
+
     public struct Starred {
         // /user/starred
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8067,6 +7828,7 @@ extension Paths.User.Starred.WithOwner {
         // /user/starred/{owner}/{repo}
         public let path: String
 
+        /// Check if a repository is starred by the authenticated user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -8077,14 +7839,12 @@ extension Paths.User {
     public var subscriptions: Subscriptions {
         Subscriptions(path: path + "/subscriptions")
     }
-    
+
     public struct Subscriptions {
         // /user/subscriptions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8092,14 +7852,12 @@ extension Paths.User {
     public var teams: Teams {
         Teams(path: path + "/teams")
     }
-    
+
     public struct Teams {
         // /user/teams
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8107,14 +7865,12 @@ extension Paths {
     public static var users: Users {
         Users(path: "/users")
     }
-    
+
     public struct Users {
         // /users
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8127,9 +7883,7 @@ extension Paths.Users {
         // /users/{username}
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8137,14 +7891,12 @@ extension Paths.Users.WithUsername {
     public var events: Events {
         Events(path: path + "/events")
     }
-    
+
     public struct Events {
         // /users/{username}/events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8152,7 +7904,7 @@ extension Paths.Users.WithUsername.Events {
     public var orgs: Orgs {
         Orgs(path: path + "/orgs")
     }
-    
+
     public struct Orgs {
         // /users/{username}/events/orgs
         public let path: String
@@ -8168,9 +7920,7 @@ extension Paths.Users.WithUsername.Events.Orgs {
         // /users/{username}/events/orgs/{org}
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8178,14 +7928,12 @@ extension Paths.Users.WithUsername.Events {
     public var `public`: Public {
         Public(path: path + "/public")
     }
-    
+
     public struct Public {
         // /users/{username}/events/public
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8193,14 +7941,12 @@ extension Paths.Users.WithUsername {
     public var followers: Followers {
         Followers(path: path + "/followers")
     }
-    
+
     public struct Followers {
         // /users/{username}/followers
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8208,14 +7954,12 @@ extension Paths.Users.WithUsername {
     public var following: Following {
         Following(path: path + "/following")
     }
-    
+
     public struct Following {
         // /users/{username}/following
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8228,6 +7972,7 @@ extension Paths.Users.WithUsername.Following {
         // /users/{username}/following/{target_user}
         public let path: String
 
+        /// Check if a user follows another user
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -8238,14 +7983,12 @@ extension Paths.Users.WithUsername {
     public var gists: Gists {
         Gists(path: path + "/gists")
     }
-    
+
     public struct Gists {
         // /users/{username}/gists
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8253,14 +7996,12 @@ extension Paths.Users.WithUsername {
     public var gpgKeys: GpgKeys {
         GpgKeys(path: path + "/gpg_keys")
     }
-    
+
     public struct GpgKeys {
         // /users/{username}/gpg_keys
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8268,11 +8009,12 @@ extension Paths.Users.WithUsername {
     public var hovercard: Hovercard {
         Hovercard(path: path + "/hovercard")
     }
-    
+
     public struct Hovercard {
         // /users/{username}/hovercard
         public let path: String
 
+        /// Get contextual information for a user
         public func get() -> Request<Hovercard> {
             .get(path)
         }
@@ -8283,11 +8025,12 @@ extension Paths.Users.WithUsername {
     public var installation: Installation {
         Installation(path: path + "/installation")
     }
-    
+
     public struct Installation {
         // /users/{username}/installation
         public let path: String
 
+        /// Get a user installation for the authenticated app
         public func get() -> Request<Installation> {
             .get(path)
         }
@@ -8298,14 +8041,12 @@ extension Paths.Users.WithUsername {
     public var keys: Keys {
         Keys(path: path + "/keys")
     }
-    
+
     public struct Keys {
         // /users/{username}/keys
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8313,14 +8054,12 @@ extension Paths.Users.WithUsername {
     public var orgs: Orgs {
         Orgs(path: path + "/orgs")
     }
-    
+
     public struct Orgs {
         // /users/{username}/orgs
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8328,14 +8067,12 @@ extension Paths.Users.WithUsername {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /users/{username}/packages
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8359,6 +8096,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         // /users/{username}/packages/{package_type}/{package_name}
         public let path: String
 
+        /// Get a package for a user
         public func get() -> Request<Package> {
             .get(path)
         }
@@ -8369,7 +8107,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /users/{username}/packages/{package_type}/{package_name}/restore
         public let path: String
@@ -8382,14 +8120,12 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
     public var versions: Versions {
         Versions(path: path + "/versions")
     }
-    
+
     public struct Versions {
         // /users/{username}/packages/{package_type}/{package_name}/versions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8402,6 +8138,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         // /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}
         public let path: String
 
+        /// Get a package version for a user
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
@@ -8412,7 +8149,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
     public var restore: Restore {
         Restore(path: path + "/restore")
     }
-    
+
     public struct Restore {
         // /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
         public let path: String
@@ -8425,14 +8162,12 @@ extension Paths.Users.WithUsername {
     public var projects: Projects {
         Projects(path: path + "/projects")
     }
-    
+
     public struct Projects {
         // /users/{username}/projects
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8440,14 +8175,12 @@ extension Paths.Users.WithUsername {
     public var receivedEvents: ReceivedEvents {
         ReceivedEvents(path: path + "/received_events")
     }
-    
+
     public struct ReceivedEvents {
         // /users/{username}/received_events
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8455,14 +8188,12 @@ extension Paths.Users.WithUsername.ReceivedEvents {
     public var `public`: Public {
         Public(path: path + "/public")
     }
-    
+
     public struct Public {
         // /users/{username}/received_events/public
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8470,14 +8201,12 @@ extension Paths.Users.WithUsername {
     public var repos: Repos {
         Repos(path: path + "/repos")
     }
-    
+
     public struct Repos {
         // /users/{username}/repos
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8485,7 +8214,7 @@ extension Paths.Users.WithUsername {
     public var settings: Settings {
         Settings(path: path + "/settings")
     }
-    
+
     public struct Settings {
         // /users/{username}/settings
         public let path: String
@@ -8496,7 +8225,7 @@ extension Paths.Users.WithUsername.Settings {
     public var billing: Billing {
         Billing(path: path + "/billing")
     }
-    
+
     public struct Billing {
         // /users/{username}/settings/billing
         public let path: String
@@ -8507,11 +8236,12 @@ extension Paths.Users.WithUsername.Settings.Billing {
     public var actions: Actions {
         Actions(path: path + "/actions")
     }
-    
+
     public struct Actions {
         // /users/{username}/settings/billing/actions
         public let path: String
 
+        /// Get GitHub Actions billing for a user
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -8522,11 +8252,12 @@ extension Paths.Users.WithUsername.Settings.Billing {
     public var packages: Packages {
         Packages(path: path + "/packages")
     }
-    
+
     public struct Packages {
         // /users/{username}/settings/billing/packages
         public let path: String
 
+        /// Get GitHub Packages billing for a user
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -8537,11 +8268,12 @@ extension Paths.Users.WithUsername.Settings.Billing {
     public var sharedStorage: SharedStorage {
         SharedStorage(path: path + "/shared-storage")
     }
-    
+
     public struct SharedStorage {
         // /users/{username}/settings/billing/shared-storage
         public let path: String
 
+        /// Get shared storage billing for a user
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }
@@ -8552,14 +8284,12 @@ extension Paths.Users.WithUsername {
     public var starred: Starred {
         Starred(path: path + "/starred")
     }
-    
+
     public struct Starred {
         // /users/{username}/starred
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8567,14 +8297,12 @@ extension Paths.Users.WithUsername {
     public var subscriptions: Subscriptions {
         Subscriptions(path: path + "/subscriptions")
     }
-    
+
     public struct Subscriptions {
         // /users/{username}/subscriptions
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
@@ -8582,14 +8310,12 @@ extension Paths {
     public static var zen: Zen {
         Zen(path: "/zen")
     }
-    
+
     public struct Zen {
         // /zen
         public let path: String
 
-        public func get() -> Request<Void> {
-            .get(path)
-        }
+
     }
 }
 
