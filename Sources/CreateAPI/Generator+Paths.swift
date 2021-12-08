@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Disambiguate Scheme/Package (but only if necessary?)
 // TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
 //    - allowReserved
 //    - components.parameters
@@ -150,7 +151,7 @@ extension Generator {
     private func makeMethods(for item: OpenAPI.PathItem) -> String {
         [
             item.get.flatMap { makeMethod(for: $0, method: "get") },
-//            item.post.flatMap { makeMethod(for: $0, method: "post") },
+            item.post.flatMap { makeMethod(for: $0, method: "post") },
 //            item.put.flatMap { makeMethod(for: $0, method: "put") },
 //            item.patch.flatMap { makeMethod(for: $0, method: "patch") },
 //            item.delete.flatMap { makeMethod(for: $0, method: "delete") },
@@ -200,6 +201,15 @@ extension Generator {
         return output.indented
     }
     
+    // TODO: Generate -parameter documentation
+    // TODO: Automatically pick application/json
+    // TODO: Add application/x-www-form-urlencoded support
+    // TODO: Add text/plain support
+    // TODO: Add binary support
+    // TODO: Add "optional" support
+    // TODO: Add "image*" support
+    // TODO: Add anyOf, oneOf support
+    // TODO: Add uploads support
     private func makeRequestBody(for operation: OpenAPI.Operation) throws -> String {
         guard let requestBody = operation.requestBody else {
             // TODO: Is is the correct handling?
@@ -208,6 +218,32 @@ extension Generator {
         
         switch requestBody {
         case .a(let reference):
+            guard let name = reference.name else {
+                throw GeneratorError("Inalid reference")
+            }
+            guard let key = OpenAPI.ComponentKey(rawValue: name), let request = spec.components.requestBodies[key] else {
+                throw GeneratorError("Failed to find a requesty body named \(name)")
+            }
+        
+            if let content = request.content[.json] {
+                // TODO: Add description
+                // TODO: Parse example
+                // TODO: Make sure this is correct
+                switch content.schema {
+                case .a(let reference):
+                    // TODO: what about nested types?
+                    return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                case .b(let schema):
+                    // TODO: what about nested types?
+                    return try makeProperty(key: "response", schema: schema, isRequired: true, in: Context(parents: [])).type
+                default:
+                    throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
+                }
+            } else {
+                throw GeneratorError("No supported content types: \(request.content.keys)")
+            }
+            
+            #warning("TEMP")
             switch reference {
             case .internal(let reference):
                 return reference.name ?? "Void"
@@ -233,7 +269,7 @@ extension Generator {
             }
         }
     }
-    
+        
     // TODO: Add text/plain schema: type String support
     // TODO: Add inline array/dictionary responses
     // TODO: Generate proper nested response types (<PathComponent>Response)
@@ -264,7 +300,7 @@ extension Generator {
         case .b(let scheme):
             if scheme.content.values.isEmpty {
                 return "Void"
-            } else if let content = scheme.content.values.first {
+            } else if let content = scheme.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):

@@ -17,7 +17,10 @@ extension Paths {
 		// /pet
 		public let path: String
 
-
+		/// Add a new pet to the store
+		public func post(_ body: Pet) -> Request<Void> {
+			.post(path, body: body)
+		}
 	}
 }
 
@@ -109,7 +112,10 @@ extension Paths.Store {
 		// /store/order
 		public let path: String
 
-
+		/// Place an order for a pet
+		public func post(_ body: Order) -> Request<Order> {
+			.post(path, body: body)
+		}
 	}
 }
 
@@ -138,7 +144,10 @@ extension Paths {
 		// /user
 		public let path: String
 
-
+		/// Create user
+		public func post(_ body: User) -> Request<Void> {
+			.post(path, body: body)
+		}
 	}
 }
 
@@ -151,7 +160,10 @@ extension Paths.User {
 		// /user/createWithArray
 		public let path: String
 
-
+		/// Creates list of users with given input array
+		public func post(_ body: [User]) -> Request<Void> {
+			.post(path, body: body)
+		}
 	}
 }
 
@@ -164,7 +176,10 @@ extension Paths.User {
 		// /user/createWithList
 		public let path: String
 
-
+		/// Creates list of users with given input array
+		public func post(_ body: [User]) -> Request<Void> {
+			.post(path, body: body)
+		}
 	}
 }
 

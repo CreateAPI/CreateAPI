@@ -4065,7 +4065,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         // /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}
         public let path: String
 
-
+        /// Get a code scanning analysis for a repository
+        public func get() -> Request<CodeScanningAnalysis> {
+            .get(path)
+        }
     }
 }
 
@@ -4467,10 +4470,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         // /repos/{owner}/{repo}/contents/{path}
         public let path: String
 
-        /// Get repository content
-        public func get() -> Request<ContentTree> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6655,10 +6655,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         // /scim/v2/organizations/{org}/Users
         public let path: String
 
-        /// List SCIM provisioned identities
-        public func get() -> Request<ScimUserList> {
-            .get(path)
-        }
+
     }
 }
 
@@ -6671,10 +6668,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         // /scim/v2/organizations/{org}/Users/{scim_user_id}
         public let path: String
 
-        /// Get SCIM provisioning information for a user
-        public func get() -> Request<ScimUser> {
-            .get(path)
-        }
+
     }
 }
 
