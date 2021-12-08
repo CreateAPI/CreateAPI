@@ -6,8 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Refactor so we could easily reuse code with GenerateSchemas
-// TODO: Figure out unit-testing situation for paths
 // TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
 //    - allowReserved
 //    - components.parameters
@@ -29,7 +27,6 @@ import GrammaticalNumber
 // TODO: Add an option to use operationId as method name
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
-// TODO: Add namespace to schems (package?)
 
 extension Generator {
     
@@ -133,7 +130,7 @@ extension Generator {
     // TODO: Add remaining methods
     private func makeMethods(for item: OpenAPI.PathItem) -> String {
         [
-            item.get.map { makeMethod(for: $0, method: "get") },
+            item.get.flatMap { makeMethod(for: $0, method: "get") },
 //            item.put.map { makeMethod(for: $0, method: "put") },
 //            item.post.map { makeMethod(for: $0, method: "post") },
 //            item.delete.map { makeMethod(for: $0, method: "delete") },
@@ -146,20 +143,31 @@ extension Generator {
             .joined(separator: "\n\n")
     }
     
+    // TODO: Add namespace to schems (package?)
     // TODO: Inject offset as a parameter
     // TODO: Add support for operationId
     // TODO: Add a way to disamiguate if responses have oneOf
-    private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String {
-        let response = makeResponse(for: operation)
-        
+    private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String? {
+        do {
+        let response = try makeResponse(for: operation)
         return """
                 \(access)func \(method)() -> Request<\(response)> {
                     .\(method)(path)
                 }
         """
+        } catch {
+            print("ERROR: Failed to generate path \(method) for \(operation): \(error)")
+            return nil
+        }
     }
     
-    private func makeResponse(for operation: OpenAPI.Operation) -> String {
+    // TODO: Add text/plain schema: type String support
+    // TODO: Add inline array/dictionary responses
+    // TODO: Generate proper nested response types (<PathComponent>Response)
+    // TODO: application/pdf and other binary files
+    // TODO: 204 (empty response body)
+    // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
+    private func makeResponse(for operation: OpenAPI.Operation) throws -> String {
         // TODO: What if there is more than one? (find only successful)
         guard let response = operation.responses.first?.value else {
             return "Void"
@@ -173,11 +181,8 @@ extension Generator {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
-                    if let name = reference.name {
-                        return makeTypeName(name).rawValue
-                    } else {
-                        print("ERROR: refernence name missing \(operation.description ?? "")")
-                    }
+                    // TODO: what about nested types?
+                    return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
                 case .b(let schema):
                     print("ERROR: response inline scheme not handled \(operation.description ?? "")")
                 default:

@@ -17,6 +17,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     if env["GENERATE_SNAPSHOTS"] == "true" || !FileManager.default.fileExists(atPath: expectedURL.path) {
         let projectPath = (projectPath as NSString).expandingTildeInPath
         let destinationURL = URL(fileURLWithPath: projectPath + "/Tests/CreateAPITests/Expected/\(actualURL.lastPathComponent)")
+        try? FileManager.default.removeItem(at: destinationURL)
         try FileManager.default.copyItem(at: actualURL, to: destinationURL)
     } else {
         try diff(expectedURL: expectedURL, actualURL: actualURL, file: file, line: line)

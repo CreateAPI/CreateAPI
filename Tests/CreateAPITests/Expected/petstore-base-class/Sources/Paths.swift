@@ -17,7 +17,7 @@ extension Paths {
         // /pets
         public let path: String
 
-        public func get() -> Request<Pets> {
+        public func get() -> Request<[Pet]> {
             .get(path)
         }
     }
