@@ -7,6 +7,7 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Disambiguate Scheme/Package (but only if necessary?)
+// TODO: (+Get) How to access response headers, e.g. `x-next` in Petstore/pets.get
 // TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
 //    - allowReserved
 //    - components.parameters
