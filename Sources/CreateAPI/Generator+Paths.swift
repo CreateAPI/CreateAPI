@@ -152,12 +152,12 @@ extension Generator {
         [
             item.get.flatMap { makeMethod(for: $0, method: "get") },
             item.post.flatMap { makeMethod(for: $0, method: "post") },
-//            item.put.flatMap { makeMethod(for: $0, method: "put") },
-//            item.patch.flatMap { makeMethod(for: $0, method: "patch") },
-//            item.delete.flatMap { makeMethod(for: $0, method: "delete") },
-//            item.options.flatMap { makeMethod(for: $0, method: "options") },
-//            item.head.flatMap { makeMethod(for: $0, method: "head") },
-//            item.trace.flatMap { makeMethod(for: $0, method: "trace") },
+            item.put.flatMap { makeMethod(for: $0, method: "put") },
+            item.patch.flatMap { makeMethod(for: $0, method: "patch") },
+            item.delete.flatMap { makeMethod(for: $0, method: "delete") },
+            item.options.flatMap { makeMethod(for: $0, method: "options") },
+            item.head.flatMap { makeMethod(for: $0, method: "head") },
+            item.trace.flatMap { makeMethod(for: $0, method: "trace") },
         ]
             .compactMap { $0 }
             .map { $0.indented }

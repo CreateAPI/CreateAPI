@@ -154,6 +154,11 @@ extension Paths.App.Installations {
         public func get() -> Request<Installation> {
             .get(path)
         }
+
+        /// Delete an installation for the authenticated app
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -179,7 +184,10 @@ extension Paths.App.Installations.WithInstallationID {
         // /app/installations/{installation_id}/suspended
         public let path: String
 
-
+        /// Unsuspend an app installation
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -220,6 +228,11 @@ extension Paths.Applications.Grants {
         public func get() -> Request<ApplicationGrant> {
             .get(path)
         }
+
+        /// Delete a grant
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -243,7 +256,10 @@ extension Paths.Applications.WithClientID {
         // /applications/{client_id}/grant
         public let path: String
 
-
+        /// Delete an app authorization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -256,7 +272,10 @@ extension Paths.Applications.WithClientID {
         // /applications/{client_id}/token
         public let path: String
 
-
+        /// Delete an app token
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -362,6 +381,11 @@ extension Paths.Authorizations {
         /// Get a single authorization
         public func get() -> Request<Authorization> {
             .get(path)
+        }
+
+        /// Delete an authorization
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -479,7 +503,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         // /enterprises/{enterprise}/actions/permissions/organizations/{org_id}
         public let path: String
 
-
+        /// Disable a selected organization for GitHub Actions in an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -495,6 +522,11 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// Get allowed actions for an enterprise
         public func get() -> Request<SelectedActions> {
             .get(path)
+        }
+
+        /// Set allowed actions for an enterprise
+        public func put(_ body: SelectedActions) -> Request<Void> {
+            .put(path, body: body)
         }
     }
 }
@@ -525,6 +557,11 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         public func get() -> Request<RunnerGroupsEnterprise> {
             .get(path)
         }
+
+        /// Delete a self-hosted runner group from an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -550,7 +587,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}
         public let path: String
 
-
+        /// Remove organization access to a self-hosted runner group in an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -576,7 +616,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}
         public let path: String
 
-
+        /// Remove a self-hosted runner from a group for an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -644,6 +687,11 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Get a self-hosted runner for an enterprise
         public func get() -> Request<Runner> {
             .get(path)
+        }
+
+        /// Delete a self-hosted runner from an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -828,6 +876,11 @@ extension Paths.Gists {
         public func get() -> Request<GistSimple> {
             .get(path)
         }
+
+        /// Delete a gist
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -856,6 +909,11 @@ extension Paths.Gists.WithGistID.Comments {
         /// Get a gist comment
         public func get() -> Request<GistComment> {
             .get(path)
+        }
+
+        /// Delete a gist comment
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -898,6 +956,11 @@ extension Paths.Gists.WithGistID {
         /// Check if a gist is starred
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Unstar a gist
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -991,7 +1054,10 @@ extension Paths.Installation {
         // /installation/token
         public let path: String
 
-
+        /// Revoke an installation access token
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1328,6 +1394,11 @@ extension Paths.Notifications.Threads.WithThreadID {
         public func get() -> Request<ThreadSubscription> {
             .get(path)
         }
+
+        /// Delete a thread subscription
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1457,7 +1528,10 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         // /orgs/{org}/actions/permissions/repositories/{repository_id}
         public let path: String
 
-
+        /// Disable a selected repository for GitHub Actions in an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1473,6 +1547,11 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// Get allowed actions for an organization
         public func get() -> Request<SelectedActions> {
             .get(path)
+        }
+
+        /// Set allowed actions for an organization
+        public func put(_ body: SelectedActions) -> Request<Void> {
+            .put(path, body: body)
         }
     }
 }
@@ -1503,6 +1582,11 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         public func get() -> Request<RunnerGroupsOrg> {
             .get(path)
         }
+
+        /// Delete a self-hosted runner group from an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1528,7 +1612,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         // /orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}
         public let path: String
 
-
+        /// Remove repository access to a self-hosted runner group in an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1554,7 +1641,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         // /orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}
         public let path: String
 
-
+        /// Remove a self-hosted runner from a group for an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1623,6 +1713,11 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         public func get() -> Request<Runner> {
             .get(path)
         }
+
+        /// Delete a self-hosted runner from an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1668,6 +1763,11 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         public func get() -> Request<OrganizationActionsSecret> {
             .get(path)
         }
+
+        /// Delete an organization secret
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1693,7 +1793,10 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
         // /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}
         public let path: String
 
-
+        /// Remove selected repository from an organization secret
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1736,6 +1839,11 @@ extension Paths.Orgs.WithOrg.Blocks {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Unblock a user from an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1761,7 +1869,10 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
         // /orgs/{org}/credential-authorizations/{credential_id}
         public let path: String
 
-
+        /// Remove a SAML SSO authorization for an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1859,6 +1970,11 @@ extension Paths.Orgs.WithOrg.Hooks {
         /// Get an organization webhook
         public func get() -> Request<OrgHook> {
             .get(path)
+        }
+
+        /// Delete an organization webhook
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -1972,7 +2088,15 @@ extension Paths.Orgs.WithOrg {
         // /orgs/{org}/interaction-limits
         public let path: String
 
+        /// Set interaction restrictions for an organization
+        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+            .put(path, body: body)
+        }
 
+        /// Remove interaction restrictions for an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -1998,7 +2122,10 @@ extension Paths.Orgs.WithOrg.Invitations {
         // /orgs/{org}/invitations/{invitation_id}
         public let path: String
 
-
+        /// Cancel an organization invitation
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2054,6 +2181,11 @@ extension Paths.Orgs.WithOrg.Members {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Remove an organization member
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2080,6 +2212,11 @@ extension Paths.Orgs.WithOrg.Memberships {
         /// Get organization membership for a user
         public func get() -> Request<OrgMembership> {
             .get(path)
+        }
+
+        /// Remove organization membership for a user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2126,6 +2263,11 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Delete an organization migration archive
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2160,7 +2302,10 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
         // /orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock
         public let path: String
 
-
+        /// Unlock an organization repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2199,7 +2344,10 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         // /orgs/{org}/outside_collaborators/{username}
         public let path: String
 
-
+        /// Remove outside collaborator from an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2239,6 +2387,11 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         /// Get a package for an organization
         public func get() -> Request<Package> {
             .get(path)
+        }
+
+        /// Delete a package for an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2281,6 +2434,11 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         /// Get a package version for an organization
         public func get() -> Request<PackageVersion> {
             .get(path)
+        }
+
+        /// Delete package version for an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2336,6 +2494,11 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         /// Check public organization membership for a user
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Remove public organization membership for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2516,6 +2679,11 @@ extension Paths.Orgs.WithOrg.Teams {
         public func get() -> Request<TeamFull> {
             .get(path)
         }
+
+        /// Delete a team
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2544,6 +2712,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// Get a discussion
         public func get() -> Request<TeamDiscussion> {
             .get(path)
+        }
+
+        /// Delete a discussion
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2574,6 +2747,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
+
+        /// Delete a discussion comment
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2599,7 +2777,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete team discussion comment reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2625,7 +2806,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete team discussion reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2638,7 +2822,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         // /orgs/{org}/teams/{team_slug}/external-groups
         public let path: String
 
-
+        /// Remove the connection between an external group and a team
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2692,6 +2879,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
+
+        /// Remove team membership for a user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2720,6 +2912,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// Check team permissions for a project
         public func get() -> Request<TeamProject> {
             .get(path)
+        }
+
+        /// Remove a project from a team
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2760,6 +2957,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// Check team permissions for a repository
         public func get() -> Request<TeamRepository> {
             .get(path)
+        }
+
+        /// Remove a repository from a team
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2850,6 +3052,11 @@ extension Paths.Projects.Columns.Cards {
         public func get() -> Request<ProjectCard> {
             .get(path)
         }
+
+        /// Delete a project card
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2878,6 +3085,11 @@ extension Paths.Projects.Columns {
         /// Get a project column
         public func get() -> Request<ProjectColumn> {
             .get(path)
+        }
+
+        /// Delete a project column
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -2921,6 +3133,11 @@ extension Paths.Projects {
         public func get() -> Request<Project> {
             .get(path)
         }
+
+        /// Delete a project
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -2946,7 +3163,10 @@ extension Paths.Projects.WithProjectID.Collaborators {
         // /projects/{project_id}/collaborators/{username}
         public let path: String
 
-
+        /// Remove user as a collaborator
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3015,7 +3235,10 @@ extension Paths.Reactions {
         // /reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete a reaction (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3053,6 +3276,11 @@ extension Paths.Repos.WithOwner {
         /// Get a repository
         public func get() -> Request<FullRepository> {
             .get(path)
+        }
+
+        /// Delete a repository
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3093,6 +3321,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         /// Get an artifact
         public func get() -> Request<Artifact> {
             .get(path)
+        }
+
+        /// Delete an artifact
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3185,6 +3418,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         public func get() -> Request<SelectedActions> {
             .get(path)
         }
+
+        /// Set allowed actions for a repository
+        public func put(_ body: SelectedActions) -> Request<Void> {
+            .put(path, body: body)
+        }
     }
 }
 
@@ -3253,6 +3491,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         public func get() -> Request<Runner> {
             .get(path)
         }
+
+        /// Delete a self-hosted runner from a repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3281,6 +3524,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         /// Get a workflow run
         public func get() -> Request<WorkflowRun> {
             .get(path)
+        }
+
+        /// Delete a workflow run
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3419,6 +3667,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Delete workflow run logs
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3505,6 +3758,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         /// Get a repository secret
         public func get() -> Request<ActionsSecret> {
             .get(path)
+        }
+
+        /// Delete a repository secret
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3661,6 +3919,11 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         public func get() -> Request<Autolink> {
             .get(path)
         }
+
+        /// Delete an autolink reference from a repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3673,7 +3936,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         // /repos/{owner}/{repo}/automated-security-fixes
         public let path: String
 
-
+        /// Disable automated security fixes
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3719,6 +3985,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         public func get() -> Request<BranchProtection> {
             .get(path)
         }
+
+        /// Delete branch protection
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3734,6 +4005,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Get admin branch protection
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
+        }
+
+        /// Delete admin branch protection
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3751,6 +4027,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public func get() -> Request<ProtectedBranchPullRequestReview> {
             .get(path)
         }
+
+        /// Delete pull request review protection
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3767,6 +4048,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
         }
+
+        /// Delete commit signature protection
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -3782,6 +4068,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Get status checks protection
         public func get() -> Request<StatusCheckPolicy> {
             .get(path)
+        }
+
+        /// Remove status check protection
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -3811,6 +4102,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Get access restrictions
         public func get() -> Request<BranchRestrictionPolicy> {
             .get(path)
+        }
+
+        /// Delete access restrictions
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -4069,6 +4365,11 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         public func get() -> Request<CodeScanningAnalysis> {
             .get(path)
         }
+
+        /// Delete a code scanning analysis from a repository
+        public func delete() -> Request<CodeScanningAnalysisDeletion> {
+            .delete(path)
+        }
     }
 }
 
@@ -4153,6 +4454,11 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Remove a repository collaborator
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -4198,6 +4504,11 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         public func get() -> Request<CommitComment> {
             .get(path)
         }
+
+        /// Delete a commit comment
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -4223,7 +4534,10 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID.Reactions {
         // /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete a commit comment reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -4470,7 +4784,10 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         // /repos/{owner}/{repo}/contents/{path}
         public let path: String
 
-
+        /// Delete a file
+        public func delete() -> Request<FileCommit> {
+            .delete(path)
+        }
     }
 }
 
@@ -4512,6 +4829,11 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         /// Get a deployment
         public func get() -> Request<Deployment> {
             .get(path)
+        }
+
+        /// Delete a deployment
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -4583,6 +4905,11 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         /// Get an environment
         public func get() -> Request<Environment> {
             .get(path)
+        }
+
+        /// Delete an environment
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -4755,7 +5082,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         // /repos/{owner}/{repo}/git/refs/{ref}
         public let path: String
 
-
+        /// Delete a reference
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -4842,6 +5172,11 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         /// Get a repository webhook
         public func get() -> Request<Hook> {
             .get(path)
+        }
+
+        /// Delete a repository webhook
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -4943,6 +5278,11 @@ extension Paths.Repos.WithOwner.WithRepo {
         public func get() -> Request<Import> {
             .get(path)
         }
+
+        /// Cancel an import
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5023,7 +5363,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         // /repos/{owner}/{repo}/interaction-limits
         public let path: String
 
+        /// Set interaction restrictions for a repository
+        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+            .put(path, body: body)
+        }
 
+        /// Remove interaction restrictions for a repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5049,7 +5397,10 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         // /repos/{owner}/{repo}/invitations/{invitation_id}
         public let path: String
 
-
+        /// Delete a repository invitation
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5092,6 +5443,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         public func get() -> Request<IssueComment> {
             .get(path)
         }
+
+        /// Delete an issue comment
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5117,7 +5473,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
         // /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete an issue comment reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5175,7 +5534,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         // /repos/{owner}/{repo}/issues/{issue_number}/assignees
         public let path: String
 
-
+        /// Remove assignees from an issue
+        public func delete() -> Request<Issue> {
+            .delete(path)
+        }
     }
 }
 
@@ -5214,7 +5576,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         // /repos/{owner}/{repo}/issues/{issue_number}/labels
         public let path: String
 
-
+        /// Remove all labels from an issue
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5240,7 +5605,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         // /repos/{owner}/{repo}/issues/{issue_number}/lock
         public let path: String
 
-
+        /// Unlock an issue
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5266,7 +5634,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
         // /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete an issue reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5309,6 +5680,11 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         public func get() -> Request<DeployKey> {
             .get(path)
         }
+
+        /// Delete a deploy key
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5338,6 +5714,11 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         public func get() -> Request<Label> {
             .get(path)
         }
+
+        /// Delete a label
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5366,7 +5747,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         // /repos/{owner}/{repo}/lfs
         public let path: String
 
-
+        /// Disable Git LFS for a repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5438,6 +5822,11 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         public func get() -> Request<Milestone> {
             .get(path)
         }
+
+        /// Delete a milestone
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5479,6 +5868,11 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get a GitHub Pages site
         public func get() -> Request<Page> {
             .get(path)
+        }
+
+        /// Delete a GitHub Pages site
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -5596,6 +5990,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         public func get() -> Request<PullRequestReviewComment> {
             .get(path)
         }
+
+        /// Delete a review comment for a pull request
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5621,7 +6020,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID.Reactions 
         // /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}
         public let path: String
 
-
+        /// Delete a pull request comment reaction
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5746,6 +6148,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         public func get() -> Request<PullRequestReviewRequest> {
             .get(path)
         }
+
+        /// Remove requested reviewers from a pull request
+        public func delete() -> Request<PullRequestSimple> {
+            .delete(path)
+        }
     }
 }
 
@@ -5774,6 +6181,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// Get a review for a pull request
         public func get() -> Request<PullRequestReview> {
             .get(path)
+        }
+
+        /// Delete a pending review for a pull request
+        public func delete() -> Request<PullRequestReview> {
+            .delete(path)
         }
     }
 }
@@ -5899,6 +6311,11 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         public func get() -> Request<ReleaseAsset> {
             .get(path)
         }
+
+        /// Delete a release asset
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -5970,6 +6387,11 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// Get a release
         public func get() -> Request<Release> {
             .get(path)
+        }
+
+        /// Delete a release
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -6182,6 +6604,11 @@ extension Paths.Repos.WithOwner.WithRepo {
         public func get() -> Request<RepositorySubscription> {
             .get(path)
         }
+
+        /// Delete a repository subscription
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6360,6 +6787,11 @@ extension Paths.Repos.WithOwner.WithRepo {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Disable vulnerability alerts
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6513,6 +6945,11 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         public func get() -> Request<ActionsSecret> {
             .get(path)
         }
+
+        /// Delete an environment secret
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6589,6 +7026,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         public func get() -> Request<ScimEnterpriseGroup> {
             .get(path)
         }
+
+        /// Delete a SCIM group from an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6620,6 +7062,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         /// Get SCIM provisioning information for an enterprise user
         public func get() -> Request<ScimEnterpriseUser> {
             .get(path)
+        }
+
+        /// Delete a SCIM user from an enterprise
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -6668,7 +7115,10 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         // /scim/v2/organizations/{org}/Users/{scim_user_id}
         public let path: String
 
-
+        /// Delete a SCIM user from an organization
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6798,6 +7248,11 @@ extension Paths.Teams {
         public func get() -> Request<TeamFull> {
             .get(path)
         }
+
+        /// Delete a team (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6827,6 +7282,11 @@ extension Paths.Teams.WithTeamID.Discussions {
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
+
+        /// Delete a discussion (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6855,6 +7315,11 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// Get a discussion comment (Legacy)
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
+        }
+
+        /// Delete a discussion comment (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -6924,6 +7389,11 @@ extension Paths.Teams.WithTeamID.Members {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Remove team member (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -6950,6 +7420,11 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// Get team membership for a user (Legacy)
         public func get() -> Request<TeamMembership> {
             .get(path)
+        }
+
+        /// Remove team membership for a user (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -6979,6 +7454,11 @@ extension Paths.Teams.WithTeamID.Projects {
         /// Check team permissions for a project (Legacy)
         public func get() -> Request<TeamProject> {
             .get(path)
+        }
+
+        /// Remove a project from a team (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -7019,6 +7499,11 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// Check team permissions for a repository (Legacy)
         public func get() -> Request<TeamRepository> {
             .get(path)
+        }
+
+        /// Remove a repository from a team (Legacy)
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -7102,6 +7587,11 @@ extension Paths.User.Blocks {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Unblock a user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7160,6 +7650,11 @@ extension Paths.User.Codespaces.Secrets {
         public func get() -> Request<CodespacesSecret> {
             .get(path)
         }
+
+        /// Delete a secret for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7185,7 +7680,10 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         // /user/codespaces/secrets/{secret_name}/repositories/{repository_id}
         public let path: String
 
-
+        /// Remove a selected repository from a user secret
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7201,6 +7699,11 @@ extension Paths.User.Codespaces {
         /// Get a codespace for the authenticated user
         public func get() -> Request<Codespace> {
             .get(path)
+        }
+
+        /// Delete a codespace for the authenticated user
+        public func delete() -> Request<accepted> {
+            .delete(path)
         }
     }
 }
@@ -7277,7 +7780,10 @@ extension Paths.User {
         // /user/emails
         public let path: String
 
-
+        /// Delete an email address for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7320,6 +7826,11 @@ extension Paths.User.Following {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Unfollow a user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7348,6 +7859,11 @@ extension Paths.User.GpgKeys {
         /// Get a GPG key for the authenticated user
         public func get() -> Request<GpgKey> {
             .get(path)
+        }
+
+        /// Delete a GPG key for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -7398,7 +7914,10 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         // /user/installations/{installation_id}/repositories/{repository_id}
         public let path: String
 
-
+        /// Remove a repository from an app installation
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7411,7 +7930,15 @@ extension Paths.User {
         // /user/interaction-limits
         public let path: String
 
+        /// Set interaction restrictions for your public repositories
+        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+            .put(path, body: body)
+        }
 
+        /// Remove interaction restrictions from your public repositories
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7453,6 +7980,11 @@ extension Paths.User.Keys {
         /// Get a public SSH key for the authenticated user
         public func get() -> Request<Key> {
             .get(path)
+        }
+
+        /// Delete a public SSH key for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -7565,6 +8097,11 @@ extension Paths.User.Migrations.WithMigrationID {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Delete a user migration archive
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7599,7 +8136,10 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
         // /user/migrations/{migration_id}/repos/{repo_name}/lock
         public let path: String
 
-
+        /// Unlock a user repository
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7666,6 +8206,11 @@ extension Paths.User.Packages.WithPackageType {
         public func get() -> Request<Package> {
             .get(path)
         }
+
+        /// Delete a package for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7707,6 +8252,11 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         /// Get a package version for the authenticated user
         public func get() -> Request<PackageVersion> {
             .get(path)
+        }
+
+        /// Delete a package version for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -7785,7 +8335,10 @@ extension Paths.User.RepositoryInvitations {
         // /user/repository_invitations/{invitation_id}
         public let path: String
 
-
+        /// Decline a repository invitation
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -7825,6 +8378,11 @@ extension Paths.User.Starred.WithOwner {
         /// Check if a repository is starred by the authenticated user
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Unstar a repository for the authenticated user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -8094,6 +8652,11 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         public func get() -> Request<Package> {
             .get(path)
         }
+
+        /// Delete a package for a user
+        public func delete() -> Request<Void> {
+            .delete(path)
+        }
     }
 }
 
@@ -8135,6 +8698,11 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         /// Get a package version for a user
         public func get() -> Request<PackageVersion> {
             .get(path)
+        }
+
+        /// Delete package version for a user
+        public func delete() -> Request<Void> {
+            .delete(path)
         }
     }
 }

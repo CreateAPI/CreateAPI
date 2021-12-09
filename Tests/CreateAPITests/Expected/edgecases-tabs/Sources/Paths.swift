@@ -21,6 +21,11 @@ extension Paths {
 		public func post(_ body: Pet) -> Request<Void> {
 			.post(path, body: body)
 		}
+
+		/// Update an existing pet
+		public func put(_ body: Pet) -> Request<Void> {
+			.put(path, body: body)
+		}
 	}
 }
 
@@ -62,6 +67,11 @@ extension Paths.Pet {
 		/// Find pet by ID
 		public func get() -> Request<Pet> {
 			.get(path)
+		}
+
+		/// Deletes a pet
+		public func delete() -> Request<Void> {
+			.delete(path)
 		}
 	}
 }
@@ -131,6 +141,11 @@ extension Paths.Store.Order {
 		/// Find purchase order by ID
 		public func get() -> Request<Order> {
 			.get(path)
+		}
+
+		/// Delete purchase order by ID
+		public func delete() -> Request<Void> {
+			.delete(path)
 		}
 	}
 }
@@ -225,6 +240,16 @@ extension Paths.User {
 		public func get() -> Request<User> {
 			.get(path)
 		}
+
+		/// Updated user
+		public func put(_ body: User) -> Request<Void> {
+			.put(path, body: body)
+		}
+
+		/// Delete user
+		public func delete() -> Request<Void> {
+			.delete(path)
+		}
 	}
 }
 
@@ -240,6 +265,11 @@ extension Paths {
 		/// To test enum parameters
 		public func get() -> Request<Void> {
 			.get(path)
+		}
+
+		/// To test "client" model
+		public func patch(_ body: Client) -> Request<Client> {
+			.patch(path, body: body)
 		}
 	}
 }
