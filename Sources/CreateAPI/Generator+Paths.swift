@@ -8,6 +8,8 @@ import GrammaticalNumber
 
 // TODO: Disambiguate Scheme/Package (but only if necessary?)
 // TODO: (+Get) How to access response headers, e.g. `x-next` in Petstore/pets.get
+    // maybe add Response<T> that provides URLResponse and use it only if headers: are specified
+    // + add headers in comments (or add keys?)
 // TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
 //    - allowReserved
 //    - components.parameters
@@ -170,6 +172,7 @@ extension Generator {
     }
     
     // TODO: Add namespace to schems (package?)
+    //
     // TODO: Inject offset as a parameter
     // TODO: Add support for operationId
     // TODO: Add a way to disamiguate if responses have oneOf
@@ -277,6 +280,7 @@ extension Generator {
     // TODO: application/pdf and other binary files
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
+    // TODO: Add "descripton" to "- returns" comments
     private func makeResponse(for operation: OpenAPI.Operation) throws -> String {
         // Only generate successfull responses.
         func findPreferredResponse() -> Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>? {
