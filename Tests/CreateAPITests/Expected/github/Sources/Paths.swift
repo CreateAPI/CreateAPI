@@ -521,7 +521,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for an enterprise
-        public func get() -> Request<SelectedActions> {
+        public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
@@ -1546,7 +1546,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for an organization
-        public func get() -> Request<SelectedActions> {
+        public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
@@ -1927,7 +1927,7 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// List external groups in an organization
-        public func get() -> Request<ExternalGroups> {
+        public func get() -> Request<github.ExternalGroups> {
             .get(path)
         }
 
@@ -2065,7 +2065,7 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// Get an organization installation for the authenticated app
-        public func get() -> Request<Installation> {
+        public func get() -> Request<github.Installation> {
             .get(path)
         }
     }
@@ -3430,7 +3430,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for a repository
-        public func get() -> Request<SelectedActions> {
+        public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
@@ -5290,7 +5290,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get an import status
-        public func get() -> Request<Import> {
+        public func get() -> Request<github.Import> {
             .get(path)
         }
 
@@ -5363,7 +5363,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get a repository installation for the authenticated app
-        public func get() -> Request<Installation> {
+        public func get() -> Request<github.Installation> {
             .get(path)
         }
     }
@@ -8586,7 +8586,7 @@ extension Paths.Users.WithUsername {
         public let path: String
 
         /// Get contextual information for a user
-        public func get() -> Request<Hovercard> {
+        public func get() -> Request<github.Hovercard> {
             .get(path)
         }
     }
@@ -8602,7 +8602,7 @@ extension Paths.Users.WithUsername {
         public let path: String
 
         /// Get a user installation for the authenticated app
-        public func get() -> Request<Installation> {
+        public func get() -> Request<github.Installation> {
             .get(path)
         }
     }

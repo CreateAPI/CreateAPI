@@ -19,7 +19,7 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get() -> Request<Pets> {
+        public func get() -> Request<petstore_disable_inlining.Pets> {
             .get(path)
         }
 

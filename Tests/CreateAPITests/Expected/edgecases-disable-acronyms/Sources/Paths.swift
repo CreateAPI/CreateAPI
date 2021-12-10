@@ -123,7 +123,7 @@ extension Paths.Store {
         public let path: String
 
         /// Place an order for a pet
-        public func post(_ body: Order) -> Request<Order> {
+        public func post(_ body: Order) -> Request<edgecases_disable_acronyms.Order> {
             .post(path, body: body)
         }
     }

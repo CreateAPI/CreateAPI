@@ -156,6 +156,10 @@ struct TypeName: CustomStringConvertible, DeclarationName {
         TypeName(processedRawValue: rawValue + text)
     }
     
+    func prepending(_ text: String) -> TypeName {
+        TypeName(processedRawValue: text + rawValue)
+    }
+    
     var asArray: TypeName {
         TypeName(processedRawValue: "[\(rawValue)]")
     }

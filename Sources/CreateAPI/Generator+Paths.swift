@@ -74,7 +74,7 @@ extension Generator {
                 let stat = isTopLevel ? "static " : ""
                 
                 let parents = Array(components.dropLast().map(makeType))
-                let extensionOf = ([options.paths.namespace] + parents).joined(separator: ".")
+                let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
                 // TODO: percent-encode path?
                 
@@ -91,7 +91,7 @@ extension Generator {
                         \(access)let path: String\n
                 """
                 
-                let context = Context(parents: parents.map(TypeName.init(processedRawValue:)))
+                let context = Context(parents: parents + [type])
                 if isLast {
                     generatedType += """
                     \n\(makeMethods(for: path.value, context: context))\n
@@ -116,7 +116,7 @@ extension Generator {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat)var \(PropertyName(type, options: options)): \(type) {
+                        \(access)\(stat)var \(PropertyName(type.rawValue, options: options)): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                     
@@ -382,11 +382,11 @@ extension Generator {
         return templates.headers(name: method.capitalizingFirstLetter() + "Headers", contents: contents.joined(separator: ",\n"))
     }
 
-    private func makeType(_ string: String) -> String {
+    private func makeType(_ string: String) -> TypeName {
         let name = TypeName(string, options: options)
         if string.starts(with: "{") {
-            return "With\(name.rawValue)"
+            return name.prepending("With")
         }
-        return name.rawValue
+        return name
     }
 }
