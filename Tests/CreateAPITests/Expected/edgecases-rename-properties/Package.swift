@@ -10,9 +10,11 @@ let package = Package(
         .library(name: "edgecases-rename-properties", targets: ["edgecases-rename-properties"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main")
     ],
     targets: [
-        .target(name: "edgecases-rename-properties", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "edgecases-rename-properties", dependencies: [
+            .product(name: "APIClient", package: "APIClient")
+        ], path: "Sources")
     ]
 )

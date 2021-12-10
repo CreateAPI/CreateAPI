@@ -5,6 +5,7 @@
 
 import Foundation
 import APIClient
+import HTTPHeaders
 
 public enum Paths {}
 
@@ -20,6 +21,10 @@ extension Paths {
         /// List all pets
         public func get() -> Request<Pets> {
             .get(path)
+        }
+
+        public enum GetHeaders {
+            public static let next = HTTPHeader<String>(field: "x-next")
         }
     }
 }

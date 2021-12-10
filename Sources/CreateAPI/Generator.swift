@@ -14,6 +14,7 @@ final class Generator {
     
     // Schemes
     var isAnyJSONUsed = false
+    var isHTTPHeadersDependencyNeeded = false
     let lock = NSLock()
     
     private var startTime: CFAbsoluteTime?
@@ -495,6 +496,16 @@ extension Generator {
         return types.map { parameter(for: $0!) }
     }
     
+    // MARK: Names
+    
+    func makePropertyName(_ rawValue: String) -> PropertyName {
+        PropertyName(rawValue, options: options)
+    }
+    
+    func makeTypeName(_ rawValue: String) -> TypeName {
+        TypeName(rawValue, options: options)
+    }
+    
     // MARK: Helpers
     
     func setAnyJsonNeeded() {
@@ -503,12 +514,10 @@ extension Generator {
         lock.unlock()
     }
     
-    func makePropertyName(_ rawValue: String) -> PropertyName {
-        PropertyName(rawValue, options: options)
-    }
-    
-    func makeTypeName(_ rawValue: String) -> TypeName {
-        TypeName(rawValue, options: options)
+    func setHTTPHeadersDependencyNeeded() {
+        lock.lock()
+        isHTTPHeadersDependencyNeeded = true
+        lock.unlock()
     }
 }
 

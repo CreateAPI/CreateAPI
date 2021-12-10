@@ -258,12 +258,36 @@ final class Templates {
         }
         """
     }
+    
+    // MARK: Headers
+    
+    func headers(name: String, contents: String) -> String {
+        """
+        \(access)enum \(name) {
+        \(contents.indented)
+        }
+        """
+    }
+    
+    func header(for property: Property) -> String {
+        var name = property.name.rawValue
+        if (property.key.hasPrefix("x-") || property.key.hasPrefix("X-")) {
+            name = PropertyName(String(property.key.dropFirst(2)), options: options).rawValue
+        }
+        return """
+        \(access)static let \(name) = HTTPHeader<\(property.type)>(field: \"\(property.key)\")
+        """
+    }
 }
 
 extension String {
     var indented: String {
+        indented(count: 1)
+    }
+    
+    func indented(count: Int) -> String {
         components(separatedBy: "\n")
-            .map { $0.isEmpty ? $0 : String(repeating: " ", count: 4) + $0 }
+            .map { $0.isEmpty ? $0 : String(repeating: " ", count: count * 4) + $0 }
             .joined(separator: "\n")
     }
 }

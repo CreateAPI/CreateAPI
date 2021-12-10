@@ -10,9 +10,13 @@ let package = Package(
         .library(name: "petstore-disable-comments", targets: ["petstore-disable-comments"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main"), 
+        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main")
     ],
     targets: [
-        .target(name: "petstore-disable-comments", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "petstore-disable-comments", dependencies: [
+            .product(name: "APIClient", package: "APIClient"), 
+            .product(name: "HTTPHeaders", package: "HTTPHeaders")
+        ], path: "Sources")
     ]
 )

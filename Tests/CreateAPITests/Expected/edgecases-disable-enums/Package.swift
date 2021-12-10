@@ -10,9 +10,11 @@ let package = Package(
         .library(name: "edgecases-disable-enums", targets: ["edgecases-disable-enums"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main")
     ],
     targets: [
-        .target(name: "edgecases-disable-enums", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "edgecases-disable-enums", dependencies: [
+            .product(name: "APIClient", package: "APIClient")
+        ], path: "Sources")
     ]
 )

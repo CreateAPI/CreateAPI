@@ -5,6 +5,7 @@
 
 import Foundation
 import APIClient
+import HTTPHeaders
 
 public enum Paths {}
 
@@ -1929,6 +1930,10 @@ extension Paths.Orgs.WithOrg {
         public func get() -> Request<ExternalGroups> {
             .get(path)
         }
+
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2650,6 +2655,10 @@ extension Paths.Orgs.WithOrg.TeamSync {
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
+
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3211,6 +3220,12 @@ extension Paths {
         /// Get rate limit status for the authenticated user
         public func get() -> Request<RateLimitOverview> {
             .get(path)
+        }
+
+        public enum GetHeaders {
+            public static let rateLimitLimit = HTTPHeader<Int>(field: "X-RateLimit-Limit"),
+            public static let rateLimitRemaining = HTTPHeader<Int>(field: "X-RateLimit-Remaining"),
+            public static let rateLimitReset = HTTPHeader<Int>(field: "X-RateLimit-Reset")
         }
     }
 }
@@ -6147,6 +6162,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// List requested reviewers for a pull request
         public func get() -> Request<PullRequestReviewRequest> {
             .get(path)
+        }
+
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         /// Remove requested reviewers from a pull request

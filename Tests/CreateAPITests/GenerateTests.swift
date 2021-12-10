@@ -129,7 +129,7 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-base-class")
     }
     
-    func testBasicDisableCommentsGeneration() throws {
+    func testPetstoreDisableCommentsGeneration() throws {
         // GIVEN
         let command = try Generate.parse([
             "--input", pathForSpec(named: "petstore"),
@@ -151,7 +151,7 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-disable-comments")
     }
     
-    func testBasicDisableInitWithCoder() throws {
+    func testPetstoreDisableInitWithCoder() throws {
         // GIVEN
         let command = try Generate.parse([
             "--input", pathForSpec(named: "petstore"),

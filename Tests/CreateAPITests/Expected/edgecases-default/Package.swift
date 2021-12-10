@@ -10,9 +10,11 @@ let package = Package(
         .library(name: "edgecases-default", targets: ["edgecases-default"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main")
     ],
     targets: [
-        .target(name: "edgecases-default", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "edgecases-default", dependencies: [
+            .product(name: "APIClient", package: "APIClient")
+        ], path: "Sources")
     ]
 )

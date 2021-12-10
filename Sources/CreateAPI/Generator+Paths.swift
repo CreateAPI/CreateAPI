@@ -46,17 +46,9 @@ extension Generator {
     
     func paths() -> String {
         startMeasuring("generating paths (\(spec.paths.count))")
-        
-        var output = templates.fileHeader
-        
-        #warning("TODO: replace with Get")
-        output += "\nimport APIClient"
-        output += "\n\n"
-        output += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
-        
+                
         // TODO: Only generate for one path
-        
-        output += "\n\n"
+        var output = ""
 
         var generated = Set<OpenAPI.Path>()
         
@@ -145,9 +137,19 @@ extension Generator {
 //        """
 //        output += "\n\n"
         
+        var header = templates.fileHeader
+        
+        #warning("TODO: replace with Get")
+        header += "\nimport APIClient"
+        if isHTTPHeadersDependencyNeeded {
+            header += "\nimport HTTPHeaders"
+        }
+        header += "\n\n"
+        header += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
+        
         stopMeasuring("generating paths (\(spec.paths.count))")
         
-        return output.indent(using: options)
+        return (header + "\n\n" + output).indent(using: options)
     }
     
     // TODO: Add remaining methods
@@ -186,7 +188,14 @@ extension Generator {
     }
     
     private func _makeMethod(for operation: OpenAPI.Operation, method: String) throws -> String {
-        let response = try makeResponse(for: operation)
+        let responseType: String
+        var headers: String?
+        if let response = getSuccessfulResponse(for: operation) {
+            responseType = try makeResponse(for: response)
+            headers = try? makeHeaders(for: response, method: method)
+        } else {
+            responseType = "Void"
+        }
         var output = ""
         if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
             for line in summary.split(separator: "\n") {
@@ -201,7 +210,11 @@ extension Generator {
         if hasBody(method) {
             call.append("body: body")
         }
-        output += templates.method(name: method, parameters: parameters, returning: "Request<\(response)>", contents: ".\(method)(\(call.joined(separator: ", ")))")
+        output += templates.method(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: ".\(method)(\(call.joined(separator: ", ")))")
+        if let headers = headers {
+            output += "\n\n"
+            output += headers
+        }
         return output.indented
     }
     
@@ -273,6 +286,16 @@ extension Generator {
             }
         }
     }
+    
+    private typealias Response = Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
+
+    // Only generate successfull responses.
+    private func getSuccessfulResponse(for operation: OpenAPI.Operation) -> Response? {
+        guard operation.responses.count > 1 else {
+            return operation.responses.first { $0.key == .default || $0.key.isSuccess }?.value
+        }
+        return operation.responses.first { $0.key.isSuccess }?.value
+    }
         
     // TODO: Add text/plain schema: type String support
     // TODO: Add inline array/dictionary responses
@@ -281,19 +304,7 @@ extension Generator {
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
-    private func makeResponse(for operation: OpenAPI.Operation) throws -> String {
-        // Only generate successfull responses.
-        func findPreferredResponse() -> Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>? {
-            guard operation.responses.count > 1 else {
-                return operation.responses.first { $0.key == .default || $0.key.isSuccess }?.value
-            }
-            return operation.responses.first { $0.key.isSuccess }?.value
-        }
-
-        guard let response = findPreferredResponse() else {
-            return "Void"
-        }
-  
+    private func makeResponse(for response: Response) throws -> String {  
         switch response {
         case .a(let reference):
             switch reference {
@@ -312,21 +323,63 @@ extension Generator {
                     // TODO: what about nested types?
                     return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
                 case .b(let schema):
-                    throw GeneratorError("ERROR: response inline scheme not handled \(operation.description ?? "")")
+                    throw GeneratorError("ERROR: response inline scheme not handler")
                 default:
-                    throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
+                    throw GeneratorError("ERROR: response not handled")
                 }
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
         }
     }
-}
+    
+    // TODO: Add support for enums
+    // TODO: Add an option to customize whether to add headers and add tests
+    // TODO: Add an option to not include HTTPHeaders in imports
+    // TODO: explode?
+    // TODO: Add description, deprecated, required, and other available info
+    private func makeHeaders(for response: Response, method: String) throws -> String? {
+        guard let headers = response.responseValue?.headers, !headers.isEmpty else {
+            return nil
+        }
+        
+        var contents: [String] = []
+        for (key, value) in headers {
+            let header: OpenAPI.Header
+            switch value {
+            case .a(let reference):
+                header = try reference.dereferenced(in: spec.components).underlyingHeader
+            case .b(let value):
+                header = value
+            }
+            switch header.schemaOrContent {
+            case .a(let schema):
+                switch schema.schema {
+                case .a(let reference):
+                    throw GeneratorError("HTTP header schema reference not supported")
+                case .b(let schema):
+                    let property = try makeProperty(key: key, schema: schema, isRequired: true, in: Context(parents: []))
+                    contents.append(templates.header(for: property))
+                    // TODO: handle invalid values
+                }
+            case .b(let content):
+                throw GeneratorError("Unsupported header")
+            }
+        }
+        
+        guard !contents.isEmpty else {
+            return nil
+        }
 
-private func makeType(_ string: String) -> String {
-    let name = TypeName(string, options: .init())
-    if string.starts(with: "{") {
-        return "With\(name.rawValue)"
+        setHTTPHeadersDependencyNeeded()
+        return templates.headers(name: method.capitalizingFirstLetter() + "Headers", contents: contents.joined(separator: ",\n"))
     }
-    return name.rawValue
+
+    private func makeType(_ string: String) -> String {
+        let name = TypeName(string, options: options)
+        if string.starts(with: "{") {
+            return "With\(name.rawValue)"
+        }
+        return name.rawValue
+    }
 }

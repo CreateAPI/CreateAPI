@@ -10,9 +10,11 @@ let package = Package(
         .library(name: "edgecases-disable-acronyms", targets: ["edgecases-disable-acronyms"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main")
     ],
     targets: [
-        .target(name: "edgecases-disable-acronyms", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "edgecases-disable-acronyms", dependencies: [
+            .product(name: "APIClient", package: "APIClient")
+        ], path: "Sources")
     ]
 )

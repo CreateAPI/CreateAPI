@@ -56,11 +56,11 @@ extension Paths.Pet {
 }
 
 extension Paths.Pet {
-    public func petID(_ petID: String) -> WithPetID {
-        WithPetID(path: path + "/" + petID)
+    public func petID(_ petID: String) -> WithPetId {
+        WithPetId(path: path + "/" + petID)
     }
 
-    public struct WithPetID {
+    public struct WithPetId {
         // /pet/{petId}
         public let path: String
 
@@ -76,7 +76,7 @@ extension Paths.Pet {
     }
 }
 
-extension Paths.Pet.WithPetID {
+extension Paths.Pet.WithPetId {
     public var uploadImage: UploadImage {
         UploadImage(path: path + "/uploadImage")
     }
@@ -130,11 +130,11 @@ extension Paths.Store {
 }
 
 extension Paths.Store.Order {
-    public func orderID(_ orderID: String) -> WithOrderID {
-        WithOrderID(path: path + "/" + orderID)
+    public func orderID(_ orderID: String) -> WithOrderId {
+        WithOrderId(path: path + "/" + orderID)
     }
 
-    public struct WithOrderID {
+    public struct WithOrderId {
         // /store/order/{order_id}
         public let path: String
 

@@ -10,9 +10,13 @@ let package = Package(
         .library(name: "petstore-some-entities-as-structs", targets: ["petstore-some-entities-as-structs"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main"),
+        .package(url: "https://github.com/kean/APIClient", branch: "main"), 
+        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main")
     ],
     targets: [
-        .target(name: "petstore-some-entities-as-structs", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
+        .target(name: "petstore-some-entities-as-structs", dependencies: [
+            .product(name: "APIClient", package: "APIClient"), 
+            .product(name: "HTTPHeaders", package: "HTTPHeaders")
+        ], path: "Sources")
     ]
 )

@@ -101,7 +101,7 @@ struct Generate: ParsableCommand {
         if let package = package {
             let packageURL = outputURL.appendingPathComponent(package)
             try? FileManager.default.createDirectory(at: packageURL, withIntermediateDirectories: true, attributes: nil)
-            try write(makePackageFile(name: package), to: "\(package)/Package.swift")
+            try write(generator.makePackageFile(name: package), to: "\(package)/Package.swift")
             let sourcesURL = packageURL.appendingPathComponent("Sources")
             try? FileManager.default.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
             try write(paths, to: "\(package)/Sources/Paths.swift")
@@ -124,27 +124,4 @@ private func makeOptions(at configPath: String) throws -> GenerateOptions {
         }
     }
     return GenerateOptions() // Use default options
-}
-
-private func makePackageFile(name: String) -> String {
-    """
-    // swift-tools-version:5.5
-    // The swift-tools-version declares the minimum version of Swift required to build this package.
-
-    import PackageDescription
-
-    let package = Package(
-        name: "\(name)",
-        platforms: [.iOS(.v15), .macCatalyst(.v15), .macOS(.v12), .watchOS(.v8), .tvOS(.v15)],
-        products: [
-            .library(name: "\(name)", targets: ["\(name)"]),
-        ],
-        dependencies: [
-            .package(url: "https://github.com/kean/APIClient", branch: "main"),
-        ],
-        targets: [
-            .target(name: "\(name)", dependencies: [.product(name: "APIClient", package: "APIClient")], path: "Sources")
-        ]
-    )
-    """
 }
