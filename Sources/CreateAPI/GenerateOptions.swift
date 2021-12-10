@@ -71,8 +71,10 @@ final class GenerateOptions {
         var entitiesGeneratedAsStructs: Set<String>
         var isMakingClassesFinal: Bool
         var baseClass: String?
-        var adoptedProtocols: [String]
+        var adoptedProtocols: Set<String>
+        // TODO: simplify this
         var isGeneratingInitWithCoder: Bool
+        var isGeneratingDecode: Bool
         // TODO: Move to separate "Rename" object
         var mappedPropertyNames: [String: String]
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
@@ -84,7 +86,8 @@ final class GenerateOptions {
             self.isMakingClassesFinal = schemes?.isMakingClassesFinal ?? true
             self.baseClass = schemes?.baseClass
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
-            self.adoptedProtocols = schemes?.adoptedProtocols ?? ["Decodable"]
+            self.isGeneratingDecode = schemes?.isGeneratingDecode ?? true
+            self.adoptedProtocols = Set(schemes?.adoptedProtocols ?? ["Codable"])
             self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
             self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
         }
@@ -154,6 +157,7 @@ final class GenerateOptionsScheme: Decodable {
         var baseClass: String?
         var adoptedProtocols: [String]?
         var isGeneratingInitWithCoder: Bool?
+        var isGeneratingDecode: Bool?
         var mappedPropertyNames: [String: String]?
         var mappedTypeNames: [String: String]?
     }

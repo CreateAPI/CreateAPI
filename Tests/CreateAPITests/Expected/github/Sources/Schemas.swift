@@ -8,7 +8,7 @@ import Foundation
 /// GitHub app
 ///
 /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
-public struct Integration: Decodable {
+public struct Integration: Codable {
     /// Example: "Iv1.25b5d1e65ffc4022"
     public var clientID: String?
     /// Example: "1d4b2097ac622ba702d19de498f005747a8b21d3"
@@ -70,7 +70,7 @@ public struct Integration: Decodable {
     ///   "deployments" : "write",
     ///   "issues" : "read"
     /// }
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var checks: String?
         public var contents: String?
         public var deployments: String?
@@ -84,6 +84,15 @@ public struct Integration: Decodable {
             self.deployments = try values.decodeIfPresent(String.self, forKey: "deployments")
             self.issues = try values.decodeIfPresent(String.self, forKey: "issues")
             self.metadata = try values.decodeIfPresent(String.self, forKey: "metadata")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(checks, forKey: "checks")
+            try values.encodeIfPresent(contents, forKey: "contents")
+            try values.encodeIfPresent(deployments, forKey: "deployments")
+            try values.encodeIfPresent(issues, forKey: "issues")
+            try values.encodeIfPresent(metadata, forKey: "metadata")
         }
     }
 
@@ -107,9 +116,30 @@ public struct Integration: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.webhookSecret = try values.decodeIfPresent(String.self, forKey: "webhook_secret")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(clientID, forKey: "client_id")
+        try values.encodeIfPresent(clientSecret, forKey: "client_secret")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(events, forKey: "events")
+        try values.encode(externalURL, forKey: "external_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(installationsCount, forKey: "installations_count")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(pem, forKey: "pem")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encodeIfPresent(slug, forKey: "slug")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(webhookSecret, forKey: "webhook_secret")
+    }
 }
 
-public struct BasicError: Decodable {
+public struct BasicError: Codable {
     public var documentationURL: String?
     public var message: String?
     public var status: String?
@@ -122,9 +152,17 @@ public struct BasicError: Decodable {
         self.status = try values.decodeIfPresent(String.self, forKey: "status")
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct ValidationErrorSimple: Decodable {
+public struct ValidationErrorSimple: Codable {
     public var documentationURL: String
     public var errors: [String]?
     public var message: String
@@ -135,9 +173,16 @@ public struct ValidationErrorSimple: Decodable {
         self.errors = try values.decodeIfPresent([String].self, forKey: "errors")
         self.message = try values.decode(String.self, forKey: "message")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
+        try values.encode(message, forKey: "message")
+    }
 }
 
-public enum WebhookConfigInsecureSSL: Decodable {
+public enum WebhookConfigInsecureSSL: Codable {
     case string(String)
     case double(Double)
 
@@ -156,7 +201,7 @@ public enum WebhookConfigInsecureSSL: Decodable {
 /// Webhook Configuration
 ///
 /// Configuration object of the webhook
-public struct WebhookConfig: Decodable {
+public struct WebhookConfig: Codable {
     /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
     ///
     /// Example: "json"
@@ -176,12 +221,20 @@ public struct WebhookConfig: Decodable {
         self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(contentType, forKey: "content_type")
+        try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+        try values.encodeIfPresent(secret, forKey: "secret")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
 /// Simple webhook delivery
 ///
 /// Delivery made by a webhook, without request and response information.
-public struct HookDeliveryItem: Decodable {
+public struct HookDeliveryItem: Codable {
     /// The type of activity for the event that triggered the delivery.
     ///
     /// Example: opened
@@ -241,9 +294,24 @@ public struct HookDeliveryItem: Decodable {
         self.status = try values.decode(String.self, forKey: "status")
         self.statusCode = try values.decode(Int.self, forKey: "status_code")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(action, forKey: "action")
+        try values.encode(deliveredAt, forKey: "delivered_at")
+        try values.encode(duration, forKey: "duration")
+        try values.encode(event, forKey: "event")
+        try values.encode(guid, forKey: "guid")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(installationID, forKey: "installation_id")
+        try values.encode(isRedelivery, forKey: "redelivery")
+        try values.encodeIfPresent(repositoryID, forKey: "repository_id")
+        try values.encode(status, forKey: "status")
+        try values.encode(statusCode, forKey: "status_code")
+    }
 }
 
-public struct ScimError: Decodable {
+public struct ScimError: Codable {
     public var detail: String?
     public var documentationURL: String?
     public var message: String?
@@ -260,14 +328,24 @@ public struct ScimError: Decodable {
         self.scimType = try values.decodeIfPresent(String.self, forKey: "scimType")
         self.status = try values.decodeIfPresent(Int.self, forKey: "status")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(detail, forKey: "detail")
+        try values.encodeIfPresent(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(schemas, forKey: "schemas")
+        try values.encodeIfPresent(scimType, forKey: "scimType")
+        try values.encodeIfPresent(status, forKey: "status")
+    }
 }
 
-public struct ValidationError: Decodable {
+public struct ValidationError: Codable {
     public var documentationURL: String
     public var errors: [Error]?
     public var message: String
 
-    public struct Error: Decodable {
+    public struct Error: Codable {
         public var code: String
         public var field: String?
         public var index: Int?
@@ -275,7 +353,7 @@ public struct ValidationError: Decodable {
         public var resource: String?
         public var value: Value?
 
-        public enum Value: Decodable {
+        public enum Value: Codable {
             case string(String)
             case int(Int)
             case strings([String])
@@ -303,6 +381,16 @@ public struct ValidationError: Decodable {
             self.resource = try values.decodeIfPresent(String.self, forKey: "resource")
             self.value = try values.decodeIfPresent(Value.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(code, forKey: "code")
+            try values.encodeIfPresent(field, forKey: "field")
+            try values.encodeIfPresent(index, forKey: "index")
+            try values.encodeIfPresent(message, forKey: "message")
+            try values.encodeIfPresent(resource, forKey: "resource")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -311,12 +399,19 @@ public struct ValidationError: Decodable {
         self.errors = try values.decodeIfPresent([Error].self, forKey: "errors")
         self.message = try values.decode(String.self, forKey: "message")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
+        try values.encode(message, forKey: "message")
+    }
 }
 
 /// Webhook delivery
 ///
 /// Delivery made by a webhook.
-public struct HookDelivery: Decodable {
+public struct HookDelivery: Codable {
     /// The type of activity for the event that triggered the delivery.
     ///
     /// Example: opened
@@ -366,7 +461,7 @@ public struct HookDelivery: Decodable {
     /// The URL target of the delivery.
     public var url: String?
 
-    public struct Request: Decodable {
+    public struct Request: Codable {
         /// The request headers sent with the webhook delivery.
         public var headers: [String: AnyJSON]?
         /// The webhook payload.
@@ -377,9 +472,15 @@ public struct HookDelivery: Decodable {
             self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
             self.payload = try values.decodeIfPresent([String: AnyJSON].self, forKey: "payload")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(headers, forKey: "headers")
+            try values.encodeIfPresent(payload, forKey: "payload")
+        }
     }
 
-    public struct Response: Decodable {
+    public struct Response: Codable {
         /// The response headers received when the delivery was made.
         public var headers: [String: AnyJSON]?
         /// The response payload received.
@@ -389,6 +490,12 @@ public struct HookDelivery: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
             self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(headers, forKey: "headers")
+            try values.encodeIfPresent(payload, forKey: "payload")
         }
     }
 
@@ -409,9 +516,27 @@ public struct HookDelivery: Decodable {
         self.statusCode = try values.decode(Int.self, forKey: "status_code")
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(action, forKey: "action")
+        try values.encode(deliveredAt, forKey: "delivered_at")
+        try values.encode(duration, forKey: "duration")
+        try values.encode(event, forKey: "event")
+        try values.encode(guid, forKey: "guid")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(installationID, forKey: "installation_id")
+        try values.encode(isRedelivery, forKey: "redelivery")
+        try values.encodeIfPresent(repositoryID, forKey: "repository_id")
+        try values.encode(request, forKey: "request")
+        try values.encode(response, forKey: "response")
+        try values.encode(status, forKey: "status")
+        try values.encode(statusCode, forKey: "status_code")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct SimpleUser: Decodable {
+public struct SimpleUser: Codable {
     public var avatarURL: URL
     public var email: String?
     public var eventsURL: String
@@ -463,10 +588,35 @@ public struct SimpleUser: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encodeIfPresent(starredAt, forKey: "starred_at")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// An enterprise account
-public struct Enterprise: Decodable {
+public struct Enterprise: Codable {
     public var avatarURL: URL
     /// Example: 2019-01-26T19:01:12Z
     public var createdAt: Date?
@@ -505,6 +655,20 @@ public struct Enterprise: Decodable {
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
         self.websiteURL = try values.decodeIfPresent(URL.self, forKey: "website_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(slug, forKey: "slug")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(websiteURL, forKey: "website_url")
+    }
 }
 
 /// The permissions granted to the user-to-server access token.
@@ -517,7 +681,7 @@ public struct Enterprise: Decodable {
 ///   "issues" : "read",
 ///   "single_file" : "read"
 /// }
-public struct AppPermissions: Decodable {
+public struct AppPermissions: Codable {
     /// The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`.
     public var actions: Actions?
     /// The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`.
@@ -801,9 +965,44 @@ public struct AppPermissions: Decodable {
         self.vulnerabilityAlerts = try values.decodeIfPresent(VulnerabilityAlerts.self, forKey: "vulnerability_alerts")
         self.workflows = try values.decodeIfPresent(Workflows.self, forKey: "workflows")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(actions, forKey: "actions")
+        try values.encodeIfPresent(administration, forKey: "administration")
+        try values.encodeIfPresent(checks, forKey: "checks")
+        try values.encodeIfPresent(contentReferences, forKey: "content_references")
+        try values.encodeIfPresent(contents, forKey: "contents")
+        try values.encodeIfPresent(deployments, forKey: "deployments")
+        try values.encodeIfPresent(environments, forKey: "environments")
+        try values.encodeIfPresent(issues, forKey: "issues")
+        try values.encodeIfPresent(members, forKey: "members")
+        try values.encodeIfPresent(metadata, forKey: "metadata")
+        try values.encodeIfPresent(organizationAdministration, forKey: "organization_administration")
+        try values.encodeIfPresent(organizationHooks, forKey: "organization_hooks")
+        try values.encodeIfPresent(organizationPackages, forKey: "organization_packages")
+        try values.encodeIfPresent(organizationPlan, forKey: "organization_plan")
+        try values.encodeIfPresent(organizationProjects, forKey: "organization_projects")
+        try values.encodeIfPresent(organizationSecrets, forKey: "organization_secrets")
+        try values.encodeIfPresent(organizationSelfHostedRunners, forKey: "organization_self_hosted_runners")
+        try values.encodeIfPresent(organizationUserBlocking, forKey: "organization_user_blocking")
+        try values.encodeIfPresent(packages, forKey: "packages")
+        try values.encodeIfPresent(pages, forKey: "pages")
+        try values.encodeIfPresent(pullRequests, forKey: "pull_requests")
+        try values.encodeIfPresent(repositoryHooks, forKey: "repository_hooks")
+        try values.encodeIfPresent(repositoryProjects, forKey: "repository_projects")
+        try values.encodeIfPresent(secretScanningAlerts, forKey: "secret_scanning_alerts")
+        try values.encodeIfPresent(secrets, forKey: "secrets")
+        try values.encodeIfPresent(securityEvents, forKey: "security_events")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encodeIfPresent(statuses, forKey: "statuses")
+        try values.encodeIfPresent(teamDiscussions, forKey: "team_discussions")
+        try values.encodeIfPresent(vulnerabilityAlerts, forKey: "vulnerability_alerts")
+        try values.encodeIfPresent(workflows, forKey: "workflows")
+    }
 }
 
-public struct Installation: Decodable {
+public struct Installation: Codable {
     public var accessTokensURL: URL
     public var account: Account?
     public var appID: Int
@@ -852,7 +1051,7 @@ public struct Installation: Decodable {
     public var targetType: String
     public var updatedAt: Date
 
-    public struct Account: Decodable {
+    public struct Account: Codable {
         public var simpleUser: SimpleUser?
         /// An enterprise account
         public var enterprise: Enterprise?
@@ -893,10 +1092,34 @@ public struct Installation: Decodable {
         self.targetType = try values.decode(String.self, forKey: "target_type")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(accessTokensURL, forKey: "access_tokens_url")
+        try values.encodeIfPresent(account, forKey: "account")
+        try values.encode(appID, forKey: "app_id")
+        try values.encode(appSlug, forKey: "app_slug")
+        try values.encodeIfPresent(contactEmail, forKey: "contact_email")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(events, forKey: "events")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(singleFileName, forKey: "single_file_name")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encodeIfPresent(suspendedBy, forKey: "suspended_by")
+        try values.encode(targetID, forKey: "target_id")
+        try values.encode(targetType, forKey: "target_type")
+        try values.encode(updatedAt, forKey: "updated_at")
+    }
 }
 
 /// A git repository
-public struct Repository: Decodable {
+public struct Repository: Codable {
     /// Whether to allow Auto-merge to be used on pull requests.
     ///
     /// Example: false
@@ -1045,7 +1268,7 @@ public struct Repository: Decodable {
     /// Example: 80
     public var watchersCount: Int
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool?
         public var isPull: Bool
@@ -1060,9 +1283,18 @@ public struct Repository: Decodable {
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
+        }
     }
 
-    public struct TemplateRepository: Decodable {
+    public struct TemplateRepository: Codable {
         public var allowAutoMerge: Bool?
         public var allowMergeCommit: Bool?
         public var allowRebaseMerge: Bool?
@@ -1146,7 +1378,7 @@ public struct Repository: Decodable {
         public var visibility: String?
         public var watchersCount: Int?
 
-        public struct Owner: Decodable {
+        public struct Owner: Codable {
             public var avatarURL: String?
             public var eventsURL: String?
             public var followersURL: String?
@@ -1187,9 +1419,31 @@ public struct Repository: Decodable {
                 self.type = try values.decodeIfPresent(String.self, forKey: "type")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+                try values.encodeIfPresent(eventsURL, forKey: "events_url")
+                try values.encodeIfPresent(followersURL, forKey: "followers_url")
+                try values.encodeIfPresent(followingURL, forKey: "following_url")
+                try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(login, forKey: "login")
+                try values.encodeIfPresent(nodeID, forKey: "node_id")
+                try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+                try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+                try values.encodeIfPresent(reposURL, forKey: "repos_url")
+                try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
+                try values.encodeIfPresent(starredURL, forKey: "starred_url")
+                try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encodeIfPresent(type, forKey: "type")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
 
-        public struct Permissions: Decodable {
+        public struct Permissions: Codable {
             public var isAdmin: Bool?
             public var isMaintain: Bool?
             public var isPull: Bool?
@@ -1203,6 +1457,15 @@ public struct Repository: Decodable {
                 self.isPull = try values.decodeIfPresent(Bool.self, forKey: "pull")
                 self.isPush = try values.decodeIfPresent(Bool.self, forKey: "push")
                 self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isAdmin, forKey: "admin")
+                try values.encodeIfPresent(isMaintain, forKey: "maintain")
+                try values.encodeIfPresent(isPull, forKey: "pull")
+                try values.encodeIfPresent(isPush, forKey: "push")
+                try values.encodeIfPresent(isTriage, forKey: "triage")
             }
         }
 
@@ -1290,6 +1553,92 @@ public struct Repository: Decodable {
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
             self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
             self.watchersCount = try values.decodeIfPresent(Int.self, forKey: "watchers_count")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+            try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+            try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+            try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+            try values.encodeIfPresent(allowUpdateBranch, forKey: "allow_update_branch")
+            try values.encodeIfPresent(archiveURL, forKey: "archive_url")
+            try values.encodeIfPresent(isArchived, forKey: "archived")
+            try values.encodeIfPresent(assigneesURL, forKey: "assignees_url")
+            try values.encodeIfPresent(blobsURL, forKey: "blobs_url")
+            try values.encodeIfPresent(branchesURL, forKey: "branches_url")
+            try values.encodeIfPresent(cloneURL, forKey: "clone_url")
+            try values.encodeIfPresent(collaboratorsURL, forKey: "collaborators_url")
+            try values.encodeIfPresent(commentsURL, forKey: "comments_url")
+            try values.encodeIfPresent(commitsURL, forKey: "commits_url")
+            try values.encodeIfPresent(compareURL, forKey: "compare_url")
+            try values.encodeIfPresent(contentsURL, forKey: "contents_url")
+            try values.encodeIfPresent(contributorsURL, forKey: "contributors_url")
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(defaultBranch, forKey: "default_branch")
+            try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+            try values.encodeIfPresent(deploymentsURL, forKey: "deployments_url")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(isDisabled, forKey: "disabled")
+            try values.encodeIfPresent(downloadsURL, forKey: "downloads_url")
+            try values.encodeIfPresent(eventsURL, forKey: "events_url")
+            try values.encodeIfPresent(isFork, forKey: "fork")
+            try values.encodeIfPresent(forksCount, forKey: "forks_count")
+            try values.encodeIfPresent(forksURL, forKey: "forks_url")
+            try values.encodeIfPresent(fullName, forKey: "full_name")
+            try values.encodeIfPresent(gitCommitsURL, forKey: "git_commits_url")
+            try values.encodeIfPresent(gitRefsURL, forKey: "git_refs_url")
+            try values.encodeIfPresent(gitTagsURL, forKey: "git_tags_url")
+            try values.encodeIfPresent(gitURL, forKey: "git_url")
+            try values.encodeIfPresent(hasDownloads, forKey: "has_downloads")
+            try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+            try values.encodeIfPresent(hasPages, forKey: "has_pages")
+            try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+            try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+            try values.encodeIfPresent(homepage, forKey: "homepage")
+            try values.encodeIfPresent(hooksURL, forKey: "hooks_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(isTemplate, forKey: "is_template")
+            try values.encodeIfPresent(issueCommentURL, forKey: "issue_comment_url")
+            try values.encodeIfPresent(issueEventsURL, forKey: "issue_events_url")
+            try values.encodeIfPresent(issuesURL, forKey: "issues_url")
+            try values.encodeIfPresent(keysURL, forKey: "keys_url")
+            try values.encodeIfPresent(labelsURL, forKey: "labels_url")
+            try values.encodeIfPresent(language, forKey: "language")
+            try values.encodeIfPresent(languagesURL, forKey: "languages_url")
+            try values.encodeIfPresent(mergesURL, forKey: "merges_url")
+            try values.encodeIfPresent(milestonesURL, forKey: "milestones_url")
+            try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(networkCount, forKey: "network_count")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(notificationsURL, forKey: "notifications_url")
+            try values.encodeIfPresent(openIssuesCount, forKey: "open_issues_count")
+            try values.encodeIfPresent(owner, forKey: "owner")
+            try values.encodeIfPresent(permissions, forKey: "permissions")
+            try values.encodeIfPresent(isPrivate, forKey: "private")
+            try values.encodeIfPresent(pullsURL, forKey: "pulls_url")
+            try values.encodeIfPresent(pushedAt, forKey: "pushed_at")
+            try values.encodeIfPresent(releasesURL, forKey: "releases_url")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(sshURL, forKey: "ssh_url")
+            try values.encodeIfPresent(stargazersCount, forKey: "stargazers_count")
+            try values.encodeIfPresent(stargazersURL, forKey: "stargazers_url")
+            try values.encodeIfPresent(statusesURL, forKey: "statuses_url")
+            try values.encodeIfPresent(subscribersCount, forKey: "subscribers_count")
+            try values.encodeIfPresent(subscribersURL, forKey: "subscribers_url")
+            try values.encodeIfPresent(subscriptionURL, forKey: "subscription_url")
+            try values.encodeIfPresent(svnURL, forKey: "svn_url")
+            try values.encodeIfPresent(tagsURL, forKey: "tags_url")
+            try values.encodeIfPresent(teamsURL, forKey: "teams_url")
+            try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+            try values.encodeIfPresent(topics, forKey: "topics")
+            try values.encodeIfPresent(treesURL, forKey: "trees_url")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(visibility, forKey: "visibility")
+            try values.encodeIfPresent(watchersCount, forKey: "watchers_count")
         }
     }
 
@@ -1386,10 +1735,104 @@ public struct Repository: Decodable {
         self.watchers = try values.decode(Int.self, forKey: "watchers")
         self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+        try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+        try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+        try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+        try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+        try values.encode(archiveURL, forKey: "archive_url")
+        try values.encode(isArchived, forKey: "archived")
+        try values.encode(assigneesURL, forKey: "assignees_url")
+        try values.encode(blobsURL, forKey: "blobs_url")
+        try values.encode(branchesURL, forKey: "branches_url")
+        try values.encode(cloneURL, forKey: "clone_url")
+        try values.encode(collaboratorsURL, forKey: "collaborators_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(compareURL, forKey: "compare_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(contributorsURL, forKey: "contributors_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encode(defaultBranch, forKey: "default_branch")
+        try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+        try values.encode(deploymentsURL, forKey: "deployments_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(isDisabled, forKey: "disabled")
+        try values.encode(downloadsURL, forKey: "downloads_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(isFork, forKey: "fork")
+        try values.encode(forks, forKey: "forks")
+        try values.encode(forksCount, forKey: "forks_count")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(fullName, forKey: "full_name")
+        try values.encode(gitCommitsURL, forKey: "git_commits_url")
+        try values.encode(gitRefsURL, forKey: "git_refs_url")
+        try values.encode(gitTagsURL, forKey: "git_tags_url")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(hasDownloads, forKey: "has_downloads")
+        try values.encode(hasIssues, forKey: "has_issues")
+        try values.encode(hasPages, forKey: "has_pages")
+        try values.encode(hasProjects, forKey: "has_projects")
+        try values.encode(hasWiki, forKey: "has_wiki")
+        try values.encodeIfPresent(homepage, forKey: "homepage")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isTemplate, forKey: "is_template")
+        try values.encode(issueCommentURL, forKey: "issue_comment_url")
+        try values.encode(issueEventsURL, forKey: "issue_events_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(keysURL, forKey: "keys_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encode(languagesURL, forKey: "languages_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+        try values.encode(mergesURL, forKey: "merges_url")
+        try values.encode(milestonesURL, forKey: "milestones_url")
+        try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(networkCount, forKey: "network_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(notificationsURL, forKey: "notifications_url")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(openIssuesCount, forKey: "open_issues_count")
+        try values.encodeIfPresent(organization, forKey: "organization")
+        try values.encode(owner, forKey: "owner")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encode(pullsURL, forKey: "pulls_url")
+        try values.encodeIfPresent(pushedAt, forKey: "pushed_at")
+        try values.encode(releasesURL, forKey: "releases_url")
+        try values.encode(size, forKey: "size")
+        try values.encode(sshURL, forKey: "ssh_url")
+        try values.encode(stargazersCount, forKey: "stargazers_count")
+        try values.encode(stargazersURL, forKey: "stargazers_url")
+        try values.encodeIfPresent(starredAt, forKey: "starred_at")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encodeIfPresent(subscribersCount, forKey: "subscribers_count")
+        try values.encode(subscribersURL, forKey: "subscribers_url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encode(svnURL, forKey: "svn_url")
+        try values.encode(tagsURL, forKey: "tags_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+        try values.encodeIfPresent(templateRepository, forKey: "template_repository")
+        try values.encodeIfPresent(topics, forKey: "topics")
+        try values.encode(treesURL, forKey: "trees_url")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+        try values.encode(watchers, forKey: "watchers")
+        try values.encode(watchersCount, forKey: "watchers_count")
+    }
 }
 
 /// Authentication token for a GitHub App installed on a user or org.
-public struct InstallationToken: Decodable {
+public struct InstallationToken: Codable {
     public var expiresAt: String
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
@@ -1435,10 +1878,22 @@ public struct InstallationToken: Decodable {
         self.singleFilePaths = try values.decodeIfPresent([String].self, forKey: "single_file_paths")
         self.token = try values.decode(String.self, forKey: "token")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encodeIfPresent(repositories, forKey: "repositories")
+        try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
+        try values.encode(token, forKey: "token")
+    }
 }
 
 /// The authorization associated with an OAuth Access.
-public struct ApplicationGrant: Decodable {
+public struct ApplicationGrant: Codable {
     public var app: App
     /// Example: 2011-09-06T17:26:27Z
     public var createdAt: Date
@@ -1455,7 +1910,7 @@ public struct ApplicationGrant: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct App: Decodable {
+    public struct App: Codable {
         public var clientID: String
         public var name: String
         public var url: URL
@@ -1465,6 +1920,13 @@ public struct ApplicationGrant: Decodable {
             self.clientID = try values.decode(String.self, forKey: "client_id")
             self.name = try values.decode(String.self, forKey: "name")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(clientID, forKey: "client_id")
+            try values.encode(name, forKey: "name")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -1478,9 +1940,20 @@ public struct ApplicationGrant: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(app, forKey: "app")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(scopes, forKey: "scopes")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct ScopedInstallation: Decodable {
+public struct ScopedInstallation: Codable {
     /// Simple User
     public var account: SimpleUser
     /// Example: true
@@ -1527,10 +2000,21 @@ public struct ScopedInstallation: Decodable {
         self.singleFileName = try values.decodeIfPresent(String.self, forKey: "single_file_name")
         self.singleFilePaths = try values.decodeIfPresent([String].self, forKey: "single_file_paths")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(account, forKey: "account")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(singleFileName, forKey: "single_file_name")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
+    }
 }
 
 /// The authorization for an OAuth app, GitHub App, or a Personal Access Token.
-public struct Authorization: Decodable {
+public struct Authorization: Codable {
     public var app: App
     public var createdAt: Date
     public var expiresAt: Date?
@@ -1550,7 +2034,7 @@ public struct Authorization: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct App: Decodable {
+    public struct App: Codable {
         public var clientID: String
         public var name: String
         public var url: URL
@@ -1560,6 +2044,13 @@ public struct Authorization: Decodable {
             self.clientID = try values.decode(String.self, forKey: "client_id")
             self.name = try values.decode(String.self, forKey: "name")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(clientID, forKey: "client_id")
+            try values.encode(name, forKey: "name")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -1581,9 +2072,28 @@ public struct Authorization: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(app, forKey: "app")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+        try values.encodeIfPresent(hashedToken, forKey: "hashed_token")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(installation, forKey: "installation")
+        try values.encodeIfPresent(note, forKey: "note")
+        try values.encodeIfPresent(noteURL, forKey: "note_url")
+        try values.encodeIfPresent(scopes, forKey: "scopes")
+        try values.encode(token, forKey: "token")
+        try values.encodeIfPresent(tokenLastEight, forKey: "token_last_eight")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct CodeOfConduct: Decodable {
+public struct CodeOfConduct: Codable {
     /// Example:
 
     /// # Contributor Covenant Code of Conduct
@@ -1632,6 +2142,15 @@ public struct CodeOfConduct: Decodable {
         self.name = try values.decode(String.self, forKey: "name")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(key, forKey: "key")
+        try values.encode(name, forKey: "name")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -1648,7 +2167,7 @@ public enum AllowedActions: String, Codable, CaseIterable {
     case selected
 }
 
-public struct ActionsEnterprisePermissions: Decodable {
+public struct ActionsEnterprisePermissions: Codable {
     /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     public var allowedActions: AllowedActions?
     /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -1665,9 +2184,17 @@ public struct ActionsEnterprisePermissions: Decodable {
         self.selectedActionsURL = try values.decodeIfPresent(String.self, forKey: "selected_actions_url")
         self.selectedOrganizationsURL = try values.decodeIfPresent(String.self, forKey: "selected_organizations_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+        try values.encode(enabledOrganizations, forKey: "enabled_organizations")
+        try values.encodeIfPresent(selectedActionsURL, forKey: "selected_actions_url")
+        try values.encodeIfPresent(selectedOrganizationsURL, forKey: "selected_organizations_url")
+    }
 }
 
-public struct OrganizationSimple: Decodable {
+public struct OrganizationSimple: Codable {
     public var avatarURL: String
     /// Example: A great organization
     public var description: String?
@@ -1699,9 +2226,25 @@ public struct OrganizationSimple: Decodable {
         self.reposURL = try values.decode(URL.self, forKey: "repos_url")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(login, forKey: "login")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(publicMembersURL, forKey: "public_members_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct SelectedActions: Decodable {
+public struct SelectedActions: Codable {
     /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
     public var isGithubOwnedAllowed: Bool?
     /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
@@ -1715,9 +2258,16 @@ public struct SelectedActions: Decodable {
         self.patternsAllowed = try values.decodeIfPresent([String].self, forKey: "patterns_allowed")
         self.isVerifiedAllowed = try values.decodeIfPresent(Bool.self, forKey: "verified_allowed")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isGithubOwnedAllowed, forKey: "github_owned_allowed")
+        try values.encodeIfPresent(patternsAllowed, forKey: "patterns_allowed")
+        try values.encodeIfPresent(isVerifiedAllowed, forKey: "verified_allowed")
+    }
 }
 
-public struct RunnerGroupsEnterprise: Decodable {
+public struct RunnerGroupsEnterprise: Codable {
     public var allowsPublicRepositories: Bool
     public var isDefault: Bool
     public var id: Double
@@ -1736,12 +2286,23 @@ public struct RunnerGroupsEnterprise: Decodable {
         self.selectedOrganizationsURL = try values.decodeIfPresent(String.self, forKey: "selected_organizations_url")
         self.visibility = try values.decode(String.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(allowsPublicRepositories, forKey: "allows_public_repositories")
+        try values.encode(isDefault, forKey: "default")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(runnersURL, forKey: "runners_url")
+        try values.encodeIfPresent(selectedOrganizationsURL, forKey: "selected_organizations_url")
+        try values.encode(visibility, forKey: "visibility")
+    }
 }
 
 /// Self hosted runners
 ///
 /// A self hosted runner
-public struct Runner: Decodable {
+public struct Runner: Codable {
     public var isBusy: Bool
     /// The id of the runner.
     public var id: Int
@@ -1759,7 +2320,7 @@ public struct Runner: Decodable {
     /// Example: online
     public var status: String
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         /// Unique identifier of the label.
         public var id: Int?
         /// Name of the label.
@@ -1779,6 +2340,13 @@ public struct Runner: Decodable {
             self.name = try values.decodeIfPresent(String.self, forKey: "name")
             self.type = try values.decodeIfPresent(`Type`.self, forKey: "type")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(type, forKey: "type")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -1790,9 +2358,19 @@ public struct Runner: Decodable {
         self.os = try values.decode(String.self, forKey: "os")
         self.status = try values.decode(String.self, forKey: "status")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isBusy, forKey: "busy")
+        try values.encode(id, forKey: "id")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(name, forKey: "name")
+        try values.encode(os, forKey: "os")
+        try values.encode(status, forKey: "status")
+    }
 }
 
-public struct RunnerApplication: Decodable {
+public struct RunnerApplication: Codable {
     public var architecture: String
     public var downloadURL: String
     public var filename: String
@@ -1810,9 +2388,19 @@ public struct RunnerApplication: Decodable {
         self.sha256Checksum = try values.decodeIfPresent(String.self, forKey: "sha256_checksum")
         self.tempDownloadToken = try values.decodeIfPresent(String.self, forKey: "temp_download_token")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(architecture, forKey: "architecture")
+        try values.encode(downloadURL, forKey: "download_url")
+        try values.encode(filename, forKey: "filename")
+        try values.encode(os, forKey: "os")
+        try values.encodeIfPresent(sha256Checksum, forKey: "sha256_checksum")
+        try values.encodeIfPresent(tempDownloadToken, forKey: "temp_download_token")
+    }
 }
 
-public struct AuthenticationToken: Decodable {
+public struct AuthenticationToken: Codable {
     /// The time this token expires
     ///
     /// Example: 2016-07-11T22:14:10Z
@@ -1850,9 +2438,19 @@ public struct AuthenticationToken: Decodable {
         self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
         self.token = try values.decode(String.self, forKey: "token")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encodeIfPresent(repositories, forKey: "repositories")
+        try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encode(token, forKey: "token")
+    }
 }
 
-public struct AuditLogEvent: Decodable {
+public struct AuditLogEvent: Codable {
     /// The time the audit log event occurred, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).
     public var timestamp: Int?
     /// A unique identifier for an audit event.
@@ -1907,28 +2505,33 @@ public struct AuditLogEvent: Decodable {
     /// The repository visibility, for example `public` or `private`.
     public var visibility: String?
 
-    public struct ActorLocation: Decodable {
+    public struct ActorLocation: Codable {
         public var countryName: String?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.countryName = try values.decodeIfPresent(String.self, forKey: "country_name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(countryName, forKey: "country_name")
+        }
     }
 
-    public struct ConfigItem: Decodable {
-
-    }
-
-    public struct ConfigWasItem: Decodable {
-
-    }
-
-    public struct Event: Decodable {
+    public struct ConfigItem: Codable {
 
     }
 
-    public struct EventsWereItem: Decodable {
+    public struct ConfigWasItem: Codable {
+
+    }
+
+    public struct Event: Codable {
+
+    }
+
+    public struct EventsWereItem: Codable {
 
     }
 
@@ -1975,9 +2578,53 @@ public struct AuditLogEvent: Decodable {
         self.user = try values.decodeIfPresent(String.self, forKey: "user")
         self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(timestamp, forKey: "@timestamp")
+        try values.encodeIfPresent(documentID, forKey: "_document_id")
+        try values.encodeIfPresent(action, forKey: "action")
+        try values.encodeIfPresent(isActive, forKey: "active")
+        try values.encodeIfPresent(activeWas, forKey: "active_was")
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encodeIfPresent(actorID, forKey: "actor_id")
+        try values.encodeIfPresent(actorLocation, forKey: "actor_location")
+        try values.encodeIfPresent(blockedUser, forKey: "blocked_user")
+        try values.encodeIfPresent(business, forKey: "business")
+        try values.encodeIfPresent(config, forKey: "config")
+        try values.encodeIfPresent(configWas, forKey: "config_was")
+        try values.encodeIfPresent(contentType, forKey: "content_type")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(data, forKey: "data")
+        try values.encodeIfPresent(deployKeyFingerprint, forKey: "deploy_key_fingerprint")
+        try values.encodeIfPresent(emoji, forKey: "emoji")
+        try values.encodeIfPresent(events, forKey: "events")
+        try values.encodeIfPresent(eventsWere, forKey: "events_were")
+        try values.encodeIfPresent(explanation, forKey: "explanation")
+        try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+        try values.encodeIfPresent(hookID, forKey: "hook_id")
+        try values.encodeIfPresent(isLimitedAvailability, forKey: "limited_availability")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(oldUser, forKey: "old_user")
+        try values.encodeIfPresent(opensshPublicKey, forKey: "openssh_public_key")
+        try values.encodeIfPresent(org, forKey: "org")
+        try values.encodeIfPresent(orgID, forKey: "org_id")
+        try values.encodeIfPresent(previousVisibility, forKey: "previous_visibility")
+        try values.encodeIfPresent(isReadOnly, forKey: "read_only")
+        try values.encodeIfPresent(repo, forKey: "repo")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encodeIfPresent(isRepositoryPublic, forKey: "repository_public")
+        try values.encodeIfPresent(targetLogin, forKey: "target_login")
+        try values.encodeIfPresent(team, forKey: "team")
+        try values.encodeIfPresent(transportProtocol, forKey: "transport_protocol")
+        try values.encodeIfPresent(transportProtocolName, forKey: "transport_protocol_name")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+    }
 }
 
-public struct ActionsBillingUsage: Decodable {
+public struct ActionsBillingUsage: Codable {
     /// The amount of free GitHub Actions minutes available.
     public var includedMinutes: Int
     public var minutesUsedBreakdown: MinutesUsedBreakdown
@@ -1986,7 +2633,7 @@ public struct ActionsBillingUsage: Decodable {
     /// The total paid GitHub Actions minutes used.
     public var totalPaidMinutesUsed: Int
 
-    public struct MinutesUsedBreakdown: Decodable {
+    public struct MinutesUsedBreakdown: Codable {
         /// Total minutes used on macOS runner machines.
         public var macos: Int?
         /// Total minutes used on Ubuntu runner machines.
@@ -2000,6 +2647,13 @@ public struct ActionsBillingUsage: Decodable {
             self.ubuntu = try values.decodeIfPresent(Int.self, forKey: "UBUNTU")
             self.windows = try values.decodeIfPresent(Int.self, forKey: "WINDOWS")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -2009,9 +2663,17 @@ public struct ActionsBillingUsage: Decodable {
         self.totalMinutesUsed = try values.decode(Int.self, forKey: "total_minutes_used")
         self.totalPaidMinutesUsed = try values.decode(Int.self, forKey: "total_paid_minutes_used")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(includedMinutes, forKey: "included_minutes")
+        try values.encode(minutesUsedBreakdown, forKey: "minutes_used_breakdown")
+        try values.encode(totalMinutesUsed, forKey: "total_minutes_used")
+        try values.encode(totalPaidMinutesUsed, forKey: "total_paid_minutes_used")
+    }
 }
 
-public struct AdvancedSecurityActiveCommittersUser: Decodable {
+public struct AdvancedSecurityActiveCommittersUser: Codable {
     /// Example: 2021-11-03
     public var lastPushedDate: String
     public var userLogin: String
@@ -2021,9 +2683,15 @@ public struct AdvancedSecurityActiveCommittersUser: Decodable {
         self.lastPushedDate = try values.decode(String.self, forKey: "last_pushed_date")
         self.userLogin = try values.decode(String.self, forKey: "user_login")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(lastPushedDate, forKey: "last_pushed_date")
+        try values.encode(userLogin, forKey: "user_login")
+    }
 }
 
-public struct AdvancedSecurityActiveCommittersRepository: Decodable {
+public struct AdvancedSecurityActiveCommittersRepository: Codable {
     /// Example: 25
     public var advancedSecurityCommitters: Int
     public var advancedSecurityCommittersBreakdown: [AdvancedSecurityActiveCommittersUser]
@@ -2036,9 +2704,16 @@ public struct AdvancedSecurityActiveCommittersRepository: Decodable {
         self.advancedSecurityCommittersBreakdown = try values.decode([AdvancedSecurityActiveCommittersUser].self, forKey: "advanced_security_committers_breakdown")
         self.name = try values.decode(String.self, forKey: "name")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(advancedSecurityCommitters, forKey: "advanced_security_committers")
+        try values.encode(advancedSecurityCommittersBreakdown, forKey: "advanced_security_committers_breakdown")
+        try values.encode(name, forKey: "name")
+    }
 }
 
-public struct AdvancedSecurityActiveCommitters: Decodable {
+public struct AdvancedSecurityActiveCommitters: Codable {
     public var repositories: [AdvancedSecurityActiveCommittersRepository]
     /// Example: 25
     public var totalAdvancedSecurityCommitters: Int?
@@ -2048,9 +2723,15 @@ public struct AdvancedSecurityActiveCommitters: Decodable {
         self.repositories = try values.decode([AdvancedSecurityActiveCommittersRepository].self, forKey: "repositories")
         self.totalAdvancedSecurityCommitters = try values.decodeIfPresent(Int.self, forKey: "total_advanced_security_committers")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(repositories, forKey: "repositories")
+        try values.encodeIfPresent(totalAdvancedSecurityCommitters, forKey: "total_advanced_security_committers")
+    }
 }
 
-public struct PackagesBillingUsage: Decodable {
+public struct PackagesBillingUsage: Codable {
     /// Free storage space (GB) for GitHub Packages.
     public var includedGigabytesBandwidth: Int
     /// Sum of the free and paid storage space (GB) for GitHuub Packages.
@@ -2064,9 +2745,16 @@ public struct PackagesBillingUsage: Decodable {
         self.totalGigabytesBandwidthUsed = try values.decode(Int.self, forKey: "total_gigabytes_bandwidth_used")
         self.totalPaidGigabytesBandwidthUsed = try values.decode(Int.self, forKey: "total_paid_gigabytes_bandwidth_used")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(includedGigabytesBandwidth, forKey: "included_gigabytes_bandwidth")
+        try values.encode(totalGigabytesBandwidthUsed, forKey: "total_gigabytes_bandwidth_used")
+        try values.encode(totalPaidGigabytesBandwidthUsed, forKey: "total_paid_gigabytes_bandwidth_used")
+    }
 }
 
-public struct CombinedBillingUsage: Decodable {
+public struct CombinedBillingUsage: Codable {
     /// Numbers of days left in billing cycle.
     public var daysLeftInBillingCycle: Int
     /// Estimated storage space (GB) used in billing cycle.
@@ -2080,9 +2768,16 @@ public struct CombinedBillingUsage: Decodable {
         self.estimatedPaidStorageForMonth = try values.decode(Int.self, forKey: "estimated_paid_storage_for_month")
         self.estimatedStorageForMonth = try values.decode(Int.self, forKey: "estimated_storage_for_month")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(daysLeftInBillingCycle, forKey: "days_left_in_billing_cycle")
+        try values.encode(estimatedPaidStorageForMonth, forKey: "estimated_paid_storage_for_month")
+        try values.encode(estimatedStorageForMonth, forKey: "estimated_storage_for_month")
+    }
 }
 
-public struct Actor: Decodable {
+public struct Actor: Codable {
     public var avatarURL: URL
     public var displayLogin: String?
     public var gravatarID: String?
@@ -2098,6 +2793,16 @@ public struct Actor: Decodable {
         self.id = try values.decode(Int.self, forKey: "id")
         self.login = try values.decode(String.self, forKey: "login")
         self.url = try values.decode(URL.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(displayLogin, forKey: "display_login")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encode(url, forKey: "url")
     }
 }
 
@@ -2117,7 +2822,7 @@ public enum AuthorAssociation: String, Codable, CaseIterable {
     case owner = "OWNER"
 }
 
-public struct ReactionRollup: Decodable {
+public struct ReactionRollup: Codable {
     public var plus1: Int
     public var minus1: Int
     public var confused: Int
@@ -2142,10 +2847,24 @@ public struct ReactionRollup: Decodable {
         self.totalCount = try values.decode(Int.self, forKey: "total_count")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(plus1, forKey: "+1")
+        try values.encode(minus1, forKey: "-1")
+        try values.encode(confused, forKey: "confused")
+        try values.encode(eyes, forKey: "eyes")
+        try values.encode(heart, forKey: "heart")
+        try values.encode(hooray, forKey: "hooray")
+        try values.encode(laugh, forKey: "laugh")
+        try values.encode(rocket, forKey: "rocket")
+        try values.encode(totalCount, forKey: "total_count")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
-public struct Issue: Decodable {
+public struct Issue: Codable {
     public var activeLockReason: String?
     /// Simple User
     public var assignee: SimpleUser?
@@ -2215,11 +2934,11 @@ public struct Issue: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public enum Label: Decodable {
+    public enum Label: Codable {
         case string(String)
         case object(Object)
 
-        public struct Object: Decodable {
+        public struct Object: Codable {
             public var color: String?
             public var isDefault: Bool?
             public var description: String?
@@ -2238,6 +2957,17 @@ public struct Issue: Decodable {
                 self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
                 self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(isDefault, forKey: "default")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(nodeID, forKey: "node_id")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -2252,7 +2982,7 @@ public struct Issue: Decodable {
         }
     }
 
-    public struct PullRequest: Decodable {
+    public struct PullRequest: Codable {
         public var diffURL: URL?
         public var htmlURL: URL?
         public var mergedAt: Date?
@@ -2266,6 +2996,15 @@ public struct Issue: Decodable {
             self.mergedAt = try values.decodeIfPresent(Date.self, forKey: "merged_at")
             self.patchURL = try values.decodeIfPresent(URL.self, forKey: "patch_url")
             self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(diffURL, forKey: "diff_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+            try values.encodeIfPresent(patchURL, forKey: "patch_url")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -2305,10 +3044,47 @@ public struct Issue: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encodeIfPresent(closedBy, forKey: "closed_by")
+        try values.encode(comments, forKey: "comments")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(pullRequest, forKey: "pull_request")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(timelineURL, forKey: "timeline_url")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
 /// Comments provide a way for people to collaborate on an issue.
-public struct IssueComment: Decodable {
+public struct IssueComment: Codable {
     /// Author_association
     ///
     /// How the author is associated with the repository.
@@ -2360,9 +3136,27 @@ public struct IssueComment: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct Event: Decodable {
+public struct Event: Codable {
     public var actor: Actor
     public var createdAt: Date?
     public var id: String
@@ -2373,7 +3167,7 @@ public struct Event: Decodable {
     public var repo: Repo
     public var type: String?
 
-    public struct Payload: Decodable {
+    public struct Payload: Codable {
         public var action: String?
         /// Issue Comment
         ///
@@ -2383,7 +3177,7 @@ public struct Event: Decodable {
         public var issue: Issue?
         public var pages: [Page]?
 
-        public struct Page: Decodable {
+        public struct Page: Codable {
             public var action: String?
             public var htmlURL: String?
             public var pageName: String?
@@ -2400,6 +3194,16 @@ public struct Event: Decodable {
                 self.summary = try values.decodeIfPresent(String.self, forKey: "summary")
                 self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(action, forKey: "action")
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(pageName, forKey: "page_name")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(summary, forKey: "summary")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -2409,9 +3213,17 @@ public struct Event: Decodable {
             self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
             self.pages = try values.decodeIfPresent([Page].self, forKey: "pages")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(action, forKey: "action")
+            try values.encodeIfPresent(comment, forKey: "comment")
+            try values.encodeIfPresent(issue, forKey: "issue")
+            try values.encodeIfPresent(pages, forKey: "pages")
+        }
     }
 
-    public struct Repo: Decodable {
+    public struct Repo: Codable {
         public var id: Int
         public var name: String
         public var url: URL
@@ -2421,6 +3233,13 @@ public struct Event: Decodable {
             self.id = try values.decode(Int.self, forKey: "id")
             self.name = try values.decode(String.self, forKey: "name")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(id, forKey: "id")
+            try values.encode(name, forKey: "name")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -2435,10 +3254,22 @@ public struct Event: Decodable {
         self.repo = try values.decode(Repo.self, forKey: "repo")
         self.type = try values.decodeIfPresent(String.self, forKey: "type")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(org, forKey: "org")
+        try values.encode(payload, forKey: "payload")
+        try values.encode(isPublic, forKey: "public")
+        try values.encode(repo, forKey: "repo")
+        try values.encodeIfPresent(type, forKey: "type")
+    }
 }
 
 /// Hypermedia Link with Type
-public struct LinkWithType: Decodable {
+public struct LinkWithType: Codable {
     public var href: String
     public var type: String
 
@@ -2447,9 +3278,15 @@ public struct LinkWithType: Decodable {
         self.href = try values.decode(String.self, forKey: "href")
         self.type = try values.decode(String.self, forKey: "type")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(href, forKey: "href")
+        try values.encode(type, forKey: "type")
+    }
 }
 
-public struct Feed: Decodable {
+public struct Feed: Codable {
     public var links: Links
     public var currentUserActorURL: String?
     public var currentUserOrganizationURL: String?
@@ -2465,7 +3302,7 @@ public struct Feed: Decodable {
     public var timelineURL: String
     public var userURL: String
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         /// Link With Type
         ///
         /// Hypermedia Link with Type
@@ -2507,6 +3344,18 @@ public struct Feed: Decodable {
             self.timeline = try values.decode(LinkWithType.self, forKey: "timeline")
             self.user = try values.decode(LinkWithType.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(currentUser, forKey: "current_user")
+            try values.encodeIfPresent(currentUserActor, forKey: "current_user_actor")
+            try values.encodeIfPresent(currentUserOrganization, forKey: "current_user_organization")
+            try values.encodeIfPresent(currentUserOrganizations, forKey: "current_user_organizations")
+            try values.encodeIfPresent(currentUserPublic, forKey: "current_user_public")
+            try values.encodeIfPresent(securityAdvisories, forKey: "security_advisories")
+            try values.encode(timeline, forKey: "timeline")
+            try values.encode(user, forKey: "user")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -2521,9 +3370,22 @@ public struct Feed: Decodable {
         self.timelineURL = try values.decode(String.self, forKey: "timeline_url")
         self.userURL = try values.decode(String.self, forKey: "user_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(currentUserActorURL, forKey: "current_user_actor_url")
+        try values.encodeIfPresent(currentUserOrganizationURL, forKey: "current_user_organization_url")
+        try values.encodeIfPresent(currentUserOrganizationURLs, forKey: "current_user_organization_urls")
+        try values.encodeIfPresent(currentUserPublicURL, forKey: "current_user_public_url")
+        try values.encodeIfPresent(currentUserURL, forKey: "current_user_url")
+        try values.encodeIfPresent(securityAdvisoriesURL, forKey: "security_advisories_url")
+        try values.encode(timelineURL, forKey: "timeline_url")
+        try values.encode(userURL, forKey: "user_url")
+    }
 }
 
-public struct BaseGist: Decodable {
+public struct BaseGist: Codable {
     public var comments: Int
     public var commentsURL: URL
     public var commitsURL: URL
@@ -2547,7 +3409,7 @@ public struct BaseGist: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct FilesItem: Decodable {
+    public struct FilesItem: Codable {
         public var filename: String?
         public var language: String?
         public var rawURL: String?
@@ -2561,6 +3423,15 @@ public struct BaseGist: Decodable {
             self.rawURL = try values.decodeIfPresent(String.self, forKey: "raw_url")
             self.size = try values.decodeIfPresent(Int.self, forKey: "size")
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(filename, forKey: "filename")
+            try values.encodeIfPresent(language, forKey: "language")
+            try values.encodeIfPresent(rawURL, forKey: "raw_url")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(type, forKey: "type")
         }
     }
 
@@ -2587,9 +3458,33 @@ public struct BaseGist: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(comments, forKey: "comments")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(files, forKey: "files")
+        try values.encodeIfPresent(forks, forKey: "forks")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(gitPullURL, forKey: "git_pull_url")
+        try values.encode(gitPushURL, forKey: "git_push_url")
+        try values.encodeIfPresent(history, forKey: "history")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encode(isPublic, forKey: "public")
+        try values.encodeIfPresent(isTruncated, forKey: "truncated")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct PublicUser: Decodable {
+public struct PublicUser: Codable {
     public var avatarURL: URL
     public var bio: String?
     public var blog: String?
@@ -2630,7 +3525,7 @@ public struct PublicUser: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Plan: Decodable {
+    public struct Plan: Codable {
         public var collaborators: Int
         public var name: String
         public var privateRepos: Int
@@ -2642,6 +3537,14 @@ public struct PublicUser: Decodable {
             self.name = try values.decode(String.self, forKey: "name")
             self.privateRepos = try values.decode(Int.self, forKey: "private_repos")
             self.space = try values.decode(Int.self, forKey: "space")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(collaborators, forKey: "collaborators")
+            try values.encode(name, forKey: "name")
+            try values.encode(privateRepos, forKey: "private_repos")
+            try values.encode(space, forKey: "space")
         }
     }
 
@@ -2687,9 +3590,52 @@ public struct PublicUser: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(bio, forKey: "bio")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(collaborators, forKey: "collaborators")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(diskUsage, forKey: "disk_usage")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(followers, forKey: "followers")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(following, forKey: "following")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encodeIfPresent(isHireable, forKey: "hireable")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encodeIfPresent(ownedPrivateRepos, forKey: "owned_private_repos")
+        try values.encodeIfPresent(plan, forKey: "plan")
+        try values.encodeIfPresent(privateGists, forKey: "private_gists")
+        try values.encode(publicGists, forKey: "public_gists")
+        try values.encode(publicRepos, forKey: "public_repos")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encodeIfPresent(totalPrivateRepos, forKey: "total_private_repos")
+        try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+        try values.encode(type, forKey: "type")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct GistHistory: Decodable {
+public struct GistHistory: Codable {
     public var changeStatus: ChangeStatus?
     public var committedAt: Date?
     public var url: URL?
@@ -2697,7 +3643,7 @@ public struct GistHistory: Decodable {
     public var user: SimpleUser?
     public var version: String?
 
-    public struct ChangeStatus: Decodable {
+    public struct ChangeStatus: Codable {
         public var additions: Int?
         public var deletions: Int?
         public var total: Int?
@@ -2707,6 +3653,13 @@ public struct GistHistory: Decodable {
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
             self.deletions = try values.decodeIfPresent(Int.self, forKey: "deletions")
             self.total = try values.decodeIfPresent(Int.self, forKey: "total")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(additions, forKey: "additions")
+            try values.encodeIfPresent(deletions, forKey: "deletions")
+            try values.encodeIfPresent(total, forKey: "total")
         }
     }
 
@@ -2718,9 +3671,18 @@ public struct GistHistory: Decodable {
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
         self.version = try values.decodeIfPresent(String.self, forKey: "version")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(changeStatus, forKey: "change_status")
+        try values.encodeIfPresent(committedAt, forKey: "committed_at")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(version, forKey: "version")
+    }
 }
 
-public struct GistSimple: Decodable {
+public struct GistSimple: Codable {
     public var comments: Int?
     public var commentsURL: String?
     public var commitsURL: String?
@@ -2745,7 +3707,7 @@ public struct GistSimple: Decodable {
     public var url: String?
     public var user: String?
 
-    public struct FilesItem: Decodable {
+    public struct FilesItem: Codable {
         public var content: String?
         public var filename: String?
         public var language: String?
@@ -2764,10 +3726,21 @@ public struct GistSimple: Decodable {
             self.isTruncated = try values.decodeIfPresent(Bool.self, forKey: "truncated")
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(content, forKey: "content")
+            try values.encodeIfPresent(filename, forKey: "filename")
+            try values.encodeIfPresent(language, forKey: "language")
+            try values.encodeIfPresent(rawURL, forKey: "raw_url")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(isTruncated, forKey: "truncated")
+            try values.encodeIfPresent(type, forKey: "type")
+        }
     }
 
     /// Gist
-    public struct ForkOf: Decodable {
+    public struct ForkOf: Codable {
         public var comments: Int
         public var commentsURL: URL
         public var commitsURL: URL
@@ -2791,7 +3764,7 @@ public struct GistSimple: Decodable {
         /// Simple User
         public var user: SimpleUser?
 
-        public struct FilesItem: Decodable {
+        public struct FilesItem: Codable {
             public var filename: String?
             public var language: String?
             public var rawURL: String?
@@ -2805,6 +3778,15 @@ public struct GistSimple: Decodable {
                 self.rawURL = try values.decodeIfPresent(String.self, forKey: "raw_url")
                 self.size = try values.decodeIfPresent(Int.self, forKey: "size")
                 self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(filename, forKey: "filename")
+                try values.encodeIfPresent(language, forKey: "language")
+                try values.encodeIfPresent(rawURL, forKey: "raw_url")
+                try values.encodeIfPresent(size, forKey: "size")
+                try values.encodeIfPresent(type, forKey: "type")
             }
         }
 
@@ -2831,9 +3813,33 @@ public struct GistSimple: Decodable {
             self.url = try values.decode(URL.self, forKey: "url")
             self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(comments, forKey: "comments")
+            try values.encode(commentsURL, forKey: "comments_url")
+            try values.encode(commitsURL, forKey: "commits_url")
+            try values.encode(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encode(files, forKey: "files")
+            try values.encodeIfPresent(forks, forKey: "forks")
+            try values.encode(forksURL, forKey: "forks_url")
+            try values.encode(gitPullURL, forKey: "git_pull_url")
+            try values.encode(gitPushURL, forKey: "git_push_url")
+            try values.encodeIfPresent(history, forKey: "history")
+            try values.encode(htmlURL, forKey: "html_url")
+            try values.encode(id, forKey: "id")
+            try values.encode(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(owner, forKey: "owner")
+            try values.encode(isPublic, forKey: "public")
+            try values.encodeIfPresent(isTruncated, forKey: "truncated")
+            try values.encode(updatedAt, forKey: "updated_at")
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(user, forKey: "user")
+        }
     }
 
-    public struct Fork: Decodable {
+    public struct Fork: Codable {
         public var createdAt: Date?
         public var id: String?
         public var updatedAt: Date?
@@ -2848,6 +3854,15 @@ public struct GistSimple: Decodable {
             self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
             self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             self.user = try values.decodeIfPresent(PublicUser.self, forKey: "user")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(user, forKey: "user")
         }
     }
 
@@ -2875,10 +3890,35 @@ public struct GistSimple: Decodable {
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
         self.user = try values.decodeIfPresent(String.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(comments, forKey: "comments")
+        try values.encodeIfPresent(commentsURL, forKey: "comments_url")
+        try values.encodeIfPresent(commitsURL, forKey: "commits_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(files, forKey: "files")
+        try values.encodeIfPresent(forkOf, forKey: "fork_of")
+        try values.encodeIfPresent(forks, forKey: "forks")
+        try values.encodeIfPresent(forksURL, forKey: "forks_url")
+        try values.encodeIfPresent(gitPullURL, forKey: "git_pull_url")
+        try values.encodeIfPresent(gitPushURL, forKey: "git_push_url")
+        try values.encodeIfPresent(history, forKey: "history")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(isPublic, forKey: "public")
+        try values.encodeIfPresent(isTruncated, forKey: "truncated")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
 /// A comment made to a gist.
-public struct GistComment: Decodable {
+public struct GistComment: Codable {
     /// Author_association
     ///
     /// How the author is associated with the repository.
@@ -2911,9 +3951,21 @@ public struct GistComment: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(body, forKey: "body")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct GistCommit: Decodable {
+public struct GistCommit: Codable {
     public var changeStatus: ChangeStatus
     /// Example: 2010-04-14T02:15:15Z
     public var committedAt: Date
@@ -2923,7 +3975,7 @@ public struct GistCommit: Decodable {
     /// Example: 57a7f021a713b1c5a6a199b54cc514735d2d462f
     public var version: String
 
-    public struct ChangeStatus: Decodable {
+    public struct ChangeStatus: Codable {
         public var additions: Int?
         public var deletions: Int?
         public var total: Int?
@@ -2933,6 +3985,13 @@ public struct GistCommit: Decodable {
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
             self.deletions = try values.decodeIfPresent(Int.self, forKey: "deletions")
             self.total = try values.decodeIfPresent(Int.self, forKey: "total")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(additions, forKey: "additions")
+            try values.encodeIfPresent(deletions, forKey: "deletions")
+            try values.encodeIfPresent(total, forKey: "total")
         }
     }
 
@@ -2944,9 +4003,18 @@ public struct GistCommit: Decodable {
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
         self.version = try values.decode(String.self, forKey: "version")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(changeStatus, forKey: "change_status")
+        try values.encode(committedAt, forKey: "committed_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(version, forKey: "version")
+    }
 }
 
-public struct GitignoreTemplate: Decodable {
+public struct GitignoreTemplate: Codable {
     public var name: String
     /// Example:
 
@@ -2971,9 +4039,15 @@ public struct GitignoreTemplate: Decodable {
         self.name = try values.decode(String.self, forKey: "name")
         self.source = try values.decode(String.self, forKey: "source")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(source, forKey: "source")
+    }
 }
 
-public struct LicenseSimple: Decodable {
+public struct LicenseSimple: Codable {
     public var htmlURL: URL?
     /// Example: mit
     public var key: String
@@ -2994,9 +4068,19 @@ public struct LicenseSimple: Decodable {
         self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(key, forKey: "key")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct License: Decodable {
+public struct License: Codable {
     /// Example:
 
     /// The MIT License (MIT)
@@ -3072,9 +4156,26 @@ public struct License: Decodable {
         self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(body, forKey: "body")
+        try values.encode(conditions, forKey: "conditions")
+        try values.encode(description, forKey: "description")
+        try values.encode(isFeatured, forKey: "featured")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(implementation, forKey: "implementation")
+        try values.encode(key, forKey: "key")
+        try values.encode(limitations, forKey: "limitations")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct MarketplaceListingPlan: Decodable {
+public struct MarketplaceListingPlan: Codable {
     public var accountsURL: URL
     /// Example:
 
@@ -3119,9 +4220,26 @@ public struct MarketplaceListingPlan: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.yearlyPriceInCents = try values.decode(Int.self, forKey: "yearly_price_in_cents")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(accountsURL, forKey: "accounts_url")
+        try values.encode(bullets, forKey: "bullets")
+        try values.encode(description, forKey: "description")
+        try values.encode(hasFreeTrial, forKey: "has_free_trial")
+        try values.encode(id, forKey: "id")
+        try values.encode(monthlyPriceInCents, forKey: "monthly_price_in_cents")
+        try values.encode(name, forKey: "name")
+        try values.encode(number, forKey: "number")
+        try values.encode(priceModel, forKey: "price_model")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(unitName, forKey: "unit_name")
+        try values.encode(url, forKey: "url")
+        try values.encode(yearlyPriceInCents, forKey: "yearly_price_in_cents")
+    }
 }
 
-public struct MarketplacePurchase: Decodable {
+public struct MarketplacePurchase: Codable {
     public var email: String?
     public var id: Int
     public var login: String
@@ -3131,7 +4249,7 @@ public struct MarketplacePurchase: Decodable {
     public var type: String
     public var url: String
 
-    public struct MarketplacePendingChange: Decodable {
+    public struct MarketplacePendingChange: Codable {
         public var effectiveDate: String?
         public var id: Int?
         public var isInstalled: Bool?
@@ -3147,9 +4265,18 @@ public struct MarketplacePurchase: Decodable {
             self.plan = try values.decodeIfPresent(MarketplaceListingPlan.self, forKey: "plan")
             self.unitCount = try values.decodeIfPresent(Int.self, forKey: "unit_count")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(effectiveDate, forKey: "effective_date")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(isInstalled, forKey: "is_installed")
+            try values.encodeIfPresent(plan, forKey: "plan")
+            try values.encodeIfPresent(unitCount, forKey: "unit_count")
+        }
     }
 
-    public struct MarketplacePurchase: Decodable {
+    public struct MarketplacePurchase: Codable {
         public var billingCycle: String?
         public var freeTrialEndsOn: String?
         public var isInstalled: Bool?
@@ -3171,6 +4298,18 @@ public struct MarketplacePurchase: Decodable {
             self.unitCount = try values.decodeIfPresent(Int.self, forKey: "unit_count")
             self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(billingCycle, forKey: "billing_cycle")
+            try values.encodeIfPresent(freeTrialEndsOn, forKey: "free_trial_ends_on")
+            try values.encodeIfPresent(isInstalled, forKey: "is_installed")
+            try values.encodeIfPresent(nextBillingDate, forKey: "next_billing_date")
+            try values.encodeIfPresent(isOnFreeTrial, forKey: "on_free_trial")
+            try values.encodeIfPresent(plan, forKey: "plan")
+            try values.encodeIfPresent(unitCount, forKey: "unit_count")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -3184,9 +4323,21 @@ public struct MarketplacePurchase: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(marketplacePendingChange, forKey: "marketplace_pending_change")
+        try values.encode(marketplacePurchase, forKey: "marketplace_purchase")
+        try values.encodeIfPresent(organizationBillingEmail, forKey: "organization_billing_email")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct APIOverview: Decodable {
+public struct APIOverview: Codable {
     /// Example:
 
     /// [
@@ -3251,7 +4402,7 @@ public struct APIOverview: Decodable {
     /// ]
     public var web: [String]?
 
-    public struct SshKeyFingerprints: Decodable {
+    public struct SshKeyFingerprints: Codable {
         public var sha256Dsa: String?
         public var sha256Ecdsa: String?
         public var sha256Ed25519: String?
@@ -3263,6 +4414,14 @@ public struct APIOverview: Decodable {
             self.sha256Ecdsa = try values.decodeIfPresent(String.self, forKey: "SHA256_ECDSA")
             self.sha256Ed25519 = try values.decodeIfPresent(String.self, forKey: "SHA256_ED25519")
             self.sha256Rsa = try values.decodeIfPresent(String.self, forKey: "SHA256_RSA")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(sha256Dsa, forKey: "SHA256_DSA")
+            try values.encodeIfPresent(sha256Ecdsa, forKey: "SHA256_ECDSA")
+            try values.encodeIfPresent(sha256Ed25519, forKey: "SHA256_ED25519")
+            try values.encodeIfPresent(sha256Rsa, forKey: "SHA256_RSA")
         }
     }
 
@@ -3280,9 +4439,24 @@ public struct APIOverview: Decodable {
         self.isVerifiablePasswordAuthentication = try values.decode(Bool.self, forKey: "verifiable_password_authentication")
         self.web = try values.decodeIfPresent([String].self, forKey: "web")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(actions, forKey: "actions")
+        try values.encodeIfPresent(api, forKey: "api")
+        try values.encodeIfPresent(dependabot, forKey: "dependabot")
+        try values.encodeIfPresent(git, forKey: "git")
+        try values.encodeIfPresent(hooks, forKey: "hooks")
+        try values.encodeIfPresent(importer, forKey: "importer")
+        try values.encodeIfPresent(packages, forKey: "packages")
+        try values.encodeIfPresent(pages, forKey: "pages")
+        try values.encodeIfPresent(sshKeyFingerprints, forKey: "ssh_key_fingerprints")
+        try values.encode(isVerifiablePasswordAuthentication, forKey: "verifiable_password_authentication")
+        try values.encodeIfPresent(web, forKey: "web")
+    }
 }
 
-public struct MinimalRepository: Decodable {
+public struct MinimalRepository: Codable {
     public var allowForking: Bool?
     public var archiveURL: String
     public var isArchived: Bool?
@@ -3382,7 +4556,7 @@ public struct MinimalRepository: Decodable {
     public var watchers: Int?
     public var watchersCount: Int?
 
-    public struct License: Decodable {
+    public struct License: Codable {
         public var key: String?
         public var name: String?
         public var nodeID: String?
@@ -3397,9 +4571,18 @@ public struct MinimalRepository: Decodable {
             self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(key, forKey: "key")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool?
         public var isMaintain: Bool?
         public var isPull: Bool?
@@ -3413,6 +4596,15 @@ public struct MinimalRepository: Decodable {
             self.isPull = try values.decodeIfPresent(Bool.self, forKey: "pull")
             self.isPush = try values.decodeIfPresent(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encodeIfPresent(isPull, forKey: "pull")
+            try values.encodeIfPresent(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
         }
     }
 
@@ -3504,9 +4696,98 @@ public struct MinimalRepository: Decodable {
         self.watchers = try values.decodeIfPresent(Int.self, forKey: "watchers")
         self.watchersCount = try values.decodeIfPresent(Int.self, forKey: "watchers_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+        try values.encode(archiveURL, forKey: "archive_url")
+        try values.encodeIfPresent(isArchived, forKey: "archived")
+        try values.encode(assigneesURL, forKey: "assignees_url")
+        try values.encode(blobsURL, forKey: "blobs_url")
+        try values.encode(branchesURL, forKey: "branches_url")
+        try values.encodeIfPresent(cloneURL, forKey: "clone_url")
+        try values.encodeIfPresent(codeOfConduct, forKey: "code_of_conduct")
+        try values.encode(collaboratorsURL, forKey: "collaborators_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(compareURL, forKey: "compare_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(contributorsURL, forKey: "contributors_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(defaultBranch, forKey: "default_branch")
+        try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+        try values.encode(deploymentsURL, forKey: "deployments_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(isDisabled, forKey: "disabled")
+        try values.encode(downloadsURL, forKey: "downloads_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(isFork, forKey: "fork")
+        try values.encodeIfPresent(forks, forKey: "forks")
+        try values.encodeIfPresent(forksCount, forKey: "forks_count")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(fullName, forKey: "full_name")
+        try values.encode(gitCommitsURL, forKey: "git_commits_url")
+        try values.encode(gitRefsURL, forKey: "git_refs_url")
+        try values.encode(gitTagsURL, forKey: "git_tags_url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(hasDownloads, forKey: "has_downloads")
+        try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+        try values.encodeIfPresent(hasPages, forKey: "has_pages")
+        try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+        try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+        try values.encodeIfPresent(homepage, forKey: "homepage")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isTemplate, forKey: "is_template")
+        try values.encode(issueCommentURL, forKey: "issue_comment_url")
+        try values.encode(issueEventsURL, forKey: "issue_events_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(keysURL, forKey: "keys_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encode(languagesURL, forKey: "languages_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encode(mergesURL, forKey: "merges_url")
+        try values.encode(milestonesURL, forKey: "milestones_url")
+        try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(networkCount, forKey: "network_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(notificationsURL, forKey: "notifications_url")
+        try values.encodeIfPresent(openIssues, forKey: "open_issues")
+        try values.encodeIfPresent(openIssuesCount, forKey: "open_issues_count")
+        try values.encode(owner, forKey: "owner")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encode(pullsURL, forKey: "pulls_url")
+        try values.encodeIfPresent(pushedAt, forKey: "pushed_at")
+        try values.encode(releasesURL, forKey: "releases_url")
+        try values.encodeIfPresent(roleName, forKey: "role_name")
+        try values.encodeIfPresent(size, forKey: "size")
+        try values.encodeIfPresent(sshURL, forKey: "ssh_url")
+        try values.encodeIfPresent(stargazersCount, forKey: "stargazers_count")
+        try values.encode(stargazersURL, forKey: "stargazers_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encodeIfPresent(subscribersCount, forKey: "subscribers_count")
+        try values.encode(subscribersURL, forKey: "subscribers_url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encodeIfPresent(svnURL, forKey: "svn_url")
+        try values.encode(tagsURL, forKey: "tags_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+        try values.encodeIfPresent(templateRepository, forKey: "template_repository")
+        try values.encodeIfPresent(topics, forKey: "topics")
+        try values.encode(treesURL, forKey: "trees_url")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+        try values.encodeIfPresent(watchers, forKey: "watchers")
+        try values.encodeIfPresent(watchersCount, forKey: "watchers_count")
+    }
 }
 
-public struct Thread: Decodable {
+public struct Thread: Codable {
     public var id: String
     public var lastReadAt: String?
     public var reason: String
@@ -3518,7 +4799,7 @@ public struct Thread: Decodable {
     public var updatedAt: String
     public var url: String
 
-    public struct Subject: Decodable {
+    public struct Subject: Codable {
         public var latestCommentURL: String
         public var title: String
         public var type: String
@@ -3530,6 +4811,14 @@ public struct Thread: Decodable {
             self.title = try values.decode(String.self, forKey: "title")
             self.type = try values.decode(String.self, forKey: "type")
             self.url = try values.decode(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(latestCommentURL, forKey: "latest_comment_url")
+            try values.encode(title, forKey: "title")
+            try values.encode(type, forKey: "type")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -3545,9 +4834,22 @@ public struct Thread: Decodable {
         self.updatedAt = try values.decode(String.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+        try values.encode(reason, forKey: "reason")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(subject, forKey: "subject")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encode(isUnread, forKey: "unread")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ThreadSubscription: Decodable {
+public struct ThreadSubscription: Codable {
     /// Example: 2012-10-06T21:34:12Z
     public var createdAt: Date?
     public var isIgnored: Bool
@@ -3568,10 +4870,21 @@ public struct ThreadSubscription: Decodable {
         self.threadURL = try values.decodeIfPresent(URL.self, forKey: "thread_url")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encode(isIgnored, forKey: "ignored")
+        try values.encodeIfPresent(reason, forKey: "reason")
+        try values.encodeIfPresent(repositoryURL, forKey: "repository_url")
+        try values.encode(isSubscribed, forKey: "subscribed")
+        try values.encodeIfPresent(threadURL, forKey: "thread_url")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Custom repository roles created by organization administrators
-public struct OrganizationCustomRepositoryRole: Decodable {
+public struct OrganizationCustomRepositoryRole: Codable {
     public var id: Int
     public var name: String
 
@@ -3580,9 +4893,15 @@ public struct OrganizationCustomRepositoryRole: Decodable {
         self.id = try values.decode(Int.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+    }
 }
 
-public struct OrganizationFull: Decodable {
+public struct OrganizationFull: Codable {
     public var avatarURL: String
     /// Example: org@example.com
     public var billingEmail: String?
@@ -3658,7 +4977,7 @@ public struct OrganizationFull: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Plan: Decodable {
+    public struct Plan: Codable {
         public var filledSeats: Int?
         public var name: String
         public var privateRepos: Int
@@ -3672,6 +4991,15 @@ public struct OrganizationFull: Decodable {
             self.privateRepos = try values.decode(Int.self, forKey: "private_repos")
             self.seats = try values.decodeIfPresent(Int.self, forKey: "seats")
             self.space = try values.decode(Int.self, forKey: "space")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(filledSeats, forKey: "filled_seats")
+            try values.encode(name, forKey: "name")
+            try values.encode(privateRepos, forKey: "private_repos")
+            try values.encodeIfPresent(seats, forKey: "seats")
+            try values.encode(space, forKey: "space")
         }
     }
 
@@ -3724,6 +5052,56 @@ public struct OrganizationFull: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(billingEmail, forKey: "billing_email")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(collaborators, forKey: "collaborators")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(defaultRepositoryPermission, forKey: "default_repository_permission")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(diskUsage, forKey: "disk_usage")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(followers, forKey: "followers")
+        try values.encode(following, forKey: "following")
+        try values.encode(hasOrganizationProjects, forKey: "has_organization_projects")
+        try values.encode(hasRepositoryProjects, forKey: "has_repository_projects")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isVerified, forKey: "is_verified")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(membersAllowedRepositoryCreationType, forKey: "members_allowed_repository_creation_type")
+        try values.encodeIfPresent(membersCanCreateInternalRepositories, forKey: "members_can_create_internal_repositories")
+        try values.encodeIfPresent(membersCanCreatePages, forKey: "members_can_create_pages")
+        try values.encodeIfPresent(membersCanCreatePrivatePages, forKey: "members_can_create_private_pages")
+        try values.encodeIfPresent(membersCanCreatePrivateRepositories, forKey: "members_can_create_private_repositories")
+        try values.encodeIfPresent(membersCanCreatePublicPages, forKey: "members_can_create_public_pages")
+        try values.encodeIfPresent(membersCanCreatePublicRepositories, forKey: "members_can_create_public_repositories")
+        try values.encodeIfPresent(membersCanCreateRepositories, forKey: "members_can_create_repositories")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(ownedPrivateRepos, forKey: "owned_private_repos")
+        try values.encodeIfPresent(plan, forKey: "plan")
+        try values.encodeIfPresent(privateGists, forKey: "private_gists")
+        try values.encode(publicGists, forKey: "public_gists")
+        try values.encode(publicMembersURL, forKey: "public_members_url")
+        try values.encode(publicRepos, forKey: "public_repos")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encodeIfPresent(totalPrivateRepos, forKey: "total_private_repos")
+        try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+        try values.encodeIfPresent(isTwoFactorRequirementEnabled, forKey: "two_factor_requirement_enabled")
+        try values.encode(type, forKey: "type")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -3733,7 +5111,7 @@ public enum EnabledRepositories: String, Codable, CaseIterable {
     case selected
 }
 
-public struct ActionsOrganizationPermissions: Decodable {
+public struct ActionsOrganizationPermissions: Codable {
     /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     public var allowedActions: AllowedActions?
     /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -3750,9 +5128,17 @@ public struct ActionsOrganizationPermissions: Decodable {
         self.selectedActionsURL = try values.decodeIfPresent(String.self, forKey: "selected_actions_url")
         self.selectedRepositoriesURL = try values.decodeIfPresent(String.self, forKey: "selected_repositories_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+        try values.encode(enabledRepositories, forKey: "enabled_repositories")
+        try values.encodeIfPresent(selectedActionsURL, forKey: "selected_actions_url")
+        try values.encodeIfPresent(selectedRepositoriesURL, forKey: "selected_repositories_url")
+    }
 }
 
-public struct RunnerGroupsOrg: Decodable {
+public struct RunnerGroupsOrg: Codable {
     public var allowsPublicRepositories: Bool
     public var isDefault: Bool
     public var id: Double
@@ -3776,12 +5162,25 @@ public struct RunnerGroupsOrg: Decodable {
         self.selectedRepositoriesURL = try values.decodeIfPresent(String.self, forKey: "selected_repositories_url")
         self.visibility = try values.decode(String.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(allowsPublicRepositories, forKey: "allows_public_repositories")
+        try values.encode(isDefault, forKey: "default")
+        try values.encode(id, forKey: "id")
+        try values.encode(isInherited, forKey: "inherited")
+        try values.encodeIfPresent(inheritedAllowsPublicRepositories, forKey: "inherited_allows_public_repositories")
+        try values.encode(name, forKey: "name")
+        try values.encode(runnersURL, forKey: "runners_url")
+        try values.encodeIfPresent(selectedRepositoriesURL, forKey: "selected_repositories_url")
+        try values.encode(visibility, forKey: "visibility")
+    }
 }
 
 /// Actions Secret for an Organization
 ///
 /// Secrets for GitHub Actions for an organization.
-public struct OrganizationActionsSecret: Decodable {
+public struct OrganizationActionsSecret: Codable {
     public var createdAt: Date
     /// The name of the secret.
     ///
@@ -3807,10 +5206,19 @@ public struct OrganizationActionsSecret: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.visibility = try values.decode(Visibility.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(selectedRepositoriesURL, forKey: "selected_repositories_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(visibility, forKey: "visibility")
+    }
 }
 
 /// The public key used for setting Actions Secrets.
-public struct ActionsPublicKey: Decodable {
+public struct ActionsPublicKey: Codable {
     /// Example: 2011-01-26T19:01:12Z
     public var createdAt: String?
     public var id: Int?
@@ -3835,14 +5243,24 @@ public struct ActionsPublicKey: Decodable {
         self.title = try values.decodeIfPresent(String.self, forKey: "title")
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encode(key, forKey: "key")
+        try values.encode(keyID, forKey: "key_id")
+        try values.encodeIfPresent(title, forKey: "title")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
 /// An object without any properties.
-public struct EmptyObject: Decodable {
+public struct EmptyObject: Codable {
 
 }
 
-public struct CredentialAuthorization: Decodable {
+public struct CredentialAuthorization: Codable {
     /// The expiry for the token. This will only be present when the credential is a token.
     public var authorizedCredentialExpiresAt: Date?
     /// Example: 12345678
@@ -3906,10 +5324,26 @@ public struct CredentialAuthorization: Decodable {
         self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
         self.tokenLastEight = try values.decodeIfPresent(String.self, forKey: "token_last_eight")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(authorizedCredentialExpiresAt, forKey: "authorized_credential_expires_at")
+        try values.encodeIfPresent(authorizedCredentialID, forKey: "authorized_credential_id")
+        try values.encodeIfPresent(authorizedCredentialNote, forKey: "authorized_credential_note")
+        try values.encodeIfPresent(authorizedCredentialTitle, forKey: "authorized_credential_title")
+        try values.encodeIfPresent(credentialAccessedAt, forKey: "credential_accessed_at")
+        try values.encode(credentialAuthorizedAt, forKey: "credential_authorized_at")
+        try values.encode(credentialID, forKey: "credential_id")
+        try values.encode(credentialType, forKey: "credential_type")
+        try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(scopes, forKey: "scopes")
+        try values.encodeIfPresent(tokenLastEight, forKey: "token_last_eight")
+    }
 }
 
 /// Information about an external group's usage and its members
-public struct ExternalGroup: Decodable {
+public struct ExternalGroup: Codable {
     /// The internal ID of the group
     public var groupID: Int
     /// The display name for the group
@@ -3955,7 +5389,7 @@ public struct ExternalGroup: Decodable {
     /// Example: 1635
     public var updatedAt: String?
 
-    public struct Member: Decodable {
+    public struct Member: Codable {
         /// An email attached to a user
         ///
         /// Example: mona_lisa@github.com
@@ -3978,9 +5412,17 @@ public struct ExternalGroup: Decodable {
             self.memberLogin = try values.decode(String.self, forKey: "member_login")
             self.memberName = try values.decode(String.self, forKey: "member_name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(memberEmail, forKey: "member_email")
+            try values.encode(memberID, forKey: "member_id")
+            try values.encode(memberLogin, forKey: "member_login")
+            try values.encode(memberName, forKey: "member_name")
+        }
     }
 
-    public struct Team: Decodable {
+    public struct Team: Codable {
         /// The id for a team
         public var teamID: Int
         /// The name of the team
@@ -3993,6 +5435,12 @@ public struct ExternalGroup: Decodable {
             self.teamID = try values.decode(Int.self, forKey: "team_id")
             self.teamName = try values.decode(String.self, forKey: "team_name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(teamID, forKey: "team_id")
+            try values.encode(teamName, forKey: "team_name")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -4003,10 +5451,19 @@ public struct ExternalGroup: Decodable {
         self.teams = try values.decode([Team].self, forKey: "teams")
         self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(groupID, forKey: "group_id")
+        try values.encode(groupName, forKey: "group_name")
+        try values.encode(members, forKey: "members")
+        try values.encode(teams, forKey: "teams")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+    }
 }
 
 /// A list of external groups available to be connected to a team
-public struct ExternalGroups: Decodable {
+public struct ExternalGroups: Codable {
     /// An array of external groups available to be mapped to a team
     ///
     /// Example:
@@ -4025,7 +5482,7 @@ public struct ExternalGroups: Decodable {
     /// ]
     public var groups: [Group]?
 
-    public struct Group: Decodable {
+    public struct Group: Codable {
         /// The internal ID of the group
         public var groupID: Int
         /// The display name of the group
@@ -4043,15 +5500,27 @@ public struct ExternalGroups: Decodable {
             self.groupName = try values.decode(String.self, forKey: "group_name")
             self.updatedAt = try values.decode(String.self, forKey: "updated_at")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(groupID, forKey: "group_id")
+            try values.encode(groupName, forKey: "group_name")
+            try values.encode(updatedAt, forKey: "updated_at")
+        }
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(groups, forKey: "groups")
+    }
 }
 
-public struct OrganizationInvitation: Decodable {
+public struct OrganizationInvitation: Codable {
     public var createdAt: String
     public var email: String?
     public var failedAt: String?
@@ -4081,9 +5550,24 @@ public struct OrganizationInvitation: Decodable {
         self.role = try values.decode(String.self, forKey: "role")
         self.teamCount = try values.decode(Int.self, forKey: "team_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(failedAt, forKey: "failed_at")
+        try values.encodeIfPresent(failedReason, forKey: "failed_reason")
+        try values.encode(id, forKey: "id")
+        try values.encode(invitationTeamsURL, forKey: "invitation_teams_url")
+        try values.encode(inviter, forKey: "inviter")
+        try values.encodeIfPresent(login, forKey: "login")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(role, forKey: "role")
+        try values.encode(teamCount, forKey: "team_count")
+    }
 }
 
-public struct OrgHook: Decodable {
+public struct OrgHook: Codable {
     /// Example: true
     public var isActive: Bool
     public var config: Config
@@ -4106,7 +5590,7 @@ public struct OrgHook: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Config: Decodable {
+    public struct Config: Codable {
         /// Example: "form"
         public var contentType: String?
         /// Example: "0"
@@ -4122,6 +5606,14 @@ public struct OrgHook: Decodable {
             self.insecureSSL = try values.decodeIfPresent(String.self, forKey: "insecure_ssl")
             self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(contentType, forKey: "content_type")
+            try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+            try values.encodeIfPresent(secret, forKey: "secret")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -4139,6 +5631,21 @@ public struct OrgHook: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isActive, forKey: "active")
+        try values.encode(config, forKey: "config")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deliveriesURL, forKey: "deliveries_url")
+        try values.encode(events, forKey: "events")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(pingURL, forKey: "ping_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
@@ -4153,7 +5660,7 @@ public enum InteractionGroup: String, Codable, CaseIterable {
 /// Interaction Limits
 ///
 /// Interaction limit settings.
-public struct InteractionLimitResponse: Decodable {
+public struct InteractionLimitResponse: Codable {
     /// Example: 2018-08-17T04:18:39Z
     public var expiresAt: Date
     /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
@@ -4168,6 +5675,13 @@ public struct InteractionLimitResponse: Decodable {
         self.expiresAt = try values.decode(Date.self, forKey: "expires_at")
         self.limit = try values.decode(InteractionGroup.self, forKey: "limit")
         self.origin = try values.decode(String.self, forKey: "origin")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(expiresAt, forKey: "expires_at")
+        try values.encode(limit, forKey: "limit")
+        try values.encode(origin, forKey: "origin")
     }
 }
 
@@ -4185,7 +5699,7 @@ public enum InteractionExpiry: String, Codable, CaseIterable {
 /// Interaction Restrictions
 ///
 /// Limit interactions to a specific type of user for a specified duration
-public struct InteractionLimit: Decodable {
+public struct InteractionLimit: Codable {
     /// The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`.
     ///
     /// Example: one_month
@@ -4200,10 +5714,16 @@ public struct InteractionLimit: Decodable {
         self.expiry = try values.decodeIfPresent(InteractionExpiry.self, forKey: "expiry")
         self.limit = try values.decode(InteractionGroup.self, forKey: "limit")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(expiry, forKey: "expiry")
+        try values.encode(limit, forKey: "limit")
+    }
 }
 
 /// Groups of organization members that gives permissions on specified repositories.
-public struct Team: Decodable {
+public struct Team: Codable {
     public var description: String?
     public var htmlURL: URL
     public var id: Int
@@ -4221,7 +5741,7 @@ public struct Team: Decodable {
     public var slug: String
     public var url: URL
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool
         public var isPull: Bool
@@ -4235,6 +5755,15 @@ public struct Team: Decodable {
             self.isPull = try values.decode(Bool.self, forKey: "pull")
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decode(Bool.self, forKey: "triage")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encode(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encode(isTriage, forKey: "triage")
         }
     }
 
@@ -4254,9 +5783,26 @@ public struct Team: Decodable {
         self.slug = try values.decode(String.self, forKey: "slug")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(parent, forKey: "parent")
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(slug, forKey: "slug")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct OrgMembership: Decodable {
+public struct OrgMembership: Codable {
     /// Organization Simple
     public var organization: OrganizationSimple
     public var organizationURL: URL
@@ -4273,12 +5819,17 @@ public struct OrgMembership: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var canCreateRepository: Bool
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.canCreateRepository = try values.decode(Bool.self, forKey: "can_create_repository")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(canCreateRepository, forKey: "can_create_repository")
         }
     }
 
@@ -4309,10 +5860,21 @@ public struct OrgMembership: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(organization, forKey: "organization")
+        try values.encode(organizationURL, forKey: "organization_url")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(role, forKey: "role")
+        try values.encode(state, forKey: "state")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
 /// A migration.
-public struct Migration: Decodable {
+public struct Migration: Codable {
     public var archiveURL: URL?
     /// Example: 2015-07-06T15:33:38-07:00
     public var createdAt: Date
@@ -4358,10 +5920,31 @@ public struct Migration: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(archiveURL, forKey: "archive_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(exclude, forKey: "exclude")
+        try values.encode(excludeAttachments, forKey: "exclude_attachments")
+        try values.encode(excludeGitData, forKey: "exclude_git_data")
+        try values.encode(excludeMetadata, forKey: "exclude_metadata")
+        try values.encode(excludeOwnerProjects, forKey: "exclude_owner_projects")
+        try values.encode(excludeReleases, forKey: "exclude_releases")
+        try values.encode(guid, forKey: "guid")
+        try values.encode(id, forKey: "id")
+        try values.encode(lockRepositories, forKey: "lock_repositories")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encode(repositories, forKey: "repositories")
+        try values.encode(state, forKey: "state")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A software package
-public struct Package: Decodable {
+public struct Package: Codable {
     public var createdAt: Date
     public var htmlURL: String
     /// Unique identifier of the package.
@@ -4413,10 +5996,25 @@ public struct Package: Decodable {
         self.versionCount = try values.decode(Int.self, forKey: "version_count")
         self.visibility = try values.decode(Visibility.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encode(packageType, forKey: "package_type")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(versionCount, forKey: "version_count")
+        try values.encode(visibility, forKey: "visibility")
+    }
 }
 
 /// A version of a software package
-public struct PackageVersion: Decodable {
+public struct PackageVersion: Codable {
     /// Example: 2011-04-10T20:09:31Z
     public var createdAt: Date
     /// Example: 2014-03-03T18:58:10Z
@@ -4439,7 +6037,7 @@ public struct PackageVersion: Decodable {
     public var url: String
 
     /// Package Version Metadata
-    public struct Metadata: Decodable {
+    public struct Metadata: Codable {
         /// Container Metadata
         public var container: Container?
         /// Docker Metadata
@@ -4448,17 +6046,22 @@ public struct PackageVersion: Decodable {
         public var packageType: PackageType
 
         /// Container Metadata
-        public struct Container: Decodable {
+        public struct Container: Codable {
             public var tags: [String]
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.tags = try values.decode([String].self, forKey: "tags")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tags, forKey: "tags")
+            }
         }
 
         /// Docker Metadata
-        public struct Docker: Decodable {
+        public struct Docker: Codable {
             public var tag: [String]?
             public var tags: AnyJSON
 
@@ -4466,6 +6069,12 @@ public struct PackageVersion: Decodable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.tag = try values.decodeIfPresent([String].self, forKey: "tag")
                 self.tags = try values.decode(AnyJSON.self, forKey: "tags")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tag, forKey: "tag")
+                try values.encode(tags, forKey: "tags")
             }
         }
 
@@ -4485,6 +6094,13 @@ public struct PackageVersion: Decodable {
             self.docker = try values.decodeIfPresent(Docker.self, forKey: "docker")
             self.packageType = try values.decode(PackageType.self, forKey: "package_type")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(container, forKey: "container")
+            try values.encodeIfPresent(docker, forKey: "docker")
+            try values.encode(packageType, forKey: "package_type")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -4501,10 +6117,25 @@ public struct PackageVersion: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deletedAt, forKey: "deleted_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(metadata, forKey: "metadata")
+        try values.encode(name, forKey: "name")
+        try values.encode(packageHTMLURL, forKey: "package_html_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Projects are a way to organize columns and cards of work.
-public struct Project: Decodable {
+public struct Project: Codable {
     /// Body of the project
     ///
     /// Example: This project represents the sprint of the first week in January
@@ -4563,6 +6194,25 @@ public struct Project: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(columnsURL, forKey: "columns_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+        try values.encode(ownerURL, forKey: "owner_url")
+        try values.encodeIfPresent(isPrivate, forKey: "private")
+        try values.encode(state, forKey: "state")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
@@ -4579,7 +6229,7 @@ public enum SecretScanningAlertResolution: String, Codable, CaseIterable {
     case usedInTests = "used_in_tests"
 }
 
-public struct OrganizationSecretScanningAlert: Decodable {
+public struct OrganizationSecretScanningAlert: Codable {
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date?
     /// The GitHub URL of the alert resource.
@@ -4620,10 +6270,26 @@ public struct OrganizationSecretScanningAlert: Decodable {
         self.state = try values.decodeIfPresent(SecretScanningAlertState.self, forKey: "state")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(locationsURL, forKey: "locations_url")
+        try values.encodeIfPresent(number, forKey: "number")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encodeIfPresent(resolution, forKey: "resolution")
+        try values.encodeIfPresent(resolvedAt, forKey: "resolved_at")
+        try values.encodeIfPresent(resolvedBy, forKey: "resolved_by")
+        try values.encodeIfPresent(secret, forKey: "secret")
+        try values.encodeIfPresent(secretType, forKey: "secret_type")
+        try values.encodeIfPresent(state, forKey: "state")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
 /// External Groups to be mapped to a team for membership
-public struct GroupMapping: Decodable {
+public struct GroupMapping: Codable {
     /// Array of groups to be mapped to this team
     ///
     /// Example:
@@ -4642,7 +6308,7 @@ public struct GroupMapping: Decodable {
     /// ]
     public var groups: [Group]?
 
-    public struct Group: Decodable {
+    public struct Group: Codable {
         /// A description of the group
         ///
         /// Example: A group of Developers working on AzureAD SAML SSO
@@ -4672,18 +6338,32 @@ public struct GroupMapping: Decodable {
             self.status = try values.decodeIfPresent(String.self, forKey: "status")
             self.syncedAt = try values.decodeIfPresent(String.self, forKey: "synced_at")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(groupDescription, forKey: "group_description")
+            try values.encode(groupID, forKey: "group_id")
+            try values.encode(groupName, forKey: "group_name")
+            try values.encodeIfPresent(status, forKey: "status")
+            try values.encodeIfPresent(syncedAt, forKey: "synced_at")
+        }
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(groups, forKey: "groups")
+    }
 }
 
 /// Full Team
 ///
 /// Groups of organization members that gives permissions on specified repositories.
-public struct TeamFull: Decodable {
+public struct TeamFull: Codable {
     /// Example: 2017-07-14T16:53:42Z
     public var createdAt: Date
     /// Example: A great team.
@@ -4758,10 +6438,32 @@ public struct TeamFull: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(ldapDn, forKey: "ldap_dn")
+        try values.encode(membersCount, forKey: "members_count")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organization, forKey: "organization")
+        try values.encodeIfPresent(parent, forKey: "parent")
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(reposCount, forKey: "repos_count")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(slug, forKey: "slug")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A team discussion is a persistent record of a free-form conversation within a team.
-public struct TeamDiscussion: Decodable {
+public struct TeamDiscussion: Codable {
     /// Simple User
     public var author: SimpleUser?
     /// The main text of the discussion.
@@ -4826,10 +6528,32 @@ public struct TeamDiscussion: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(body, forKey: "body")
+        try values.encode(bodyHTML, forKey: "body_html")
+        try values.encode(bodyVersion, forKey: "body_version")
+        try values.encode(commentsCount, forKey: "comments_count")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(lastEditedAt, forKey: "last_edited_at")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(isPinned, forKey: "pinned")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(teamURL, forKey: "team_url")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A reply to a discussion within a team.
-public struct TeamDiscussionComment: Decodable {
+public struct TeamDiscussionComment: Codable {
     /// Simple User
     public var author: SimpleUser?
     /// The main text of the comment.
@@ -4875,10 +6599,27 @@ public struct TeamDiscussionComment: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(body, forKey: "body")
+        try values.encode(bodyHTML, forKey: "body_html")
+        try values.encode(bodyVersion, forKey: "body_version")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(discussionURL, forKey: "discussion_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(lastEditedAt, forKey: "last_edited_at")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Reactions to conversations provide a way to help people express their feelings more simply and effectively.
-public struct Reaction: Decodable {
+public struct Reaction: Codable {
     /// The reaction to use
     ///
     /// Example: heart
@@ -4913,9 +6654,18 @@ public struct Reaction: Decodable {
         self.nodeID = try values.decode(String.self, forKey: "node_id")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(content, forKey: "content")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct TeamMembership: Decodable {
+public struct TeamMembership: Codable {
     /// The role of the user in the team.
     ///
     /// Example: member
@@ -4944,10 +6694,17 @@ public struct TeamMembership: Decodable {
         self.state = try values.decode(State.self, forKey: "state")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(role, forKey: "role")
+        try values.encode(state, forKey: "state")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A team's access to a project.
-public struct TeamProject: Decodable {
+public struct TeamProject: Codable {
     public var body: String?
     public var columnsURL: String
     public var createdAt: String
@@ -4968,7 +6725,7 @@ public struct TeamProject: Decodable {
     public var updatedAt: String
     public var url: String
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isRead: Bool
         public var isWrite: Bool
@@ -4978,6 +6735,13 @@ public struct TeamProject: Decodable {
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
             self.isRead = try values.decode(Bool.self, forKey: "read")
             self.isWrite = try values.decode(Bool.self, forKey: "write")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encode(isRead, forKey: "read")
+            try values.encode(isWrite, forKey: "write")
         }
     }
 
@@ -5000,10 +6764,30 @@ public struct TeamProject: Decodable {
         self.updatedAt = try values.decode(String.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(columnsURL, forKey: "columns_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(creator, forKey: "creator")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+        try values.encode(ownerURL, forKey: "owner_url")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encodeIfPresent(isPrivate, forKey: "private")
+        try values.encode(state, forKey: "state")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A team's access to a repository.
-public struct TeamRepository: Decodable {
+public struct TeamRepository: Codable {
     /// Whether to allow Auto-merge to be used on pull requests.
     ///
     /// Example: false
@@ -5155,7 +6939,7 @@ public struct TeamRepository: Decodable {
     /// Example: 80
     public var watchersCount: Int
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool?
         public var isPull: Bool
@@ -5169,6 +6953,15 @@ public struct TeamRepository: Decodable {
             self.isPull = try values.decode(Bool.self, forKey: "pull")
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
         }
     }
 
@@ -5264,10 +7057,103 @@ public struct TeamRepository: Decodable {
         self.watchers = try values.decode(Int.self, forKey: "watchers")
         self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+        try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+        try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+        try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+        try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+        try values.encode(archiveURL, forKey: "archive_url")
+        try values.encode(isArchived, forKey: "archived")
+        try values.encode(assigneesURL, forKey: "assignees_url")
+        try values.encode(blobsURL, forKey: "blobs_url")
+        try values.encode(branchesURL, forKey: "branches_url")
+        try values.encode(cloneURL, forKey: "clone_url")
+        try values.encode(collaboratorsURL, forKey: "collaborators_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(compareURL, forKey: "compare_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(contributorsURL, forKey: "contributors_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encode(defaultBranch, forKey: "default_branch")
+        try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+        try values.encode(deploymentsURL, forKey: "deployments_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(isDisabled, forKey: "disabled")
+        try values.encode(downloadsURL, forKey: "downloads_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(isFork, forKey: "fork")
+        try values.encode(forks, forKey: "forks")
+        try values.encode(forksCount, forKey: "forks_count")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(fullName, forKey: "full_name")
+        try values.encode(gitCommitsURL, forKey: "git_commits_url")
+        try values.encode(gitRefsURL, forKey: "git_refs_url")
+        try values.encode(gitTagsURL, forKey: "git_tags_url")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(hasDownloads, forKey: "has_downloads")
+        try values.encode(hasIssues, forKey: "has_issues")
+        try values.encode(hasPages, forKey: "has_pages")
+        try values.encode(hasProjects, forKey: "has_projects")
+        try values.encode(hasWiki, forKey: "has_wiki")
+        try values.encodeIfPresent(homepage, forKey: "homepage")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isTemplate, forKey: "is_template")
+        try values.encode(issueCommentURL, forKey: "issue_comment_url")
+        try values.encode(issueEventsURL, forKey: "issue_events_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(keysURL, forKey: "keys_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encode(languagesURL, forKey: "languages_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+        try values.encode(mergesURL, forKey: "merges_url")
+        try values.encode(milestonesURL, forKey: "milestones_url")
+        try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(networkCount, forKey: "network_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(notificationsURL, forKey: "notifications_url")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(openIssuesCount, forKey: "open_issues_count")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encode(pullsURL, forKey: "pulls_url")
+        try values.encodeIfPresent(pushedAt, forKey: "pushed_at")
+        try values.encode(releasesURL, forKey: "releases_url")
+        try values.encodeIfPresent(roleName, forKey: "role_name")
+        try values.encode(size, forKey: "size")
+        try values.encode(sshURL, forKey: "ssh_url")
+        try values.encode(stargazersCount, forKey: "stargazers_count")
+        try values.encode(stargazersURL, forKey: "stargazers_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encodeIfPresent(subscribersCount, forKey: "subscribers_count")
+        try values.encode(subscribersURL, forKey: "subscribers_url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encode(svnURL, forKey: "svn_url")
+        try values.encode(tagsURL, forKey: "tags_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+        try values.encodeIfPresent(templateRepository, forKey: "template_repository")
+        try values.encodeIfPresent(topics, forKey: "topics")
+        try values.encode(treesURL, forKey: "trees_url")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+        try values.encode(watchers, forKey: "watchers")
+        try values.encode(watchersCount, forKey: "watchers_count")
+    }
 }
 
 /// Project cards represent a scope of work.
-public struct ProjectCard: Decodable {
+public struct ProjectCard: Codable {
     /// Whether or not the card is archived
     ///
     /// Example: false
@@ -5309,10 +7195,27 @@ public struct ProjectCard: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isArchived, forKey: "archived")
+        try values.encodeIfPresent(columnName, forKey: "column_name")
+        try values.encode(columnURL, forKey: "column_url")
+        try values.encodeIfPresent(contentURL, forKey: "content_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(note, forKey: "note")
+        try values.encodeIfPresent(projectID, forKey: "project_id")
+        try values.encode(projectURL, forKey: "project_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Project columns contain cards of work.
-public struct ProjectColumn: Decodable {
+public struct ProjectColumn: Codable {
     public var cardsURL: URL
     /// Example: 2016-09-05T14:18:44Z
     public var createdAt: Date
@@ -5342,9 +7245,21 @@ public struct ProjectColumn: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(cardsURL, forKey: "cards_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(projectURL, forKey: "project_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ProjectCollaboratorPermission: Decodable {
+public struct ProjectCollaboratorPermission: Codable {
     public var permission: String
     /// Simple User
     public var user: SimpleUser?
@@ -5354,9 +7269,15 @@ public struct ProjectCollaboratorPermission: Decodable {
         self.permission = try values.decode(String.self, forKey: "permission")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct RateLimit: Decodable {
+public struct RateLimit: Codable {
     public var limit: Int
     public var remaining: Int
     public var reset: Int
@@ -5369,14 +7290,22 @@ public struct RateLimit: Decodable {
         self.reset = try values.decode(Int.self, forKey: "reset")
         self.used = try values.decode(Int.self, forKey: "used")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(limit, forKey: "limit")
+        try values.encode(remaining, forKey: "remaining")
+        try values.encode(reset, forKey: "reset")
+        try values.encode(used, forKey: "used")
+    }
 }
 
-public struct RateLimitOverview: Decodable {
+public struct RateLimitOverview: Codable {
     /// Rate Limit
     public var rate: RateLimit
     public var resources: Resources
 
-    public struct Resources: Decodable {
+    public struct Resources: Codable {
         /// Rate Limit
         public var actionsRunnerRegistration: RateLimit?
         /// Rate Limit
@@ -5405,6 +7334,18 @@ public struct RateLimitOverview: Decodable {
             self.search = try values.decode(RateLimit.self, forKey: "search")
             self.sourceImport = try values.decodeIfPresent(RateLimit.self, forKey: "source_import")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(actionsRunnerRegistration, forKey: "actions_runner_registration")
+            try values.encodeIfPresent(codeScanningUpload, forKey: "code_scanning_upload")
+            try values.encode(core, forKey: "core")
+            try values.encodeIfPresent(graphql, forKey: "graphql")
+            try values.encodeIfPresent(integrationManifest, forKey: "integration_manifest")
+            try values.encodeIfPresent(scim, forKey: "scim")
+            try values.encode(search, forKey: "search")
+            try values.encodeIfPresent(sourceImport, forKey: "source_import")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -5412,10 +7353,16 @@ public struct RateLimitOverview: Decodable {
         self.rate = try values.decode(RateLimit.self, forKey: "rate")
         self.resources = try values.decode(Resources.self, forKey: "resources")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(rate, forKey: "rate")
+        try values.encode(resources, forKey: "resources")
+    }
 }
 
 /// Code of Conduct Simple
-public struct CodeOfConductSimple: Decodable {
+public struct CodeOfConductSimple: Codable {
     public var htmlURL: URL?
     /// Example: citizen_code_of_conduct
     public var key: String
@@ -5430,9 +7377,17 @@ public struct CodeOfConductSimple: Decodable {
         self.name = try values.decode(String.self, forKey: "name")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(key, forKey: "key")
+        try values.encode(name, forKey: "name")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct FullRepository: Decodable {
+public struct FullRepository: Codable {
     /// Example: false
     public var allowAutoMerge: Bool?
     /// Example: true
@@ -5580,7 +7535,7 @@ public struct FullRepository: Decodable {
     /// Example: 80
     public var watchersCount: Int
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool?
         public var isPull: Bool
@@ -5595,13 +7550,22 @@ public struct FullRepository: Decodable {
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
+        }
     }
 
-    public struct SecurityAndAnalysis: Decodable {
+    public struct SecurityAndAnalysis: Codable {
         public var advancedSecurity: AdvancedSecurity?
         public var secretScanning: SecretScanning?
 
-        public struct AdvancedSecurity: Decodable {
+        public struct AdvancedSecurity: Codable {
             public var status: Status?
 
             public enum Status: String, Codable, CaseIterable {
@@ -5612,10 +7576,15 @@ public struct FullRepository: Decodable {
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(status, forKey: "status")
             }
         }
 
-        public struct SecretScanning: Decodable {
+        public struct SecretScanning: Codable {
             public var status: Status?
 
             public enum Status: String, Codable, CaseIterable {
@@ -5626,6 +7595,11 @@ public struct FullRepository: Decodable {
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(status, forKey: "status")
             }
         }
 
@@ -5633,6 +7607,12 @@ public struct FullRepository: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.advancedSecurity = try values.decodeIfPresent(AdvancedSecurity.self, forKey: "advanced_security")
             self.secretScanning = try values.decodeIfPresent(SecretScanning.self, forKey: "secret_scanning")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(advancedSecurity, forKey: "advanced_security")
+            try values.encodeIfPresent(secretScanning, forKey: "secret_scanning")
         }
     }
 
@@ -5733,10 +7713,108 @@ public struct FullRepository: Decodable {
         self.watchers = try values.decode(Int.self, forKey: "watchers")
         self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+        try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+        try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+        try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+        try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+        try values.encodeIfPresent(isAnonymousAccessEnabled, forKey: "anonymous_access_enabled")
+        try values.encode(archiveURL, forKey: "archive_url")
+        try values.encode(isArchived, forKey: "archived")
+        try values.encode(assigneesURL, forKey: "assignees_url")
+        try values.encode(blobsURL, forKey: "blobs_url")
+        try values.encode(branchesURL, forKey: "branches_url")
+        try values.encode(cloneURL, forKey: "clone_url")
+        try values.encodeIfPresent(codeOfConduct, forKey: "code_of_conduct")
+        try values.encode(collaboratorsURL, forKey: "collaborators_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(compareURL, forKey: "compare_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(contributorsURL, forKey: "contributors_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(defaultBranch, forKey: "default_branch")
+        try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+        try values.encode(deploymentsURL, forKey: "deployments_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(isDisabled, forKey: "disabled")
+        try values.encode(downloadsURL, forKey: "downloads_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(isFork, forKey: "fork")
+        try values.encode(forks, forKey: "forks")
+        try values.encode(forksCount, forKey: "forks_count")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(fullName, forKey: "full_name")
+        try values.encode(gitCommitsURL, forKey: "git_commits_url")
+        try values.encode(gitRefsURL, forKey: "git_refs_url")
+        try values.encode(gitTagsURL, forKey: "git_tags_url")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(hasDownloads, forKey: "has_downloads")
+        try values.encode(hasIssues, forKey: "has_issues")
+        try values.encode(hasPages, forKey: "has_pages")
+        try values.encode(hasProjects, forKey: "has_projects")
+        try values.encode(hasWiki, forKey: "has_wiki")
+        try values.encodeIfPresent(homepage, forKey: "homepage")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isTemplate, forKey: "is_template")
+        try values.encode(issueCommentURL, forKey: "issue_comment_url")
+        try values.encode(issueEventsURL, forKey: "issue_events_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(keysURL, forKey: "keys_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encode(languagesURL, forKey: "languages_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+        try values.encode(mergesURL, forKey: "merges_url")
+        try values.encode(milestonesURL, forKey: "milestones_url")
+        try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(networkCount, forKey: "network_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(notificationsURL, forKey: "notifications_url")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(openIssuesCount, forKey: "open_issues_count")
+        try values.encodeIfPresent(organization, forKey: "organization")
+        try values.encode(owner, forKey: "owner")
+        try values.encodeIfPresent(parent, forKey: "parent")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encode(pullsURL, forKey: "pulls_url")
+        try values.encode(pushedAt, forKey: "pushed_at")
+        try values.encode(releasesURL, forKey: "releases_url")
+        try values.encodeIfPresent(securityAndAnalysis, forKey: "security_and_analysis")
+        try values.encode(size, forKey: "size")
+        try values.encodeIfPresent(source, forKey: "source")
+        try values.encode(sshURL, forKey: "ssh_url")
+        try values.encode(stargazersCount, forKey: "stargazers_count")
+        try values.encode(stargazersURL, forKey: "stargazers_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(subscribersCount, forKey: "subscribers_count")
+        try values.encode(subscribersURL, forKey: "subscribers_url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encode(svnURL, forKey: "svn_url")
+        try values.encode(tagsURL, forKey: "tags_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+        try values.encodeIfPresent(templateRepository, forKey: "template_repository")
+        try values.encodeIfPresent(topics, forKey: "topics")
+        try values.encode(treesURL, forKey: "trees_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+        try values.encode(watchers, forKey: "watchers")
+        try values.encode(watchersCount, forKey: "watchers_count")
+    }
 }
 
 /// An artifact
-public struct Artifact: Decodable {
+public struct Artifact: Codable {
     public var archiveDownloadURL: String
     public var createdAt: Date?
     /// Whether or not the artifact has expired.
@@ -5769,10 +7847,24 @@ public struct Artifact: Decodable {
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(archiveDownloadURL, forKey: "archive_download_url")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encode(isExpired, forKey: "expired")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(sizeInBytes, forKey: "size_in_bytes")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Information of a job execution in a workflow run
-public struct Job: Decodable {
+public struct Job: Codable {
     public var checkRunURL: String
     /// The time that the job finished, in ISO 8601 format.
     ///
@@ -5845,7 +7937,7 @@ public struct Job: Decodable {
         case completed
     }
 
-    public struct Step: Decodable {
+    public struct Step: Codable {
         /// The time that the job finished, in ISO 8601 format.
         ///
         /// Example: 2019-08-08T08:00:00-07:00
@@ -5886,6 +7978,16 @@ public struct Job: Decodable {
             self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
             self.status = try values.decode(Status.self, forKey: "status")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(completedAt, forKey: "completed_at")
+            try values.encodeIfPresent(conclusion, forKey: "conclusion")
+            try values.encode(name, forKey: "name")
+            try values.encode(number, forKey: "number")
+            try values.encodeIfPresent(startedAt, forKey: "started_at")
+            try values.encode(status, forKey: "status")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -5911,9 +8013,33 @@ public struct Job: Decodable {
         self.steps = try values.decodeIfPresent([Step].self, forKey: "steps")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(checkRunURL, forKey: "check_run_url")
+        try values.encodeIfPresent(completedAt, forKey: "completed_at")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(runAttempt, forKey: "run_attempt")
+        try values.encode(runID, forKey: "run_id")
+        try values.encode(runURL, forKey: "run_url")
+        try values.encodeIfPresent(runnerGroupID, forKey: "runner_group_id")
+        try values.encodeIfPresent(runnerGroupName, forKey: "runner_group_name")
+        try values.encodeIfPresent(runnerID, forKey: "runner_id")
+        try values.encodeIfPresent(runnerName, forKey: "runner_name")
+        try values.encode(startedAt, forKey: "started_at")
+        try values.encode(status, forKey: "status")
+        try values.encodeIfPresent(steps, forKey: "steps")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ActionsRepositoryPermissions: Decodable {
+public struct ActionsRepositoryPermissions: Codable {
     /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     public var allowedActions: AllowedActions?
     /// Whether GitHub Actions is enabled on the repository.
@@ -5927,21 +8053,28 @@ public struct ActionsRepositoryPermissions: Decodable {
         self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
         self.selectedActionsURL = try values.decodeIfPresent(String.self, forKey: "selected_actions_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+        try values.encode(isEnabled, forKey: "enabled")
+        try values.encodeIfPresent(selectedActionsURL, forKey: "selected_actions_url")
+    }
 }
 
-public struct PullRequestMinimal: Decodable {
+public struct PullRequestMinimal: Codable {
     public var base: Base
     public var head: Head
     public var id: Int
     public var number: Int
     public var url: String
 
-    public struct Base: Decodable {
+    public struct Base: Codable {
         public var ref: String
         public var repo: Repo
         public var sha: String
 
-        public struct Repo: Decodable {
+        public struct Repo: Codable {
             public var id: Int
             public var name: String
             public var url: String
@@ -5952,6 +8085,13 @@ public struct PullRequestMinimal: Decodable {
                 self.name = try values.decode(String.self, forKey: "name")
                 self.url = try values.decode(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(name, forKey: "name")
+                try values.encode(url, forKey: "url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -5959,15 +8099,22 @@ public struct PullRequestMinimal: Decodable {
             self.ref = try values.decode(String.self, forKey: "ref")
             self.repo = try values.decode(Repo.self, forKey: "repo")
             self.sha = try values.decode(String.self, forKey: "sha")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
         }
     }
 
-    public struct Head: Decodable {
+    public struct Head: Codable {
         public var ref: String
         public var repo: Repo
         public var sha: String
 
-        public struct Repo: Decodable {
+        public struct Repo: Codable {
             public var id: Int
             public var name: String
             public var url: String
@@ -5978,6 +8125,13 @@ public struct PullRequestMinimal: Decodable {
                 self.name = try values.decode(String.self, forKey: "name")
                 self.url = try values.decode(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(name, forKey: "name")
+                try values.encode(url, forKey: "url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -5985,6 +8139,13 @@ public struct PullRequestMinimal: Decodable {
             self.ref = try values.decode(String.self, forKey: "ref")
             self.repo = try values.decode(Repo.self, forKey: "repo")
             self.sha = try values.decode(String.self, forKey: "sha")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
         }
     }
 
@@ -5996,10 +8157,19 @@ public struct PullRequestMinimal: Decodable {
         self.number = try values.decode(Int.self, forKey: "number")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(base, forKey: "base")
+        try values.encode(head, forKey: "head")
+        try values.encode(id, forKey: "id")
+        try values.encode(number, forKey: "number")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// An invocation of a workflow
-public struct WorkflowRun: Decodable {
+public struct WorkflowRun: Codable {
     /// The URL to the artifacts for the workflow run.
     public var artifactsURL: String
     /// The URL to cancel the workflow run.
@@ -6102,12 +8272,47 @@ public struct WorkflowRun: Decodable {
         self.workflowID = try values.decode(Int.self, forKey: "workflow_id")
         self.workflowURL = try values.decode(String.self, forKey: "workflow_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(artifactsURL, forKey: "artifacts_url")
+        try values.encode(cancelURL, forKey: "cancel_url")
+        try values.encodeIfPresent(checkSuiteID, forKey: "check_suite_id")
+        try values.encodeIfPresent(checkSuiteNodeID, forKey: "check_suite_node_id")
+        try values.encode(checkSuiteURL, forKey: "check_suite_url")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(headBranch, forKey: "head_branch")
+        try values.encodeIfPresent(headCommit, forKey: "head_commit")
+        try values.encode(headRepository, forKey: "head_repository")
+        try values.encodeIfPresent(headRepositoryID, forKey: "head_repository_id")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(jobsURL, forKey: "jobs_url")
+        try values.encode(logsURL, forKey: "logs_url")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(previousAttemptURL, forKey: "previous_attempt_url")
+        try values.encodeIfPresent(pullRequests, forKey: "pull_requests")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(rerunURL, forKey: "rerun_url")
+        try values.encodeIfPresent(runAttempt, forKey: "run_attempt")
+        try values.encode(runNumber, forKey: "run_number")
+        try values.encodeIfPresent(runStartedAt, forKey: "run_started_at")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(workflowID, forKey: "workflow_id")
+        try values.encode(workflowURL, forKey: "workflow_url")
+    }
 }
 
 /// Environment Approval
 ///
 /// An entry in the reviews log for environment deployments
-public struct EnvironmentApprovals: Decodable {
+public struct EnvironmentApprovals: Codable {
     /// The comment submitted with the deployment review
     ///
     /// Example: Ship it!
@@ -6121,7 +8326,7 @@ public struct EnvironmentApprovals: Decodable {
     /// Simple User
     public var user: SimpleUser
 
-    public struct Environment: Decodable {
+    public struct Environment: Codable {
         /// The time that the environment was created, in ISO 8601 format.
         ///
         /// Example: 2020-11-23T22:00:40Z
@@ -6153,6 +8358,17 @@ public struct EnvironmentApprovals: Decodable {
             self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     /// Whether deployment to the environment(s) was approved or rejected
@@ -6170,6 +8386,14 @@ public struct EnvironmentApprovals: Decodable {
         self.state = try values.decode(State.self, forKey: "state")
         self.user = try values.decode(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(comment, forKey: "comment")
+        try values.encode(environments, forKey: "environments")
+        try values.encode(state, forKey: "state")
+        try values.encode(user, forKey: "user")
+    }
 }
 
 /// The type of reviewer. Must be one of: `User` or `Team`
@@ -6181,7 +8405,7 @@ public enum DeploymentReviewerType: String, Codable, CaseIterable {
 }
 
 /// Details of a deployment that is waiting for protection rules to pass
-public struct PendingDeployment: Decodable {
+public struct PendingDeployment: Codable {
     /// Whether the currently authenticated user can approve the deployment
     ///
     /// Example: true
@@ -6198,7 +8422,7 @@ public struct PendingDeployment: Decodable {
     /// Example: 2020-11-23T22:00:40Z
     public var waitTimerStartedAt: Date?
 
-    public struct Environment: Decodable {
+    public struct Environment: Codable {
         public var htmlURL: String?
         /// The id of the environment.
         ///
@@ -6220,16 +8444,25 @@ public struct PendingDeployment: Decodable {
             self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
-    public struct Reviewer: Decodable {
+    public struct Reviewer: Codable {
         public var reviewer: Reviewer?
         /// The type of reviewer. Must be one of: `User` or `Team`
         ///
         /// Example: User
         public var type: DeploymentReviewerType?
 
-        public struct Reviewer: Decodable {
+        public struct Reviewer: Codable {
             public var simpleUser: SimpleUser?
             /// Groups of organization members that gives permissions on specified repositories.
             public var team: Team?
@@ -6246,6 +8479,12 @@ public struct PendingDeployment: Decodable {
             self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
             self.type = try values.decodeIfPresent(DeploymentReviewerType.self, forKey: "type")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(reviewer, forKey: "reviewer")
+            try values.encodeIfPresent(type, forKey: "type")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -6256,10 +8495,19 @@ public struct PendingDeployment: Decodable {
         self.waitTimer = try values.decode(Int.self, forKey: "wait_timer")
         self.waitTimerStartedAt = try values.decodeIfPresent(Date.self, forKey: "wait_timer_started_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(currentUserCanApprove, forKey: "current_user_can_approve")
+        try values.encode(environment, forKey: "environment")
+        try values.encode(reviewers, forKey: "reviewers")
+        try values.encode(waitTimer, forKey: "wait_timer")
+        try values.encodeIfPresent(waitTimerStartedAt, forKey: "wait_timer_started_at")
+    }
 }
 
 /// A request for a specific ref(branch,sha,tag) to be deployed
-public struct Deployment: Decodable {
+public struct Deployment: Codable {
     /// Example: 2012-07-20T01:19:13Z
     public var createdAt: Date
     /// Simple User
@@ -6307,7 +8555,7 @@ public struct Deployment: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public enum Payload: Decodable {
+    public enum Payload: Codable {
         case object([String: AnyJSON])
         case string(String)
 
@@ -6344,23 +8592,45 @@ public struct Deployment: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(environment, forKey: "environment")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(originalEnvironment, forKey: "original_environment")
+        try values.encode(payload, forKey: "payload")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
+        try values.encode(ref, forKey: "ref")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(task, forKey: "task")
+        try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct WorkflowRunUsage: Decodable {
+public struct WorkflowRunUsage: Codable {
     public var billable: Billable
     public var runDurationMs: Int?
 
-    public struct Billable: Decodable {
+    public struct Billable: Codable {
         public var macos: Macos?
         public var ubuntu: Ubuntu?
         public var windows: Windows?
 
-        public struct Macos: Decodable {
+        public struct Macos: Codable {
             public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRun: Decodable {
+            public struct JobRun: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6369,6 +8639,12 @@ public struct WorkflowRunUsage: Decodable {
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
                     self.jobID = try values.decode(Int.self, forKey: "job_id")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(durationMs, forKey: "duration_ms")
+                    try values.encode(jobID, forKey: "job_id")
+                }
             }
 
             public init(from decoder: Decoder) throws {
@@ -6376,15 +8652,22 @@ public struct WorkflowRunUsage: Decodable {
                 self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encode(totalMs, forKey: "total_ms")
             }
         }
 
-        public struct Ubuntu: Decodable {
+        public struct Ubuntu: Codable {
             public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRun: Decodable {
+            public struct JobRun: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6393,6 +8676,12 @@ public struct WorkflowRunUsage: Decodable {
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
                     self.jobID = try values.decode(Int.self, forKey: "job_id")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(durationMs, forKey: "duration_ms")
+                    try values.encode(jobID, forKey: "job_id")
+                }
             }
 
             public init(from decoder: Decoder) throws {
@@ -6400,15 +8689,22 @@ public struct WorkflowRunUsage: Decodable {
                 self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encode(totalMs, forKey: "total_ms")
             }
         }
 
-        public struct Windows: Decodable {
+        public struct Windows: Codable {
             public var jobRuns: [JobRun]?
             public var jobs: Int
             public var totalMs: Int
 
-            public struct JobRun: Decodable {
+            public struct JobRun: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
@@ -6417,6 +8713,12 @@ public struct WorkflowRunUsage: Decodable {
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
                     self.jobID = try values.decode(Int.self, forKey: "job_id")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(durationMs, forKey: "duration_ms")
+                    try values.encode(jobID, forKey: "job_id")
+                }
             }
 
             public init(from decoder: Decoder) throws {
@@ -6424,6 +8726,13 @@ public struct WorkflowRunUsage: Decodable {
                 self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
                 self.jobs = try values.decode(Int.self, forKey: "jobs")
                 self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encode(totalMs, forKey: "total_ms")
             }
         }
 
@@ -6433,6 +8742,13 @@ public struct WorkflowRunUsage: Decodable {
             self.ubuntu = try values.decodeIfPresent(Ubuntu.self, forKey: "UBUNTU")
             self.windows = try values.decodeIfPresent(Windows.self, forKey: "WINDOWS")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -6440,10 +8756,16 @@ public struct WorkflowRunUsage: Decodable {
         self.billable = try values.decode(Billable.self, forKey: "billable")
         self.runDurationMs = try values.decodeIfPresent(Int.self, forKey: "run_duration_ms")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(billable, forKey: "billable")
+        try values.encodeIfPresent(runDurationMs, forKey: "run_duration_ms")
+    }
 }
 
 /// Set secrets for GitHub Actions.
-public struct ActionsSecret: Decodable {
+public struct ActionsSecret: Codable {
     public var createdAt: Date
     /// The name of the secret.
     ///
@@ -6457,10 +8779,17 @@ public struct ActionsSecret: Decodable {
         self.name = try values.decode(String.self, forKey: "name")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(name, forKey: "name")
+        try values.encode(updatedAt, forKey: "updated_at")
+    }
 }
 
 /// A GitHub Actions workflow
-public struct Workflow: Decodable {
+public struct Workflow: Codable {
     public var badgeURL: String
     /// Example: 2019-12-06T14:20:20.000Z
     public var createdAt: Date
@@ -6503,40 +8832,70 @@ public struct Workflow: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(badgeURL, forKey: "badge_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deletedAt, forKey: "deleted_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(path, forKey: "path")
+        try values.encode(state, forKey: "state")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct WorkflowUsage: Decodable {
+public struct WorkflowUsage: Codable {
     public var billable: Billable
 
-    public struct Billable: Decodable {
+    public struct Billable: Codable {
         public var macos: Macos?
         public var ubuntu: Ubuntu?
         public var windows: Windows?
 
-        public struct Macos: Decodable {
+        public struct Macos: Codable {
             public var totalMs: Int?
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
+            }
         }
 
-        public struct Ubuntu: Decodable {
+        public struct Ubuntu: Codable {
             public var totalMs: Int?
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
+            }
         }
 
-        public struct Windows: Decodable {
+        public struct Windows: Codable {
             public var totalMs: Int?
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
             }
         }
 
@@ -6546,18 +8905,30 @@ public struct WorkflowUsage: Decodable {
             self.ubuntu = try values.decodeIfPresent(Ubuntu.self, forKey: "UBUNTU")
             self.windows = try values.decodeIfPresent(Windows.self, forKey: "WINDOWS")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
+        }
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.billable = try values.decode(Billable.self, forKey: "billable")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(billable, forKey: "billable")
+    }
 }
 
 /// Autolink reference
 ///
 /// An autolink reference.
-public struct Autolink: Decodable {
+public struct Autolink: Codable {
     public var id: Int
     /// The prefix of a key that is linkified.
     ///
@@ -6572,9 +8943,16 @@ public struct Autolink: Decodable {
         self.keyPrefix = try values.decode(String.self, forKey: "key_prefix")
         self.urlTemplate = try values.decode(String.self, forKey: "url_template")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(keyPrefix, forKey: "key_prefix")
+        try values.encode(urlTemplate, forKey: "url_template")
+    }
 }
 
-public struct ProtectedBranchAdminEnforced: Decodable {
+public struct ProtectedBranchAdminEnforced: Codable {
     /// Example: true
     public var isEnabled: Bool
     public var url: URL
@@ -6584,9 +8962,15 @@ public struct ProtectedBranchAdminEnforced: Decodable {
         self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isEnabled, forKey: "enabled")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ProtectedBranchPullRequestReview: Decodable {
+public struct ProtectedBranchPullRequestReview: Codable {
     /// Example: true
     public var dismissStaleReviews: Bool
     public var dismissalRestrictions: DismissalRestrictions?
@@ -6595,7 +8979,7 @@ public struct ProtectedBranchPullRequestReview: Decodable {
     public var requiredApprovingReviewCount: Int?
     public var url: URL?
 
-    public struct DismissalRestrictions: Decodable {
+    public struct DismissalRestrictions: Codable {
         /// The list of teams with review dismissal access.
         public var teams: [Team]?
         /// Example: "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/teams"
@@ -6615,6 +8999,15 @@ public struct ProtectedBranchPullRequestReview: Decodable {
             self.users = try values.decodeIfPresent([SimpleUser].self, forKey: "users")
             self.usersURL = try values.decodeIfPresent(String.self, forKey: "users_url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(teams, forKey: "teams")
+            try values.encodeIfPresent(teamsURL, forKey: "teams_url")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(users, forKey: "users")
+            try values.encodeIfPresent(usersURL, forKey: "users_url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -6625,9 +9018,18 @@ public struct ProtectedBranchPullRequestReview: Decodable {
         self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+        try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+        try values.encode(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+        try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct BranchRestrictionPolicy: Decodable {
+public struct BranchRestrictionPolicy: Codable {
     public var apps: [App]
     public var appsURL: URL
     public var teams: [Team]
@@ -6636,7 +9038,7 @@ public struct BranchRestrictionPolicy: Decodable {
     public var users: [User]
     public var usersURL: URL
 
-    public struct App: Decodable {
+    public struct App: Codable {
         public var createdAt: String?
         public var description: String?
         public var events: [String]?
@@ -6650,7 +9052,7 @@ public struct BranchRestrictionPolicy: Decodable {
         public var slug: String?
         public var updatedAt: String?
 
-        public struct Owner: Decodable {
+        public struct Owner: Codable {
             public var avatarURL: String?
             public var description: String?
             public var eventsURL: String?
@@ -6712,9 +9114,36 @@ public struct BranchRestrictionPolicy: Decodable {
                 self.type = try values.decodeIfPresent(String.self, forKey: "type")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(eventsURL, forKey: "events_url")
+                try values.encodeIfPresent(followersURL, forKey: "followers_url")
+                try values.encodeIfPresent(followingURL, forKey: "following_url")
+                try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encodeIfPresent(hooksURL, forKey: "hooks_url")
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(issuesURL, forKey: "issues_url")
+                try values.encodeIfPresent(login, forKey: "login")
+                try values.encodeIfPresent(membersURL, forKey: "members_url")
+                try values.encodeIfPresent(nodeID, forKey: "node_id")
+                try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+                try values.encodeIfPresent(publicMembersURL, forKey: "public_members_url")
+                try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+                try values.encodeIfPresent(reposURL, forKey: "repos_url")
+                try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
+                try values.encodeIfPresent(starredURL, forKey: "starred_url")
+                try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encodeIfPresent(type, forKey: "type")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
 
-        public struct Permissions: Decodable {
+        public struct Permissions: Codable {
             public var contents: String?
             public var issues: String?
             public var metadata: String?
@@ -6726,6 +9155,14 @@ public struct BranchRestrictionPolicy: Decodable {
                 self.issues = try values.decodeIfPresent(String.self, forKey: "issues")
                 self.metadata = try values.decodeIfPresent(String.self, forKey: "metadata")
                 self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(contents, forKey: "contents")
+                try values.encodeIfPresent(issues, forKey: "issues")
+                try values.encodeIfPresent(metadata, forKey: "metadata")
+                try values.encodeIfPresent(singleFile, forKey: "single_file")
             }
         }
 
@@ -6744,9 +9181,25 @@ public struct BranchRestrictionPolicy: Decodable {
             self.slug = try values.decodeIfPresent(String.self, forKey: "slug")
             self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(events, forKey: "events")
+            try values.encodeIfPresent(externalURL, forKey: "external_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(owner, forKey: "owner")
+            try values.encodeIfPresent(permissions, forKey: "permissions")
+            try values.encodeIfPresent(slug, forKey: "slug")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        }
     }
 
-    public struct Team: Decodable {
+    public struct Team: Codable {
         public var description: String?
         public var htmlURL: String?
         public var id: Int?
@@ -6775,9 +9228,25 @@ public struct BranchRestrictionPolicy: Decodable {
             self.slug = try values.decodeIfPresent(String.self, forKey: "slug")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(membersURL, forKey: "members_url")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(parent, forKey: "parent")
+            try values.encodeIfPresent(permission, forKey: "permission")
+            try values.encodeIfPresent(privacy, forKey: "privacy")
+            try values.encodeIfPresent(repositoriesURL, forKey: "repositories_url")
+            try values.encodeIfPresent(slug, forKey: "slug")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
-    public struct User: Decodable {
+    public struct User: Codable {
         public var avatarURL: String?
         public var eventsURL: String?
         public var followersURL: String?
@@ -6818,6 +9287,28 @@ public struct BranchRestrictionPolicy: Decodable {
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+            try values.encodeIfPresent(eventsURL, forKey: "events_url")
+            try values.encodeIfPresent(followersURL, forKey: "followers_url")
+            try values.encodeIfPresent(followingURL, forKey: "following_url")
+            try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+            try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(login, forKey: "login")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+            try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+            try values.encodeIfPresent(reposURL, forKey: "repos_url")
+            try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
+            try values.encodeIfPresent(starredURL, forKey: "starred_url")
+            try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -6830,9 +9321,20 @@ public struct BranchRestrictionPolicy: Decodable {
         self.users = try values.decode([User].self, forKey: "users")
         self.usersURL = try values.decode(URL.self, forKey: "users_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(apps, forKey: "apps")
+        try values.encode(appsURL, forKey: "apps_url")
+        try values.encode(teams, forKey: "teams")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encode(url, forKey: "url")
+        try values.encode(users, forKey: "users")
+        try values.encode(usersURL, forKey: "users_url")
+    }
 }
 
-public struct BranchProtection: Decodable {
+public struct BranchProtection: Codable {
     public var allowDeletions: AllowDeletions?
     public var allowForcePushes: AllowForcePushes?
     public var isEnabled: Bool?
@@ -6852,43 +9354,63 @@ public struct BranchProtection: Decodable {
     public var restrictions: BranchRestrictionPolicy?
     public var url: String?
 
-    public struct AllowDeletions: Decodable {
+    public struct AllowDeletions: Codable {
         public var isEnabled: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct AllowForcePushes: Decodable {
+    public struct AllowForcePushes: Codable {
         public var isEnabled: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct RequiredConversationResolution: Decodable {
+    public struct RequiredConversationResolution: Codable {
         public var isEnabled: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct RequiredLinearHistory: Decodable {
+    public struct RequiredLinearHistory: Codable {
         public var isEnabled: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct RequiredSignatures: Decodable {
+    public struct RequiredSignatures: Codable {
         /// Example: true
         public var isEnabled: Bool
         public var url: URL
@@ -6898,9 +9420,15 @@ public struct BranchProtection: Decodable {
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct RequiredStatusChecks: Decodable {
+    public struct RequiredStatusChecks: Codable {
         public var contexts: [String]
         public var contextsURL: String?
         public var enforcementLevel: String?
@@ -6914,6 +9442,15 @@ public struct BranchProtection: Decodable {
             self.enforcementLevel = try values.decodeIfPresent(String.self, forKey: "enforcement_level")
             self.isStrict = try values.decodeIfPresent(Bool.self, forKey: "strict")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(contexts, forKey: "contexts")
+            try values.encodeIfPresent(contextsURL, forKey: "contexts_url")
+            try values.encodeIfPresent(enforcementLevel, forKey: "enforcement_level")
+            try values.encodeIfPresent(isStrict, forKey: "strict")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -6933,9 +9470,26 @@ public struct BranchProtection: Decodable {
         self.restrictions = try values.decodeIfPresent(BranchRestrictionPolicy.self, forKey: "restrictions")
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+        try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+        try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(protectionURL, forKey: "protection_url")
+        try values.encodeIfPresent(requiredConversationResolution, forKey: "required_conversation_resolution")
+        try values.encodeIfPresent(requiredLinearHistory, forKey: "required_linear_history")
+        try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+        try values.encodeIfPresent(requiredSignatures, forKey: "required_signatures")
+        try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+        try values.encodeIfPresent(restrictions, forKey: "restrictions")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct ShortBranch: Decodable {
+public struct ShortBranch: Codable {
     public var commit: Commit
     public var name: String
     public var isProtected: Bool
@@ -6943,7 +9497,7 @@ public struct ShortBranch: Decodable {
     public var protection: BranchProtection?
     public var protectionURL: URL?
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         public var sha: String
         public var url: URL
 
@@ -6951,6 +9505,12 @@ public struct ShortBranch: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -6962,10 +9522,19 @@ public struct ShortBranch: Decodable {
         self.protection = try values.decodeIfPresent(BranchProtection.self, forKey: "protection")
         self.protectionURL = try values.decodeIfPresent(URL.self, forKey: "protection_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commit, forKey: "commit")
+        try values.encode(name, forKey: "name")
+        try values.encode(isProtected, forKey: "protected")
+        try values.encodeIfPresent(protection, forKey: "protection")
+        try values.encodeIfPresent(protectionURL, forKey: "protection_url")
+    }
 }
 
 /// Metaproperties for Git author/committer information.
-public struct GitUser: Decodable {
+public struct GitUser: Codable {
     /// Example: "2007-10-29T02:42:39.000-07:00"
     public var date: String?
     /// Example: "chris@ozmm.org"
@@ -6979,9 +9548,16 @@ public struct GitUser: Decodable {
         self.email = try values.decodeIfPresent(String.self, forKey: "email")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(date, forKey: "date")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(name, forKey: "name")
+    }
 }
 
-public struct Verification: Decodable {
+public struct Verification: Codable {
     public var payload: String?
     public var reason: String
     public var signature: String?
@@ -6994,9 +9570,17 @@ public struct Verification: Decodable {
         self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
         self.isVerified = try values.decode(Bool.self, forKey: "verified")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(payload, forKey: "payload")
+        try values.encode(reason, forKey: "reason")
+        try values.encodeIfPresent(signature, forKey: "signature")
+        try values.encode(isVerified, forKey: "verified")
+    }
 }
 
-public struct DiffEntry: Decodable {
+public struct DiffEntry: Codable {
     /// Example: 103
     public var additions: Int
     public var blobURL: URL
@@ -7042,9 +9626,24 @@ public struct DiffEntry: Decodable {
         self.sha = try values.decode(String.self, forKey: "sha")
         self.status = try values.decode(Status.self, forKey: "status")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(additions, forKey: "additions")
+        try values.encode(blobURL, forKey: "blob_url")
+        try values.encode(changes, forKey: "changes")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(deletions, forKey: "deletions")
+        try values.encode(filename, forKey: "filename")
+        try values.encodeIfPresent(patch, forKey: "patch")
+        try values.encodeIfPresent(previousFilename, forKey: "previous_filename")
+        try values.encode(rawURL, forKey: "raw_url")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(status, forKey: "status")
+    }
 }
 
-public struct Commit: Decodable {
+public struct Commit: Codable {
     /// Simple User
     public var author: SimpleUser?
     public var commentsURL: URL
@@ -7061,7 +9660,7 @@ public struct Commit: Decodable {
     public var stats: Stats?
     public var url: URL
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         /// Git User
         ///
         /// Metaproperties for Git author/committer information.
@@ -7077,7 +9676,7 @@ public struct Commit: Decodable {
         public var url: URL
         public var verification: Verification?
 
-        public struct Tree: Decodable {
+        public struct Tree: Codable {
             /// Example: 827efc6d56897b048c772eb4087f854f46256132
             public var sha: String
             public var url: URL
@@ -7086,6 +9685,12 @@ public struct Commit: Decodable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.sha = try values.decode(String.self, forKey: "sha")
                 self.url = try values.decode(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(sha, forKey: "sha")
+                try values.encode(url, forKey: "url")
             }
         }
 
@@ -7099,9 +9704,20 @@ public struct Commit: Decodable {
             self.url = try values.decode(URL.self, forKey: "url")
             self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(author, forKey: "author")
+            try values.encode(commentCount, forKey: "comment_count")
+            try values.encodeIfPresent(committer, forKey: "committer")
+            try values.encode(message, forKey: "message")
+            try values.encode(tree, forKey: "tree")
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(verification, forKey: "verification")
+        }
     }
 
-    public struct Parent: Decodable {
+    public struct Parent: Codable {
         public var htmlURL: URL?
         /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
         public var sha: String
@@ -7113,9 +9729,16 @@ public struct Commit: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Stats: Decodable {
+    public struct Stats: Codable {
         public var additions: Int?
         public var deletions: Int?
         public var total: Int?
@@ -7125,6 +9748,13 @@ public struct Commit: Decodable {
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
             self.deletions = try values.decodeIfPresent(Int.self, forKey: "deletions")
             self.total = try values.decodeIfPresent(Int.self, forKey: "total")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(additions, forKey: "additions")
+            try values.encodeIfPresent(deletions, forKey: "deletions")
+            try values.encodeIfPresent(total, forKey: "total")
         }
     }
 
@@ -7142,9 +9772,24 @@ public struct Commit: Decodable {
         self.stats = try values.decodeIfPresent(Stats.self, forKey: "stats")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commit, forKey: "commit")
+        try values.encodeIfPresent(committer, forKey: "committer")
+        try values.encodeIfPresent(files, forKey: "files")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(sha, forKey: "sha")
+        try values.encodeIfPresent(stats, forKey: "stats")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct BranchWithProtection: Decodable {
+public struct BranchWithProtection: Codable {
     public var links: Links
     public var commit: Commit
     public var name: String
@@ -7156,7 +9801,7 @@ public struct BranchWithProtection: Decodable {
     public var protectionURL: URL
     public var requiredApprovingReviewCount: Int?
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var html: String
         public var `self`: URL
 
@@ -7164,6 +9809,12 @@ public struct BranchWithProtection: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(String.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -7178,9 +9829,21 @@ public struct BranchWithProtection: Decodable {
         self.protectionURL = try values.decode(URL.self, forKey: "protection_url")
         self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(commit, forKey: "commit")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(pattern, forKey: "pattern")
+        try values.encode(isProtected, forKey: "protected")
+        try values.encode(protection, forKey: "protection")
+        try values.encode(protectionURL, forKey: "protection_url")
+        try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+    }
 }
 
-public struct StatusCheckPolicy: Decodable {
+public struct StatusCheckPolicy: Codable {
     /// Example:
 
     /// [
@@ -7199,10 +9862,18 @@ public struct StatusCheckPolicy: Decodable {
         self.isStrict = try values.decode(Bool.self, forKey: "strict")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(contexts, forKey: "contexts")
+        try values.encode(contextsURL, forKey: "contexts_url")
+        try values.encode(isStrict, forKey: "strict")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Branch protections protect branches
-public struct ProtectedBranch: Decodable {
+public struct ProtectedBranch: Codable {
     public var allowDeletions: AllowDeletions?
     public var allowForcePushes: AllowForcePushes?
     public var enforceAdmins: EnforceAdmins?
@@ -7216,25 +9887,35 @@ public struct ProtectedBranch: Decodable {
     public var restrictions: BranchRestrictionPolicy?
     public var url: URL
 
-    public struct AllowDeletions: Decodable {
+    public struct AllowDeletions: Codable {
         public var isEnabled: Bool
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct AllowForcePushes: Decodable {
+    public struct AllowForcePushes: Codable {
         public var isEnabled: Bool
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct EnforceAdmins: Decodable {
+    public struct EnforceAdmins: Codable {
         public var isEnabled: Bool
         public var url: URL
 
@@ -7243,34 +9924,50 @@ public struct ProtectedBranch: Decodable {
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct RequiredConversationResolution: Decodable {
+    public struct RequiredConversationResolution: Codable {
         public var isEnabled: Bool?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct RequiredLinearHistory: Decodable {
+    public struct RequiredLinearHistory: Codable {
         public var isEnabled: Bool
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
     }
 
-    public struct RequiredPullRequestReviews: Decodable {
+    public struct RequiredPullRequestReviews: Codable {
         public var dismissStaleReviews: Bool?
         public var dismissalRestrictions: DismissalRestrictions?
         public var requireCodeOwnerReviews: Bool?
         public var requiredApprovingReviewCount: Int?
         public var url: URL
 
-        public struct DismissalRestrictions: Decodable {
+        public struct DismissalRestrictions: Codable {
             public var teams: [Team]
             public var teamsURL: URL
             public var url: URL
@@ -7285,6 +9982,15 @@ public struct ProtectedBranch: Decodable {
                 self.users = try values.decode([SimpleUser].self, forKey: "users")
                 self.usersURL = try values.decode(URL.self, forKey: "users_url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(teams, forKey: "teams")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encode(url, forKey: "url")
+                try values.encode(users, forKey: "users")
+                try values.encode(usersURL, forKey: "users_url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -7295,9 +10001,18 @@ public struct ProtectedBranch: Decodable {
             self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+            try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+            try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+            try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct RequiredSignatures: Decodable {
+    public struct RequiredSignatures: Codable {
         /// Example: true
         public var isEnabled: Bool
         public var url: URL
@@ -7306,6 +10021,12 @@ public struct ProtectedBranch: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -7322,12 +10043,26 @@ public struct ProtectedBranch: Decodable {
         self.restrictions = try values.decodeIfPresent(BranchRestrictionPolicy.self, forKey: "restrictions")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+        try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+        try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+        try values.encodeIfPresent(requiredConversationResolution, forKey: "required_conversation_resolution")
+        try values.encodeIfPresent(requiredLinearHistory, forKey: "required_linear_history")
+        try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+        try values.encodeIfPresent(requiredSignatures, forKey: "required_signatures")
+        try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+        try values.encodeIfPresent(restrictions, forKey: "restrictions")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Deployment
 ///
 /// A deployment created as the result of an Actions check run from a workflow that references an environment
-public struct DeploymentSimple: Decodable {
+public struct DeploymentSimple: Codable {
     /// Example: 2012-07-20T01:19:13Z
     public var createdAt: Date
     /// Example: Deploy request from hubot
@@ -7383,10 +10118,28 @@ public struct DeploymentSimple: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(environment, forKey: "environment")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(originalEnvironment, forKey: "original_environment")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(task, forKey: "task")
+        try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A check performed on the code of a given code change
-public struct CheckRun: Decodable {
+public struct CheckRun: Codable {
     /// GitHub app
     ///
     /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
@@ -7426,12 +10179,17 @@ public struct CheckRun: Decodable {
     public var status: Status
     public var url: String
 
-    public struct CheckSuite: Decodable {
+    public struct CheckSuite: Codable {
         public var id: Int
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.id = try values.decode(Int.self, forKey: "id")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(id, forKey: "id")
         }
     }
 
@@ -7446,7 +10204,7 @@ public struct CheckRun: Decodable {
         case actionRequired = "action_required"
     }
 
-    public struct Output: Decodable {
+    public struct Output: Codable {
         public var annotationsCount: Int
         public var annotationsURL: URL
         public var summary: String?
@@ -7460,6 +10218,15 @@ public struct CheckRun: Decodable {
             self.summary = try values.decodeIfPresent(String.self, forKey: "summary")
             self.text = try values.decodeIfPresent(String.self, forKey: "text")
             self.title = try values.decodeIfPresent(String.self, forKey: "title")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(annotationsCount, forKey: "annotations_count")
+            try values.encode(annotationsURL, forKey: "annotations_url")
+            try values.encodeIfPresent(summary, forKey: "summary")
+            try values.encodeIfPresent(text, forKey: "text")
+            try values.encodeIfPresent(title, forKey: "title")
         }
     }
 
@@ -7492,9 +10259,30 @@ public struct CheckRun: Decodable {
         self.status = try values.decode(Status.self, forKey: "status")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(app, forKey: "app")
+        try values.encodeIfPresent(checkSuite, forKey: "check_suite")
+        try values.encodeIfPresent(completedAt, forKey: "completed_at")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encodeIfPresent(deployment, forKey: "deployment")
+        try values.encodeIfPresent(detailsURL, forKey: "details_url")
+        try values.encodeIfPresent(externalID, forKey: "external_id")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(output, forKey: "output")
+        try values.encode(pullRequests, forKey: "pull_requests")
+        try values.encodeIfPresent(startedAt, forKey: "started_at")
+        try values.encode(status, forKey: "status")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CheckAnnotation: Decodable {
+public struct CheckAnnotation: Codable {
     /// Example: warning
     public var annotationLevel: String?
     public var blobHref: String
@@ -7525,9 +10313,23 @@ public struct CheckAnnotation: Decodable {
         self.startLine = try values.decode(Int.self, forKey: "start_line")
         self.title = try values.decodeIfPresent(String.self, forKey: "title")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(annotationLevel, forKey: "annotation_level")
+        try values.encode(blobHref, forKey: "blob_href")
+        try values.encodeIfPresent(endColumn, forKey: "end_column")
+        try values.encode(endLine, forKey: "end_line")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encode(path, forKey: "path")
+        try values.encodeIfPresent(rawDetails, forKey: "raw_details")
+        try values.encodeIfPresent(startColumn, forKey: "start_column")
+        try values.encode(startLine, forKey: "start_line")
+        try values.encodeIfPresent(title, forKey: "title")
+    }
 }
 
-public struct SimpleCommit: Decodable {
+public struct SimpleCommit: Codable {
     public var author: Author?
     public var committer: Committer?
     public var id: String
@@ -7535,7 +10337,7 @@ public struct SimpleCommit: Decodable {
     public var timestamp: Date
     public var treeID: String
 
-    public struct Author: Decodable {
+    public struct Author: Codable {
         public var email: String
         public var name: String
 
@@ -7544,9 +10346,15 @@ public struct SimpleCommit: Decodable {
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
-    public struct Committer: Decodable {
+    public struct Committer: Codable {
         public var email: String
         public var name: String
 
@@ -7554,6 +10362,12 @@ public struct SimpleCommit: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
         }
     }
 
@@ -7566,10 +10380,20 @@ public struct SimpleCommit: Decodable {
         self.timestamp = try values.decode(Date.self, forKey: "timestamp")
         self.treeID = try values.decode(String.self, forKey: "tree_id")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encodeIfPresent(committer, forKey: "committer")
+        try values.encode(id, forKey: "id")
+        try values.encode(message, forKey: "message")
+        try values.encode(timestamp, forKey: "timestamp")
+        try values.encode(treeID, forKey: "tree_id")
+    }
 }
 
 /// A suite of checks performed on the code of a given code change
-public struct CheckSuite: Decodable {
+public struct CheckSuite: Codable {
     /// Example: d6fde92930d4715a2b49857d24b940956b26d2d3
     public var after: String?
     /// GitHub app
@@ -7640,18 +10464,39 @@ public struct CheckSuite: Decodable {
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
         self.url = try values.decodeIfPresent(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(after, forKey: "after")
+        try values.encodeIfPresent(app, forKey: "app")
+        try values.encodeIfPresent(before, forKey: "before")
+        try values.encode(checkRunsURL, forKey: "check_runs_url")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(headBranch, forKey: "head_branch")
+        try values.encode(headCommit, forKey: "head_commit")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encode(id, forKey: "id")
+        try values.encode(latestCheckRunsCount, forKey: "latest_check_runs_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(pullRequests, forKey: "pull_requests")
+        try values.encode(repository, forKey: "repository")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
 /// Check suite configuration preferences for a repository.
-public struct CheckSuitePreference: Decodable {
+public struct CheckSuitePreference: Codable {
     public var preferences: Preferences
     /// Minimal Repository
     public var repository: MinimalRepository
 
-    public struct Preferences: Decodable {
+    public struct Preferences: Codable {
         public var autoTriggerChecks: [AutoTriggerCheck]?
 
-        public struct AutoTriggerCheck: Decodable {
+        public struct AutoTriggerCheck: Codable {
             public var appID: Int
             public var isSetting: Bool
 
@@ -7660,11 +10505,22 @@ public struct CheckSuitePreference: Decodable {
                 self.appID = try values.decode(Int.self, forKey: "app_id")
                 self.isSetting = try values.decode(Bool.self, forKey: "setting")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(appID, forKey: "app_id")
+                try values.encode(isSetting, forKey: "setting")
+            }
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerCheck].self, forKey: "auto_trigger_checks")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(autoTriggerChecks, forKey: "auto_trigger_checks")
         }
     }
 
@@ -7672,6 +10528,12 @@ public struct CheckSuitePreference: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.preferences = try values.decode(Preferences.self, forKey: "preferences")
         self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(preferences, forKey: "preferences")
+        try values.encode(repository, forKey: "repository")
     }
 }
 
@@ -7690,7 +10552,7 @@ public enum CodeScanningAlertDismissedReason: String, Codable, CaseIterable {
     case usedInTests = "used in tests"
 }
 
-public struct CodeScanningAlertRuleSummary: Decodable {
+public struct CodeScanningAlertRuleSummary: Codable {
     /// A short description of the rule used to detect the alert.
     public var description: String?
     /// A unique identifier for the rule used to detect the alert.
@@ -7715,9 +10577,17 @@ public struct CodeScanningAlertRuleSummary: Decodable {
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
         self.severity = try values.decodeIfPresent(Severity.self, forKey: "severity")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(severity, forKey: "severity")
+    }
 }
 
-public struct CodeScanningAnalysisTool: Decodable {
+public struct CodeScanningAnalysisTool: Codable {
     /// The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data.
     public var guid: String?
     /// The name of the tool used to generate the code scanning analysis.
@@ -7731,10 +10601,17 @@ public struct CodeScanningAnalysisTool: Decodable {
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
         self.version = try values.decodeIfPresent(String.self, forKey: "version")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(guid, forKey: "guid")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(version, forKey: "version")
+    }
 }
 
 /// Describe a region within a file for the alert.
-public struct CodeScanningAlertLocation: Decodable {
+public struct CodeScanningAlertLocation: Codable {
     public var endColumn: Int?
     public var endLine: Int?
     public var path: String?
@@ -7749,6 +10626,15 @@ public struct CodeScanningAlertLocation: Decodable {
         self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
         self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(endColumn, forKey: "end_column")
+        try values.encodeIfPresent(endLine, forKey: "end_line")
+        try values.encodeIfPresent(path, forKey: "path")
+        try values.encodeIfPresent(startColumn, forKey: "start_column")
+        try values.encodeIfPresent(startLine, forKey: "start_line")
+    }
 }
 
 /// A classification of the file. For example to identify it as generated.
@@ -7759,7 +10645,7 @@ public enum CodeScanningAlertClassification: String, Codable, CaseIterable {
     case library
 }
 
-public struct CodeScanningAlertInstance: Decodable {
+public struct CodeScanningAlertInstance: Codable {
     /// Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name.
     public var analysisKey: String?
     /// Identifies the configuration under which the analysis was executed. Used to distinguish between multiple analyses for the same tool and commit, but performed on different languages or different parts of the code.
@@ -7780,12 +10666,17 @@ public struct CodeScanningAlertInstance: Decodable {
     /// State of a code scanning alert.
     public var state: CodeScanningAlertState?
 
-    public struct Message: Decodable {
+    public struct Message: Codable {
         public var text: String?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.text = try values.decodeIfPresent(String.self, forKey: "text")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(text, forKey: "text")
         }
     }
 
@@ -7802,9 +10693,23 @@ public struct CodeScanningAlertInstance: Decodable {
         self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
         self.state = try values.decodeIfPresent(CodeScanningAlertState.self, forKey: "state")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(analysisKey, forKey: "analysis_key")
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encodeIfPresent(classifications, forKey: "classifications")
+        try values.encodeIfPresent(commitSha, forKey: "commit_sha")
+        try values.encodeIfPresent(environment, forKey: "environment")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(ref, forKey: "ref")
+        try values.encodeIfPresent(state, forKey: "state")
+    }
 }
 
-public struct CodeScanningAlertItems: Decodable {
+public struct CodeScanningAlertItems: Codable {
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date
     /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -7842,9 +10747,25 @@ public struct CodeScanningAlertItems: Decodable {
         self.tool = try values.decode(CodeScanningAnalysisTool.self, forKey: "tool")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(dismissedAt, forKey: "dismissed_at")
+        try values.encodeIfPresent(dismissedBy, forKey: "dismissed_by")
+        try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(instancesURL, forKey: "instances_url")
+        try values.encode(mostRecentInstance, forKey: "most_recent_instance")
+        try values.encode(number, forKey: "number")
+        try values.encode(rule, forKey: "rule")
+        try values.encode(state, forKey: "state")
+        try values.encode(tool, forKey: "tool")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CodeScanningAlertRule: Decodable {
+public struct CodeScanningAlertRule: Codable {
     /// A short description of the rule used to detect the alert.
     public var description: String?
     /// Description of the rule used to detect the alert.
@@ -7889,9 +10810,21 @@ public struct CodeScanningAlertRule: Decodable {
         self.severity = try values.decodeIfPresent(Severity.self, forKey: "severity")
         self.tags = try values.decodeIfPresent([String].self, forKey: "tags")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(fullDescription, forKey: "full_description")
+        try values.encodeIfPresent(help, forKey: "help")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(securitySeverityLevel, forKey: "security_severity_level")
+        try values.encodeIfPresent(severity, forKey: "severity")
+        try values.encodeIfPresent(tags, forKey: "tags")
+    }
 }
 
-public struct CodeScanningAlert: Decodable {
+public struct CodeScanningAlert: Codable {
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date
     /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -7929,6 +10862,22 @@ public struct CodeScanningAlert: Decodable {
         self.tool = try values.decode(CodeScanningAnalysisTool.self, forKey: "tool")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(dismissedAt, forKey: "dismissed_at")
+        try values.encodeIfPresent(dismissedBy, forKey: "dismissed_by")
+        try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(instancesURL, forKey: "instances_url")
+        try values.encode(mostRecentInstance, forKey: "most_recent_instance")
+        try values.encode(number, forKey: "number")
+        try values.encode(rule, forKey: "rule")
+        try values.encode(state, forKey: "state")
+        try values.encode(tool, forKey: "tool")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
@@ -7937,7 +10886,7 @@ public enum CodeScanningAlertSetState: String, Codable, CaseIterable {
     case dismissed
 }
 
-public struct CodeScanningAnalysis: Decodable {
+public struct CodeScanningAnalysis: Codable {
     /// Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name.
     public var analysisKey: String
     /// Identifies the configuration under which the analysis was executed. Used to distinguish between multiple analyses for the same tool and commit, but performed on different languages or different parts of the code.
@@ -7990,12 +10939,31 @@ public struct CodeScanningAnalysis: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.warning = try values.decode(String.self, forKey: "warning")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(analysisKey, forKey: "analysis_key")
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encode(commitSha, forKey: "commit_sha")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(isDeletable, forKey: "deletable")
+        try values.encode(environment, forKey: "environment")
+        try values.encode(error, forKey: "error")
+        try values.encode(id, forKey: "id")
+        try values.encode(ref, forKey: "ref")
+        try values.encode(resultsCount, forKey: "results_count")
+        try values.encode(rulesCount, forKey: "rules_count")
+        try values.encode(sarifID, forKey: "sarif_id")
+        try values.encode(tool, forKey: "tool")
+        try values.encode(url, forKey: "url")
+        try values.encode(warning, forKey: "warning")
+    }
 }
 
 /// Analysis deletion
 ///
 /// Successful deletion of a code scanning analysis
-public struct CodeScanningAnalysisDeletion: Decodable {
+public struct CodeScanningAnalysisDeletion: Codable {
     /// Next deletable analysis in chain, with last analysis deletion confirmation
     public var confirmDeleteURL: URL?
     /// Next deletable analysis in chain, without last analysis deletion confirmation
@@ -8006,9 +10974,15 @@ public struct CodeScanningAnalysisDeletion: Decodable {
         self.confirmDeleteURL = try values.decodeIfPresent(URL.self, forKey: "confirm_delete_url")
         self.nextAnalysisURL = try values.decodeIfPresent(URL.self, forKey: "next_analysis_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(confirmDeleteURL, forKey: "confirm_delete_url")
+        try values.encodeIfPresent(nextAnalysisURL, forKey: "next_analysis_url")
+    }
 }
 
-public struct CodeScanningSarifsReceipt: Decodable {
+public struct CodeScanningSarifsReceipt: Codable {
     /// An identifier for the upload.
     ///
     /// Example: 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
@@ -8021,9 +10995,15 @@ public struct CodeScanningSarifsReceipt: Decodable {
         self.id = try values.decodeIfPresent(String.self, forKey: "id")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct CodeScanningSarifsStatus: Decodable {
+public struct CodeScanningSarifsStatus: Codable {
     /// The REST API URL for getting the analyses associated with the upload.
     public var analysesURL: URL?
     /// Any errors that ocurred during processing of the delivery.
@@ -8044,10 +11024,17 @@ public struct CodeScanningSarifsStatus: Decodable {
         self.errors = try values.decodeIfPresent([String].self, forKey: "errors")
         self.processingStatus = try values.decodeIfPresent(ProcessingStatus.self, forKey: "processing_status")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(analysesURL, forKey: "analyses_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
+        try values.encodeIfPresent(processingStatus, forKey: "processing_status")
+    }
 }
 
 /// A codespace.
-public struct Codespace: Decodable {
+public struct Codespace: Codable {
     /// Simple User
     public var billableOwner: SimpleUser
     /// Example: 2011-01-26T19:01:12Z
@@ -8108,7 +11095,7 @@ public struct Codespace: Decodable {
     public var webURL: URL
 
     /// Details about the codespace's git repository.
-    public struct GitStatus: Decodable {
+    public struct GitStatus: Codable {
         /// The number of commits the local repository is ahead of the remote.
         public var ahead: Int?
         /// The number of commits the local repository is behind the remote.
@@ -8129,6 +11116,15 @@ public struct Codespace: Decodable {
             self.hasUncommittedChanges = try values.decodeIfPresent(Bool.self, forKey: "has_uncommitted_changes")
             self.hasUnpushedChanges = try values.decodeIfPresent(Bool.self, forKey: "has_unpushed_changes")
             self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ahead, forKey: "ahead")
+            try values.encodeIfPresent(behind, forKey: "behind")
+            try values.encodeIfPresent(hasUncommittedChanges, forKey: "has_uncommitted_changes")
+            try values.encodeIfPresent(hasUnpushedChanges, forKey: "has_unpushed_changes")
+            try values.encodeIfPresent(ref, forKey: "ref")
         }
     }
 
@@ -8190,10 +11186,36 @@ public struct Codespace: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.webURL = try values.decode(URL.self, forKey: "web_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(billableOwner, forKey: "billable_owner")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(environmentID, forKey: "environment_id")
+        try values.encode(gitStatus, forKey: "git_status")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
+        try values.encode(lastUsedAt, forKey: "last_used_at")
+        try values.encode(location, forKey: "location")
+        try values.encodeIfPresent(machine, forKey: "machine")
+        try values.encode(machinesURL, forKey: "machines_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(owner, forKey: "owner")
+        try values.encodeIfPresent(isPrebuild, forKey: "prebuild")
+        try values.encodeIfPresent(pullsURL, forKey: "pulls_url")
+        try values.encode(recentFolders, forKey: "recent_folders")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(startURL, forKey: "start_url")
+        try values.encode(state, forKey: "state")
+        try values.encode(stopURL, forKey: "stop_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(webURL, forKey: "web_url")
+    }
 }
 
 /// A description of the machine powering a codespace.
-public struct CodespaceMachine: Decodable {
+public struct CodespaceMachine: Codable {
     /// How many cores are available to the codespace.
     public var cpus: Int
     /// The display name of the machine includes cores, memory, and storage.
@@ -8240,9 +11262,20 @@ public struct CodespaceMachine: Decodable {
         self.prebuildAvailability = try values.decodeIfPresent(PrebuildAvailability.self, forKey: "prebuild_availability")
         self.storageInBytes = try values.decode(Int.self, forKey: "storage_in_bytes")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(cpus, forKey: "cpus")
+        try values.encode(displayName, forKey: "display_name")
+        try values.encode(memoryInBytes, forKey: "memory_in_bytes")
+        try values.encode(name, forKey: "name")
+        try values.encode(operatingSystem, forKey: "operating_system")
+        try values.encodeIfPresent(prebuildAvailability, forKey: "prebuild_availability")
+        try values.encode(storageInBytes, forKey: "storage_in_bytes")
+    }
 }
 
-public struct Collaborator: Decodable {
+public struct Collaborator: Codable {
     public var avatarURL: URL
     public var email: String?
     public var eventsURL: String
@@ -8271,7 +11304,7 @@ public struct Collaborator: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool?
         public var isPull: Bool
@@ -8285,6 +11318,15 @@ public struct Collaborator: Decodable {
             self.isPull = try values.decode(Bool.self, forKey: "pull")
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
         }
     }
 
@@ -8313,10 +11355,36 @@ public struct Collaborator: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(roleName, forKey: "role_name")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Repository invitations let you manage who you collaborate with.
-public struct RepositoryInvitation: Decodable {
+public struct RepositoryInvitation: Codable {
     /// Example: 2016-06-13T14:52:50-05:00
     public var createdAt: Date
     /// Whether or not the invitation has expired
@@ -8364,9 +11432,23 @@ public struct RepositoryInvitation: Decodable {
         self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(isExpired, forKey: "expired")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(invitee, forKey: "invitee")
+        try values.encodeIfPresent(inviter, forKey: "inviter")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct RepositoryCollaboratorPermission: Decodable {
+public struct RepositoryCollaboratorPermission: Codable {
     public var permission: String
     /// Example: admin
     public var roleName: String
@@ -8379,9 +11461,16 @@ public struct RepositoryCollaboratorPermission: Decodable {
         self.roleName = try values.decode(String.self, forKey: "role_name")
         self.user = try values.decodeIfPresent(Collaborator.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(permission, forKey: "permission")
+        try values.encode(roleName, forKey: "role_name")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct CommitComment: Decodable {
+public struct CommitComment: Codable {
     /// Author_association
     ///
     /// How the author is associated with the repository.
@@ -8421,14 +11510,32 @@ public struct CommitComment: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(body, forKey: "body")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(line, forKey: "line")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(path, forKey: "path")
+        try values.encodeIfPresent(position, forKey: "position")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct BranchShort: Decodable {
+public struct BranchShort: Codable {
     public var commit: Commit
     public var name: String
     public var isProtected: Bool
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         public var sha: String
         public var url: String
 
@@ -8436,6 +11543,12 @@ public struct BranchShort: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -8445,20 +11558,32 @@ public struct BranchShort: Decodable {
         self.name = try values.decode(String.self, forKey: "name")
         self.isProtected = try values.decode(Bool.self, forKey: "protected")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commit, forKey: "commit")
+        try values.encode(name, forKey: "name")
+        try values.encode(isProtected, forKey: "protected")
+    }
 }
 
 /// Hypermedia Link
-public struct Link: Decodable {
+public struct Link: Codable {
     public var href: String
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.href = try values.decode(String.self, forKey: "href")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(href, forKey: "href")
+    }
 }
 
 /// The status of auto merging a pull request.
-public struct AutoMerge: Decodable {
+public struct AutoMerge: Codable {
     /// Commit message for the merge commit.
     public var commitMessage: String
     /// Title for the merge commit message.
@@ -8482,9 +11607,17 @@ public struct AutoMerge: Decodable {
         self.enabledBy = try values.decode(SimpleUser.self, forKey: "enabled_by")
         self.mergeMethod = try values.decode(MergeMethod.self, forKey: "merge_method")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commitMessage, forKey: "commit_message")
+        try values.encode(commitTitle, forKey: "commit_title")
+        try values.encode(enabledBy, forKey: "enabled_by")
+        try values.encode(mergeMethod, forKey: "merge_method")
+    }
 }
 
-public struct PullRequestSimple: Decodable {
+public struct PullRequestSimple: Codable {
     public var links: Links
     /// Example: too heated
     public var activeLockReason: String?
@@ -8546,7 +11679,7 @@ public struct PullRequestSimple: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         /// Link
         ///
         /// Hypermedia Link
@@ -8591,9 +11724,21 @@ public struct PullRequestSimple: Decodable {
             self.`self` = try values.decode(Link.self, forKey: "self")
             self.statuses = try values.decode(Link.self, forKey: "statuses")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(comments, forKey: "comments")
+            try values.encode(commits, forKey: "commits")
+            try values.encode(html, forKey: "html")
+            try values.encode(issue, forKey: "issue")
+            try values.encode(reviewComment, forKey: "review_comment")
+            try values.encode(reviewComments, forKey: "review_comments")
+            try values.encode(`self`, forKey: "self")
+            try values.encode(statuses, forKey: "statuses")
+        }
     }
 
-    public struct Base: Decodable {
+    public struct Base: Codable {
         public var label: String
         public var ref: String
         /// Repository
@@ -8612,9 +11757,18 @@ public struct PullRequestSimple: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encodeIfPresent(user, forKey: "user")
+        }
     }
 
-    public struct Head: Decodable {
+    public struct Head: Codable {
         public var label: String
         public var ref: String
         /// Repository
@@ -8633,9 +11787,18 @@ public struct PullRequestSimple: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encodeIfPresent(user, forKey: "user")
+        }
     }
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         public var color: String
         public var isDefault: Bool
         public var description: String
@@ -8653,6 +11816,17 @@ public struct PullRequestSimple: Decodable {
             self.name = try values.decode(String.self, forKey: "name")
             self.nodeID = try values.decode(String.self, forKey: "node_id")
             self.url = try values.decode(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(color, forKey: "color")
+            try values.encode(isDefault, forKey: "default")
+            try values.encode(description, forKey: "description")
+            try values.encode(id, forKey: "id")
+            try values.encode(name, forKey: "name")
+            try values.encode(nodeID, forKey: "node_id")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -8695,9 +11869,49 @@ public struct PullRequestSimple: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(autoMerge, forKey: "auto_merge")
+        try values.encode(base, forKey: "base")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(diffURL, forKey: "diff_url")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encode(head, forKey: "head")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encodeIfPresent(mergeCommitSha, forKey: "merge_commit_sha")
+        try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(patchURL, forKey: "patch_url")
+        try values.encodeIfPresent(requestedReviewers, forKey: "requested_reviewers")
+        try values.encodeIfPresent(requestedTeams, forKey: "requested_teams")
+        try values.encode(reviewCommentURL, forKey: "review_comment_url")
+        try values.encode(reviewCommentsURL, forKey: "review_comments_url")
+        try values.encode(state, forKey: "state")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct SimpleCommitStatus: Decodable {
+public struct SimpleCommitStatus: Codable {
     public var avatarURL: URL?
     public var context: String
     public var createdAt: Date
@@ -8724,9 +11938,24 @@ public struct SimpleCommitStatus: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+        try values.encode(context, forKey: "context")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(isRequired, forKey: "required")
+        try values.encode(state, forKey: "state")
+        try values.encode(targetURL, forKey: "target_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CombinedCommitStatus: Decodable {
+public struct CombinedCommitStatus: Codable {
     public var commitURL: URL
     /// Minimal Repository
     public var repository: MinimalRepository
@@ -8746,10 +11975,21 @@ public struct CombinedCommitStatus: Decodable {
         self.totalCount = try values.decode(Int.self, forKey: "total_count")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commitURL, forKey: "commit_url")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(state, forKey: "state")
+        try values.encode(statuses, forKey: "statuses")
+        try values.encode(totalCount, forKey: "total_count")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// The status of a commit.
-public struct Status: Decodable {
+public struct Status: Codable {
     public var avatarURL: String?
     public var context: String
     public var createdAt: String
@@ -8777,9 +12017,24 @@ public struct Status: Decodable {
         self.updatedAt = try values.decode(String.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+        try values.encode(context, forKey: "context")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(description, forKey: "description")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(state, forKey: "state")
+        try values.encode(targetURL, forKey: "target_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CommunityHealthFile: Decodable {
+public struct CommunityHealthFile: Codable {
     public var htmlURL: URL
     public var url: URL
 
@@ -8788,9 +12043,15 @@ public struct CommunityHealthFile: Decodable {
         self.htmlURL = try values.decode(URL.self, forKey: "html_url")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CommunityProfile: Decodable {
+public struct CommunityProfile: Codable {
     /// Example: true
     public var isContentReportsEnabled: Bool?
     /// Example: My first repository on GitHub!
@@ -8803,7 +12064,7 @@ public struct CommunityProfile: Decodable {
     /// Example: 2017-02-28T19:09:29Z
     public var updatedAt: Date?
 
-    public struct Files: Decodable {
+    public struct Files: Codable {
         /// Code Of Conduct Simple
         ///
         /// Code of Conduct Simple
@@ -8831,6 +12092,17 @@ public struct CommunityProfile: Decodable {
             self.pullRequestTemplate = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "pull_request_template")
             self.readme = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "readme")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(codeOfConduct, forKey: "code_of_conduct")
+            try values.encodeIfPresent(codeOfConductFile, forKey: "code_of_conduct_file")
+            try values.encodeIfPresent(contributing, forKey: "contributing")
+            try values.encodeIfPresent(issueTemplate, forKey: "issue_template")
+            try values.encodeIfPresent(license, forKey: "license")
+            try values.encodeIfPresent(pullRequestTemplate, forKey: "pull_request_template")
+            try values.encodeIfPresent(readme, forKey: "readme")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -8842,9 +12114,19 @@ public struct CommunityProfile: Decodable {
         self.healthPercentage = try values.decode(Int.self, forKey: "health_percentage")
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isContentReportsEnabled, forKey: "content_reports_enabled")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(documentation, forKey: "documentation")
+        try values.encode(files, forKey: "files")
+        try values.encode(healthPercentage, forKey: "health_percentage")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+    }
 }
 
-public struct CommitComparison: Decodable {
+public struct CommitComparison: Codable {
     public var aheadBy: Int
     /// Commit
     public var baseCommit: Commit
@@ -8886,10 +12168,27 @@ public struct CommitComparison: Decodable {
         self.totalCommits = try values.decode(Int.self, forKey: "total_commits")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(aheadBy, forKey: "ahead_by")
+        try values.encode(baseCommit, forKey: "base_commit")
+        try values.encode(behindBy, forKey: "behind_by")
+        try values.encode(commits, forKey: "commits")
+        try values.encode(diffURL, forKey: "diff_url")
+        try values.encodeIfPresent(files, forKey: "files")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(mergeBaseCommit, forKey: "merge_base_commit")
+        try values.encode(patchURL, forKey: "patch_url")
+        try values.encode(permalinkURL, forKey: "permalink_url")
+        try values.encode(status, forKey: "status")
+        try values.encode(totalCommits, forKey: "total_commits")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Content Reference attachments allow you to provide context around URLs posted in comments
-public struct ContentReferenceAttachment: Decodable {
+public struct ContentReferenceAttachment: Codable {
     /// The body of the attachment
     ///
     /// Example: Body of the attachment
@@ -8914,9 +12213,17 @@ public struct ContentReferenceAttachment: Decodable {
         self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
         self.title = try values.decode(String.self, forKey: "title")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(body, forKey: "body")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encode(title, forKey: "title")
+    }
 }
 
-public struct ContentTree: Decodable {
+public struct ContentTree: Codable {
     public var links: Links
     public var content: AnyJSON
     public var downloadURL: URL?
@@ -8931,7 +12238,7 @@ public struct ContentTree: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -8942,9 +12249,16 @@ public struct ContentTree: Decodable {
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
+        }
     }
 
-    public struct Entry: Decodable {
+    public struct Entry: Codable {
         public var links: Links
         public var content: String?
         public var downloadURL: URL?
@@ -8957,7 +12271,7 @@ public struct ContentTree: Decodable {
         public var type: String
         public var url: URL
 
-        public struct Links: Decodable {
+        public struct Links: Codable {
             public var git: URL?
             public var html: URL?
             public var `self`: URL
@@ -8967,6 +12281,13 @@ public struct ContentTree: Decodable {
                 self.git = try values.decodeIfPresent(URL.self, forKey: "git")
                 self.html = try values.decodeIfPresent(URL.self, forKey: "html")
                 self.`self` = try values.decode(URL.self, forKey: "self")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(git, forKey: "git")
+                try values.encodeIfPresent(html, forKey: "html")
+                try values.encode(`self`, forKey: "self")
             }
         }
 
@@ -8983,6 +12304,21 @@ public struct ContentTree: Decodable {
             self.size = try values.decode(Int.self, forKey: "size")
             self.type = try values.decode(String.self, forKey: "type")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(links, forKey: "_links")
+            try values.encodeIfPresent(content, forKey: "content")
+            try values.encodeIfPresent(downloadURL, forKey: "download_url")
+            try values.encodeIfPresent(gitURL, forKey: "git_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encode(name, forKey: "name")
+            try values.encode(path, forKey: "path")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(size, forKey: "size")
+            try values.encode(type, forKey: "type")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -9002,11 +12338,28 @@ public struct ContentTree: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(content, forKey: "content")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encodeIfPresent(entries, forKey: "entries")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 public typealias ContentDirectory = [ContentDirectoryItem]
 
-public struct ContentDirectoryItem: Decodable {
+public struct ContentDirectoryItem: Codable {
     public var links: Links
     public var content: String?
     public var downloadURL: URL?
@@ -9019,7 +12372,7 @@ public struct ContentDirectoryItem: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -9029,6 +12382,13 @@ public struct ContentDirectoryItem: Decodable {
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -9046,9 +12406,24 @@ public struct ContentDirectoryItem: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(content, forKey: "content")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ContentFile: Decodable {
+public struct ContentFile: Codable {
     public var links: Links
     public var content: String
     public var downloadURL: URL?
@@ -9066,7 +12441,7 @@ public struct ContentFile: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -9076,6 +12451,13 @@ public struct ContentFile: Decodable {
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -9096,12 +12478,30 @@ public struct ContentFile: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(content, forKey: "content")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encodeIfPresent(submoduleGitURL, forKey: "submodule_git_url")
+        try values.encodeIfPresent(target, forKey: "target")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Symlink Content
 ///
 /// An object describing a symlink
-public struct ContentSymlink: Decodable {
+public struct ContentSymlink: Codable {
     public var links: Links
     public var downloadURL: URL?
     public var gitURL: URL?
@@ -9114,7 +12514,7 @@ public struct ContentSymlink: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -9124,6 +12524,13 @@ public struct ContentSymlink: Decodable {
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -9141,12 +12548,27 @@ public struct ContentSymlink: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encode(target, forKey: "target")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Symlink Content
 ///
 /// An object describing a symlink
-public struct ContentSubmodule: Decodable {
+public struct ContentSubmodule: Codable {
     public var links: Links
     public var downloadURL: URL?
     public var gitURL: URL?
@@ -9159,7 +12581,7 @@ public struct ContentSubmodule: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -9169,6 +12591,13 @@ public struct ContentSubmodule: Decodable {
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -9186,13 +12615,28 @@ public struct ContentSubmodule: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encode(submoduleGitURL, forKey: "submodule_git_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct FileCommit: Decodable {
+public struct FileCommit: Codable {
     public var commit: Commit
     public var content: Content?
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         public var author: Author?
         public var committer: Committer?
         public var htmlURL: String?
@@ -9204,7 +12648,7 @@ public struct FileCommit: Decodable {
         public var url: String?
         public var verification: Verification?
 
-        public struct Author: Decodable {
+        public struct Author: Codable {
             public var date: String?
             public var email: String?
             public var name: String?
@@ -9215,9 +12659,16 @@ public struct FileCommit: Decodable {
                 self.email = try values.decodeIfPresent(String.self, forKey: "email")
                 self.name = try values.decodeIfPresent(String.self, forKey: "name")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(date, forKey: "date")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
 
-        public struct Committer: Decodable {
+        public struct Committer: Codable {
             public var date: String?
             public var email: String?
             public var name: String?
@@ -9228,9 +12679,16 @@ public struct FileCommit: Decodable {
                 self.email = try values.decodeIfPresent(String.self, forKey: "email")
                 self.name = try values.decodeIfPresent(String.self, forKey: "name")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(date, forKey: "date")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
 
-        public struct Parent: Decodable {
+        public struct Parent: Codable {
             public var htmlURL: String?
             public var sha: String?
             public var url: String?
@@ -9241,9 +12699,16 @@ public struct FileCommit: Decodable {
                 self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
 
-        public struct Tree: Decodable {
+        public struct Tree: Codable {
             public var sha: String?
             public var url: String?
 
@@ -9252,9 +12717,15 @@ public struct FileCommit: Decodable {
                 self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
 
-        public struct Verification: Decodable {
+        public struct Verification: Codable {
             public var payload: String?
             public var reason: String?
             public var signature: String?
@@ -9266,6 +12737,14 @@ public struct FileCommit: Decodable {
                 self.reason = try values.decodeIfPresent(String.self, forKey: "reason")
                 self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
                 self.isVerified = try values.decodeIfPresent(Bool.self, forKey: "verified")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(payload, forKey: "payload")
+                try values.encodeIfPresent(reason, forKey: "reason")
+                try values.encodeIfPresent(signature, forKey: "signature")
+                try values.encodeIfPresent(isVerified, forKey: "verified")
             }
         }
 
@@ -9282,9 +12761,23 @@ public struct FileCommit: Decodable {
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
             self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(author, forKey: "author")
+            try values.encodeIfPresent(committer, forKey: "committer")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(message, forKey: "message")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(parents, forKey: "parents")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(tree, forKey: "tree")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(verification, forKey: "verification")
+        }
     }
 
-    public struct Content: Decodable {
+    public struct Content: Codable {
         public var links: Links?
         public var downloadURL: String?
         public var gitURL: String?
@@ -9296,7 +12789,7 @@ public struct FileCommit: Decodable {
         public var type: String?
         public var url: String?
 
-        public struct Links: Decodable {
+        public struct Links: Codable {
             public var git: String?
             public var html: String?
             public var `self`: String?
@@ -9306,6 +12799,13 @@ public struct FileCommit: Decodable {
                 self.git = try values.decodeIfPresent(String.self, forKey: "git")
                 self.html = try values.decodeIfPresent(String.self, forKey: "html")
                 self.`self` = try values.decodeIfPresent(String.self, forKey: "self")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(git, forKey: "git")
+                try values.encodeIfPresent(html, forKey: "html")
+                try values.encodeIfPresent(`self`, forKey: "self")
             }
         }
 
@@ -9322,6 +12822,20 @@ public struct FileCommit: Decodable {
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(links, forKey: "_links")
+            try values.encodeIfPresent(downloadURL, forKey: "download_url")
+            try values.encodeIfPresent(gitURL, forKey: "git_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(path, forKey: "path")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -9329,9 +12843,15 @@ public struct FileCommit: Decodable {
         self.commit = try values.decode(Commit.self, forKey: "commit")
         self.content = try values.decodeIfPresent(Content.self, forKey: "content")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commit, forKey: "commit")
+        try values.encodeIfPresent(content, forKey: "content")
+    }
 }
 
-public struct Contributor: Decodable {
+public struct Contributor: Codable {
     public var avatarURL: URL?
     public var contributions: Int
     public var email: String?
@@ -9378,10 +12898,35 @@ public struct Contributor: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+        try values.encode(contributions, forKey: "contributions")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(eventsURL, forKey: "events_url")
+        try values.encodeIfPresent(followersURL, forKey: "followers_url")
+        try values.encodeIfPresent(followingURL, forKey: "following_url")
+        try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+        try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+        try values.encodeIfPresent(reposURL, forKey: "repos_url")
+        try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
+        try values.encodeIfPresent(starredURL, forKey: "starred_url")
+        try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encode(type, forKey: "type")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
 /// The status of a deployment.
-public struct DeploymentStatus: Decodable {
+public struct DeploymentStatus: Codable {
     /// Example: 2012-07-20T01:19:13Z
     public var createdAt: Date
     /// Simple User
@@ -9448,10 +12993,29 @@ public struct DeploymentStatus: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(deploymentURL, forKey: "deployment_url")
+        try values.encode(description, forKey: "description")
+        try values.encodeIfPresent(environment, forKey: "environment")
+        try values.encodeIfPresent(environmentURL, forKey: "environment_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(logURL, forKey: "log_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(state, forKey: "state")
+        try values.encode(targetURL, forKey: "target_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
-public struct DeploymentBranchPolicy: Decodable {
+public struct DeploymentBranchPolicy: Codable {
     /// Whether only branches that match the specified name patterns can deploy to this environment.  If `custom_branch_policies` is `true`, `protected_branches` must be `false`; if `custom_branch_policies` is `false`, `protected_branches` must be `true`.
     public var isCustomBranchPolicies: Bool
     /// Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`.
@@ -9462,10 +13026,16 @@ public struct DeploymentBranchPolicy: Decodable {
         self.isCustomBranchPolicies = try values.decode(Bool.self, forKey: "custom_branch_policies")
         self.isProtectedBranches = try values.decode(Bool.self, forKey: "protected_branches")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isCustomBranchPolicies, forKey: "custom_branch_policies")
+        try values.encode(isProtectedBranches, forKey: "protected_branches")
+    }
 }
 
 /// Details of a deployment environment
-public struct Environment: Decodable {
+public struct Environment: Codable {
     /// The time that the environment was created, in ISO 8601 format.
     ///
     /// Example: 2020-11-23T22:00:40Z
@@ -9490,12 +13060,12 @@ public struct Environment: Decodable {
     public var updatedAt: Date
     public var url: String
 
-    public struct ProtectionRule: Decodable {
+    public struct ProtectionRule: Codable {
         public var object1: Object1?
         public var object2: Object2?
         public var object3: Object3?
 
-        public struct Object1: Decodable {
+        public struct Object1: Codable {
             /// Example: 3515
             public var id: Int
             /// Example: MDQ6R2F0ZTM1MTU=
@@ -9514,9 +13084,17 @@ public struct Environment: Decodable {
                 self.type = try values.decode(String.self, forKey: "type")
                 self.waitTimer = try values.decodeIfPresent(Int.self, forKey: "wait_timer")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(type, forKey: "type")
+                try values.encodeIfPresent(waitTimer, forKey: "wait_timer")
+            }
         }
 
-        public struct Object2: Decodable {
+        public struct Object2: Codable {
             /// Example: 3755
             public var id: Int
             /// Example: MDQ6R2F0ZTM3NTU=
@@ -9526,14 +13104,14 @@ public struct Environment: Decodable {
             /// Example: required_reviewers
             public var type: String
 
-            public struct Reviewer: Decodable {
+            public struct Reviewer: Codable {
                 public var reviewer: Reviewer?
                 /// The type of reviewer. Must be one of: `User` or `Team`
                 ///
                 /// Example: User
                 public var type: DeploymentReviewerType?
 
-                public struct Reviewer: Decodable {
+                public struct Reviewer: Codable {
                     public var simpleUser: SimpleUser?
                     /// Groups of organization members that gives permissions on specified repositories.
                     public var team: Team?
@@ -9550,6 +13128,12 @@ public struct Environment: Decodable {
                     self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
                     self.type = try values.decodeIfPresent(DeploymentReviewerType.self, forKey: "type")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(reviewer, forKey: "reviewer")
+                    try values.encodeIfPresent(type, forKey: "type")
+                }
             }
 
             public init(from decoder: Decoder) throws {
@@ -9559,9 +13143,17 @@ public struct Environment: Decodable {
                 self.reviewers = try values.decodeIfPresent([Reviewer].self, forKey: "reviewers")
                 self.type = try values.decode(String.self, forKey: "type")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encode(type, forKey: "type")
+            }
         }
 
-        public struct Object3: Decodable {
+        public struct Object3: Codable {
             /// Example: 3515
             public var id: Int
             /// Example: MDQ6R2F0ZTM1MTU=
@@ -9574,6 +13166,13 @@ public struct Environment: Decodable {
                 self.id = try values.decode(Int.self, forKey: "id")
                 self.nodeID = try values.decode(String.self, forKey: "node_id")
                 self.type = try values.decode(String.self, forKey: "type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(type, forKey: "type")
             }
         }
 
@@ -9597,9 +13196,22 @@ public struct Environment: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deploymentBranchPolicy, forKey: "deployment_branch_policy")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(protectionRules, forKey: "protection_rules")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ShortBlob: Decodable {
+public struct ShortBlob: Codable {
     public var sha: String
     public var url: String
 
@@ -9608,9 +13220,15 @@ public struct ShortBlob: Decodable {
         self.sha = try values.decode(String.self, forKey: "sha")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct Blob: Decodable {
+public struct Blob: Codable {
     public var content: String
     public var encoding: String
     public var highlightedContent: String?
@@ -9629,10 +13247,21 @@ public struct Blob: Decodable {
         self.size = try values.decodeIfPresent(Int.self, forKey: "size")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(content, forKey: "content")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encodeIfPresent(highlightedContent, forKey: "highlighted_content")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(sha, forKey: "sha")
+        try values.encodeIfPresent(size, forKey: "size")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Low-level Git commit operations within a repository
-public struct GitCommit: Decodable {
+public struct GitCommit: Codable {
     /// Identifying information for the git-user
     public var author: Author
     /// Identifying information for the git-user
@@ -9653,7 +13282,7 @@ public struct GitCommit: Decodable {
     public var verification: Verification
 
     /// Identifying information for the git-user
-    public struct Author: Decodable {
+    public struct Author: Codable {
         /// Timestamp of the commit
         ///
         /// Example: 2014-08-09T08:02:04+12:00
@@ -9672,11 +13301,18 @@ public struct GitCommit: Decodable {
             self.date = try values.decode(Date.self, forKey: "date")
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
         }
     }
 
     /// Identifying information for the git-user
-    public struct Committer: Decodable {
+    public struct Committer: Codable {
         /// Timestamp of the commit
         ///
         /// Example: 2014-08-09T08:02:04+12:00
@@ -9696,9 +13332,16 @@ public struct GitCommit: Decodable {
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
-    public struct Parent: Decodable {
+    public struct Parent: Codable {
         public var htmlURL: URL
         /// SHA for the commit
         ///
@@ -9712,9 +13355,16 @@ public struct GitCommit: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(htmlURL, forKey: "html_url")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Tree: Decodable {
+    public struct Tree: Codable {
         /// SHA for the commit
         ///
         /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
@@ -9726,9 +13376,15 @@ public struct GitCommit: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Verification: Decodable {
+    public struct Verification: Codable {
         public var payload: String?
         public var reason: String
         public var signature: String?
@@ -9740,6 +13396,14 @@ public struct GitCommit: Decodable {
             self.reason = try values.decode(String.self, forKey: "reason")
             self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
             self.isVerified = try values.decode(Bool.self, forKey: "verified")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(payload, forKey: "payload")
+            try values.encode(reason, forKey: "reason")
+            try values.encodeIfPresent(signature, forKey: "signature")
+            try values.encode(isVerified, forKey: "verified")
         }
     }
 
@@ -9756,18 +13420,32 @@ public struct GitCommit: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.verification = try values.decode(Verification.self, forKey: "verification")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(author, forKey: "author")
+        try values.encode(committer, forKey: "committer")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(message, forKey: "message")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(tree, forKey: "tree")
+        try values.encode(url, forKey: "url")
+        try values.encode(verification, forKey: "verification")
+    }
 }
 
 /// Git Reference
 ///
 /// Git references within a repository
-public struct GitRef: Decodable {
+public struct GitRef: Codable {
     public var nodeID: String
     public var object: Object
     public var ref: String
     public var url: URL
 
-    public struct Object: Decodable {
+    public struct Object: Codable {
         /// SHA for the reference
         ///
         /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
@@ -9781,6 +13459,13 @@ public struct GitRef: Decodable {
             self.type = try values.decode(String.self, forKey: "type")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(type, forKey: "type")
+            try values.encode(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -9790,10 +13475,18 @@ public struct GitRef: Decodable {
         self.ref = try values.decode(String.self, forKey: "ref")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(object, forKey: "object")
+        try values.encode(ref, forKey: "ref")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Metadata for a Git tag
-public struct GitTag: Decodable {
+public struct GitTag: Codable {
     /// Message describing the purpose of the tag
     ///
     /// Example: Initial public release
@@ -9812,7 +13505,7 @@ public struct GitTag: Decodable {
     public var url: URL
     public var verification: Verification?
 
-    public struct Object: Decodable {
+    public struct Object: Codable {
         public var sha: String
         public var type: String
         public var url: URL
@@ -9823,9 +13516,16 @@ public struct GitTag: Decodable {
             self.type = try values.decode(String.self, forKey: "type")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(type, forKey: "type")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Tagger: Decodable {
+    public struct Tagger: Codable {
         public var date: String
         public var email: String
         public var name: String
@@ -9835,6 +13535,13 @@ public struct GitTag: Decodable {
             self.date = try values.decode(String.self, forKey: "date")
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
         }
     }
 
@@ -9849,10 +13556,22 @@ public struct GitTag: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(message, forKey: "message")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(object, forKey: "object")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(tag, forKey: "tag")
+        try values.encode(tagger, forKey: "tagger")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(verification, forKey: "verification")
+    }
 }
 
 /// The hierarchy between files in a Git repository.
-public struct GitTree: Decodable {
+public struct GitTree: Codable {
     public var sha: String
     /// Objects specifying a tree structure
     ///
@@ -9900,7 +13619,7 @@ public struct GitTree: Decodable {
     public var isTruncated: Bool
     public var url: URL
 
-    public struct TreeItem: Decodable {
+    public struct TreeItem: Codable {
         /// Example: 040000
         public var mode: String?
         /// Example: test/file.rb
@@ -9922,6 +13641,16 @@ public struct GitTree: Decodable {
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(mode, forKey: "mode")
+            try values.encodeIfPresent(path, forKey: "path")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -9931,9 +13660,17 @@ public struct GitTree: Decodable {
         self.isTruncated = try values.decode(Bool.self, forKey: "truncated")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(sha, forKey: "sha")
+        try values.encode(tree, forKey: "tree")
+        try values.encode(isTruncated, forKey: "truncated")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct HookResponse: Decodable {
+public struct HookResponse: Codable {
     public var code: Int?
     public var message: String?
     public var status: String?
@@ -9944,12 +13681,19 @@ public struct HookResponse: Decodable {
         self.message = try values.decodeIfPresent(String.self, forKey: "message")
         self.status = try values.decodeIfPresent(String.self, forKey: "status")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(code, forKey: "code")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(status, forKey: "status")
+    }
 }
 
 /// Webhook
 ///
 /// Webhooks for repositories.
-public struct Hook: Decodable {
+public struct Hook: Codable {
     /// Determines whether the hook is actually triggered on pushes.
     ///
     /// Example: true
@@ -9984,7 +13728,7 @@ public struct Hook: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Config: Decodable {
+    public struct Config: Codable {
         /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
         ///
         /// Example: "json"
@@ -10022,6 +13766,20 @@ public struct Hook: Decodable {
             self.token = try values.decodeIfPresent(String.self, forKey: "token")
             self.url = try values.decodeIfPresent(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(contentType, forKey: "content_type")
+            try values.encodeIfPresent(digest, forKey: "digest")
+            try values.encodeIfPresent(email, forKey: "email")
+            try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+            try values.encodeIfPresent(password, forKey: "password")
+            try values.encodeIfPresent(room, forKey: "room")
+            try values.encodeIfPresent(secret, forKey: "secret")
+            try values.encodeIfPresent(subdomain, forKey: "subdomain")
+            try values.encodeIfPresent(token, forKey: "token")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -10040,10 +13798,27 @@ public struct Hook: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isActive, forKey: "active")
+        try values.encode(config, forKey: "config")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deliveriesURL, forKey: "deliveries_url")
+        try values.encode(events, forKey: "events")
+        try values.encode(id, forKey: "id")
+        try values.encode(lastResponse, forKey: "last_response")
+        try values.encode(name, forKey: "name")
+        try values.encode(pingURL, forKey: "ping_url")
+        try values.encode(testURL, forKey: "test_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A repository import from an external source.
-public struct Import: Decodable {
+public struct Import: Codable {
     public var authorsCount: Int?
     public var authorsURL: URL
     public var commitCount: Int?
@@ -10069,7 +13844,7 @@ public struct Import: Decodable {
     /// The URL of the originating repository.
     public var vcsURL: String
 
-    public struct ProjectChoice: Decodable {
+    public struct ProjectChoice: Codable {
         public var humanName: String?
         public var tfvcProject: String?
         public var vcs: String?
@@ -10079,6 +13854,13 @@ public struct Import: Decodable {
             self.humanName = try values.decodeIfPresent(String.self, forKey: "human_name")
             self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
             self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(humanName, forKey: "human_name")
+            try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+            try values.encodeIfPresent(vcs, forKey: "vcs")
         }
     }
 
@@ -10127,9 +13909,36 @@ public struct Import: Decodable {
         self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
         self.vcsURL = try values.decode(String.self, forKey: "vcs_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(authorsCount, forKey: "authors_count")
+        try values.encode(authorsURL, forKey: "authors_url")
+        try values.encodeIfPresent(commitCount, forKey: "commit_count")
+        try values.encodeIfPresent(errorMessage, forKey: "error_message")
+        try values.encodeIfPresent(failedStep, forKey: "failed_step")
+        try values.encodeIfPresent(hasLargeFiles, forKey: "has_large_files")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(importPercent, forKey: "import_percent")
+        try values.encodeIfPresent(largeFilesCount, forKey: "large_files_count")
+        try values.encodeIfPresent(largeFilesSize, forKey: "large_files_size")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(projectChoices, forKey: "project_choices")
+        try values.encodeIfPresent(pushPercent, forKey: "push_percent")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(status, forKey: "status")
+        try values.encodeIfPresent(statusText, forKey: "status_text")
+        try values.encodeIfPresent(svcRoot, forKey: "svc_root")
+        try values.encodeIfPresent(svnRoot, forKey: "svn_root")
+        try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(useLfs, forKey: "use_lfs")
+        try values.encodeIfPresent(vcs, forKey: "vcs")
+        try values.encode(vcsURL, forKey: "vcs_url")
+    }
 }
 
-public struct PorterAuthor: Decodable {
+public struct PorterAuthor: Codable {
     public var email: String
     public var id: Int
     public var importURL: URL
@@ -10148,9 +13957,20 @@ public struct PorterAuthor: Decodable {
         self.remoteName = try values.decode(String.self, forKey: "remote_name")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(email, forKey: "email")
+        try values.encode(id, forKey: "id")
+        try values.encode(importURL, forKey: "import_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(remoteID, forKey: "remote_id")
+        try values.encode(remoteName, forKey: "remote_name")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct PorterLargeFile: Decodable {
+public struct PorterLargeFile: Codable {
     public var oid: String
     public var path: String
     public var refName: String
@@ -10163,9 +13983,17 @@ public struct PorterLargeFile: Decodable {
         self.refName = try values.decode(String.self, forKey: "ref_name")
         self.size = try values.decode(Int.self, forKey: "size")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(oid, forKey: "oid")
+        try values.encode(path, forKey: "path")
+        try values.encode(refName, forKey: "ref_name")
+        try values.encode(size, forKey: "size")
+    }
 }
 
-public struct IssueEventLabel: Decodable {
+public struct IssueEventLabel: Codable {
     public var color: String?
     public var name: String?
 
@@ -10174,9 +14002,15 @@ public struct IssueEventLabel: Decodable {
         self.color = try values.decodeIfPresent(String.self, forKey: "color")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(color, forKey: "color")
+        try values.encodeIfPresent(name, forKey: "name")
+    }
 }
 
-public struct IssueEventDismissedReview: Decodable {
+public struct IssueEventDismissedReview: Codable {
     public var dismissalCommitID: String?
     public var dismissalMessage: String?
     public var reviewID: Int
@@ -10189,18 +14023,31 @@ public struct IssueEventDismissedReview: Decodable {
         self.reviewID = try values.decode(Int.self, forKey: "review_id")
         self.state = try values.decode(String.self, forKey: "state")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(dismissalCommitID, forKey: "dismissal_commit_id")
+        try values.encodeIfPresent(dismissalMessage, forKey: "dismissal_message")
+        try values.encode(reviewID, forKey: "review_id")
+        try values.encode(state, forKey: "state")
+    }
 }
 
-public struct IssueEventMilestone: Decodable {
+public struct IssueEventMilestone: Codable {
     public var title: String
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.title = try values.decode(String.self, forKey: "title")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(title, forKey: "title")
+    }
 }
 
-public struct IssueEventProjectCard: Decodable {
+public struct IssueEventProjectCard: Codable {
     public var columnName: String
     public var id: Int
     public var previousColumnName: String?
@@ -10217,9 +14064,19 @@ public struct IssueEventProjectCard: Decodable {
         self.projectURL = try values.decode(URL.self, forKey: "project_url")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(columnName, forKey: "column_name")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
+        try values.encode(projectID, forKey: "project_id")
+        try values.encode(projectURL, forKey: "project_url")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct IssueEventRename: Decodable {
+public struct IssueEventRename: Codable {
     public var from: String
     public var to: String
 
@@ -10228,9 +14085,15 @@ public struct IssueEventRename: Decodable {
         self.from = try values.decode(String.self, forKey: "from")
         self.to = try values.decode(String.self, forKey: "to")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(from, forKey: "from")
+        try values.encode(to, forKey: "to")
+    }
 }
 
-public struct IssueEvent: Decodable {
+public struct IssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser?
     /// Simple User
@@ -10305,9 +14168,35 @@ public struct IssueEvent: Decodable {
         self.reviewRequester = try values.decodeIfPresent(SimpleUser.self, forKey: "review_requester")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assigner, forKey: "assigner")
+        try values.encodeIfPresent(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(dismissedReview, forKey: "dismissed_review")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(issue, forKey: "issue")
+        try values.encodeIfPresent(label, forKey: "label")
+        try values.encodeIfPresent(lockReason, forKey: "lock_reason")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encodeIfPresent(rename, forKey: "rename")
+        try values.encodeIfPresent(requestedReviewer, forKey: "requested_reviewer")
+        try values.encodeIfPresent(requestedTeam, forKey: "requested_team")
+        try values.encodeIfPresent(reviewRequester, forKey: "review_requester")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct LabeledIssueEvent: Decodable {
+public struct LabeledIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10323,7 +14212,7 @@ public struct LabeledIssueEvent: Decodable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         public var color: String
         public var name: String
 
@@ -10331,6 +14220,12 @@ public struct LabeledIssueEvent: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decode(String.self, forKey: "color")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(color, forKey: "color")
+            try values.encode(name, forKey: "name")
         }
     }
 
@@ -10347,9 +14242,23 @@ public struct LabeledIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(label, forKey: "label")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct UnlabeledIssueEvent: Decodable {
+public struct UnlabeledIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10365,7 +14274,7 @@ public struct UnlabeledIssueEvent: Decodable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         public var color: String
         public var name: String
 
@@ -10373,6 +14282,12 @@ public struct UnlabeledIssueEvent: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decode(String.self, forKey: "color")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(color, forKey: "color")
+            try values.encode(name, forKey: "name")
         }
     }
 
@@ -10389,9 +14304,23 @@ public struct UnlabeledIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(label, forKey: "label")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct AssignedIssueEvent: Decodable {
+public struct AssignedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     /// Simple User
@@ -10424,9 +14353,24 @@ public struct AssignedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decode(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encode(assignee, forKey: "assignee")
+        try values.encode(assigner, forKey: "assigner")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct UnassignedIssueEvent: Decodable {
+public struct UnassignedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     /// Simple User
@@ -10459,9 +14403,24 @@ public struct UnassignedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encode(assignee, forKey: "assignee")
+        try values.encode(assigner, forKey: "assigner")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct MilestonedIssueEvent: Decodable {
+public struct MilestonedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10477,12 +14436,17 @@ public struct MilestonedIssueEvent: Decodable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
-    public struct Milestone: Decodable {
+    public struct Milestone: Codable {
         public var title: String
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.title = try values.decode(String.self, forKey: "title")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(title, forKey: "title")
         }
     }
 
@@ -10499,9 +14463,23 @@ public struct MilestonedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct DemilestonedIssueEvent: Decodable {
+public struct DemilestonedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10517,12 +14495,17 @@ public struct DemilestonedIssueEvent: Decodable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
-    public struct Milestone: Decodable {
+    public struct Milestone: Codable {
         public var title: String
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.title = try values.decode(String.self, forKey: "title")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(title, forKey: "title")
         }
     }
 
@@ -10539,9 +14522,23 @@ public struct DemilestonedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct RenamedIssueEvent: Decodable {
+public struct RenamedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10557,7 +14554,7 @@ public struct RenamedIssueEvent: Decodable {
     public var rename: Rename
     public var url: String
 
-    public struct Rename: Decodable {
+    public struct Rename: Codable {
         public var from: String
         public var to: String
 
@@ -10565,6 +14562,12 @@ public struct RenamedIssueEvent: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.from = try values.decode(String.self, forKey: "from")
             self.to = try values.decode(String.self, forKey: "to")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(from, forKey: "from")
+            try values.encode(to, forKey: "to")
         }
     }
 
@@ -10581,9 +14584,23 @@ public struct RenamedIssueEvent: Decodable {
         self.rename = try values.decode(Rename.self, forKey: "rename")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(rename, forKey: "rename")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ReviewRequestedIssueEvent: Decodable {
+public struct ReviewRequestedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10621,9 +14638,25 @@ public struct ReviewRequestedIssueEvent: Decodable {
         self.reviewRequester = try values.decode(SimpleUser.self, forKey: "review_requester")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(requestedReviewer, forKey: "requested_reviewer")
+        try values.encodeIfPresent(requestedTeam, forKey: "requested_team")
+        try values.encode(reviewRequester, forKey: "review_requester")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ReviewRequestRemovedIssueEvent: Decodable {
+public struct ReviewRequestRemovedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10661,9 +14694,25 @@ public struct ReviewRequestRemovedIssueEvent: Decodable {
         self.reviewRequester = try values.decode(SimpleUser.self, forKey: "review_requester")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(requestedReviewer, forKey: "requested_reviewer")
+        try values.encodeIfPresent(requestedTeam, forKey: "requested_team")
+        try values.encode(reviewRequester, forKey: "review_requester")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ReviewDismissedIssueEvent: Decodable {
+public struct ReviewDismissedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10679,7 +14728,7 @@ public struct ReviewDismissedIssueEvent: Decodable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
-    public struct DismissedReview: Decodable {
+    public struct DismissedReview: Codable {
         public var dismissalCommitID: String?
         public var dismissalMessage: String?
         public var reviewID: Int
@@ -10691,6 +14740,14 @@ public struct ReviewDismissedIssueEvent: Decodable {
             self.dismissalMessage = try values.decodeIfPresent(String.self, forKey: "dismissal_message")
             self.reviewID = try values.decode(Int.self, forKey: "review_id")
             self.state = try values.decode(String.self, forKey: "state")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(dismissalCommitID, forKey: "dismissal_commit_id")
+            try values.encodeIfPresent(dismissalMessage, forKey: "dismissal_message")
+            try values.encode(reviewID, forKey: "review_id")
+            try values.encode(state, forKey: "state")
         }
     }
 
@@ -10707,9 +14764,23 @@ public struct ReviewDismissedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(dismissedReview, forKey: "dismissed_review")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct LockedIssueEvent: Decodable {
+public struct LockedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10739,9 +14810,23 @@ public struct LockedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(lockReason, forKey: "lock_reason")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct AddedToProjectIssueEvent: Decodable {
+public struct AddedToProjectIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10757,7 +14842,7 @@ public struct AddedToProjectIssueEvent: Decodable {
     public var projectCard: ProjectCard?
     public var url: String
 
-    public struct ProjectCard: Decodable {
+    public struct ProjectCard: Codable {
         public var columnName: String
         public var id: Int
         public var previousColumnName: String?
@@ -10774,55 +14859,15 @@ public struct AddedToProjectIssueEvent: Decodable {
             self.projectURL = try values.decode(URL.self, forKey: "project_url")
             self.url = try values.decode(URL.self, forKey: "url")
         }
-    }
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.actor = try values.decode(SimpleUser.self, forKey: "actor")
-        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
-        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
-        self.createdAt = try values.decode(String.self, forKey: "created_at")
-        self.event = try values.decode(String.self, forKey: "event")
-        self.id = try values.decode(Int.self, forKey: "id")
-        self.nodeID = try values.decode(String.self, forKey: "node_id")
-        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
-        self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
-        self.url = try values.decode(String.self, forKey: "url")
-    }
-}
-
-public struct MovedColumnInProjectIssueEvent: Decodable {
-    /// Simple User
-    public var actor: SimpleUser
-    public var commitID: String?
-    public var commitURL: String?
-    public var createdAt: String
-    public var event: String
-    public var id: Int
-    public var nodeID: String
-    /// GitHub app
-    ///
-    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
-    public var performedViaGithubApp: Integration?
-    public var projectCard: ProjectCard?
-    public var url: String
-
-    public struct ProjectCard: Decodable {
-        public var columnName: String
-        public var id: Int
-        public var previousColumnName: String?
-        public var projectID: Int
-        public var projectURL: URL
-        public var url: URL
-
-        public init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.columnName = try values.decode(String.self, forKey: "column_name")
-            self.id = try values.decode(Int.self, forKey: "id")
-            self.previousColumnName = try values.decodeIfPresent(String.self, forKey: "previous_column_name")
-            self.projectID = try values.decode(Int.self, forKey: "project_id")
-            self.projectURL = try values.decode(URL.self, forKey: "project_url")
-            self.url = try values.decode(URL.self, forKey: "url")
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(columnName, forKey: "column_name")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
+            try values.encode(projectID, forKey: "project_id")
+            try values.encode(projectURL, forKey: "project_url")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -10839,9 +14884,23 @@ public struct MovedColumnInProjectIssueEvent: Decodable {
         self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct RemovedFromProjectIssueEvent: Decodable {
+public struct MovedColumnInProjectIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10857,7 +14916,7 @@ public struct RemovedFromProjectIssueEvent: Decodable {
     public var projectCard: ProjectCard?
     public var url: String
 
-    public struct ProjectCard: Decodable {
+    public struct ProjectCard: Codable {
         public var columnName: String
         public var id: Int
         public var previousColumnName: String?
@@ -10874,6 +14933,16 @@ public struct RemovedFromProjectIssueEvent: Decodable {
             self.projectURL = try values.decode(URL.self, forKey: "project_url")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(columnName, forKey: "column_name")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
+            try values.encode(projectID, forKey: "project_id")
+            try values.encode(projectURL, forKey: "project_url")
+            try values.encode(url, forKey: "url")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -10889,9 +14958,97 @@ public struct RemovedFromProjectIssueEvent: Decodable {
         self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct ConvertedNoteToIssueIssueEvent: Decodable {
+public struct RemovedFromProjectIssueEvent: Codable {
+    /// Simple User
+    public var actor: SimpleUser
+    public var commitID: String?
+    public var commitURL: String?
+    public var createdAt: String
+    public var event: String
+    public var id: Int
+    public var nodeID: String
+    /// GitHub app
+    ///
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
+    public var performedViaGithubApp: Integration?
+    public var projectCard: ProjectCard?
+    public var url: String
+
+    public struct ProjectCard: Codable {
+        public var columnName: String
+        public var id: Int
+        public var previousColumnName: String?
+        public var projectID: Int
+        public var projectURL: URL
+        public var url: URL
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.columnName = try values.decode(String.self, forKey: "column_name")
+            self.id = try values.decode(Int.self, forKey: "id")
+            self.previousColumnName = try values.decodeIfPresent(String.self, forKey: "previous_column_name")
+            self.projectID = try values.decode(Int.self, forKey: "project_id")
+            self.projectURL = try values.decode(URL.self, forKey: "project_url")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(columnName, forKey: "column_name")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
+            try values.encode(projectID, forKey: "project_id")
+            try values.encode(projectURL, forKey: "project_url")
+            try values.encode(url, forKey: "url")
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.actor = try values.decode(SimpleUser.self, forKey: "actor")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+        self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
+        self.url = try values.decode(String.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encode(url, forKey: "url")
+    }
+}
+
+public struct ConvertedNoteToIssueIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     public var commitID: String?
@@ -10907,7 +15064,7 @@ public struct ConvertedNoteToIssueIssueEvent: Decodable {
     public var projectCard: ProjectCard?
     public var url: String
 
-    public struct ProjectCard: Decodable {
+    public struct ProjectCard: Codable {
         public var columnName: String
         public var id: Int
         public var previousColumnName: String?
@@ -10923,6 +15080,16 @@ public struct ConvertedNoteToIssueIssueEvent: Decodable {
             self.projectID = try values.decode(Int.self, forKey: "project_id")
             self.projectURL = try values.decode(URL.self, forKey: "project_url")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(columnName, forKey: "column_name")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
+            try values.encode(projectID, forKey: "project_id")
+            try values.encode(projectURL, forKey: "project_url")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -10939,9 +15106,23 @@ public struct ConvertedNoteToIssueIssueEvent: Decodable {
         self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct IssueEventForIssue: Decodable {
+public struct IssueEventForIssue: Codable {
     public var labeledIssueEvent: LabeledIssueEvent?
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
     public var assignedIssueEvent: AssignedIssueEvent?
@@ -10979,7 +15160,7 @@ public struct IssueEventForIssue: Decodable {
 }
 
 /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
-public struct Label: Decodable {
+public struct Label: Codable {
     /// 6-character hex code, without the leading #, identifying the color
     ///
     /// Example: FFFFFF
@@ -11009,9 +15190,20 @@ public struct Label: Decodable {
         self.nodeID = try values.decode(String.self, forKey: "node_id")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(color, forKey: "color")
+        try values.encode(isDefault, forKey: "default")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct TimelineCommentEvent: Decodable {
+public struct TimelineCommentEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     /// Author_association
@@ -11068,9 +15260,29 @@ public struct TimelineCommentEvent: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decode(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(user, forKey: "user")
+    }
 }
 
-public struct TimelineCrossReferencedEvent: Decodable {
+public struct TimelineCrossReferencedEvent: Codable {
     /// Simple User
     public var actor: SimpleUser?
     public var createdAt: Date
@@ -11078,7 +15290,7 @@ public struct TimelineCrossReferencedEvent: Decodable {
     public var source: Source
     public var updatedAt: Date
 
-    public struct Source: Decodable {
+    public struct Source: Codable {
         /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
         public var issue: Issue?
         public var type: String?
@@ -11087,6 +15299,12 @@ public struct TimelineCrossReferencedEvent: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(issue, forKey: "issue")
+            try values.encodeIfPresent(type, forKey: "type")
         }
     }
 
@@ -11098,9 +15316,18 @@ public struct TimelineCrossReferencedEvent: Decodable {
         self.source = try values.decode(Source.self, forKey: "source")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(source, forKey: "source")
+        try values.encode(updatedAt, forKey: "updated_at")
+    }
 }
 
-public struct TimelineCommittedEvent: Decodable {
+public struct TimelineCommittedEvent: Codable {
     /// Identifying information for the git-user
     public var author: Author
     /// Identifying information for the git-user
@@ -11122,7 +15349,7 @@ public struct TimelineCommittedEvent: Decodable {
     public var verification: Verification
 
     /// Identifying information for the git-user
-    public struct Author: Decodable {
+    public struct Author: Codable {
         /// Timestamp of the commit
         ///
         /// Example: 2014-08-09T08:02:04+12:00
@@ -11141,11 +15368,18 @@ public struct TimelineCommittedEvent: Decodable {
             self.date = try values.decode(Date.self, forKey: "date")
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
         }
     }
 
     /// Identifying information for the git-user
-    public struct Committer: Decodable {
+    public struct Committer: Codable {
         /// Timestamp of the commit
         ///
         /// Example: 2014-08-09T08:02:04+12:00
@@ -11165,9 +15399,16 @@ public struct TimelineCommittedEvent: Decodable {
             self.email = try values.decode(String.self, forKey: "email")
             self.name = try values.decode(String.self, forKey: "name")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
-    public struct Parent: Decodable {
+    public struct Parent: Codable {
         public var htmlURL: URL
         /// SHA for the commit
         ///
@@ -11181,9 +15422,16 @@ public struct TimelineCommittedEvent: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(htmlURL, forKey: "html_url")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Tree: Decodable {
+    public struct Tree: Codable {
         /// SHA for the commit
         ///
         /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
@@ -11195,9 +15443,15 @@ public struct TimelineCommittedEvent: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+        }
     }
 
-    public struct Verification: Decodable {
+    public struct Verification: Codable {
         public var payload: String?
         public var reason: String
         public var signature: String?
@@ -11209,6 +15463,14 @@ public struct TimelineCommittedEvent: Decodable {
             self.reason = try values.decode(String.self, forKey: "reason")
             self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
             self.isVerified = try values.decode(Bool.self, forKey: "verified")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(payload, forKey: "payload")
+            try values.encode(reason, forKey: "reason")
+            try values.encodeIfPresent(signature, forKey: "signature")
+            try values.encode(isVerified, forKey: "verified")
         }
     }
 
@@ -11226,9 +15488,24 @@ public struct TimelineCommittedEvent: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.verification = try values.decode(Verification.self, forKey: "verification")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(author, forKey: "author")
+        try values.encode(committer, forKey: "committer")
+        try values.encodeIfPresent(event, forKey: "event")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(message, forKey: "message")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(tree, forKey: "tree")
+        try values.encode(url, forKey: "url")
+        try values.encode(verification, forKey: "verification")
+    }
 }
 
-public struct TimelineReviewedEvent: Decodable {
+public struct TimelineReviewedEvent: Codable {
     public var links: Links
     /// Author_association
     ///
@@ -11261,25 +15538,35 @@ public struct TimelineReviewedEvent: Decodable {
     /// Simple User
     public var user: SimpleUser
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var html: HTML
         public var pullRequest: PullRequest
 
-        public struct HTML: Decodable {
+        public struct HTML: Codable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
-        public struct PullRequest: Decodable {
+        public struct PullRequest: Codable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
             }
         }
 
@@ -11287,6 +15574,12 @@ public struct TimelineReviewedEvent: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
         }
     }
 
@@ -11307,10 +15600,28 @@ public struct TimelineReviewedEvent: Decodable {
         self.submittedAt = try values.decodeIfPresent(Date.self, forKey: "submitted_at")
         self.user = try values.decode(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(event, forKey: "event")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(submittedAt, forKey: "submitted_at")
+        try values.encode(user, forKey: "user")
+    }
 }
 
 /// Pull Request Review Comments are comments on a portion of the Pull Request's diff.
-public struct PullRequestReviewComment: Decodable {
+public struct PullRequestReviewComment: Codable {
     public var links: Links
     /// Author_association
     ///
@@ -11385,35 +15696,50 @@ public struct PullRequestReviewComment: Decodable {
     /// Simple User
     public var user: SimpleUser
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var html: HTML
         public var pullRequest: PullRequest
         public var `self`: `Self`
 
-        public struct HTML: Decodable {
+        public struct HTML: Codable {
             public var href: URL
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(URL.self, forKey: "href")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
-        public struct PullRequest: Decodable {
+        public struct PullRequest: Codable {
             public var href: URL
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(URL.self, forKey: "href")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
-        public struct `Self`: Decodable {
+        public struct `Self`: Codable {
             public var href: URL
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(URL.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
             }
         }
 
@@ -11422,6 +15748,13 @@ public struct PullRequestReviewComment: Decodable {
             self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
             self.`self` = try values.decode(`Self`.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -11468,9 +15801,41 @@ public struct PullRequestReviewComment: Decodable {
         self.url = try values.decode(String.self, forKey: "url")
         self.user = try values.decode(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(diffHunk, forKey: "diff_hunk")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(inReplyToID, forKey: "in_reply_to_id")
+        try values.encodeIfPresent(line, forKey: "line")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(originalCommitID, forKey: "original_commit_id")
+        try values.encodeIfPresent(originalLine, forKey: "original_line")
+        try values.encode(originalPosition, forKey: "original_position")
+        try values.encodeIfPresent(originalStartLine, forKey: "original_start_line")
+        try values.encode(path, forKey: "path")
+        try values.encode(position, forKey: "position")
+        try values.encodeIfPresent(pullRequestReviewID, forKey: "pull_request_review_id")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encodeIfPresent(side, forKey: "side")
+        try values.encodeIfPresent(startLine, forKey: "start_line")
+        try values.encodeIfPresent(startSide, forKey: "start_side")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(user, forKey: "user")
+    }
 }
 
-public struct TimelineLineCommentedEvent: Decodable {
+public struct TimelineLineCommentedEvent: Codable {
     public var comments: [PullRequestReviewComment]?
     public var event: String?
     public var nodeID: String?
@@ -11481,9 +15846,16 @@ public struct TimelineLineCommentedEvent: Decodable {
         self.event = try values.decodeIfPresent(String.self, forKey: "event")
         self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(comments, forKey: "comments")
+        try values.encodeIfPresent(event, forKey: "event")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+    }
 }
 
-public struct TimelineCommitCommentedEvent: Decodable {
+public struct TimelineCommitCommentedEvent: Codable {
     public var comments: [CommitComment]?
     public var commitID: String?
     public var event: String?
@@ -11496,9 +15868,17 @@ public struct TimelineCommitCommentedEvent: Decodable {
         self.event = try values.decodeIfPresent(String.self, forKey: "event")
         self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(comments, forKey: "comments")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(event, forKey: "event")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+    }
 }
 
-public struct TimelineAssignedIssueEvent: Decodable {
+public struct TimelineAssignedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     /// Simple User
@@ -11528,9 +15908,23 @@ public struct TimelineAssignedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encode(assignee, forKey: "assignee")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct TimelineUnassignedIssueEvent: Decodable {
+public struct TimelineUnassignedIssueEvent: Codable {
     /// Simple User
     public var actor: SimpleUser
     /// Simple User
@@ -11560,9 +15954,23 @@ public struct TimelineUnassignedIssueEvent: Decodable {
         self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
         self.url = try values.decode(String.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(actor, forKey: "actor")
+        try values.encode(assignee, forKey: "assignee")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(event, forKey: "event")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct TimelineIssueEvents: Decodable {
+public struct TimelineIssueEvents: Codable {
     public var labeledIssueEvent: LabeledIssueEvent?
     public var unlabeledIssueEvent: UnlabeledIssueEvent?
     public var milestonedIssueEvent: MilestonedIssueEvent?
@@ -11612,7 +16020,7 @@ public struct TimelineIssueEvents: Decodable {
 }
 
 /// An SSH key granting access to a single repository.
-public struct DeployKey: Decodable {
+public struct DeployKey: Codable {
     public var createdAt: String
     public var id: Int
     public var key: String
@@ -11631,13 +16039,24 @@ public struct DeployKey: Decodable {
         self.url = try values.decode(String.self, forKey: "url")
         self.isVerified = try values.decode(Bool.self, forKey: "verified")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(key, forKey: "key")
+        try values.encode(isReadOnly, forKey: "read_only")
+        try values.encode(title, forKey: "title")
+        try values.encode(url, forKey: "url")
+        try values.encode(isVerified, forKey: "verified")
+    }
 }
 
-public struct Language: Decodable {
+public struct Language: Codable {
 
 }
 
-public struct LicenseContent: Decodable {
+public struct LicenseContent: Codable {
     public var links: Links
     public var content: String
     public var downloadURL: URL?
@@ -11653,7 +16072,7 @@ public struct LicenseContent: Decodable {
     public var type: String
     public var url: URL
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var git: URL?
         public var html: URL?
         public var `self`: URL
@@ -11663,6 +16082,13 @@ public struct LicenseContent: Decodable {
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
             self.`self` = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -11682,10 +16108,27 @@ public struct LicenseContent: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(content, forKey: "content")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(size, forKey: "size")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Results of a successful merge upstream request
-public struct MergedUpstream: Decodable {
+public struct MergedUpstream: Codable {
     public var baseBranch: String?
     public var mergeType: MergeType?
     public var message: String?
@@ -11702,10 +16145,17 @@ public struct MergedUpstream: Decodable {
         self.mergeType = try values.decodeIfPresent(MergeType.self, forKey: "merge_type")
         self.message = try values.decodeIfPresent(String.self, forKey: "message")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(baseBranch, forKey: "base_branch")
+        try values.encodeIfPresent(mergeType, forKey: "merge_type")
+        try values.encodeIfPresent(message, forKey: "message")
+    }
 }
 
 /// A collection of related issues and pull requests.
-public struct Milestone: Decodable {
+public struct Milestone: Codable {
     /// Example: 2013-02-12T13:22:01Z
     public var closedAt: Date?
     public var closedIssues: Int
@@ -11767,9 +16217,29 @@ public struct Milestone: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encode(closedIssues, forKey: "closed_issues")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(dueOn, forKey: "due_on")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(state, forKey: "state")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct PagesSourceHash: Decodable {
+public struct PagesSourceHash: Codable {
     public var branch: String
     public var path: String
 
@@ -11778,9 +16248,15 @@ public struct PagesSourceHash: Decodable {
         self.branch = try values.decode(String.self, forKey: "branch")
         self.path = try values.decode(String.self, forKey: "path")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(branch, forKey: "branch")
+        try values.encode(path, forKey: "path")
+    }
 }
 
-public struct PagesHTTPSCertificate: Decodable {
+public struct PagesHTTPSCertificate: Codable {
     /// Example: Certificate is approved
     public var description: String
     /// Array of the domain set and its alternate name (if it is configured)
@@ -11819,12 +16295,20 @@ public struct PagesHTTPSCertificate: Decodable {
         self.expiresAt = try values.decodeIfPresent(String.self, forKey: "expires_at")
         self.state = try values.decode(State.self, forKey: "state")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(description, forKey: "description")
+        try values.encode(domains, forKey: "domains")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encode(state, forKey: "state")
+    }
 }
 
 /// GitHub Pages
 ///
 /// The configuration for GitHub Pages for a repository.
-public struct Page: Decodable {
+public struct Page: Codable {
     /// The Pages site's custom domain
     ///
     /// Example: example.com
@@ -11892,9 +16376,24 @@ public struct Page: Decodable {
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(cname, forKey: "cname")
+        try values.encode(isCustom404, forKey: "custom_404")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(httpsCertificate, forKey: "https_certificate")
+        try values.encodeIfPresent(isHTTPSEnforced, forKey: "https_enforced")
+        try values.encodeIfPresent(pendingDomainUnverifiedAt, forKey: "pending_domain_unverified_at")
+        try values.encodeIfPresent(protectedDomainState, forKey: "protected_domain_state")
+        try values.encode(isPublic, forKey: "public")
+        try values.encodeIfPresent(source, forKey: "source")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct PageBuild: Decodable {
+public struct PageBuild: Codable {
     public var commit: String
     public var createdAt: Date
     public var duration: Int
@@ -11905,12 +16404,17 @@ public struct PageBuild: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Error: Decodable {
+    public struct Error: Codable {
         public var message: String?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(message, forKey: "message")
         }
     }
 
@@ -11925,9 +16429,21 @@ public struct PageBuild: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commit, forKey: "commit")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(duration, forKey: "duration")
+        try values.encode(error, forKey: "error")
+        try values.encodeIfPresent(pusher, forKey: "pusher")
+        try values.encode(status, forKey: "status")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct PageBuildStatus: Decodable {
+public struct PageBuildStatus: Codable {
     /// Example: queued
     public var status: String
     public var url: URL
@@ -11937,14 +16453,20 @@ public struct PageBuildStatus: Decodable {
         self.status = try values.decode(String.self, forKey: "status")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(status, forKey: "status")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Pages Health Check Status
-public struct PagesHealthCheck: Decodable {
+public struct PagesHealthCheck: Codable {
     public var altDomain: AltDomain?
     public var domain: Domain?
 
-    public struct AltDomain: Decodable {
+    public struct AltDomain: Codable {
         public var caaError: String?
         public var dnsResolves: Bool?
         public var enforcesHTTPS: Bool?
@@ -12005,9 +16527,41 @@ public struct PagesHealthCheck: Decodable {
             self.shouldBeARecord = try values.decodeIfPresent(Bool.self, forKey: "should_be_a_record")
             self.uri = try values.decodeIfPresent(String.self, forKey: "uri")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(caaError, forKey: "caa_error")
+            try values.encodeIfPresent(dnsResolves, forKey: "dns_resolves")
+            try values.encodeIfPresent(enforcesHTTPS, forKey: "enforces_https")
+            try values.encodeIfPresent(hasCnameRecord, forKey: "has_cname_record")
+            try values.encodeIfPresent(hasMxRecordsPresent, forKey: "has_mx_records_present")
+            try values.encodeIfPresent(host, forKey: "host")
+            try values.encodeIfPresent(httpsError, forKey: "https_error")
+            try values.encodeIfPresent(isARecord, forKey: "is_a_record")
+            try values.encodeIfPresent(isApexDomain, forKey: "is_apex_domain")
+            try values.encodeIfPresent(isCloudflareIp, forKey: "is_cloudflare_ip")
+            try values.encodeIfPresent(isCnameToFastly, forKey: "is_cname_to_fastly")
+            try values.encodeIfPresent(isCnameToGithubUserDomain, forKey: "is_cname_to_github_user_domain")
+            try values.encodeIfPresent(isCnameToPagesDotGithubDotCom, forKey: "is_cname_to_pages_dot_github_dot_com")
+            try values.encodeIfPresent(isFastlyIp, forKey: "is_fastly_ip")
+            try values.encodeIfPresent(isHTTPSEligible, forKey: "is_https_eligible")
+            try values.encodeIfPresent(isNonGithubPagesIpPresent, forKey: "is_non_github_pages_ip_present")
+            try values.encodeIfPresent(isOldIpAddress, forKey: "is_old_ip_address")
+            try values.encodeIfPresent(isPagesDomain, forKey: "is_pages_domain")
+            try values.encodeIfPresent(isPointedToGithubPagesIp, forKey: "is_pointed_to_github_pages_ip")
+            try values.encodeIfPresent(isProxied, forKey: "is_proxied")
+            try values.encodeIfPresent(isServedByPages, forKey: "is_served_by_pages")
+            try values.encodeIfPresent(isValid, forKey: "is_valid")
+            try values.encodeIfPresent(isValidDomain, forKey: "is_valid_domain")
+            try values.encodeIfPresent(nameservers, forKey: "nameservers")
+            try values.encodeIfPresent(reason, forKey: "reason")
+            try values.encodeIfPresent(respondsToHTTPS, forKey: "responds_to_https")
+            try values.encodeIfPresent(shouldBeARecord, forKey: "should_be_a_record")
+            try values.encodeIfPresent(uri, forKey: "uri")
+        }
     }
 
-    public struct Domain: Decodable {
+    public struct Domain: Codable {
         public var caaError: String?
         public var dnsResolves: Bool?
         public var enforcesHTTPS: Bool?
@@ -12067,6 +16621,38 @@ public struct PagesHealthCheck: Decodable {
             self.respondsToHTTPS = try values.decodeIfPresent(Bool.self, forKey: "responds_to_https")
             self.shouldBeARecord = try values.decodeIfPresent(Bool.self, forKey: "should_be_a_record")
             self.uri = try values.decodeIfPresent(String.self, forKey: "uri")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(caaError, forKey: "caa_error")
+            try values.encodeIfPresent(dnsResolves, forKey: "dns_resolves")
+            try values.encodeIfPresent(enforcesHTTPS, forKey: "enforces_https")
+            try values.encodeIfPresent(hasCnameRecord, forKey: "has_cname_record")
+            try values.encodeIfPresent(hasMxRecordsPresent, forKey: "has_mx_records_present")
+            try values.encodeIfPresent(host, forKey: "host")
+            try values.encodeIfPresent(httpsError, forKey: "https_error")
+            try values.encodeIfPresent(isARecord, forKey: "is_a_record")
+            try values.encodeIfPresent(isApexDomain, forKey: "is_apex_domain")
+            try values.encodeIfPresent(isCloudflareIp, forKey: "is_cloudflare_ip")
+            try values.encodeIfPresent(isCnameToFastly, forKey: "is_cname_to_fastly")
+            try values.encodeIfPresent(isCnameToGithubUserDomain, forKey: "is_cname_to_github_user_domain")
+            try values.encodeIfPresent(isCnameToPagesDotGithubDotCom, forKey: "is_cname_to_pages_dot_github_dot_com")
+            try values.encodeIfPresent(isFastlyIp, forKey: "is_fastly_ip")
+            try values.encodeIfPresent(isHTTPSEligible, forKey: "is_https_eligible")
+            try values.encodeIfPresent(isNonGithubPagesIpPresent, forKey: "is_non_github_pages_ip_present")
+            try values.encodeIfPresent(isOldIpAddress, forKey: "is_old_ip_address")
+            try values.encodeIfPresent(isPagesDomain, forKey: "is_pages_domain")
+            try values.encodeIfPresent(isPointedToGithubPagesIp, forKey: "is_pointed_to_github_pages_ip")
+            try values.encodeIfPresent(isProxied, forKey: "is_proxied")
+            try values.encodeIfPresent(isServedByPages, forKey: "is_served_by_pages")
+            try values.encodeIfPresent(isValid, forKey: "is_valid")
+            try values.encodeIfPresent(isValidDomain, forKey: "is_valid_domain")
+            try values.encodeIfPresent(nameservers, forKey: "nameservers")
+            try values.encodeIfPresent(reason, forKey: "reason")
+            try values.encodeIfPresent(respondsToHTTPS, forKey: "responds_to_https")
+            try values.encodeIfPresent(shouldBeARecord, forKey: "should_be_a_record")
+            try values.encodeIfPresent(uri, forKey: "uri")
         }
     }
 
@@ -12075,10 +16661,16 @@ public struct PagesHealthCheck: Decodable {
         self.altDomain = try values.decodeIfPresent(AltDomain.self, forKey: "alt_domain")
         self.domain = try values.decodeIfPresent(Domain.self, forKey: "domain")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(altDomain, forKey: "alt_domain")
+        try values.encodeIfPresent(domain, forKey: "domain")
+    }
 }
 
 /// Groups of organization members that gives permissions on specified repositories.
-public struct TeamSimple: Decodable {
+public struct TeamSimple: Codable {
     /// Description of the team
     ///
     /// Example: A great team.
@@ -12126,10 +16718,26 @@ public struct TeamSimple: Decodable {
         self.slug = try values.decode(String.self, forKey: "slug")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(ldapDn, forKey: "ldap_dn")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(slug, forKey: "slug")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
-public struct PullRequest: Decodable {
+public struct PullRequest: Codable {
     public var links: Links
     /// Example: too heated
     public var activeLockReason: String?
@@ -12218,7 +16826,7 @@ public struct PullRequest: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         /// Link
         ///
         /// Hypermedia Link
@@ -12263,16 +16871,28 @@ public struct PullRequest: Decodable {
             self.`self` = try values.decode(Link.self, forKey: "self")
             self.statuses = try values.decode(Link.self, forKey: "statuses")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(comments, forKey: "comments")
+            try values.encode(commits, forKey: "commits")
+            try values.encode(html, forKey: "html")
+            try values.encode(issue, forKey: "issue")
+            try values.encode(reviewComment, forKey: "review_comment")
+            try values.encode(reviewComments, forKey: "review_comments")
+            try values.encode(`self`, forKey: "self")
+            try values.encode(statuses, forKey: "statuses")
+        }
     }
 
-    public struct Base: Decodable {
+    public struct Base: Codable {
         public var label: String
         public var ref: String
         public var repo: Repo
         public var sha: String
         public var user: User
 
-        public struct Repo: Decodable {
+        public struct Repo: Codable {
             public var allowForking: Bool?
             public var allowMergeCommit: Bool?
             public var allowRebaseMerge: Bool?
@@ -12359,7 +16979,7 @@ public struct PullRequest: Decodable {
             public var watchers: Int
             public var watchersCount: Int
 
-            public struct Owner: Decodable {
+            public struct Owner: Codable {
                 public var avatarURL: URL
                 public var eventsURL: String
                 public var followersURL: URL
@@ -12400,9 +17020,31 @@ public struct PullRequest: Decodable {
                     self.type = try values.decode(String.self, forKey: "type")
                     self.url = try values.decode(URL.self, forKey: "url")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(avatarURL, forKey: "avatar_url")
+                    try values.encode(eventsURL, forKey: "events_url")
+                    try values.encode(followersURL, forKey: "followers_url")
+                    try values.encode(followingURL, forKey: "following_url")
+                    try values.encode(gistsURL, forKey: "gists_url")
+                    try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                    try values.encode(htmlURL, forKey: "html_url")
+                    try values.encode(id, forKey: "id")
+                    try values.encode(login, forKey: "login")
+                    try values.encode(nodeID, forKey: "node_id")
+                    try values.encode(organizationsURL, forKey: "organizations_url")
+                    try values.encode(receivedEventsURL, forKey: "received_events_url")
+                    try values.encode(reposURL, forKey: "repos_url")
+                    try values.encode(isSiteAdmin, forKey: "site_admin")
+                    try values.encode(starredURL, forKey: "starred_url")
+                    try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(url, forKey: "url")
+                }
             }
 
-            public struct Permissions: Decodable {
+            public struct Permissions: Codable {
                 public var isAdmin: Bool
                 public var isMaintain: Bool?
                 public var isPull: Bool
@@ -12416,6 +17058,15 @@ public struct PullRequest: Decodable {
                     self.isPull = try values.decode(Bool.self, forKey: "pull")
                     self.isPush = try values.decode(Bool.self, forKey: "push")
                     self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isAdmin, forKey: "admin")
+                    try values.encodeIfPresent(isMaintain, forKey: "maintain")
+                    try values.encode(isPull, forKey: "pull")
+                    try values.encode(isPush, forKey: "push")
+                    try values.encodeIfPresent(isTriage, forKey: "triage")
                 }
             }
 
@@ -12505,9 +17156,96 @@ public struct PullRequest: Decodable {
                 self.watchers = try values.decode(Int.self, forKey: "watchers")
                 self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encode(archiveURL, forKey: "archive_url")
+                try values.encode(isArchived, forKey: "archived")
+                try values.encode(assigneesURL, forKey: "assignees_url")
+                try values.encode(blobsURL, forKey: "blobs_url")
+                try values.encode(branchesURL, forKey: "branches_url")
+                try values.encode(cloneURL, forKey: "clone_url")
+                try values.encode(collaboratorsURL, forKey: "collaborators_url")
+                try values.encode(commentsURL, forKey: "comments_url")
+                try values.encode(commitsURL, forKey: "commits_url")
+                try values.encode(compareURL, forKey: "compare_url")
+                try values.encode(contentsURL, forKey: "contents_url")
+                try values.encode(contributorsURL, forKey: "contributors_url")
+                try values.encode(createdAt, forKey: "created_at")
+                try values.encode(defaultBranch, forKey: "default_branch")
+                try values.encode(deploymentsURL, forKey: "deployments_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(isDisabled, forKey: "disabled")
+                try values.encode(downloadsURL, forKey: "downloads_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(isFork, forKey: "fork")
+                try values.encode(forks, forKey: "forks")
+                try values.encode(forksCount, forKey: "forks_count")
+                try values.encode(forksURL, forKey: "forks_url")
+                try values.encode(fullName, forKey: "full_name")
+                try values.encode(gitCommitsURL, forKey: "git_commits_url")
+                try values.encode(gitRefsURL, forKey: "git_refs_url")
+                try values.encode(gitTagsURL, forKey: "git_tags_url")
+                try values.encode(gitURL, forKey: "git_url")
+                try values.encode(hasDownloads, forKey: "has_downloads")
+                try values.encode(hasIssues, forKey: "has_issues")
+                try values.encode(hasPages, forKey: "has_pages")
+                try values.encode(hasProjects, forKey: "has_projects")
+                try values.encode(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encode(hooksURL, forKey: "hooks_url")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encode(issueCommentURL, forKey: "issue_comment_url")
+                try values.encode(issueEventsURL, forKey: "issue_events_url")
+                try values.encode(issuesURL, forKey: "issues_url")
+                try values.encode(keysURL, forKey: "keys_url")
+                try values.encode(labelsURL, forKey: "labels_url")
+                try values.encodeIfPresent(language, forKey: "language")
+                try values.encode(languagesURL, forKey: "languages_url")
+                try values.encodeIfPresent(license, forKey: "license")
+                try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+                try values.encode(mergesURL, forKey: "merges_url")
+                try values.encode(milestonesURL, forKey: "milestones_url")
+                try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+                try values.encode(name, forKey: "name")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(notificationsURL, forKey: "notifications_url")
+                try values.encode(openIssues, forKey: "open_issues")
+                try values.encode(openIssuesCount, forKey: "open_issues_count")
+                try values.encode(owner, forKey: "owner")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encode(isPrivate, forKey: "private")
+                try values.encode(pullsURL, forKey: "pulls_url")
+                try values.encode(pushedAt, forKey: "pushed_at")
+                try values.encode(releasesURL, forKey: "releases_url")
+                try values.encode(size, forKey: "size")
+                try values.encode(sshURL, forKey: "ssh_url")
+                try values.encode(stargazersCount, forKey: "stargazers_count")
+                try values.encode(stargazersURL, forKey: "stargazers_url")
+                try values.encode(statusesURL, forKey: "statuses_url")
+                try values.encode(subscribersURL, forKey: "subscribers_url")
+                try values.encode(subscriptionURL, forKey: "subscription_url")
+                try values.encode(svnURL, forKey: "svn_url")
+                try values.encode(tagsURL, forKey: "tags_url")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+                try values.encodeIfPresent(topics, forKey: "topics")
+                try values.encode(treesURL, forKey: "trees_url")
+                try values.encode(updatedAt, forKey: "updated_at")
+                try values.encode(url, forKey: "url")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encode(watchers, forKey: "watchers")
+                try values.encode(watchersCount, forKey: "watchers_count")
+            }
         }
 
-        public struct User: Decodable {
+        public struct User: Codable {
             public var avatarURL: URL
             public var eventsURL: String
             public var followersURL: URL
@@ -12548,6 +17286,28 @@ public struct PullRequest: Decodable {
                 self.type = try values.decode(String.self, forKey: "type")
                 self.url = try values.decode(URL.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(avatarURL, forKey: "avatar_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(followersURL, forKey: "followers_url")
+                try values.encode(followingURL, forKey: "following_url")
+                try values.encode(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encode(login, forKey: "login")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(organizationsURL, forKey: "organizations_url")
+                try values.encode(receivedEventsURL, forKey: "received_events_url")
+                try values.encode(reposURL, forKey: "repos_url")
+                try values.encode(isSiteAdmin, forKey: "site_admin")
+                try values.encode(starredURL, forKey: "starred_url")
+                try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encode(type, forKey: "type")
+                try values.encode(url, forKey: "url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -12558,16 +17318,25 @@ public struct PullRequest: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.user = try values.decode(User.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(user, forKey: "user")
+        }
     }
 
-    public struct Head: Decodable {
+    public struct Head: Codable {
         public var label: String
         public var ref: String
         public var repo: Repo?
         public var sha: String
         public var user: User
 
-        public struct Repo: Decodable {
+        public struct Repo: Codable {
             public var allowForking: Bool?
             public var allowMergeCommit: Bool?
             public var allowRebaseMerge: Bool?
@@ -12653,7 +17422,7 @@ public struct PullRequest: Decodable {
             public var watchers: Int
             public var watchersCount: Int
 
-            public struct License: Decodable {
+            public struct License: Codable {
                 public var key: String
                 public var name: String
                 public var nodeID: String
@@ -12668,9 +17437,18 @@ public struct PullRequest: Decodable {
                     self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
                     self.url = try values.decodeIfPresent(URL.self, forKey: "url")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(key, forKey: "key")
+                    try values.encode(name, forKey: "name")
+                    try values.encode(nodeID, forKey: "node_id")
+                    try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+                    try values.encodeIfPresent(url, forKey: "url")
+                }
             }
 
-            public struct Owner: Decodable {
+            public struct Owner: Codable {
                 public var avatarURL: URL
                 public var eventsURL: String
                 public var followersURL: URL
@@ -12711,9 +17489,31 @@ public struct PullRequest: Decodable {
                     self.type = try values.decode(String.self, forKey: "type")
                     self.url = try values.decode(URL.self, forKey: "url")
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(avatarURL, forKey: "avatar_url")
+                    try values.encode(eventsURL, forKey: "events_url")
+                    try values.encode(followersURL, forKey: "followers_url")
+                    try values.encode(followingURL, forKey: "following_url")
+                    try values.encode(gistsURL, forKey: "gists_url")
+                    try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                    try values.encode(htmlURL, forKey: "html_url")
+                    try values.encode(id, forKey: "id")
+                    try values.encode(login, forKey: "login")
+                    try values.encode(nodeID, forKey: "node_id")
+                    try values.encode(organizationsURL, forKey: "organizations_url")
+                    try values.encode(receivedEventsURL, forKey: "received_events_url")
+                    try values.encode(reposURL, forKey: "repos_url")
+                    try values.encode(isSiteAdmin, forKey: "site_admin")
+                    try values.encode(starredURL, forKey: "starred_url")
+                    try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(url, forKey: "url")
+                }
             }
 
-            public struct Permissions: Decodable {
+            public struct Permissions: Codable {
                 public var isAdmin: Bool
                 public var isMaintain: Bool?
                 public var isPull: Bool
@@ -12727,6 +17527,15 @@ public struct PullRequest: Decodable {
                     self.isPull = try values.decode(Bool.self, forKey: "pull")
                     self.isPush = try values.decode(Bool.self, forKey: "push")
                     self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isAdmin, forKey: "admin")
+                    try values.encodeIfPresent(isMaintain, forKey: "maintain")
+                    try values.encode(isPull, forKey: "pull")
+                    try values.encode(isPush, forKey: "push")
+                    try values.encodeIfPresent(isTriage, forKey: "triage")
                 }
             }
 
@@ -12816,9 +17625,96 @@ public struct PullRequest: Decodable {
                 self.watchers = try values.decode(Int.self, forKey: "watchers")
                 self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encode(archiveURL, forKey: "archive_url")
+                try values.encode(isArchived, forKey: "archived")
+                try values.encode(assigneesURL, forKey: "assignees_url")
+                try values.encode(blobsURL, forKey: "blobs_url")
+                try values.encode(branchesURL, forKey: "branches_url")
+                try values.encode(cloneURL, forKey: "clone_url")
+                try values.encode(collaboratorsURL, forKey: "collaborators_url")
+                try values.encode(commentsURL, forKey: "comments_url")
+                try values.encode(commitsURL, forKey: "commits_url")
+                try values.encode(compareURL, forKey: "compare_url")
+                try values.encode(contentsURL, forKey: "contents_url")
+                try values.encode(contributorsURL, forKey: "contributors_url")
+                try values.encode(createdAt, forKey: "created_at")
+                try values.encode(defaultBranch, forKey: "default_branch")
+                try values.encode(deploymentsURL, forKey: "deployments_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(isDisabled, forKey: "disabled")
+                try values.encode(downloadsURL, forKey: "downloads_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(isFork, forKey: "fork")
+                try values.encode(forks, forKey: "forks")
+                try values.encode(forksCount, forKey: "forks_count")
+                try values.encode(forksURL, forKey: "forks_url")
+                try values.encode(fullName, forKey: "full_name")
+                try values.encode(gitCommitsURL, forKey: "git_commits_url")
+                try values.encode(gitRefsURL, forKey: "git_refs_url")
+                try values.encode(gitTagsURL, forKey: "git_tags_url")
+                try values.encode(gitURL, forKey: "git_url")
+                try values.encode(hasDownloads, forKey: "has_downloads")
+                try values.encode(hasIssues, forKey: "has_issues")
+                try values.encode(hasPages, forKey: "has_pages")
+                try values.encode(hasProjects, forKey: "has_projects")
+                try values.encode(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encode(hooksURL, forKey: "hooks_url")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encode(issueCommentURL, forKey: "issue_comment_url")
+                try values.encode(issueEventsURL, forKey: "issue_events_url")
+                try values.encode(issuesURL, forKey: "issues_url")
+                try values.encode(keysURL, forKey: "keys_url")
+                try values.encode(labelsURL, forKey: "labels_url")
+                try values.encodeIfPresent(language, forKey: "language")
+                try values.encode(languagesURL, forKey: "languages_url")
+                try values.encodeIfPresent(license, forKey: "license")
+                try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+                try values.encode(mergesURL, forKey: "merges_url")
+                try values.encode(milestonesURL, forKey: "milestones_url")
+                try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+                try values.encode(name, forKey: "name")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(notificationsURL, forKey: "notifications_url")
+                try values.encode(openIssues, forKey: "open_issues")
+                try values.encode(openIssuesCount, forKey: "open_issues_count")
+                try values.encode(owner, forKey: "owner")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encode(isPrivate, forKey: "private")
+                try values.encode(pullsURL, forKey: "pulls_url")
+                try values.encode(pushedAt, forKey: "pushed_at")
+                try values.encode(releasesURL, forKey: "releases_url")
+                try values.encode(size, forKey: "size")
+                try values.encode(sshURL, forKey: "ssh_url")
+                try values.encode(stargazersCount, forKey: "stargazers_count")
+                try values.encode(stargazersURL, forKey: "stargazers_url")
+                try values.encode(statusesURL, forKey: "statuses_url")
+                try values.encode(subscribersURL, forKey: "subscribers_url")
+                try values.encode(subscriptionURL, forKey: "subscription_url")
+                try values.encode(svnURL, forKey: "svn_url")
+                try values.encode(tagsURL, forKey: "tags_url")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+                try values.encodeIfPresent(topics, forKey: "topics")
+                try values.encode(treesURL, forKey: "trees_url")
+                try values.encode(updatedAt, forKey: "updated_at")
+                try values.encode(url, forKey: "url")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encode(watchers, forKey: "watchers")
+                try values.encode(watchersCount, forKey: "watchers_count")
+            }
         }
 
-        public struct User: Decodable {
+        public struct User: Codable {
             public var avatarURL: URL
             public var eventsURL: String
             public var followersURL: URL
@@ -12859,6 +17755,28 @@ public struct PullRequest: Decodable {
                 self.type = try values.decode(String.self, forKey: "type")
                 self.url = try values.decode(URL.self, forKey: "url")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(avatarURL, forKey: "avatar_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(followersURL, forKey: "followers_url")
+                try values.encode(followingURL, forKey: "following_url")
+                try values.encode(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encode(login, forKey: "login")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(organizationsURL, forKey: "organizations_url")
+                try values.encode(receivedEventsURL, forKey: "received_events_url")
+                try values.encode(reposURL, forKey: "repos_url")
+                try values.encode(isSiteAdmin, forKey: "site_admin")
+                try values.encode(starredURL, forKey: "starred_url")
+                try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encode(type, forKey: "type")
+                try values.encode(url, forKey: "url")
+            }
         }
 
         public init(from decoder: Decoder) throws {
@@ -12869,9 +17787,18 @@ public struct PullRequest: Decodable {
             self.sha = try values.decode(String.self, forKey: "sha")
             self.user = try values.decode(User.self, forKey: "user")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encodeIfPresent(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(user, forKey: "user")
+        }
     }
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         public var color: String
         public var isDefault: Bool
         public var description: String?
@@ -12889,6 +17816,17 @@ public struct PullRequest: Decodable {
             self.name = try values.decode(String.self, forKey: "name")
             self.nodeID = try values.decode(String.self, forKey: "node_id")
             self.url = try values.decode(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(color, forKey: "color")
+            try values.encode(isDefault, forKey: "default")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encode(id, forKey: "id")
+            try values.encode(name, forKey: "name")
+            try values.encode(nodeID, forKey: "node_id")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -12951,9 +17889,61 @@ public struct PullRequest: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encode(additions, forKey: "additions")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(autoMerge, forKey: "auto_merge")
+        try values.encode(base, forKey: "base")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(changedFiles, forKey: "changed_files")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encode(comments, forKey: "comments")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commits, forKey: "commits")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(deletions, forKey: "deletions")
+        try values.encode(diffURL, forKey: "diff_url")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encode(head, forKey: "head")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encode(maintainerCanModify, forKey: "maintainer_can_modify")
+        try values.encodeIfPresent(mergeCommitSha, forKey: "merge_commit_sha")
+        try values.encodeIfPresent(isMergeable, forKey: "mergeable")
+        try values.encode(mergeableState, forKey: "mergeable_state")
+        try values.encode(isMerged, forKey: "merged")
+        try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+        try values.encodeIfPresent(mergedBy, forKey: "merged_by")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(patchURL, forKey: "patch_url")
+        try values.encodeIfPresent(isRebaseable, forKey: "rebaseable")
+        try values.encodeIfPresent(requestedReviewers, forKey: "requested_reviewers")
+        try values.encodeIfPresent(requestedTeams, forKey: "requested_teams")
+        try values.encode(reviewCommentURL, forKey: "review_comment_url")
+        try values.encode(reviewComments, forKey: "review_comments")
+        try values.encode(reviewCommentsURL, forKey: "review_comments_url")
+        try values.encode(state, forKey: "state")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct PullRequestMergeResult: Decodable {
+public struct PullRequestMergeResult: Codable {
     public var isMerged: Bool
     public var message: String
     public var sha: String
@@ -12964,9 +17954,16 @@ public struct PullRequestMergeResult: Decodable {
         self.message = try values.decode(String.self, forKey: "message")
         self.sha = try values.decode(String.self, forKey: "sha")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isMerged, forKey: "merged")
+        try values.encode(message, forKey: "message")
+        try values.encode(sha, forKey: "sha")
+    }
 }
 
-public struct PullRequestReviewRequest: Decodable {
+public struct PullRequestReviewRequest: Codable {
     public var teams: [Team]
     public var users: [SimpleUser]
 
@@ -12975,10 +17972,16 @@ public struct PullRequestReviewRequest: Decodable {
         self.teams = try values.decode([Team].self, forKey: "teams")
         self.users = try values.decode([SimpleUser].self, forKey: "users")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(teams, forKey: "teams")
+        try values.encode(users, forKey: "users")
+    }
 }
 
 /// Pull Request Reviews are reviews on pull requests.
-public struct PullRequestReview: Decodable {
+public struct PullRequestReview: Codable {
     public var links: Links
     /// Author_association
     ///
@@ -13010,25 +18013,35 @@ public struct PullRequestReview: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         public var html: HTML
         public var pullRequest: PullRequest
 
-        public struct HTML: Decodable {
+        public struct HTML: Codable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
-        public struct PullRequest: Decodable {
+        public struct PullRequest: Codable {
             public var href: String
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
             }
         }
 
@@ -13036,6 +18049,12 @@ public struct PullRequestReview: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
         }
     }
 
@@ -13055,10 +18074,27 @@ public struct PullRequestReview: Decodable {
         self.submittedAt = try values.decodeIfPresent(Date.self, forKey: "submitted_at")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(submittedAt, forKey: "submitted_at")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
 /// Legacy Review Comment
-public struct ReviewComment: Decodable {
+public struct ReviewComment: Codable {
     public var links: Links
     /// Author_association
     ///
@@ -13111,7 +18147,7 @@ public struct ReviewComment: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Links: Decodable {
+    public struct Links: Codable {
         /// Link
         ///
         /// Hypermedia Link
@@ -13130,6 +18166,13 @@ public struct ReviewComment: Decodable {
             self.html = try values.decode(Link.self, forKey: "html")
             self.pullRequest = try values.decode(Link.self, forKey: "pull_request")
             self.`self` = try values.decode(Link.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
+            try values.encode(`self`, forKey: "self")
         }
     }
 
@@ -13176,10 +18219,42 @@ public struct ReviewComment: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(links, forKey: "_links")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(diffHunk, forKey: "diff_hunk")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(inReplyToID, forKey: "in_reply_to_id")
+        try values.encodeIfPresent(line, forKey: "line")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(originalCommitID, forKey: "original_commit_id")
+        try values.encodeIfPresent(originalLine, forKey: "original_line")
+        try values.encode(originalPosition, forKey: "original_position")
+        try values.encodeIfPresent(originalStartLine, forKey: "original_start_line")
+        try values.encode(path, forKey: "path")
+        try values.encodeIfPresent(position, forKey: "position")
+        try values.encodeIfPresent(pullRequestReviewID, forKey: "pull_request_review_id")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encodeIfPresent(side, forKey: "side")
+        try values.encodeIfPresent(startLine, forKey: "start_line")
+        try values.encodeIfPresent(startSide, forKey: "start_side")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
 /// Data related to a release.
-public struct ReleaseAsset: Decodable {
+public struct ReleaseAsset: Codable {
     public var browserDownloadURL: URL
     public var contentType: String
     public var createdAt: Date
@@ -13221,10 +18296,27 @@ public struct ReleaseAsset: Decodable {
         self.uploader = try values.decodeIfPresent(SimpleUser.self, forKey: "uploader")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(browserDownloadURL, forKey: "browser_download_url")
+        try values.encode(contentType, forKey: "content_type")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(downloadCount, forKey: "download_count")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(label, forKey: "label")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(size, forKey: "size")
+        try values.encode(state, forKey: "state")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(uploader, forKey: "uploader")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// A release.
-public struct Release: Decodable {
+public struct Release: Codable {
     public var assets: [ReleaseAsset]
     public var assetsURL: URL
     /// Simple User
@@ -13290,12 +18382,39 @@ public struct Release: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.zipballURL = try values.decodeIfPresent(URL.self, forKey: "zipball_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(assets, forKey: "assets")
+        try values.encode(assetsURL, forKey: "assets_url")
+        try values.encode(author, forKey: "author")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(discussionURL, forKey: "discussion_url")
+        try values.encode(isDraft, forKey: "draft")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(mentionsCount, forKey: "mentions_count")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(isPrerelease, forKey: "prerelease")
+        try values.encodeIfPresent(publishedAt, forKey: "published_at")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encode(tagName, forKey: "tag_name")
+        try values.encodeIfPresent(tarballURL, forKey: "tarball_url")
+        try values.encode(targetCommitish, forKey: "target_commitish")
+        try values.encode(uploadURL, forKey: "upload_url")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(zipballURL, forKey: "zipball_url")
+    }
 }
 
 /// Generated Release Notes Content
 ///
 /// Generated name and body describing a release
-public struct ReleaseNotesContent: Decodable {
+public struct ReleaseNotesContent: Codable {
     /// The generated body describing the contents of the release supporting markdown formatting
     public var body: String
     /// The generated name of the release
@@ -13308,9 +18427,15 @@ public struct ReleaseNotesContent: Decodable {
         self.body = try values.decode(String.self, forKey: "body")
         self.name = try values.decode(String.self, forKey: "name")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(body, forKey: "body")
+        try values.encode(name, forKey: "name")
+    }
 }
 
-public struct SecretScanningAlert: Decodable {
+public struct SecretScanningAlert: Codable {
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date?
     /// The GitHub URL of the alert resource.
@@ -13348,9 +18473,24 @@ public struct SecretScanningAlert: Decodable {
         self.state = try values.decodeIfPresent(SecretScanningAlertState.self, forKey: "state")
         self.url = try values.decodeIfPresent(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(locationsURL, forKey: "locations_url")
+        try values.encodeIfPresent(number, forKey: "number")
+        try values.encodeIfPresent(resolution, forKey: "resolution")
+        try values.encodeIfPresent(resolvedAt, forKey: "resolved_at")
+        try values.encodeIfPresent(resolvedBy, forKey: "resolved_by")
+        try values.encodeIfPresent(secret, forKey: "secret")
+        try values.encodeIfPresent(secretType, forKey: "secret_type")
+        try values.encodeIfPresent(state, forKey: "state")
+        try values.encodeIfPresent(url, forKey: "url")
+    }
 }
 
-public struct Stargazer: Decodable {
+public struct Stargazer: Codable {
     public var starredAt: Date
     /// Simple User
     public var user: SimpleUser?
@@ -13360,9 +18500,15 @@ public struct Stargazer: Decodable {
         self.starredAt = try values.decode(Date.self, forKey: "starred_at")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(starredAt, forKey: "starred_at")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct CommitActivity: Decodable {
+public struct CommitActivity: Codable {
     /// Example:
 
     /// [
@@ -13386,9 +18532,16 @@ public struct CommitActivity: Decodable {
         self.total = try values.decode(Int.self, forKey: "total")
         self.week = try values.decode(Int.self, forKey: "week")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(days, forKey: "days")
+        try values.encode(total, forKey: "total")
+        try values.encode(week, forKey: "week")
+    }
 }
 
-public struct ContributorActivity: Decodable {
+public struct ContributorActivity: Codable {
     /// Simple User
     public var author: SimpleUser?
     /// Example: 135
@@ -13405,7 +18558,7 @@ public struct ContributorActivity: Decodable {
     /// ]
     public var weeks: [Week]
 
-    public struct Week: Decodable {
+    public struct Week: Codable {
         public var a: Int?
         public var c: Int?
         public var d: Int?
@@ -13418,6 +18571,14 @@ public struct ContributorActivity: Decodable {
             self.d = try values.decodeIfPresent(Int.self, forKey: "d")
             self.w = try values.decodeIfPresent(Int.self, forKey: "w")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(a, forKey: "a")
+            try values.encodeIfPresent(c, forKey: "c")
+            try values.encodeIfPresent(d, forKey: "d")
+            try values.encodeIfPresent(w, forKey: "w")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -13426,9 +18587,16 @@ public struct ContributorActivity: Decodable {
         self.total = try values.decode(Int.self, forKey: "total")
         self.weeks = try values.decode([Week].self, forKey: "weeks")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(total, forKey: "total")
+        try values.encode(weeks, forKey: "weeks")
+    }
 }
 
-public struct ParticipationStats: Decodable {
+public struct ParticipationStats: Codable {
     public var all: [Int]
     public var owner: [Int]
 
@@ -13437,12 +18605,18 @@ public struct ParticipationStats: Decodable {
         self.all = try values.decode([Int].self, forKey: "all")
         self.owner = try values.decode([Int].self, forKey: "owner")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(all, forKey: "all")
+        try values.encode(owner, forKey: "owner")
+    }
 }
 
 /// Repository Invitation
 ///
 /// Repository invitations let you manage who you collaborate with.
-public struct RepositorySubscription: Decodable {
+public struct RepositorySubscription: Codable {
     /// Example: 2012-10-06T21:34:12Z
     public var createdAt: Date
     /// Determines if all notifications should be blocked from this repository.
@@ -13464,9 +18638,19 @@ public struct RepositorySubscription: Decodable {
         self.isSubscribed = try values.decode(Bool.self, forKey: "subscribed")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(isIgnored, forKey: "ignored")
+        try values.encodeIfPresent(reason, forKey: "reason")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(isSubscribed, forKey: "subscribed")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct Tag: Decodable {
+public struct Tag: Codable {
     public var commit: Commit
     /// Example: v0.1
     public var name: String
@@ -13474,7 +18658,7 @@ public struct Tag: Decodable {
     public var tarballURL: URL
     public var zipballURL: URL
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         public var sha: String
         public var url: URL
 
@@ -13482,6 +18666,12 @@ public struct Tag: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
             self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -13493,19 +18683,33 @@ public struct Tag: Decodable {
         self.tarballURL = try values.decode(URL.self, forKey: "tarball_url")
         self.zipballURL = try values.decode(URL.self, forKey: "zipball_url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(commit, forKey: "commit")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(tarballURL, forKey: "tarball_url")
+        try values.encode(zipballURL, forKey: "zipball_url")
+    }
 }
 
 /// A topic aggregates entities that are related to a subject.
-public struct Topic: Decodable {
+public struct Topic: Codable {
     public var names: [String]
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.names = try values.decode([String].self, forKey: "names")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(names, forKey: "names")
+    }
 }
 
-public struct Traffic: Decodable {
+public struct Traffic: Codable {
     public var count: Int
     public var timestamp: Date
     public var uniques: Int
@@ -13516,9 +18720,16 @@ public struct Traffic: Decodable {
         self.timestamp = try values.decode(Date.self, forKey: "timestamp")
         self.uniques = try values.decode(Int.self, forKey: "uniques")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(count, forKey: "count")
+        try values.encode(timestamp, forKey: "timestamp")
+        try values.encode(uniques, forKey: "uniques")
+    }
 }
 
-public struct CloneTraffic: Decodable {
+public struct CloneTraffic: Codable {
     public var clones: [Traffic]
     /// Example: 173
     public var count: Int
@@ -13531,9 +18742,16 @@ public struct CloneTraffic: Decodable {
         self.count = try values.decode(Int.self, forKey: "count")
         self.uniques = try values.decode(Int.self, forKey: "uniques")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(clones, forKey: "clones")
+        try values.encode(count, forKey: "count")
+        try values.encode(uniques, forKey: "uniques")
+    }
 }
 
-public struct ContentTraffic: Decodable {
+public struct ContentTraffic: Codable {
     /// Example: 3542
     public var count: Int
     /// Example: /github/hubot
@@ -13550,9 +18768,17 @@ public struct ContentTraffic: Decodable {
         self.title = try values.decode(String.self, forKey: "title")
         self.uniques = try values.decode(Int.self, forKey: "uniques")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(count, forKey: "count")
+        try values.encode(path, forKey: "path")
+        try values.encode(title, forKey: "title")
+        try values.encode(uniques, forKey: "uniques")
+    }
 }
 
-public struct ReferrerTraffic: Decodable {
+public struct ReferrerTraffic: Codable {
     public var count: Int
     /// Example: Google
     public var referrer: String
@@ -13564,9 +18790,16 @@ public struct ReferrerTraffic: Decodable {
         self.referrer = try values.decode(String.self, forKey: "referrer")
         self.uniques = try values.decode(Int.self, forKey: "uniques")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(count, forKey: "count")
+        try values.encode(referrer, forKey: "referrer")
+        try values.encode(uniques, forKey: "uniques")
+    }
 }
 
-public struct ViewTraffic: Decodable {
+public struct ViewTraffic: Codable {
     /// Example: 14850
     public var count: Int
     /// Example: 3782
@@ -13579,16 +18812,23 @@ public struct ViewTraffic: Decodable {
         self.uniques = try values.decode(Int.self, forKey: "uniques")
         self.views = try values.decode([Traffic].self, forKey: "views")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(count, forKey: "count")
+        try values.encode(uniques, forKey: "uniques")
+        try values.encode(views, forKey: "views")
+    }
 }
 
-public struct ScimGroupListEnterprise: Decodable {
+public struct ScimGroupListEnterprise: Codable {
     public var resources: [Resource]
     public var itemsPerPage: Double
     public var schemas: [String]
     public var startIndex: Double
     public var totalResults: Double
 
-    public struct Resource: Decodable {
+    public struct Resource: Codable {
         public var displayName: String?
         public var externalID: String?
         public var id: String
@@ -13596,7 +18836,7 @@ public struct ScimGroupListEnterprise: Decodable {
         public var meta: Meta?
         public var schemas: [String]
 
-        public struct Member: Decodable {
+        public struct Member: Codable {
             public var ref: String?
             public var display: String?
             public var value: String?
@@ -13607,9 +18847,16 @@ public struct ScimGroupListEnterprise: Decodable {
                 self.display = try values.decodeIfPresent(String.self, forKey: "display")
                 self.value = try values.decodeIfPresent(String.self, forKey: "value")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(ref, forKey: "$ref")
+                try values.encodeIfPresent(display, forKey: "display")
+                try values.encodeIfPresent(value, forKey: "value")
+            }
         }
 
-        public struct Meta: Decodable {
+        public struct Meta: Codable {
             public var created: String?
             public var lastModified: String?
             public var location: String?
@@ -13621,6 +18868,14 @@ public struct ScimGroupListEnterprise: Decodable {
                 self.lastModified = try values.decodeIfPresent(String.self, forKey: "lastModified")
                 self.location = try values.decodeIfPresent(String.self, forKey: "location")
                 self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(created, forKey: "created")
+                try values.encodeIfPresent(lastModified, forKey: "lastModified")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(resourceType, forKey: "resourceType")
             }
         }
 
@@ -13633,6 +18888,16 @@ public struct ScimGroupListEnterprise: Decodable {
             self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
             self.schemas = try values.decode([String].self, forKey: "schemas")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(displayName, forKey: "displayName")
+            try values.encodeIfPresent(externalID, forKey: "externalId")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(members, forKey: "members")
+            try values.encodeIfPresent(meta, forKey: "meta")
+            try values.encode(schemas, forKey: "schemas")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -13643,9 +18908,18 @@ public struct ScimGroupListEnterprise: Decodable {
         self.startIndex = try values.decode(Double.self, forKey: "startIndex")
         self.totalResults = try values.decode(Double.self, forKey: "totalResults")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(resources, forKey: "Resources")
+        try values.encode(itemsPerPage, forKey: "itemsPerPage")
+        try values.encode(schemas, forKey: "schemas")
+        try values.encode(startIndex, forKey: "startIndex")
+        try values.encode(totalResults, forKey: "totalResults")
+    }
 }
 
-public struct ScimEnterpriseGroup: Decodable {
+public struct ScimEnterpriseGroup: Codable {
     public var displayName: String?
     public var externalID: String?
     public var id: String
@@ -13653,7 +18927,7 @@ public struct ScimEnterpriseGroup: Decodable {
     public var meta: Meta?
     public var schemas: [String]
 
-    public struct Member: Decodable {
+    public struct Member: Codable {
         public var ref: String?
         public var display: String?
         public var value: String?
@@ -13664,9 +18938,16 @@ public struct ScimEnterpriseGroup: Decodable {
             self.display = try values.decodeIfPresent(String.self, forKey: "display")
             self.value = try values.decodeIfPresent(String.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ref, forKey: "$ref")
+            try values.encodeIfPresent(display, forKey: "display")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
-    public struct Meta: Decodable {
+    public struct Meta: Codable {
         public var created: String?
         public var lastModified: String?
         public var location: String?
@@ -13679,6 +18960,14 @@ public struct ScimEnterpriseGroup: Decodable {
             self.location = try values.decodeIfPresent(String.self, forKey: "location")
             self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(created, forKey: "created")
+            try values.encodeIfPresent(lastModified, forKey: "lastModified")
+            try values.encodeIfPresent(location, forKey: "location")
+            try values.encodeIfPresent(resourceType, forKey: "resourceType")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -13690,16 +18979,26 @@ public struct ScimEnterpriseGroup: Decodable {
         self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
         self.schemas = try values.decode([String].self, forKey: "schemas")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(displayName, forKey: "displayName")
+        try values.encodeIfPresent(externalID, forKey: "externalId")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(members, forKey: "members")
+        try values.encodeIfPresent(meta, forKey: "meta")
+        try values.encode(schemas, forKey: "schemas")
+    }
 }
 
-public struct ScimUserListEnterprise: Decodable {
+public struct ScimUserListEnterprise: Codable {
     public var resources: [Resource]
     public var itemsPerPage: Double
     public var schemas: [String]
     public var startIndex: Double
     public var totalResults: Double
 
-    public struct Resource: Decodable {
+    public struct Resource: Codable {
         public var isActive: Bool?
         public var emails: [Email]?
         public var externalID: String?
@@ -13710,7 +19009,7 @@ public struct ScimUserListEnterprise: Decodable {
         public var schemas: [String]
         public var userName: String?
 
-        public struct Email: Decodable {
+        public struct Email: Codable {
             public var isPrimary: Bool?
             public var type: String?
             public var value: String?
@@ -13721,18 +19020,30 @@ public struct ScimUserListEnterprise: Decodable {
                 self.type = try values.decodeIfPresent(String.self, forKey: "type")
                 self.value = try values.decodeIfPresent(String.self, forKey: "value")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isPrimary, forKey: "primary")
+                try values.encodeIfPresent(type, forKey: "type")
+                try values.encodeIfPresent(value, forKey: "value")
+            }
         }
 
-        public struct Group: Decodable {
+        public struct Group: Codable {
             public var value: String?
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.value = try values.decodeIfPresent(String.self, forKey: "value")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(value, forKey: "value")
+            }
         }
 
-        public struct Meta: Decodable {
+        public struct Meta: Codable {
             public var created: String?
             public var lastModified: String?
             public var location: String?
@@ -13745,9 +19056,17 @@ public struct ScimUserListEnterprise: Decodable {
                 self.location = try values.decodeIfPresent(String.self, forKey: "location")
                 self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(created, forKey: "created")
+                try values.encodeIfPresent(lastModified, forKey: "lastModified")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(resourceType, forKey: "resourceType")
+            }
         }
 
-        public struct Name: Decodable {
+        public struct Name: Codable {
             public var familyName: String?
             public var givenName: String?
 
@@ -13755,6 +19074,12 @@ public struct ScimUserListEnterprise: Decodable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.familyName = try values.decodeIfPresent(String.self, forKey: "familyName")
                 self.givenName = try values.decodeIfPresent(String.self, forKey: "givenName")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(familyName, forKey: "familyName")
+                try values.encodeIfPresent(givenName, forKey: "givenName")
             }
         }
 
@@ -13770,6 +19095,19 @@ public struct ScimUserListEnterprise: Decodable {
             self.schemas = try values.decode([String].self, forKey: "schemas")
             self.userName = try values.decodeIfPresent(String.self, forKey: "userName")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isActive, forKey: "active")
+            try values.encodeIfPresent(emails, forKey: "emails")
+            try values.encodeIfPresent(externalID, forKey: "externalId")
+            try values.encodeIfPresent(groups, forKey: "groups")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(meta, forKey: "meta")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encode(schemas, forKey: "schemas")
+            try values.encodeIfPresent(userName, forKey: "userName")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -13780,9 +19118,18 @@ public struct ScimUserListEnterprise: Decodable {
         self.startIndex = try values.decode(Double.self, forKey: "startIndex")
         self.totalResults = try values.decode(Double.self, forKey: "totalResults")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(resources, forKey: "Resources")
+        try values.encode(itemsPerPage, forKey: "itemsPerPage")
+        try values.encode(schemas, forKey: "schemas")
+        try values.encode(startIndex, forKey: "startIndex")
+        try values.encode(totalResults, forKey: "totalResults")
+    }
 }
 
-public struct ScimEnterpriseUser: Decodable {
+public struct ScimEnterpriseUser: Codable {
     public var isActive: Bool?
     public var emails: [Email]?
     public var externalID: String?
@@ -13793,7 +19140,7 @@ public struct ScimEnterpriseUser: Decodable {
     public var schemas: [String]
     public var userName: String?
 
-    public struct Email: Decodable {
+    public struct Email: Codable {
         public var isPrimary: Bool?
         public var type: String?
         public var value: String?
@@ -13804,18 +19151,30 @@ public struct ScimEnterpriseUser: Decodable {
             self.type = try values.decodeIfPresent(String.self, forKey: "type")
             self.value = try values.decodeIfPresent(String.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isPrimary, forKey: "primary")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
-    public struct Group: Decodable {
+    public struct Group: Codable {
         public var value: String?
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.value = try values.decodeIfPresent(String.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
-    public struct Meta: Decodable {
+    public struct Meta: Codable {
         public var created: String?
         public var lastModified: String?
         public var location: String?
@@ -13828,9 +19187,17 @@ public struct ScimEnterpriseUser: Decodable {
             self.location = try values.decodeIfPresent(String.self, forKey: "location")
             self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(created, forKey: "created")
+            try values.encodeIfPresent(lastModified, forKey: "lastModified")
+            try values.encodeIfPresent(location, forKey: "location")
+            try values.encodeIfPresent(resourceType, forKey: "resourceType")
+        }
     }
 
-    public struct Name: Decodable {
+    public struct Name: Codable {
         public var familyName: String?
         public var givenName: String?
 
@@ -13838,6 +19205,12 @@ public struct ScimEnterpriseUser: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.familyName = try values.decodeIfPresent(String.self, forKey: "familyName")
             self.givenName = try values.decodeIfPresent(String.self, forKey: "givenName")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(familyName, forKey: "familyName")
+            try values.encodeIfPresent(givenName, forKey: "givenName")
         }
     }
 
@@ -13853,12 +19226,25 @@ public struct ScimEnterpriseUser: Decodable {
         self.schemas = try values.decode([String].self, forKey: "schemas")
         self.userName = try values.decodeIfPresent(String.self, forKey: "userName")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isActive, forKey: "active")
+        try values.encodeIfPresent(emails, forKey: "emails")
+        try values.encodeIfPresent(externalID, forKey: "externalId")
+        try values.encodeIfPresent(groups, forKey: "groups")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(meta, forKey: "meta")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(schemas, forKey: "schemas")
+        try values.encodeIfPresent(userName, forKey: "userName")
+    }
 }
 
 /// SCIM /Users
 ///
 /// SCIM /Users provisioning endpoints
-public struct ScimUser: Decodable {
+public struct ScimUser: Codable {
     /// The active status of the User.
     ///
     /// Example: true
@@ -13922,7 +19308,7 @@ public struct ScimUser: Decodable {
     /// Example: someone@example.com
     public var userName: String?
 
-    public struct Email: Decodable {
+    public struct Email: Codable {
         public var isPrimary: Bool?
         public var value: String
 
@@ -13931,9 +19317,15 @@ public struct ScimUser: Decodable {
             self.isPrimary = try values.decodeIfPresent(Bool.self, forKey: "primary")
             self.value = try values.decode(String.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isPrimary, forKey: "primary")
+            try values.encode(value, forKey: "value")
+        }
     }
 
-    public struct Group: Decodable {
+    public struct Group: Codable {
         public var display: String?
         public var value: String?
 
@@ -13942,9 +19334,15 @@ public struct ScimUser: Decodable {
             self.display = try values.decodeIfPresent(String.self, forKey: "display")
             self.value = try values.decodeIfPresent(String.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(display, forKey: "display")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
-    public struct Meta: Decodable {
+    public struct Meta: Codable {
         /// Example: 2019-01-24T22:45:36.000Z
         public var created: Date?
         /// Example: 2019-01-24T22:45:36.000Z
@@ -13960,6 +19358,14 @@ public struct ScimUser: Decodable {
             self.location = try values.decodeIfPresent(URL.self, forKey: "location")
             self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(created, forKey: "created")
+            try values.encodeIfPresent(lastModified, forKey: "lastModified")
+            try values.encodeIfPresent(location, forKey: "location")
+            try values.encodeIfPresent(resourceType, forKey: "resourceType")
+        }
     }
 
     /// Example:
@@ -13968,7 +19374,7 @@ public struct ScimUser: Decodable {
     ///   "familyName" : "User",
     ///   "givenName" : "Jane"
     /// }
-    public struct Name: Decodable {
+    public struct Name: Codable {
         public var familyName: String?
         public var formatted: String?
         public var givenName: String?
@@ -13979,9 +19385,16 @@ public struct ScimUser: Decodable {
             self.formatted = try values.decodeIfPresent(String.self, forKey: "formatted")
             self.givenName = try values.decodeIfPresent(String.self, forKey: "givenName")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(familyName, forKey: "familyName")
+            try values.encodeIfPresent(formatted, forKey: "formatted")
+            try values.encodeIfPresent(givenName, forKey: "givenName")
+        }
     }
 
-    public struct Operation: Decodable {
+    public struct Operation: Codable {
         public var op: Op
         public var path: String?
         public var value: Value?
@@ -13992,7 +19405,7 @@ public struct ScimUser: Decodable {
             case replace
         }
 
-        public enum Value: Decodable {
+        public enum Value: Codable {
             case string(String)
             case object([String: AnyJSON])
             case anyJSONs([AnyJSON])
@@ -14017,6 +19430,13 @@ public struct ScimUser: Decodable {
             self.path = try values.decodeIfPresent(String.self, forKey: "path")
             self.value = try values.decodeIfPresent(Value.self, forKey: "value")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(op, forKey: "op")
+            try values.encodeIfPresent(path, forKey: "path")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -14034,9 +19454,25 @@ public struct ScimUser: Decodable {
         self.schemas = try values.decode([String].self, forKey: "schemas")
         self.userName = try values.decodeIfPresent(String.self, forKey: "userName")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isActive, forKey: "active")
+        try values.encodeIfPresent(displayName, forKey: "displayName")
+        try values.encode(emails, forKey: "emails")
+        try values.encodeIfPresent(externalID, forKey: "externalId")
+        try values.encodeIfPresent(groups, forKey: "groups")
+        try values.encode(id, forKey: "id")
+        try values.encode(meta, forKey: "meta")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(operations, forKey: "operations")
+        try values.encodeIfPresent(organizationID, forKey: "organization_id")
+        try values.encode(schemas, forKey: "schemas")
+        try values.encodeIfPresent(userName, forKey: "userName")
+    }
 }
 
-public struct ScimUserList: Decodable {
+public struct ScimUserList: Codable {
     public var resources: [ScimUser]
     /// Example: 10
     public var itemsPerPage: Int
@@ -14053,18 +19489,27 @@ public struct ScimUserList: Decodable {
         self.startIndex = try values.decode(Int.self, forKey: "startIndex")
         self.totalResults = try values.decode(Int.self, forKey: "totalResults")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(resources, forKey: "Resources")
+        try values.encode(itemsPerPage, forKey: "itemsPerPage")
+        try values.encode(schemas, forKey: "schemas")
+        try values.encode(startIndex, forKey: "startIndex")
+        try values.encode(totalResults, forKey: "totalResults")
+    }
 }
 
 public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 
-public struct SearchResultTextMatchesItem: Decodable {
+public struct SearchResultTextMatchesItem: Codable {
     public var fragment: String?
     public var matches: [Match]?
     public var objectType: String?
     public var objectURL: String?
     public var property: String?
 
-    public struct Match: Decodable {
+    public struct Match: Codable {
         public var indices: [Int]?
         public var text: String?
 
@@ -14072,6 +19517,12 @@ public struct SearchResultTextMatchesItem: Decodable {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.indices = try values.decodeIfPresent([Int].self, forKey: "indices")
             self.text = try values.decodeIfPresent(String.self, forKey: "text")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(indices, forKey: "indices")
+            try values.encodeIfPresent(text, forKey: "text")
         }
     }
 
@@ -14083,9 +19534,18 @@ public struct SearchResultTextMatchesItem: Decodable {
         self.objectURL = try values.decodeIfPresent(String.self, forKey: "object_url")
         self.property = try values.decodeIfPresent(String.self, forKey: "property")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(fragment, forKey: "fragment")
+        try values.encodeIfPresent(matches, forKey: "matches")
+        try values.encodeIfPresent(objectType, forKey: "object_type")
+        try values.encodeIfPresent(objectURL, forKey: "object_url")
+        try values.encodeIfPresent(property, forKey: "property")
+    }
 }
 
-public struct CodeSearchResultItem: Decodable {
+public struct CodeSearchResultItem: Codable {
     public var fileSize: Int?
     public var gitURL: URL
     public var htmlURL: URL
@@ -14124,9 +19584,26 @@ public struct CodeSearchResultItem: Decodable {
         self.textMatches = try values.decodeIfPresent(SearchResultTextMatches.self, forKey: "text_matches")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(fileSize, forKey: "file_size")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encodeIfPresent(lastModifiedAt, forKey: "last_modified_at")
+        try values.encodeIfPresent(lineNumbers, forKey: "line_numbers")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(score, forKey: "score")
+        try values.encode(sha, forKey: "sha")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct CommitSearchResultItem: Decodable {
+public struct CommitSearchResultItem: Codable {
     /// Simple User
     public var author: SimpleUser?
     public var commentsURL: URL
@@ -14146,7 +19623,7 @@ public struct CommitSearchResultItem: Decodable {
     public var textMatches: SearchResultTextMatches?
     public var url: URL
 
-    public struct Commit: Decodable {
+    public struct Commit: Codable {
         public var author: Author
         public var commentCount: Int
         /// Git User
@@ -14158,7 +19635,7 @@ public struct CommitSearchResultItem: Decodable {
         public var url: URL
         public var verification: Verification?
 
-        public struct Author: Decodable {
+        public struct Author: Codable {
             public var date: Date
             public var email: String
             public var name: String
@@ -14169,9 +19646,16 @@ public struct CommitSearchResultItem: Decodable {
                 self.email = try values.decode(String.self, forKey: "email")
                 self.name = try values.decode(String.self, forKey: "name")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(date, forKey: "date")
+                try values.encode(email, forKey: "email")
+                try values.encode(name, forKey: "name")
+            }
         }
 
-        public struct Tree: Decodable {
+        public struct Tree: Codable {
             public var sha: String
             public var url: URL
 
@@ -14179,6 +19663,12 @@ public struct CommitSearchResultItem: Decodable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.sha = try values.decode(String.self, forKey: "sha")
                 self.url = try values.decode(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(sha, forKey: "sha")
+                try values.encode(url, forKey: "url")
             }
         }
 
@@ -14192,9 +19682,20 @@ public struct CommitSearchResultItem: Decodable {
             self.url = try values.decode(URL.self, forKey: "url")
             self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(author, forKey: "author")
+            try values.encode(commentCount, forKey: "comment_count")
+            try values.encodeIfPresent(committer, forKey: "committer")
+            try values.encode(message, forKey: "message")
+            try values.encode(tree, forKey: "tree")
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(verification, forKey: "verification")
+        }
     }
 
-    public struct Parent: Decodable {
+    public struct Parent: Codable {
         public var htmlURL: String?
         public var sha: String?
         public var url: String?
@@ -14204,6 +19705,13 @@ public struct CommitSearchResultItem: Decodable {
             self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
             self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -14222,9 +19730,25 @@ public struct CommitSearchResultItem: Decodable {
         self.textMatches = try values.decodeIfPresent(SearchResultTextMatches.self, forKey: "text_matches")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commit, forKey: "commit")
+        try values.encodeIfPresent(committer, forKey: "committer")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(score, forKey: "score")
+        try values.encode(sha, forKey: "sha")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct IssueSearchResultItem: Decodable {
+public struct IssueSearchResultItem: Codable {
     public var activeLockReason: String?
     /// Simple User
     public var assignee: SimpleUser?
@@ -14274,7 +19798,7 @@ public struct IssueSearchResultItem: Decodable {
     /// Simple User
     public var user: SimpleUser?
 
-    public struct Label: Decodable {
+    public struct Label: Codable {
         public var color: String?
         public var isDefault: Bool?
         public var description: String?
@@ -14293,9 +19817,20 @@ public struct IssueSearchResultItem: Decodable {
             self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(color, forKey: "color")
+            try values.encodeIfPresent(isDefault, forKey: "default")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
-    public struct PullRequest: Decodable {
+    public struct PullRequest: Codable {
         public var diffURL: URL?
         public var htmlURL: URL?
         public var mergedAt: Date?
@@ -14309,6 +19844,15 @@ public struct IssueSearchResultItem: Decodable {
             self.mergedAt = try values.decodeIfPresent(Date.self, forKey: "merged_at")
             self.patchURL = try values.decodeIfPresent(URL.self, forKey: "patch_url")
             self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(diffURL, forKey: "diff_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+            try values.encodeIfPresent(patchURL, forKey: "patch_url")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -14349,9 +19893,47 @@ public struct IssueSearchResultItem: Decodable {
         self.url = try values.decode(URL.self, forKey: "url")
         self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encode(comments, forKey: "comments")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(pullRequest, forKey: "pull_request")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(score, forKey: "score")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encodeIfPresent(timelineURL, forKey: "timeline_url")
+        try values.encode(title, forKey: "title")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(user, forKey: "user")
+    }
 }
 
-public struct LabelSearchResultItem: Decodable {
+public struct LabelSearchResultItem: Codable {
     public var color: String
     public var isDefault: Bool
     public var description: String?
@@ -14375,9 +19957,22 @@ public struct LabelSearchResultItem: Decodable {
         self.textMatches = try values.decodeIfPresent(SearchResultTextMatches.self, forKey: "text_matches")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(color, forKey: "color")
+        try values.encode(isDefault, forKey: "default")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(score, forKey: "score")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct RepoSearchResultItem: Decodable {
+public struct RepoSearchResultItem: Codable {
     public var allowAutoMerge: Bool?
     public var allowForking: Bool?
     public var allowMergeCommit: Bool?
@@ -14471,7 +20066,7 @@ public struct RepoSearchResultItem: Decodable {
     public var watchers: Int
     public var watchersCount: Int
 
-    public struct Permissions: Decodable {
+    public struct Permissions: Codable {
         public var isAdmin: Bool
         public var isMaintain: Bool?
         public var isPull: Bool
@@ -14485,6 +20080,15 @@ public struct RepoSearchResultItem: Decodable {
             self.isPull = try values.decode(Bool.self, forKey: "pull")
             self.isPush = try values.decode(Bool.self, forKey: "push")
             self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isAdmin, forKey: "admin")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
         }
     }
 
@@ -14578,9 +20182,100 @@ public struct RepoSearchResultItem: Decodable {
         self.watchers = try values.decode(Int.self, forKey: "watchers")
         self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+        try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+        try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+        try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+        try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+        try values.encode(archiveURL, forKey: "archive_url")
+        try values.encode(isArchived, forKey: "archived")
+        try values.encode(assigneesURL, forKey: "assignees_url")
+        try values.encode(blobsURL, forKey: "blobs_url")
+        try values.encode(branchesURL, forKey: "branches_url")
+        try values.encode(cloneURL, forKey: "clone_url")
+        try values.encode(collaboratorsURL, forKey: "collaborators_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(compareURL, forKey: "compare_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encode(contributorsURL, forKey: "contributors_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(defaultBranch, forKey: "default_branch")
+        try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+        try values.encode(deploymentsURL, forKey: "deployments_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(isDisabled, forKey: "disabled")
+        try values.encode(downloadsURL, forKey: "downloads_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(isFork, forKey: "fork")
+        try values.encode(forks, forKey: "forks")
+        try values.encode(forksCount, forKey: "forks_count")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(fullName, forKey: "full_name")
+        try values.encode(gitCommitsURL, forKey: "git_commits_url")
+        try values.encode(gitRefsURL, forKey: "git_refs_url")
+        try values.encode(gitTagsURL, forKey: "git_tags_url")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(hasDownloads, forKey: "has_downloads")
+        try values.encode(hasIssues, forKey: "has_issues")
+        try values.encode(hasPages, forKey: "has_pages")
+        try values.encode(hasProjects, forKey: "has_projects")
+        try values.encode(hasWiki, forKey: "has_wiki")
+        try values.encodeIfPresent(homepage, forKey: "homepage")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(isTemplate, forKey: "is_template")
+        try values.encode(issueCommentURL, forKey: "issue_comment_url")
+        try values.encode(issueEventsURL, forKey: "issue_events_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(keysURL, forKey: "keys_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encode(languagesURL, forKey: "languages_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+        try values.encode(mergesURL, forKey: "merges_url")
+        try values.encode(milestonesURL, forKey: "milestones_url")
+        try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(notificationsURL, forKey: "notifications_url")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(openIssuesCount, forKey: "open_issues_count")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(isPrivate, forKey: "private")
+        try values.encode(pullsURL, forKey: "pulls_url")
+        try values.encode(pushedAt, forKey: "pushed_at")
+        try values.encode(releasesURL, forKey: "releases_url")
+        try values.encode(score, forKey: "score")
+        try values.encode(size, forKey: "size")
+        try values.encode(sshURL, forKey: "ssh_url")
+        try values.encode(stargazersCount, forKey: "stargazers_count")
+        try values.encode(stargazersURL, forKey: "stargazers_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(subscribersURL, forKey: "subscribers_url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
+        try values.encode(svnURL, forKey: "svn_url")
+        try values.encode(tagsURL, forKey: "tags_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encodeIfPresent(topics, forKey: "topics")
+        try values.encode(treesURL, forKey: "trees_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+        try values.encode(watchers, forKey: "watchers")
+        try values.encode(watchersCount, forKey: "watchers_count")
+    }
 }
 
-public struct TopicSearchResultItem: Decodable {
+public struct TopicSearchResultItem: Codable {
     public var aliases: [Alias]?
     public var createdAt: Date
     public var createdBy: String?
@@ -14599,10 +20294,10 @@ public struct TopicSearchResultItem: Decodable {
     public var textMatches: SearchResultTextMatches?
     public var updatedAt: Date
 
-    public struct Alias: Decodable {
+    public struct Alias: Codable {
         public var topicRelation: TopicRelation?
 
-        public struct TopicRelation: Decodable {
+        public struct TopicRelation: Codable {
             public var id: Int?
             public var name: String?
             public var relationType: String?
@@ -14615,18 +20310,31 @@ public struct TopicSearchResultItem: Decodable {
                 self.relationType = try values.decodeIfPresent(String.self, forKey: "relation_type")
                 self.topicID = try values.decodeIfPresent(Int.self, forKey: "topic_id")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(relationType, forKey: "relation_type")
+                try values.encodeIfPresent(topicID, forKey: "topic_id")
+            }
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.topicRelation = try values.decodeIfPresent(TopicRelation.self, forKey: "topic_relation")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(topicRelation, forKey: "topic_relation")
         }
     }
 
-    public struct RelatedItem: Decodable {
+    public struct RelatedItem: Codable {
         public var topicRelation: TopicRelation?
 
-        public struct TopicRelation: Decodable {
+        public struct TopicRelation: Codable {
             public var id: Int?
             public var name: String?
             public var relationType: String?
@@ -14639,11 +20347,24 @@ public struct TopicSearchResultItem: Decodable {
                 self.relationType = try values.decodeIfPresent(String.self, forKey: "relation_type")
                 self.topicID = try values.decodeIfPresent(Int.self, forKey: "topic_id")
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(relationType, forKey: "relation_type")
+                try values.encodeIfPresent(topicID, forKey: "topic_id")
+            }
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.topicRelation = try values.decodeIfPresent(TopicRelation.self, forKey: "topic_relation")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(topicRelation, forKey: "topic_relation")
         }
     }
 
@@ -14666,9 +20387,29 @@ public struct TopicSearchResultItem: Decodable {
         self.textMatches = try values.decodeIfPresent(SearchResultTextMatches.self, forKey: "text_matches")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(aliases, forKey: "aliases")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(createdBy, forKey: "created_by")
+        try values.encode(isCurated, forKey: "curated")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(displayName, forKey: "display_name")
+        try values.encode(isFeatured, forKey: "featured")
+        try values.encodeIfPresent(logoURL, forKey: "logo_url")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(related, forKey: "related")
+        try values.encodeIfPresent(released, forKey: "released")
+        try values.encodeIfPresent(repositoryCount, forKey: "repository_count")
+        try values.encode(score, forKey: "score")
+        try values.encodeIfPresent(shortDescription, forKey: "short_description")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encode(updatedAt, forKey: "updated_at")
+    }
 }
 
-public struct UserSearchResultItem: Decodable {
+public struct UserSearchResultItem: Codable {
     public var avatarURL: URL
     public var bio: String?
     public var blog: String?
@@ -14742,9 +20483,47 @@ public struct UserSearchResultItem: Decodable {
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(bio, forKey: "bio")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encodeIfPresent(followers, forKey: "followers")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encodeIfPresent(following, forKey: "following")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encodeIfPresent(isHireable, forKey: "hireable")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encodeIfPresent(publicGists, forKey: "public_gists")
+        try values.encodeIfPresent(publicRepos, forKey: "public_repos")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(score, forKey: "score")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encode(type, forKey: "type")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct PrivateUser: Decodable {
+public struct PrivateUser: Codable {
     public var avatarURL: URL
     /// Example: There once was...
     public var bio: String?
@@ -14806,7 +20585,7 @@ public struct PrivateUser: Decodable {
     public var updatedAt: Date
     public var url: URL
 
-    public struct Plan: Decodable {
+    public struct Plan: Codable {
         public var collaborators: Int
         public var name: String
         public var privateRepos: Int
@@ -14818,6 +20597,14 @@ public struct PrivateUser: Decodable {
             self.name = try values.decode(String.self, forKey: "name")
             self.privateRepos = try values.decode(Int.self, forKey: "private_repos")
             self.space = try values.decode(Int.self, forKey: "space")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(collaborators, forKey: "collaborators")
+            try values.encode(name, forKey: "name")
+            try values.encode(privateRepos, forKey: "private_repos")
+            try values.encode(space, forKey: "space")
         }
     }
 
@@ -14866,10 +20653,56 @@ public struct PrivateUser: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(bio, forKey: "bio")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(isBusinessPlus, forKey: "business_plus")
+        try values.encode(collaborators, forKey: "collaborators")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(diskUsage, forKey: "disk_usage")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(followers, forKey: "followers")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(following, forKey: "following")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encodeIfPresent(isHireable, forKey: "hireable")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(ldapDn, forKey: "ldap_dn")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encode(ownedPrivateRepos, forKey: "owned_private_repos")
+        try values.encodeIfPresent(plan, forKey: "plan")
+        try values.encode(privateGists, forKey: "private_gists")
+        try values.encode(publicGists, forKey: "public_gists")
+        try values.encode(publicRepos, forKey: "public_repos")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encode(totalPrivateRepos, forKey: "total_private_repos")
+        try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+        try values.encode(isTwoFactorAuthentication, forKey: "two_factor_authentication")
+        try values.encode(type, forKey: "type")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+    }
 }
 
 /// Secrets for a GitHub Codespace.
-public struct CodespacesSecret: Decodable {
+public struct CodespacesSecret: Codable {
     public var createdAt: Date
     /// The name of the secret.
     ///
@@ -14895,10 +20728,19 @@ public struct CodespacesSecret: Decodable {
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.visibility = try values.decode(Visibility.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(name, forKey: "name")
+        try values.encode(selectedRepositoriesURL, forKey: "selected_repositories_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(visibility, forKey: "visibility")
+    }
 }
 
 /// The public key used for setting user Codespaces' Secrets.
-public struct CodespacesUserPublicKey: Decodable {
+public struct CodespacesUserPublicKey: Codable {
     /// The Base64 encoded public key.
     ///
     /// Example: hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
@@ -14913,9 +20755,15 @@ public struct CodespacesUserPublicKey: Decodable {
         self.key = try values.decode(String.self, forKey: "key")
         self.keyID = try values.decode(String.self, forKey: "key_id")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(key, forKey: "key")
+        try values.encode(keyID, forKey: "key_id")
+    }
 }
 
-public struct Email: Decodable {
+public struct Email: Codable {
     /// Example: octocat@github.com
     public var email: String
     /// Example: true
@@ -14932,10 +20780,18 @@ public struct Email: Decodable {
         self.isVerified = try values.decode(Bool.self, forKey: "verified")
         self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(email, forKey: "email")
+        try values.encode(isPrimary, forKey: "primary")
+        try values.encode(isVerified, forKey: "verified")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
+    }
 }
 
 /// A unique encryption key
-public struct GpgKey: Decodable {
+public struct GpgKey: Codable {
     /// Example: true
     public var canCertify: Bool
     public var canEncryptComms: Bool
@@ -14983,7 +20839,7 @@ public struct GpgKey: Decodable {
     /// ]
     public var subkeys: [Subkey]
 
-    public struct Email: Decodable {
+    public struct Email: Codable {
         public var email: String?
         public var isVerified: Bool?
 
@@ -14992,9 +20848,15 @@ public struct GpgKey: Decodable {
             self.email = try values.decodeIfPresent(String.self, forKey: "email")
             self.isVerified = try values.decodeIfPresent(Bool.self, forKey: "verified")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(email, forKey: "email")
+            try values.encodeIfPresent(isVerified, forKey: "verified")
+        }
     }
 
-    public struct Subkey: Decodable {
+    public struct Subkey: Codable {
         public var canCertify: Bool?
         public var canEncryptComms: Bool?
         public var canEncryptStorage: Bool?
@@ -15025,6 +20887,23 @@ public struct GpgKey: Decodable {
             self.rawKey = try values.decodeIfPresent(String.self, forKey: "raw_key")
             self.subkeys = try values.decodeIfPresent([AnyJSON].self, forKey: "subkeys")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(canCertify, forKey: "can_certify")
+            try values.encodeIfPresent(canEncryptComms, forKey: "can_encrypt_comms")
+            try values.encodeIfPresent(canEncryptStorage, forKey: "can_encrypt_storage")
+            try values.encodeIfPresent(canSign, forKey: "can_sign")
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(emails, forKey: "emails")
+            try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(keyID, forKey: "key_id")
+            try values.encodeIfPresent(primaryKeyID, forKey: "primary_key_id")
+            try values.encodeIfPresent(publicKey, forKey: "public_key")
+            try values.encodeIfPresent(rawKey, forKey: "raw_key")
+            try values.encodeIfPresent(subkeys, forKey: "subkeys")
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -15043,9 +20922,26 @@ public struct GpgKey: Decodable {
         self.rawKey = try values.decodeIfPresent(String.self, forKey: "raw_key")
         self.subkeys = try values.decode([Subkey].self, forKey: "subkeys")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(canCertify, forKey: "can_certify")
+        try values.encode(canEncryptComms, forKey: "can_encrypt_comms")
+        try values.encode(canEncryptStorage, forKey: "can_encrypt_storage")
+        try values.encode(canSign, forKey: "can_sign")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(emails, forKey: "emails")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(keyID, forKey: "key_id")
+        try values.encodeIfPresent(primaryKeyID, forKey: "primary_key_id")
+        try values.encode(publicKey, forKey: "public_key")
+        try values.encodeIfPresent(rawKey, forKey: "raw_key")
+        try values.encode(subkeys, forKey: "subkeys")
+    }
 }
 
-public struct Key: Decodable {
+public struct Key: Codable {
     public var createdAt: Date
     public var id: Int
     public var key: String
@@ -15064,9 +20960,20 @@ public struct Key: Decodable {
         self.url = try values.decode(String.self, forKey: "url")
         self.isVerified = try values.decode(Bool.self, forKey: "verified")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(id, forKey: "id")
+        try values.encode(key, forKey: "key")
+        try values.encode(isReadOnly, forKey: "read_only")
+        try values.encode(title, forKey: "title")
+        try values.encode(url, forKey: "url")
+        try values.encode(isVerified, forKey: "verified")
+    }
 }
 
-public struct MarketplaceAccount: Decodable {
+public struct MarketplaceAccount: Codable {
     public var email: String?
     public var id: Int
     public var login: String
@@ -15085,9 +20992,20 @@ public struct MarketplaceAccount: Decodable {
         self.type = try values.decode(String.self, forKey: "type")
         self.url = try values.decode(URL.self, forKey: "url")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(organizationBillingEmail, forKey: "organization_billing_email")
+        try values.encode(type, forKey: "type")
+        try values.encode(url, forKey: "url")
+    }
 }
 
-public struct UserMarketplacePurchase: Decodable {
+public struct UserMarketplacePurchase: Codable {
     /// Marketplace Account
     public var account: MarketplaceAccount
     /// Example: monthly
@@ -15115,9 +21033,21 @@ public struct UserMarketplacePurchase: Decodable {
         self.unitCount = try values.decodeIfPresent(Int.self, forKey: "unit_count")
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(account, forKey: "account")
+        try values.encode(billingCycle, forKey: "billing_cycle")
+        try values.encodeIfPresent(freeTrialEndsOn, forKey: "free_trial_ends_on")
+        try values.encodeIfPresent(nextBillingDate, forKey: "next_billing_date")
+        try values.encode(isOnFreeTrial, forKey: "on_free_trial")
+        try values.encode(plan, forKey: "plan")
+        try values.encodeIfPresent(unitCount, forKey: "unit_count")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+    }
 }
 
-public struct StarredRepository: Decodable {
+public struct StarredRepository: Codable {
     /// Repository
     ///
     /// A git repository
@@ -15129,12 +21059,18 @@ public struct StarredRepository: Decodable {
         self.repo = try values.decode(Repository.self, forKey: "repo")
         self.starredAt = try values.decode(Date.self, forKey: "starred_at")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(repo, forKey: "repo")
+        try values.encode(starredAt, forKey: "starred_at")
+    }
 }
 
-public struct Hovercard: Decodable {
+public struct Hovercard: Codable {
     public var contexts: [Context]
 
-    public struct Context: Decodable {
+    public struct Context: Codable {
         public var message: String
         public var octicon: String
 
@@ -15143,15 +21079,26 @@ public struct Hovercard: Decodable {
             self.message = try values.decode(String.self, forKey: "message")
             self.octicon = try values.decode(String.self, forKey: "octicon")
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(message, forKey: "message")
+            try values.encode(octicon, forKey: "octicon")
+        }
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.contexts = try values.decode([Context].self, forKey: "contexts")
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(contexts, forKey: "contexts")
+    }
 }
 
-public struct KeySimple: Decodable {
+public struct KeySimple: Codable {
     public var id: Int
     public var key: String
 
@@ -15159,6 +21106,12 @@ public struct KeySimple: Decodable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.id = try values.decode(Int.self, forKey: "id")
         self.key = try values.decode(String.self, forKey: "key")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(key, forKey: "key")
     }
 }
 

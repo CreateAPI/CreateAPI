@@ -5,7 +5,7 @@
 
 import Foundation
 
- struct Order: Decodable {
+ struct Order: Codable {
     var isComplete: Bool?
     var id: Int?
     var petID: Int?
@@ -30,9 +30,19 @@ import Foundation
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isComplete, forKey: "complete")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(petID, forKey: "petId")
+        try values.encodeIfPresent(quantity, forKey: "quantity")
+        try values.encodeIfPresent(shipDate, forKey: "shipDate")
+        try values.encodeIfPresent(status, forKey: "status")
+    }
 }
 
- struct Category: Decodable {
+ struct Category: Codable {
     var id: Int?
     var name: String?
 
@@ -41,9 +51,15 @@ import Foundation
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+    }
 }
 
- struct User: Decodable {
+ struct User: Codable {
     var email: String?
     var firstName: String?
     var id: Int?
@@ -65,9 +81,21 @@ import Foundation
         self.userStatus = try values.decodeIfPresent(Int.self, forKey: "userStatus")
         self.username = try values.decodeIfPresent(String.self, forKey: "username")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(firstName, forKey: "firstName")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(lastName, forKey: "lastName")
+        try values.encodeIfPresent(password, forKey: "password")
+        try values.encodeIfPresent(phone, forKey: "phone")
+        try values.encodeIfPresent(userStatus, forKey: "userStatus")
+        try values.encodeIfPresent(username, forKey: "username")
+    }
 }
 
- struct Tag: Decodable {
+ struct Tag: Codable {
     var id: Int?
     var name: String?
 
@@ -76,9 +104,15 @@ import Foundation
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+    }
 }
 
- struct Pet: Decodable {
+ struct Pet: Codable {
     var category: Category?
     var id: Int?
     /// Example: doggie
@@ -104,9 +138,19 @@ import Foundation
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
         self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(photoURLs, forKey: "photoUrls")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(tags, forKey: "tags")
+    }
 }
 
- struct APIResponse: Decodable {
+ struct APIResponse: Codable {
     var code: Int?
     var message: String?
     var type: String?
@@ -117,20 +161,32 @@ import Foundation
         self.message = try values.decodeIfPresent(String.self, forKey: "message")
         self.type = try values.decodeIfPresent(String.self, forKey: "type")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(code, forKey: "code")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(type, forKey: "type")
+    }
 }
 
 /// Model for testing reserved words
- struct Return: Decodable {
+ struct Return: Codable {
     var `return`: Int?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.return = try values.decodeIfPresent(Int.self, forKey: "return")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(`return`, forKey: "return")
+    }
 }
 
 /// Model for testing model name same as property name
- struct Name: Decodable {
+ struct Name: Codable {
     var _123Number: Int?
     var name: Int
     var property: String?
@@ -143,10 +199,18 @@ import Foundation
         self.property = try values.decodeIfPresent(String.self, forKey: "property")
         self.snakeCase = try values.decodeIfPresent(Int.self, forKey: "snake_case")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(_123Number, forKey: "123Number")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(property, forKey: "property")
+        try values.encodeIfPresent(snakeCase, forKey: "snake_case")
+    }
 }
 
 /// Model for testing model name starting with number
- struct _200Response: Decodable {
+ struct _200Response: Codable {
     var `class`: String?
     var name: Int?
 
@@ -155,19 +219,30 @@ import Foundation
         self.class = try values.decodeIfPresent(String.self, forKey: "class")
         self.name = try values.decodeIfPresent(Int.self, forKey: "name")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(`class`, forKey: "class")
+        try values.encodeIfPresent(name, forKey: "name")
+    }
 }
 
 /// Model for testing model with "_class" property
- struct ClassModel: Decodable {
+ struct ClassModel: Codable {
     var `class`: String?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.class = try values.decodeIfPresent(String.self, forKey: "_class")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(`class`, forKey: "_class")
+    }
 }
 
- struct Dog: Decodable {
+ struct Dog: Codable {
     var animal: Animal
     var breed: String?
 
@@ -178,7 +253,7 @@ import Foundation
     }
 }
 
- struct Cat: Decodable {
+ struct Cat: Codable {
     var animal: Animal
     var isDeclawed: Bool?
 
@@ -189,7 +264,7 @@ import Foundation
     }
 }
 
- struct Animal: Decodable {
+ struct Animal: Codable {
     var className: String
     var color: String?
 
@@ -198,9 +273,15 @@ import Foundation
         self.className = try values.decode(String.self, forKey: "className")
         self.color = try values.decodeIfPresent(String.self, forKey: "color")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(className, forKey: "className")
+        try values.encodeIfPresent(color, forKey: "color")
+    }
 }
 
- struct FormatTest: Decodable {
+ struct FormatTest: Codable {
     var binary: String?
     var byte: String
     var date: String
@@ -231,6 +312,23 @@ import Foundation
         self.string = try values.decodeIfPresent(String.self, forKey: "string")
         self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(binary, forKey: "binary")
+        try values.encode(byte, forKey: "byte")
+        try values.encode(date, forKey: "date")
+        try values.encodeIfPresent(dateTime, forKey: "dateTime")
+        try values.encodeIfPresent(double, forKey: "double")
+        try values.encodeIfPresent(float, forKey: "float")
+        try values.encodeIfPresent(int32, forKey: "int32")
+        try values.encodeIfPresent(int64, forKey: "int64")
+        try values.encodeIfPresent(integer, forKey: "integer")
+        try values.encode(number, forKey: "number")
+        try values.encode(password, forKey: "password")
+        try values.encodeIfPresent(string, forKey: "string")
+        try values.encodeIfPresent(uuid, forKey: "uuid")
+    }
 }
 
 enum EnumClass: String, Codable, CaseIterable {
@@ -239,7 +337,7 @@ enum EnumClass: String, Codable, CaseIterable {
     case xyz = "(xyz)"
 }
 
- struct EnumTest: Decodable {
+ struct EnumTest: Codable {
     var enumInteger: Int?
     var enumNumber: Double?
     var enumString: EnumString?
@@ -257,9 +355,17 @@ enum EnumClass: String, Codable, CaseIterable {
         self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
         self.outerEnum = try values.decodeIfPresent(OuterEnum.self, forKey: "outerEnum")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(enumInteger, forKey: "enum_integer")
+        try values.encodeIfPresent(enumNumber, forKey: "enum_number")
+        try values.encodeIfPresent(enumString, forKey: "enum_string")
+        try values.encodeIfPresent(outerEnum, forKey: "outerEnum")
+    }
 }
 
- struct AdditionalPropertiesClass: Decodable {
+ struct AdditionalPropertiesClass: Codable {
     var mapOfMapProperty: [String: [String: String]]?
     var mapProperty: [String: String]?
 
@@ -268,9 +374,15 @@ enum EnumClass: String, Codable, CaseIterable {
         self.mapOfMapProperty = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_of_map_property")
         self.mapProperty = try values.decodeIfPresent([String: String].self, forKey: "map_property")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(mapOfMapProperty, forKey: "map_of_map_property")
+        try values.encodeIfPresent(mapProperty, forKey: "map_property")
+    }
 }
 
- struct MixedPropertiesAndAdditionalPropertiesClass: Decodable {
+ struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
     var dateTime: Date?
     var map: [String: Animal]?
     var uuid: String?
@@ -281,27 +393,44 @@ enum EnumClass: String, Codable, CaseIterable {
         self.map = try values.decodeIfPresent([String: Animal].self, forKey: "map")
         self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(dateTime, forKey: "dateTime")
+        try values.encodeIfPresent(map, forKey: "map")
+        try values.encodeIfPresent(uuid, forKey: "uuid")
+    }
 }
 
- struct List: Decodable {
+ struct List: Codable {
     var _123List: String?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self._123List = try values.decodeIfPresent(String.self, forKey: "123-list")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(_123List, forKey: "123-list")
+    }
 }
 
- struct Client: Decodable {
+ struct Client: Codable {
     var client: String?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.client = try values.decodeIfPresent(String.self, forKey: "client")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(client, forKey: "client")
+    }
 }
 
- struct ReadOnlyFirst: Decodable {
+ struct ReadOnlyFirst: Codable {
     var bar: String?
     var baz: String?
 
@@ -310,9 +439,15 @@ enum EnumClass: String, Codable, CaseIterable {
         self.bar = try values.decodeIfPresent(String.self, forKey: "bar")
         self.baz = try values.decodeIfPresent(String.self, forKey: "baz")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(bar, forKey: "bar")
+        try values.encodeIfPresent(baz, forKey: "baz")
+    }
 }
 
- struct HasOnlyReadOnly: Decodable {
+ struct HasOnlyReadOnly: Codable {
     var bar: String?
     var foo: String?
 
@@ -321,9 +456,15 @@ enum EnumClass: String, Codable, CaseIterable {
         self.bar = try values.decodeIfPresent(String.self, forKey: "bar")
         self.foo = try values.decodeIfPresent(String.self, forKey: "foo")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(bar, forKey: "bar")
+        try values.encodeIfPresent(foo, forKey: "foo")
+    }
 }
 
- struct Capitalization: Decodable {
+ struct Capitalization: Codable {
     /// Name of the pet
     var attName: String?
     var capitalCamel: String?
@@ -341,9 +482,19 @@ enum EnumClass: String, Codable, CaseIterable {
         self.smallCamel = try values.decodeIfPresent(String.self, forKey: "smallCamel")
         self.smallSnake = try values.decodeIfPresent(String.self, forKey: "small_Snake")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(attName, forKey: "ATT_NAME")
+        try values.encodeIfPresent(capitalCamel, forKey: "CapitalCamel")
+        try values.encodeIfPresent(capitalSnake, forKey: "Capital_Snake")
+        try values.encodeIfPresent(sCAETHFlowPoints, forKey: "SCA_ETH_Flow_Points")
+        try values.encodeIfPresent(smallCamel, forKey: "smallCamel")
+        try values.encodeIfPresent(smallSnake, forKey: "small_Snake")
+    }
 }
 
- struct MapTest: Decodable {
+ struct MapTest: Codable {
     var mapMapOfString: [String: [String: String]]?
     var mapOfEnumString: [String: MapOfEnumStringItem]?
 
@@ -357,9 +508,15 @@ enum EnumClass: String, Codable, CaseIterable {
         self.mapMapOfString = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_map_of_string")
         self.mapOfEnumString = try values.decodeIfPresent([String: MapOfEnumStringItem].self, forKey: "map_of_enum_string")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(mapMapOfString, forKey: "map_map_of_string")
+        try values.encodeIfPresent(mapOfEnumString, forKey: "map_of_enum_string")
+    }
 }
 
- struct ArrayTest: Decodable {
+ struct ArrayTest: Codable {
     var arrayArrayOfInteger: [[Int]]?
     var arrayArrayOfModel: [[ReadOnlyFirst]]?
     var arrayOfString: [String]?
@@ -370,36 +527,58 @@ enum EnumClass: String, Codable, CaseIterable {
         self.arrayArrayOfModel = try values.decodeIfPresent([[ReadOnlyFirst]].self, forKey: "array_array_of_model")
         self.arrayOfString = try values.decodeIfPresent([String].self, forKey: "array_of_string")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arrayArrayOfInteger, forKey: "array_array_of_integer")
+        try values.encodeIfPresent(arrayArrayOfModel, forKey: "array_array_of_model")
+        try values.encodeIfPresent(arrayOfString, forKey: "array_of_string")
+    }
 }
 
- struct NumberOnly: Decodable {
+ struct NumberOnly: Codable {
     var justNumber: Double?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.justNumber = try values.decodeIfPresent(Double.self, forKey: "JustNumber")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(justNumber, forKey: "JustNumber")
+    }
 }
 
- struct ArrayOfNumberOnly: Decodable {
+ struct ArrayOfNumberOnly: Codable {
     var arrayNumber: [Double]?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.arrayNumber = try values.decodeIfPresent([Double].self, forKey: "ArrayNumber")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arrayNumber, forKey: "ArrayNumber")
+    }
 }
 
- struct ArrayOfArrayOfNumberOnly: Decodable {
+ struct ArrayOfArrayOfNumberOnly: Codable {
     var arrayArrayNumber: [[Double]]?
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.arrayArrayNumber = try values.decodeIfPresent([[Double]].self, forKey: "ArrayArrayNumber")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arrayArrayNumber, forKey: "ArrayArrayNumber")
+    }
 }
 
- struct EnumArrays: Decodable {
+ struct EnumArrays: Codable {
     var arrayEnum: [ArrayEnumItem]?
     var justSymbol: JustSymbol?
 
@@ -418,6 +597,12 @@ enum EnumClass: String, Codable, CaseIterable {
         self.arrayEnum = try values.decodeIfPresent([ArrayEnumItem].self, forKey: "array_enum")
         self.justSymbol = try values.decodeIfPresent(JustSymbol.self, forKey: "just_symbol")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arrayEnum, forKey: "array_enum")
+        try values.encodeIfPresent(justSymbol, forKey: "just_symbol")
+    }
 }
 
 enum OuterEnum: String, Codable, CaseIterable {
@@ -426,16 +611,16 @@ enum OuterEnum: String, Codable, CaseIterable {
     case delivered
 }
 
- struct ContainerA: Decodable {
+ struct ContainerA: Codable {
     var child: Child?
     var refChild: AnyJSON
 
-     struct Child: Decodable {
+     struct Child: Codable {
         var child: Child
         var `enum`: Enum
         var renameMe: String
 
-         struct Child: Decodable {
+         struct Child: Codable {
             var `enum`: Enum
             var renameMe: String
 
@@ -449,6 +634,12 @@ enum OuterEnum: String, Codable, CaseIterable {
                 self.enum = try values.decode(Enum.self, forKey: "enum")
                 self.renameMe = try values.decode(String.self, forKey: "rename-me")
             }
+
+            func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(`enum`, forKey: "enum")
+                try values.encode(renameMe, forKey: "rename-me")
+            }
         }
 
         enum Enum: String, Codable, CaseIterable {
@@ -461,6 +652,13 @@ enum OuterEnum: String, Codable, CaseIterable {
             self.child = try values.decode(Child.self, forKey: "child")
             self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(child, forKey: "child")
+            try values.encode(`enum`, forKey: "enum")
+            try values.encode(renameMe, forKey: "rename-me")
         }
     }
 
@@ -469,17 +667,23 @@ enum OuterEnum: String, Codable, CaseIterable {
         self.child = try values.decodeIfPresent(Child.self, forKey: "child")
         self.refChild = try values.decode(AnyJSON.self, forKey: "refChild")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(child, forKey: "child")
+        try values.encode(refChild, forKey: "refChild")
+    }
 }
 
- struct ContainerB: Decodable {
+ struct ContainerB: Codable {
     var child: Child
 
-     struct Child: Decodable {
+     struct Child: Codable {
         var child: Child
         var `enum`: Enum
         var renameMe: String
 
-         struct Child: Decodable {
+         struct Child: Codable {
             var `enum`: Enum
             var renameMe: String
 
@@ -492,6 +696,12 @@ enum OuterEnum: String, Codable, CaseIterable {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.enum = try values.decode(Enum.self, forKey: "enum")
                 self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(`enum`, forKey: "enum")
+                try values.encode(renameMe, forKey: "rename-me")
             }
         }
 
@@ -506,18 +716,30 @@ enum OuterEnum: String, Codable, CaseIterable {
             self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
         }
+
+        func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(child, forKey: "child")
+            try values.encode(`enum`, forKey: "enum")
+            try values.encode(renameMe, forKey: "rename-me")
+        }
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.child = try values.decode(Child.self, forKey: "child")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(child, forKey: "child")
+    }
 }
 
- struct ContainerC: Decodable {
+ struct ContainerC: Codable {
     var child: Child
 
-     struct Child: Decodable {
+     struct Child: Codable {
         var `enum`: Enum
         var renameMe: String
 
@@ -531,11 +753,22 @@ enum OuterEnum: String, Codable, CaseIterable {
             self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
         }
+
+        func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(`enum`, forKey: "enum")
+            try values.encode(renameMe, forKey: "rename-me")
+        }
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.child = try values.decode(Child.self, forKey: "child")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(child, forKey: "child")
     }
 }
 

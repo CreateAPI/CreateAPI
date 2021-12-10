@@ -206,7 +206,8 @@ extension Generator {
         }
         var parameters: [String] = []
         if hasBody(method) {
-            parameters.append("_ body: \(try makeRequestBody(for: operation))")
+            let bodyType = try makeRequestBodyType(for: operation, context: context)
+            parameters.append("_ body: \(bodyType)")
         }
         var call: [String] = ["path"]
         if hasBody(method) {
@@ -229,7 +230,7 @@ extension Generator {
     // TODO: Add "image*" support
     // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
-    private func makeRequestBody(for operation: OpenAPI.Operation) throws -> String {
+    private func makeRequestBodyType(for operation: OpenAPI.Operation, context: Context) throws -> String {
         guard let requestBody = operation.requestBody else {
             // TODO: Is is the correct handling?
             throw GeneratorError("ERROR: Request body is missing")
@@ -248,16 +249,19 @@ extension Generator {
                 // TODO: Add description
                 // TODO: Parse example
                 // TODO: Make sure this is correct
+                let schema: JSONSchema
                 switch content.schema {
                 case .a(let reference):
-                    // TODO: what about nested types?
-                    return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
-                case .b(let schema):
-                    // TODO: what about nested types?
-                    return try makeProperty(key: "response", schema: schema, isRequired: true, in: Context(parents: [])).type
+                    schema = JSONSchema.reference(reference)
+                case .b(let value):
+                    schema = value
                 default:
                     throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
                 }
+                // TODO: This should be resused
+                let type = try makeProperty(key: "response", schema: schema, isRequired: true, in: Context(parents: [])).type
+                setNeedsEncodable(for: TypeName(processedRawValue: type))
+                return addNamespaceIfNeeded(for: type, context: context)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
             }
@@ -276,8 +280,9 @@ extension Generator {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
-                    // TODO: what about nested types?
-                    return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    setNeedsEncodable(for: TypeName(processedRawValue: type))
+                    return addNamespaceIfNeeded(for: type, context: context)
                 case .b(let schema):
                     throw GeneratorError("ERROR: response inline scheme not handled \(operation.description ?? "")")
                 default:
@@ -306,12 +311,13 @@ extension Generator {
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
+    // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
     private func makeResponse(for response: Response, context: Context) throws -> String {
         switch response {
         case .a(let reference):
             switch reference {
             case .internal(let reference):
-                return reference.name ?? "Void"
+                throw GeneratorError("Responses references are not supported")
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
@@ -323,12 +329,8 @@ extension Generator {
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
-                    var type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
-                    // TODO: Add an option disable disambiguation or add namespace for types
-                    if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.package {
-                        type = "\(ModuleName(package, options: options)).\(type)"
-                    }
-                    return type
+                    let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    return addNamespaceIfNeeded(for: type, context: context)
                 case .b(let schema):
                     throw GeneratorError("ERROR: response inline scheme not handler")
                 default:
@@ -338,6 +340,15 @@ extension Generator {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
         }
+    }
+    
+    // TODO: Fix generating too many namespaces. e.g. see `public func get() -> Request<edgecases_default.Order> {` in edgecases-default
+    private func addNamespaceIfNeeded(for type: String, context: Context) -> String {
+        // TODO: Add an option disable disambiguation or add namespace for types
+        if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.package {
+            return "\(ModuleName(package, options: options)).\(type)"
+        }
+        return type
     }
     
     // TODO: Add support for enums
@@ -379,7 +390,7 @@ extension Generator {
         }
 
         setHTTPHeadersDependencyNeeded()
-        return templates.headers(name: method.capitalizingFirstLetter() + "Headers", contents: contents.joined(separator: ",\n"))
+        return templates.headers(name: method.capitalizingFirstLetter() + "Headers", contents: contents.joined(separator: "\n"))
     }
 
     private func makeType(_ string: String) -> TypeName {

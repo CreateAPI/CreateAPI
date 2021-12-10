@@ -12,6 +12,7 @@ import GrammaticalNumber
 // TODO: New APIs in spec for renams
 // TODO: Rename enums as separate properrty
 // TODO: Add an option to add to namespace
+// TODO: Add an option to generate Encodable for all cases
 
 // TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
@@ -25,7 +26,6 @@ import GrammaticalNumber
 // TODO: anyOf should be class or struct?
 // TODO: Add an option to skip types
 
-// TODO: Add Encodable support
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init

@@ -6,15 +6,18 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Generate Encodable/Decodable only when needed
+
 final class Generator {
     let spec: OpenAPI.Document
     let options: GenerateOptions
     let arguments: GenerateArguments
     let templates: Templates
     
-    // Schemes
+    // State collected during generation
     var isAnyJSONUsed = false
     var isHTTPHeadersDependencyNeeded = false
+    var needsEncodable = Set<TypeName>()
     let lock = NSLock()
     
     private var startTime: CFAbsoluteTime?
@@ -210,9 +213,19 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         
-        // Generate initializer
-        if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
-            contents.append(templates.initFromDecoder(properties: properties))
+        let protocols = getProtocols(for: name)
+        
+        if protocols.contains("Codable") || protocols.contains("Decodable") {
+            // Generate init with cocde
+            if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
+                contents.append(templates.initFromDecoder(properties: properties))
+            }
+        }
+        
+        if protocols.contains("Codable") || protocols.contains("Encodable") {
+            if !properties.isEmpty && options.schemes.isGeneratingDecode {
+                contents.append(templates.encode(properties: properties))
+            }
         }
         
         // TODO: Add this an an options
@@ -233,8 +246,28 @@ extension Generator {
         
         
         var output = templates.comments(for: info, name: name.rawValue)
-        output += templates.entity(name: name, contents: contents)
+        output += makeEntity(name: name, contents: contents)
         return output
+    }
+    
+    // TODO: Simplify
+    private func getProtocols(for type: TypeName) -> Set<String> {
+        var protocols = options.schemes.adoptedProtocols
+        let needsEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable"))
+        if !needsEncodable {
+            if protocols.contains("Codable") {
+                protocols.remove("Codable")
+                protocols.insert("Decodable")
+            } else {
+                protocols.remove("Encodable")
+            }
+        }
+        return protocols
+    }
+    
+    private func makeEntity(name: TypeName, contents: [String]) -> String {
+        let protocols = getProtocols(for: name).sorted()
+        return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
     private func makeProperties(for object: JSONSchema.ObjectContext, context: Context) -> [Property] {
@@ -425,7 +458,7 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         contents.append(templates.initFromDecoderAnyOf(properties: properties))
-        return templates.entity(name: name, contents: contents)
+        return makeEntity(name: name, contents: contents)
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
@@ -454,7 +487,7 @@ extension Generator {
         }.joined(separator: "\n")
         contents.append(templates.initFromDecoder(contents: decoderContents))
         
-        return templates.entity(name: name, contents: contents)
+        return makeEntity(name: name, contents: contents)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {
@@ -506,7 +539,7 @@ extension Generator {
         TypeName(rawValue, options: options)
     }
     
-    // MARK: Helpers
+    // MARK: State
     
     func setAnyJsonNeeded() {
         lock.lock()
@@ -517,6 +550,12 @@ extension Generator {
     func setHTTPHeadersDependencyNeeded() {
         lock.lock()
         isHTTPHeadersDependencyNeeded = true
+        lock.unlock()
+    }
+    
+    func setNeedsEncodable(for type: TypeName) {
+        lock.lock()
+        needsEncodable.insert(type)
         lock.unlock()
     }
 }

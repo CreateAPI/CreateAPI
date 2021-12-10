@@ -526,7 +526,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         }
 
         /// Set allowed actions for an enterprise
-        public func put(_ body: SelectedActions) -> Request<Void> {
+        public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
     }
@@ -1551,7 +1551,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         }
 
         /// Set allowed actions for an organization
-        public func put(_ body: SelectedActions) -> Request<Void> {
+        public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
     }
@@ -3223,8 +3223,8 @@ extension Paths {
         }
 
         public enum GetHeaders {
-            public static let rateLimitLimit = HTTPHeader<Int>(field: "X-RateLimit-Limit"),
-            public static let rateLimitRemaining = HTTPHeader<Int>(field: "X-RateLimit-Remaining"),
+            public static let rateLimitLimit = HTTPHeader<Int>(field: "X-RateLimit-Limit")
+            public static let rateLimitRemaining = HTTPHeader<Int>(field: "X-RateLimit-Remaining")
             public static let rateLimitReset = HTTPHeader<Int>(field: "X-RateLimit-Reset")
         }
     }
@@ -3435,7 +3435,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         }
 
         /// Set allowed actions for a repository
-        public func put(_ body: SelectedActions) -> Request<Void> {
+        public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
     }
@@ -7718,11 +7718,6 @@ extension Paths.User.Codespaces {
         /// Get a codespace for the authenticated user
         public func get() -> Request<Codespace> {
             .get(path)
-        }
-
-        /// Delete a codespace for the authenticated user
-        public func delete() -> Request<accepted> {
-            .delete(path)
         }
     }
 }

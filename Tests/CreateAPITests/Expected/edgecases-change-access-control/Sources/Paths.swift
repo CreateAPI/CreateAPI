@@ -18,12 +18,12 @@ extension Paths {
         let path: String
 
         /// Add a new pet to the store
-        func post(_ body: Pet) -> Request<Void> {
+        func post(_ body: edgecases_change_access_control.Pet) -> Request<Void> {
             .post(path, body: body)
         }
 
         /// Update an existing pet
-        func put(_ body: Pet) -> Request<Void> {
+        func put(_ body: edgecases_change_access_control.Pet) -> Request<Void> {
             .put(path, body: body)
         }
     }
@@ -123,7 +123,7 @@ extension Paths.Store {
         let path: String
 
         /// Place an order for a pet
-        func post(_ body: Order) -> Request<edgecases_change_access_control.Order> {
+        func post(_ body: edgecases_change_access_control.Order) -> Request<edgecases_change_access_control.Order> {
             .post(path, body: body)
         }
     }
@@ -160,7 +160,7 @@ extension Paths {
         let path: String
 
         /// Create user
-        func post(_ body: User) -> Request<Void> {
+        func post(_ body: edgecases_change_access_control.User) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -242,7 +242,7 @@ extension Paths.User {
         }
 
         /// Updated user
-        func put(_ body: User) -> Request<Void> {
+        func put(_ body: edgecases_change_access_control.User) -> Request<Void> {
             .put(path, body: body)
         }
 

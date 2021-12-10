@@ -18,12 +18,12 @@ extension Paths {
     public let path: String
 
     /// Add a new pet to the store
-    public func post(_ body: Pet) -> Request<Void> {
+    public func post(_ body: edgecases_indent_with_two_width_spaces.Pet) -> Request<Void> {
       .post(path, body: body)
     }
 
     /// Update an existing pet
-    public func put(_ body: Pet) -> Request<Void> {
+    public func put(_ body: edgecases_indent_with_two_width_spaces.Pet) -> Request<Void> {
       .put(path, body: body)
     }
   }
@@ -123,7 +123,7 @@ extension Paths.Store {
     public let path: String
 
     /// Place an order for a pet
-    public func post(_ body: Order) -> Request<edgecases_indent_with_two_width_spaces.Order> {
+    public func post(_ body: edgecases_indent_with_two_width_spaces.Order) -> Request<edgecases_indent_with_two_width_spaces.Order> {
       .post(path, body: body)
     }
   }
@@ -160,7 +160,7 @@ extension Paths {
     public let path: String
 
     /// Create user
-    public func post(_ body: User) -> Request<Void> {
+    public func post(_ body: edgecases_indent_with_two_width_spaces.User) -> Request<Void> {
       .post(path, body: body)
     }
   }
@@ -242,7 +242,7 @@ extension Paths.User {
     }
 
     /// Updated user
-    public func put(_ body: User) -> Request<Void> {
+    public func put(_ body: edgecases_indent_with_two_width_spaces.User) -> Request<Void> {
       .put(path, body: body)
     }
 

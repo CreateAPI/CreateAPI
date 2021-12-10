@@ -44,12 +44,12 @@ final class Templates {
     ///     public struct <name>: Decodable {
     ///         <contents>
     ///     }
-    func entity(name: TypeName, contents: [String]) -> String {
+    func entity(name: TypeName, contents: [String], protocols: [String]) -> String {
         let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
         let type = isStruct ? "struct" : (options.schemes.isMakingClassesFinal ? "final class" : "class")
         let lhs = [options.access, type, name.rawValue]
             .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.schemes.baseClass] + options.schemes.adoptedProtocols)
+        let rhs = ([isStruct ? nil : options.schemes.baseClass] + protocols)
             .compactMap { $0 }.joined(separator: ", ")
 
         return """
@@ -90,7 +90,7 @@ final class Templates {
         """
     }
     
-    // MARK: Decoding
+    // MARK: Decodable
     
     func decode(properties: [Property]) -> String {
         properties.map(decode).joined(separator: "\n")
@@ -156,6 +156,22 @@ final class Templates {
         return """
         \(access)init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
+        \(contents.indented)
+        }
+        """
+    }
+    
+    // MARK: Encodable
+    
+    func encode(properties: [Property]) -> String {
+        let contents = properties.map {
+            let encode = $0.isOptional ? "encodeIfPresent" : "encode"
+            return "try values.\(encode)(\($0.name), forKey: \"\($0.key)\")"
+        }.joined(separator: "\n")
+        
+        return """
+        \(access)func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
         \(contents.indented)
         }
         """

@@ -84,6 +84,7 @@ struct Generate: ParsableCommand {
         let options = try makeOptions(at: config)
 
         let generator = Generator(spec: spec, options: options, arguments: arguments)
+        // IMPORTANT: Paths needs to be generated before schemes.
         let paths = generator.paths()
         let schemas = generator.schemes()
         

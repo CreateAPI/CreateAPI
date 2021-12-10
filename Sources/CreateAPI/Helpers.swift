@@ -138,7 +138,7 @@ protocol DeclarationName: CustomStringConvertible {}
 /// A camel-case  type name.
 ///
 /// Using these types add type-safety and allows the client to avoid redundant computations.
-struct TypeName: CustomStringConvertible, DeclarationName {
+struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
         
     init(_ rawValue: String, options: GenerateOptions) {

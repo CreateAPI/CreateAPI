@@ -8,20 +8,38 @@ import Foundation
 /// A pet title
 ///
 /// A pet description
-public struct Pet: Decodable {
+public struct Pet: Codable {
     public var id: Int
     /// Example: Buddy
     public var name: String
     public var tag: String?
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(tag, forKey: "tag")
+    }
 }
 
-public struct Store: Decodable {
+public struct Store: Codable {
     public var pets: [Pet]
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(pets, forKey: "pets")
+    }
 }
 
-public struct Error: Decodable {
+public struct Error: Codable {
     public var code: Int
     public var message: String
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(code, forKey: "code")
+        try values.encode(message, forKey: "message")
+    }
 }
 
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
