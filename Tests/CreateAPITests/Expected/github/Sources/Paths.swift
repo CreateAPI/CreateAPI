@@ -1911,7 +1911,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         public let path: String
 
         /// Get an external group
-        public func get() -> Request<ExternalGroup> {
+        public func get() -> Request<github.ExternalGroup> {
             .get(path)
         }
     }

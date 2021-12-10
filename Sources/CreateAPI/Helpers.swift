@@ -210,6 +210,18 @@ struct PropertyName: CustomStringConvertible, DeclarationName {
     }
 }
 
+struct ModuleName: CustomStringConvertible {
+    let rawValue: String
+        
+    init(_ rawValue: String, options: GenerateOptions) {
+        self.rawValue = rawValue.replacingOccurrences(of: "-", with: "_")
+    }
+    
+    var description: String {
+        rawValue
+    }
+}
+
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 

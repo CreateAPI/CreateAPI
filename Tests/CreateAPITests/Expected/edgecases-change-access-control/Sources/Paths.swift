@@ -65,7 +65,7 @@ extension Paths.Pet {
         let path: String
 
         /// Find pet by ID
-        func get() -> Request<Pet> {
+        func get() -> Request<edgecases_change_access_control.Pet> {
             .get(path)
         }
 
@@ -139,7 +139,7 @@ extension Paths.Store.Order {
         let path: String
 
         /// Find purchase order by ID
-        func get() -> Request<Order> {
+        func get() -> Request<edgecases_change_access_control.Order> {
             .get(path)
         }
 
@@ -237,7 +237,7 @@ extension Paths.User {
         let path: String
 
         /// Get user by user name
-        func get() -> Request<User> {
+        func get() -> Request<edgecases_change_access_control.User> {
             .get(path)
         }
 

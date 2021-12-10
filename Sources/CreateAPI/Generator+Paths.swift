@@ -73,7 +73,8 @@ extension Generator {
                 let isParameter = component.starts(with: "{")
                 let stat = isTopLevel ? "static " : ""
                 
-                let extensionOf = ([options.paths.namespace] + components.dropLast().map(makeType)).joined(separator: ".")
+                let parents = Array(components.dropLast().map(makeType))
+                let extensionOf = ([options.paths.namespace] + parents).joined(separator: ".")
 
                 // TODO: percent-encode path?
                 
@@ -90,9 +91,10 @@ extension Generator {
                         \(access)let path: String\n
                 """
                 
+                let context = Context(parents: parents.map(TypeName.init(processedRawValue:)))
                 if isLast {
                     generatedType += """
-                    \n\(makeMethods(for: path.value))\n
+                    \n\(makeMethods(for: path.value, context: context))\n
                     """
                 }
                 
@@ -101,7 +103,7 @@ extension Generator {
                 """
                 
                 if isParameter {
-                    let parameter = PropertyName(component, options: .init())
+                    let parameter = PropertyName(component, options: options)
                     output += """
                     extension \(extensionOf) {
                         \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
@@ -114,7 +116,7 @@ extension Generator {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat)var \(PropertyName(type, options: .init())): \(type) {
+                        \(access)\(stat)var \(PropertyName(type, options: options)): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                     
@@ -153,16 +155,16 @@ extension Generator {
     }
     
     // TODO: Add remaining methods
-    private func makeMethods(for item: OpenAPI.PathItem) -> String {
+    private func makeMethods(for item: OpenAPI.PathItem, context: Context) -> String {
         [
-            item.get.flatMap { makeMethod(for: $0, method: "get") },
-            item.post.flatMap { makeMethod(for: $0, method: "post") },
-            item.put.flatMap { makeMethod(for: $0, method: "put") },
-            item.patch.flatMap { makeMethod(for: $0, method: "patch") },
-            item.delete.flatMap { makeMethod(for: $0, method: "delete") },
-            item.options.flatMap { makeMethod(for: $0, method: "options") },
-            item.head.flatMap { makeMethod(for: $0, method: "head") },
-            item.trace.flatMap { makeMethod(for: $0, method: "trace") },
+            item.get.flatMap { makeMethod($0, "get", context) },
+            item.post.flatMap { makeMethod($0, "post", context) },
+            item.put.flatMap { makeMethod($0, "put", context) },
+            item.patch.flatMap { makeMethod($0, "patch", context) },
+            item.delete.flatMap { makeMethod($0, "delete", context) },
+            item.options.flatMap { makeMethod($0, "options", context) },
+            item.head.flatMap { makeMethod($0, "head", context) },
+            item.trace.flatMap { makeMethod($0, "trace", context) },
         ]
             .compactMap { $0 }
             .map { $0.indented }
@@ -178,20 +180,20 @@ extension Generator {
     // TODO: Inject offset as a parameter
     // TODO: Add support for operationId
     // TODO: Add a way to disamiguate if responses have oneOf
-    private func makeMethod(for operation: OpenAPI.Operation, method: String) -> String? {
+    private func makeMethod(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) -> String? {
         do {
-            return try _makeMethod(for: operation, method: method)
+            return try _makeMethod(for: operation, method: method, context: context)
         } catch {
             print("ERROR: Failed to generate path \(method) for \(operation.operationId ?? "\(operation)"): \(error)")
             return nil
         }
     }
     
-    private func _makeMethod(for operation: OpenAPI.Operation, method: String) throws -> String {
+    private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
         let responseType: String
         var headers: String?
         if let response = getSuccessfulResponse(for: operation) {
-            responseType = try makeResponse(for: response)
+            responseType = try makeResponse(for: response, context: context)
             headers = try? makeHeaders(for: response, method: method)
         } else {
             responseType = "Void"
@@ -304,7 +306,7 @@ extension Generator {
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
-    private func makeResponse(for response: Response) throws -> String {  
+    private func makeResponse(for response: Response, context: Context) throws -> String {
         switch response {
         case .a(let reference):
             switch reference {
@@ -321,7 +323,12 @@ extension Generator {
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
-                    return try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    var type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    // TODO: Add an option disable disambiguation or add namespace for types
+                    if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.package {
+                        type = "\(ModuleName(package, options: options)).\(type)"
+                    }
+                    return type
                 case .b(let schema):
                     throw GeneratorError("ERROR: response inline scheme not handler")
                 default:
