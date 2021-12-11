@@ -600,4 +600,3 @@ struct Property {
     let context: JSONSchemaContext?
     var nested: String?
 }
-

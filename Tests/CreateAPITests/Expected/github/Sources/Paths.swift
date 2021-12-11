@@ -18,7 +18,120 @@ extension Paths {
         /// Path: `/`
         public let path: String
 
+        /// GitHub API Root
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var authorizationsURL: String
+            public var codeSearchURL: String
+            public var commitSearchURL: String
+            public var currentUserAuthorizationsHTMLURL: String
+            public var currentUserRepositoriesURL: String
+            public var currentUserURL: String
+            public var emailsURL: String
+            public var emojisURL: String
+            public var eventsURL: String
+            public var feedsURL: String
+            public var followersURL: String
+            public var followingURL: String
+            public var gistsURL: String
+            public var hubURL: String
+            public var issueSearchURL: String
+            public var issuesURL: String
+            public var keysURL: String
+            public var labelSearchURL: String
+            public var notificationsURL: String
+            public var organizationRepositoriesURL: String
+            public var organizationTeamsURL: String
+            public var organizationURL: String
+            public var publicGistsURL: String
+            public var rateLimitURL: String
+            public var repositorySearchURL: String
+            public var repositoryURL: String
+            public var starredGistsURL: String
+            public var starredURL: String
+            public var topicSearchURL: String?
+            public var userOrganizationsURL: String
+            public var userRepositoriesURL: String
+            public var userSearchURL: String
+            public var userURL: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.authorizationsURL = try values.decode(String.self, forKey: "authorizations_url")
+                self.codeSearchURL = try values.decode(String.self, forKey: "code_search_url")
+                self.commitSearchURL = try values.decode(String.self, forKey: "commit_search_url")
+                self.currentUserAuthorizationsHTMLURL = try values.decode(String.self, forKey: "current_user_authorizations_html_url")
+                self.currentUserRepositoriesURL = try values.decode(String.self, forKey: "current_user_repositories_url")
+                self.currentUserURL = try values.decode(String.self, forKey: "current_user_url")
+                self.emailsURL = try values.decode(String.self, forKey: "emails_url")
+                self.emojisURL = try values.decode(String.self, forKey: "emojis_url")
+                self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                self.feedsURL = try values.decode(String.self, forKey: "feeds_url")
+                self.followersURL = try values.decode(String.self, forKey: "followers_url")
+                self.followingURL = try values.decode(String.self, forKey: "following_url")
+                self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                self.hubURL = try values.decode(String.self, forKey: "hub_url")
+                self.issueSearchURL = try values.decode(String.self, forKey: "issue_search_url")
+                self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+                self.keysURL = try values.decode(String.self, forKey: "keys_url")
+                self.labelSearchURL = try values.decode(String.self, forKey: "label_search_url")
+                self.notificationsURL = try values.decode(String.self, forKey: "notifications_url")
+                self.organizationRepositoriesURL = try values.decode(String.self, forKey: "organization_repositories_url")
+                self.organizationTeamsURL = try values.decode(String.self, forKey: "organization_teams_url")
+                self.organizationURL = try values.decode(String.self, forKey: "organization_url")
+                self.publicGistsURL = try values.decode(String.self, forKey: "public_gists_url")
+                self.rateLimitURL = try values.decode(String.self, forKey: "rate_limit_url")
+                self.repositorySearchURL = try values.decode(String.self, forKey: "repository_search_url")
+                self.repositoryURL = try values.decode(String.self, forKey: "repository_url")
+                self.starredGistsURL = try values.decode(String.self, forKey: "starred_gists_url")
+                self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                self.topicSearchURL = try values.decodeIfPresent(String.self, forKey: "topic_search_url")
+                self.userOrganizationsURL = try values.decode(String.self, forKey: "user_organizations_url")
+                self.userRepositoriesURL = try values.decode(String.self, forKey: "user_repositories_url")
+                self.userSearchURL = try values.decode(String.self, forKey: "user_search_url")
+                self.userURL = try values.decode(String.self, forKey: "user_url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(authorizationsURL, forKey: "authorizations_url")
+                try values.encode(codeSearchURL, forKey: "code_search_url")
+                try values.encode(commitSearchURL, forKey: "commit_search_url")
+                try values.encode(currentUserAuthorizationsHTMLURL, forKey: "current_user_authorizations_html_url")
+                try values.encode(currentUserRepositoriesURL, forKey: "current_user_repositories_url")
+                try values.encode(currentUserURL, forKey: "current_user_url")
+                try values.encode(emailsURL, forKey: "emails_url")
+                try values.encode(emojisURL, forKey: "emojis_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(feedsURL, forKey: "feeds_url")
+                try values.encode(followersURL, forKey: "followers_url")
+                try values.encode(followingURL, forKey: "following_url")
+                try values.encode(gistsURL, forKey: "gists_url")
+                try values.encode(hubURL, forKey: "hub_url")
+                try values.encode(issueSearchURL, forKey: "issue_search_url")
+                try values.encode(issuesURL, forKey: "issues_url")
+                try values.encode(keysURL, forKey: "keys_url")
+                try values.encode(labelSearchURL, forKey: "label_search_url")
+                try values.encode(notificationsURL, forKey: "notifications_url")
+                try values.encode(organizationRepositoriesURL, forKey: "organization_repositories_url")
+                try values.encode(organizationTeamsURL, forKey: "organization_teams_url")
+                try values.encode(organizationURL, forKey: "organization_url")
+                try values.encode(publicGistsURL, forKey: "public_gists_url")
+                try values.encode(rateLimitURL, forKey: "rate_limit_url")
+                try values.encode(repositorySearchURL, forKey: "repository_search_url")
+                try values.encode(repositoryURL, forKey: "repository_url")
+                try values.encode(starredGistsURL, forKey: "starred_gists_url")
+                try values.encode(starredURL, forKey: "starred_url")
+                try values.encodeIfPresent(topicSearchURL, forKey: "topic_search_url")
+                try values.encode(userOrganizationsURL, forKey: "user_organizations_url")
+                try values.encode(userRepositoriesURL, forKey: "user_repositories_url")
+                try values.encode(userSearchURL, forKey: "user_search_url")
+                try values.encode(userURL, forKey: "user_url")
+            }
+        }
     }
 }
 
@@ -442,7 +555,10 @@ extension Paths {
         /// Path: `/emojis`
         public let path: String
 
-
+        /// Get emojis
+        public func get() -> Request<[String: String]> {
+            .get(path)
+        }
     }
 }
 
@@ -504,7 +620,27 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// Path: `/enterprises/{enterprise}/actions/permissions/organizations`
         public let path: String
 
+        /// List selected organizations enabled for GitHub Actions in an enterprise
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var organizations: [OrganizationSimple]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.organizations = try values.decode([OrganizationSimple].self, forKey: "organizations")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(organizations, forKey: "organizations")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -554,7 +690,27 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// Path: `/enterprises/{enterprise}/actions/runner-groups`
         public let path: String
 
+        /// List self-hosted runner groups for an enterprise
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var runnerGroups: [RunnerGroupsEnterprise]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runnerGroups = try values.decode([RunnerGroupsEnterprise].self, forKey: "runner_groups")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runnerGroups, forKey: "runner_groups")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -588,7 +744,27 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations`
         public let path: String
 
+        /// List organization access to a self-hosted runner group in an enterprise
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var organizations: [OrganizationSimple]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.organizations = try values.decode([OrganizationSimple].self, forKey: "organizations")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(organizations, forKey: "organizations")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -617,7 +793,31 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners`
         public let path: String
 
+        /// List self-hosted runners in a group for an enterprise
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var runners: [Runner]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Runner].self, forKey: "runners")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -646,7 +846,31 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// Path: `/enterprises/{enterprise}/actions/runners`
         public let path: String
 
+        /// List self-hosted runners for an enterprise
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var runners: [Runner]?
+            public var totalCount: Double?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decodeIfPresent([Runner].self, forKey: "runners")
+                self.totalCount = try values.decodeIfPresent(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1055,7 +1279,35 @@ extension Paths.Installation {
         /// Path: `/installation/repositories`
         public let path: String
 
+        /// List repositories accessible to the app installation
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var repositories: [Repository]
+            /// Example: selected
+            public var repositorySelection: String?
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([Repository].self, forKey: "repositories")
+                self.repositorySelection = try values.decodeIfPresent(String.self, forKey: "repository_selection")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1462,7 +1714,28 @@ extension Paths.Organizations.WithOrganizationID {
         /// Path: `/organizations/{organization_id}/custom_roles`
         public let path: String
 
+        /// List custom repository roles in an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var customRoles: [OrganizationCustomRepositoryRole]?
+            /// The number of custom roles in this organization
+            public var totalCount: Int?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.customRoles = try values.decodeIfPresent([OrganizationCustomRepositoryRole].self, forKey: "custom_roles")
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(customRoles, forKey: "custom_roles")
+                try values.encodeIfPresent(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1529,7 +1802,27 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// Path: `/orgs/{org}/actions/permissions/repositories`
         public let path: String
 
+        /// List selected repositories enabled for GitHub Actions in an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var repositories: [Repository]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([Repository].self, forKey: "repositories")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1579,7 +1872,27 @@ extension Paths.Orgs.WithOrg.Actions {
         /// Path: `/orgs/{org}/actions/runner-groups`
         public let path: String
 
+        /// List self-hosted runner groups for an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var runnerGroups: [RunnerGroupsOrg]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runnerGroups = try values.decode([RunnerGroupsOrg].self, forKey: "runner_groups")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runnerGroups, forKey: "runner_groups")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1613,7 +1926,27 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories`
         public let path: String
 
+        /// List repository access to a self-hosted runner group in an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var repositories: [MinimalRepository]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([MinimalRepository].self, forKey: "repositories")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1642,7 +1975,31 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners`
         public let path: String
 
+        /// List self-hosted runners in a group for an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var runners: [Runner]
+            public var totalCount: Double
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Runner].self, forKey: "runners")
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1671,7 +2028,31 @@ extension Paths.Orgs.WithOrg.Actions {
         /// Path: `/orgs/{org}/actions/runners`
         public let path: String
 
+        /// List self-hosted runners for an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var runners: [Runner]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Runner].self, forKey: "runners")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1744,7 +2125,31 @@ extension Paths.Orgs.WithOrg.Actions {
         /// Path: `/orgs/{org}/actions/secrets`
         public let path: String
 
+        /// List organization secrets
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var secrets: [OrganizationActionsSecret]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.secrets = try values.decode([OrganizationActionsSecret].self, forKey: "secrets")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(secrets, forKey: "secrets")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -1794,7 +2199,27 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         /// Path: `/orgs/{org}/actions/secrets/{secret_name}/repositories`
         public let path: String
 
+        /// List selected repositories for an organization secret
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var repositories: [MinimalRepository]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([MinimalRepository].self, forKey: "repositories")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -2093,7 +2518,31 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/installations`
         public let path: String
 
+        /// List app installations for an organization
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var installations: [github.Installation]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.installations = try values.decode([github.Installation].self, forKey: "installations")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(installations, forKey: "installations")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3333,7 +3782,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Path: `/repos/{owner}/{repo}/actions/artifacts`
         public let path: String
 
+        /// List artifacts for a repository
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var artifacts: [Artifact]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.artifacts = try values.decode([Artifact].self, forKey: "artifacts")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(artifacts, forKey: "artifacts")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3463,7 +3936,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Path: `/repos/{owner}/{repo}/actions/runners`
         public let path: String
 
+        /// List self-hosted runners for a repository
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var runners: [Runner]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Runner].self, forKey: "runners")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3536,7 +4033,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Path: `/repos/{owner}/{repo}/actions/runs`
         public let path: String
 
+        /// List workflow runs for a repository
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var totalCount: Int
+            public var workflowRuns: [WorkflowRun]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflowRuns = try values.decode([WorkflowRun].self, forKey: "workflow_runs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalCount, forKey: "total_count")
+                try values.encode(workflowRuns, forKey: "workflow_runs")
+            }
+        }
     }
 }
 
@@ -3596,7 +4117,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts`
         public let path: String
 
+        /// List workflow run artifacts
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var artifacts: [Artifact]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.artifacts = try values.decode([Artifact].self, forKey: "artifacts")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(artifacts, forKey: "artifacts")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3636,7 +4181,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs`
         public let path: String
 
+        /// List jobs for a workflow run attempt
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var jobs: [Job]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.jobs = try values.decode([Job].self, forKey: "jobs")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(jobs, forKey: "jobs")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3678,7 +4247,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/jobs`
         public let path: String
 
+        /// List jobs for a workflow run
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var jobs: [Job]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.jobs = try values.decode([Job].self, forKey: "jobs")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(jobs, forKey: "jobs")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3754,7 +4347,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Path: `/repos/{owner}/{repo}/actions/secrets`
         public let path: String
 
+        /// List repository secrets
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var secrets: [ActionsSecret]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.secrets = try values.decode([ActionsSecret].self, forKey: "secrets")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(secrets, forKey: "secrets")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -3804,7 +4421,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Path: `/repos/{owner}/{repo}/actions/workflows`
         public let path: String
 
+        /// List repository workflows
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var totalCount: Int
+            public var workflows: [Workflow]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflows = try values.decode([Workflow].self, forKey: "workflows")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalCount, forKey: "total_count")
+                try values.encode(workflows, forKey: "workflows")
+            }
+        }
     }
 }
 
@@ -3872,7 +4513,31 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs`
         public let path: String
 
+        /// List workflow runs
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var totalCount: Int
+            public var workflowRuns: [WorkflowRun]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflowRuns = try values.decode([WorkflowRun].self, forKey: "workflow_runs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalCount, forKey: "total_count")
+                try values.encode(workflowRuns, forKey: "workflow_runs")
+            }
+        }
     }
 }
 
@@ -4297,7 +4962,31 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         /// Path: `/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs`
         public let path: String
 
+        /// List check runs in a check suite
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var checkRuns: [CheckRun]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.checkRuns = try values.decode([CheckRun].self, forKey: "check_runs")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(checkRuns, forKey: "check_runs")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -4439,7 +5128,27 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/codespaces`
         public let path: String
 
+        /// List codespaces in a repository for the authenticated user
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var codespaces: [Codespace]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.codespaces = try values.decode([Codespace].self, forKey: "codespaces")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(codespaces, forKey: "codespaces")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -4452,7 +5161,27 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         /// Path: `/repos/{owner}/{repo}/codespaces/machines`
         public let path: String
 
+        /// List available machine types for a repository
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var machines: [CodespaceMachine]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.machines = try values.decode([CodespaceMachine].self, forKey: "machines")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(machines, forKey: "machines")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -4657,7 +5386,31 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Path: `/repos/{owner}/{repo}/commits/{ref}/check-runs`
         public let path: String
 
+        /// List check runs for a Git reference
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var checkRuns: [CheckRun]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.checkRuns = try values.decode([CheckRun].self, forKey: "check_runs")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(checkRuns, forKey: "check_runs")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -4670,7 +5423,31 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Path: `/repos/{owner}/{repo}/commits/{ref}/check-suites`
         public let path: String
 
+        /// List check suites for a Git reference
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var checkSuites: [CheckSuite]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.checkSuites = try values.decode([CheckSuite].self, forKey: "check_suites")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(checkSuites, forKey: "check_suites")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -4917,7 +5694,28 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/environments`
         public let path: String
 
+        /// Get all environments
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var environments: [Environment]?
+            /// The number of environments in this repository
+            public var totalCount: Int?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.environments = try values.decodeIfPresent([Environment].self, forKey: "environments")
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(environments, forKey: "environments")
+                try values.encodeIfPresent(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -6944,7 +7742,31 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         /// Path: `/repositories/{repository_id}/environments/{environment_name}/secrets`
         public let path: String
 
+        /// List environment secrets
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var secrets: [ActionsSecret]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.secrets = try values.decode([ActionsSecret].self, forKey: "secrets")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(secrets, forKey: "secrets")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7174,7 +7996,30 @@ extension Paths.Search {
         /// Path: `/search/code`
         public let path: String
 
+        /// Search code
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [CodeSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([CodeSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7187,7 +8032,30 @@ extension Paths.Search {
         /// Path: `/search/commits`
         public let path: String
 
+        /// Search commits
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [CommitSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([CommitSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7200,7 +8068,30 @@ extension Paths.Search {
         /// Path: `/search/issues`
         public let path: String
 
+        /// Search issues and pull requests
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [IssueSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([IssueSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7213,7 +8104,30 @@ extension Paths.Search {
         /// Path: `/search/labels`
         public let path: String
 
+        /// Search labels
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [LabelSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([LabelSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7226,7 +8140,30 @@ extension Paths.Search {
         /// Path: `/search/repositories`
         public let path: String
 
+        /// Search repositories
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [RepoSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([RepoSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7239,7 +8176,30 @@ extension Paths.Search {
         /// Path: `/search/topics`
         public let path: String
 
+        /// Search topics
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [TopicSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([TopicSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7252,7 +8212,30 @@ extension Paths.Search {
         /// Path: `/search/users`
         public let path: String
 
+        /// Search users
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var isIncompleteResults: Bool
+            public var items: [UserSearchResultItem]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([UserSearchResultItem].self, forKey: "items")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isIncompleteResults, forKey: "incomplete_results")
+                try values.encode(items, forKey: "items")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7636,7 +8619,27 @@ extension Paths.User {
         /// Path: `/user/codespaces`
         public let path: String
 
+        /// List codespaces for the authenticated user
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var codespaces: [Codespace]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.codespaces = try values.decode([Codespace].self, forKey: "codespaces")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(codespaces, forKey: "codespaces")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7649,7 +8652,31 @@ extension Paths.User.Codespaces {
         /// Path: `/user/codespaces/secrets`
         public let path: String
 
+        /// List secrets for the authenticated user
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var secrets: [CodespacesSecret]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.secrets = try values.decode([CodespacesSecret].self, forKey: "secrets")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(secrets, forKey: "secrets")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7699,7 +8726,27 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         /// Path: `/user/codespaces/secrets/{secret_name}/repositories`
         public let path: String
 
+        /// List selected repositories for a user secret
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var repositories: [MinimalRepository]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([MinimalRepository].self, forKey: "repositories")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7744,7 +8791,27 @@ extension Paths.User.Codespaces.WithCodespaceName {
         /// Path: `/user/codespaces/{codespace_name}/machines`
         public let path: String
 
+        /// List machine types for a codespace
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public struct GetResponse: Codable {
+            public var machines: [CodespaceMachine]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.machines = try values.decode([CodespaceMachine].self, forKey: "machines")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(machines, forKey: "machines")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7904,7 +8971,31 @@ extension Paths.User {
         /// Path: `/user/installations`
         public let path: String
 
+        /// List app installations accessible to the user access token
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var installations: [github.Installation]
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.installations = try values.decode([github.Installation].self, forKey: "installations")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(installations, forKey: "installations")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 
@@ -7928,7 +9019,34 @@ extension Paths.User.Installations.WithInstallationID {
         /// Path: `/user/installations/{installation_id}/repositories`
         public let path: String
 
+        /// List repositories accessible to the user access token
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Codable {
+            public var repositories: [Repository]
+            public var repositorySelection: String?
+            public var totalCount: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.repositories = try values.decode([Repository].self, forKey: "repositories")
+                self.repositorySelection = try values.decodeIfPresent(String.self, forKey: "repository_selection")
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
+                try values.encode(totalCount, forKey: "total_count")
+            }
+        }
     }
 }
 

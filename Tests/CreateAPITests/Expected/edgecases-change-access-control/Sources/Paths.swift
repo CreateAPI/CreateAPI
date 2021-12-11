@@ -110,7 +110,10 @@ extension Paths.Store {
         /// Path: `/store/inventory`
         let path: String
 
-
+        /// Returns pet inventories by status
+        func get() -> Request<[String: Int]> {
+            .get(path)
+        }
     }
 }
 

@@ -30,11 +30,13 @@ import GrammaticalNumber
 // TODO: Support path parameters like this GET /report.{format}
 // TODO: Group operations by tags https://swagger.io/docs/specification/2-0/grouping-operations-with-tags/?sbsearch=tags
 
-// TODO: - Apply overridden names based on spec, not output file
-// TODO: - Generate phantom ID types
-// TODO: - Allow to override types for specific properties
-// TODO: - Add in documentation additional context, eg inlyvalues from 100 to 500
-// TODO: - Automatically apply more specific rename rules first
+// TODO: Apply overridden names based on spec, not output file
+// TODO: Generate phantom ID types
+// TODO: Allow to override types for specific properties
+// TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
+// TODO: Automatically apply more specific rename rules first
+
+// TODO: Run everything throught SwiftLint again
 extension Generator {
     
     #warning("refactor")
@@ -185,8 +187,12 @@ extension Generator {
         
         let responseType: String
         var headers: String?
+        var nested: String?
+        // TODO: refactor
         if let response = getSuccessfulResponse(for: operation) {
-            responseType = try makeResponse(for: response, context: context)
+            let responseValue = try makeResponse(for: response, method: method, context: context)
+            responseType = responseValue.type
+            nested = responseValue.nested
             headers = try? makeHeaders(for: response, method: method)
         } else {
             responseType = "Void"
@@ -217,6 +223,10 @@ extension Generator {
             output += "\n\n"
             output += headers
             setHTTPHeadersDependencyNeeded()
+        }
+        if let nested = nested {
+            output += "\n\n"
+            output += nested
         }
         return output.indented
     }
@@ -303,15 +313,18 @@ extension Generator {
         }
         return operation.responses.first { $0.key.isSuccess }?.value
     }
-        
-    // TODO: Add inline array/dictionary responses
-    // TODO: Generate proper nested response types (<PathComponent>Response)
+    
+    private struct ResponseType {
+        var type: String
+        var nested: String?
+    }
+
     // TODO: application/pdf and other binary files
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
     // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
-    private func makeResponse(for response: Response, context: Context) throws -> String {
+    private func makeResponse(for response: Response, method: String, context: Context) throws -> ResponseType {
         switch response {
         case .a(let reference):
             switch reference {
@@ -322,28 +335,35 @@ extension Generator {
             }
         case .b(let schema):
             if schema.content.values.isEmpty {
-                return "Void"
+                return ResponseType(type: "Void")
             } else if let content = schema.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
                     let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
-                    return addNamespaceIfNeeded(for: type, context: context)
+                    return ResponseType(type: addNamespaceIfNeeded(for: type, context: context))
                 case .b(let schema):
                     switch schema {
                     case .string:
-                        return "String"
+                        return ResponseType(type: "String")
                     case .integer, .boolean:
-                        return "Data"
+                        return ResponseType(type: "Data")
+                    case .object:
+                        var property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: []))
+                        // TODO: handle scenario when inline type uses schemas that require namespacing
+                        if arguments.vendor == "github" {
+                            property.nested = property.nested?.replacingOccurrences(of: "[Installation]", with: "[github.Installation]")
+                        }
+                        return ResponseType(type: property.type, nested: property.nested)
                     default:
                         throw GeneratorError("ERROR: response inline scheme not handler")
                     }
                 default:
                     throw GeneratorError("ERROR: response not handled")
                 }
-            } else if let content = schema.content[.anyText] {
-                return "String"
+            } else if schema.content[.anyText] != nil {
+                return ResponseType(type: "String") // Assume UTF8 encoding
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }

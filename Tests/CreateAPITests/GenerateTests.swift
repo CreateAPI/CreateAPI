@@ -217,6 +217,26 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-disable-init-with-coder")
     }
     
+    func testPetstoreDisableInlining() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-disable-inlining",
+            "--config", config("""
+            {
+                "isInliningPrimitiveTypes": false
+            }
+            """)
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-disable-inlining")
+    }
+    
     func testEdgecasesDefault() throws {
         // GIVEN
         let command = try Generate.parse([
@@ -288,27 +308,7 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "edgecases-change-access-control")
     }
-    
-    func testPetstoreDisableInlining() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
-            "--output", temp.url.path,
-            "--package", "petstore-disable-inlining",
-            "--config", config("""
-            {
-                "isInliningPrimitiveTypes": false
-            }
-            """)
-        ])
-                
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "petstore-disable-inlining")
-    }
-                
+                    
     func testEdgecasesDisableAcronyms() throws {
         // GIVEN
         let command = try Generate.parse([

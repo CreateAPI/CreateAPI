@@ -3,6 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 // TODO: Add an option to add spacing between properties with comments
+// TODO: Add an option to generate parametes as `let` and a list of exceptions
 final class GenerateOptions {
     var access: String
     var isRemovingUnneededImported: Bool
