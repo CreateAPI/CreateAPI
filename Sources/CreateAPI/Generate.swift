@@ -31,6 +31,9 @@ struct Generate: ParsableCommand {
     @Option(help: "Generates a complete package with a given name")
     var package: String?
     
+    @Option(help: "Use the following name as a module name")
+    var module: String?
+    
     @Option(help: "Enabled vendor-specific logic")
     var vendor: String?
     
@@ -41,6 +44,10 @@ struct Generate: ParsableCommand {
     func run() throws {
         if verbose {
             print("Creating a spec for file \"\(input)\"")
+        }
+        
+        if module != nil && package != nil {
+            throw GeneratorError("`module` and `package` parameters are mutually exclusive")
         }
         
         // TODO: Add JSON support
@@ -75,7 +82,7 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
-        let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor, package: package)
+        let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor, module: package ?? module)
         let options = try makeOptions(at: config)
 
         let generator = Generator(spec: spec, options: options, arguments: arguments)

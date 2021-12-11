@@ -351,7 +351,7 @@ extension Generator {
                         return ResponseType(type: "Data")
                     case .object:
                         // TODO: Add a way to cutomize which namespace to use
-                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: [], namespace: arguments.package))
+                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: [], namespace: arguments.module))
                         return ResponseType(type: property.type, nested: property.nested)
                     default:
                         throw GeneratorError("ERROR: response inline scheme not handler")
@@ -370,7 +370,7 @@ extension Generator {
     // TODO: Fix generating too many namespaces. e.g. see `public func get() -> Request<edgecases_default.Order> {` in edgecases-default
     private func addNamespaceIfNeeded(for type: String, context: Context) -> String {
         // TODO: Add an option disable disambiguation or add namespace for types
-        if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.package {
+        if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.module {
             return "\(ModuleName(package, options: options)).\(type)"
         }
         return type
