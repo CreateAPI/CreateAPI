@@ -218,6 +218,7 @@ extension Generator {
         if let headers = headers {
             output += "\n\n"
             output += headers
+            setHTTPHeadersDependencyNeeded()
         }
         return output.indented
     }
@@ -395,7 +396,6 @@ extension Generator {
             return nil
         }
 
-        setHTTPHeadersDependencyNeeded()
         return templates.headers(name: method.capitalizingFirstLetter() + "Headers", contents: contents.joined(separator: "\n"))
     }
 
