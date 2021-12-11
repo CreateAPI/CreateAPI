@@ -47,6 +47,7 @@ final class GenerateOptions {
         var addExamples: Bool
         var addSummary: Bool
         var isAddingExternalDocumentation: Bool
+        // TODO: Add a single option intead and applied to "summary" and "documentation"
         var capitilizeTitle: Bool
         var capitilizeDescription: Bool
         
