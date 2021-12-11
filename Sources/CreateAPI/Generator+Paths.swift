@@ -361,6 +361,7 @@ extension Generator {
         return type
     }
     
+    // TODO: Add support for schema references
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
@@ -378,13 +379,13 @@ extension Generator {
             case .a(let schema):
                 switch schema.schema {
                 case .a:
-                    throw GeneratorError("HTTP header schema reference not supported")
+                    throw GeneratorError("HTTP header schema references not supported")
                 case .b(let schema):
                     let property = try makeProperty(key: key, schema: schema, isRequired: true, in: Context(parents: []))
                     return templates.header(for: property, header: header)
                 }
             case .b:
-                throw GeneratorError("Unsupported header")
+                throw GeneratorError("HTTP headers with content map are not supported")
             }
         }
 
