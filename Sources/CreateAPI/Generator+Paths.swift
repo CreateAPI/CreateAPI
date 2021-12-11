@@ -334,7 +334,7 @@ extension Generator {
     // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
     private func makeResponse(for response: Response, method: String, context: Context) throws -> ResponseType {
         var context = context
-        context.namespace = arguments.module
+        context.namespace = arguments.module?.rawValue
         context.isEncodableNeeded = false
         
         switch response {
@@ -379,11 +379,10 @@ extension Generator {
         }
     }
     
-    // TODO: Fix generating too many namespaces. e.g. see `public func get() -> Request<edgecases_default.Order> {` in edgecases-default
     private func addNamespaceIfNeeded(for type: String, context: Context) -> String {
-        // TODO: Add an option disable disambiguation or add namespace for types
-        if context.parents.contains(where: { $0.rawValue == type }), let package = arguments.module {
-            return "\(ModuleName(package, options: options)).\(type)"
+        // TODO: Add an option to disable disambiguation if it's not needed
+        if context.parents.contains(where: { $0.rawValue == type }), let module = arguments.module {
+            return "\(module).\(type)"
         }
         return type
     }

@@ -191,5 +191,5 @@ struct GenerateArguments {
     let isVerbose: Bool
     let isParallel: Bool
     let vendor: String?
-    let module: String?
+    let module: ModuleName?
 }

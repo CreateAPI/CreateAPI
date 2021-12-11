@@ -82,9 +82,10 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to include/exclude paths and schemas
         // TODO: Add a way to select what to generate (e.g. only schemas
     
-        let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor, module: package ?? module)
         let options = try makeOptions(at: config)
-
+        let module = (package ?? module).map { ModuleName($0, options: options) }
+        let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor, module: module)
+        
         let generator = Generator(spec: spec, options: options, arguments: arguments)
         // IMPORTANT: Paths needs to be generated before schemes.
         let paths = generator.paths()
