@@ -166,10 +166,8 @@ extension Generator {
         ["put", "post", "patch"].contains(method)
     }
     
-    // TODO: Add namespace to schems (package?)
-    //
+    // TODO: Add `description` if non-empty
     // TODO: Inject offset as a parameter
-    // TODO: Add support for operationId
     // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) -> String? {
         do {
@@ -322,10 +320,10 @@ extension Generator {
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
-        case .b(let scheme):
-            if scheme.content.values.isEmpty {
+        case .b(let schema):
+            if schema.content.values.isEmpty {
                 return "Void"
-            } else if let content = scheme.content[.json] {
+            } else if let content = schema.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
@@ -344,7 +342,7 @@ extension Generator {
                 default:
                     throw GeneratorError("ERROR: response not handled")
                 }
-            } else if let content = scheme.content[.anyText] {
+            } else if let content = schema.content[.anyText] {
                 return "String"
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
