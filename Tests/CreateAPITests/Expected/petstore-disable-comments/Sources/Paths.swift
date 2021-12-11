@@ -22,7 +22,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let next = HTTPHeader<String>(field: "x-next")
         }
     }

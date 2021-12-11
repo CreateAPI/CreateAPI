@@ -82,6 +82,30 @@ extension Paths.Pet {
 			.get(path)
 		}
 
+		/// Updates a pet in the store with form data
+		public func post(_ body: PostRequest) -> Request<Void> {
+			.post(path, body: body)
+		}
+
+		public struct PostRequest: Codable {
+			/// Updated name of the pet
+			public var name: String?
+			/// Updated status of the pet
+			public var status: String?
+
+			public init(from decoder: Decoder) throws {
+				let values = try decoder.container(keyedBy: StringCodingKey.self)
+				self.name = try values.decodeIfPresent(String.self, forKey: "name")
+				self.status = try values.decodeIfPresent(String.self, forKey: "status")
+			}
+
+			public func encode(to encoder: Encoder) throws {
+				var values = encoder.container(keyedBy: StringCodingKey.self)
+				try values.encodeIfPresent(name, forKey: "name")
+				try values.encodeIfPresent(status, forKey: "status")
+			}
+		}
+
 		/// Deletes a pet
 		public func delete() -> Request<Void> {
 			.delete(path)
@@ -98,7 +122,29 @@ extension Paths.Pet.WithPetID {
 		/// Path: `/pet/{petId}/uploadImage`
 		public let path: String
 
+		/// uploads an image
+		public func post(_ body: PostRequest) -> Request<APIResponse> {
+			.post(path, body: body)
+		}
 
+		public struct PostRequest: Codable {
+			/// Additional data to pass to server
+			public var additionalMetadata: String?
+			/// File to upload
+			public var file: String?
+
+			public init(from decoder: Decoder) throws {
+				let values = try decoder.container(keyedBy: StringCodingKey.self)
+				self.additionalMetadata = try values.decodeIfPresent(String.self, forKey: "additionalMetadata")
+				self.file = try values.decodeIfPresent(String.self, forKey: "file")
+			}
+
+			public func encode(to encoder: Encoder) throws {
+				var values = encoder.container(keyedBy: StringCodingKey.self)
+				try values.encodeIfPresent(additionalMetadata, forKey: "additionalMetadata")
+				try values.encodeIfPresent(file, forKey: "file")
+			}
+		}
 	}
 }
 
@@ -236,7 +282,7 @@ extension Paths.User {
 			.get(path)
 		}
 
-		public enum GetHeaders {
+		public enum GetResponseHeaders {
 			/// Calls per hour allowed by the user
 			@available(*, deprecated, message: "Deprecated")
 			public static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
@@ -306,6 +352,88 @@ extension Paths {
 		/// To test enum parameters
 		public func get() -> Request<Void> {
 			.get(path)
+		}
+
+		/// Fake endpoint for testing various parameters
+		/// 假端點
+		/// 偽のエンドポイント
+		/// 가짜 엔드 포인트
+		/// 
+		///
+		/// Fake endpoint for testing various parameters
+		/// 假端點
+		/// 偽のエンドポイント
+		/// 가짜 엔드 포인트
+		/// 
+		public func post(_ body: PostRequest) -> Request<Void> {
+			.post(path, body: body)
+		}
+
+		public struct PostRequest: Codable {
+			/// None
+			public var binary: String?
+			/// None
+			public var byte: String
+			/// None
+			public var callback: String?
+			/// None
+			public var date: String?
+			/// None
+			public var dateTime: Date?
+			/// None
+			public var double: Double
+			/// None
+			public var float: Double?
+			/// None
+			public var int32: Int?
+			/// None
+			public var int64: Int?
+			/// None
+			public var integer: Int?
+			/// None
+			public var number: Double
+			/// None
+			public var password: String?
+			/// None
+			public var patternWithoutDelimiter: String
+			/// None
+			public var string: String?
+
+			public init(from decoder: Decoder) throws {
+				let values = try decoder.container(keyedBy: StringCodingKey.self)
+				self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
+				self.byte = try values.decode(String.self, forKey: "byte")
+				self.callback = try values.decodeIfPresent(String.self, forKey: "callback")
+				self.date = try values.decodeIfPresent(String.self, forKey: "date")
+				self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
+				self.double = try values.decode(Double.self, forKey: "double")
+				self.float = try values.decodeIfPresent(Double.self, forKey: "float")
+				self.int32 = try values.decodeIfPresent(Int.self, forKey: "int32")
+				self.int64 = try values.decodeIfPresent(Int.self, forKey: "int64")
+				self.integer = try values.decodeIfPresent(Int.self, forKey: "integer")
+				self.number = try values.decode(Double.self, forKey: "number")
+				self.password = try values.decodeIfPresent(String.self, forKey: "password")
+				self.patternWithoutDelimiter = try values.decode(String.self, forKey: "pattern_without_delimiter")
+				self.string = try values.decodeIfPresent(String.self, forKey: "string")
+			}
+
+			public func encode(to encoder: Encoder) throws {
+				var values = encoder.container(keyedBy: StringCodingKey.self)
+				try values.encodeIfPresent(binary, forKey: "binary")
+				try values.encode(byte, forKey: "byte")
+				try values.encodeIfPresent(callback, forKey: "callback")
+				try values.encodeIfPresent(date, forKey: "date")
+				try values.encodeIfPresent(dateTime, forKey: "dateTime")
+				try values.encode(double, forKey: "double")
+				try values.encodeIfPresent(float, forKey: "float")
+				try values.encodeIfPresent(int32, forKey: "int32")
+				try values.encodeIfPresent(int64, forKey: "int64")
+				try values.encodeIfPresent(integer, forKey: "integer")
+				try values.encode(number, forKey: "number")
+				try values.encodeIfPresent(password, forKey: "password")
+				try values.encode(patternWithoutDelimiter, forKey: "pattern_without_delimiter")
+				try values.encodeIfPresent(string, forKey: "string")
+			}
 		}
 
 		/// To test "client" model

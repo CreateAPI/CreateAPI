@@ -366,7 +366,9 @@ private let replacements: [String: String] = [
     "@": "alpha",
     "&": "and",
     "-": "munus",
-    "+": "plus"
+    "+": "plus",
+    "\"": "backslash",
+    "/": "slash"
 ]
 
 private let badCharacters = CharacterSet.alphanumerics.inverted

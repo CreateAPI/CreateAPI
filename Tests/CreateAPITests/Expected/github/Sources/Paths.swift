@@ -155,7 +155,34 @@ extension Paths.AppManifests.WithCode {
         /// Path: `/app-manifests/{code}/conversions`
         public let path: String
 
+        /// Create a GitHub App from a manifest
+        ///
+        /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`, `pem` (private key), and `webhook_secret`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest)
+        public func post(_ body: [String: AnyJSON]) -> Request<PostResponse> {
+            .post(path, body: body)
+        }
 
+        public struct PostResponse: Decodable {
+            /// GitHub app
+            ///
+            /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
+            public var integration: Integration
+            public var clientID: String
+            public var clientSecret: String
+            public var pem: String
+            public var webhookSecret: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.integration = try Integration(from: decoder)
+                self.clientID = try values.decode(String.self, forKey: "client_id")
+                self.clientSecret = try values.decode(String.self, forKey: "client_secret")
+                self.pem = try values.decode(String.self, forKey: "pem")
+                self.webhookSecret = try values.decodeIfPresent(String.self, forKey: "webhook_secret")
+            }
+        }
     }
 }
 
@@ -188,6 +215,55 @@ extension Paths.App.Hook {
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
         public func get() -> Request<WebhookConfig> {
             .get(path)
+        }
+
+        /// Update a webhook configuration for an app
+        ///
+        /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "[Creating a GitHub App](/developers/apps/creating-a-github-app)."
+        /// 
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app)
+        public func patch(_ body: PatchRequest) -> Request<WebhookConfig> {
+            .patch(path, body: body)
+        }
+
+        /// Example:
+        ///
+        /// {
+        ///   "content_type" : "json",
+        ///   "insecure_ssl" : "0",
+        ///   "secret" : "********",
+        ///   "url" : 0
+        /// }
+        public struct PatchRequest: Codable {
+            /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+            ///
+            /// Example: "json"
+            public var contentType: String?
+            public var insecureSSL: WebhookConfigInsecureSSL?
+            /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+            ///
+            /// Example: "********"
+            public var secret: String?
+            /// The URL to which the payloads will be delivered.
+            public var url: URL?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
     }
 }
@@ -269,7 +345,7 @@ extension Paths.App {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -317,7 +393,56 @@ extension Paths.App.Installations.WithInstallationID {
         /// Path: `/app/installations/{installation_id}/access_tokens`
         public let path: String
 
+        /// Create an installation access token for an app
+        ///
+        /// Creates an installation access token that enables a GitHub App to make authenticated API requests for the app's installation on an organization or individual account. Installation tokens expire one hour from the time you create them. Using an expired token produces a status code of `401 - Unauthorized`, and requires creating a new installation token. By default the installation token has access to all repositories that the installation can access. To restrict the access to specific repositories, you can provide the `repository_ids` when creating the token. When you omit `repository_ids`, the response does not contain the `repositories` key.
+        /// 
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app)
+        public func post(_ body: PostRequest) -> Request<InstallationToken> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// App Permissions
+            ///
+            /// The permissions granted to the user-to-server access token.
+            ///
+            /// Example:
+            ///
+            /// {
+            ///   "contents" : "read",
+            ///   "deployments" : "write",
+            ///   "issues" : "read",
+            ///   "single_file" : "read"
+            /// }
+            public var permissions: AppPermissions?
+            /// List of repository names that the token should have access to
+            public var repositories: [String]?
+            /// List of repository IDs that the token should have access to
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   1
+            /// ]
+            public var repositoryIDs: [Int]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permissions = try values.decodeIfPresent(AppPermissions.self, forKey: "permissions")
+                self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
+                self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+            }
+        }
     }
 }
 
@@ -375,7 +500,7 @@ extension Paths.Applications {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -455,6 +580,54 @@ extension Paths.Applications.WithClientID {
         /// Path: `/applications/{client_id}/token`
         public let path: String
 
+        /// Check a token
+        ///
+        /// OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
+        public func post(_ body: PostRequest) -> Request<Authorization> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The access_token of the OAuth application.
+            public var accessToken: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.accessToken = try values.decode(String.self, forKey: "access_token")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+            }
+        }
+
+        /// Reset a token
+        ///
+        /// OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
+        public func patch(_ body: PatchRequest) -> Request<Authorization> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The access_token of the OAuth application.
+            public var accessToken: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.accessToken = try values.decode(String.self, forKey: "access_token")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+            }
+        }
+
         /// Delete an app token
         ///
         /// OAuth application owners can revoke a single token for an OAuth application. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password.
@@ -475,7 +648,70 @@ extension Paths.Applications.WithClientID.Token {
         /// Path: `/applications/{client_id}/token/scoped`
         public let path: String
 
+        /// Create a scoped access token
+        ///
+        /// Use a non-scoped user-to-server OAuth access token to create a repository scoped and/or permission scoped user-to-server OAuth access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-scoped-access-token)
+        public func post(_ body: PostRequest) -> Request<Authorization> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The OAuth access token used to authenticate to the GitHub API.
+            ///
+            /// Example: e72e16c7e42f292c6912e7710c838347ae178b4a
+            public var accessToken: String
+            /// App Permissions
+            ///
+            /// The permissions granted to the user-to-server access token.
+            ///
+            /// Example:
+            ///
+            /// {
+            ///   "contents" : "read",
+            ///   "deployments" : "write",
+            ///   "issues" : "read",
+            ///   "single_file" : "read"
+            /// }
+            public var permissions: AppPermissions?
+            /// The list of repository names to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified.
+            public var repositories: [String]?
+            /// The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   1
+            /// ]
+            public var repositoryIDs: [Int]?
+            /// The name of the user or organization to scope the user-to-server access token to. **Required** unless `target_id` is specified.
+            ///
+            /// Example: octocat
+            public var target: String?
+            /// The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified.
+            public var targetID: Int?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.accessToken = try values.decode(String.self, forKey: "access_token")
+                self.permissions = try values.decodeIfPresent(AppPermissions.self, forKey: "permissions")
+                self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
+                self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
+                self.target = try values.decodeIfPresent(String.self, forKey: "target")
+                self.targetID = try values.decodeIfPresent(Int.self, forKey: "target_id")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+                try values.encodeIfPresent(target, forKey: "target")
+                try values.encodeIfPresent(targetID, forKey: "target_id")
+            }
+        }
     }
 }
 
@@ -531,8 +767,76 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a new authorization
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
+        /// **Warning:** Apps must use the [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow) to obtain OAuth tokens that work with GitHub SAML organizations. OAuth tokens created using the Authorizations API will be unable to access GitHub SAML organizations. For more information, see the [blog post](https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api).
+        /// 
+        /// Creates OAuth tokens using [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication). If you have two-factor authentication setup, Basic Authentication for this endpoint requires that you use a one-time password (OTP) and your username and password instead of tokens. For more information, see "[Working with two-factor authentication](https://docs.github.com/rest/overview/other-authentication-methods#working-with-two-factor-authentication)."
+        /// 
+        /// To create tokens for a particular OAuth application using this endpoint, you must authenticate as the user you want to create an authorization for and provide the app's client ID and secret, found on your OAuth application's settings page. If your OAuth application intends to create multiple tokens for one user, use `fingerprint` to differentiate between them.
+        /// 
+        /// You can also create tokens on GitHub from the [personal access tokens settings](https://github.com/settings/tokens) page. Read more about these tokens in [the GitHub Help documentation](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
+        /// 
+        /// Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://help.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization)
+        @available(*, deprecated, message: "Deprecated")
+        public func post(_ body: PostRequest) -> Request<Authorization> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The OAuth app client key for which to create the token.
+            public var clientID: String?
+            /// The OAuth app client secret for which to create the token.
+            public var clientSecret: String?
+            /// A unique string to distinguish an authorization from others created for the same client ID and user.
+            public var fingerprint: String?
+            /// A note to remind you what the OAuth token is for.
+            ///
+            /// Example: Update all gems
+            public var note: String?
+            /// A URL to remind you what app the OAuth token is for.
+            public var noteURL: String?
+            /// A list of scopes that this authorization is in.
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   "public_repo",
+            ///   "user"
+            /// ]
+            public var scopes: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.clientID = try values.decodeIfPresent(String.self, forKey: "client_id")
+                self.clientSecret = try values.decodeIfPresent(String.self, forKey: "client_secret")
+                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
+                self.note = try values.decodeIfPresent(String.self, forKey: "note")
+                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
+                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(clientID, forKey: "client_id")
+                try values.encodeIfPresent(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+            }
         }
     }
 }
@@ -557,7 +861,67 @@ extension Paths.Authorizations.Clients {
         /// Path: `/authorizations/clients/{client_id}`
         public let path: String
 
+        /// Get-or-create an authorization for a specific app
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
+        /// **Warning:** Apps must use the [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow) to obtain OAuth tokens that work with GitHub SAML organizations. OAuth tokens created using the Authorizations API will be unable to access GitHub SAML organizations. For more information, see the [blog post](https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api).
+        /// 
+        /// Creates a new authorization for the specified OAuth application, only if an authorization for that application doesn't already exist for the user. The URL includes the 20 character client ID for the OAuth app that is requesting the token. It returns the user's existing authorization for the application if one is present. Otherwise, it creates and returns a new one.
+        /// 
+        /// If you have two-factor authentication setup, Basic Authentication for this endpoint requires that you use a one-time password (OTP) and your username and password instead of tokens. For more information, see "[Working with two-factor authentication](https://docs.github.com/rest/overview/other-authentication-methods#working-with-two-factor-authentication)."
+        /// 
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app)
+        @available(*, deprecated, message: "Deprecated")
+        public func put(_ body: PutRequest) -> Request<Authorization> {
+            .put(path, body: body)
+        }
 
+        public enum PutResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PutRequest: Codable {
+            /// The OAuth app client secret for which to create the token.
+            public var clientSecret: String
+            /// A unique string to distinguish an authorization from others created for the same client ID and user.
+            public var fingerprint: String?
+            /// A note to remind you what the OAuth token is for.
+            ///
+            /// Example: Update all gems
+            public var note: String?
+            /// A URL to remind you what app the OAuth token is for.
+            public var noteURL: String?
+            /// A list of scopes that this authorization is in.
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   "public_repo",
+            ///   "user"
+            /// ]
+            public var scopes: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.clientSecret = try values.decode(String.self, forKey: "client_secret")
+                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
+                self.note = try values.decodeIfPresent(String.self, forKey: "note")
+                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
+                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+            }
+        }
     }
 }
 
@@ -570,7 +934,61 @@ extension Paths.Authorizations.Clients.WithClientID {
         /// Path: `/authorizations/clients/{client_id}/{fingerprint}`
         public let path: String
 
+        /// Get-or-create an authorization for a specific app and fingerprint
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
+        /// **Warning:** Apps must use the [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow) to obtain OAuth tokens that work with GitHub SAML organizations. OAuth tokens created using the Authorizations API will be unable to access GitHub SAML organizations. For more information, see the [blog post](https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api).
+        /// 
+        /// This method will create a new authorization for the specified OAuth application, only if an authorization for that application and fingerprint do not already exist for the user. The URL includes the 20 character client ID for the OAuth app that is requesting the token. `fingerprint` is a unique string to distinguish an authorization from others created for the same client ID and user. It returns the user's existing authorization for the application if one is present. Otherwise, it creates and returns a new one.
+        /// 
+        /// If you have two-factor authentication setup, Basic Authentication for this endpoint requires that you use a one-time password (OTP) and your username and password instead of tokens. For more information, see "[Working with two-factor authentication](https://docs.github.com/rest/overview/other-authentication-methods#working-with-two-factor-authentication)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint)
+        @available(*, deprecated, message: "Deprecated")
+        public func put(_ body: PutRequest) -> Request<Authorization> {
+            .put(path, body: body)
+        }
 
+        public enum PutResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PutRequest: Codable {
+            /// The OAuth app client secret for which to create the token.
+            public var clientSecret: String
+            /// A note to remind you what the OAuth token is for.
+            ///
+            /// Example: Update all gems
+            public var note: String?
+            /// A URL to remind you what app the OAuth token is for.
+            public var noteURL: String?
+            /// A list of scopes that this authorization is in.
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   "public_repo",
+            ///   "user"
+            /// ]
+            public var scopes: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.clientSecret = try values.decode(String.self, forKey: "client_secret")
+                self.note = try values.decodeIfPresent(String.self, forKey: "note")
+                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
+                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+            }
+        }
     }
 }
 
@@ -591,6 +1009,64 @@ extension Paths.Authorizations {
         @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<Authorization> {
             .get(path)
+        }
+
+        /// Update an existing authorization
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
+        /// If you have two-factor authentication setup, Basic Authentication for this endpoint requires that you use a one-time password (OTP) and your username and password instead of tokens. For more information, see "[Working with two-factor authentication](https://docs.github.com/rest/overview/other-authentication-methods#working-with-two-factor-authentication)."
+        /// 
+        /// You can only send one of these scope keys at a time.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization)
+        @available(*, deprecated, message: "Deprecated")
+        public func patch(_ body: PatchRequest) -> Request<Authorization> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// A list of scopes to add to this authorization.
+            public var addScopes: [String]?
+            /// A unique string to distinguish an authorization from others created for the same client ID and user.
+            public var fingerprint: String?
+            /// A note to remind you what the OAuth token is for.
+            ///
+            /// Example: Update all gems
+            public var note: String?
+            /// A URL to remind you what app the OAuth token is for.
+            public var noteURL: String?
+            /// A list of scopes to remove from this authorization.
+            public var removeScopes: [String]?
+            /// A list of scopes that this authorization is in.
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   "public_repo",
+            ///   "user"
+            /// ]
+            public var scopes: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.addScopes = try values.decodeIfPresent([String].self, forKey: "add_scopes")
+                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
+                self.note = try values.decodeIfPresent(String.self, forKey: "note")
+                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
+                self.removeScopes = try values.decodeIfPresent([String].self, forKey: "remove_scopes")
+                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(addScopes, forKey: "add_scopes")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(removeScopes, forKey: "remove_scopes")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+            }
         }
 
         /// Delete an authorization
@@ -713,6 +1189,36 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         public func get() -> Request<ActionsEnterprisePermissions> {
             .get(path)
         }
+
+        /// Set GitHub Actions permissions for an enterprise
+        ///
+        /// Sets the GitHub Actions permissions policy for organizations and allowed actions in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
+            public var allowedActions: AllowedActions?
+            /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
+            public var enabledOrganizations: EnabledOrganizations
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
+                self.enabledOrganizations = try values.decode(EnabledOrganizations.self, forKey: "enabled_organizations")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+                try values.encode(enabledOrganizations, forKey: "enabled_organizations")
+            }
+        }
     }
 }
 
@@ -744,6 +1250,32 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.organizations = try values.decode([github.OrganizationSimple].self, forKey: "organizations")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set selected organizations enabled for GitHub Actions in an enterprise
+        ///
+        /// Replaces the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
+        /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of organization IDs to enable for GitHub Actions.
+            public var selectedOrganizationIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedOrganizationIDs = try values.decode([Int].self, forKey: "selected_organization_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedOrganizationIDs, forKey: "selected_organization_ids")
             }
         }
     }
@@ -834,6 +1366,54 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
             }
         }
+
+        /// Create a self-hosted runner group for an enterprise
+        ///
+        /// Creates a new self-hosted runner group for an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise)
+        public func post(_ body: PostRequest) -> Request<RunnerGroupsEnterprise> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Whether the runner group can be used by `public` repositories.
+            public var allowsPublicRepositories: Bool?
+            /// Name of the runner group.
+            public var name: String
+            /// List of runner IDs to add to the runner group.
+            public var runners: [Int]?
+            /// List of organization IDs that can access the runner group.
+            public var selectedOrganizationIDs: [Int]?
+            /// Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
+            public var visibility: Visibility?
+
+            /// Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
+            public enum Visibility: String, Codable, CaseIterable {
+                case selected
+                case all
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.runners = try values.decodeIfPresent([Int].self, forKey: "runners")
+                self.selectedOrganizationIDs = try values.decodeIfPresent([Int].self, forKey: "selected_organization_ids")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(selectedOrganizationIDs, forKey: "selected_organization_ids")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
+        }
     }
 }
 
@@ -855,6 +1435,46 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
         public func get() -> Request<RunnerGroupsEnterprise> {
             .get(path)
+        }
+
+        /// Update a self-hosted runner group for an enterprise
+        ///
+        /// Updates the `name` and `visibility` of a self-hosted runner group in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise)
+        public func patch(_ body: PatchRequest) -> Request<RunnerGroupsEnterprise> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Whether the runner group can be used by `public` repositories.
+            public var allowsPublicRepositories: Bool?
+            /// Name of the runner group.
+            public var name: String?
+            /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
+            public var visibility: Visibility?
+
+            /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
+            public enum Visibility: String, Codable, CaseIterable {
+                case selected
+                case all
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
         }
 
         /// Delete a self-hosted runner group from an enterprise
@@ -898,6 +1518,32 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.organizations = try values.decode([github.OrganizationSimple].self, forKey: "organizations")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set organization access for a self-hosted runner group in an enterprise
+        ///
+        /// Replaces the list of organizations that have access to a self-hosted runner configured in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of organization IDs that can access the runner group.
+            public var selectedOrganizationIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedOrganizationIDs = try values.decode([Int].self, forKey: "selected_organization_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedOrganizationIDs, forKey: "selected_organization_ids")
             }
         }
     }
@@ -945,7 +1591,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -957,6 +1603,32 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.runners = try values.decode([github.Runner].self, forKey: "runners")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set self-hosted runners in a group for an enterprise
+        ///
+        /// Replaces the list of self-hosted runners that are part of an enterprise runner group.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of runner IDs to add to the runner group.
+            public var runners: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Int].self, forKey: "runners")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
             }
         }
     }
@@ -1004,7 +1676,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -1305,8 +1977,67 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a gist
+        ///
+        /// Allows you to add a new gist with one or more files.
+        /// 
+        /// **Note:** Don't name your files "gistfile" with a numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist)
+        public func post(_ body: PostRequest) -> Request<GistSimple> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Description of the gist
+            ///
+            /// Example: Example Ruby script
+            public var description: String?
+            /// Names and content for the files that make up the gist
+            ///
+            /// Example:
+            ///
+            /// {
+            ///   "hello.rb" : {
+            ///     "content" : "puts \"Hello, World!\""
+            ///   }
+            /// }
+            public var files: [String: FilesItem]
+
+            public struct FilesItem: Codable {
+                /// Content of the file
+                public var content: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.content = try values.decode(String.self, forKey: "content")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(content, forKey: "content")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.files = try values.decode([String: FilesItem].self, forKey: "files")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(files, forKey: "files")
+            }
         }
     }
 }
@@ -1331,7 +2062,7 @@ extension Paths.Gists {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1355,7 +2086,7 @@ extension Paths.Gists {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1375,6 +2106,54 @@ extension Paths.Gists {
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist)
         public func get() -> Request<GistSimple> {
             .get(path)
+        }
+
+        /// Update a gist
+        ///
+        /// Allows you to update or delete a gist file and rename gist files. Files from the previous version of the gist that aren't explicitly changed during an edit are unchanged.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists/#update-a-gist)
+        public func patch(_ body: PatchRequest) -> Request<GistSimple> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            public var object1: Object1?
+            public var object2: Object2?
+
+            public struct Object1: Codable {
+                public var description: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.description = try values.decode(AnyJSON.self, forKey: "description")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(description, forKey: "description")
+                }
+            }
+
+            public struct Object2: Codable {
+                public var files: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.files = try values.decode(AnyJSON.self, forKey: "files")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(files, forKey: "files")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.object1 = try? container.decode(Object1.self)
+                self.object2 = try? container.decode(Object2.self)
+            }
         }
 
         /// Delete a gist
@@ -1402,8 +2181,36 @@ extension Paths.Gists.WithGistID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a gist comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist-comment)
+        public func post(_ body: PostRequest) -> Request<GistComment> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The comment text.
+            ///
+            /// Example: Body of the attachment
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
     }
 }
@@ -1422,6 +2229,30 @@ extension Paths.Gists.WithGistID.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-comment)
         public func get() -> Request<GistComment> {
             .get(path)
+        }
+
+        /// Update a gist comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
+        public func patch(_ body: PatchRequest) -> Request<GistComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The comment text.
+            ///
+            /// Example: Body of the attachment
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a gist comment
@@ -1449,7 +2280,7 @@ extension Paths.Gists.WithGistID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1471,7 +2302,7 @@ extension Paths.Gists.WithGistID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1603,7 +2434,7 @@ extension Paths.Installation {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -1673,7 +2504,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1805,7 +2636,7 @@ extension Paths.MarketplaceListing {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1842,7 +2673,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1912,7 +2743,7 @@ extension Paths.MarketplaceListing.Stubbed {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -1949,7 +2780,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -2046,8 +2877,45 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Mark notifications as read
+        ///
+        /// Marks all notifications as "read" removes it from the [default view on GitHub](https://github.com/notifications). If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-notifications-as-read)
+        public func put(_ body: PutRequest) -> Request<PutResponse> {
+            .put(path, body: body)
+        }
+
+        public struct PutResponse: Decodable {
+            public var message: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+            }
+        }
+
+        public struct PutRequest: Codable {
+            /// Describes the last point that notifications were checked.
+            public var lastReadAt: Date?
+            /// Whether the notification has been read.
+            public var isRead: Bool?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.lastReadAt = try values.decodeIfPresent(Date.self, forKey: "last_read_at")
+                self.isRead = try values.decodeIfPresent(Bool.self, forKey: "read")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+                try values.encodeIfPresent(isRead, forKey: "read")
+            }
         }
     }
 }
@@ -2101,6 +2969,34 @@ extension Paths.Notifications.Threads.WithThreadID {
             .get(path)
         }
 
+        /// Set a thread subscription
+        ///
+        /// If you are watching a repository, you receive notifications for all threads by default. Use this endpoint to ignore future notifications for threads until you comment on the thread or get an **@mention**.
+        /// 
+        /// You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored.
+        /// 
+        /// Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
+        public func put(_ body: PutRequest) -> Request<ThreadSubscription> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Whether to block all notifications from a thread.
+            public var isIgnored: Bool?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIgnored = try values.decodeIfPresent(Bool.self, forKey: "ignored")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isIgnored, forKey: "ignored")
+            }
+        }
+
         /// Delete a thread subscription
         ///
         /// Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
@@ -2145,7 +3041,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -2227,6 +3123,154 @@ extension Paths.Orgs {
         public func get() -> Request<OrganizationFull> {
             .get(path)
         }
+
+        /// Update an organization
+        ///
+        /// **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
+        /// 
+        /// Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs/#update-an-organization)
+        public func patch(_ body: PatchRequest) -> Request<OrganizationFull> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Billing email address. This address is not publicized.
+            public var billingEmail: String?
+            /// Example: "http://github.blog"
+            public var blog: String?
+            /// The company name.
+            public var company: String?
+            /// Default permission level members have for organization repositories:  
+            /// \* `read` - can pull, but not push to or administer this repository.  
+            /// \* `write` - can pull and push, but not administer this repository.  
+            /// \* `admin` - can pull, push, and administer this repository.  
+            /// \* `none` - no permissions granted by default.
+            public var defaultRepositoryPermission: DefaultRepositoryPermission?
+            /// The description of the company.
+            public var description: String?
+            /// The publicly visible email address.
+            public var email: String?
+            /// Toggles whether an organization can use organization projects.
+            public var hasOrganizationProjects: Bool?
+            /// Toggles whether repositories that belong to the organization can use repository projects.
+            public var hasRepositoryProjects: Bool?
+            /// The location.
+            public var location: String?
+            /// Specifies which types of repositories non-admin organization members can create. Can be one of:  
+            /// \* `all` - all organization members can create public and private repositories.  
+            /// \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.  
+            /// \* `none` - only admin members can create repositories.  
+            /// **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
+            public var membersAllowedRepositoryCreationType: MembersAllowedRepositoryCreationType?
+            /// Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:  
+            /// \* `true` - all organization members can create internal repositories.  
+            /// \* `false` - only organization owners can create internal repositories.  
+            /// Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+            public var membersCanCreateInternalRepositories: Bool?
+            /// Toggles whether organization members can create GitHub Pages sites. Can be one of:  
+            /// \* `true` - all organization members can create GitHub Pages sites.  
+            /// \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
+            public var membersCanCreatePages: Bool?
+            /// Toggles whether organization members can create private GitHub Pages sites. Can be one of:  
+            /// \* `true` - all organization members can create private GitHub Pages sites.  
+            /// \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
+            public var membersCanCreatePrivatePages: Bool?
+            /// Toggles whether organization members can create private repositories, which are visible to organization members with permission. Can be one of:  
+            /// \* `true` - all organization members can create private repositories.  
+            /// \* `false` - only organization owners can create private repositories.  
+            /// Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+            public var membersCanCreatePrivateRepositories: Bool?
+            /// Toggles whether organization members can create public GitHub Pages sites. Can be one of:  
+            /// \* `true` - all organization members can create public GitHub Pages sites.  
+            /// \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
+            public var membersCanCreatePublicPages: Bool?
+            /// Toggles whether organization members can create public repositories, which are visible to anyone. Can be one of:  
+            /// \* `true` - all organization members can create public repositories.  
+            /// \* `false` - only organization owners can create public repositories.  
+            /// Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+            public var membersCanCreatePublicRepositories: Bool?
+            /// Toggles the ability of non-admin organization members to create repositories. Can be one of:  
+            /// \* `true` - all organization members can create repositories.  
+            /// \* `false` - only organization owners can create repositories.  
+            /// Default: `true`  
+            /// **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
+            public var membersCanCreateRepositories: Bool?
+            /// The shorthand name of the company.
+            public var name: String?
+            /// The Twitter username of the company.
+            public var twitterUsername: String?
+
+            /// Default permission level members have for organization repositories:  
+            /// \* `read` - can pull, but not push to or administer this repository.  
+            /// \* `write` - can pull and push, but not administer this repository.  
+            /// \* `admin` - can pull, push, and administer this repository.  
+            /// \* `none` - no permissions granted by default.
+            public enum DefaultRepositoryPermission: String, Codable, CaseIterable {
+                case read
+                case write
+                case admin
+                case `none`
+            }
+
+            /// Specifies which types of repositories non-admin organization members can create. Can be one of:  
+            /// \* `all` - all organization members can create public and private repositories.  
+            /// \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.  
+            /// \* `none` - only admin members can create repositories.  
+            /// **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
+            public enum MembersAllowedRepositoryCreationType: String, Codable, CaseIterable {
+                case all
+                case `private`
+                case `none`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.billingEmail = try values.decodeIfPresent(String.self, forKey: "billing_email")
+                self.blog = try values.decodeIfPresent(String.self, forKey: "blog")
+                self.company = try values.decodeIfPresent(String.self, forKey: "company")
+                self.defaultRepositoryPermission = try values.decodeIfPresent(DefaultRepositoryPermission.self, forKey: "default_repository_permission")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+                self.hasOrganizationProjects = try values.decodeIfPresent(Bool.self, forKey: "has_organization_projects")
+                self.hasRepositoryProjects = try values.decodeIfPresent(Bool.self, forKey: "has_repository_projects")
+                self.location = try values.decodeIfPresent(String.self, forKey: "location")
+                self.membersAllowedRepositoryCreationType = try values.decodeIfPresent(MembersAllowedRepositoryCreationType.self, forKey: "members_allowed_repository_creation_type")
+                self.membersCanCreateInternalRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_internal_repositories")
+                self.membersCanCreatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_pages")
+                self.membersCanCreatePrivatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_pages")
+                self.membersCanCreatePrivateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_repositories")
+                self.membersCanCreatePublicPages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_pages")
+                self.membersCanCreatePublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_repositories")
+                self.membersCanCreateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_repositories")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(billingEmail, forKey: "billing_email")
+                try values.encodeIfPresent(blog, forKey: "blog")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(defaultRepositoryPermission, forKey: "default_repository_permission")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(hasOrganizationProjects, forKey: "has_organization_projects")
+                try values.encodeIfPresent(hasRepositoryProjects, forKey: "has_repository_projects")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(membersAllowedRepositoryCreationType, forKey: "members_allowed_repository_creation_type")
+                try values.encodeIfPresent(membersCanCreateInternalRepositories, forKey: "members_can_create_internal_repositories")
+                try values.encodeIfPresent(membersCanCreatePages, forKey: "members_can_create_pages")
+                try values.encodeIfPresent(membersCanCreatePrivatePages, forKey: "members_can_create_private_pages")
+                try values.encodeIfPresent(membersCanCreatePrivateRepositories, forKey: "members_can_create_private_repositories")
+                try values.encodeIfPresent(membersCanCreatePublicPages, forKey: "members_can_create_public_pages")
+                try values.encodeIfPresent(membersCanCreatePublicRepositories, forKey: "members_can_create_public_repositories")
+                try values.encodeIfPresent(membersCanCreateRepositories, forKey: "members_can_create_repositories")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+            }
+        }
     }
 }
 
@@ -2260,6 +3304,38 @@ extension Paths.Orgs.WithOrg.Actions {
         public func get() -> Request<ActionsOrganizationPermissions> {
             .get(path)
         }
+
+        /// Set GitHub Actions permissions for an organization
+        ///
+        /// Sets the GitHub Actions permissions policy for repositories and allowed actions in an organization.
+        /// 
+        /// If the organization belongs to an enterprise that has set restrictive permissions at the enterprise level, such as `allowed_actions` to `selected` actions, then you cannot override them for the organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-an-organization)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
+            public var allowedActions: AllowedActions?
+            /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
+            public var enabledRepositories: EnabledRepositories
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
+                self.enabledRepositories = try values.decode(EnabledRepositories.self, forKey: "enabled_repositories")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+                try values.encode(enabledRepositories, forKey: "enabled_repositories")
+            }
+        }
     }
 }
 
@@ -2291,6 +3367,32 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.repositories = try values.decode([github.Repository].self, forKey: "repositories")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set selected repositories enabled for GitHub Actions in an organization
+        ///
+        /// Replaces the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of repository IDs to enable for GitHub Actions.
+            public var selectedRepositoryIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
     }
@@ -2387,6 +3489,57 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
             }
         }
+
+        /// Create a self-hosted runner group for an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud and GitHub Enterprise Server. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// Creates a new self-hosted runner group for an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-self-hosted-runner-group-for-an-organization)
+        public func post(_ body: PostRequest) -> Request<RunnerGroupsOrg> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Whether the runner group can be used by `public` repositories.
+            public var allowsPublicRepositories: Bool?
+            /// Name of the runner group.
+            public var name: String
+            /// List of runner IDs to add to the runner group.
+            public var runners: [Int]?
+            /// List of repository IDs that can access the runner group.
+            public var selectedRepositoryIDs: [Int]?
+            /// Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
+            public var visibility: Visibility?
+
+            /// Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
+            public enum Visibility: String, Codable, CaseIterable {
+                case selected
+                case all
+                case `private`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.runners = try values.decodeIfPresent([Int].self, forKey: "runners")
+                self.selectedRepositoryIDs = try values.decodeIfPresent([Int].self, forKey: "selected_repository_ids")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
+        }
     }
 }
 
@@ -2410,6 +3563,49 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
         public func get() -> Request<RunnerGroupsOrg> {
             .get(path)
+        }
+
+        /// Update a self-hosted runner group for an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// Updates the `name` and `visibility` of a self-hosted runner group in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization)
+        public func patch(_ body: PatchRequest) -> Request<RunnerGroupsOrg> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Whether the runner group can be used by `public` repositories.
+            public var allowsPublicRepositories: Bool?
+            /// Name of the runner group.
+            public var name: String
+            /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
+            public var visibility: Visibility?
+
+            /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
+            public enum Visibility: String, Codable, CaseIterable {
+                case selected
+                case all
+                case `private`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
         }
 
         /// Delete a self-hosted runner group from an organization
@@ -2457,6 +3653,34 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.repositories = try values.decode([github.MinimalRepository].self, forKey: "repositories")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set repository access for a self-hosted runner group in an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// Replaces the list of repositories that have access to a self-hosted runner group configured in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of repository IDs that can access the runner group.
+            public var selectedRepositoryIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
     }
@@ -2509,7 +3733,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -2521,6 +3745,34 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.runners = try values.decode([github.Runner].self, forKey: "runners")
                 self.totalCount = try values.decode(Double.self, forKey: "total_count")
+            }
+        }
+
+        /// Set self-hosted runners in a group for an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// Replaces the list of self-hosted runners that are part of an organization runner group.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of runner IDs to add to the runner group.
+            public var runners: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.runners = try values.decode([Int].self, forKey: "runners")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(runners, forKey: "runners")
             }
         }
     }
@@ -2571,7 +3823,7 @@ extension Paths.Orgs.WithOrg.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -2687,7 +3939,7 @@ extension Paths.Orgs.WithOrg.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -2742,6 +3994,129 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
             .get(path)
         }
 
+        /// Create or update an organization secret
+        ///
+        /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
+        /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
+        /// token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to
+        /// use this endpoint.
+        /// 
+        /// #### Example encrypting a secret using Node.js
+        /// 
+        /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+        /// 
+        /// ```
+        /// const sodium = require('tweetsodium');
+        /// 
+        /// const key = "base64-encoded-public-key";
+        /// const value = "plain-text-secret";
+        /// 
+        /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+        /// const messageBytes = Buffer.from(value);
+        /// const keyBytes = Buffer.from(key, 'base64');
+        /// 
+        /// // Encrypt using LibSodium.
+        /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+        /// 
+        /// // Base64 the encrypted secret
+        /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+        /// 
+        /// console.log(encrypted);
+        /// ```
+        /// 
+        /// 
+        /// #### Example encrypting a secret using Python
+        /// 
+        /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        /// 
+        /// ```
+        /// from base64 import b64encode
+        /// from nacl import encoding, public
+        /// 
+        /// def encrypt(public_key: str, secret_value: str) -> str:
+        ///   """Encrypt a Unicode string using the public key."""
+        ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+        ///   sealed_box = public.SealedBox(public_key)
+        ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+        ///   return b64encode(encrypted).decode("utf-8")
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using C#
+        /// 
+        /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+        /// 
+        /// ```
+        /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+        /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+        /// 
+        /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+        /// 
+        /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using Ruby
+        /// 
+        /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+        /// 
+        /// ```ruby
+        /// require "rbnacl"
+        /// require "base64"
+        /// 
+        /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+        /// public_key = RbNaCl::PublicKey.new(key)
+        /// 
+        /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+        /// encrypted_secret = box.encrypt("my_secret")
+        /// 
+        /// # Print the base64 encoded secret
+        /// puts Base64.strict_encode64(encrypted_secret)
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret)
+        public func put(_ body: PutRequest) -> Request<EmptyObject> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint.
+            public var encryptedValue: String?
+            /// ID of the key you used to encrypt the secret.
+            public var keyID: String?
+            /// An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints.
+            public var selectedRepositoryIDs: [String]?
+            /// Configures the access that repositories have to the organization secret. Can be one of:  
+            /// \- `all` - All repositories in an organization can access the secret.  
+            /// \- `private` - Private repositories in an organization can access the secret.  
+            /// \- `selected` - Only specific repositories can access the secret.
+            public var visibility: Visibility
+
+            /// Configures the access that repositories have to the organization secret. Can be one of:  
+            /// \- `all` - All repositories in an organization can access the secret.  
+            /// \- `private` - Private repositories in an organization can access the secret.  
+            /// \- `selected` - Only specific repositories can access the secret.
+            public enum Visibility: String, Codable, CaseIterable {
+                case all
+                case `private`
+                case selected
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.encryptedValue = try values.decodeIfPresent(String.self, forKey: "encrypted_value")
+                self.keyID = try values.decodeIfPresent(String.self, forKey: "key_id")
+                self.selectedRepositoryIDs = try values.decodeIfPresent([String].self, forKey: "selected_repository_ids")
+                self.visibility = try values.decode(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(encryptedValue, forKey: "encrypted_value")
+                try values.encodeIfPresent(keyID, forKey: "key_id")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
+                try values.encode(visibility, forKey: "visibility")
+            }
+        }
+
         /// Delete an organization secret
         ///
         /// Deletes a secret in an organization using the secret name. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
@@ -2779,6 +4154,30 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.repositories = try values.decode([github.MinimalRepository].self, forKey: "repositories")
                 self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+        }
+
+        /// Set selected repositories for an organization secret
+        ///
+        /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints.
+            public var selectedRepositoryIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
     }
@@ -2986,7 +4385,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3010,7 +4409,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3032,8 +4431,87 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an organization webhook
+        ///
+        /// Here's how you can create a hook that posts payloads in JSON format:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-webhook)
+        public func post(_ body: PostRequest) -> Request<OrgHook> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+            public var isActive: Bool?
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
+            public var config: Config
+            /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+            public var events: [String]?
+            /// Must be passed as "web".
+            public var name: String
+
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
+            public struct Config: Codable {
+                /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+                ///
+                /// Example: "json"
+                public var contentType: String?
+                public var insecureSSL: WebhookConfigInsecureSSL?
+                /// Example: "password"
+                public var password: String?
+                /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+                ///
+                /// Example: "********"
+                public var secret: String?
+                /// The URL to which the payloads will be delivered.
+                public var url: URL
+                /// Example: "kdaigle"
+                public var username: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.password = try values.decodeIfPresent(String.self, forKey: "password")
+                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                    self.url = try values.decode(URL.self, forKey: "url")
+                    self.username = try values.decodeIfPresent(String.self, forKey: "username")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(password, forKey: "password")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encode(url, forKey: "url")
+                    try values.encodeIfPresent(username, forKey: "username")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
+                self.config = try values.decode(Config.self, forKey: "config")
+                self.events = try values.decodeIfPresent([String].self, forKey: "events")
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encode(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encode(name, forKey: "name")
+            }
         }
     }
 }
@@ -3054,6 +4532,73 @@ extension Paths.Orgs.WithOrg.Hooks {
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-webhook)
         public func get() -> Request<OrgHook> {
             .get(path)
+        }
+
+        /// Update an organization webhook
+        ///
+        /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-webhook)
+        public func patch(_ body: PatchRequest) -> Request<OrgHook> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+            public var isActive: Bool?
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params).
+            public var config: Config?
+            /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+            public var events: [String]?
+            /// Example: "web"
+            public var name: String?
+
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params).
+            public struct Config: Codable {
+                /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+                ///
+                /// Example: "json"
+                public var contentType: String?
+                public var insecureSSL: WebhookConfigInsecureSSL?
+                /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+                ///
+                /// Example: "********"
+                public var secret: String?
+                /// The URL to which the payloads will be delivered.
+                public var url: URL
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                    self.url = try values.decode(URL.self, forKey: "url")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encode(url, forKey: "url")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
+                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
+                self.events = try values.decodeIfPresent([String].self, forKey: "events")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
 
         /// Delete an organization webhook
@@ -3083,6 +4628,17 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
         public func get() -> Request<WebhookConfig> {
             .get(path)
+        }
+
+        /// Update a webhook configuration for an organization
+        ///
+        /// Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
+        /// 
+        /// Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)
+        public func patch(_ body: [String: AnyJSON]) -> Request<WebhookConfig> {
+            .patch(path, body: body)
         }
     }
 }
@@ -3193,7 +4749,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -3280,8 +4836,59 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an organization invitation
+        ///
+        /// Invite people to an organization by using their GitHub user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-invitation)
+        public func post(_ body: PostRequest) -> Request<OrganizationInvitation> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// **Required unless you provide `invitee_id`**. Email address of the person you are inviting, which can be an existing GitHub user.
+            public var email: String?
+            /// **Required unless you provide `email`**. GitHub user ID for the person you are inviting.
+            public var inviteeID: Int?
+            /// Specify role for new member. Can be one of:  
+            /// \* `admin` - Organization owners with full administrative rights to the organization and complete access to all repositories and teams.  
+            /// \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.  
+            /// \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
+            public var role: Role?
+            /// Specify IDs for the teams you want to invite new members to.
+            public var teamIDs: [Int]?
+
+            /// Specify role for new member. Can be one of:  
+            /// \* `admin` - Organization owners with full administrative rights to the organization and complete access to all repositories and teams.  
+            /// \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.  
+            /// \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
+            public enum Role: String, Codable, CaseIterable {
+                case admin
+                case directMember = "direct_member"
+                case billingManager = "billing_manager"
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+                self.inviteeID = try values.decodeIfPresent(Int.self, forKey: "invitee_id")
+                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
+                self.teamIDs = try values.decodeIfPresent([Int].self, forKey: "team_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(inviteeID, forKey: "invitee_id")
+                try values.encodeIfPresent(role, forKey: "role")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
+            }
         }
     }
 }
@@ -3326,7 +4933,7 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3355,7 +4962,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3379,7 +4986,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3443,6 +5050,48 @@ extension Paths.Orgs.WithOrg.Memberships {
             .get(path)
         }
 
+        /// Set organization membership for a user
+        ///
+        /// Only authenticated organization owners can add a member to the organization or update the member's role.
+        /// 
+        /// *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
+        ///     
+        /// *   Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent.
+        /// 
+        /// **Rate limits**
+        /// 
+        /// To prevent abuse, the authenticated user is limited to 50 organization invitations per 24 hour period. If the organization is more than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user)
+        public func put(_ body: PutRequest) -> Request<OrgMembership> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The role to give the user in the organization. Can be one of:  
+            /// \* `admin` - The user will become an owner of the organization.  
+            /// \* `member` - The user will become a non-owner member of the organization.
+            public var role: Role?
+
+            /// The role to give the user in the organization. Can be one of:  
+            /// \* `admin` - The user will become an owner of the organization.  
+            /// \* `member` - The user will become a non-owner member of the organization.
+            public enum Role: String, Codable, CaseIterable {
+                case admin
+                case member
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
+        }
+
         /// Remove organization membership for a user
         ///
         /// In order to remove a user's membership with an organization, the authenticated user must be an organization owner.
@@ -3474,8 +5123,63 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Start an organization migration
+        ///
+        /// Initiates the generation of a migration archive.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-organization-migration)
+        public func post(_ body: PostRequest) -> Request<Migration> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            public var exclude: [ExcludeItem]?
+            /// Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
+            ///
+            /// Example: true
+            public var excludeAttachments: Bool?
+            /// Indicates whether projects owned by the organization or users should be excluded. from the migration.
+            ///
+            /// Example: true
+            public var excludeOwnerProjects: Bool?
+            /// Indicates whether releases should be excluded from the migration (to reduce migration archive file size).
+            ///
+            /// Example: true
+            public var excludeReleases: Bool?
+            /// Indicates whether repositories should be locked (to prevent manipulation) while migrating data.
+            ///
+            /// Example: true
+            public var lockRepositories: Bool?
+            /// A list of arrays indicating which repositories should be migrated.
+            public var repositories: [String]
+
+            public enum ExcludeItem: String, Codable, CaseIterable {
+                case repositories
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.exclude = try values.decodeIfPresent([ExcludeItem].self, forKey: "exclude")
+                self.excludeAttachments = try values.decodeIfPresent(Bool.self, forKey: "exclude_attachments")
+                self.excludeOwnerProjects = try values.decodeIfPresent(Bool.self, forKey: "exclude_owner_projects")
+                self.excludeReleases = try values.decodeIfPresent(Bool.self, forKey: "exclude_releases")
+                self.lockRepositories = try values.decodeIfPresent(Bool.self, forKey: "lock_repositories")
+                self.repositories = try values.decode([String].self, forKey: "repositories")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(exclude, forKey: "exclude")
+                try values.encodeIfPresent(excludeAttachments, forKey: "exclude_attachments")
+                try values.encodeIfPresent(excludeOwnerProjects, forKey: "exclude_owner_projects")
+                try values.encodeIfPresent(excludeReleases, forKey: "exclude_releases")
+                try values.encodeIfPresent(lockRepositories, forKey: "lock_repositories")
+                try values.encode(repositories, forKey: "repositories")
+            }
         }
     }
 }
@@ -3596,7 +5300,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3620,7 +5324,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3819,8 +5523,36 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an organization project
+        ///
+        /// Creates an organization project board. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#create-an-organization-project)
+        public func post(_ body: PostRequest) -> Request<Project> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The description of the project.
+            public var body: String?
+            /// The name of the project.
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(name, forKey: "name")
+            }
         }
     }
 }
@@ -3843,7 +5575,7 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -3892,8 +5624,118 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an organization repository
+        ///
+        /// Creates a new repository in the specified organization. The authenticated user must be a member of the organization.
+        /// 
+        /// **OAuth scope requirements**
+        /// 
+        /// When using [OAuth](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), authorizations must include:
+        /// 
+        /// *   `public_repo` scope or `repo` scope to create a public repository. Note: For GitHub AE, use `repo` scope to create an internal repository.
+        /// *   `repo` scope to create a private repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-an-organization-repository)
+        public func post(_ body: PostRequest) -> Request<Repository> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
+            public var allowAutoMerge: Bool?
+            /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+            public var allowMergeCommit: Bool?
+            /// Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+            public var allowRebaseMerge: Bool?
+            /// Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+            public var allowSquashMerge: Bool?
+            /// Pass `true` to create an initial commit with empty README.
+            public var isAutoInit: Bool?
+            /// Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+            public var deleteBranchOnMerge: Bool?
+            /// A short description of the repository.
+            public var description: String?
+            /// Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell".
+            public var gitignoreTemplate: String?
+            /// Either `true` to enable issues for this repository or `false` to disable them.
+            public var hasIssues: Bool?
+            /// Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+            public var hasProjects: Bool?
+            /// Either `true` to enable the wiki for this repository or `false` to disable it.
+            public var hasWiki: Bool?
+            /// A URL with more information about the repository.
+            public var homepage: String?
+            /// Either `true` to make this repo available as a template repository or `false` to prevent it.
+            public var isTemplate: Bool?
+            /// Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0".
+            public var licenseTemplate: String?
+            /// The name of the repository.
+            public var name: String
+            /// Whether the repository is private.
+            public var isPrivate: Bool?
+            /// The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
+            public var teamID: Int?
+            /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
+            public var visibility: Visibility?
+
+            /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
+            public enum Visibility: String, Codable, CaseIterable {
+                case `public`
+                case `private`
+                case `internal`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
+                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
+                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+                self.isAutoInit = try values.decodeIfPresent(Bool.self, forKey: "auto_init")
+                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.gitignoreTemplate = try values.decodeIfPresent(String.self, forKey: "gitignore_template")
+                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
+                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
+                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
+                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
+                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
+                self.licenseTemplate = try values.decodeIfPresent(String.self, forKey: "license_template")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.teamID = try values.decodeIfPresent(Int.self, forKey: "team_id")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(isAutoInit, forKey: "auto_init")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(gitignoreTemplate, forKey: "gitignore_template")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(licenseTemplate, forKey: "license_template")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(teamID, forKey: "team_id")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
         }
     }
 }
@@ -3930,7 +5772,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4083,7 +5925,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4107,8 +5949,91 @@ extension Paths.Orgs.WithOrg {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a team
+        ///
+        /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://help.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
+        /// 
+        /// When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-team)
+        public func post(_ body: PostRequest) -> Request<TeamFull> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The description of the team.
+            public var description: String?
+            /// List GitHub IDs for organization members who will become team maintainers.
+            public var maintainers: [String]?
+            /// The name of the team.
+            public var name: String
+            /// The ID of a team to set as the parent team.
+            public var parentTeamID: Int?
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public var permission: Permission?
+            /// The level of privacy this team should have. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// Default: `secret`  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.  
+            /// Default for child team: `closed`
+            public var privacy: Privacy?
+            /// The full name (e.g., "organization-name/repository-name") of repositories to add the team to.
+            public var repoNames: [String]?
+
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+            }
+
+            /// The level of privacy this team should have. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// Default: `secret`  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.  
+            /// Default for child team: `closed`
+            public enum Privacy: String, Codable, CaseIterable {
+                case secret
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.maintainers = try values.decodeIfPresent([String].self, forKey: "maintainers")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
+                self.repoNames = try values.decodeIfPresent([String].self, forKey: "repo_names")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(maintainers, forKey: "maintainers")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+                try values.encodeIfPresent(repoNames, forKey: "repo_names")
+            }
         }
     }
 }
@@ -4131,6 +6056,77 @@ extension Paths.Orgs.WithOrg.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
         public func get() -> Request<TeamFull> {
             .get(path)
+        }
+
+        /// Update a team
+        ///
+        /// To edit a team, the authenticated user must either be an organization owner or a team maintainer.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-team)
+        public func patch(_ body: PatchRequest) -> Request<TeamFull> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The description of the team.
+            public var description: String?
+            /// The name of the team.
+            public var name: String?
+            /// The ID of a team to set as the parent team.
+            public var parentTeamID: Int?
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public var permission: Permission?
+            /// The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.
+            public var privacy: Privacy?
+
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+            }
+
+            /// The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.
+            public enum Privacy: String, Codable, CaseIterable {
+                case secret
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+            }
         }
 
         /// Delete a team
@@ -4168,8 +6164,44 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a discussion
+        ///
+        /// Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion)
+        public func post(_ body: PostRequest) -> Request<TeamDiscussion> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The discussion post's body text.
+            public var body: String
+            /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+            public var isPrivate: Bool?
+            /// The discussion post's title.
+            public var title: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.title = try values.decode(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encode(title, forKey: "title")
+            }
         }
     }
 }
@@ -4192,6 +6224,36 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
         public func get() -> Request<TeamDiscussion> {
             .get(path)
+        }
+
+        /// Update a discussion
+        ///
+        /// Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion)
+        public func patch(_ body: PatchRequest) -> Request<TeamDiscussion> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The discussion post's body text.
+            public var body: String?
+            /// The discussion post's title.
+            public var title: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
 
         /// Delete a discussion
@@ -4227,8 +6289,36 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a discussion comment
+        ///
+        /// Creates a new comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
+        public func post(_ body: PostRequest) -> Request<TeamDiscussionComment> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The discussion comment's body text.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
     }
 }
@@ -4251,6 +6341,32 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
+        }
+
+        /// Update a discussion comment
+        ///
+        /// Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
+        public func patch(_ body: PatchRequest) -> Request<TeamDiscussionComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The discussion comment's body text.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a discussion comment
@@ -4286,8 +6402,46 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a team discussion comment
+        ///
+        /// Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -4334,8 +6488,46 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a team discussion
+        ///
+        /// Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -4371,6 +6563,32 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/external-groups`
         public let path: String
 
+        /// Update the connection between an external group and a team
+        ///
+        /// Creates a connection between a team and an external group.  Only one external group can be linked to a team.
+        /// 
+        /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
+        public func patch(_ body: PatchRequest) -> Request<ExternalGroup> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// External Group Id
+            public var groupID: Int
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.groupID = try values.decode(Int.self, forKey: "group_id")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(groupID, forKey: "group_id")
+            }
+        }
+
         /// Remove the connection between an external group and a team
         ///
         /// Deletes a connection between a team and an external group.
@@ -4404,7 +6622,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4430,7 +6648,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4474,6 +6692,50 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
             .get(path)
         }
 
+        /// Add or update team membership for a user
+        ///
+        /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Adds an organization member to a team. An authenticated organization owner or team maintainer can add organization members to a team.
+        /// 
+        /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        /// 
+        /// An organization owner can add someone who is not part of the team's organization to a team. When an organization owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the person via email. This newly-created membership will be in the "pending" state until the person accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team.
+        /// 
+        /// If the user is already a member of the team, this endpoint will update the role of the team member's role. To update the membership of a team member, the authenticated user must be an organization owner or a team maintainer.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/memberships/{username}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user)
+        public func put(_ body: PutRequest) -> Request<TeamMembership> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The role that this user should have in the team. Can be one of:  
+            /// \* `member` - a normal member of the team.  
+            /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+            public var role: Role?
+
+            /// The role that this user should have in the team. Can be one of:  
+            /// \* `member` - a normal member of the team.  
+            /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+            public enum Role: String, Codable, CaseIterable {
+                case member
+                case maintainer
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
+        }
+
         /// Remove team membership for a user
         ///
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -4511,7 +6773,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4535,6 +6797,47 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
         public func get() -> Request<TeamProject> {
             .get(path)
+        }
+
+        /// Add or update team project permissions
+        ///
+        /// Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/projects/{project_id}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant to the team for this project. Can be one of:  
+            /// \* `read` - team members can read, but not write to or administer this project.  
+            /// \* `write` - team members can read and write, but not administer this project.  
+            /// \* `admin` - team members can read, write and administer this project.  
+            /// Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+            public var permission: Permission?
+
+            /// The permission to grant to the team for this project. Can be one of:  
+            /// \* `read` - team members can read, but not write to or administer this project.  
+            /// \* `write` - team members can read and write, but not administer this project.  
+            /// \* `admin` - team members can read, write and administer this project.  
+            /// Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+            public enum Permission: String, Codable, CaseIterable {
+                case read
+                case write
+                case admin
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a project from a team
@@ -4570,7 +6873,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4609,6 +6912,59 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
         public func get() -> Request<TeamRepository> {
             .get(path)
+        }
+
+        /// Add or update team repository permissions
+        ///
+        /// To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
+        /// 
+        /// For more information about the permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant the team on this repository. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer this repository.  
+            /// \* `push` - team members can pull and push, but not administer this repository.  
+            /// \* `admin` - team members can pull, push and administer this repository.  
+            /// \* `maintain` - team members can manage the repository without access to sensitive or destructive actions. Recommended for project managers. Only applies to repositories owned by organizations.  
+            /// \* `triage` - team members can proactively manage issues and pull requests without write access. Recommended for contributors who triage a repository. Only applies to repositories owned by organizations.  
+            /// \* custom repository role name - A custom repository role if the owning organization has defined any.  
+            ///   
+            /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+            public var permission: Permission?
+
+            /// The permission to grant the team on this repository. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer this repository.  
+            /// \* `push` - team members can pull and push, but not administer this repository.  
+            /// \* `admin` - team members can pull, push and administer this repository.  
+            /// \* `maintain` - team members can manage the repository without access to sensitive or destructive actions. Recommended for project managers. Only applies to repositories owned by organizations.  
+            /// \* `triage` - team members can proactively manage issues and pull requests without write access. Recommended for contributors who triage a repository. Only applies to repositories owned by organizations.  
+            /// \* custom repository role name - A custom repository role if the owning organization has defined any.  
+            ///   
+            /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+                case maintain
+                case triage
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a repository from a team
@@ -4656,6 +7012,19 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
+
+        /// Create or update IdP group connections
+        ///
+        /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Creates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
+        public func patch(_ body: [String: AnyJSON]) -> Request<GroupMapping> {
+            .patch(path, body: body)
+        }
     }
 }
 
@@ -4679,7 +7048,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4734,6 +7103,36 @@ extension Paths.Projects.Columns.Cards {
             .get(path)
         }
 
+        /// Update an existing project card
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-card)
+        public func patch(_ body: PatchRequest) -> Request<ProjectCard> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Whether or not the card is archived
+            ///
+            /// Example: false
+            public var isArchived: Bool?
+            /// The project card's note
+            ///
+            /// Example: Update all gems
+            public var note: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
+                self.note = try values.decodeIfPresent(String.self, forKey: "note")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isArchived, forKey: "archived")
+                try values.encodeIfPresent(note, forKey: "note")
+            }
+        }
+
         /// Delete a project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-card)
@@ -4752,7 +7151,35 @@ extension Paths.Projects.Columns.Cards.WithCardID {
         /// Path: `/projects/columns/cards/{card_id}/moves`
         public let path: String
 
+        /// Move a project card
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-card)
+        public func post(_ body: PostRequest) -> Request<[String: AnyJSON]> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The unique identifier of the column the card should be moved to
+            ///
+            /// Example: 42
+            public var columnID: Int?
+            /// The position of the card in a column. Can be one of: `top`, `bottom`, or `after:<card_id>` to place after the specified card.
+            ///
+            /// Example: bottom
+            public var position: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.columnID = try values.decodeIfPresent(Int.self, forKey: "column_id")
+                self.position = try values.decode(String.self, forKey: "position")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(columnID, forKey: "column_id")
+                try values.encode(position, forKey: "position")
+            }
+        }
     }
 }
 
@@ -4770,6 +7197,30 @@ extension Paths.Projects.Columns {
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-column)
         public func get() -> Request<ProjectColumn> {
             .get(path)
+        }
+
+        /// Update an existing project column
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
+        public func patch(_ body: PatchRequest) -> Request<ProjectColumn> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Name of the project column
+            ///
+            /// Example: Remaining tasks
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+            }
         }
 
         /// Delete a project column
@@ -4797,8 +7248,71 @@ extension Paths.Projects.Columns.WithColumnID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a project card
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-card)
+        public func post(_ body: PostRequest) -> Request<ProjectCard> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object1(Object1)
+            case object2(Object2)
+
+            public struct Object1: Codable {
+                /// The project card's note
+                ///
+                /// Example: Update all gems
+                public var note: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.note = try values.decodeIfPresent(String.self, forKey: "note")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(note, forKey: "note")
+                }
+            }
+
+            public struct Object2: Codable {
+                /// The unique identifier of the content associated with the card
+                ///
+                /// Example: 42
+                public var contentID: Int
+                /// The piece of content associated with the card
+                ///
+                /// Example: PullRequest
+                public var contentType: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contentID = try values.decode(Int.self, forKey: "content_id")
+                    self.contentType = try values.decode(String.self, forKey: "content_type")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contentID, forKey: "content_id")
+                    try values.encode(contentType, forKey: "content_type")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object1.self) {
+                    self = .object1(value)
+                } else if let value = try? container.decode(Object2.self) {
+                    self = .object2(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
         }
     }
 }
@@ -4812,7 +7326,29 @@ extension Paths.Projects.Columns.WithColumnID {
         /// Path: `/projects/columns/{column_id}/moves`
         public let path: String
 
+        /// Move a project column
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
+        public func post(_ body: PostRequest) -> Request<[String: AnyJSON]> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The position of the column in a project. Can be one of: `first`, `last`, or `after:<column_id>` to place after the specified column.
+            ///
+            /// Example: last
+            public var position: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.position = try values.decode(String.self, forKey: "position")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(position, forKey: "position")
+            }
+        }
     }
 }
 
@@ -4832,6 +7368,60 @@ extension Paths.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project)
         public func get() -> Request<Project> {
             .get(path)
+        }
+
+        /// Update a project
+        ///
+        /// Updates a project board's information. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project)
+        public func patch(_ body: PatchRequest) -> Request<Project> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Body of the project
+            ///
+            /// Example: This project represents the sprint of the first week in January
+            public var body: String?
+            /// Name of the project
+            ///
+            /// Example: Week One Sprint
+            public var name: String?
+            /// The baseline permission that all organization members have on this project
+            public var organizationPermission: OrganizationPermission?
+            /// Whether or not this project can be seen by everyone.
+            public var isPrivate: Bool?
+            /// State of the project; either 'open' or 'closed'
+            ///
+            /// Example: open
+            public var state: String?
+
+            /// The baseline permission that all organization members have on this project
+            public enum OrganizationPermission: String, Codable, CaseIterable {
+                case read
+                case write
+                case admin
+                case `none`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.organizationPermission = try values.decodeIfPresent(OrganizationPermission.self, forKey: "organization_permission")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.state = try values.decodeIfPresent(String.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(state, forKey: "state")
+            }
         }
 
         /// Delete a project
@@ -4863,7 +7453,7 @@ extension Paths.Projects.WithProjectID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -4877,6 +7467,41 @@ extension Paths.Projects.WithProjectID.Collaborators {
     public struct WithUsername {
         /// Path: `/projects/{project_id}/collaborators/{username}`
         public let path: String
+
+        /// Add project collaborator
+        ///
+        /// Adds a collaborator to an organization project and sets their permission level. You must be an organization owner or a project `admin` to add a collaborator.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#add-project-collaborator)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant the collaborator.
+            ///
+            /// Example: write
+            public var permission: Permission?
+
+            /// The permission to grant the collaborator.
+            ///
+            /// Example: write
+            public enum Permission: String, Codable, CaseIterable {
+                case read
+                case write
+                case admin
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
+        }
 
         /// Remove user as a collaborator
         ///
@@ -4925,8 +7550,32 @@ extension Paths.Projects.WithProjectID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a project column
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
+        public func post(_ body: PostRequest) -> Request<ProjectColumn> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Name of the project column
+            ///
+            /// Example: Remaining tasks
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+            }
         }
     }
 }
@@ -4951,7 +7600,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let rateLimitLimit = HTTPHeader<Int>(field: "X-RateLimit-Limit")
             public static let rateLimitRemaining = HTTPHeader<Int>(field: "X-RateLimit-Remaining")
             public static let rateLimitReset = HTTPHeader<Int>(field: "X-RateLimit-Reset")
@@ -5033,6 +7682,158 @@ extension Paths.Repos.WithOwner {
             .get(path)
         }
 
+        /// Update a repository
+        ///
+        /// **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/reference/repos#replace-all-repository-topics) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos/#update-a-repository)
+        public func patch(_ body: PatchRequest) -> Request<FullRepository> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
+            public var allowAutoMerge: Bool?
+            /// Either `true` to allow private forks, or `false` to prevent private forks.
+            public var allowForking: Bool?
+            /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+            public var allowMergeCommit: Bool?
+            /// Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+            public var allowRebaseMerge: Bool?
+            /// Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+            public var allowSquashMerge: Bool?
+            /// `true` to archive this repository. **Note**: You cannot unarchive repositories through the API.
+            public var isArchived: Bool?
+            /// Updates the default branch for this repository.
+            public var defaultBranch: String?
+            /// Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+            public var deleteBranchOnMerge: Bool?
+            /// A short description of the repository.
+            public var description: String?
+            /// Either `true` to enable issues for this repository or `false` to disable them.
+            public var hasIssues: Bool?
+            /// Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+            public var hasProjects: Bool?
+            /// Either `true` to enable the wiki for this repository or `false` to disable it.
+            public var hasWiki: Bool?
+            /// A URL with more information about the repository.
+            public var homepage: String?
+            /// Either `true` to make this repo available as a template repository or `false` to prevent it.
+            public var isTemplate: Bool?
+            /// The name of the repository.
+            public var name: String?
+            /// Either `true` to make the repository private or `false` to make it public. Default: `false`.  
+            /// **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
+            public var isPrivate: Bool?
+            /// Specify which security and analysis features to enable or disable. For example, to enable GitHub Advanced Security, use this data in the body of the PATCH request: `{"security_and_analysis": {"advanced_security": {"status": "enabled"}}}`. If you have admin permissions for a private repository covered by an Advanced Security license, you can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request.
+            public var securityAndAnalysis: SecurityAndAnalysis?
+            /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
+            public var visibility: Visibility?
+
+            /// Specify which security and analysis features to enable or disable. For example, to enable GitHub Advanced Security, use this data in the body of the PATCH request: `{"security_and_analysis": {"advanced_security": {"status": "enabled"}}}`. If you have admin permissions for a private repository covered by an Advanced Security license, you can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request.
+            public struct SecurityAndAnalysis: Codable {
+                /// Use the `status` property to enable or disable GitHub Advanced Security for this repository. For more information, see "[About GitHub Advanced Security](/github/getting-started-with-github/learning-about-github/about-github-advanced-security)."
+                public var advancedSecurity: AdvancedSecurity?
+                /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
+                public var secretScanning: SecretScanning?
+
+                /// Use the `status` property to enable or disable GitHub Advanced Security for this repository. For more information, see "[About GitHub Advanced Security](/github/getting-started-with-github/learning-about-github/about-github-advanced-security)."
+                public struct AdvancedSecurity: Codable {
+                    /// Can be `enabled` or `disabled`.
+                    public var status: String?
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
+                }
+
+                /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
+                public struct SecretScanning: Codable {
+                    /// Can be `enabled` or `disabled`.
+                    public var status: String?
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.advancedSecurity = try values.decodeIfPresent(AdvancedSecurity.self, forKey: "advanced_security")
+                    self.secretScanning = try values.decodeIfPresent(SecretScanning.self, forKey: "secret_scanning")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(advancedSecurity, forKey: "advanced_security")
+                    try values.encodeIfPresent(secretScanning, forKey: "secret_scanning")
+                }
+            }
+
+            /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
+            public enum Visibility: String, Codable, CaseIterable {
+                case `public`
+                case `private`
+                case `internal`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
+                self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking")
+                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
+                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+                self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
+                self.defaultBranch = try values.decodeIfPresent(String.self, forKey: "default_branch")
+                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
+                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
+                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
+                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
+                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.securityAndAnalysis = try values.decodeIfPresent(SecurityAndAnalysis.self, forKey: "security_and_analysis")
+                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(isArchived, forKey: "archived")
+                try values.encodeIfPresent(defaultBranch, forKey: "default_branch")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(securityAndAnalysis, forKey: "security_and_analysis")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+            }
+        }
+
         /// Delete a repository
         ///
         /// Deleting a repository requires admin access. If OAuth is used, the `delete_repo` scope is required.
@@ -5076,7 +7877,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5219,6 +8020,38 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public func get() -> Request<ActionsRepositoryPermissions> {
             .get(path)
         }
+
+        /// Set GitHub Actions permissions for a repository
+        ///
+        /// Sets the GitHub Actions permissions policy for enabling GitHub Actions and allowed actions in the repository.
+        /// 
+        /// If the repository belongs to an organization or enterprise that has set restrictive permissions at the organization or enterprise levels, such as `allowed_actions` to `selected` actions, then you cannot override them for the repository.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-a-repository)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
+            public var allowedActions: AllowedActions?
+            /// Whether GitHub Actions is enabled on the repository.
+            public var isEnabled: Bool
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
+                self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+                try values.encode(isEnabled, forKey: "enabled")
+            }
+        }
     }
 }
 
@@ -5277,7 +8110,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5397,7 +8230,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5496,7 +8329,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5565,7 +8398,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5636,7 +8469,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5704,6 +8537,59 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public func get() -> Request<[github.PendingDeployment]> {
             .get(path)
         }
+
+        /// Review pending deployments for a workflow run
+        ///
+        /// Approve or reject pending deployments that are waiting on approval by a required reviewer.
+        /// 
+        /// Anyone with read access to the repository contents and deployments can use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#review-pending-deployments-for-a-workflow-run)
+        public func post(_ body: PostRequest) -> Request<[github.Deployment]> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// A comment to accompany the deployment review
+            ///
+            /// Example: Ship it!
+            public var comment: String
+            /// The list of environment ids to approve or reject
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   161171787,
+            ///   161171795
+            /// ]
+            public var environmentIDs: [Int]
+            /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
+            ///
+            /// Example: approved
+            public var state: State
+
+            /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
+            ///
+            /// Example: approved
+            public enum State: String, Codable, CaseIterable {
+                case approved
+                case rejected
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.comment = try values.decode(String.self, forKey: "comment")
+                self.environmentIDs = try values.decode([Int].self, forKey: "environment_ids")
+                self.state = try values.decode(State.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(comment, forKey: "comment")
+                try values.encode(environmentIDs, forKey: "environment_ids")
+                try values.encode(state, forKey: "state")
+            }
+        }
     }
 }
 
@@ -5760,7 +8646,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5815,6 +8701,108 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
             .get(path)
         }
 
+        /// Create or update a repository secret
+        ///
+        /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
+        /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
+        /// token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
+        /// this endpoint.
+        /// 
+        /// #### Example encrypting a secret using Node.js
+        /// 
+        /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+        /// 
+        /// ```
+        /// const sodium = require('tweetsodium');
+        /// 
+        /// const key = "base64-encoded-public-key";
+        /// const value = "plain-text-secret";
+        /// 
+        /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+        /// const messageBytes = Buffer.from(value);
+        /// const keyBytes = Buffer.from(key, 'base64');
+        /// 
+        /// // Encrypt using LibSodium.
+        /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+        /// 
+        /// // Base64 the encrypted secret
+        /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+        /// 
+        /// console.log(encrypted);
+        /// ```
+        /// 
+        /// 
+        /// #### Example encrypting a secret using Python
+        /// 
+        /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        /// 
+        /// ```
+        /// from base64 import b64encode
+        /// from nacl import encoding, public
+        /// 
+        /// def encrypt(public_key: str, secret_value: str) -> str:
+        ///   """Encrypt a Unicode string using the public key."""
+        ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+        ///   sealed_box = public.SealedBox(public_key)
+        ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+        ///   return b64encode(encrypted).decode("utf-8")
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using C#
+        /// 
+        /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+        /// 
+        /// ```
+        /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+        /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+        /// 
+        /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+        /// 
+        /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using Ruby
+        /// 
+        /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+        /// 
+        /// ```ruby
+        /// require "rbnacl"
+        /// require "base64"
+        /// 
+        /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+        /// public_key = RbNaCl::PublicKey.new(key)
+        /// 
+        /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+        /// encrypted_secret = box.encrypt("my_secret")
+        /// 
+        /// # Print the base64 encoded secret
+        /// puts Base64.strict_encode64(encrypted_secret)
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret)
+        public func put(_ body: PutRequest) -> Request<[String: AnyJSON]> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint.
+            public var encryptedValue: String?
+            /// ID of the key you used to encrypt the secret.
+            public var keyID: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.encryptedValue = try values.decodeIfPresent(String.self, forKey: "encrypted_value")
+                self.keyID = try values.decodeIfPresent(String.self, forKey: "key_id")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(encryptedValue, forKey: "encrypted_value")
+                try values.encodeIfPresent(keyID, forKey: "key_id")
+            }
+        }
+
         /// Delete a repository secret
         ///
         /// Deletes a secret in a repository using the secret name. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
@@ -5844,7 +8832,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5903,7 +8891,37 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches`
         public let path: String
 
+        /// Create a workflow dispatch event
+        ///
+        /// You can use this endpoint to manually trigger a GitHub Actions workflow run. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
+        /// 
+        /// You must configure your GitHub Actions workflow to run when the [`workflow_dispatch` webhook](/developers/webhooks-and-events/webhook-events-and-payloads#workflow_dispatch) event occurs. The `inputs` are configured in the workflow file. For more information about how to configure the `workflow_dispatch` event in the workflow file, see "[Events that trigger workflows](/actions/reference/events-that-trigger-workflows#workflow_dispatch)."
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-workflow-dispatch-event)
+        public func post(_ body: PostRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted.
+            public var inputs: [String: String]?
+            /// The git reference for the workflow. The reference can be a branch or tag name.
+            public var ref: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.inputs = try values.decodeIfPresent([String: String].self, forKey: "inputs")
+                self.ref = try values.decode(String.self, forKey: "ref")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(inputs, forKey: "inputs")
+                try values.encode(ref, forKey: "ref")
+            }
+        }
     }
 }
 
@@ -5940,7 +8958,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -5997,7 +9015,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -6045,6 +9063,38 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// [API method documentation](https://docs.github.com/v3/repos#list-autolinks)
         public func get() -> Request<[github.Autolink]> {
             .get(path)
+        }
+
+        /// Create an autolink reference for a repository
+        ///
+        /// Users with admin access to the repository can create an autolink.
+        ///
+        /// [API method documentation](https://docs.github.com/v3/repos#create-an-autolink)
+        public func post(_ body: PostRequest) -> Request<Autolink> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The prefix appended by a number will generate a link any time it is found in an issue, pull request, or commit.
+            public var keyPrefix: String
+            /// The URL must contain <num> for the reference number.
+            public var urlTemplate: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.keyPrefix = try values.decode(String.self, forKey: "key_prefix")
+                self.urlTemplate = try values.decode(String.self, forKey: "url_template")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(keyPrefix, forKey: "key_prefix")
+                try values.encode(urlTemplate, forKey: "url_template")
+            }
         }
     }
 }
@@ -6118,7 +9168,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -6158,6 +9208,156 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-branch-protection)
         public func get() -> Request<BranchProtection> {
             .get(path)
+        }
+
+        /// Update branch protection
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Protecting a branch requires admin or owner permissions to the repository.
+        /// 
+        /// **Note**: Passing new arrays of `users` and `teams` replaces their previous values.
+        /// 
+        /// **Note**: The list of users, apps, and teams in total is limited to 100 items.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-branch-protection)
+        public func put(_ body: PutRequest) -> Request<ProtectedBranch> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation.
+            public var allowDeletions: Bool?
+            /// Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation."
+            public var allowForcePushes: Bool?
+            /// Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable.
+            public var enforceAdmins: Bool?
+            /// Requires all conversations on code to be resolved before a pull request can be merged into a branch that matches this rule. Set to `false` to disable. Default: `false`.
+            public var isRequiredConversationResolution: Bool?
+            /// Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation.
+            public var isRequiredLinearHistory: Bool?
+            /// Require at least one approving review on a pull request, before merging. Set to `null` to disable.
+            public var requiredPullRequestReviews: RequiredPullRequestReviews?
+            /// Require status checks to pass before merging. Set to `null` to disable.
+            public var requiredStatusChecks: RequiredStatusChecks?
+            /// Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable.
+            public var restrictions: Restrictions?
+
+            /// Require at least one approving review on a pull request, before merging. Set to `null` to disable.
+            public struct RequiredPullRequestReviews: Codable {
+                /// Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
+                public var dismissStaleReviews: Bool?
+                /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+                public var dismissalRestrictions: DismissalRestrictions?
+                /// Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them.
+                public var requireCodeOwnerReviews: Bool?
+                /// Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+                public var requiredApprovingReviewCount: Int?
+
+                /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+                public struct DismissalRestrictions: Codable {
+                    /// The list of team `slug`s with dismissal access
+                    public var teams: [String]?
+                    /// The list of user `login`s with dismissal access
+                    public var users: [String]?
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.teams = try values.decodeIfPresent([String].self, forKey: "teams")
+                        self.users = try values.decodeIfPresent([String].self, forKey: "users")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(teams, forKey: "teams")
+                        try values.encodeIfPresent(users, forKey: "users")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.dismissStaleReviews = try values.decodeIfPresent(Bool.self, forKey: "dismiss_stale_reviews")
+                    self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
+                    self.requireCodeOwnerReviews = try values.decodeIfPresent(Bool.self, forKey: "require_code_owner_reviews")
+                    self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                    try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                    try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                    try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+                }
+            }
+
+            /// Require status checks to pass before merging. Set to `null` to disable.
+            public struct RequiredStatusChecks: Codable {
+                /// The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
+                public var contexts: [String]
+                /// Require branches to be up to date before merging.
+                public var isStrict: Bool
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contexts = try values.decode([String].self, forKey: "contexts")
+                    self.isStrict = try values.decode(Bool.self, forKey: "strict")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                    try values.encode(isStrict, forKey: "strict")
+                }
+            }
+
+            /// Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable.
+            public struct Restrictions: Codable {
+                /// The list of app `slug`s with push access
+                public var apps: [String]?
+                /// The list of team `slug`s with push access
+                public var teams: [String]
+                /// The list of user `login`s with push access
+                public var users: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.apps = try values.decodeIfPresent([String].self, forKey: "apps")
+                    self.teams = try values.decode([String].self, forKey: "teams")
+                    self.users = try values.decode([String].self, forKey: "users")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(apps, forKey: "apps")
+                    try values.encode(teams, forKey: "teams")
+                    try values.encode(users, forKey: "users")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowDeletions = try values.decodeIfPresent(Bool.self, forKey: "allow_deletions")
+                self.allowForcePushes = try values.decodeIfPresent(Bool.self, forKey: "allow_force_pushes")
+                self.enforceAdmins = try values.decodeIfPresent(Bool.self, forKey: "enforce_admins")
+                self.isRequiredConversationResolution = try values.decodeIfPresent(Bool.self, forKey: "required_conversation_resolution")
+                self.isRequiredLinearHistory = try values.decodeIfPresent(Bool.self, forKey: "required_linear_history")
+                self.requiredPullRequestReviews = try values.decodeIfPresent(RequiredPullRequestReviews.self, forKey: "required_pull_request_reviews")
+                self.requiredStatusChecks = try values.decodeIfPresent(RequiredStatusChecks.self, forKey: "required_status_checks")
+                self.restrictions = try values.decodeIfPresent(Restrictions.self, forKey: "restrictions")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+                try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+                try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+                try values.encodeIfPresent(isRequiredConversationResolution, forKey: "required_conversation_resolution")
+                try values.encodeIfPresent(isRequiredLinearHistory, forKey: "required_linear_history")
+                try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+                try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+                try values.encodeIfPresent(restrictions, forKey: "restrictions")
+            }
         }
 
         /// Delete branch protection
@@ -6218,6 +9418,66 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-pull-request-review-protection)
         public func get() -> Request<ProtectedBranchPullRequestReview> {
             .get(path)
+        }
+
+        /// Update pull request review protection
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Updating pull request review enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+        /// 
+        /// **Note**: Passing new arrays of `users` and `teams` replaces their previous values.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-pull-request-review-protection)
+        public func patch(_ body: PatchRequest) -> Request<ProtectedBranchPullRequestReview> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
+            public var dismissStaleReviews: Bool?
+            /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+            public var dismissalRestrictions: DismissalRestrictions?
+            /// Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed.
+            public var requireCodeOwnerReviews: Bool?
+            /// Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+            public var requiredApprovingReviewCount: Int?
+
+            /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+            public struct DismissalRestrictions: Codable {
+                /// The list of team `slug`s with dismissal access
+                public var teams: [String]?
+                /// The list of user `login`s with dismissal access
+                public var users: [String]?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.teams = try values.decodeIfPresent([String].self, forKey: "teams")
+                    self.users = try values.decodeIfPresent([String].self, forKey: "users")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(teams, forKey: "teams")
+                    try values.encodeIfPresent(users, forKey: "users")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.dismissStaleReviews = try values.decodeIfPresent(Bool.self, forKey: "dismiss_stale_reviews")
+                self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
+                self.requireCodeOwnerReviews = try values.decodeIfPresent(Bool.self, forKey: "require_code_owner_reviews")
+                self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+            }
         }
 
         /// Delete pull request review protection
@@ -6284,6 +9544,36 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             .get(path)
         }
 
+        /// Update status check protection
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-potection)
+        public func patch(_ body: PatchRequest) -> Request<StatusCheckPolicy> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The list of status checks to require in order to merge into this branch
+            public var contexts: [String]?
+            /// Require branches to be up to date before merging.
+            public var isStrict: Bool?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.contexts = try values.decodeIfPresent([String].self, forKey: "contexts")
+                self.isStrict = try values.decodeIfPresent(Bool.self, forKey: "strict")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(contexts, forKey: "contexts")
+                try values.encodeIfPresent(isStrict, forKey: "strict")
+            }
+        }
+
         /// Remove status check protection
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -6311,6 +9601,100 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-status-check-contexts)
         public func get() -> Request<[String]> {
             .get(path)
+        }
+
+        /// Add status check contexts
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#add-status-check-contexts)
+        public func post(_ body: PostRequest) -> Request<[String]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "contexts" : [
+            ///     "contexts"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Contexts parameter
+                public var contexts: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contexts = try values.decode([String].self, forKey: "contexts")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
+        /// Set status check contexts
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#set-status-check-contexts)
+        public func put(_ body: PutRequest) -> Request<[String]> {
+            .put(path, body: body)
+        }
+
+        public enum PutRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "contexts" : [
+            ///     "contexts"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Contexts parameter
+                public var contexts: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contexts = try values.decode([String].self, forKey: "contexts")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
         }
 
         /// Remove status check contexts
@@ -6379,6 +9763,112 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .get(path)
         }
 
+        /// Add app access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Grants the specified apps push access for this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
+        /// 
+        /// | Type    | Description                                                                                                                                                |
+        /// | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | The GitHub Apps that have push access to this branch. Use the app's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#add-app-access-restrictions)
+        public func post(_ body: PostRequest) -> Request<[github.Integration]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "apps" : [
+            ///     "my-app"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Apps parameter
+                public var apps: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.apps = try values.decode([String].self, forKey: "apps")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
+        /// Set app access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Replaces the list of apps that have push access to this branch. This removes all apps that previously had push access and grants push access to the new list of apps. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
+        /// 
+        /// | Type    | Description                                                                                                                                                |
+        /// | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | The GitHub Apps that have push access to this branch. Use the app's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#set-app-access-restrictions)
+        public func put(_ body: PutRequest) -> Request<[github.Integration]> {
+            .put(path, body: body)
+        }
+
+        public enum PutRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "apps" : [
+            ///     "my-app"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Apps parameter
+                public var apps: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.apps = try values.decode([String].self, forKey: "apps")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
         /// Remove app access restrictions
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -6414,6 +9904,112 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch)
         public func get() -> Request<[github.Team]> {
             .get(path)
+        }
+
+        /// Add team access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Grants the specified teams push access for this branch. You can also give push access to child teams.
+        /// 
+        /// | Type    | Description                                                                                                                                |
+        /// | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+        /// | `array` | The teams that can have push access. Use the team's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#add-team-access-restrictions)
+        public func post(_ body: PostRequest) -> Request<[github.Team]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "teams" : [
+            ///     "my-team"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Teams parameter
+                public var teams: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.teams = try values.decode([String].self, forKey: "teams")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
+        /// Set team access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Replaces the list of teams that have push access to this branch. This removes all teams that previously had push access and grants push access to the new list of teams. Team restrictions include child teams.
+        /// 
+        /// | Type    | Description                                                                                                                                |
+        /// | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+        /// | `array` | The teams that can have push access. Use the team's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#set-team-access-restrictions)
+        public func put(_ body: PutRequest) -> Request<[github.Team]> {
+            .put(path, body: body)
+        }
+
+        public enum PutRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "teams" : [
+            ///     "my-team"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Teams parameter
+                public var teams: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.teams = try values.decode([String].self, forKey: "teams")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
         }
 
         /// Remove team access restrictions
@@ -6453,6 +10049,112 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .get(path)
         }
 
+        /// Add user access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Grants the specified people push access for this branch.
+        /// 
+        /// | Type    | Description                                                                                                                   |
+        /// | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | Usernames for people who can have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#add-user-access-restrictions)
+        public func post(_ body: PostRequest) -> Request<[github.SimpleUser]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "users" : [
+            ///     "mona"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Users parameter
+                public var users: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.users = try values.decode([String].self, forKey: "users")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
+        /// Set user access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Replaces the list of people that have push access to this branch. This removes all people that previously had push access and grants push access to the new list of people.
+        /// 
+        /// | Type    | Description                                                                                                                   |
+        /// | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | Usernames for people who can have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#set-user-access-restrictions)
+        public func put(_ body: PutRequest) -> Request<[github.SimpleUser]> {
+            .put(path, body: body)
+        }
+
+        public enum PutRequest: Codable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "users" : [
+            ///     "mona"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Users parameter
+                public var users: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.users = try values.decode([String].self, forKey: "users")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
         /// Remove user access restrictions
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -6479,7 +10181,43 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// Path: `/repos/{owner}/{repo}/branches/{branch}/rename`
         public let path: String
 
+        /// Rename a branch
+        ///
+        /// Renames a branch in a repository.
+        /// 
+        /// **Note:** Although the API responds immediately, the branch rename process might take some extra time to complete in the background. You won't be able to push to the old branch name while the rename process is in progress. For more information, see "[Renaming a branch](https://docs.github.com/github/administering-a-repository/renaming-a-branch)".
+        /// 
+        /// The permissions required to use this endpoint depends on whether you are renaming the default branch.
+        /// 
+        /// To rename a non-default branch:
+        /// 
+        /// * Users must have push access.
+        /// * GitHub Apps must have the `contents:write` repository permission.
+        /// 
+        /// To rename the default branch:
+        /// 
+        /// * Users must have admin or owner permissions.
+        /// * GitHub Apps must have the `administration:write` repository permission.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
+        public func post(_ body: PostRequest) -> Request<BranchWithProtection> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The new name of the branch.
+            public var newName: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.newName = try values.decode(String.self, forKey: "new_name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(newName, forKey: "new_name")
+            }
+        }
     }
 }
 
@@ -6492,7 +10230,34 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/check-runs`
         public let path: String
 
+        /// Create a check run
+        ///
+        /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
+        /// 
+        /// Creates a new check run for a specific commit in a repository. Your GitHub App must have the `checks:write` permission to create check runs.
+        /// 
+        /// In a check suite, GitHub limits the number of check runs with the same name to 1000. Once these check runs exceed 1000, GitHub will start to automatically delete older check runs.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-run)
+        public func post(_ body: PostRequest) -> Request<CheckRun> {
+            .post(path, body: body)
+        }
 
+        public enum PostRequest: Codable {
+            case object1([String: AnyJSON])
+            case object2([String: AnyJSON])
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode([String: AnyJSON].self) {
+                    self = .object1(value)
+                } else if let value = try? container.decode([String: AnyJSON].self) {
+                    self = .object2(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
     }
 }
 
@@ -6515,6 +10280,28 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         public func get() -> Request<CheckRun> {
             .get(path)
         }
+
+        /// Update a check run
+        ///
+        /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
+        /// 
+        /// Updates a check run for a specific commit in a repository. Your GitHub App must have the `checks:write` permission to edit check runs.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#update-a-check-run)
+        public func patch(_ body: PatchRequest) -> Request<CheckRun> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            public var object1: [String: AnyJSON]?
+            public var object2: [String: AnyJSON]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.object1 = try? container.decode([String: AnyJSON].self)
+                self.object2 = try? container.decode([String: AnyJSON].self)
+            }
+        }
     }
 }
 
@@ -6536,7 +10323,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -6564,7 +10351,31 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/check-suites`
         public let path: String
 
+        /// Create a check suite
+        ///
+        /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
+        /// 
+        /// By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
+        public func post(_ body: PostRequest) -> Request<CheckSuite> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The sha of the head commit.
+            public var headSha: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.headSha = try values.decode(String.self, forKey: "head_sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(headSha, forKey: "head_sha")
+            }
+        }
     }
 }
 
@@ -6577,7 +10388,48 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         /// Path: `/repos/{owner}/{repo}/check-suites/preferences`
         public let path: String
 
+        /// Update repository preferences for check suites
+        ///
+        /// Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)
+        public func patch(_ body: PatchRequest) -> Request<CheckSuitePreference> {
+            .patch(path, body: body)
+        }
 
+        public struct PatchRequest: Codable {
+            /// Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details.
+            public var autoTriggerChecks: [AutoTriggerCheck]?
+
+            public struct AutoTriggerCheck: Codable {
+                /// The `id` of the GitHub App.
+                public var appID: Int
+                /// Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them.
+                public var isSetting: Bool
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.appID = try values.decode(Int.self, forKey: "app_id")
+                    self.isSetting = try values.decode(Bool.self, forKey: "setting")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(appID, forKey: "app_id")
+                    try values.encode(isSetting, forKey: "setting")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerCheck].self, forKey: "auto_trigger_checks")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(autoTriggerChecks, forKey: "auto_trigger_checks")
+            }
+        }
     }
 }
 
@@ -6623,7 +10475,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -6711,6 +10563,34 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert)
         public func get() -> Request<CodeScanningAlert> {
             .get(path)
+        }
+
+        /// Update a code scanning alert
+        ///
+        /// Updates the status of a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert)
+        public func patch(_ body: PatchRequest) -> Request<CodeScanningAlert> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
+            public var dismissedReason: CodeScanningAlertDismissedReason?
+            /// Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
+            public var state: CodeScanningAlertSetState
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.dismissedReason = try values.decodeIfPresent(CodeScanningAlertDismissedReason.self, forKey: "dismissed_reason")
+                self.state = try values.decode(CodeScanningAlertSetState.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
+                try values.encode(state, forKey: "state")
+            }
         }
     }
 }
@@ -6890,7 +10770,67 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// Path: `/repos/{owner}/{repo}/code-scanning/sarifs`
         public let path: String
 
+        /// Upload an analysis as SARIF data
+        ///
+        /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
+        /// 
+        /// There are two places where you can upload code scanning results.
+        ///  - If you upload to a pull request, for example `--ref refs/pull/42/merge` or `--ref refs/pull/42/head`, then the results appear as alerts in a pull request check. For more information, see "[Triaging code scanning alerts in pull requests](/code-security/secure-coding/triaging-code-scanning-alerts-in-pull-requests)."
+        ///  - If you upload to a branch, for example `--ref refs/heads/my-branch`, then the results appear in the **Security** tab for your repository. For more information, see "[Managing code scanning alerts for your repository](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository#viewing-the-alerts-for-a-repository)."
+        /// 
+        /// You must compress the SARIF-formatted analysis data that you want to upload, using `gzip`, and then encode it as a Base64 format string. For example:
+        /// 
+        /// ```
+        /// gzip -c analysis-data.sarif | base64 -w0
+        /// ```
+        /// 
+        /// SARIF upload supports a maximum of 5000 results per analysis run. Any results over this limit are ignored and any SARIF uploads with more than 25,000 results are rejected. Typically, but not necessarily, a SARIF file contains a single run of a single tool. If a code scanning tool generates too many results, you should update the analysis configuration to run only the most important rules or queries.
+        /// 
+        /// The `202 Accepted`, response includes an `id` value.
+        /// You can use this ID to check the status of the upload by using this for the `/sarifs/{sarif_id}` endpoint.
+        /// For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file)
+        public func post(_ body: PostRequest) -> Request<CodeScanningSarifsReceipt> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The base directory used in the analysis, as it appears in the SARIF file.
+            /// This property is used to convert file paths from absolute to relative, so that alerts can be mapped to their correct location in the repository.
+            public var checkoutUri: URL?
+            /// The SHA of the commit to which the analysis you are uploading relates.
+            public var commitSha: String
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
+            public var ref: String
+            /// A Base64 string representing the SARIF file to upload. You must first compress your SARIF file using [`gzip`](http://www.gnu.org/software/gzip/manual/gzip.html) and then translate the contents of the file into a Base64 encoding string. For more information, see "[SARIF support for code scanning](https://docs.github.com/code-security/secure-coding/sarif-support-for-code-scanning)."
+            public var sarif: String
+            /// The time that the analysis run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var startedAt: Date?
+            /// The name of the tool used to generate the code scanning analysis. If this parameter is not used, the tool name defaults to "API". If the uploaded SARIF contains a tool GUID, this will be available for filtering using the `tool_guid` parameter of operations such as `GET /repos/{owner}/{repo}/code-scanning/alerts`.
+            public var toolName: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.checkoutUri = try values.decodeIfPresent(URL.self, forKey: "checkout_uri")
+                self.commitSha = try values.decode(String.self, forKey: "commit_sha")
+                self.ref = try values.decode(String.self, forKey: "ref")
+                self.sarif = try values.decode(String.self, forKey: "sarif")
+                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
+                self.toolName = try values.decodeIfPresent(String.self, forKey: "tool_name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(checkoutUri, forKey: "checkout_uri")
+                try values.encode(commitSha, forKey: "commit_sha")
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sarif, forKey: "sarif")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(toolName, forKey: "tool_name")
+            }
+        }
     }
 }
 
@@ -6942,6 +10882,44 @@ extension Paths.Repos.WithOwner.WithRepo {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.codespaces = try values.decode([github.Codespace].self, forKey: "codespaces")
                 self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+        }
+
+        /// Create a codespace in a repository
+        ///
+        /// Creates a codespace owned by the authenticated user in the specified repository.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository)
+        public func post(_ body: PostRequest) -> Request<Codespace> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Location for this codespace
+            public var location: String
+            /// Machine type to use for this codespace
+            public var machine: String?
+            /// Git ref (typically a branch name) for this codespace
+            public var ref: String?
+            /// Working directory for this codespace
+            public var workingDirectory: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.location = try values.decode(String.self, forKey: "location")
+                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
+                self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
+                self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(ref, forKey: "ref")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
             }
         }
     }
@@ -7004,7 +10982,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7028,6 +11006,65 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Add a repository collaborator
+        ///
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        /// 
+        /// For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        /// 
+        /// Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        /// 
+        /// The invitee will receive a notification that they have been invited to the repository, which they must accept or decline. They may do this via the notifications page, the email they receive, or by using the [repository invitations API endpoints](https://docs.github.com/rest/reference/repos#invitations).
+        /// 
+        /// **Rate limits**
+        /// 
+        /// You are limited to sending 50 invitations to a repository per 24 hour period. Note there is no limit if you are inviting organization members to an organization repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#add-a-repository-collaborator)
+        public func put(_ body: PutRequest) -> Request<RepositoryInvitation> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:  
+            /// \* `pull` - can pull, but not push to or administer this repository.  
+            /// \* `push` - can pull and push, but not administer this repository.  
+            /// \* `admin` - can pull, push and administer this repository.  
+            /// \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.  
+            /// \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.  
+            /// \* custom repository role name - A custom repository role, if the owning organization has defined any.
+            public var permission: Permission?
+            /// Example: "push"
+            public var permissions: String?
+
+            /// The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:  
+            /// \* `pull` - can pull, but not push to or administer this repository.  
+            /// \* `push` - can pull and push, but not administer this repository.  
+            /// \* `admin` - can pull, push and administer this repository.  
+            /// \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.  
+            /// \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.  
+            /// \* custom repository role name - A custom repository role, if the owning organization has defined any.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+                case maintain
+                case triage
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+                self.permissions = try values.decodeIfPresent(String.self, forKey: "permissions")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+            }
         }
 
         /// Remove a repository collaborator
@@ -7079,7 +11116,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7099,6 +11136,28 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit-comment)
         public func get() -> Request<CommitComment> {
             .get(path)
+        }
+
+        /// Update a commit comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-commit-comment)
+        public func patch(_ body: PatchRequest) -> Request<CommitComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The contents of the comment
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a commit comment
@@ -7128,8 +11187,44 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a commit comment
+        ///
+        /// Create a reaction to a [commit comment](https://docs.github.com/rest/reference/repos#comments). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -7201,7 +11296,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7258,8 +11353,50 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a commit comment
+        ///
+        /// Create a comment for a commit using its `:commit_sha`.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-comment)
+        public func post(_ body: PostRequest) -> Request<CommitComment> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The contents of the comment.
+            public var body: String
+            /// **Deprecated**. Use **position** parameter instead. Line number in the file to comment on.
+            public var line: Int?
+            /// Relative path of the file to comment on.
+            public var path: String?
+            /// Line index in the diff to comment on.
+            public var position: Int?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+                self.line = try values.decodeIfPresent(Int.self, forKey: "line")
+                self.path = try values.decodeIfPresent(String.self, forKey: "path")
+                self.position = try values.decodeIfPresent(Int.self, forKey: "position")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(line, forKey: "line")
+                try values.encodeIfPresent(path, forKey: "path")
+                try values.encodeIfPresent(position, forKey: "position")
+            }
         }
     }
 }
@@ -7282,7 +11419,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7363,7 +11500,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -7400,7 +11537,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -7464,7 +11601,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7613,7 +11750,41 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
         /// Path: `/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments`
         public let path: String
 
+        /// Create a content attachment
+        ///
+        /// Creates an attachment under a content reference URL in the body or comment of an issue or pull request. Use the `id` and `repository` `full_name` of the content reference from the [`content_reference` event](https://docs.github.com/webhooks/event-payloads/#content_reference) to create an attachment.
+        /// 
+        /// The app must create a content attachment within six hours of the content reference URL being posted. See "[Using content attachments](https://docs.github.com/apps/using-content-attachments/)" for details about content attachments.
+        /// 
+        /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-content-attachment)
+        public func post(_ body: PostRequest) -> Request<ContentReferenceAttachment> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The body of the attachment
+            ///
+            /// Example: Body of the attachment
+            public var body: String
+            /// The title of the attachment
+            ///
+            /// Example: Title of the attachment
+            public var title: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+                self.title = try values.decode(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encode(title, forKey: "title")
+            }
+        }
     }
 }
 
@@ -7699,6 +11870,98 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
             }
         }
 
+        /// Create or update file contents
+        ///
+        /// Creates a new file or replaces an existing file in a repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-file-contents)
+        public func put(_ body: PutRequest) -> Request<FileCommit> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
+            public var author: Author?
+            /// The branch name. Default: the repository’s default branch (usually `master`)
+            public var branch: String?
+            /// The person that committed the file. Default: the authenticated user.
+            public var committer: Committer?
+            /// The new file content, using Base64 encoding.
+            public var content: String
+            /// The commit message.
+            public var message: String
+            /// **Required if you are updating a file**. The blob SHA of the file being replaced.
+            public var sha: String?
+
+            /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
+            public struct Author: Codable {
+                /// Example: "2013-01-15T17:13:22+05:00"
+                public var date: String?
+                /// The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
+                public var email: String
+                /// The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.date = try values.decodeIfPresent(String.self, forKey: "date")
+                    self.email = try values.decode(String.self, forKey: "email")
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(date, forKey: "date")
+                    try values.encode(email, forKey: "email")
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            /// The person that committed the file. Default: the authenticated user.
+            public struct Committer: Codable {
+                /// Example: "2013-01-05T13:13:22+05:00"
+                public var date: String?
+                /// The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
+                public var email: String
+                /// The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.date = try values.decodeIfPresent(String.self, forKey: "date")
+                    self.email = try values.decode(String.self, forKey: "email")
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(date, forKey: "date")
+                    try values.encode(email, forKey: "email")
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.author = try values.decodeIfPresent(Author.self, forKey: "author")
+                self.branch = try values.decodeIfPresent(String.self, forKey: "branch")
+                self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
+                self.content = try values.decode(String.self, forKey: "content")
+                self.message = try values.decode(String.self, forKey: "message")
+                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(author, forKey: "author")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encode(content, forKey: "content")
+                try values.encode(message, forKey: "message")
+                try values.encodeIfPresent(sha, forKey: "sha")
+            }
+        }
+
         /// Delete a file
         ///
         /// Deletes a file in a repository.
@@ -7736,7 +11999,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -7760,8 +12023,123 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a deployment
+        ///
+        /// Deployments offer a few configurable parameters with certain defaults.
+        /// 
+        /// The `ref` parameter can be any named branch, tag, or SHA. At GitHub we often deploy branches and verify them
+        /// before we merge a pull request.
+        /// 
+        /// The `environment` parameter allows deployments to be issued to different runtime environments. Teams often have
+        /// multiple environments for verifying their applications, such as `production`, `staging`, and `qa`. This parameter
+        /// makes it easier to track which environments have requested deployments. The default environment is `production`.
+        /// 
+        /// The `auto_merge` parameter is used to ensure that the requested ref is not behind the repository's default branch. If
+        /// the ref _is_ behind the default branch for the repository, we will attempt to merge it for you. If the merge succeeds,
+        /// the API will return a successful merge commit. If merge conflicts prevent the merge from succeeding, the API will
+        /// return a failure response.
+        /// 
+        /// By default, [commit statuses](https://docs.github.com/rest/reference/repos#statuses) for every submitted context must be in a `success`
+        /// state. The `required_contexts` parameter allows you to specify a subset of contexts that must be `success`, or to
+        /// specify contexts that have not yet been submitted. You are not required to use commit statuses to deploy. If you do
+        /// not require any contexts or create any commit statuses, the deployment will always succeed.
+        /// 
+        /// The `payload` parameter is available for any extra information that a deployment system might need. It is a JSON text
+        /// field that will be passed on when a deployment event is dispatched.
+        /// 
+        /// The `task` parameter is used by the deployment system to allow different execution paths. In the web world this might
+        /// be `deploy:migrations` to run schema changes on the system. In the compiled world this could be a flag to compile an
+        /// application with debugging enabled.
+        /// 
+        /// Users with `repo` or `repo_deployment` scopes can create a deployment for a given ref.
+        /// 
+        /// #### Merged branch response
+        /// You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating
+        /// a deployment. This auto-merge happens when:
+        /// *   Auto-merge option is enabled in the repository
+        /// *   Topic branch does not include the latest changes on the base branch, which is `master` in the response example
+        /// *   There are no merge conflicts
+        /// 
+        /// If there are no new commits in the base branch, a new request to create a deployment should give a successful
+        /// response.
+        /// 
+        /// #### Merge conflict response
+        /// This error happens when the `auto_merge` option is enabled and when the default branch (in this case `master`), can't
+        /// be merged into the branch that's being deployed (in this case `topic-branch`), due to merge conflicts.
+        /// 
+        /// #### Failed commit status checks
+        /// This error happens when the `required_contexts` parameter indicates that one or more contexts need to have a `success`
+        /// status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment)
+        public func post(_ body: PostRequest) -> Request<Deployment> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
+            public var isAutoMerge: Bool?
+            /// Short description of the deployment.
+            public var description: String?
+            /// Name for the target deployment environment (e.g., `production`, `staging`, `qa`).
+            public var environment: String?
+            public var payload: Payload?
+            /// Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
+            public var isProductionEnvironment: Bool?
+            /// The ref to deploy. This can be a branch, tag, or SHA.
+            public var ref: String
+            /// The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.
+            public var requiredContexts: [String]?
+            /// Specifies a task to execute (e.g., `deploy` or `deploy:migrations`).
+            public var task: String?
+            /// Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
+            public var isTransientEnvironment: Bool?
+
+            public enum Payload: Codable {
+                case object([String: AnyJSON])
+                case string(String)
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode([String: AnyJSON].self) {
+                        self = .object(value)
+                    } else if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "auto_merge")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
+                self.payload = try values.decodeIfPresent(Payload.self, forKey: "payload")
+                self.isProductionEnvironment = try values.decodeIfPresent(Bool.self, forKey: "production_environment")
+                self.ref = try values.decode(String.self, forKey: "ref")
+                self.requiredContexts = try values.decodeIfPresent([String].self, forKey: "required_contexts")
+                self.task = try values.decodeIfPresent(String.self, forKey: "task")
+                self.isTransientEnvironment = try values.decodeIfPresent(Bool.self, forKey: "transient_environment")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isAutoMerge, forKey: "auto_merge")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(payload, forKey: "payload")
+                try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
+                try values.encode(ref, forKey: "ref")
+                try values.encodeIfPresent(requiredContexts, forKey: "required_contexts")
+                try values.encodeIfPresent(task, forKey: "task")
+                try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+            }
         }
     }
 }
@@ -7818,8 +12196,80 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a deployment status
+        ///
+        /// Users with `push` access can create deployment statuses for a given deployment.
+        /// 
+        /// GitHub Apps require `read & write` access to "Deployments" and `read-only` access to "Repo contents" (for private repos). OAuth Apps require the `repo_deployment` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment-status)
+        public func post(_ body: PostRequest) -> Request<DeploymentStatus> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
+            public var isAutoInactive: Bool?
+            /// A short description of the status. The maximum description length is 140 characters.
+            public var description: String?
+            /// Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`.
+            public var environment: Environment?
+            /// Sets the URL for accessing your environment. Default: `""`
+            public var environmentURL: String?
+            /// The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
+            public var logURL: String?
+            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+            public var state: State
+            /// The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`.
+            public var targetURL: String?
+
+            /// Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`.
+            public enum Environment: String, Codable, CaseIterable {
+                case production
+                case staging
+                case qa
+            }
+
+            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+            public enum State: String, Codable, CaseIterable {
+                case error
+                case failure
+                case inactive
+                case inProgress = "in_progress"
+                case queued
+                case pending
+                case success
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isAutoInactive = try values.decodeIfPresent(Bool.self, forKey: "auto_inactive")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.environment = try values.decodeIfPresent(Environment.self, forKey: "environment")
+                self.environmentURL = try values.decodeIfPresent(String.self, forKey: "environment_url")
+                self.logURL = try values.decodeIfPresent(String.self, forKey: "log_url")
+                self.state = try values.decode(State.self, forKey: "state")
+                self.targetURL = try values.decodeIfPresent(String.self, forKey: "target_url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isAutoInactive, forKey: "auto_inactive")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(environmentURL, forKey: "environment_url")
+                try values.encodeIfPresent(logURL, forKey: "log_url")
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+            }
         }
     }
 }
@@ -7853,7 +12303,42 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/dispatches`
         public let path: String
 
+        /// Create a repository dispatch event
+        ///
+        /// You can use this endpoint to trigger a webhook event called `repository_dispatch` when you want activity that happens outside of GitHub to trigger a GitHub Actions workflow or GitHub App webhook. You must configure your GitHub Actions workflow or GitHub App to run when the `repository_dispatch` event occurs. For an example `repository_dispatch` webhook payload, see "[RepositoryDispatchEvent](https://docs.github.com/webhooks/event-payloads/#repository_dispatch)."
+        /// 
+        /// The `client_payload` parameter is available for any extra information that your workflow might need. This parameter is a JSON payload that will be passed on when the webhook event is dispatched. For example, the `client_payload` can include a message that a user would like to send using a GitHub Actions workflow. Or the `client_payload` can be used as a test to debug your workflow.
+        /// 
+        /// This endpoint requires write access to the repository by providing either:
+        /// 
+        ///   - Personal access tokens with `repo` scope. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)" in the GitHub Help documentation.
+        ///   - GitHub Apps with both `metadata:read` and `contents:read&write` permissions.
+        /// 
+        /// This input example shows how you can use the `client_payload` as a test to debug your workflow.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-dispatch-event)
+        public func post(_ body: PostRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// JSON payload with extra information about the webhook event that your action or worklow may use.
+            public var clientPayload: [String: AnyJSON]?
+            /// A custom webhook event name.
+            public var eventType: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.clientPayload = try values.decodeIfPresent([String: AnyJSON].self, forKey: "client_payload")
+                self.eventType = try values.decode(String.self, forKey: "event_type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(clientPayload, forKey: "client_payload")
+                try values.encode(eventType, forKey: "event_type")
+            }
+        }
     }
 }
 
@@ -7909,6 +12394,21 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
             .get(path)
         }
 
+        /// Create or update an environment
+        ///
+        /// Create or update an environment with protection rules, such as required reviewers. For more information about environment protection rules, see "[Environments](/actions/reference/environments#environment-protection-rules)."
+        /// 
+        /// **Note:** Although you can use this operation to specify that only branches that match specified name patterns can deploy to this environment, you must use the UI to set the name patterns. For more information, see "[Environments](/actions/reference/environments#deployment-branches)."
+        /// 
+        /// **Note:** To create or update secrets for an environment, see "[Secrets](/rest/reference/actions#secrets)."
+        /// 
+        /// You must authenticate using an access token with the repo scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-an-environment)
+        public func put(_ body: [String: AnyJSON]) -> Request<Environment> {
+            .put(path, body: body)
+        }
+
         /// Delete an environment
         ///
         /// You must authenticate using an access token with the repo scope to use this endpoint.
@@ -7954,8 +12454,34 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a fork
+        ///
+        /// Create a fork for the authenticated user.
+        /// 
+        /// **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
+        public func post(_ body: PostRequest) -> Request<FullRepository> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Optional parameter to specify the organization name if forking into an organization.
+            public var organization: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.organization = try values.decodeIfPresent(String.self, forKey: "organization")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(organization, forKey: "organization")
+            }
         }
     }
 }
@@ -7980,7 +12506,35 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Path: `/repos/{owner}/{repo}/git/blobs`
         public let path: String
 
+        /// Create a blob
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-blob)
+        public func post(_ body: PostRequest) -> Request<ShortBlob> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The new blob's content.
+            public var content: String
+            /// The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported.
+            public var encoding: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(String.self, forKey: "content")
+                self.encoding = try values.decodeIfPresent(String.self, forKey: "encoding")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+                try values.encodeIfPresent(encoding, forKey: "encoding")
+            }
+        }
     }
 }
 
@@ -8015,7 +12569,130 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Path: `/repos/{owner}/{repo}/git/commits`
         public let path: String
 
+        /// Create a commit
+        ///
+        /// Creates a new Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+        /// 
+        /// **Signature verification object**
+        /// 
+        /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
+        /// | Name | Type | Description |
+        /// | ---- | ---- | ----------- |
+        /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
+        /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
+        /// | `signature` | `string` | The signature that was extracted from the commit. |
+        /// | `payload` | `string` | The value that was signed. |
+        /// 
+        /// These are the possible values for `reason` in the `verification` object:
+        /// 
+        /// | Value | Description |
+        /// | ----- | ----------- |
+        /// | `expired_key` | The key that made the signature is expired. |
+        /// | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. |
+        /// | `gpgverify_error` | There was an error communicating with the signature verification service. |
+        /// | `gpgverify_unavailable` | The signature verification service is currently unavailable. |
+        /// | `unsigned` | The object does not include a signature. |
+        /// | `unknown_signature_type` | A non-PGP signature was found in the commit. |
+        /// | `no_user` | No user was associated with the `committer` email address in the commit. |
+        /// | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on her/his account. |
+        /// | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. |
+        /// | `unknown_key` | The key that made the signature has not been registered with any user's account. |
+        /// | `malformed_signature` | There was an error parsing the signature. |
+        /// | `invalid` | The signature could not be cryptographically verified using the key whose key-id was found in the signature. |
+        /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-commit)
+        public func post(_ body: PostRequest) -> Request<GitCommit> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details.
+            public var author: Author?
+            /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
+            public var committer: Committer?
+            /// The commit message
+            public var message: String
+            /// The SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided; for a merge commit, an array of more than one should be provided.
+            public var parents: [String]?
+            /// The [PGP signature](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) of the commit. GitHub adds the signature to the `gpgsig` header of the created commit. For a commit signature to be verifiable by Git or GitHub, it must be an ASCII-armored detached PGP signature over the string commit as it would be written to the object database. To pass a `signature` parameter, you need to first manually create a valid PGP signature, which can be complicated. You may find it easier to [use the command line](https://git-scm.com/book/id/v2/Git-Tools-Signing-Your-Work) to create signed commits.
+            public var signature: String?
+            /// The SHA of the tree object this commit points to
+            public var tree: String
+
+            /// Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details.
+            public struct Author: Codable {
+                /// Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+                public var date: Date?
+                /// The email of the author (or committer) of the commit
+                public var email: String
+                /// The name of the author (or committer) of the commit
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
+                    self.email = try values.decode(String.self, forKey: "email")
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(date, forKey: "date")
+                    try values.encode(email, forKey: "email")
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
+            public struct Committer: Codable {
+                /// Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+                public var date: Date?
+                /// The email of the author (or committer) of the commit
+                public var email: String?
+                /// The name of the author (or committer) of the commit
+                public var name: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
+                    self.email = try values.decodeIfPresent(String.self, forKey: "email")
+                    self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(date, forKey: "date")
+                    try values.encodeIfPresent(email, forKey: "email")
+                    try values.encodeIfPresent(name, forKey: "name")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.author = try values.decodeIfPresent(Author.self, forKey: "author")
+                self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
+                self.message = try values.decode(String.self, forKey: "message")
+                self.parents = try values.decodeIfPresent([String].self, forKey: "parents")
+                self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
+                self.tree = try values.decode(String.self, forKey: "tree")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(author, forKey: "author")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encode(message, forKey: "message")
+                try values.encodeIfPresent(parents, forKey: "parents")
+                try values.encodeIfPresent(signature, forKey: "signature")
+                try values.encode(tree, forKey: "tree")
+            }
+        }
     }
 }
 
@@ -8103,7 +12780,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -8151,7 +12828,41 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Path: `/repos/{owner}/{repo}/git/refs`
         public let path: String
 
+        /// Create a reference
+        ///
+        /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-reference)
+        public func post(_ body: PostRequest) -> Request<GitRef> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Example: "refs/heads/newbranch"
+            public var key: String?
+            /// The name of the fully qualified reference (ie: `refs/heads/master`). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.
+            public var ref: String
+            /// The SHA1 value for this reference.
+            public var sha: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.key = try values.decodeIfPresent(String.self, forKey: "key")
+                self.ref = try values.decode(String.self, forKey: "ref")
+                self.sha = try values.decode(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(key, forKey: "key")
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sha, forKey: "sha")
+            }
+        }
     }
 }
 
@@ -8163,6 +12874,32 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
     public struct WithRef {
         /// Path: `/repos/{owner}/{repo}/git/refs/{ref}`
         public let path: String
+
+        /// Update a reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#update-a-reference)
+        public func patch(_ body: PatchRequest) -> Request<GitRef> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
+            public var isForce: Bool?
+            /// The SHA1 value to set this reference to
+            public var sha: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isForce = try values.decodeIfPresent(Bool.self, forKey: "force")
+                self.sha = try values.decode(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isForce, forKey: "force")
+                try values.encode(sha, forKey: "sha")
+            }
+        }
 
         /// Delete a reference
         ///
@@ -8182,7 +12919,109 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Path: `/repos/{owner}/{repo}/git/tags`
         public let path: String
 
+        /// Create a tag object
+        ///
+        /// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
+        /// 
+        /// **Signature verification object**
+        /// 
+        /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
+        /// | Name | Type | Description |
+        /// | ---- | ---- | ----------- |
+        /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
+        /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
+        /// | `signature` | `string` | The signature that was extracted from the commit. |
+        /// | `payload` | `string` | The value that was signed. |
+        /// 
+        /// These are the possible values for `reason` in the `verification` object:
+        /// 
+        /// | Value | Description |
+        /// | ----- | ----------- |
+        /// | `expired_key` | The key that made the signature is expired. |
+        /// | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. |
+        /// | `gpgverify_error` | There was an error communicating with the signature verification service. |
+        /// | `gpgverify_unavailable` | The signature verification service is currently unavailable. |
+        /// | `unsigned` | The object does not include a signature. |
+        /// | `unknown_signature_type` | A non-PGP signature was found in the commit. |
+        /// | `no_user` | No user was associated with the `committer` email address in the commit. |
+        /// | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on her/his account. |
+        /// | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. |
+        /// | `unknown_key` | The key that made the signature has not been registered with any user's account. |
+        /// | `malformed_signature` | There was an error parsing the signature. |
+        /// | `invalid` | The signature could not be cryptographically verified using the key whose key-id was found in the signature. |
+        /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tag-object)
+        public func post(_ body: PostRequest) -> Request<GitTag> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The tag message.
+            public var message: String
+            /// The SHA of the git object this is tagging.
+            public var object: String
+            /// The tag's name. This is typically a version (e.g., "v0.0.1").
+            public var tag: String
+            /// An object with information about the individual creating the tag.
+            public var tagger: Tagger?
+            /// The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`.
+            public var type: `Type`
+
+            /// An object with information about the individual creating the tag.
+            public struct Tagger: Codable {
+                /// When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+                public var date: Date?
+                /// The email of the author of the tag
+                public var email: String
+                /// The name of the author of the tag
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
+                    self.email = try values.decode(String.self, forKey: "email")
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(date, forKey: "date")
+                    try values.encode(email, forKey: "email")
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            /// The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`.
+            public enum `Type`: String, Codable, CaseIterable {
+                case commit
+                case tree
+                case blob
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decode(String.self, forKey: "message")
+                self.object = try values.decode(String.self, forKey: "object")
+                self.tag = try values.decode(String.self, forKey: "tag")
+                self.tagger = try values.decodeIfPresent(Tagger.self, forKey: "tagger")
+                self.type = try values.decode(`Type`.self, forKey: "type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(object, forKey: "object")
+                try values.encode(tag, forKey: "tag")
+                try values.encodeIfPresent(tagger, forKey: "tagger")
+                try values.encode(type, forKey: "type")
+            }
+        }
     }
 }
 
@@ -8242,7 +13081,92 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Path: `/repos/{owner}/{repo}/git/trees`
         public let path: String
 
+        /// Create a tree
+        ///
+        /// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
+        /// 
+        /// If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tree)
+        public func post(_ body: PostRequest) -> Request<GitTree> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
+            /// If not provided, GitHub will create a new Git tree object from only the entries defined in the `tree` parameter. If you create a new commit pointing to such a tree, then all files which were a part of the parent commit's tree and were not defined in the `tree` parameter will be listed as deleted by the new commit.
+            /// 
+            public var baseTree: String?
+            /// Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure.
+            public var tree: [TreeItem]
+
+            public struct TreeItem: Codable {
+                /// The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.  
+                ///   
+                /// **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
+                public var content: String?
+                /// The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink.
+                public var mode: Mode?
+                /// The file referenced in the tree.
+                public var path: String?
+                /// The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.  
+                ///   
+                /// **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
+                public var sha: String?
+                /// Either `blob`, `tree`, or `commit`.
+                public var type: `Type`?
+
+                /// The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink.
+                public enum Mode: String, Codable, CaseIterable {
+                    case _100644 = "100644"
+                    case _100755 = "100755"
+                    case _040000 = "040000"
+                    case _160000 = "160000"
+                    case _120000 = "120000"
+                }
+
+                /// Either `blob`, `tree`, or `commit`.
+                public enum `Type`: String, Codable, CaseIterable {
+                    case blob
+                    case tree
+                    case commit
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.content = try values.decodeIfPresent(String.self, forKey: "content")
+                    self.mode = try values.decodeIfPresent(Mode.self, forKey: "mode")
+                    self.path = try values.decodeIfPresent(String.self, forKey: "path")
+                    self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+                    self.type = try values.decodeIfPresent(`Type`.self, forKey: "type")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(content, forKey: "content")
+                    try values.encodeIfPresent(mode, forKey: "mode")
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(sha, forKey: "sha")
+                    try values.encodeIfPresent(type, forKey: "type")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.baseTree = try values.decodeIfPresent(String.self, forKey: "base_tree")
+                self.tree = try values.decode([TreeItem].self, forKey: "tree")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(baseTree, forKey: "base_tree")
+                try values.encode(tree, forKey: "tree")
+            }
+        }
     }
 }
 
@@ -8284,8 +13208,22 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a repository webhook
+        ///
+        /// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks can
+        /// share the same `config` as long as those webhooks do not have any `events` that overlap.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-webhook)
+        public func post(_ body: [String: AnyJSON]) -> Request<Hook> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
         }
     }
 }
@@ -8306,6 +13244,85 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-webhook)
         public func get() -> Request<Hook> {
             .get(path)
+        }
+
+        /// Update a repository webhook
+        ///
+        /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for a repository](/rest/reference/repos#update-a-webhook-configuration-for-a-repository)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-webhook)
+        public func patch(_ body: PatchRequest) -> Request<Hook> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+            public var isActive: Bool?
+            /// Determines a list of events to be added to the list of events that the Hook triggers for.
+            public var addEvents: [String]?
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
+            public var config: Config?
+            /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events.
+            public var events: [String]?
+            /// Determines a list of events to be removed from the list of events that the Hook triggers for.
+            public var removeEvents: [String]?
+
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
+            public struct Config: Codable {
+                /// Example: "bar@example.com"
+                public var address: String?
+                /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+                ///
+                /// Example: "json"
+                public var contentType: String?
+                public var insecureSSL: WebhookConfigInsecureSSL?
+                /// Example: "The Serious Room"
+                public var room: String?
+                /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+                ///
+                /// Example: "********"
+                public var secret: String?
+                /// The URL to which the payloads will be delivered.
+                public var url: URL
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.address = try values.decodeIfPresent(String.self, forKey: "address")
+                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.room = try values.decodeIfPresent(String.self, forKey: "room")
+                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                    self.url = try values.decode(URL.self, forKey: "url")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(address, forKey: "address")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(room, forKey: "room")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encode(url, forKey: "url")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
+                self.addEvents = try values.decodeIfPresent([String].self, forKey: "add_events")
+                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
+                self.events = try values.decodeIfPresent([String].self, forKey: "events")
+                self.removeEvents = try values.decodeIfPresent([String].self, forKey: "remove_events")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encodeIfPresent(addEvents, forKey: "add_events")
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(removeEvents, forKey: "remove_events")
+            }
         }
 
         /// Delete a repository webhook
@@ -8335,6 +13352,17 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
         public func get() -> Request<WebhookConfig> {
             .get(path)
+        }
+
+        /// Update a webhook configuration for a repository
+        ///
+        /// Updates the webhook configuration for a repository. To update more information about the webhook, including the `active` state and `events`, use "[Update a repository webhook](/rest/reference/orgs#update-a-repository-webhook)."
+        /// 
+        /// Access tokens must have the `write:repo_hook` or `repo` scope, and GitHub Apps must have the `repository_hooks:write` permission.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository)
+        public func patch(_ body: [String: AnyJSON]) -> Request<WebhookConfig> {
+            .patch(path, body: body)
         }
     }
 }
@@ -8469,6 +13497,95 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
+        /// Start an import
+        ///
+        /// Start a source import to a GitHub repository using GitHub Importer.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-import)
+        public func put(_ body: PutRequest) -> Request<github.Import> {
+            .put(path, body: body)
+        }
+
+        public enum PutResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PutRequest: Codable {
+            /// For a tfvc import, the name of the project that is being imported.
+            public var tfvcProject: String?
+            /// The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response.
+            public var vcs: Vcs?
+            /// If authentication is required, the password to provide to `vcs_url`.
+            public var vcsPassword: String?
+            /// The URL of the originating repository.
+            public var vcsURL: String
+            /// If authentication is required, the username to provide to `vcs_url`.
+            public var vcsUsername: String?
+
+            /// The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response.
+            public enum Vcs: String, Codable, CaseIterable {
+                case subversion
+                case git
+                case mercurial
+                case tfvc
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
+                self.vcs = try values.decodeIfPresent(Vcs.self, forKey: "vcs")
+                self.vcsPassword = try values.decodeIfPresent(String.self, forKey: "vcs_password")
+                self.vcsURL = try values.decode(String.self, forKey: "vcs_url")
+                self.vcsUsername = try values.decodeIfPresent(String.self, forKey: "vcs_username")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encode(vcsURL, forKey: "vcs_url")
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+            }
+        }
+
+        /// Update an import
+        ///
+        /// An import can be updated with credentials or a project choice by passing in the appropriate parameters in this API
+        /// request. If no parameters are provided, the import will be restarted.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-an-import)
+        public func patch(_ body: PatchRequest) -> Request<github.Import> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Example: "project1"
+            public var tfvcProject: String?
+            /// Example: "git"
+            public var vcs: String?
+            /// The password to provide to the originating repository.
+            public var vcsPassword: String?
+            /// The username to provide to the originating repository.
+            public var vcsUsername: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
+                self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
+                self.vcsPassword = try values.decodeIfPresent(String.self, forKey: "vcs_password")
+                self.vcsUsername = try values.decodeIfPresent(String.self, forKey: "vcs_username")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+            }
+        }
+
         /// Cancel an import
         ///
         /// Stop an import for a repository.
@@ -8511,7 +13628,14 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
         /// Path: `/repos/{owner}/{repo}/import/authors/{author_id}`
         public let path: String
 
-
+        /// Map a commit author
+        ///
+        /// Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#map-a-commit-author)
+        public func patch(_ body: [String: AnyJSON]) -> Request<PorterAuthor> {
+            .patch(path, body: body)
+        }
     }
 }
 
@@ -8544,7 +13668,35 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         /// Path: `/repos/{owner}/{repo}/import/lfs`
         public let path: String
 
+        /// Update Git LFS preference
+        ///
+        /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.github.com). You can learn more about our LFS feature and working with large files [on our help site](https://help.github.com/articles/versioning-large-files/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-git-lfs-preference)
+        public func patch(_ body: PatchRequest) -> Request<github.Import> {
+            .patch(path, body: body)
+        }
 
+        public struct PatchRequest: Codable {
+            /// Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
+            public var useLfs: UseLfs
+
+            /// Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
+            public enum UseLfs: String, Codable, CaseIterable {
+                case optIn = "opt_in"
+                case optOut = "opt_out"
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.useLfs = try values.decode(UseLfs.self, forKey: "use_lfs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(useLfs, forKey: "use_lfs")
+            }
+        }
     }
 }
 
@@ -8640,7 +13792,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -8654,6 +13806,37 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
     public struct WithInvitationID {
         /// Path: `/repos/{owner}/{repo}/invitations/{invitation_id}`
         public let path: String
+
+        /// Update a repository invitation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-invitation)
+        public func patch(_ body: PatchRequest) -> Request<RepositoryInvitation> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
+            public var permissions: Permissions?
+
+            /// The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
+            public enum Permissions: String, Codable, CaseIterable {
+                case read
+                case write
+                case maintain
+                case triage
+                case admin
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+            }
+        }
 
         /// Delete a repository invitation
         ///
@@ -8687,8 +13870,128 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an issue
+        ///
+        /// Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://help.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue)
+        public func post(_ body: PostRequest) -> Request<Issue> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_
+            public var assignee: String?
+            /// Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
+            public var assignees: [String]?
+            /// The contents of the issue.
+            public var body: String?
+            /// Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._
+            public var labels: [Label]?
+            public var milestone: Milestone?
+            /// The title of the issue.
+            public var title: Title
+
+            public enum Label: Codable {
+                case string(String)
+                case object(Object)
+
+                public struct Object: Codable {
+                    public var color: String?
+                    public var description: String?
+                    public var id: Int?
+                    public var name: String?
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.color = try values.decodeIfPresent(String.self, forKey: "color")
+                        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(color, forKey: "color")
+                        try values.encodeIfPresent(description, forKey: "description")
+                        try values.encodeIfPresent(id, forKey: "id")
+                        try values.encodeIfPresent(name, forKey: "name")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Object.self) {
+                        self = .object(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public enum Milestone: Codable {
+                case string(String)
+                case int(Int)
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Int.self) {
+                        self = .int(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public enum Title: Codable {
+                case string(String)
+                case int(Int)
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Int.self) {
+                        self = .int(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.assignee = try values.decodeIfPresent(String.self, forKey: "assignee")
+                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
+                self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
+                self.title = try values.decode(Title.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(assignee, forKey: "assignee")
+                try values.encodeIfPresent(assignees, forKey: "assignees")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(labels, forKey: "labels")
+                try values.encodeIfPresent(milestone, forKey: "milestone")
+                try values.encode(title, forKey: "title")
+            }
         }
     }
 }
@@ -8711,7 +14014,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -8731,6 +14034,28 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-comment)
         public func get() -> Request<IssueComment> {
             .get(path)
+        }
+
+        /// Update an issue comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
+        public func patch(_ body: PatchRequest) -> Request<IssueComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The contents of the comment.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete an issue comment
@@ -8760,8 +14085,44 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for an issue comment
+        ///
+        /// Create a reaction to an [issue comment](https://docs.github.com/rest/reference/issues#comments). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -8804,7 +14165,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -8855,6 +14216,130 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         public func get() -> Request<Issue> {
             .get(path)
         }
+
+        /// Update an issue
+        ///
+        /// Issue owners and users with push access can edit an issue.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues/#update-an-issue)
+        public func patch(_ body: PatchRequest) -> Request<Issue> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Login for the user that this issue should be assigned to. **This field is deprecated.**
+            public var assignee: String?
+            /// Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
+            public var assignees: [String]?
+            /// The contents of the issue.
+            public var body: String?
+            /// Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._
+            public var labels: [Label]?
+            public var milestone: Milestone?
+            /// State of the issue. Either `open` or `closed`.
+            public var state: State?
+            /// The title of the issue.
+            public var title: Title?
+
+            public enum Label: Codable {
+                case string(String)
+                case object(Object)
+
+                public struct Object: Codable {
+                    public var color: String?
+                    public var description: String?
+                    public var id: Int?
+                    public var name: String?
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.color = try values.decodeIfPresent(String.self, forKey: "color")
+                        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(color, forKey: "color")
+                        try values.encodeIfPresent(description, forKey: "description")
+                        try values.encodeIfPresent(id, forKey: "id")
+                        try values.encodeIfPresent(name, forKey: "name")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Object.self) {
+                        self = .object(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public enum Milestone: Codable {
+                case string(String)
+                case int(Int)
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Int.self) {
+                        self = .int(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            /// State of the issue. Either `open` or `closed`.
+            public enum State: String, Codable, CaseIterable {
+                case `open`
+                case closed
+            }
+
+            public enum Title: Codable {
+                case string(String)
+                case int(Int)
+
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let value = try? container.decode(String.self) {
+                        self = .string(value)
+                    } else if let value = try? container.decode(Int.self) {
+                        self = .int(value)
+                    } else {
+                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.assignee = try values.decodeIfPresent(String.self, forKey: "assignee")
+                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
+                self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
+                self.state = try values.decodeIfPresent(State.self, forKey: "state")
+                self.title = try values.decodeIfPresent(Title.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(assignee, forKey: "assignee")
+                try values.encodeIfPresent(assignees, forKey: "assignees")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(labels, forKey: "labels")
+                try values.encodeIfPresent(milestone, forKey: "milestone")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
+        }
     }
 }
 
@@ -8866,6 +14351,30 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public struct Assignees {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/assignees`
         public let path: String
+
+        /// Add assignees to an issue
+        ///
+        /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
+        public func post(_ body: PostRequest) -> Request<Issue> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._
+            public var assignees: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(assignees, forKey: "assignees")
+            }
+        }
 
         /// Remove assignees from an issue
         ///
@@ -8896,8 +14405,36 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create an issue comment
+        ///
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
+        public func post(_ body: PostRequest) -> Request<IssueComment> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The contents of the comment.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
     }
 }
@@ -8918,7 +14455,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -8940,8 +14477,188 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Add labels to an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)
+        public func post(_ body: PostRequest) -> Request<[github.Label]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object1(Object1)
+            case strings([String])
+            case object2(Object2)
+            case object3([Object3Item])
+            case string(String)
+
+            public struct Object1: Codable {
+                /// The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
+                public var labels: [String]?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.labels = try values.decodeIfPresent([String].self, forKey: "labels")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
+            }
+
+            public struct Object2: Codable {
+                public var labels: [Label]?
+
+                public struct Label: Codable {
+                    public var name: String
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.name = try values.decode(String.self, forKey: "name")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
+            }
+
+            public struct Object3Item: Codable {
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object1.self) {
+                    self = .object1(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else if let value = try? container.decode(Object2.self) {
+                    self = .object2(value)
+                } else if let value = try? container.decode([Object3Item].self) {
+                    self = .object3(value)
+                } else if let value = try? container.decode(String.self) {
+                    self = .string(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
+        /// Set labels for an issue
+        ///
+        /// Removes any previous labels and sets the new labels for an issue.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)
+        public func put(_ body: PutRequest) -> Request<[github.Label]> {
+            .put(path, body: body)
+        }
+
+        public enum PutRequest: Codable {
+            case object1(Object1)
+            case strings([String])
+            case object2(Object2)
+            case object3([Object3Item])
+            case string(String)
+
+            public struct Object1: Codable {
+                /// The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
+                public var labels: [String]?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.labels = try values.decodeIfPresent([String].self, forKey: "labels")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
+            }
+
+            public struct Object2: Codable {
+                public var labels: [Label]?
+
+                public struct Label: Codable {
+                    public var name: String
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.name = try values.decode(String.self, forKey: "name")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
+            }
+
+            public struct Object3Item: Codable {
+                public var name: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.name = try values.decode(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object1.self) {
+                    self = .object1(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else if let value = try? container.decode(Object2.self) {
+                    self = .object2(value)
+                } else if let value = try? container.decode([Object3Item].self) {
+                    self = .object3(value)
+                } else if let value = try? container.decode(String.self) {
+                    self = .string(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
         }
 
         /// Remove all labels from an issue
@@ -8982,6 +14699,48 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/lock`
         public let path: String
 
+        /// Lock an issue
+        ///
+        /// Users with push access can lock an issue or pull request's conversation.
+        /// 
+        /// Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#lock-an-issue)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  
+            /// \* `off-topic`  
+            /// \* `too heated`  
+            /// \* `resolved`  
+            /// \* `spam`
+            public var lockReason: LockReason?
+
+            /// The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  
+            /// \* `off-topic`  
+            /// \* `too heated`  
+            /// \* `resolved`  
+            /// \* `spam`
+            public enum LockReason: String, Codable, CaseIterable {
+                case offTopic = "off-topic"
+                case tooHeated = "too heated"
+                case resolved
+                case spam
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.lockReason = try values.decodeIfPresent(LockReason.self, forKey: "lock_reason")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lockReason, forKey: "lock_reason")
+            }
+        }
+
         /// Unlock an issue
         ///
         /// Users with push access can unlock an issue's conversation.
@@ -9011,8 +14770,44 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for an issue
+        ///
+        /// Create a reaction to an [issue](https://docs.github.com/rest/reference/issues/). A response with an HTTP `200` status means that you already added the reaction type to this issue.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -9055,7 +14850,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9077,8 +14872,46 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a deploy key
+        ///
+        /// You can create a read-only deploy key.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deploy-key)
+        public func post(_ body: PostRequest) -> Request<DeployKey> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The contents of the key.
+            public var key: String
+            /// If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.  
+            ///   
+            /// Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://help.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://help.github.com/articles/permission-levels-for-a-user-account-repository/)."
+            public var isReadOnly: Bool?
+            /// A name for the key.
+            public var title: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.key = try values.decode(String.self, forKey: "key")
+                self.isReadOnly = try values.decodeIfPresent(Bool.self, forKey: "read_only")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(key, forKey: "key")
+                try values.encodeIfPresent(isReadOnly, forKey: "read_only")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
     }
 }
@@ -9126,8 +14959,42 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a label
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-label)
+        public func post(_ body: PostRequest) -> Request<Label> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
+            public var color: String?
+            /// A short description of the label.
+            public var description: String?
+            /// The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see "[Emoji cheat sheet](https://github.com/ikatyang/emoji-cheat-sheet)."
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.color = try values.decodeIfPresent(String.self, forKey: "color")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(name, forKey: "name")
+            }
         }
     }
 }
@@ -9146,6 +15013,36 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-label)
         public func get() -> Request<Label> {
             .get(path)
+        }
+
+        /// Update a label
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-label)
+        public func patch(_ body: PatchRequest) -> Request<Label> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
+            public var color: String?
+            /// A short description of the label.
+            public var description: String?
+            /// The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see "[Emoji cheat sheet](https://github.com/ikatyang/emoji-cheat-sheet)."
+            public var newName: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.color = try values.decodeIfPresent(String.self, forKey: "color")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.newName = try values.decodeIfPresent(String.self, forKey: "new_name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(newName, forKey: "new_name")
+            }
         }
 
         /// Delete a label
@@ -9228,7 +15125,31 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/merge-upstream`
         public let path: String
 
+        /// Sync a fork branch with the upstream repository
+        ///
+        /// **Note:** This endpoint is currently in beta and subject to change.
+        /// 
+        /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
+        public func post(_ body: PostRequest) -> Request<MergedUpstream> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The name of the branch which should be updated to match upstream.
+            public var branch: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.branch = try values.decode(String.self, forKey: "branch")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(branch, forKey: "branch")
+            }
+        }
     }
 }
 
@@ -9241,7 +15162,35 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/merges`
         public let path: String
 
+        /// Merge a branch
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#merge-a-branch)
+        public func post(_ body: PostRequest) -> Request<Commit> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The name of the base branch that the head will be merged into.
+            public var base: String
+            /// Commit message to use for the merge commit. If omitted, a default message will be used.
+            public var commitMessage: String?
+            /// The head to merge. This can be a branch name or a commit SHA1.
+            public var head: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.base = try values.decode(String.self, forKey: "base")
+                self.commitMessage = try values.decodeIfPresent(String.self, forKey: "commit_message")
+                self.head = try values.decode(String.self, forKey: "head")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(base, forKey: "base")
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
+                try values.encode(head, forKey: "head")
+            }
+        }
     }
 }
 
@@ -9261,8 +15210,52 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a milestone
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-milestone)
+        public func post(_ body: PostRequest) -> Request<Milestone> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// A description of the milestone.
+            public var description: String?
+            /// The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var dueOn: Date?
+            /// The state of the milestone. Either `open` or `closed`.
+            public var state: State?
+            /// The title of the milestone.
+            public var title: String
+
+            /// The state of the milestone. Either `open` or `closed`.
+            public enum State: String, Codable, CaseIterable {
+                case `open`
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
+                self.state = try values.decodeIfPresent(State.self, forKey: "state")
+                self.title = try values.decode(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(dueOn, forKey: "due_on")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encode(title, forKey: "title")
+            }
         }
     }
 }
@@ -9281,6 +15274,46 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-milestone)
         public func get() -> Request<Milestone> {
             .get(path)
+        }
+
+        /// Update a milestone
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-milestone)
+        public func patch(_ body: PatchRequest) -> Request<Milestone> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// A description of the milestone.
+            public var description: String?
+            /// The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var dueOn: Date?
+            /// The state of the milestone. Either `open` or `closed`.
+            public var state: State?
+            /// The title of the milestone.
+            public var title: String?
+
+            /// The state of the milestone. Either `open` or `closed`.
+            public enum State: String, Codable, CaseIterable {
+                case `open`
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
+                self.state = try values.decodeIfPresent(State.self, forKey: "state")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(dueOn, forKey: "due_on")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
 
         /// Delete a milestone
@@ -9308,7 +15341,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9332,8 +15365,43 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Mark repository notifications as read
+        ///
+        /// Marks all notifications in a repository as "read" removes them from the [default view on GitHub](https://github.com/notifications). If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read)
+        public func put(_ body: PutRequest) -> Request<PutResponse> {
+            .put(path, body: body)
+        }
+
+        public struct PutResponse: Decodable {
+            public var message: String?
+            public var url: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            }
+        }
+
+        public struct PutRequest: Codable {
+            /// Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
+            public var lastReadAt: Date?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.lastReadAt = try values.decodeIfPresent(Date.self, forKey: "last_read_at")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+            }
         }
     }
 }
@@ -9352,6 +15420,137 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-github-pages-site)
         public func get() -> Request<Page> {
             .get(path)
+        }
+
+        /// Create a GitHub Pages site
+        ///
+        /// Configures a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-github-pages-site)
+        public func post(_ body: PostRequest) -> Request<Page> {
+            .post(path, body: body)
+        }
+
+        /// The source branch and directory used to publish your Pages site.
+        public struct PostRequest: Codable {
+            /// The source branch and directory used to publish your Pages site.
+            public var source: Source
+
+            /// The source branch and directory used to publish your Pages site.
+            public struct Source: Codable {
+                /// The repository branch used to publish your site's source files.
+                public var branch: String
+                /// The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
+                public var path: Path?
+
+                /// The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
+                public enum Path: String, Codable, CaseIterable {
+                    case slash = "/"
+                    case docs = "/docs"
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.branch = try values.decode(String.self, forKey: "branch")
+                    self.path = try values.decodeIfPresent(Path.self, forKey: "path")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(branch, forKey: "branch")
+                    try values.encodeIfPresent(path, forKey: "path")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.source = try values.decode(Source.self, forKey: "source")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(source, forKey: "source")
+            }
+        }
+
+        /// Update information about a GitHub Pages site
+        ///
+        /// Updates information for a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-information-about-a-github-pages-site)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            public var object1: Object1?
+            public var object2: Object2?
+            public var object3: Object3?
+            public var object4: Object4?
+
+            public struct Object1: Codable {
+                public var source: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.source = try values.decode(AnyJSON.self, forKey: "source")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(source, forKey: "source")
+                }
+            }
+
+            public struct Object2: Codable {
+                public var cname: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.cname = try values.decode(AnyJSON.self, forKey: "cname")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(cname, forKey: "cname")
+                }
+            }
+
+            public struct Object3: Codable {
+                public var `public`: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.public = try values.decode(AnyJSON.self, forKey: "public")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(`public`, forKey: "public")
+                }
+            }
+
+            public struct Object4: Codable {
+                public var httpsEnforced: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.httpsEnforced = try values.decode(AnyJSON.self, forKey: "https_enforced")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(httpsEnforced, forKey: "https_enforced")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.object1 = try? container.decode(Object1.self)
+                self.object2 = try? container.decode(Object2.self)
+                self.object3 = try? container.decode(Object3.self)
+                self.object4 = try? container.decode(Object4.self)
+            }
         }
 
         /// Delete a GitHub Pages site
@@ -9379,7 +15578,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9463,8 +15662,36 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a repository project
+        ///
+        /// Creates a repository project board. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-repository-project)
+        public func post(_ body: PostRequest) -> Request<Project> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The description of the project.
+            public var body: String?
+            /// The name of the project.
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(name, forKey: "name")
+            }
         }
     }
 }
@@ -9487,8 +15714,65 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a pull request
+        ///
+        /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
+        /// 
+        /// You can create a new pull request.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<PullRequest> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository.
+            public var base: String
+            /// The contents of the pull request.
+            public var body: String?
+            /// Indicates whether the pull request is a draft. See "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)" in the GitHub Help documentation to learn more.
+            public var isDraft: Bool?
+            /// The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace `head` with a user like this: `username:branch`.
+            public var head: String
+            public var issue: Int?
+            /// Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request.
+            public var maintainerCanModify: Bool?
+            /// The title of the new pull request.
+            public var title: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.base = try values.decode(String.self, forKey: "base")
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
+                self.head = try values.decode(String.self, forKey: "head")
+                self.issue = try values.decodeIfPresent(Int.self, forKey: "issue")
+                self.maintainerCanModify = try values.decodeIfPresent(Bool.self, forKey: "maintainer_can_modify")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(base, forKey: "base")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encode(head, forKey: "head")
+                try values.encodeIfPresent(issue, forKey: "issue")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
     }
 }
@@ -9511,7 +15795,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9533,6 +15817,30 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
         public func get() -> Request<PullRequestReviewComment> {
             .get(path)
+        }
+
+        /// Update a review comment for a pull request
+        ///
+        /// Enables you to edit a review comment.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
+        public func patch(_ body: PatchRequest) -> Request<PullRequestReviewComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The text of the reply to the review comment.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a review comment for a pull request
@@ -9564,8 +15872,44 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a pull request review comment
+        ///
+        /// Create a reaction to a [pull request review comment](https://docs.github.com/rest/reference/pulls#comments). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -9623,6 +15967,54 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         public func get() -> Request<PullRequest> {
             .get(path)
         }
+
+        /// Update a pull request
+        ///
+        /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls/#update-a-pull-request)
+        public func patch(_ body: PatchRequest) -> Request<PullRequest> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository.
+            public var base: String?
+            /// The contents of the pull request.
+            public var body: String?
+            /// Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request.
+            public var maintainerCanModify: Bool?
+            /// State of this Pull Request. Either `open` or `closed`.
+            public var state: State?
+            /// The title of the pull request.
+            public var title: String?
+
+            /// State of this Pull Request. Either `open` or `closed`.
+            public enum State: String, Codable, CaseIterable {
+                case `open`
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.base = try values.decodeIfPresent(String.self, forKey: "base")
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.maintainerCanModify = try values.decodeIfPresent(Bool.self, forKey: "maintainer_can_modify")
+                self.state = try values.decodeIfPresent(State.self, forKey: "state")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(base, forKey: "base")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
+        }
     }
 }
 
@@ -9635,7 +16027,39 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/codespaces`
         public let path: String
 
+        /// Create a codespace from a pull request
+        ///
+        /// Creates a codespace owned by the authenticated user for the specified pull request.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<Codespace> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// Location for this codespace
+            public var location: String
+            /// Machine type to use for this codespace
+            public var machine: String?
+            /// Working directory for this codespace
+            public var workingDirectory: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.location = try values.decode(String.self, forKey: "location")
+                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
+                self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+            }
+        }
     }
 }
 
@@ -9657,8 +16081,88 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a review comment for a pull request
+        ///
+        /// 
+        /// Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
+        /// 
+        /// You can still create a review comment using the `position` parameter. When you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
+        /// 
+        /// **Note:** The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<PullRequestReviewComment> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The text of the review comment.
+            public var body: String
+            /// The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`.
+            public var commitID: String?
+            /// The ID of the review comment to reply to. To find the ID of a review comment with ["List review comments on a pull request"](#list-review-comments-on-a-pull-request). When specified, all parameters other than `body` in the request body are ignored.
+            public var inReplyTo: Int?
+            /// **Required with `comfort-fade` preview unless using `in_reply_to`**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to.
+            public var line: Int?
+            /// The relative path to the file that necessitates a comment.
+            public var path: String?
+            /// **Required without `comfort-fade` preview unless using `in_reply_to`**. The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note above.
+            public var position: Int?
+            /// **Required with `comfort-fade` preview unless using `in_reply_to`**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation.
+            public var side: Side?
+            /// **Required when using multi-line comments unless using `in_reply_to`**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation.
+            public var startLine: Int?
+            /// **Required when using multi-line comments unless using `in_reply_to`**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context.
+            public var startSide: StartSide?
+
+            /// **Required with `comfort-fade` preview unless using `in_reply_to`**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation.
+            public enum Side: String, Codable, CaseIterable {
+                case left = "LEFT"
+                case right = "RIGHT"
+            }
+
+            /// **Required when using multi-line comments unless using `in_reply_to`**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context.
+            public enum StartSide: String, Codable, CaseIterable {
+                case left = "LEFT"
+                case right = "RIGHT"
+                case side
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+                self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+                self.inReplyTo = try values.decodeIfPresent(Int.self, forKey: "in_reply_to")
+                self.line = try values.decodeIfPresent(Int.self, forKey: "line")
+                self.path = try values.decodeIfPresent(String.self, forKey: "path")
+                self.position = try values.decodeIfPresent(Int.self, forKey: "position")
+                self.side = try values.decodeIfPresent(Side.self, forKey: "side")
+                self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
+                self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(inReplyTo, forKey: "in_reply_to")
+                try values.encodeIfPresent(line, forKey: "line")
+                try values.encodeIfPresent(path, forKey: "path")
+                try values.encodeIfPresent(position, forKey: "position")
+                try values.encodeIfPresent(side, forKey: "side")
+                try values.encodeIfPresent(startLine, forKey: "start_line")
+                try values.encodeIfPresent(startSide, forKey: "start_side")
+            }
         }
     }
 }
@@ -9683,7 +16187,35 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies`
         public let path: String
 
+        /// Create a reply for a review comment
+        ///
+        /// Creates a reply to a review comment for a pull request. For the `comment_id`, provide the ID of the review comment you are replying to. This must be the ID of a _top-level review comment_, not a reply to that comment. Replies to replies are not supported.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
+        public func post(_ body: PostRequest) -> Request<PullRequestReviewComment> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// The text of the review comment.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
+        }
     }
 }
 
@@ -9705,7 +16237,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9729,7 +16261,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9750,6 +16282,49 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         public func get() -> Request<Void> {
             .get(path)
         }
+
+        /// Merge a pull request
+        ///
+        /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#merge-a-pull-request)
+        public func put(_ body: PutRequest) -> Request<PullRequestMergeResult> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Extra detail to append to automatic commit message.
+            public var commitMessage: String?
+            /// Title for the automatic commit message.
+            public var commitTitle: String?
+            /// Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`.
+            public var mergeMethod: MergeMethod?
+            /// SHA that pull request head must match to allow merge.
+            public var sha: String?
+
+            /// Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`.
+            public enum MergeMethod: String, Codable, CaseIterable {
+                case merge
+                case squash
+                case rebase
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.commitMessage = try values.decodeIfPresent(String.self, forKey: "commit_message")
+                self.commitTitle = try values.decodeIfPresent(String.self, forKey: "commit_title")
+                self.mergeMethod = try values.decodeIfPresent(MergeMethod.self, forKey: "merge_method")
+                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
+                try values.encodeIfPresent(commitTitle, forKey: "commit_title")
+                try values.encodeIfPresent(mergeMethod, forKey: "merge_method")
+                try values.encodeIfPresent(sha, forKey: "sha")
+            }
+        }
     }
 }
 
@@ -9769,8 +16344,56 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Request reviewers for a pull request
+        ///
+        /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<PullRequestSimple> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            public var object1: Object1?
+            public var object2: Object2?
+
+            public struct Object1: Codable {
+                public var reviewers: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.reviewers = try values.decode(AnyJSON.self, forKey: "reviewers")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(reviewers, forKey: "reviewers")
+                }
+            }
+
+            public struct Object2: Codable {
+                public var teamReviewers: AnyJSON
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.teamReviewers = try values.decode(AnyJSON.self, forKey: "team_reviewers")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teamReviewers, forKey: "team_reviewers")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.object1 = try? container.decode(Object1.self)
+                self.object2 = try? container.decode(Object2.self)
+            }
         }
 
         /// Remove requested reviewers from a pull request
@@ -9800,8 +16423,96 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a review for a pull request
+        ///
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        /// 
+        /// Pull request reviews created in the `PENDING` state do not include the `submitted_at` property in the response.
+        /// 
+        /// **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API v3 offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) endpoint.
+        /// 
+        /// The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<PullRequestReview> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review.
+            public var body: String?
+            /// Use the following table to specify the location, destination, and contents of the draft review comment.
+            public var comments: [Commants]?
+            /// The SHA of the commit that needs a review. Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the `position`. Defaults to the most recent commit in the pull request when you do not specify a value.
+            public var commitID: String?
+            /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready.
+            public var event: Event?
+
+            public struct Commants: Codable {
+                /// Text of the review comment.
+                public var body: String
+                /// Example: 28
+                public var line: Int?
+                /// The relative path to the file that necessitates a review comment.
+                public var path: String
+                /// The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note below.
+                public var position: Int?
+                /// Example: RIGHT
+                public var side: String?
+                /// Example: 26
+                public var startLine: Int?
+                /// Example: LEFT
+                public var startSide: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.body = try values.decode(String.self, forKey: "body")
+                    self.line = try values.decodeIfPresent(Int.self, forKey: "line")
+                    self.path = try values.decode(String.self, forKey: "path")
+                    self.position = try values.decodeIfPresent(Int.self, forKey: "position")
+                    self.side = try values.decodeIfPresent(String.self, forKey: "side")
+                    self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
+                    self.startSide = try values.decodeIfPresent(String.self, forKey: "start_side")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(body, forKey: "body")
+                    try values.encodeIfPresent(line, forKey: "line")
+                    try values.encode(path, forKey: "path")
+                    try values.encodeIfPresent(position, forKey: "position")
+                    try values.encodeIfPresent(side, forKey: "side")
+                    try values.encodeIfPresent(startLine, forKey: "start_line")
+                    try values.encodeIfPresent(startSide, forKey: "start_side")
+                }
+            }
+
+            /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready.
+            public enum Event: String, Codable, CaseIterable {
+                case approve = "APPROVE"
+                case requestChanges = "REQUEST_CHANGES"
+                case comment = "COMMENT"
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.comments = try values.decodeIfPresent([Commants].self, forKey: "comments")
+                self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+                self.event = try values.decodeIfPresent(Event.self, forKey: "event")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(comments, forKey: "comments")
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(event, forKey: "event")
+            }
         }
     }
 }
@@ -9820,6 +16531,30 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request)
         public func get() -> Request<PullRequestReview> {
             .get(path)
+        }
+
+        /// Update a review for a pull request
+        ///
+        /// Update the review summary comment with new text.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
+        public func put(_ body: PutRequest) -> Request<PullRequestReview> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The body text of the pull request review.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a pending review for a pull request
@@ -9849,7 +16584,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -9864,7 +16599,33 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals`
         public let path: String
 
+        /// Dismiss a review for a pull request
+        ///
+        /// **Note:** To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/reference/repos#branches), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request)
+        public func put(_ body: PutRequest) -> Request<PullRequestReview> {
+            .put(path, body: body)
+        }
 
+        public struct PutRequest: Codable {
+            /// Example: "APPROVE"
+            public var event: String?
+            /// The message for the pull request review dismissal
+            public var message: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.event = try values.decodeIfPresent(String.self, forKey: "event")
+                self.message = try values.decode(String.self, forKey: "message")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(event, forKey: "event")
+                try values.encode(message, forKey: "message")
+            }
+        }
     }
 }
 
@@ -9877,7 +16638,38 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events`
         public let path: String
 
+        /// Submit a review for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request)
+        public func post(_ body: PostRequest) -> Request<PullRequestReview> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The body text of the pull request review
+            public var body: String?
+            /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action.
+            public var event: Event
+
+            /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action.
+            public enum Event: String, Codable, CaseIterable {
+                case approve = "APPROVE"
+                case requestChanges = "REQUEST_CHANGES"
+                case comment = "COMMENT"
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.event = try values.decode(Event.self, forKey: "event")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(event, forKey: "event")
+            }
+        }
     }
 }
 
@@ -9890,7 +16682,40 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/update-branch`
         public let path: String
 
+        /// Update a pull request branch
+        ///
+        /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch)
+        public func put(_ body: PutRequest) -> Request<PutResponse> {
+            .put(path, body: body)
+        }
 
+        public struct PutResponse: Decodable {
+            public var message: String?
+            public var url: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            }
+        }
+
+        public struct PutRequest: Codable {
+            /// The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
+            public var expectedHeadSha: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.expectedHeadSha = try values.decodeIfPresent(String.self, forKey: "expected_head_sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(expectedHeadSha, forKey: "expected_head_sha")
+            }
+        }
     }
 }
 
@@ -9958,8 +16783,66 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a release
+        ///
+        /// Users with push access to the repository can create a release.
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-release)
+        public func post(_ body: PostRequest) -> Request<Release> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Text describing the contents of the tag.
+            public var body: String?
+            /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
+            public var discussionCategoryName: String?
+            /// `true` to create a draft (unpublished) release, `false` to create a published one.
+            public var isDraft: Bool?
+            /// Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes.
+            public var isGenerateReleaseNotes: Bool?
+            /// The name of the release.
+            public var name: String?
+            /// `true` to identify the release as a prerelease. `false` to identify the release as a full release.
+            public var isPrerelease: Bool?
+            /// The name of the tag.
+            public var tagName: String
+            /// Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+            public var targetCommitish: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.discussionCategoryName = try values.decodeIfPresent(String.self, forKey: "discussion_category_name")
+                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
+                self.isGenerateReleaseNotes = try values.decodeIfPresent(Bool.self, forKey: "generate_release_notes")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.isPrerelease = try values.decodeIfPresent(Bool.self, forKey: "prerelease")
+                self.tagName = try values.decode(String.self, forKey: "tag_name")
+                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(discussionCategoryName, forKey: "discussion_category_name")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(isGenerateReleaseNotes, forKey: "generate_release_notes")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(isPrerelease, forKey: "prerelease")
+                try values.encode(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+            }
         }
     }
 }
@@ -9993,6 +16876,38 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
             .get(path)
         }
 
+        /// Update a release asset
+        ///
+        /// Users with push access to the repository can edit a release asset.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release-asset)
+        public func patch(_ body: PatchRequest) -> Request<ReleaseAsset> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// An alternate short description of the asset. Used in place of the filename.
+            public var label: String?
+            /// The file name of the asset.
+            public var name: String?
+            /// Example: "uploaded"
+            public var state: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.label = try values.decodeIfPresent(String.self, forKey: "label")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.state = try values.decodeIfPresent(String.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(label, forKey: "label")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(state, forKey: "state")
+            }
+        }
+
         /// Delete a release asset
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release-asset)
@@ -10011,7 +16926,41 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// Path: `/repos/{owner}/{repo}/releases/generate-notes`
         public let path: String
 
+        /// Generate release notes content for a release
+        ///
+        /// Generate a name and body describing a [release](https://docs.github.com/rest/reference/repos#releases). The body content will be markdown formatted and contain information like the changes since last release and users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and used when creating a new release.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#generate-release-notes)
+        public func post(_ body: PostRequest) -> Request<ReleaseNotesContent> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// Specifies a path to a file in the repository containing configuration settings used for generating the release notes. If unspecified, the configuration file located in the repository at '.github/release.yml' or '.github/release.yaml' will be used. If that is not present, the default configuration will be used.
+            public var configurationFilePath: String?
+            /// The name of the previous tag to use as the starting point for the release notes. Use to manually specify the range for the set of changes considered as part this release.
+            public var previousTagName: String?
+            /// The tag name for the release. This can be an existing tag or a new one.
+            public var tagName: String
+            /// Specifies the commitish value that will be the target for the release's tag. Required if the supplied tag_name does not reference an existing tag. Ignored if the tag_name already exists.
+            public var targetCommitish: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.configurationFilePath = try values.decodeIfPresent(String.self, forKey: "configuration_file_path")
+                self.previousTagName = try values.decodeIfPresent(String.self, forKey: "previous_tag_name")
+                self.tagName = try values.decode(String.self, forKey: "tag_name")
+                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(configurationFilePath, forKey: "configuration_file_path")
+                try values.encodeIfPresent(previousTagName, forKey: "previous_tag_name")
+                try values.encode(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+            }
+        }
     }
 }
 
@@ -10086,6 +17035,54 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
             .get(path)
         }
 
+        /// Update a release
+        ///
+        /// Users with push access to the repository can edit a release.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release)
+        public func patch(_ body: PatchRequest) -> Request<Release> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Text describing the contents of the tag.
+            public var body: String?
+            /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. If there is already a discussion linked to the release, this parameter is ignored. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
+            public var discussionCategoryName: String?
+            /// `true` makes the release a draft, and `false` publishes the release.
+            public var isDraft: Bool?
+            /// The name of the release.
+            public var name: String?
+            /// `true` to identify the release as a prerelease, `false` to identify the release as a full release.
+            public var isPrerelease: Bool?
+            /// The name of the tag.
+            public var tagName: String?
+            /// Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+            public var targetCommitish: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.discussionCategoryName = try values.decodeIfPresent(String.self, forKey: "discussion_category_name")
+                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.isPrerelease = try values.decodeIfPresent(Bool.self, forKey: "prerelease")
+                self.tagName = try values.decodeIfPresent(String.self, forKey: "tag_name")
+                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(discussionCategoryName, forKey: "discussion_category_name")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(isPrerelease, forKey: "prerelease")
+                try values.encodeIfPresent(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+            }
+        }
+
         /// Delete a release
         ///
         /// Users with push access to the repository can delete a release.
@@ -10113,8 +17110,34 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Upload a release asset
+        ///
+        /// This endpoint makes use of [a Hypermedia relation](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia) to determine which URL to access. The endpoint you call to upload release assets is specific to your release. Use the `upload_url` returned in
+        /// the response of the [Create a release endpoint](https://docs.github.com/rest/reference/repos#create-a-release) to upload a release asset.
+        /// 
+        /// You need to use an HTTP client which supports [SNI](http://en.wikipedia.org/wiki/Server_Name_Indication) to make calls to this endpoint.
+        /// 
+        /// Most libraries will set the required `Content-Length` header automatically. Use the required `Content-Type` header to provide the media type of the asset. For a list of media types, see [Media Types](https://www.iana.org/assignments/media-types/media-types.xhtml). For example: 
+        /// 
+        /// `application/zip`
+        /// 
+        /// GitHub expects the asset data in its raw binary form, rather than JSON. You will send the raw binary content of the asset as the request body. Everything else about the endpoint is the same as the rest of the API. For example,
+        /// you'll still need to pass your authentication to be able to upload an asset.
+        /// 
+        /// When an upstream failure occurs, you will receive a `502 Bad Gateway` status. This may leave an empty asset with a state of `starter`. It can be safely deleted.
+        /// 
+        /// **Notes:**
+        /// *   GitHub renames asset filenames that have special characters, non-alphanumeric characters, and leading or trailing periods. The "[List assets for a release](https://docs.github.com/rest/reference/repos#list-assets-for-a-release)"
+        /// endpoint lists the renamed filenames. For more information and help, contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
+        /// *   If you upload an asset with the same filename as another uploaded asset, you'll receive an error and must delete the old file before you can re-upload the new asset.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#upload-a-release-asset)
+        public func post(_ body: String) -> Request<ReleaseAsset> {
+            .post(path, body: body)
         }
     }
 }
@@ -10128,7 +17151,39 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// Path: `/repos/{owner}/{repo}/releases/{release_id}/reactions`
         public let path: String
 
+        /// Create reaction for a release
+        ///
+        /// Create a reaction to a [release](https://docs.github.com/rest/reference/repos#releases). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release)
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the release.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the release.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case laugh
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
+        }
     }
 }
 
@@ -10184,6 +17239,36 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         public func get() -> Request<SecretScanningAlert> {
             .get(path)
         }
+
+        /// Update a secret scanning alert
+        ///
+        /// Updates the status of a secret scanning alert in a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// 
+        /// GitHub Apps must have the `secret_scanning_alerts` write permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert)
+        public func patch(_ body: PatchRequest) -> Request<SecretScanningAlert> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
+            public var resolution: SecretScanningAlertResolution?
+            /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
+            public var state: SecretScanningAlertState
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.resolution = try values.decodeIfPresent(SecretScanningAlertResolution.self, forKey: "resolution")
+                self.state = try values.decode(SecretScanningAlertState.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(resolution, forKey: "resolution")
+                try values.encode(state, forKey: "state")
+            }
+        }
     }
 }
 
@@ -10207,7 +17292,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -10369,7 +17454,57 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
         /// Path: `/repos/{owner}/{repo}/statuses/{sha}`
         public let path: String
 
+        /// Create a commit status
+        ///
+        /// Users with push access in a repository can create commit statuses for a given SHA.
+        /// 
+        /// Note: there is a limit of 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will result in a validation error.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-status)
+        public func post(_ body: PostRequest) -> Request<Status> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// A string label to differentiate this status from the status of other systems. This field is case-insensitive.
+            public var context: String?
+            /// A short description of the status.
+            public var description: String?
+            /// The state of the status. Can be one of `error`, `failure`, `pending`, or `success`.
+            public var state: State
+            /// The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.  
+            /// For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:  
+            /// `http://ci.example.com/user/repo/build/sha`
+            public var targetURL: String?
+
+            /// The state of the status. Can be one of `error`, `failure`, `pending`, or `success`.
+            public enum State: String, Codable, CaseIterable {
+                case error
+                case failure
+                case pending
+                case success
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.context = try values.decodeIfPresent(String.self, forKey: "context")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.state = try values.decode(State.self, forKey: "state")
+                self.targetURL = try values.decodeIfPresent(String.self, forKey: "target_url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(context, forKey: "context")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+            }
+        }
     }
 }
 
@@ -10391,7 +17526,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -10411,6 +17546,34 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-repository-subscription)
         public func get() -> Request<RepositorySubscription> {
             .get(path)
+        }
+
+        /// Set a repository subscription
+        ///
+        /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-repository-subscription)
+        public func put(_ body: PutRequest) -> Request<RepositorySubscription> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Determines if all notifications should be blocked from this repository.
+            public var isIgnored: Bool?
+            /// Determines if notifications should be received from this repository.
+            public var isSubscribed: Bool?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isIgnored = try values.decodeIfPresent(Bool.self, forKey: "ignored")
+                self.isSubscribed = try values.decodeIfPresent(Bool.self, forKey: "subscribed")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isIgnored, forKey: "ignored")
+                try values.encodeIfPresent(isSubscribed, forKey: "subscribed")
+            }
         }
 
         /// Delete a repository subscription
@@ -10440,7 +17603,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -10496,7 +17659,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -10516,6 +17679,28 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
         public func get() -> Request<Topic> {
             .get(path)
+        }
+
+        /// Replace all repository topics
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
+        public func put(_ body: PutRequest) -> Request<Topic> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters.
+            public var names: [String]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.names = try values.decode([String].self, forKey: "names")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(names, forKey: "names")
+            }
         }
     }
 }
@@ -10631,7 +17816,33 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/transfer`
         public let path: String
 
+        /// Transfer a repository
+        ///
+        /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://help.github.com/articles/about-repository-transfers/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#transfer-a-repository)
+        public func post(_ body: PostRequest) -> Request<MinimalRepository> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// The username or organization name the repository will be transferred to.
+            public var newOwner: String
+            /// ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories.
+            public var teamIDs: [Int]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.newOwner = try values.decode(String.self, forKey: "new_owner")
+                self.teamIDs = try values.decodeIfPresent([Int].self, forKey: "team_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(newOwner, forKey: "new_owner")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
+            }
+        }
     }
 }
 
@@ -10729,7 +17940,56 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
         /// Path: `/repos/{template_owner}/{template_repo}/generate`
         public let path: String
 
+        /// Create a repository using a template
+        ///
+        /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. The authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/reference/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
+        /// 
+        /// **OAuth scope requirements**
+        /// 
+        /// When using [OAuth](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), authorizations must include:
+        /// 
+        /// *   `public_repo` scope or `repo` scope to create a public repository. Note: For GitHub AE, use `repo` scope to create an internal repository.
+        /// *   `repo` scope to create a private repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template)
+        public func post(_ body: PostRequest) -> Request<Repository> {
+            .post(path, body: body)
+        }
 
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// A short description of the new repository.
+            public var description: String?
+            /// Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`.
+            public var isIncludeAllBranches: Bool?
+            /// The name of the new repository.
+            public var name: String
+            /// The organization or person who will own the new repository. To create a new repository in an organization, the authenticated user must be a member of the specified organization.
+            public var owner: String?
+            /// Either `true` to create a new private repository or `false` to create a new public one.
+            public var isPrivate: Bool?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.isIncludeAllBranches = try values.decodeIfPresent(Bool.self, forKey: "include_all_branches")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.owner = try values.decodeIfPresent(String.self, forKey: "owner")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(isIncludeAllBranches, forKey: "include_all_branches")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(owner, forKey: "owner")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+            }
+        }
     }
 }
 
@@ -10755,7 +18015,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -10812,7 +18072,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -10865,6 +18125,108 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-secret)
         public func get() -> Request<ActionsSecret> {
             .get(path)
+        }
+
+        /// Create or update an environment secret
+        ///
+        /// Creates or updates an environment secret with an encrypted value. Encrypt your secret using
+        /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
+        /// token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
+        /// this endpoint.
+        /// 
+        /// #### Example encrypting a secret using Node.js
+        /// 
+        /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+        /// 
+        /// ```
+        /// const sodium = require('tweetsodium');
+        /// 
+        /// const key = "base64-encoded-public-key";
+        /// const value = "plain-text-secret";
+        /// 
+        /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+        /// const messageBytes = Buffer.from(value);
+        /// const keyBytes = Buffer.from(key, 'base64');
+        /// 
+        /// // Encrypt using LibSodium.
+        /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+        /// 
+        /// // Base64 the encrypted secret
+        /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+        /// 
+        /// console.log(encrypted);
+        /// ```
+        /// 
+        /// 
+        /// #### Example encrypting a secret using Python
+        /// 
+        /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        /// 
+        /// ```
+        /// from base64 import b64encode
+        /// from nacl import encoding, public
+        /// 
+        /// def encrypt(public_key: str, secret_value: str) -> str:
+        ///   """Encrypt a Unicode string using the public key."""
+        ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+        ///   sealed_box = public.SealedBox(public_key)
+        ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+        ///   return b64encode(encrypted).decode("utf-8")
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using C#
+        /// 
+        /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+        /// 
+        /// ```
+        /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+        /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+        /// 
+        /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+        /// 
+        /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using Ruby
+        /// 
+        /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+        /// 
+        /// ```ruby
+        /// require "rbnacl"
+        /// require "base64"
+        /// 
+        /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+        /// public_key = RbNaCl::PublicKey.new(key)
+        /// 
+        /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+        /// encrypted_secret = box.encrypt("my_secret")
+        /// 
+        /// # Print the base64 encoded secret
+        /// puts Base64.strict_encode64(encrypted_secret)
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret)
+        public func put(_ body: PutRequest) -> Request<EmptyObject> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint.
+            public var encryptedValue: String
+            /// ID of the key you used to encrypt the secret.
+            public var keyID: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.encryptedValue = try values.decode(String.self, forKey: "encrypted_value")
+                self.keyID = try values.decode(String.self, forKey: "key_id")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(encryptedValue, forKey: "encrypted_value")
+                try values.encode(keyID, forKey: "key_id")
+            }
         }
 
         /// Delete an environment secret
@@ -10939,6 +18301,54 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         public func get() -> Request<ScimGroupListEnterprise> {
             .get(path)
         }
+
+        /// Provision a SCIM enterprise group and invite users
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Provision an enterprise group, and invite users to the group. This sends invitation emails to the email address of the invited users to join the GitHub organization that the SCIM group corresponds to.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users)
+        public func post(_ body: PostRequest) -> Request<ScimEnterpriseGroup> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The name of the SCIM group. This must match the GitHub organization that the group maps to.
+            public var displayName: String
+            public var members: [Member]?
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+
+            public struct Member: Codable {
+                /// The SCIM user ID for a user.
+                public var value: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.value = try values.decode(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.displayName = try values.decode(String.self, forKey: "displayName")
+                self.members = try values.decodeIfPresent([Member].self, forKey: "members")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(displayName, forKey: "displayName")
+                try values.encodeIfPresent(members, forKey: "members")
+                try values.encode(schemas, forKey: "schemas")
+            }
+        }
     }
 }
 
@@ -10958,6 +18368,114 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
         public func get() -> Request<ScimEnterpriseGroup> {
             .get(path)
+        }
+
+        /// Set SCIM information for a provisioned enterprise group
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Replaces an existing provisioned group’s information. You must provide all the information required for the group as if you were provisioning it for the first time. Any existing group information that you don't provide will be removed, including group membership. If you want to only update a specific attribute, use the [Update an attribute for a SCIM enterprise group](#update-an-attribute-for-a-scim-enterprise-group) endpoint instead.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group)
+        public func put(_ body: PutRequest) -> Request<ScimEnterpriseGroup> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The name of the SCIM group. This must match the GitHub organization that the group maps to.
+            public var displayName: String
+            public var members: [Member]?
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+
+            public struct Member: Codable {
+                /// The SCIM user ID for a user.
+                public var value: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.value = try values.decode(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.displayName = try values.decode(String.self, forKey: "displayName")
+                self.members = try values.decodeIfPresent([Member].self, forKey: "members")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(displayName, forKey: "displayName")
+                try values.encodeIfPresent(members, forKey: "members")
+                try values.encode(schemas, forKey: "schemas")
+            }
+        }
+
+        /// Update an attribute for a SCIM enterprise group
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Allows you to change a provisioned group’s individual attributes. To change a group’s values, you must provide a specific Operations JSON format that contains at least one of the add, remove, or replace operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group)
+        public func patch(_ body: PatchRequest) -> Request<ScimEnterpriseGroup> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+            public var operations: [Operation]
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+
+            public struct Operation: Codable {
+                public var op: Op
+                public var path: String?
+                /// Can be any value - string, number, array or object.
+                public var value: AnyJSON?
+
+                public enum Op: String, Codable, CaseIterable {
+                    case add
+                    case Add
+                    case remove
+                    case Remove
+                    case replace
+                    case Replace
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.op = try values.decode(Op.self, forKey: "op")
+                    self.path = try values.decodeIfPresent(String.self, forKey: "path")
+                    self.value = try values.decodeIfPresent(AnyJSON.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(op, forKey: "op")
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.operations = try values.decode([Operation].self, forKey: "Operations")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(operations, forKey: "Operations")
+                try values.encode(schemas, forKey: "schemas")
+            }
         }
 
         /// Delete a SCIM group from an enterprise
@@ -11005,6 +18523,105 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         public func get() -> Request<ScimUserListEnterprise> {
             .get(path)
         }
+
+        /// Provision and invite a SCIM enterprise user
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Provision enterprise membership for a user, and send organization invitation emails to the email address.
+        /// 
+        /// You can optionally include the groups a user will be invited to join. If you do not provide a list of `groups`, the user is provisioned for the enterprise, but no organization invitation emails will be sent.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-and-invite-a-scim-enterprise-user)
+        public func post(_ body: PostRequest) -> Request<ScimEnterpriseUser> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// List of user emails.
+            public var emails: [Email]
+            /// List of SCIM group IDs the user is a member of.
+            public var groups: [Group]?
+            public var name: Name
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+            /// The username for the user.
+            public var userName: String
+
+            public struct Email: Codable {
+                /// Whether this email address is the primary address.
+                public var isPrimary: Bool
+                /// The type of email address.
+                public var type: String
+                /// The email address.
+                public var value: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.isPrimary = try values.decode(Bool.self, forKey: "primary")
+                    self.type = try values.decode(String.self, forKey: "type")
+                    self.value = try values.decode(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isPrimary, forKey: "primary")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(value, forKey: "value")
+                }
+            }
+
+            public struct Group: Codable {
+                public var value: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.value = try values.decodeIfPresent(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
+            }
+
+            public struct Name: Codable {
+                /// The last name of the user.
+                public var familyName: String
+                /// The first name of the user.
+                public var givenName: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.familyName = try values.decode(String.self, forKey: "familyName")
+                    self.givenName = try values.decode(String.self, forKey: "givenName")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encode(givenName, forKey: "givenName")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.emails = try values.decode([Email].self, forKey: "emails")
+                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
+                self.name = try values.decode(Name.self, forKey: "name")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+                self.userName = try values.decode(String.self, forKey: "userName")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encode(name, forKey: "name")
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(userName, forKey: "userName")
+            }
+        }
     }
 }
 
@@ -11024,6 +18641,156 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user)
         public func get() -> Request<ScimEnterpriseUser> {
             .get(path)
+        }
+
+        /// Set SCIM information for a provisioned enterprise user
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Replaces an existing provisioned user's information. You must provide all the information required for the user as if you were provisioning them for the first time. Any existing user information that you don't provide will be removed. If you want to only update a specific attribute, use the [Update an attribute for a SCIM user](#update-an-attribute-for-an-enterprise-scim-user) endpoint instead.
+        /// 
+        /// You must at least provide the required values for the user: `userName`, `name`, and `emails`.
+        /// 
+        /// **Warning:** Setting `active: false` removes the user from the enterprise, deletes the external identity, and deletes the associated `{scim_user_id}`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user)
+        public func put(_ body: PutRequest) -> Request<ScimEnterpriseUser> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// List of user emails.
+            public var emails: [Email]
+            /// List of SCIM group IDs the user is a member of.
+            public var groups: [Group]?
+            public var name: Name
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+            /// The username for the user.
+            public var userName: String
+
+            public struct Email: Codable {
+                /// Whether this email address is the primary address.
+                public var isPrimary: Bool
+                /// The type of email address.
+                public var type: String
+                /// The email address.
+                public var value: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.isPrimary = try values.decode(Bool.self, forKey: "primary")
+                    self.type = try values.decode(String.self, forKey: "type")
+                    self.value = try values.decode(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isPrimary, forKey: "primary")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(value, forKey: "value")
+                }
+            }
+
+            public struct Group: Codable {
+                public var value: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.value = try values.decodeIfPresent(String.self, forKey: "value")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
+            }
+
+            public struct Name: Codable {
+                /// The last name of the user.
+                public var familyName: String
+                /// The first name of the user.
+                public var givenName: String
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.familyName = try values.decode(String.self, forKey: "familyName")
+                    self.givenName = try values.decode(String.self, forKey: "givenName")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encode(givenName, forKey: "givenName")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.emails = try values.decode([Email].self, forKey: "emails")
+                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
+                self.name = try values.decode(Name.self, forKey: "name")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+                self.userName = try values.decode(String.self, forKey: "userName")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encode(name, forKey: "name")
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(userName, forKey: "userName")
+            }
+        }
+
+        /// Update an attribute for a SCIM enterprise user
+        ///
+        /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
+        /// Allows you to change a provisioned user's individual attributes. To change a user's values, you must provide a specific `Operations` JSON format that contains at least one of the `add`, `remove`, or `replace` operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+        /// 
+        /// **Note:** Complicated SCIM `path` selectors that include filters are not supported. For example, a `path` selector defined as `"path": "emails[type eq \"work\"]"` will not work.
+        /// 
+        /// **Warning:** If you set `active:false` using the `replace` operation (as shown in the JSON example below), it removes the user from the enterprise, deletes the external identity, and deletes the associated `:scim_user_id`.
+        /// 
+        /// ```
+        /// {
+        ///   "Operations":[{
+        ///     "op":"replace",
+        ///     "value":{
+        ///       "active":false
+        ///     }
+        ///   }]
+        /// }
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user)
+        public func patch(_ body: PatchRequest) -> Request<ScimEnterpriseUser> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+            public var operations: [Operation]
+            /// The SCIM schema URIs.
+            public var schemas: [String]
+
+            public struct Operation: Codable {
+
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.operations = try values.decode([Operation].self, forKey: "Operations")
+                self.schemas = try values.decode([String].self, forKey: "schemas")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(operations, forKey: "Operations")
+                try values.encode(schemas, forKey: "schemas")
+            }
         }
 
         /// Delete a SCIM user from an enterprise
@@ -11429,6 +19196,80 @@ extension Paths.Teams {
             .get(path)
         }
 
+        /// Update a team (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/reference/teams#update-a-team) endpoint.
+        /// 
+        /// To edit a team, the authenticated user must either be an organization owner or a team maintainer.
+        /// 
+        /// **Note:** With nested teams, the `privacy` for parent teams cannot be `secret`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#update-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func patch(_ body: PatchRequest) -> Request<TeamFull> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The description of the team.
+            public var description: String?
+            /// The name of the team.
+            public var name: String
+            /// The ID of a team to set as the parent team.
+            public var parentTeamID: Int?
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public var permission: Permission?
+            /// The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.
+            public var privacy: Privacy?
+
+            /// **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
+            /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
+            /// \* `admin` - team members can pull, push and administer newly-added repositories.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+            }
+
+            /// The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:  
+            /// **For a non-nested team:**  
+            /// \* `secret` - only visible to organization owners and members of this team.  
+            /// \* `closed` - visible to all members of this organization.  
+            /// **For a parent or child team:**  
+            /// \* `closed` - visible to all members of this organization.
+            public enum Privacy: String, Codable, CaseIterable {
+                case secret
+                case closed
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+            }
+        }
+
         /// Delete a team (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/reference/teams#delete-a-team) endpoint.
@@ -11466,8 +19307,45 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a discussion (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/reference/teams#create-a-discussion) endpoint.
+        /// 
+        /// Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func post(_ body: PostRequest) -> Request<TeamDiscussion> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The discussion post's body text.
+            public var body: String
+            /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+            public var isPrivate: Bool?
+            /// The discussion post's title.
+            public var title: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.title = try values.decode(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encode(title, forKey: "title")
+            }
         }
     }
 }
@@ -11491,6 +19369,37 @@ extension Paths.Teams.WithTeamID.Discussions {
         @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamDiscussion> {
             .get(path)
+        }
+
+        /// Update a discussion (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/reference/teams#update-a-discussion) endpoint.
+        /// 
+        /// Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func patch(_ body: PatchRequest) -> Request<TeamDiscussion> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The discussion post's body text.
+            public var body: String?
+            /// The discussion post's title.
+            public var title: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
 
         /// Delete a discussion (Legacy)
@@ -11528,8 +19437,37 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a discussion comment (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/reference/teams#create-a-discussion-comment) endpoint.
+        /// 
+        /// Creates a new comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func post(_ body: PostRequest) -> Request<TeamDiscussionComment> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The discussion comment's body text.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
     }
 }
@@ -11553,6 +19491,33 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
+        }
+
+        /// Update a discussion comment (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/reference/teams#update-a-discussion-comment) endpoint.
+        /// 
+        /// Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func patch(_ body: PatchRequest) -> Request<TeamDiscussionComment> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The discussion comment's body text.
+            public var body: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decode(String.self, forKey: "body")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+            }
         }
 
         /// Delete a discussion comment (Legacy)
@@ -11590,8 +19555,47 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a team discussion comment (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
+        /// 
+        /// Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -11617,8 +19621,47 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create reaction for a team discussion (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
+        /// 
+        /// Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func post(_ body: PostRequest) -> Request<Reaction> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+            public var content: Content
+
+            /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+            public enum Content: String, Codable, CaseIterable {
+                case plus1 = "+1"
+                case minus1 = "-1"
+                case laugh
+                case confused
+                case heart
+                case hooray
+                case rocket
+                case eyes
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.content = try values.decode(Content.self, forKey: "content")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -11644,7 +19687,7 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -11671,7 +19714,7 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -11759,6 +19802,51 @@ extension Paths.Teams.WithTeamID.Memberships {
             .get(path)
         }
 
+        /// Add or update team membership for a user (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
+        /// 
+        /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// If the user is already a member of the team's organization, this endpoint will add the user to the team. To add a membership between an organization member and a team, the authenticated user must be an organization owner or a team maintainer.
+        /// 
+        /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        /// 
+        /// If the user is unaffiliated with the team's organization, this endpoint will send an invitation to the user via email. This newly-created membership will be in the "pending" state until the user accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team. To add a membership between an unaffiliated user and a team, the authenticated user must be an organization owner.
+        /// 
+        /// If the user is already a member of the team, this endpoint will update the role of the team member's role. To update the membership of a team member, the authenticated user must be an organization owner or a team maintainer.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func put(_ body: PutRequest) -> Request<TeamMembership> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The role that this user should have in the team. Can be one of:  
+            /// \* `member` - a normal member of the team.  
+            /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+            public var role: Role?
+
+            /// The role that this user should have in the team. Can be one of:  
+            /// \* `member` - a normal member of the team.  
+            /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+            public enum Role: String, Codable, CaseIterable {
+                case member
+                case maintainer
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
+        }
+
         /// Remove team membership for a user (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
@@ -11798,7 +19886,7 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -11823,6 +19911,48 @@ extension Paths.Teams.WithTeamID.Projects {
         @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamProject> {
             .get(path)
+        }
+
+        /// Add or update team project permissions (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions) endpoint.
+        /// 
+        /// Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant to the team for this project. Can be one of:  
+            /// \* `read` - team members can read, but not write to or administer this project.  
+            /// \* `write` - team members can read and write, but not administer this project.  
+            /// \* `admin` - team members can read, write and administer this project.  
+            /// Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+            public var permission: Permission?
+
+            /// The permission to grant to the team for this project. Can be one of:  
+            /// \* `read` - team members can read, but not write to or administer this project.  
+            /// \* `write` - team members can read and write, but not administer this project.  
+            /// \* `admin` - team members can read, write and administer this project.  
+            /// Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+            public enum Permission: String, Codable, CaseIterable {
+                case read
+                case write
+                case admin
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a project from a team (Legacy)
@@ -11858,7 +19988,7 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -11896,6 +20026,52 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamRepository> {
             .get(path)
+        }
+
+        /// Add or update team repository permissions (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Add or update team repository permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-repository-permissions)" endpoint.
+        /// 
+        /// To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization.
+        /// 
+        /// Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The permission to grant the team on this repository. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer this repository.  
+            /// \* `push` - team members can pull and push, but not administer this repository.  
+            /// \* `admin` - team members can pull, push and administer this repository.  
+            ///   
+            /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+            public var permission: Permission?
+
+            /// The permission to grant the team on this repository. Can be one of:  
+            /// \* `pull` - team members can pull, but not push to or administer this repository.  
+            /// \* `push` - team members can pull and push, but not administer this repository.  
+            /// \* `admin` - team members can pull, push and administer this repository.  
+            ///   
+            /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+            public enum Permission: String, Codable, CaseIterable {
+                case pull
+                case push
+                case admin
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a repository from a team (Legacy)
@@ -11945,6 +20121,74 @@ extension Paths.Teams.WithTeamID.TeamSync {
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
+
+        /// Create or update IdP group connections (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create or update IdP group connections`](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections) endpoint.
+        /// 
+        /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Creates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func patch(_ body: PatchRequest) -> Request<GroupMapping> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
+            public var groups: [Group]
+            /// Example: "I am not a timestamp"
+            public var syncedAt: String?
+
+            public struct Group: Codable {
+                /// Example: "moar cheese pleese"
+                public var description: String?
+                /// Description of the IdP group.
+                public var groupDescription: String
+                /// ID of the IdP group.
+                public var groupID: String
+                /// Name of the IdP group.
+                public var groupName: String
+                /// Example: "caceab43fc9ffa20081c"
+                public var id: String?
+                /// Example: "external-team-6c13e7288ef7"
+                public var name: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                    self.groupDescription = try values.decode(String.self, forKey: "group_description")
+                    self.groupID = try values.decode(String.self, forKey: "group_id")
+                    self.groupName = try values.decode(String.self, forKey: "group_name")
+                    self.id = try values.decodeIfPresent(String.self, forKey: "id")
+                    self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(description, forKey: "description")
+                    try values.encode(groupDescription, forKey: "group_description")
+                    try values.encode(groupID, forKey: "group_id")
+                    try values.encode(groupName, forKey: "group_name")
+                    try values.encodeIfPresent(id, forKey: "id")
+                    try values.encodeIfPresent(name, forKey: "name")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.groups = try values.decode([Group].self, forKey: "groups")
+                self.syncedAt = try values.decodeIfPresent(String.self, forKey: "synced_at")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(groups, forKey: "groups")
+                try values.encodeIfPresent(syncedAt, forKey: "synced_at")
+            }
+        }
     }
 }
 
@@ -11967,7 +20211,7 @@ extension Paths.Teams.WithTeamID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12006,6 +20250,70 @@ extension Paths {
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
+            }
+        }
+
+        /// Update the authenticated user
+        ///
+        /// **Note:** If your email is set to private and you send an `email` parameter as part of this request to update your profile, your privacy settings are still enforced: the email address will not be displayed on your public profile or via the API.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users/#update-the-authenticated-user)
+        public func patch(_ body: PatchRequest) -> Request<PrivateUser> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The new short biography of the user.
+            public var bio: String?
+            /// The new blog URL of the user.
+            ///
+            /// Example: blog.example.com
+            public var blog: String?
+            /// The new company of the user.
+            ///
+            /// Example: Acme corporation
+            public var company: String?
+            /// The publicly visible email address of the user.
+            ///
+            /// Example: omar@example.com
+            public var email: String?
+            /// The new hiring availability of the user.
+            public var isHireable: Bool?
+            /// The new location of the user.
+            ///
+            /// Example: Berlin, Germany
+            public var location: String?
+            /// The new name of the user.
+            ///
+            /// Example: Omar Jahandar
+            public var name: String?
+            /// The new Twitter username of the user.
+            ///
+            /// Example: therealomarj
+            public var twitterUsername: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.bio = try values.decodeIfPresent(String.self, forKey: "bio")
+                self.blog = try values.decodeIfPresent(String.self, forKey: "blog")
+                self.company = try values.decodeIfPresent(String.self, forKey: "company")
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+                self.isHireable = try values.decodeIfPresent(Bool.self, forKey: "hireable")
+                self.location = try values.decodeIfPresent(String.self, forKey: "location")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(bio, forKey: "bio")
+                try values.encodeIfPresent(blog, forKey: "blog")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(isHireable, forKey: "hireable")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
             }
         }
     }
@@ -12086,6 +20394,113 @@ extension Paths.User {
                 self.totalCount = try values.decode(Int.self, forKey: "total_count")
             }
         }
+
+        /// Create a codespace for the authenticated user
+        ///
+        /// Creates a new codespace, owned by the authenticated user.
+        /// 
+        /// This endpoint requires either a `repository_id` OR a `pull_request` but not both.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user)
+        public func post(_ body: PostRequest) -> Request<Codespace> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object1(Object1)
+            case object2(Object2)
+
+            public struct Object1: Codable {
+                /// Location for this codespace
+                public var location: String
+                /// Machine type to use for this codespace
+                public var machine: String?
+                /// Git ref (typically a branch name) for this codespace
+                public var ref: String?
+                /// Repository id for this codespace
+                public var repositoryID: Int
+                /// Working directory for this codespace
+                public var workingDirectory: String?
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.location = try values.decode(String.self, forKey: "location")
+                    self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
+                    self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
+                    self.repositoryID = try values.decode(Int.self, forKey: "repository_id")
+                    self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(location, forKey: "location")
+                    try values.encodeIfPresent(machine, forKey: "machine")
+                    try values.encodeIfPresent(ref, forKey: "ref")
+                    try values.encode(repositoryID, forKey: "repository_id")
+                    try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                }
+            }
+
+            public struct Object2: Codable {
+                /// Location for this codespace
+                public var location: String
+                /// Machine type to use for this codespace
+                public var machine: String?
+                /// Pull request number for this codespace
+                public var pullRequest: PullRequest
+                /// Working directory for this codespace
+                public var workingDirectory: String?
+
+                /// Pull request number for this codespace
+                public struct PullRequest: Codable {
+                    /// Pull request number
+                    public var pullRequestNumber: Int
+                    /// Repository id for this codespace
+                    public var repositoryID: Int
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.pullRequestNumber = try values.decode(Int.self, forKey: "pull_request_number")
+                        self.repositoryID = try values.decode(Int.self, forKey: "repository_id")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(pullRequestNumber, forKey: "pull_request_number")
+                        try values.encode(repositoryID, forKey: "repository_id")
+                    }
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.location = try values.decode(String.self, forKey: "location")
+                    self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
+                    self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
+                    self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(location, forKey: "location")
+                    try values.encodeIfPresent(machine, forKey: "machine")
+                    try values.encode(pullRequest, forKey: "pull_request")
+                    try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object1.self) {
+                    self = .object1(value)
+                } else if let value = try? container.decode(Object2.self) {
+                    self = .object2(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
     }
 }
 
@@ -12109,7 +20524,7 @@ extension Paths.User.Codespaces {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -12165,6 +20580,110 @@ extension Paths.User.Codespaces.Secrets {
             .get(path)
         }
 
+        /// Create or update a secret for the authenticated user
+        ///
+        /// Creates or updates a secret for a user's codespace with an encrypted value. Encrypt your secret using
+        /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access token with the `user` scope to use this endpoint. User must also have Codespaces access to use this endpoint.
+        /// 
+        /// #### Example encrypting a secret using Node.js
+        /// 
+        /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+        /// 
+        /// ```
+        /// const sodium = require('tweetsodium');
+        /// 
+        /// const key = "base64-encoded-public-key";
+        /// const value = "plain-text-secret";
+        /// 
+        /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+        /// const messageBytes = Buffer.from(value);
+        /// const keyBytes = Buffer.from(key, 'base64');
+        /// 
+        /// // Encrypt using LibSodium.
+        /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+        /// 
+        /// // Base64 the encrypted secret
+        /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+        /// 
+        /// console.log(encrypted);
+        /// ```
+        /// 
+        /// 
+        /// #### Example encrypting a secret using Python
+        /// 
+        /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        /// 
+        /// ```
+        /// from base64 import b64encode
+        /// from nacl import encoding, public
+        /// 
+        /// def encrypt(public_key: str, secret_value: str) -> str:
+        ///   """Encrypt a Unicode string using the public key."""
+        ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+        ///   sealed_box = public.SealedBox(public_key)
+        ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+        ///   return b64encode(encrypted).decode("utf-8")
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using C#
+        /// 
+        /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+        /// 
+        /// ```
+        /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+        /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+        /// 
+        /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+        /// 
+        /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+        /// ```
+        /// 
+        /// #### Example encrypting a secret using Ruby
+        /// 
+        /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+        /// 
+        /// ```ruby
+        /// require "rbnacl"
+        /// require "base64"
+        /// 
+        /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+        /// public_key = RbNaCl::PublicKey.new(key)
+        /// 
+        /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+        /// encrypted_secret = box.encrypt("my_secret")
+        /// 
+        /// # Print the base64 encoded secret
+        /// puts Base64.strict_encode64(encrypted_secret)
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user)
+        public func put(_ body: PutRequest) -> Request<[String: AnyJSON]> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get the public key for the authenticated user](https://docs.github.com/rest/reference/codespaces#get-the-public-key-for-the-authenticated-user) endpoint.
+            public var encryptedValue: String
+            /// ID of the key you used to encrypt the secret.
+            public var keyID: String
+            /// An array of repository ids that can access the user secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Set selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints.
+            public var selectedRepositoryIDs: [String]?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.encryptedValue = try values.decode(String.self, forKey: "encrypted_value")
+                self.keyID = try values.decode(String.self, forKey: "key_id")
+                self.selectedRepositoryIDs = try values.decodeIfPresent([String].self, forKey: "selected_repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(encryptedValue, forKey: "encrypted_value")
+                try values.encode(keyID, forKey: "key_id")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
+            }
+        }
+
         /// Delete a secret for the authenticated user
         ///
         /// Deletes a secret from a user's codespaces using the secret name. Deleting the secret will remove access from all codespaces that were allowed to access the secret. You must authenticate using an access token with the `user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
@@ -12203,6 +20722,31 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.repositories = try values.decode([github.MinimalRepository].self, forKey: "repositories")
                 self.totalCount = try values.decode(Int.self, forKey: "total_count")
+            }
+        }
+
+        /// Set selected repositories for a user secret
+        ///
+        /// Select the repositories that will use a user's codespace secret.
+        /// You must authenticate using an access token with the `user` or `read:user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret)
+        public func put(_ body: PutRequest) -> Request<Void> {
+            .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints.
+            public var selectedRepositoryIDs: [Int]
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
     }
@@ -12247,6 +20791,34 @@ extension Paths.User.Codespaces {
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
         public func get() -> Request<Codespace> {
             .get(path)
+        }
+
+        /// Update a codespace for the authenticated user
+        ///
+        /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type can be modified using this endpoint.
+        /// 
+        /// Once you specify a new machine type it will be applied the next time your codespace is started.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
+        public func patch(_ body: PatchRequest) -> Request<Codespace> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// A valid machine to transition this codespace to.
+            public var machine: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(machine, forKey: "machine")
+            }
         }
     }
 }
@@ -12330,7 +20902,35 @@ extension Paths.User.Email {
         /// Path: `/user/email/visibility`
         public let path: String
 
+        /// Set primary email visibility for the authenticated user
+        ///
+        /// Sets the visibility for your primary email addresses.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user)
+        public func patch(_ body: PatchRequest) -> Request<[github.Email]> {
+            .patch(path, body: body)
+        }
 
+        public struct PatchRequest: Codable {
+            /// Denotes whether an email is publicly visible.
+            public var visibility: Visibility
+
+            /// Denotes whether an email is publicly visible.
+            public enum Visibility: String, Codable, CaseIterable {
+                case `public`
+                case `private`
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.visibility = try values.decode(Visibility.self, forKey: "visibility")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(visibility, forKey: "visibility")
+            }
+        }
     }
 }
 
@@ -12352,8 +20952,65 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Add an email address for the authenticated user
+        ///
+        /// This endpoint is accessible with the `user` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#add-an-email-address-for-the-authenticated-user)
+        public func post(_ body: PostRequest) -> Request<[github.Email]> {
+            .post(path, body: body)
+        }
+
+        public enum PostRequest: Codable {
+            case object(Object)
+            case strings([String])
+            case string(String)
+
+            /// Example:
+            ///
+            /// {
+            ///   "emails" : [
+            ///     "octocat@github.com",
+            ///     "mona@github.com"
+            ///   ]
+            /// }
+            public struct Object: Codable {
+                /// Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
+                ///
+                /// Example:
+                ///
+                /// [
+                /// 
+                /// ]
+                public var emails: [String]
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.emails = try values.decode([String].self, forKey: "emails")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
+                }
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(Object.self) {
+                    self = .object(value)
+                } else if let value = try? container.decode([String].self) {
+                    self = .strings(value)
+                } else if let value = try? container.decode(String.self) {
+                    self = .string(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
         }
 
         /// Delete an email address for the authenticated user
@@ -12385,7 +21042,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12409,7 +21066,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12460,8 +21117,32 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a GPG key for the authenticated user
+        ///
+        /// Adds a GPG key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
+        public func post(_ body: PostRequest) -> Request<GpgKey> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// A GPG key in ASCII-armored format.
+            public var armoredPublicKey: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.armoredPublicKey = try values.decode(String.self, forKey: "armored_public_key")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(armoredPublicKey, forKey: "armored_public_key")
+            }
         }
     }
 }
@@ -12519,7 +21200,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -12571,7 +21252,7 @@ extension Paths.User.Installations.WithInstallationID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -12687,7 +21368,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12711,8 +21392,38 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Create a public SSH key for the authenticated user
+        ///
+        /// Adds a public SSH key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user)
+        public func post(_ body: PostRequest) -> Request<Key> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// The public SSH key to add to your GitHub account.
+            public var key: String
+            /// A descriptive name for the new key.
+            ///
+            /// Example: Personal MacBook Air
+            public var title: String?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.key = try values.decode(String.self, forKey: "key")
+                self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(key, forKey: "key")
+                try values.encodeIfPresent(title, forKey: "title")
+            }
         }
     }
 }
@@ -12764,7 +21475,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12788,7 +21499,7 @@ extension Paths.User.MarketplacePurchases {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12821,7 +21532,7 @@ extension Paths.User.Memberships {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -12841,6 +21552,33 @@ extension Paths.User.Memberships.Orgs {
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
         public func get() -> Request<OrgMembership> {
             .get(path)
+        }
+
+        /// Update an organization membership for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
+        public func patch(_ body: PatchRequest) -> Request<OrgMembership> {
+            .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The state that the membership should be in. Only `"active"` will be accepted.
+            public var state: State
+
+            /// The state that the membership should be in. Only `"active"` will be accepted.
+            public enum State: String, Codable, CaseIterable {
+                case active
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.state = try values.decode(State.self, forKey: "state")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+            }
         }
     }
 }
@@ -12863,8 +21601,72 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        /// Start a user migration
+        ///
+        /// Initiates the generation of a user migration archive.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-a-user-migration)
+        public func post(_ body: PostRequest) -> Request<Migration> {
+            .post(path, body: body)
+        }
+
+        public struct PostRequest: Codable {
+            /// Exclude attributes from the API response to improve performance
+            ///
+            /// Example:
+            ///
+            /// [
+            ///   "repositories"
+            /// ]
+            public var exclude: [ExcludeItem]?
+            /// Do not include attachments in the migration
+            ///
+            /// Example: true
+            public var excludeAttachments: Bool?
+            /// Indicates whether projects owned by the organization or users should be excluded.
+            ///
+            /// Example: true
+            public var excludeOwnerProjects: Bool?
+            /// Do not include releases in the migration
+            ///
+            /// Example: true
+            public var excludeReleases: Bool?
+            /// Lock the repositories being migrated at the start of the migration
+            ///
+            /// Example: true
+            public var lockRepositories: Bool?
+            public var repositories: [String]
+
+            /// Allowed values that can be passed to the exclude param.
+            ///
+            /// Example: repositories
+            public enum ExcludeItem: String, Codable, CaseIterable {
+                case repositories
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.exclude = try values.decodeIfPresent([ExcludeItem].self, forKey: "exclude")
+                self.excludeAttachments = try values.decodeIfPresent(Bool.self, forKey: "exclude_attachments")
+                self.excludeOwnerProjects = try values.decodeIfPresent(Bool.self, forKey: "exclude_owner_projects")
+                self.excludeReleases = try values.decodeIfPresent(Bool.self, forKey: "exclude_releases")
+                self.lockRepositories = try values.decodeIfPresent(Bool.self, forKey: "lock_repositories")
+                self.repositories = try values.decode([String].self, forKey: "repositories")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(exclude, forKey: "exclude")
+                try values.encodeIfPresent(excludeAttachments, forKey: "exclude_attachments")
+                try values.encodeIfPresent(excludeOwnerProjects, forKey: "exclude_owner_projects")
+                try values.encodeIfPresent(excludeReleases, forKey: "exclude_releases")
+                try values.encodeIfPresent(lockRepositories, forKey: "lock_repositories")
+                try values.encode(repositories, forKey: "repositories")
+            }
         }
     }
 }
@@ -13005,7 +21807,7 @@ extension Paths.User.Migrations.WithMigrationID {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13033,7 +21835,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13201,7 +22003,35 @@ extension Paths.User {
         /// Path: `/user/projects`
         public let path: String
 
+        /// Create a user project
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-user-project)
+        public func post(_ body: PostRequest) -> Request<Project> {
+            .post(path, body: body)
+        }
 
+        public struct PostRequest: Codable {
+            /// Body of the project
+            ///
+            /// Example: This project represents the sprint of the first week in January
+            public var body: String?
+            /// Name of the project
+            ///
+            /// Example: Week One Sprint
+            public var name: String
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.body = try values.decodeIfPresent(String.self, forKey: "body")
+                self.name = try values.decode(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(name, forKey: "name")
+            }
+        }
     }
 }
 
@@ -13223,7 +22053,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13248,6 +22078,135 @@ extension Paths.User {
         public func get() -> Request<[github.Repository]> {
             .get(path)
         }
+
+        /// Create a repository for the authenticated user
+        ///
+        /// Creates a new repository for the authenticated user.
+        /// 
+        /// **OAuth scope requirements**
+        /// 
+        /// When using [OAuth](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), authorizations must include:
+        /// 
+        /// *   `public_repo` scope or `repo` scope to create a public repository. Note: For GitHub AE, use `repo` scope to create an internal repository.
+        /// *   `repo` scope to create a private repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user)
+        public func post(_ body: PostRequest) -> Request<Repository> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Whether to allow Auto-merge to be used on pull requests.
+            ///
+            /// Example: false
+            public var allowAutoMerge: Bool?
+            /// Whether to allow merge commits for pull requests.
+            ///
+            /// Example: true
+            public var allowMergeCommit: Bool?
+            /// Whether to allow rebase merges for pull requests.
+            ///
+            /// Example: true
+            public var allowRebaseMerge: Bool?
+            /// Whether to allow squash merges for pull requests.
+            ///
+            /// Example: true
+            public var allowSquashMerge: Bool?
+            /// Whether the repository is initialized with a minimal README.
+            public var isAutoInit: Bool?
+            /// Whether to delete head branches when pull requests are merged
+            ///
+            /// Example: false
+            public var deleteBranchOnMerge: Bool?
+            /// A short description of the repository.
+            public var description: String?
+            /// The desired language or platform to apply to the .gitignore.
+            ///
+            /// Example: Haskell
+            public var gitignoreTemplate: String?
+            /// Whether downloads are enabled.
+            ///
+            /// Example: true
+            public var hasDownloads: Bool?
+            /// Whether issues are enabled.
+            ///
+            /// Example: true
+            public var hasIssues: Bool?
+            /// Whether projects are enabled.
+            ///
+            /// Example: true
+            public var hasProjects: Bool?
+            /// Whether the wiki is enabled.
+            ///
+            /// Example: true
+            public var hasWiki: Bool?
+            /// A URL with more information about the repository.
+            public var homepage: String?
+            /// Whether this repository acts as a template that can be used to generate new repositories.
+            ///
+            /// Example: true
+            public var isTemplate: Bool?
+            /// The license keyword of the open source license for this repository.
+            ///
+            /// Example: mit
+            public var licenseTemplate: String?
+            /// The name of the repository.
+            ///
+            /// Example: Team Environment
+            public var name: String
+            /// Whether the repository is private.
+            public var isPrivate: Bool?
+            /// The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
+            public var teamID: Int?
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
+                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
+                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+                self.isAutoInit = try values.decodeIfPresent(Bool.self, forKey: "auto_init")
+                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.gitignoreTemplate = try values.decodeIfPresent(String.self, forKey: "gitignore_template")
+                self.hasDownloads = try values.decodeIfPresent(Bool.self, forKey: "has_downloads")
+                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
+                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
+                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
+                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
+                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
+                self.licenseTemplate = try values.decodeIfPresent(String.self, forKey: "license_template")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+                self.teamID = try values.decodeIfPresent(Int.self, forKey: "team_id")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(isAutoInit, forKey: "auto_init")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(gitignoreTemplate, forKey: "gitignore_template")
+                try values.encodeIfPresent(hasDownloads, forKey: "has_downloads")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(licenseTemplate, forKey: "license_template")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(teamID, forKey: "team_id")
+            }
+        }
     }
 }
 
@@ -13269,7 +22228,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13313,7 +22272,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13373,7 +22332,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13397,7 +22356,7 @@ extension Paths.User {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13423,7 +22382,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13558,7 +22517,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13582,7 +22541,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13624,7 +22583,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13648,7 +22607,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13721,7 +22680,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13747,7 +22706,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13924,7 +22883,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -13986,7 +22945,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }
@@ -14106,7 +23065,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
 
@@ -14141,7 +23100,7 @@ extension Paths.Users.WithUsername {
             .get(path)
         }
 
-        public enum GetHeaders {
+        public enum GetResponseHeaders {
             public static let link = HTTPHeader<String>(field: "Link")
         }
     }

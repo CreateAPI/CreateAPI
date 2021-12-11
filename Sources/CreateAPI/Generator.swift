@@ -331,8 +331,9 @@ extension Generator {
             throw GeneratorError("Enum \(name) has no values")
         }
         var output = templates.comments(for: info, name: name.rawValue)
+        let hasDuplicates = values.count != Set(values.map(makePropertyName).map(\.rawValue)).count
         let cases = values.map {
-            let caseName = makePropertyName($0).rawValue
+            let caseName = hasDuplicates ? $0 : makePropertyName($0).rawValue
             return templates.case(name: caseName, value: $0)
         }.joined(separator: "\n")
         output += templates.enumOfStrings(name: name, contents: cases)
