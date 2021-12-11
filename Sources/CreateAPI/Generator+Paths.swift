@@ -27,11 +27,9 @@ import GrammaticalNumber
 // TODO: Remove Markdown from description (or keep if it it looks OK - test)
 // TODO: Add an option to generate a plain list of APIs instead of using namespaces
 // TODO: Test that this enum description works enum: [user, poweruser, admin]
-// TODO: Add an option to use operationId as method name
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
 // TODO: Group operations by tags https://swagger.io/docs/specification/2-0/grouping-operations-with-tags/?sbsearch=tags
-// TODO: Add operationId
 
 // TODO: - Apply overridden names based on spec, not output file
 // TODO: - Generate phantom ID types
@@ -120,18 +118,20 @@ extension Generator {
                 }
             }
         }
-        
-//        output += "\n\n"
-//        output += """
-//        extension Request {
-//            func id(_ id: String) -> Request {
-//                var copy = self
-//                copy.id = id
-//                return copy
-//            }
-//        }
-//        """
-//        output += "\n\n"
+
+        if isRequestOperationIdExtensionNeeded {
+            output += "\n\n"
+            output += """
+            extension Request {
+                private func id(_ id: String) -> Request {
+                    var copy = self
+                    copy.id = id
+                    return copy
+                }
+            }
+            """
+            output += "\n\n"
+        }
         
         var header = templates.fileHeader
         
@@ -207,7 +207,13 @@ extension Generator {
         if hasBody(method) {
             call.append("body: body")
         }
-        output += templates.method(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: ".\(method)(\(call.joined(separator: ", ")))")
+        // TODO: Align this and contents based on the line count (and add option)
+        var contents = ".\(method)(\(call.joined(separator: ", ")))"
+        if options.paths.isAddingOperationIds, let operationId = operation.operationId, !operationId.isEmpty {
+            setRequestOperationIdExtensionNeeded()
+            contents += ".id(\"\(operationId)\")"
+        }
+        output += templates.method(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
         if let headers = headers {
             output += "\n\n"
             output += headers

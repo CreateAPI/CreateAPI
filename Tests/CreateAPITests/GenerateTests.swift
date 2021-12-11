@@ -39,6 +39,28 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-default")
     }
     
+    func testPestoreAddOperationId() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-operation-id",
+            "--config", config("""
+            {
+                "paths": {
+                    "isAddingOperationIds": true
+                }
+            }
+            """)
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-operation-id")
+    }
+    
     func testPestoreGenerateClasses() throws {
         // GIVEN
         let command = try Generate.parse([

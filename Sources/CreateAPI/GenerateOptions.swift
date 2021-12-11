@@ -58,9 +58,11 @@ final class GenerateOptions {
     
     struct Paths {
         var namespace: String
+        var isAddingOperationIds: Bool
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
+            self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
         }
     }
     
@@ -147,6 +149,7 @@ final class GenerateOptionsScheme: Decodable {
     
     struct Paths: Decodable {
         var namespace: String?
+        var isAddingOperationIds: Bool?
     }
     
     struct SchemesOptions: Decodable {

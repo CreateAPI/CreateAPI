@@ -17,6 +17,7 @@ final class Generator {
     // State collected during generation
     var isAnyJSONUsed = false
     var isHTTPHeadersDependencyNeeded = false
+    var isRequestOperationIdExtensionNeeded = false
     var needsEncodable = Set<TypeName>()
     let lock = NSLock()
     
@@ -556,6 +557,12 @@ extension Generator {
     func setNeedsEncodable(for type: TypeName) {
         lock.lock()
         needsEncodable.insert(type)
+        lock.unlock()
+    }
+    
+    func setRequestOperationIdExtensionNeeded() {
+        lock.lock()
+        isRequestOperationIdExtensionNeeded = true
         lock.unlock()
     }
 }
