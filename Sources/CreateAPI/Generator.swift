@@ -103,13 +103,7 @@ extension Generator {
             let name = makeChildPropertyName(for: name, type: type)
             return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, context: info, nested: nested)
         }
-        
-        /// E.g. [String: String], [String: [String: AnyJSON]]
-        func makeDictionary(info: JSONSchemaContext, schema: Either<Bool, JSONSchema>) throws -> Property {
-            let property = try makeAdditionalProperties(info: info, key: key, schema, context: context)
-            return child(name: propertyName, type: property.type, info: info, nested: property.nested)
-        }
-        
+                
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
             // TODO: We can be smarter and combine `properties` with `additionalProperties`
             var additional = details.additionalProperties
@@ -117,7 +111,9 @@ extension Generator {
                 additional = additional ?? .a(true)
             }
             if let additional = additional {
-                return try makeDictionary(info: info, schema: additional)
+                // E.g. [String: String], [String: [String: AnyJSON]]
+                let property = try makeAdditionalProperties(info: info, key: key, additional, context: context)
+                return child(name: propertyName, type: property.type, info: info, nested: property.nested)
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
@@ -185,28 +181,11 @@ extension Generator {
         var nested: String?
     }
     
-    // TODO: Do this recursively, but for now two levels will suffice (map of map)
     private func makeAdditionalProperties(info: JSONSchemaContext, key: String, _ schema: Either<Bool, JSONSchema>, context: Context) throws -> AdditionalProperties {
         switch schema {
         case .a:
             return AdditionalProperties(type: "[String: AnyJSON]", info: info)
         case .b(let schema):
-            // TODO: Do this recursively, but for now two levels will suffice (map of map)
-            if case .object(let info, let details) = schema,
-               details.properties.isEmpty,
-               let additional = details.additionalProperties {
-                switch additional {
-                case .a:
-                    return AdditionalProperties(type: "[String: [String: AnyJSON]]", info: info)
-                case .b(let schema):
-                    if let type = try? getPrimitiveType(for: schema) {
-                        return AdditionalProperties(type: "[String: [String: \(type)]]", info: info)
-                    }
-                    let nestedTypeName = makeTypeName(key).appending("Item")
-                    let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-                    return AdditionalProperties(type: "[String: [String: \(nestedTypeName)]]", info: info, nested: nested)
-                }
-            }
             if let type = try? getPrimitiveType(for: schema) {
                 return AdditionalProperties(type: "[String: \(type)]", info: info)
             }
@@ -394,6 +373,7 @@ extension Generator {
         TypeName(processedRawValue: try getPrimitiveType(for: json))
     }
     
+    // TODO: Return `nil` when primitive types can't be found
     // Anything that's not an object or a reference.
     private func getPrimitiveType(for json: JSONSchema) throws -> String {
         switch json {
@@ -414,7 +394,22 @@ extension Generator {
             default: break
             }
             return "String"
-        case .object(let info, _):
+        case .object(let info, let details):
+            var additional = details.additionalProperties
+            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
+                additional = additional ?? .a(true)
+            }
+            if details.properties.isEmpty, let additional = details.additionalProperties {
+                // TODO: handle `false`
+                switch additional {
+                case .a:
+                    return "[String: AnyJSON]"
+                case .b(let schema):
+                    if let type = try? getPrimitiveType(for: schema) {
+                        return "[String: \(type)]"
+                    }
+                }
+            }
             throw GeneratorError("`object` is not supported: \(info)")
         case .array(_, let details):
             guard let items = details.items else {
@@ -546,9 +541,14 @@ extension Generator {
         
         // Disambiguate arrays
         func parameter(for type: String) -> String {
-            let name = makePropertyName(type).rawValue
+            let name: String
+            if type == "[String: AnyJSON]" {
+                name = "object"
+            } else {
+                name = makePropertyName(type).rawValue
+            }
             guard options.isPluralizationEnabled else { return name }
-            let isArray = type.starts(with: "[") // TODO: Refactor
+            let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor
             return isArray ? name.pluralized() : name
         }
         return types.map { parameter(for: $0!) }
