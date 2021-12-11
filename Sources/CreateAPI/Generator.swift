@@ -280,13 +280,17 @@ extension Generator {
         }
         // TODO: Add support for typed additional properties AND refactor
         if let additional = object.additionalProperties {
-            let type: String
-            if let scheme = additional.schemaValue, let value = try? getPrimitiveType(for: scheme) {
-                type = value
+            if case .a(let allowed) = additional, !allowed {
+                // do nothing
             } else {
-                type = "[String: AnyJSON]"
+                let type: String
+                if let scheme = additional.schemaValue, let value = try? getPrimitiveType(for: scheme) {
+                    type = value
+                } else {
+                    type = "[String: AnyJSON]"
+                }
+                properties.append(Property(name: .init(processedRawValue:  "additionalProperties"), type: type, isOptional: false, key: "additionalProperties", schema: .object, context: nil, nested: nil, isAdditional: true))
             }
-            properties.append(Property(name: .init(processedRawValue:  "additionalProperties"), type: type, isOptional: false, key: "additionalProperties", schema: .object, context: nil, nested: nil, isAdditional: true))
         }
         return properties
     }

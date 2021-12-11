@@ -3509,7 +3509,6 @@ public struct PublicUser: Codable {
     public var type: String
     public var updatedAt: Date
     public var url: URL
-    public var additionalProperties: [String: AnyJSON]
 
     public struct Plan: Codable {
         public var collaborators: Int
@@ -3575,7 +3574,6 @@ public struct PublicUser: Codable {
         self.type = try values.decode(String.self, forKey: "type")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
         self.url = try values.decode(URL.self, forKey: "url")
-        self.additionalProperties = try [String: AnyJSON].init(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -3619,7 +3617,6 @@ public struct PublicUser: Codable {
         try values.encode(type, forKey: "type")
         try values.encode(updatedAt, forKey: "updated_at")
         try values.encode(url, forKey: "url")
-        try additionalProperties.encode(to: encoder)
     }
 }
 
@@ -5256,17 +5253,7 @@ public struct ActionsPublicKey: Codable {
 
 /// An object without any properties.
 public struct EmptyObject: Codable {
-    public var additionalProperties: [String: AnyJSON]
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.additionalProperties = try [String: AnyJSON].init(from: decoder)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try additionalProperties.encode(to: encoder)
-    }
 }
 
 public struct CredentialAuthorization: Codable {

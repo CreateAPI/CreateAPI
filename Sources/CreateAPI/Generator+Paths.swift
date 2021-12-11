@@ -226,6 +226,7 @@ extension Generator {
         if options.isAddingDeprecations, operation.deprecated {
             output += templates.deprecated
         }
+        operation.parameters
         var parameters: [String] = []
         var isBodyNeeded = false
         if hasBody(method) {
@@ -262,6 +263,28 @@ extension Generator {
         return output.indented
     }
     
+    private struct QueryParameter {
+        let description: String?
+        let isDeprecated: Bool
+        let name: String
+        let type: String
+        let isOptional: Bool
+    }
+        
+    // TODO: Add support for header parameters
+    private func makeQueryParameter(for parameter: OpenAPI.Parameter) throws -> QueryParameter? {
+        guard parameter.context.inQuery else {
+            return nil
+        }
+        return QueryParameter(
+            description: parameter.description,
+            isDeprecated: parameter.deprecated,
+            name: parameter.name,
+            type: "String",
+            isOptional: !parameter.required
+        )
+    }
+    
     // TODO: Generate -parameter documentation
     // TODO: Automatically pick application/json (See Paths.Pet.WithPetID.PostRequest)
     // TODO: Add application/x-www-form-urlencoded support
@@ -271,7 +294,7 @@ extension Generator {
     // TODO: Add "image*" support
     // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
-    private func makeRequestBodyType(for operation: OpenAPI.Operation, method: String, context: Context) throws -> TypeWrapper {
+    private func makeRequestBodyType(for operation: OpenAPI.Operation, method: String, context: Context) throws -> GeneratedType {
         guard let requestBody = operation.requestBody else {
             // TODO: Is is the correct handling?
             throw GeneratorError("ERROR: Request body is missing")
@@ -303,7 +326,7 @@ extension Generator {
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                 setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                return TypeWrapper(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
             }
@@ -311,24 +334,24 @@ extension Generator {
             #warning("TEMP")
             switch reference {
             case .internal(let reference):
-                return TypeWrapper(type: reference.name ?? "Void")
+                return GeneratedType(type: reference.name ?? "Void")
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
         case .b(let scheme):
             if scheme.content.values.isEmpty {
-                return TypeWrapper(type: "Void")
+                return GeneratedType(type: "Void")
             } else if let content = scheme.content.values.first {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
                     setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                    return TypeWrapper(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                    return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
                 case .b(let schema):
                     let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                     setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                    return TypeWrapper(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                    return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
                 default:
                     throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
                 }
@@ -349,7 +372,7 @@ extension Generator {
     }
     
     // TODO: Refactor
-    private struct TypeWrapper {
+    private struct GeneratedType {
         var type: String
         var nested: String?
     }
@@ -359,7 +382,7 @@ extension Generator {
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
     // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
-    private func makeResponse(for response: Response, method: String, context: Context) throws -> TypeWrapper {
+    private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.namespace = arguments.module?.rawValue
         context.isEncodableNeeded = false
@@ -374,30 +397,30 @@ extension Generator {
             }
         case .b(let schema):
             if schema.content.values.isEmpty {
-                return TypeWrapper(type: "Void")
+                return GeneratedType(type: "Void")
             } else if let content = schema.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
                     let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
-                    return TypeWrapper(type: addNamespaceIfNeeded(for: type, context: context))
+                    return GeneratedType(type: addNamespaceIfNeeded(for: type, context: context))
                 case .b(let schema):
                     switch schema {
                     case .string:
-                        return TypeWrapper(type: "String")
+                        return GeneratedType(type: "String")
                     case .integer, .boolean:
-                        return TypeWrapper(type: "Data")
+                        return GeneratedType(type: "Data")
                     default:
                         // TODO: Add a way to cutomize which namespace to use
                         let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
-                        return TypeWrapper(type: property.type, nested: property.nested)
+                        return GeneratedType(type: property.type, nested: property.nested)
                     }
                 default:
                     throw GeneratorError("ERROR: response not handled")
                 }
             } else if schema.content[.anyText] != nil {
-                return TypeWrapper(type: "String") // Assume UTF8 encoding
+                return GeneratedType(type: "String") // Assume UTF8 encoding
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }

@@ -68,6 +68,7 @@ final class GenerateOptions {
         var isAddingResponseHeaders: Bool
         var isAddingOperationIds: Bool
         var imports: Set<String>
+        var propertyCountThreshold: Int = 3
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
