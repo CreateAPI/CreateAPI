@@ -203,6 +203,16 @@ extension Generator {
                     output += "/// \(line)\n"
                 }
             }
+            // TODO: Reuse this code (move to Templates)
+            if options.comments.addDescription, let description = operation.description, !description.isEmpty {
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
+                for line in description.split(separator: "\n") {
+                    output += "/// \(line)\n"
+                }
+            }
             if options.comments.isAddingExternalDocumentation, let docs = operation.externalDocs {
                 if !output.isEmpty {
                     output += "///\n"

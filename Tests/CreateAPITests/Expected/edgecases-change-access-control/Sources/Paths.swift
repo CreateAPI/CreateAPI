@@ -66,6 +66,8 @@ extension Paths.Pet {
         let path: String
 
         /// Find pet by ID
+        ///
+        /// Returns a single pet
         func get() -> Request<edgecases_change_access_control.Pet> {
             .get(path)
         }
@@ -111,6 +113,8 @@ extension Paths.Store {
         let path: String
 
         /// Returns pet inventories by status
+        ///
+        /// Returns a map of status codes to quantities
         func get() -> Request<[String: Int]> {
             .get(path)
         }
@@ -143,11 +147,15 @@ extension Paths.Store.Order {
         let path: String
 
         /// Find purchase order by ID
+        ///
+        /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
         func get() -> Request<edgecases_change_access_control.Order> {
             .get(path)
         }
 
         /// Delete purchase order by ID
+        ///
+        /// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
         func delete() -> Request<Void> {
             .delete(path)
         }
@@ -164,6 +172,8 @@ extension Paths {
         let path: String
 
         /// Create user
+        ///
+        /// This can only be done by the logged in user.
         func post(_ body: edgecases_change_access_control.User) -> Request<Void> {
             .post(path, body: body)
         }
@@ -257,11 +267,15 @@ extension Paths.User {
         }
 
         /// Updated user
+        ///
+        /// This can only be done by the logged in user.
         func put(_ body: edgecases_change_access_control.User) -> Request<Void> {
             .put(path, body: body)
         }
 
         /// Delete user
+        ///
+        /// This can only be done by the logged in user.
         func delete() -> Request<Void> {
             .delete(path)
         }
@@ -278,10 +292,14 @@ extension Paths {
         let path: String
 
         /// To test enum parameters
+        ///
+        /// To test enum parameters
         func get() -> Request<Void> {
             .get(path)
         }
 
+        /// To test "client" model
+        ///
         /// To test "client" model
         func patch(_ body: Client) -> Request<Client> {
             .patch(path, body: body)
