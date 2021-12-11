@@ -51,25 +51,20 @@ extension Generator {
         var output = ""
 
         var generated = Set<OpenAPI.Path>()
-        
-        // TODO: Add description and everything
-        
+                
         for path in spec.paths {
-            guard !path.key.components.isEmpty else {
-                continue
-            }
-            
             var components: [String] = []
-            for (index, component) in path.key.components.enumerated() {
+            let allComponents = path.key.components.isEmpty ? [""] : path.key.components
+            for (index, component) in allComponents.enumerated() {
                 components.append(component)
                 let subpath = OpenAPI.Path(components)
                 guard !generated.contains(subpath) else { continue }
                 generated.insert(subpath)
                 
                 let component = components.last!
-                let isLast = index == path.key.components.endIndex - 1
+                let isLast = index == allComponents.endIndex - 1
                 let isTopLevel = components.count == 1
-                let type = makeType(component)
+                let type = component.isEmpty ? TypeName(processedRawValue: "Root") : makeType(component)
                 let isParameter = component.starts(with: "{")
                 let stat = isTopLevel ? "static " : ""
                 

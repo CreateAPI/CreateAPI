@@ -6,6 +6,8 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code 
+
 // TODO: Fix AnyJSON and StringCodingKeys layout
 // TODO: Add option to hide AnyJSON
 // TODO: testEdgecasesRename "Status": "State" is not working
