@@ -121,15 +121,7 @@ extension Generator {
 
         if isRequestOperationIdExtensionNeeded {
             output += "\n\n"
-            output += """
-            extension Request {
-                private func id(_ id: String) -> Request {
-                    var copy = self
-                    copy.id = id
-                    return copy
-                }
-            }
-            """
+            output += templates.requestOperationIdExtension
             output += "\n\n"
         }
         

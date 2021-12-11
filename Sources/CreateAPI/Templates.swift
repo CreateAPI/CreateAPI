@@ -294,6 +294,20 @@ final class Templates {
         \(access)static let \(name) = HTTPHeader<\(property.type)>(field: \"\(property.key)\")
         """
     }
+    
+    // MARK: Misc
+    
+    var requestOperationIdExtension: String {
+       """
+       extension Request {
+           private func id(_ id: String) -> Request {
+               var copy = self
+               copy.id = id
+               return copy
+           }
+       }
+       """
+    }
 }
 
 extension String {
