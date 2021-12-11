@@ -285,7 +285,7 @@ extension Generator {
             } else {
                 let type: String
                 if let scheme = additional.schemaValue, let value = try? getPrimitiveType(for: scheme) {
-                    type = value
+                    type = "[String: \(value)]"
                 } else {
                     type = "[String: AnyJSON]"
                 }

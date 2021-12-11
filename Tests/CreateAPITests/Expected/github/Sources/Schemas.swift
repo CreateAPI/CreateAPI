@@ -15976,11 +15976,11 @@ public struct DeployKey: Codable {
 }
 
 public struct Language: Codable {
-    public var additionalProperties: Int
+    public var additionalProperties: [String: Int]
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.additionalProperties = try Int.init(from: decoder)
+        self.additionalProperties = try [String: Int].init(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
