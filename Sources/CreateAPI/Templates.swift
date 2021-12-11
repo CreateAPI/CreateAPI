@@ -332,3 +332,17 @@ extension String {
             .joined(separator: "\n")
     }
 }
+
+extension String {
+    // Unlike `components(separatedBy: "\n")`, it keeps empty lines.
+    var lines: [String] {
+        var lines: [String] = []
+        var index = startIndex
+        while let newLineIndex = self[index...].firstIndex(of: "\n") {
+            lines.append(String(self[index..<newLineIndex]))
+            index = self.index(after: newLineIndex)
+        }
+        lines.append(String(self[index...]))
+        return lines
+    }
+}

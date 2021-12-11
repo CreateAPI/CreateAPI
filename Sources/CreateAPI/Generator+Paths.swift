@@ -208,7 +208,7 @@ extension Generator {
                     output += "///\n"
                 }
                 let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
-                for line in description.split(separator: "\n") {
+                for line in description.lines {
                     output += "/// \(line)\n"
                 }
             }

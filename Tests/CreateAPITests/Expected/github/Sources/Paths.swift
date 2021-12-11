@@ -114,6 +114,7 @@ extension Paths {
         /// Get the authenticated app
         ///
         /// Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)" endpoint.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-the-authenticated-app)
@@ -181,6 +182,7 @@ extension Paths.App.Hook {
         /// Get a webhook configuration for an app
         ///
         /// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "[Creating a GitHub App](/developers/apps/creating-a-github-app)."
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
@@ -215,6 +217,7 @@ extension Paths.App.Hook.Deliveries {
         /// Get a delivery for an app webhook
         ///
         /// Returns a delivery for the webhook configured for a GitHub App.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook)
@@ -262,6 +265,7 @@ extension Paths.App.Installations {
         /// Get an installation for the authenticated app
         ///
         /// Enables an authenticated GitHub App to find an installation's information using the installation id. The installation's account type (`target_type`) will be either an organization or a user account, depending which account the repository belongs to.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app)
@@ -272,6 +276,7 @@ extension Paths.App.Installations {
         /// Delete an installation for the authenticated app
         ///
         /// Uninstalls a GitHub App on a user, organization, or business account. If you prefer to temporarily suspend an app's access to your account's resources, then we recommend the "[Suspend an app installation](https://docs.github.com/rest/reference/apps/#suspend-an-app-installation)" endpoint.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app)
@@ -306,6 +311,7 @@ extension Paths.App.Installations.WithInstallationID {
         /// Unsuspend an app installation
         ///
         /// Removes a GitHub App installation suspension.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation)
@@ -361,6 +367,7 @@ extension Paths.Applications.Grants {
         /// Delete a grant
         ///
         /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
         /// Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for your user. Once deleted, the application has no access to your account and is no longer listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant)
@@ -459,6 +466,7 @@ extension Paths.Apps {
         /// Get an app
         ///
         /// **Note**: The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
+        /// 
         /// If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#get-an-app)
@@ -645,6 +653,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// Get GitHub Actions permissions for an enterprise
         ///
         /// Gets the GitHub Actions permissions policy for organizations and allowed actions in an enterprise.
+        /// 
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise)
@@ -666,6 +675,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// List selected organizations enabled for GitHub Actions in an enterprise
         ///
         /// Lists the organizations that are selected to have GitHub Actions enabled in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise)
@@ -698,6 +708,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         /// Disable a selected organization for GitHub Actions in an enterprise
         ///
         /// Removes an organization from the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise)
@@ -719,6 +730,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// Get allowed actions for an enterprise
         ///
         /// Gets the selected actions that are allowed in an enterprise. To use this endpoint, the enterprise permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise)
@@ -729,6 +741,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// Set allowed actions for an enterprise
         ///
         /// Sets the actions that are allowed in an enterprise. To use this endpoint, the enterprise permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise)
@@ -750,6 +763,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// List self-hosted runner groups for an enterprise
         ///
         /// Lists all self-hosted runner groups for an enterprise.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise)
@@ -782,6 +796,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         /// Get a self-hosted runner group for an enterprise
         ///
         /// Gets a specific self-hosted runner group for an enterprise.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
@@ -792,6 +807,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         /// Delete a self-hosted runner group from an enterprise
         ///
         /// Deletes a self-hosted runner group for an enterprise.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise)
@@ -813,6 +829,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// List organization access to a self-hosted runner group in an enterprise
         ///
         /// Lists the organizations with access to a self-hosted runner group.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise)
@@ -845,6 +862,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Remove organization access to a self-hosted runner group in an enterprise
         ///
         /// Removes an organization from the list of selected organizations that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an enterprise](#create-a-self-hosted-runner-group-for-an-enterprise)."
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
@@ -866,6 +884,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// List self-hosted runners in a group for an enterprise
         ///
         /// Lists the self-hosted runners that are in a specific enterprise group.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise)
@@ -902,6 +921,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Remove a self-hosted runner from a group for an enterprise
         ///
         /// Removes a self-hosted runner from a group configured in an enterprise. The runner is then returned to the default group.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise)
@@ -923,6 +943,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// List self-hosted runners for an enterprise
         ///
         /// Lists all self-hosted runners configured for an enterprise.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise)
@@ -998,6 +1019,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Get a self-hosted runner for an enterprise
         ///
         /// Gets a specific self-hosted runner configured in an enterprise.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise)
@@ -1008,6 +1030,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Delete a self-hosted runner from an enterprise
         ///
         /// Forces the removal of a self-hosted runner from an enterprise. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
+        /// 
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise)
@@ -1064,7 +1087,9 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// Get GitHub Actions billing for an enterprise
         ///
         /// Gets the summary of the free and paid GitHub Actions minutes used.
+        /// 
         /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+        /// 
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise)
@@ -1107,7 +1132,9 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// Get GitHub Packages billing for an enterprise
         ///
         /// Gets the free and paid storage used for GitHub Packages in gigabytes.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise)
@@ -1129,7 +1156,9 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// Get shared storage billing for an enterprise
         ///
         /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise)
@@ -1164,6 +1193,7 @@ extension Paths {
         /// Get feeds
         ///
         /// GitHub provides several timeline resources in [Atom](http://en.wikipedia.org/wiki/Atom_(standard)) format. The Feeds API lists all the feeds available to the authenticated user:
+        /// 
         /// *   **Timeline**: The GitHub global public timeline
         /// *   **User**: The public timeline for any user, using [URI template](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia)
         /// *   **Current user public**: The public timeline for the authenticated user
@@ -1171,6 +1201,7 @@ extension Paths {
         /// *   **Current user actor**: The private timeline for activity created by the authenticated user
         /// *   **Current user organizations**: The private timeline for the organizations the authenticated user is a member of.
         /// *   **Security advisories**: A collection of public announcements that provide information about security-related vulnerabilities in software on GitHub.
+        /// 
         /// **Note**: Private feeds are only returned when [authenticating via Basic Auth](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) since current feed URIs use the older, non revocable auth tokens.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-feeds)
@@ -1419,6 +1450,7 @@ extension Paths.Installation {
         /// List repositories accessible to the app installation
         ///
         /// List repositories that an app installation can access.
+        /// 
         /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation)
@@ -1458,7 +1490,9 @@ extension Paths.Installation {
         /// Revoke an installation access token
         ///
         /// Revokes the installation token you're using to authenticate as an installation and access this endpoint.
+        /// 
         /// Once an installation token is revoked, the token is invalidated and cannot be used. Other endpoints that require the revoked installation token must have a new installation token to work. You can create a new token using the "[Create an installation access token for an app](https://docs.github.com/rest/reference/apps#create-an-installation-access-token-for-an-app)" endpoint.
+        /// 
         /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token)
@@ -1572,6 +1606,7 @@ extension Paths.MarketplaceListing.Accounts {
         /// Get a subscription plan for an account
         ///
         /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
+        /// 
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account)
@@ -1652,6 +1687,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         /// Get a subscription plan for an account (stubbed)
         ///
         /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
+        /// 
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed)
@@ -1710,6 +1746,7 @@ extension Paths {
         /// Get GitHub meta information
         ///
         /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://help.github.com/articles/about-github-s-ip-addresses/)."
+        /// 
         /// **Note:** The IP addresses shown in the documentation's response are only example values. You must always query the API directly to get the latest list of IP addresses.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-github-meta-information)
@@ -1819,6 +1856,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         /// Get a thread subscription for the authenticated user
         ///
         /// This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
+        /// 
         /// Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user)
@@ -1887,6 +1925,7 @@ extension Paths.Organizations.WithOrganizationID {
         ///
         /// List the custom repository roles available in this organization. In order to see custom
         /// repository roles in an organization, the authenticated user must be an organization owner.
+        /// 
         /// For more information on custom repository roles, see "[Managing custom repository roles for an organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-custom-repository-roles-for-an-organization)".
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization)
@@ -1931,6 +1970,7 @@ extension Paths.Orgs {
         /// Get an organization
         ///
         /// To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
+        /// 
         /// GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub plan. See "[Authenticating with GitHub Apps](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub plan information' below."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization)
@@ -1963,6 +2003,7 @@ extension Paths.Orgs.WithOrg.Actions {
         /// Get GitHub Actions permissions for an organization
         ///
         /// Gets the GitHub Actions permissions policy for repositories and allowed actions in an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization)
@@ -1984,6 +2025,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// List selected repositories enabled for GitHub Actions in an organization
         ///
         /// Lists the selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization)
@@ -2016,6 +2058,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         /// Disable a selected repository for GitHub Actions in an organization
         ///
         /// Removes a repository from the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization)
@@ -2037,6 +2080,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// Get allowed actions for an organization
         ///
         /// Gets the selected actions that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization).""
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization)
@@ -2047,8 +2091,11 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// Set allowed actions for an organization
         ///
         /// Sets the actions that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
+        /// 
         /// If the organization belongs to an enterprise that has `selected` actions set at the enterprise level, then you cannot override any of the enterprise's allowed actions settings.
+        /// 
         /// To use the `patterns_allowed` setting for private repositories, the organization must belong to an enterprise. If the organization does not belong to an enterprise, then the `patterns_allowed` setting only applies to public repositories in the organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization)
@@ -2070,7 +2117,9 @@ extension Paths.Orgs.WithOrg.Actions {
         /// List self-hosted runner groups for an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
         /// Lists all self-hosted runner groups configured in an organization and inherited from an enterprise.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization)
@@ -2103,7 +2152,9 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         /// Get a self-hosted runner group for an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
         /// Gets a specific self-hosted runner group for an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
@@ -2114,7 +2165,9 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         /// Delete a self-hosted runner group from an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
         /// Deletes a self-hosted runner group for an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization)
@@ -2136,7 +2189,9 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// List repository access to a self-hosted runner group in an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud and GitHub Enterprise Server. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
         /// Lists the repositories with access to a self-hosted runner group configured in an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization)
@@ -2169,7 +2224,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         /// Remove repository access to a self-hosted runner group in an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// 
         /// Removes a repository from the list of selected repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an organization](#create-a-self-hosted-runner-group-for-an-organization)."
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization)
@@ -2191,7 +2249,9 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// List self-hosted runners in a group for an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
         /// Lists self-hosted runners that are in a specific organization group.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization)
@@ -2228,7 +2288,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         /// Remove a self-hosted runner from a group for an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// 
         /// Removes a self-hosted runner from a group configured in an organization. The runner is then returned to the default group.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization)
@@ -2250,6 +2313,7 @@ extension Paths.Orgs.WithOrg.Actions {
         /// List self-hosted runners for an organization
         ///
         /// Lists all self-hosted runners configured in an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization)
@@ -2325,6 +2389,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// Get a self-hosted runner for an organization
         ///
         /// Gets a specific self-hosted runner configured in an organization.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
@@ -2335,6 +2400,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// Delete a self-hosted runner from an organization
         ///
         /// Forces the removal of a self-hosted runner from an organization. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
+        /// 
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
@@ -2555,6 +2621,7 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
         /// Remove a SAML SSO authorization for an organization
         ///
         /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
+        /// 
         /// An authenticated organization owner with the `admin:org` scope can remove a credential authorization for an organization that uses SAML SSO. Once you remove someone's credential authorization, they will need to create a new personal access token or SSH key and authorize it for the organization they want to access.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization)
@@ -2600,6 +2667,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         /// Get an external group
         ///
         /// Displays information about the specific group's usage.  Provides a list of the group's external members as well as a list of teams that this group is connected to.
+        /// 
         /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization)
@@ -2621,6 +2689,7 @@ extension Paths.Orgs.WithOrg {
         /// List external groups in an organization
         ///
         /// Lists external groups available in an organization. You can query the groups using the `display_name` parameter, only groups with a `group_name` containing the text provided in the `display_name` parameter will be returned.  You can also limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
+        /// 
         /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
@@ -2699,6 +2768,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Get a webhook configuration for an organization
         ///
         /// Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
+        /// 
         /// Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
@@ -2779,6 +2849,7 @@ extension Paths.Orgs.WithOrg {
         /// Get an organization installation for the authenticated app
         ///
         /// Enables an authenticated GitHub App to find the organization's installation information.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app)
@@ -2877,6 +2948,7 @@ extension Paths.Orgs.WithOrg.Invitations {
         /// Cancel an organization invitation
         ///
         /// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be an organization owner.
+        /// 
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation)
@@ -2986,6 +3058,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         /// Remove organization membership for a user
         ///
         /// In order to remove a user's membership with an organization, the authenticated user must be an organization owner.
+        /// 
         /// If the specified user is an active member of the organization, this will remove them from the organization. If the specified user has been invited to the organization, this will cancel their invitation. The specified user will receive an email notification in both cases.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user)
@@ -3020,7 +3093,9 @@ extension Paths.Orgs.WithOrg.Migrations {
         /// Get an organization migration status
         ///
         /// Fetches the status of a migration.
+        /// 
         /// The `state` of a migration can be one of the following values:
+        /// 
         /// *   `pending`, which means the migration hasn't started yet.
         /// *   `exporting`, which means the migration is in progress.
         /// *   `exported`, which means the migration finished successfully.
@@ -3186,6 +3261,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         /// Get a package for an organization
         ///
         /// Gets a specific package in an organization.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -3197,6 +3273,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         /// Delete a package for an organization
         ///
         /// Deletes an entire package in an organization. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must have admin permissions in the organization and authenticate using an access token with the `packages:read` and `packages:delete` scopes. In addition:
         /// - If `package_type` is not `container`, your token must also include the `repo` scope.
         /// - If `package_type` is `container`, you must also have admin permissions to the container you want to delete.
@@ -3246,6 +3323,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         /// Get a package version for an organization
         ///
         /// Gets a specific package version in an organization.
+        /// 
         /// You must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -3257,6 +3335,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         /// Delete package version for an organization
         ///
         /// Deletes a specific package version in an organization. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must have admin permissions in the organization and authenticate using an access token with the `packages:read` and `packages:delete` scopes. In addition:
         /// - If `package_type` is not `container`, your token must also include the `repo` scope.
         /// - If `package_type` is `container`, you must also have admin permissions to the container you want to delete.
@@ -3403,7 +3482,9 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Get GitHub Actions billing for an organization
         ///
         /// Gets the summary of the free and paid GitHub Actions minutes used.
+        /// 
         /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+        /// 
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization)
@@ -3447,7 +3528,9 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Get GitHub Packages billing for an organization
         ///
         /// Gets the free and paid storage used for GitHub Packages in gigabytes.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization)
@@ -3469,7 +3552,9 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Get shared storage billing for an organization
         ///
         /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization)
@@ -3502,6 +3587,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
         /// List IdP groups for an organization
         ///
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// List IdP groups available in an organization. You can limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
@@ -3540,6 +3626,7 @@ extension Paths.Orgs.WithOrg.Teams {
         /// Get a team by name
         ///
         /// Gets a team using the team's `slug`. GitHub generates the `slug` from the team `name`.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
@@ -3550,7 +3637,9 @@ extension Paths.Orgs.WithOrg.Teams {
         /// Delete a team
         ///
         /// To delete a team, the authenticated user must be an organization owner or team maintainer.
+        /// 
         /// If you are an organization owner, deleting a parent team will delete all of its child teams as well.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-team)
@@ -3585,6 +3674,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// Get a discussion
         ///
         /// Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
@@ -3595,6 +3685,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// Delete a discussion
         ///
         /// Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion)
@@ -3629,6 +3720,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Get a discussion comment
         ///
         /// Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
@@ -3639,6 +3731,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Delete a discussion comment
         ///
         /// Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment)
@@ -3673,6 +3766,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Delete team discussion comment reaction
         ///
         /// **Note:** You can also specify a team or organization with `team_id` and `org_id` using the route `DELETE /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions/:reaction_id`.
+        /// 
         /// Delete a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-comment-reaction)
@@ -3707,6 +3801,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Delete team discussion reaction
         ///
         /// **Note:** You can also specify a team or organization with `team_id` and `org_id` using the route `DELETE /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions/:reaction_id`.
+        /// 
         /// Delete a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction)
@@ -3728,6 +3823,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Remove the connection between an external group and a team
         ///
         /// Deletes a connection between a team and an external group.
+        /// 
         /// You can manage team membership with your IdP using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection)
@@ -3786,10 +3882,14 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         /// Get team membership for a user
         ///
         /// Team members will include the members of child teams.
+        /// 
         /// To get a user's membership with a team, the team must be visible to the authenticated user.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`.
+        /// 
         /// **Note:**
         /// The response contains the `state` of the membership and the member's `role`.
+        /// 
         /// The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user)
@@ -3800,8 +3900,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         /// Remove team membership for a user
         ///
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
+        /// 
         /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/memberships/{username}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user)
@@ -3836,6 +3939,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// Check team permissions for a project
         ///
         /// Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/projects/{project_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
@@ -3846,6 +3950,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// Remove a project from a team
         ///
         /// Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. This endpoint removes the project from the team, but does not delete the project.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/projects/{project_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team)
@@ -3891,8 +3996,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// Check team permissions for a repository
         ///
         /// Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository. Repositories inherited through a parent team will also be checked.
+        /// 
         /// You can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `application/vnd.github.v3.repository+json` accept header.
+        /// 
         /// If a team doesn't have permission for the repository, you will receive a `404 Not Found` response status.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
@@ -3903,6 +4011,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// Remove a repository from a team
         ///
         /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. This does not delete the repository, it just removes it from the team.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team)
@@ -3935,7 +4044,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         /// List IdP groups for a team
         ///
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// List IdP groups connected to a team on GitHub.
+        /// 
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team)
@@ -4187,6 +4298,7 @@ extension Paths {
         /// Get rate limit status for the authenticated user
         ///
         /// **Note:** Accessing this endpoint does not count against your REST API rate limit.
+        /// 
         /// **Note:** The `rate` object is deprecated. If you're writing new API client code or updating existing code, you should use the `core` object instead of the `rate` object. The `core` object contains the same information that is present in the `rate` object.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user)
@@ -4225,6 +4337,7 @@ extension Paths.Reactions {
         /// Delete a reaction (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Reactions API. We recommend migrating your existing code to use the new delete reactions endpoints. For more information, see this [blog post](https://developer.github.com/changes/2020-02-26-new-delete-reactions-endpoints/).
+        /// 
         /// OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), when deleting a [team discussion](https://docs.github.com/rest/reference/teams#discussions) or [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy)
@@ -4278,6 +4391,7 @@ extension Paths.Repos.WithOwner {
         /// Delete a repository
         ///
         /// Deleting a repository requires admin access. If OAuth is used, the `delete_repo` scope is required.
+        /// 
         /// If an organization owner has configured the organization to prevent members from deleting organization-owned
         /// repositories, you will get a `403 Forbidden` response.
         ///
@@ -4452,6 +4566,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Get GitHub Actions permissions for a repository
         ///
         /// Gets the GitHub Actions permissions policy for a repository, including whether GitHub Actions is enabled and the actions allowed to run in the repository.
+        /// 
         /// You must authenticate using an access token with the `repo` scope to use this
         /// endpoint. GitHub Apps must have the `administration` repository permission to use this API.
         ///
@@ -4474,6 +4589,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         /// Get allowed actions for a repository
         ///
         /// Gets the settings for selected actions that are allowed in a repository. To use this endpoint, the repository policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for a repository](#set-github-actions-permissions-for-a-repository)."
+        /// 
         /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository)
@@ -4484,8 +4600,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         /// Set allowed actions for a repository
         ///
         /// Sets the actions that are allowed in a repository. To use this endpoint, the repository permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for a repository](#set-github-actions-permissions-for-a-repository)."
+        /// 
         /// If the repository belongs to an organization or enterprise that has `selected` actions set at the organization or enterprise levels, then you cannot override any of the allowed actions settings.
+        /// 
         /// To use the `patterns_allowed` setting for private repositories, the repository must belong to an enterprise. If the repository does not belong to an enterprise, then the `patterns_allowed` setting only applies to public repositories.
+        /// 
         /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository)
@@ -4581,6 +4700,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// Get a self-hosted runner for a repository
         ///
         /// Gets a specific self-hosted runner configured in a repository.
+        /// 
         /// You must authenticate using an access token with the `repo` scope to use this
         /// endpoint.
         ///
@@ -4592,6 +4712,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// Delete a self-hosted runner from a repository
         ///
         /// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
+        /// 
         /// You must authenticate using an access token with the `repo`
         /// scope to use this endpoint.
         ///
@@ -4614,6 +4735,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// List workflow runs for a repository
         ///
         /// Lists all workflow runs for a repository. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
+        /// 
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
@@ -4940,6 +5062,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Get workflow run usage
         ///
         /// Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+        /// 
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-run-usage)
@@ -5139,6 +5262,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// List workflow runs
         ///
         /// List all workflow runs for a workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
+        /// 
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs)
@@ -5175,6 +5299,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Get workflow usage
         ///
         /// Gets the number of billable minutes used by a specific workflow during the current billing cycle. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+        /// 
         /// You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-usage)
@@ -5209,7 +5334,9 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
         /// Check if a user can be assigned
         ///
         /// Checks if a user has permission to be assigned to an issue in this repository.
+        /// 
         /// If the `assignee` can be assigned to issues in the repository, a `204` header with no content is returned.
+        /// 
         /// Otherwise a `404` status code is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned)
@@ -5244,6 +5371,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         /// Get an autolink reference of a repository
         ///
         /// This returns a single autolink reference by ID that was configured for the given repository.
+        /// 
         /// Information about autolinks are only available to repository administrators.
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#get-autolink)
@@ -5254,6 +5382,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         /// Delete an autolink reference from a repository
         ///
         /// This deletes a single autolink reference by ID that was configured for the given repository.
+        /// 
         /// Information about autolinks are only available to repository administrators.
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#delete-autolink)
@@ -5364,6 +5493,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Delete admin branch protection
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// Removing admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-admin-branch-protection)
@@ -5414,7 +5544,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Get commit signature protection
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://help.github.com/articles/signing-commits-with-gpg) in GitHub Help.
+        /// 
         /// **Note**: You must enable branch protection to require signed commits.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-commit-signature-protection)
@@ -5425,6 +5557,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Delete commit signature protection
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to disable required signed commits on a branch. You must enable branch protection to require signed commits.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-commit-signature-protection)
@@ -5488,7 +5621,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Get access restrictions
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// Lists who has access to this protected branch.
+        /// 
         /// **Note**: Users, apps, and teams `restrictions` are only available for organization-owned repositories.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-access-restrictions)
@@ -5499,6 +5634,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Delete access restrictions
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// Disables the ability to restrict who can push to this branch.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-access-restrictions)
@@ -5585,6 +5721,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         /// Get a check run
         ///
         /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
+        /// 
         /// Gets a single check run using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-run)
@@ -5658,6 +5795,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         /// Get a check suite
         ///
         /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
+        /// 
         /// Gets a single check suite using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check suites. OAuth Apps and authenticated users must have the `repo` scope to get check suites in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-suite)
@@ -5679,6 +5817,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         /// List check runs in a check suite
         ///
         /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
+        /// 
         /// Lists check runs for a check suite using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
@@ -5752,6 +5891,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         /// Get a code scanning alert
         ///
         /// Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// 
         /// **Deprecation notice**:
         /// The instances field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The same information can now be retrieved via a GET request to the URL specified by `instances_url`.
         ///
@@ -5802,14 +5942,17 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// Gets a specified code scanning analysis for a repository.
         /// You must use an access token with the `security_events` scope to use this endpoint.
         /// GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// 
         /// The default JSON response contains fields that describe the analysis.
         /// This includes the Git reference and commit SHA to which the analysis relates,
         /// the datetime of the analysis, the name of the code scanning tool,
         /// and the number of alerts.
+        /// 
         /// The `rules_count` field in the default response give the number of rules
         /// that were run in the analysis.
         /// For very old analyses this data is not available,
         /// and `0` is returned in this field.
+        /// 
         /// If you use the Accept header `application/sarif+json`,
         /// the response contains the analysis data that was uploaded.
         /// This is formatted as
@@ -5826,27 +5969,35 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// private repositories, you must use an access token with the `repo` scope. For public repositories,
         /// you must use an access token with `public_repo` and `repo:security_events` scopes.
         /// GitHub Apps must have the `security_events` write permission to use this endpoint.
+        /// 
         /// You can delete one analysis at a time.
         /// To delete a series of analyses, start with the most recent analysis and work backwards.
         /// Conceptually, the process is similar to the undo function in a text editor.
+        /// 
         /// When you list the analyses for a repository,
         /// one or more will be identified as deletable in the response:
+        /// 
         /// ```
         /// "deletable": true
         /// ```
+        /// 
         /// An analysis is deletable when it's the most recent in a set of analyses.
         /// Typically, a repository will have multiple sets of analyses
         /// for each enabled code scanning tool,
         /// where a set is determined by a unique combination of analysis values:
+        /// 
         /// * `ref`
         /// * `tool`
         /// * `analysis_key`
         /// * `environment`
+        /// 
         /// If you attempt to delete an analysis that is not the most recent in a set,
         /// you'll get a 400 response with the message:
+        /// 
         /// ```
         /// Analysis specified is not deletable.
         /// ```
+        /// 
         /// The response from a successful `DELETE` operation provides you with
         /// two alternative URLs for deleting the next analysis in the set:
         /// `next_analysis_url` and `confirm_delete_url`.
@@ -5856,6 +6007,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// Use the `confirm_delete_url` URL if you are content to remove all analyses for a tool.
         /// When you delete the last analysis in a set, the value of `next_analysis_url` and `confirm_delete_url`
         /// in the 200 response is `null`.
+        /// 
         /// As an example of the deletion process,
         /// let's imagine that you added a workflow that configured a particular code scanning tool
         /// to analyze the code in a repository. This tool has added 15 analyses:
@@ -5869,12 +6021,15 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// delete this analysis and then continue deleting the next analysis in the set until they're all deleted.
         /// Then repeat the process for the second set.
         /// The procedure therefore consists of a nested loop:
+        /// 
         /// **Outer loop**:
         /// * List the analyses for the repository, filtered by tool.
         /// * Parse this list to find a deletable analysis. If found:
+        /// 
         ///   **Inner loop**:
         ///   * Delete the identified analysis.
         ///   * Parse the response for the value of `confirm_delete_url` and, if found, use this in the next iteration.
+        /// 
         /// The above process assumes that you want to remove all trace of the tool's analyses from the GitHub user interface, for the specified repository, and it therefore uses the `confirm_delete_url` value. Alternatively, you could use the `next_analysis_url` value, which would leave the last analysis in each set undeleted to avoid removing a tool's analysis entirely.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
@@ -5929,6 +6084,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List codespaces in a repository for the authenticated user
         ///
         /// Lists the codespaces associated to a specified repository and the authenticated user.
+        /// 
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user)
@@ -5961,7 +6117,9 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         /// List available machine types for a repository
         ///
         /// List the machine types available for a given repository based on its configuration.
+        /// 
         /// Location is required.
+        /// 
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository)
@@ -6007,6 +6165,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         /// Check if a user is a repository collaborator
         ///
         /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
+        /// 
         /// Team members will include the members of child teams.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
@@ -6106,6 +6265,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID.Reactions {
         /// Delete a commit comment reaction
         ///
         /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`.
+        /// 
         /// Delete a reaction to a [commit comment](https://docs.github.com/rest/reference/repos#comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-commit-comment-reaction)
@@ -6190,18 +6350,26 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         /// Get a commit
         ///
         /// Returns the contents of a single commit reference. You must have `read` access for the repository to use this endpoint.
+        /// 
         /// **Note:** If there are more than 300 files in the commit diff, the response will include pagination link headers for the remaining files, up to a limit of 3000 files. Each page contains the static commit information, and the only changes are to the file listing.
+        /// 
         /// You can pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to  fetch `diff` and `patch` formats. Diffs with binary data will have no `patch` property.
+        /// 
         /// To return only the SHA-1 hash of the commit reference, you can provide the `sha` custom [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) in the `Accept` header. You can use this endpoint to check if a remote reference's SHA-1 hash is the same as your local reference's SHA-1 hash by providing the local SHA-1 reference as the ETag.
+        /// 
         /// **Signature verification object**
+        /// 
         /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
         /// | Name | Type | Description |
         /// | ---- | ---- | ----------- |
         /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
         /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
         /// | `signature` | `string` | The signature that was extracted from the commit. |
         /// | `payload` | `string` | The value that was signed. |
+        /// 
         /// These are the possible values for `reason` in the `verification` object:
+        /// 
         /// | Value | Description |
         /// | ----- | ----------- |
         /// | `expired_key` | The key that made the signature is expired. |
@@ -6237,6 +6405,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// List check runs for a Git reference
         ///
         /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
+        /// 
         /// Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference)
@@ -6273,6 +6442,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// List check suites for a Git reference
         ///
         /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
+        /// 
         /// Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to list check suites. OAuth Apps and authenticated users must have the `repo` scope to get check suites in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
@@ -6309,7 +6479,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Get the combined status for a specific reference
         ///
         /// Users with pull access in a repository can access a combined view of commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name.
+        /// 
+        /// 
         /// Additionally, a combined `state` is returned. The `state` is one of:
+        /// 
         /// *   **failure** if any of the contexts report as `error` or `failure`
         /// *   **pending** if there are no statuses or a context is `pending`
         /// *   **success** if the latest status for all contexts is `success`
@@ -6360,11 +6533,13 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
         /// overall health score, repository description, the presence of documentation, detected
         /// code of conduct, detected license, and the presence of ISSUE\_TEMPLATE, PULL\_REQUEST\_TEMPLATE,
         /// README, and CONTRIBUTING files.
+        /// 
         /// The `health_percentage` score is defined as a percentage of how many of
         /// these four documents are present: README, CONTRIBUTING, LICENSE, and
         /// CODE_OF_CONDUCT. For example, if all four documents are present, then
         /// the `health_percentage` is `100`. If only one is present, then the
         /// `health_percentage` is `25`.
+        /// 
         /// `content_reports_enabled` is only returned for organization-owned repositories.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-community-profile-metrics)
@@ -6397,20 +6572,30 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         /// Compare two commits
         ///
         /// The `basehead` param is comprised of two parts: `base` and `head`. Both must be branch names in `repo`. To compare branches across other repositories in the same network as `repo`, use the format `<USERNAME>:branch`.
+        /// 
         /// The response from the API is equivalent to running the `git log base..head` command; however, commits are returned in chronological order. Pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
+        /// 
         /// The response also includes details on the files that were changed between the two commits. This includes the status of the change (for example, if a file was added, removed, modified, or renamed), and details of the change itself. For example, files with a `renamed` status have a `previous_filename` field showing the previous filename of the file, and files with a `modified` status have a `patch` field showing the changes made to the file.
+        /// 
         /// **Working with large comparisons**
+        /// 
         /// To process a response with a large number of commits, you can use (`per_page` or `page`) to paginate the results. When using paging, the list of changed files is only returned with page 1, but includes all changed files for the entire comparison. For more information on working with pagination, see "[Traversing with pagination](/rest/guides/traversing-with-pagination)."
+        /// 
         /// When calling this API without any paging parameters (`per_page` or `page`), the returned list is limited to 250 commits and the last commit in the list is the most recent of the entire comparison. When a paging parameter is specified, the first commit in the returned list of each page is the earliest.
+        /// 
         /// **Signature verification object**
+        /// 
         /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
         /// | Name | Type | Description |
         /// | ---- | ---- | ----------- |
         /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
         /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
         /// | `signature` | `string` | The signature that was extracted from the commit. |
         /// | `payload` | `string` | The value that was signed. |
+        /// 
         /// These are the possible values for `reason` in the `verification` object:
+        /// 
         /// | Value | Description |
         /// | ----- | ----------- |
         /// | `expired_key` | The key that made the signature is expired. |
@@ -6492,8 +6677,11 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// Delete a file
         ///
         /// Deletes a file in a repository.
+        /// 
         /// You can provide an additional `committer` parameter, which is an object containing information about the committer. Or, you can provide an `author` parameter, which is an object containing information about the author.
+        /// 
         /// The `author` section is optional and is filled in with the `committer` information if omitted. If the `committer` information is omitted, the authenticated user's information is used.
+        /// 
         /// You must provide values for both `name` and `email`, whether you choose to use `author` or `committer`. Otherwise, you'll receive a `422` status code.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
@@ -6548,9 +6736,12 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         /// Delete a deployment
         ///
         /// To ensure there can always be an active deployment, you can only delete an _inactive_ deployment. Anyone with `repo` or `repo_deployment` scopes can delete an inactive deployment.
+        /// 
         /// To set a deployment as inactive, you must:
+        /// 
         /// *   Create a new deployment that is active so that the system has a record of the current state, then delete the previously active deployment.
         /// *   Mark the active deployment as inactive by adding any non-successful deployment status.
+        /// 
         /// For more information, see "[Create a deployment](https://docs.github.com/rest/reference/repos/#create-a-deployment)" and "[Create a deployment status](https://docs.github.com/rest/reference/repos#create-a-deployment-status)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deployment)
@@ -6618,6 +6809,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get all environments
         ///
         /// Get all environments for a repository.
+        /// 
         /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-environments)
@@ -6730,6 +6922,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         /// Get a blob
         ///
         /// The `content` in the response will always be Base64 encoded.
+        /// 
         /// _Note_: This API supports blobs up to 100 megabytes in size.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-blob)
@@ -6764,15 +6957,20 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         /// Get a commit
         ///
         /// Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+        /// 
         /// **Signature verification object**
+        /// 
         /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
         /// | Name | Type | Description |
         /// | ---- | ---- | ----------- |
         /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
         /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
         /// | `signature` | `string` | The signature that was extracted from the commit. |
         /// | `payload` | `string` | The value that was signed. |
+        /// 
         /// These are the possible values for `reason` in the `verification` object:
+        /// 
         /// | Value | Description |
         /// | ----- | ----------- |
         /// | `expired_key` | The key that made the signature is expired. |
@@ -6843,6 +7041,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         /// Get a reference
         ///
         /// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
+        /// 
         /// **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-reference)
@@ -6908,14 +7107,18 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         /// Get a tag
         ///
         /// **Signature verification object**
+        /// 
         /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
         /// | Name | Type | Description |
         /// | ---- | ---- | ----------- |
         /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
         /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
         /// | `signature` | `string` | The signature that was extracted from the commit. |
         /// | `payload` | `string` | The value that was signed. |
+        /// 
         /// These are the possible values for `reason` in the `verification` object:
+        /// 
         /// | Value | Description |
         /// | ----- | ----------- |
         /// | `expired_key` | The key that made the signature is expired. |
@@ -6964,6 +7167,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         /// Get a tree
         ///
         /// Returns a single tree using the SHA1 value for that tree.
+        /// 
         /// If `truncated` is `true` in the response then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use the non-recursive method of fetching trees, and fetch one sub-tree at a time.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
@@ -7025,6 +7229,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Get a webhook configuration for a repository
         ///
         /// Returns the webhook configuration for a repository. To get more information about the webhook, including the `active` state and `events`, use "[Get a repository webhook](/rest/reference/orgs#get-a-repository-webhook)."
+        /// 
         /// Access tokens must have the `read:repo_hook` or `repo` scope, and GitHub Apps must have the `repository_hooks:read` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
@@ -7118,24 +7323,35 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get an import status
         ///
         /// View the progress of an import.
+        /// 
         /// **Import status**
+        /// 
         /// This section includes details about the possible values of the `status` field of the Import Progress response.
+        /// 
         /// An import that does not have errors will progress through these steps:
+        /// 
         /// *   `detecting` - the "detection" step of the import is in progress because the request did not include a `vcs` parameter. The import is identifying the type of source control present at the URL.
         /// *   `importing` - the "raw" step of the import is in progress. This is where commit data is fetched from the original repository. The import progress response will include `commit_count` (the total number of raw commits that will be imported) and `percent` (0 - 100, the current progress through the import).
         /// *   `mapping` - the "rewrite" step of the import is in progress. This is where SVN branches are converted to Git branches, and where author updates are applied. The import progress response does not include progress information.
         /// *   `pushing` - the "push" step of the import is in progress. This is where the importer updates the repository on GitHub. The import progress response will include `push_percent`, which is the percent value reported by `git push` when it is "Writing objects".
         /// *   `complete` - the import is complete, and the repository is ready on GitHub.
+        /// 
         /// If there are problems, you will see one of these in the `status` field:
+        /// 
         /// *   `auth_failed` - the import requires authentication in order to connect to the original repository. To update authentication for the import, please see the [Update an import](https://docs.github.com/rest/reference/migrations#update-an-import) section.
         /// *   `error` - the import encountered an error. The import progress response will include the `failed_step` and an error message. Contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api) for more information.
         /// *   `detection_needs_auth` - the importer requires authentication for the originating repository to continue detection. To update authentication for the import, please see the [Update an import](https://docs.github.com/rest/reference/migrations#update-an-import) section.
         /// *   `detection_found_nothing` - the importer didn't recognize any source control at the URL. To resolve, [Cancel the import](https://docs.github.com/rest/reference/migrations#cancel-an-import) and [retry](https://docs.github.com/rest/reference/migrations#start-an-import) with the correct URL.
         /// *   `detection_found_multiple` - the importer found several projects or repositories at the provided URL. When this is the case, the Import Progress response will also include a `project_choices` field with the possible project choices as values. To update project choice, please see the [Update an import](https://docs.github.com/rest/reference/migrations#update-an-import) section.
+        /// 
         /// **The project_choices field**
+        /// 
         /// When multiple projects are found at the provided URL, the response hash will include a `project_choices` field, the value of which is an array of hashes each representing a project choice. The exact key/value pairs of the project hashes will differ depending on the version control type.
+        /// 
         /// **Git LFS related fields**
+        /// 
         /// This section includes details about Git LFS related fields that may be present in the Import Progress response.
+        /// 
         /// *   `use_lfs` - describes whether the import has been opted in or out of using Git LFS. The value can be `opt_in`, `opt_out`, or `undecided` if no action has been taken.
         /// *   `has_large_files` - the boolean value describing whether files larger than 100MB were found during the `importing` step.
         /// *   `large_files_size` - the total size in gigabytes of files larger than 100MB found in the originating repository.
@@ -7221,6 +7437,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get a repository installation for the authenticated app
         ///
         /// Enables an authenticated GitHub App to find the repository's installation information. The installation's account type will be either an organization or a user account, depending which account the repository belongs to.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app)
@@ -7366,6 +7583,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
         /// Delete an issue comment reaction
         ///
         /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`.
+        /// 
         /// Delete a reaction to an [issue comment](https://docs.github.com/rest/reference/issues#comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction)
@@ -7423,6 +7641,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// returns a `404 Not Found` status. If the issue was deleted from a repository where the authenticated user has read
         /// access, the API returns a `410 Gone` status. To receive webhook events for transferred and deleted issues, subscribe
         /// to the [`issues`](https://docs.github.com/webhooks/event-payloads/#issues) webhook.
+        /// 
         /// **Note**: GitHub's REST API v3 considers every pull request an issue, but not every issue is a pull request. For this
         /// reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
         /// the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
@@ -7557,6 +7776,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
         /// Delete an issue reaction
         ///
         /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/issues/:issue_number/reactions/:reaction_id`.
+        /// 
         /// Delete a reaction to an [issue](https://docs.github.com/rest/reference/issues/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction)
@@ -7709,6 +7929,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get the license for a repository
         ///
         /// This method returns the contents of the repository's license file, if one is detected.
+        /// 
         /// Similar to [Get repository content](https://docs.github.com/rest/reference/repos#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository)
@@ -7894,7 +8115,9 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         /// Get a DNS health check for GitHub Pages
         ///
         /// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages.
+        /// 
         /// The first request to this endpoint returns a `202 Accepted` status and starts an asynchronous background task to get the results for the domain. After the background task completes, subsequent requests to this endpoint return a `200 OK` status with the health check results in the response.
+        /// 
         /// Users must have admin or owner permissions. GitHub Apps must have the `pages:write` and `administration:write` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages)
@@ -7997,6 +8220,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID.Reactions 
         /// Delete a pull request comment reaction
         ///
         /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.`
+        /// 
         /// Delete a reaction to a [pull request review comment](https://docs.github.com/rest/reference/pulls#review-comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-pull-request-comment-reaction)
@@ -8018,13 +8242,19 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         /// Get a pull request
         ///
         /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// Lists details of a pull request by providing its number.
+        /// 
         /// When you get, [create](https://docs.github.com/rest/reference/pulls/#create-a-pull-request), or [edit](https://docs.github.com/rest/reference/pulls#update-a-pull-request) a pull request, GitHub creates a merge commit to test whether the pull request can be automatically merged into the base branch. This test commit is not added to the base branch or the head branch. You can review the status of the test commit using the `mergeable` key. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+        /// 
         /// The value of the `mergeable` attribute can be `true`, `false`, or `null`. If the value is `null`, then GitHub has started a background job to compute the mergeability. After giving the job time to complete, resubmit the request. When the job finishes, you will see a non-`null` value for the `mergeable` attribute in the response. If `mergeable` is `true`, then `merge_commit_sha` will be the SHA of the _test_ merge commit.
+        /// 
         /// The value of the `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request, the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the `merge_commit_sha` attribute changes depending on how you merged the pull request:
+        /// 
         /// *   If merged as a [merge commit](https://help.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.
         /// *   If merged via a [squash](https://help.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.
         /// *   If [rebased](https://help.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.
+        /// 
         /// Pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-pull-request)
@@ -8259,6 +8489,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get a repository README
         ///
         /// Gets the preferred README for a repository.
+        /// 
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-readme)
@@ -8280,6 +8511,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         /// Get a repository README for a directory
         ///
         /// Gets the README from a repository directory.
+        /// 
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
@@ -8365,6 +8597,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// Get the latest release
         ///
         /// View the latest published full release for the repository.
+        /// 
         /// The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-latest-release)
@@ -8496,6 +8729,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         /// Get a secret scanning alert
         ///
         /// Gets a single secret scanning alert detected in a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// 
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert)
@@ -8580,6 +8814,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// Get the weekly commit count
         ///
         /// Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined, including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can subtract `owner` from `all`.
+        /// 
         /// The array order is oldest week (index 0) to most recent week.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count)
@@ -9178,14 +9413,20 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         /// List SCIM provisioned identities for an enterprise
         ///
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
+        /// 
         /// Retrieves a paginated list of all provisioned enterprise members, including pending invitations.
+        /// 
         /// When a user with a SAML-provisioned external identity leaves (or is removed from) an enterprise, the account's metadata is immediately removed. However, the returned list of user accounts might not always match the organization or enterprise member list you see on GitHub. This can happen in certain cases where an external identity associated with an organization will not match an organization member:
         ///   - When a user with a SCIM-provisioned external identity is removed from an enterprise, the account's metadata is preserved to allow the user to re-join the organization in the future.
         ///   - When inviting a user to join an organization, you can expect to see their external identity in the results before they accept the invitation, or if the invitation is cancelled (or never accepted).
         ///   - When a user is invited over SCIM, an external identity is created that matches with the invitee's email address. However, this identity is only linked to a user account when the user accepts the invitation by going through SAML SSO.
+        /// 
         /// The returned list of external identities can include an entry for a `null` user. These are unlinked SAML identities that are created when a user goes through the following Single Sign-On (SSO) process but does not sign in to their GitHub account after completing SSO:
+        /// 
         /// 1. The user is granted access by the IdP and is not a member of the GitHub enterprise.
+        /// 
         /// 1. The user attempts to access the GitHub enterprise and initiates the SAML SSO process, and is not currently signed in to their GitHub account.
+        /// 
         /// 1. After successfully authenticating with the SAML SSO IdP, the `null` external identity entry is created and the user is prompted to sign in to their GitHub account:
         ///    - If the user signs in, their GitHub account is linked to this entry.
         ///    - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub enterprise, and the external identity `null` entry remains in place.
@@ -9302,12 +9543,19 @@ extension Paths.Search {
         /// Search code
         ///
         /// Searches for query terms inside of a file. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for code, you can get text match metadata for the file **content** and file **path** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to find the definition of the `addClass` function inside [jQuery](https://github.com/jquery/jquery) repository, your query would look something like this:
+        /// 
         /// `q=addClass+in:file+language:js+repo:jquery/jquery`
+        /// 
         /// This query searches for the keyword `addClass` within a file's contents. The query limits the search to files where the language is JavaScript in the `jquery/jquery` repository.
+        /// 
         /// #### Considerations for code search
+        /// 
         /// Due to the complexity of searching code, there are a few restrictions on how searches are performed:
+        /// 
         /// *   Only the _default branch_ is considered. In most cases, this will be the `master` branch.
         /// *   Only files smaller than 384 KB are searchable.
         /// *   You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing
@@ -9345,9 +9593,12 @@ extension Paths.Search {
         /// Search commits
         ///
         /// Find commits via various criteria on the default branch (usually `master`). This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for commits, you can get text match metadata for the **message** field when you provide the `text-match` media type. For more details about how to receive highlighted search results, see [Text match
         /// metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to find commits related to CSS in the [octocat/Spoon-Knife](https://github.com/octocat/Spoon-Knife) repository. Your query would look something like this:
+        /// 
         /// `q=repo:octocat/Spoon-Knife+css`
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-commits)
@@ -9382,11 +9633,16 @@ extension Paths.Search {
         /// Search issues and pull requests
         ///
         /// Find issues by state and keyword. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for issues, you can get text match metadata for the issue **title**, issue **body**, and issue **comment body** fields when you pass the `text-match` media type. For more details about how to receive highlighted
         /// search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to find the oldest unresolved Python bugs on Windows. Your query might look something like this.
+        /// 
         /// `q=windows+label:bug+language:python+state:open&sort=created&order=asc`
+        /// 
         /// This query searches for the keyword `windows`, within any open issue that is labeled as `bug`. The search runs across repositories whose primary language is Python. The results are sorted by creation date in ascending order, which means the oldest issues appear first in the search results.
+        /// 
         /// **Note:** For [user-to-server](https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests) GitHub App requests, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-issues-and-pull-requests)
@@ -9421,9 +9677,13 @@ extension Paths.Search {
         /// Search labels
         ///
         /// Find labels in a repository with names or descriptions that match search keywords. Returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for labels, you can get text match metadata for the label **name** and **description** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to find labels in the `linguist` repository that match `bug`, `defect`, or `enhancement`. Your query might look like this:
+        /// 
         /// `q=bug+defect+enhancement&repository_id=64778136`
+        /// 
         /// The labels that best match the query appear first in the search results.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-labels)
@@ -9458,9 +9718,13 @@ extension Paths.Search {
         /// Search repositories
         ///
         /// Find repositories via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for repositories, you can get text match metadata for the **name** and **description** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to search for popular Tetris repositories written in assembly code, your query might look like this:
+        /// 
         /// `q=tetris+language:assembly&sort=stars&order=desc`
+        /// 
         /// This query searches for repositories with the word `tetris` in the name, the description, or the README. The results are limited to repositories where the primary language is assembly. The results are sorted by stars in descending order, so that the most popular repositories appear first in the search results.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-repositories)
@@ -9495,9 +9759,13 @@ extension Paths.Search {
         /// Search topics
         ///
         /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://help.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
+        /// 
         /// When searching for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you want to search for topics related to Ruby that are featured on https://github.com/topics. Your query might look like this:
+        /// 
         /// `q=ruby+is:featured`
+        /// 
         /// This query searches for topics with the keyword `ruby` and limits the results to find only topics that are featured. The topics that are the best match for the query appear first in the search results.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-topics)
@@ -9532,9 +9800,13 @@ extension Paths.Search {
         /// Search users
         ///
         /// Find users via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
+        /// 
         /// When searching for users, you can get text match metadata for the issue **login**, **email**, and **name** fields when you pass the `text-match` media type. For more details about highlighting search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata). For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+        /// 
         /// For example, if you're looking for a list of popular users, you might try this query:
+        /// 
         /// `q=tom+repos:%3E42+followers:%3E1000`
+        /// 
         /// This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-users)
@@ -9590,7 +9862,9 @@ extension Paths.Teams {
         /// Delete a team (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/reference/teams#delete-a-team) endpoint.
+        /// 
         /// To delete a team, the authenticated user must be an organization owner or team maintainer.
+        /// 
         /// If you are an organization owner, deleting a parent team will delete all of its child teams as well.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#delete-a-team-legacy)
@@ -9626,6 +9900,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// Get a discussion (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/reference/teams#get-a-discussion) endpoint.
+        /// 
         /// Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
@@ -9637,6 +9912,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// Delete a discussion (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/reference/teams#delete-a-discussion) endpoint.
+        /// 
         /// Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy)
@@ -9672,6 +9948,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// Get a discussion comment (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/reference/teams#get-a-discussion-comment) endpoint.
+        /// 
         /// Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy)
@@ -9683,6 +9960,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// Delete a discussion comment (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment) endpoint.
+        /// 
         /// Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy)
@@ -9757,7 +10035,9 @@ extension Paths.Teams.WithTeamID.Members {
         /// Get team member (Legacy)
         ///
         /// The "Get team member" endpoint (described below) is deprecated.
+        /// 
         /// We recommend using the [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.
+        /// 
         /// To list members in a team, the team must be visible to the authenticated user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-member-legacy)
@@ -9769,9 +10049,13 @@ extension Paths.Teams.WithTeamID.Members {
         /// Remove team member (Legacy)
         ///
         /// The "Remove team member" endpoint (described below) is deprecated.
+        /// 
         /// We recommend using the [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
+        /// 
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// To remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team.
+        /// 
         /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-member-legacy)
@@ -9805,10 +10089,14 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// Get team membership for a user (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint.
+        /// 
         /// Team members will include the members of child teams.
+        /// 
         /// To get a user's membership with a team, the team must be visible to the authenticated user.
+        /// 
         /// **Note:**
         /// The response contains the `state` of the membership and the member's `role`.
+        /// 
         /// The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
@@ -9820,8 +10108,11 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// Remove team membership for a user (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
+        /// 
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
+        /// 
         /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy)
@@ -9857,6 +10148,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// Check team permissions for a project (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project) endpoint.
+        /// 
         /// Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
@@ -9868,6 +10160,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// Remove a project from a team (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team) endpoint.
+        /// 
         /// Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. **Note:** This endpoint removes the project from the team, but does not delete it.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy)
@@ -9914,7 +10207,9 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// Check team permissions for a repository (Legacy)
         ///
         /// **Note**: Repositories inherited through a parent team will also be checked.
+        /// 
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a repository](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-repository) endpoint.
+        /// 
         /// You can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
@@ -9926,6 +10221,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// Remove a repository from a team (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a repository from a team](https://docs.github.com/rest/reference/teams#remove-a-repository-from-a-team) endpoint.
+        /// 
         /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. NOTE: This does not delete the repository, it just removes it from the team.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy)
@@ -9959,7 +10255,9 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// List IdP groups for a team (Legacy)
         ///
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List IdP groups for a team`](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team) endpoint.
+        /// 
         /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
         /// List IdP groups connected to a team on GitHub.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
@@ -10046,6 +10344,7 @@ extension Paths.User {
         /// List codespaces for the authenticated user
         ///
         /// Lists the authenticated user's codespaces.
+        /// 
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
@@ -10218,6 +10517,7 @@ extension Paths.User.Codespaces {
         /// Get a codespace for the authenticated user
         ///
         /// Gets information about a user's codespace.
+        /// 
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
@@ -10239,6 +10539,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         /// List machine types for a codespace
         ///
         /// List the machine types a codespace can transition to use.
+        /// 
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace)
@@ -10436,8 +10737,11 @@ extension Paths.User {
         /// List app installations accessible to the user access token
         ///
         /// Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
+        /// 
         /// You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+        /// 
         /// The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
+        /// 
         /// You can find the permissions for the installation under the `permissions` key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
@@ -10485,8 +10789,11 @@ extension Paths.User.Installations.WithInstallationID {
         /// List repositories accessible to the user access token
         ///
         /// List repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access for an installation.
+        /// 
         /// The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
+        /// 
         /// You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+        /// 
         /// The access the user has to each repository is included in the hash under the `permissions` key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
@@ -10525,6 +10832,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         /// Remove a repository from an app installation
         ///
         /// Remove a single repository from an installation. The authenticated user must have admin access to the repository.
+        /// 
         /// You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation)
@@ -10711,10 +11019,12 @@ extension Paths.User.Migrations {
         /// Get a user migration status
         ///
         /// Fetches a single user migration. The response includes the `state` of the migration, which can be one of the following values:
+        /// 
         /// *   `pending` - the migration hasn't started yet.
         /// *   `exporting` - the migration is in progress.
         /// *   `exported` - the migration finished successfully.
         /// *   `failed` - the migration failed.
+        /// 
         /// Once the migration has been `exported` you can [download the migration archive](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
@@ -10736,6 +11046,7 @@ extension Paths.User.Migrations.WithMigrationID {
         /// Download a user migration archive
         ///
         /// Fetches the URL to download the migration archive as a `tar.gz` file. Depending on the resources your repository uses, the migration archive can contain JSON files with data for these objects:
+        /// 
         /// *   attachments
         /// *   bases
         /// *   commit\_comments
@@ -10753,6 +11064,7 @@ extension Paths.User.Migrations.WithMigrationID {
         /// *   review\_comments
         /// *   schema
         /// *   users
+        /// 
         /// The archive will also contain an `attachments` directory that includes all attachment files uploaded to GitHub.com and a `repositories` directory that contains the repository's Git data.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive)
@@ -10875,6 +11187,7 @@ extension Paths.User.Packages.WithPackageType {
         /// Get a package for the authenticated user
         ///
         /// Gets a specific package for a package owned by the authenticated user.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -10886,6 +11199,7 @@ extension Paths.User.Packages.WithPackageType {
         /// Delete a package for the authenticated user
         ///
         /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:delete` scopes.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -10934,6 +11248,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         /// Get a package version for the authenticated user
         ///
         /// Gets a specific package version for a package owned by the authenticated user.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -10945,6 +11260,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         /// Delete a package version for the authenticated user
         ///
         /// Deletes a specific package version for a package owned by the authenticated user.  If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must have admin permissions in the organization and authenticate using an access token with the `packages:read` and `packages:delete` scopes.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -11271,7 +11587,9 @@ extension Paths.Users.WithUsername {
         /// Get contextual information for a user
         ///
         /// Provides hovercard information when authenticated through basic auth or OAuth with the `repo` scope. You can find out more about someone in relation to their pull requests, issues, repositories, and organizations.
+        /// 
         /// The `subject_type` and `subject_id` parameters provide context for the person's hovercard, which returns more information than without the parameters. For example, if you wanted to find out more about `octocat` who owns the `Spoon-Knife` repository via cURL, it would look like this:
+        /// 
         /// ```shell
         ///  curl -u username:token
         ///   https://api.github.com/users/octocat/hovercard?subject_type=repository&subject_id=1300192
@@ -11296,6 +11614,7 @@ extension Paths.Users.WithUsername {
         /// Get a user installation for the authenticated app
         ///
         /// Enables an authenticated GitHub App to find the user’s installation information.
+        /// 
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app)
@@ -11367,6 +11686,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         /// Get a package for a user
         ///
         /// Gets a specific package metadata for a public package owned by a user.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -11378,6 +11698,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         /// Delete a package for a user
         ///
         /// Deletes an entire package for a user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:delete` scopes. In addition:
         /// - If `package_type` is not `container`, your token must also include the `repo` scope.
         /// - If `package_type` is `container`, you must also have admin permissions to the container you want to delete.
@@ -11427,6 +11748,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         /// Get a package version for a user
         ///
         /// Gets a specific package version for a public package owned by a specified user.
+        /// 
         /// At this time, to use this endpoint, you must authenticate using an access token with the `packages:read` scope.
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
@@ -11438,6 +11760,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         /// Delete package version for a user
         ///
         /// Deletes a specific package version for a user. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
+        /// 
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:delete` scopes. In addition:
         /// - If `package_type` is not `container`, your token must also include the `repo` scope.
         /// - If `package_type` is `container`, you must also have admin permissions to the container you want to delete.
@@ -11548,7 +11871,9 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Get GitHub Actions billing for a user
         ///
         /// Gets the summary of the free and paid GitHub Actions minutes used.
+        /// 
         /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+        /// 
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user)
@@ -11570,7 +11895,9 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Get GitHub Packages billing for a user
         ///
         /// Gets the free and paid storage used for GitHub Packages in gigabytes.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user)
@@ -11592,7 +11919,9 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Get shared storage billing for a user
         ///
         /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
+        /// 
         /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+        /// 
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user)
