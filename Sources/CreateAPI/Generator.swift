@@ -203,6 +203,10 @@ extension Generator {
     // MARK: Object
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String {
+        if let type = try? getPrimitiveType(for: JSONSchema.object(info, details)), type != "Void" {
+            return templates.typealias(name: name, type: TypeName(processedRawValue: type))
+        }
+        
         var contents: [String] = []
         let context = context.adding(name)
         let properties = makeProperties(for: details, context: context)
