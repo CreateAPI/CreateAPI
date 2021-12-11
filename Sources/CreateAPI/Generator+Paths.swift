@@ -125,18 +125,24 @@ extension Generator {
         }
         
         var header = templates.fileHeader
-        
-        #warning("TODO: replace with Get")
-        header += "\nimport APIClient"
-        if isHTTPHeadersDependencyNeeded {
-            header += "\nimport HTTPHeaders"
+        for value in makeImports() {
+            header += "\nimport \(value)"
         }
+        
         header += "\n\n"
         header += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
         
         stopMeasuring("generating paths (\(spec.paths.count))")
         
         return (header + "\n\n" + output).indent(using: options)
+    }
+    
+    private func makeImports() -> [String] {
+        var imports = options.paths.imports
+        if options.isRemovingUnneededImported && !isHTTPHeadersDependencyNeeded {
+            imports.remove("APIClient")
+        }
+        return imports.sorted()
     }
     
     // TODO: Add remaining methods
@@ -357,8 +363,6 @@ extension Generator {
     // TODO: Add support for enums
     // TODO: Add an option to customize whether to add headers and add tests
     // TODO: Add an option to not include HTTPHeaders in imports
-    // TODO: explode?
-    // TODO: Add required, and other available info
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard let headers = response.responseValue?.headers, !headers.isEmpty else {
             return nil

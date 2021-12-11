@@ -5,6 +5,7 @@
 // TODO: Add an option to add spacing between properties with comments
 final class GenerateOptions {
     var access: String
+    var isRemovingUnneededImported: Bool
     var paths: Paths
     var schemes: SchemesOptions
     var isAddingDeprecations: Bool
@@ -61,10 +62,12 @@ final class GenerateOptions {
     struct Paths {
         var namespace: String
         var isAddingOperationIds: Bool
+        var imports: Set<String>
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
             self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
+            self.imports = Set(paths?.imports ?? ["APIClient", "HTTPHeaders"])
         }
     }
     
@@ -99,6 +102,8 @@ final class GenerateOptions {
 
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
+#warning("TODO: replace with Get")
+        self.isRemovingUnneededImported = options.isRemovingUnneededImported ?? true
         self.paths = Paths(options.paths)
         self.isAddingDeprecations = options.isAddingDeprecations ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
@@ -119,6 +124,7 @@ final class GenerateOptions {
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
+    var isRemovingUnneededImported: Bool?
     var paths: Paths?
     var isAddingDeprecations: Bool?
     var isGeneratingEnums: Bool?
@@ -154,6 +160,7 @@ final class GenerateOptionsScheme: Decodable {
     struct Paths: Decodable {
         var namespace: String?
         var isAddingOperationIds: Bool?
+        var imports: [String]?
     }
     
     struct SchemesOptions: Decodable {

@@ -39,6 +39,28 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-default")
     }
     
+    func testPestoreAddCustomImport() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            "--input", pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-custom-imports",
+            "--config", config("""
+            {
+                "paths": {
+                    "imports": ["APIClient", "HTTPHeaders", "CoreData"]
+                }
+            }
+            """)
+        ])
+
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-custom-imports")
+    }
+    
     func testPestoreAddOperationId() throws {
         // GIVEN
         let command = try Generate.parse([
