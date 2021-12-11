@@ -18,6 +18,7 @@ final class Generator {
     var isAnyJSONUsed = false
     var isHTTPHeadersDependencyNeeded = false
     var isRequestOperationIdExtensionNeeded = false
+    var isEmptyObjectNeeded = false
     var needsEncodable = Set<TypeName>()
     let lock = NSLock()
     
@@ -165,7 +166,11 @@ extension Generator {
         }
         
         switch schema {
-        case .object(let info, let details): return try makeObject(info: info, details: details)
+        case .object(let info, let details):
+            if let property = try? makeProperty(schema: schema) {
+                return property
+            }
+            return try makeObject(info: info, details: details)
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
         case .all, .one, .any: return try makeSomeOf()
@@ -400,10 +405,9 @@ extension Generator {
                 additional = additional ?? .a(true)
             }
             if details.properties.isEmpty, let additional = details.additionalProperties {
-                // TODO: handle `false`
                 switch additional {
-                case .a:
-                    return "[String: AnyJSON]"
+                case .a(let allowsAdditionalProperties):
+                    return allowsAdditionalProperties ? "[String: AnyJSON]" : "Void"
                 case .b(let schema):
                     if let type = try? getPrimitiveType(for: schema) {
                         return "[String: \(type)]"
@@ -473,8 +477,12 @@ extension Generator {
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
-        let properties = try makeProperties(for: schemas, context: context)
+        var properties = try makeProperties(for: schemas, context: context)
         var contents: [String] = []
+        // `anyOf` where one type is off just means optional response
+        if let index = properties.firstIndex(where: { $0.type == "Void" }) {
+            properties.remove(at: index)
+        }
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         contents.append(templates.initFromDecoderAnyOf(properties: properties))

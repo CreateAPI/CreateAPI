@@ -227,15 +227,19 @@ extension Generator {
             output += templates.deprecated
         }
         var parameters: [String] = []
+        var isBodyNeeded = false
         if hasBody(method) {
             let request = try makeRequestBodyType(for: operation, method: method, context: context)
-            if let value = request.nested {
-                nested.append(value)
+            if request.type != "Void" {
+                isBodyNeeded = true
+                if let value = request.nested {
+                    nested.append(value)
+                }
+                parameters.append("_ body: \(request.type)")
             }
-            parameters.append("_ body: \(request.type)")
         }
         var call: [String] = ["path"]
-        if hasBody(method) {
+        if isBodyNeeded {
             call.append("body: body")
         }
         // TODO: Align this and contents based on the line count (and add option)
@@ -244,6 +248,7 @@ extension Generator {
             setRequestOperationIdExtensionNeeded()
             contents += ".id(\"\(operationId)\")"
         }
+        // TODO: use properties instead of function when there are not arguments? (and add an option)
         output += templates.method(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
         if let headers = responseHeaders {
             output += "\n\n"

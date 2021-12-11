@@ -160,8 +160,8 @@ extension Paths.AppManifests.WithCode {
         /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`, `pem` (private key), and `webhook_secret`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest)
-        public func post(_ body: [String: AnyJSON]) -> Request<PostResponse> {
-            .post(path, body: body)
+        public func post() -> Request<PostResponse> {
+            .post(path)
         }
 
         public struct PostResponse: Decodable {
@@ -4791,12 +4791,10 @@ extension Paths.Orgs.WithOrg {
             ///
             /// Interaction limit settings.
             public var interactionLimitResponse: InteractionLimitResponse?
-            public var object: [String: AnyJSON]?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
-                self.object = try? container.decode([String: AnyJSON].self)
             }
         }
 
@@ -7156,7 +7154,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
         /// Move a project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-card)
-        public func post(_ body: PostRequest) -> Request<[String: AnyJSON]> {
+        public func post(_ body: PostRequest) -> Request<Void> {
             .post(path, body: body)
         }
 
@@ -7331,7 +7329,7 @@ extension Paths.Projects.Columns.WithColumnID {
         /// Move a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
-        public func post(_ body: PostRequest) -> Request<[String: AnyJSON]> {
+        public func post(_ body: PostRequest) -> Request<Void> {
             .post(path, body: body)
         }
 
@@ -8782,7 +8780,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret)
-        public func put(_ body: PutRequest) -> Request<[String: AnyJSON]> {
+        public func put(_ body: PutRequest) -> Request<Void> {
             .put(path, body: body)
         }
 
@@ -13747,12 +13745,10 @@ extension Paths.Repos.WithOwner.WithRepo {
             ///
             /// Interaction limit settings.
             public var interactionLimitResponse: InteractionLimitResponse?
-            public var object: [String: AnyJSON]?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
-                self.object = try? container.decode([String: AnyJSON].self)
             }
         }
 
@@ -20659,7 +20655,7 @@ extension Paths.User.Codespaces.Secrets {
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user)
-        public func put(_ body: PutRequest) -> Request<[String: AnyJSON]> {
+        public func put(_ body: PutRequest) -> Request<Void> {
             .put(path, body: body)
         }
 
@@ -21318,12 +21314,10 @@ extension Paths.User {
             ///
             /// Interaction limit settings.
             public var interactionLimitResponse: InteractionLimitResponse?
-            public var object: [String: AnyJSON]?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
-                self.object = try? container.decode([String: AnyJSON].self)
             }
         }
 
