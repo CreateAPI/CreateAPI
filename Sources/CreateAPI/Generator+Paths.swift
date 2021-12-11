@@ -362,15 +362,11 @@ extension Generator {
     }
     
     private func makeHeaders(for response: Response, method: String) throws -> String? {
-        guard options.paths.isAddingResponseHeaders else {
-            return nil
-        }
-        guard let headers = response.responseValue?.headers, !headers.isEmpty else {
+        guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
         }
         
-        var contents: [String] = []
-        for (key, value) in headers {
+        let contents: [String] = try headers.map { key, value in
             let header: OpenAPI.Header
             switch value {
             case .a(let reference):
@@ -385,13 +381,13 @@ extension Generator {
                     throw GeneratorError("HTTP header schema reference not supported")
                 case .b(let schema):
                     let property = try makeProperty(key: key, schema: schema, isRequired: true, in: Context(parents: []))
-                    contents.append(templates.header(for: property, header: header))
+                    return templates.header(for: property, header: header)
                 }
             case .b:
                 throw GeneratorError("Unsupported header")
             }
         }
-        
+
         guard !contents.isEmpty else {
             return nil
         }
