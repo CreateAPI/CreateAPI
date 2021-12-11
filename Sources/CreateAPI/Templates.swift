@@ -298,7 +298,7 @@ final class Templates {
                 output += "/// \(line)\n"
             }
         }
-        if header.deprecated {
+        if options.isAddingDeprecations, header.deprecated {
             output += deprecated + "\n"
         }
         output += """

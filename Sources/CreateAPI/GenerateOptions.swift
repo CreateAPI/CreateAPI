@@ -7,6 +7,7 @@ final class GenerateOptions {
     var access: String
     var paths: Paths
     var schemes: SchemesOptions
+    var isAddingDeprecations: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
     var isInliningPrimitiveTypes: Bool
@@ -99,6 +100,7 @@ final class GenerateOptions {
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
         self.paths = Paths(options.paths)
+        self.isAddingDeprecations = options.isAddingDeprecations ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
@@ -118,6 +120,7 @@ final class GenerateOptions {
 final class GenerateOptionsScheme: Decodable {
     var access: String?
     var paths: Paths?
+    var isAddingDeprecations: Bool?
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
     var isInliningPrimitiveTypes: Bool?
