@@ -167,7 +167,6 @@ extension Generator {
         ["put", "post", "patch"].contains(method)
     }
     
-    // TODO: Add `description` if non-empty
     // TODO: Inject offset as a parameter
     // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) -> String? {
@@ -220,6 +219,9 @@ extension Generator {
                 // I tried to use `seealso`, but Xcode doesn't render it
                 output += "/// [\(docs.description ?? "External Documentation")](\(docs.url.absoluteString))\n"
             }
+        }
+        if options.isAddingDeprecations, operation.deprecated {
+            output += templates.deprecated
         }
         var parameters: [String] = []
         if hasBody(method) {

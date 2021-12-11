@@ -294,7 +294,7 @@ final class Templates {
             }
         }
         if options.isAddingDeprecations, header.deprecated {
-            output += deprecated + "\n"
+            output += deprecated
         }
         output += """
         \(access)static let \(name) = HTTPHeader<\(property.type)>(field: \"\(property.key)\")
@@ -305,7 +305,7 @@ final class Templates {
     // MARK: Misc
     
     var deprecated: String {
-        #"@available(*, deprecated, message: "Deprecated")"#
+        #"@available(*, deprecated, message: "Deprecated")"# + "\n"
     }
     
     var requestOperationIdExtension: String {

@@ -353,6 +353,7 @@ extension Paths.Applications.Grants {
         /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<ApplicationGrant> {
             .get(path)
         }
@@ -363,6 +364,7 @@ extension Paths.Applications.Grants {
         /// Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for your user. Once deleted, the application has no access to your account and is no longer listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -530,6 +532,7 @@ extension Paths.Authorizations {
         /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<Authorization> {
             .get(path)
         }
@@ -539,6 +542,7 @@ extension Paths.Authorizations {
         /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4224,6 +4228,7 @@ extension Paths.Reactions {
         /// OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), when deleting a [team discussion](https://docs.github.com/rest/reference/teams#discussions) or [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9577,6 +9582,7 @@ extension Paths.Teams {
         /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/reference/teams#get-a-team-by-name) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#get-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamFull> {
             .get(path)
         }
@@ -9588,6 +9594,7 @@ extension Paths.Teams {
         /// If you are an organization owner, deleting a parent team will delete all of its child teams as well.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#delete-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9622,6 +9629,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
@@ -9632,6 +9640,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9666,6 +9675,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
@@ -9676,6 +9686,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9750,6 +9761,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// To list members in a team, the team must be visible to the authenticated user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-member-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -9763,6 +9775,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-member-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9799,6 +9812,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
@@ -9811,6 +9825,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9845,6 +9860,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamProject> {
             .get(path)
         }
@@ -9855,6 +9871,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. **Note:** This endpoint removes the project from the team, but does not delete it.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9901,6 +9918,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// You can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<TeamRepository> {
             .get(path)
         }
@@ -9911,6 +9929,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. NOTE: This does not delete the repository, it just removes it from the team.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9944,6 +9963,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// List IdP groups connected to a team on GitHub.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
+        @available(*, deprecated, message: "Deprecated")
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
