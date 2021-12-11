@@ -346,7 +346,7 @@ extension Generator {
     // TODO: Add an option to customize whether to add headers and add tests
     // TODO: Add an option to not include HTTPHeaders in imports
     // TODO: explode?
-    // TODO: Add description, deprecated, required, and other available info
+    // TODO: Add deprecated, required, and other available info
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard let headers = response.responseValue?.headers, !headers.isEmpty else {
             return nil
@@ -364,14 +364,13 @@ extension Generator {
             switch header.schemaOrContent {
             case .a(let schema):
                 switch schema.schema {
-                case .a(let reference):
+                case .a:
                     throw GeneratorError("HTTP header schema reference not supported")
                 case .b(let schema):
                     let property = try makeProperty(key: key, schema: schema, isRequired: true, in: Context(parents: []))
-                    contents.append(templates.header(for: property))
-                    // TODO: handle invalid values
+                    contents.append(templates.header(for: property, header: header))
                 }
-            case .b(let content):
+            case .b:
                 throw GeneratorError("Unsupported header")
             }
         }

@@ -276,7 +276,7 @@ final class Templates {
     }
     
     // MARK: Headers
-    
+
     func headers(name: String, contents: String) -> String {
         """
         \(access)enum \(name) {
@@ -285,14 +285,23 @@ final class Templates {
         """
     }
     
-    func header(for property: Property) -> String {
+    func header(for property: Property, header: OpenAPI.Header) -> String {
         var name = property.name.rawValue
         if (property.key.hasPrefix("x-") || property.key.hasPrefix("X-")) {
             name = PropertyName(String(property.key.dropFirst(2)), options: options).rawValue
         }
-        return """
+        var output = ""
+        if options.comments.isEnabled, options.comments.addDescription,
+           let description = header.description, !description.isEmpty {
+            let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
+            for line in description.split(separator: "\n") {
+                output += "/// \(line)\n"
+            }
+        }
+        output += """
         \(access)static let \(name) = HTTPHeader<\(property.type)>(field: \"\(property.key)\")
         """
+        return output
     }
     
     // MARK: Misc

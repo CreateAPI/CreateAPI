@@ -24,6 +24,7 @@ extension Paths {
         }
 
         public enum GetHeaders {
+            /// A link to the next page of responses
             public static let next = HTTPHeader<String>(field: "x-next")
         }
     }
