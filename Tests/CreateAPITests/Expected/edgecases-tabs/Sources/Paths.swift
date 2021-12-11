@@ -14,7 +14,7 @@ extension Paths {
 	}
 
 	public struct Pet {
-		// /pet
+		/// Path: `/pet`
 		public let path: String
 
 		/// Add a new pet to the store
@@ -35,7 +35,7 @@ extension Paths.Pet {
 	}
 
 	public struct FindByStatus {
-		// /pet/findByStatus
+		/// Path: `/pet/findByStatus`
 		public let path: String
 
 
@@ -48,7 +48,7 @@ extension Paths.Pet {
 	}
 
 	public struct FindByTags {
-		// /pet/findByTags
+		/// Path: `/pet/findByTags`
 		public let path: String
 
 
@@ -61,7 +61,7 @@ extension Paths.Pet {
 	}
 
 	public struct WithPetID {
-		// /pet/{petId}
+		/// Path: `/pet/{petId}`
 		public let path: String
 
 		/// Find pet by ID
@@ -82,7 +82,7 @@ extension Paths.Pet.WithPetID {
 	}
 
 	public struct UploadImage {
-		// /pet/{petId}/uploadImage
+		/// Path: `/pet/{petId}/uploadImage`
 		public let path: String
 
 
@@ -95,7 +95,7 @@ extension Paths {
 	}
 
 	public struct Store {
-		// /store
+		/// Path: `/store`
 		public let path: String
 	}
 }
@@ -106,7 +106,7 @@ extension Paths.Store {
 	}
 
 	public struct Inventory {
-		// /store/inventory
+		/// Path: `/store/inventory`
 		public let path: String
 
 
@@ -119,7 +119,7 @@ extension Paths.Store {
 	}
 
 	public struct Order {
-		// /store/order
+		/// Path: `/store/order`
 		public let path: String
 
 		/// Place an order for a pet
@@ -135,7 +135,7 @@ extension Paths.Store.Order {
 	}
 
 	public struct WithOrderID {
-		// /store/order/{order_id}
+		/// Path: `/store/order/{order_id}`
 		public let path: String
 
 		/// Find purchase order by ID
@@ -156,7 +156,7 @@ extension Paths {
 	}
 
 	public struct User {
-		// /user
+		/// Path: `/user`
 		public let path: String
 
 		/// Create user
@@ -172,7 +172,7 @@ extension Paths.User {
 	}
 
 	public struct CreateWithArray {
-		// /user/createWithArray
+		/// Path: `/user/createWithArray`
 		public let path: String
 
 		/// Creates list of users with given input array
@@ -188,7 +188,7 @@ extension Paths.User {
 	}
 
 	public struct CreateWithList {
-		// /user/createWithList
+		/// Path: `/user/createWithList`
 		public let path: String
 
 		/// Creates list of users with given input array
@@ -204,7 +204,7 @@ extension Paths.User {
 	}
 
 	public struct Login {
-		// /user/login
+		/// Path: `/user/login`
 		public let path: String
 
 
@@ -217,7 +217,7 @@ extension Paths.User {
 	}
 
 	public struct Logout {
-		// /user/logout
+		/// Path: `/user/logout`
 		public let path: String
 
 		/// Logs out current logged in user session
@@ -233,7 +233,7 @@ extension Paths.User {
 	}
 
 	public struct WithUsername {
-		// /user/{username}
+		/// Path: `/user/{username}`
 		public let path: String
 
 		/// Get user by user name
@@ -259,7 +259,7 @@ extension Paths {
 	}
 
 	public struct Fake {
-		// /fake
+		/// Path: `/fake`
 		public let path: String
 
 		/// To test enum parameters

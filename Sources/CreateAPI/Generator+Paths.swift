@@ -20,7 +20,6 @@ import GrammaticalNumber
 //    - deprecated
 //    - path-level parameters
 //    - common parameters in components (inline?)
-// TODO: Add root "/"
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
 // TODO: Add a link to external docs
@@ -82,7 +81,7 @@ extension Generator {
                 // TODO: refactor and add remaining niceness
                 var generatedType = """
                     \(access)struct \(type) {
-                        // \(subpath.rawValue)
+                        /// Path: `\(subpath.rawValue)`
                         \(access)let path: String\n
                 """
                 

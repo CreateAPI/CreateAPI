@@ -10,12 +10,25 @@ import HTTPHeaders
 public enum Paths {}
 
 extension Paths {
+    public static var root: Root {
+        Root(path: "/")
+    }
+
+    public struct Root {
+        /// Path: `/`
+        public let path: String
+
+
+    }
+}
+
+extension Paths {
     public static var app: App {
         App(path: "/app")
     }
 
     public struct App {
-        // /app
+        /// Path: `/app`
         public let path: String
 
         /// Get the authenticated app
@@ -31,7 +44,7 @@ extension Paths {
     }
 
     public struct AppManifests {
-        // /app-manifests
+        /// Path: `/app-manifests`
         public let path: String
     }
 }
@@ -42,7 +55,7 @@ extension Paths.AppManifests {
     }
 
     public struct WithCode {
-        // /app-manifests/{code}
+        /// Path: `/app-manifests/{code}`
         public let path: String
     }
 }
@@ -53,7 +66,7 @@ extension Paths.AppManifests.WithCode {
     }
 
     public struct Conversions {
-        // /app-manifests/{code}/conversions
+        /// Path: `/app-manifests/{code}/conversions`
         public let path: String
 
 
@@ -66,7 +79,7 @@ extension Paths.App {
     }
 
     public struct Hook {
-        // /app/hook
+        /// Path: `/app/hook`
         public let path: String
     }
 }
@@ -77,7 +90,7 @@ extension Paths.App.Hook {
     }
 
     public struct Config {
-        // /app/hook/config
+        /// Path: `/app/hook/config`
         public let path: String
 
         /// Get a webhook configuration for an app
@@ -93,7 +106,7 @@ extension Paths.App.Hook {
     }
 
     public struct Deliveries {
-        // /app/hook/deliveries
+        /// Path: `/app/hook/deliveries`
         public let path: String
 
 
@@ -106,7 +119,7 @@ extension Paths.App.Hook.Deliveries {
     }
 
     public struct WithDeliveryID {
-        // /app/hook/deliveries/{delivery_id}
+        /// Path: `/app/hook/deliveries/{delivery_id}`
         public let path: String
 
         /// Get a delivery for an app webhook
@@ -122,7 +135,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
     }
 
     public struct Attempts {
-        // /app/hook/deliveries/{delivery_id}/attempts
+        /// Path: `/app/hook/deliveries/{delivery_id}/attempts`
         public let path: String
 
 
@@ -135,7 +148,7 @@ extension Paths.App {
     }
 
     public struct Installations {
-        // /app/installations
+        /// Path: `/app/installations`
         public let path: String
 
 
@@ -148,7 +161,7 @@ extension Paths.App.Installations {
     }
 
     public struct WithInstallationID {
-        // /app/installations/{installation_id}
+        /// Path: `/app/installations/{installation_id}`
         public let path: String
 
         /// Get an installation for the authenticated app
@@ -169,7 +182,7 @@ extension Paths.App.Installations.WithInstallationID {
     }
 
     public struct AccessTokens {
-        // /app/installations/{installation_id}/access_tokens
+        /// Path: `/app/installations/{installation_id}/access_tokens`
         public let path: String
 
 
@@ -182,7 +195,7 @@ extension Paths.App.Installations.WithInstallationID {
     }
 
     public struct Suspended {
-        // /app/installations/{installation_id}/suspended
+        /// Path: `/app/installations/{installation_id}/suspended`
         public let path: String
 
         /// Unsuspend an app installation
@@ -198,7 +211,7 @@ extension Paths {
     }
 
     public struct Applications {
-        // /applications
+        /// Path: `/applications`
         public let path: String
     }
 }
@@ -209,7 +222,7 @@ extension Paths.Applications {
     }
 
     public struct Grants {
-        // /applications/grants
+        /// Path: `/applications/grants`
         public let path: String
 
 
@@ -222,7 +235,7 @@ extension Paths.Applications.Grants {
     }
 
     public struct WithGrantID {
-        // /applications/grants/{grant_id}
+        /// Path: `/applications/grants/{grant_id}`
         public let path: String
 
         /// Get a single grant
@@ -243,7 +256,7 @@ extension Paths.Applications {
     }
 
     public struct WithClientID {
-        // /applications/{client_id}
+        /// Path: `/applications/{client_id}`
         public let path: String
     }
 }
@@ -254,7 +267,7 @@ extension Paths.Applications.WithClientID {
     }
 
     public struct Grant {
-        // /applications/{client_id}/grant
+        /// Path: `/applications/{client_id}/grant`
         public let path: String
 
         /// Delete an app authorization
@@ -270,7 +283,7 @@ extension Paths.Applications.WithClientID {
     }
 
     public struct Token {
-        // /applications/{client_id}/token
+        /// Path: `/applications/{client_id}/token`
         public let path: String
 
         /// Delete an app token
@@ -286,7 +299,7 @@ extension Paths.Applications.WithClientID.Token {
     }
 
     public struct Scoped {
-        // /applications/{client_id}/token/scoped
+        /// Path: `/applications/{client_id}/token/scoped`
         public let path: String
 
 
@@ -299,7 +312,7 @@ extension Paths {
     }
 
     public struct Apps {
-        // /apps
+        /// Path: `/apps`
         public let path: String
     }
 }
@@ -310,7 +323,7 @@ extension Paths.Apps {
     }
 
     public struct WithAppSlug {
-        // /apps/{app_slug}
+        /// Path: `/apps/{app_slug}`
         public let path: String
 
         /// Get an app
@@ -326,7 +339,7 @@ extension Paths {
     }
 
     public struct Authorizations {
-        // /authorizations
+        /// Path: `/authorizations`
         public let path: String
 
 
@@ -339,7 +352,7 @@ extension Paths.Authorizations {
     }
 
     public struct Clients {
-        // /authorizations/clients
+        /// Path: `/authorizations/clients`
         public let path: String
     }
 }
@@ -350,7 +363,7 @@ extension Paths.Authorizations.Clients {
     }
 
     public struct WithClientID {
-        // /authorizations/clients/{client_id}
+        /// Path: `/authorizations/clients/{client_id}`
         public let path: String
 
 
@@ -363,7 +376,7 @@ extension Paths.Authorizations.Clients.WithClientID {
     }
 
     public struct WithFingerprint {
-        // /authorizations/clients/{client_id}/{fingerprint}
+        /// Path: `/authorizations/clients/{client_id}/{fingerprint}`
         public let path: String
 
 
@@ -376,7 +389,7 @@ extension Paths.Authorizations {
     }
 
     public struct WithAuthorizationID {
-        // /authorizations/{authorization_id}
+        /// Path: `/authorizations/{authorization_id}`
         public let path: String
 
         /// Get a single authorization
@@ -397,7 +410,7 @@ extension Paths {
     }
 
     public struct CodesOfConduct {
-        // /codes_of_conduct
+        /// Path: `/codes_of_conduct`
         public let path: String
 
 
@@ -410,7 +423,7 @@ extension Paths.CodesOfConduct {
     }
 
     public struct WithKey {
-        // /codes_of_conduct/{key}
+        /// Path: `/codes_of_conduct/{key}`
         public let path: String
 
         /// Get a code of conduct
@@ -426,7 +439,7 @@ extension Paths {
     }
 
     public struct Emojis {
-        // /emojis
+        /// Path: `/emojis`
         public let path: String
 
 
@@ -439,7 +452,7 @@ extension Paths {
     }
 
     public struct Enterprises {
-        // /enterprises
+        /// Path: `/enterprises`
         public let path: String
     }
 }
@@ -450,7 +463,7 @@ extension Paths.Enterprises {
     }
 
     public struct WithEnterprise {
-        // /enterprises/{enterprise}
+        /// Path: `/enterprises/{enterprise}`
         public let path: String
     }
 }
@@ -461,7 +474,7 @@ extension Paths.Enterprises.WithEnterprise {
     }
 
     public struct Actions {
-        // /enterprises/{enterprise}/actions
+        /// Path: `/enterprises/{enterprise}/actions`
         public let path: String
     }
 }
@@ -472,7 +485,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     }
 
     public struct Permissions {
-        // /enterprises/{enterprise}/actions/permissions
+        /// Path: `/enterprises/{enterprise}/actions/permissions`
         public let path: String
 
         /// Get GitHub Actions permissions for an enterprise
@@ -488,7 +501,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
     }
 
     public struct Organizations {
-        // /enterprises/{enterprise}/actions/permissions/organizations
+        /// Path: `/enterprises/{enterprise}/actions/permissions/organizations`
         public let path: String
 
 
@@ -501,7 +514,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
     }
 
     public struct WithOrgID {
-        // /enterprises/{enterprise}/actions/permissions/organizations/{org_id}
+        /// Path: `/enterprises/{enterprise}/actions/permissions/organizations/{org_id}`
         public let path: String
 
         /// Disable a selected organization for GitHub Actions in an enterprise
@@ -517,7 +530,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
     }
 
     public struct SelectedActions {
-        // /enterprises/{enterprise}/actions/permissions/selected-actions
+        /// Path: `/enterprises/{enterprise}/actions/permissions/selected-actions`
         public let path: String
 
         /// Get allowed actions for an enterprise
@@ -538,7 +551,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     }
 
     public struct RunnerGroups {
-        // /enterprises/{enterprise}/actions/runner-groups
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups`
         public let path: String
 
 
@@ -551,7 +564,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
     }
 
     public struct WithRunnerGroupID {
-        // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}`
         public let path: String
 
         /// Get a self-hosted runner group for an enterprise
@@ -572,7 +585,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     }
 
     public struct Organizations {
-        // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations`
         public let path: String
 
 
@@ -585,7 +598,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     }
 
     public struct WithOrgID {
-        // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}`
         public let path: String
 
         /// Remove organization access to a self-hosted runner group in an enterprise
@@ -601,7 +614,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     }
 
     public struct Runners {
-        // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners`
         public let path: String
 
 
@@ -614,7 +627,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
     }
 
     public struct WithRunnerID {
-        // /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}
+        /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
         public let path: String
 
         /// Remove a self-hosted runner from a group for an enterprise
@@ -630,7 +643,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
     }
 
     public struct Runners {
-        // /enterprises/{enterprise}/actions/runners
+        /// Path: `/enterprises/{enterprise}/actions/runners`
         public let path: String
 
 
@@ -643,7 +656,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     }
 
     public struct Downloads {
-        // /enterprises/{enterprise}/actions/runners/downloads
+        /// Path: `/enterprises/{enterprise}/actions/runners/downloads`
         public let path: String
 
 
@@ -656,7 +669,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     }
 
     public struct RegistrationToken {
-        // /enterprises/{enterprise}/actions/runners/registration-token
+        /// Path: `/enterprises/{enterprise}/actions/runners/registration-token`
         public let path: String
 
 
@@ -669,7 +682,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     }
 
     public struct RemoveToken {
-        // /enterprises/{enterprise}/actions/runners/remove-token
+        /// Path: `/enterprises/{enterprise}/actions/runners/remove-token`
         public let path: String
 
 
@@ -682,7 +695,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     }
 
     public struct WithRunnerID {
-        // /enterprises/{enterprise}/actions/runners/{runner_id}
+        /// Path: `/enterprises/{enterprise}/actions/runners/{runner_id}`
         public let path: String
 
         /// Get a self-hosted runner for an enterprise
@@ -703,7 +716,7 @@ extension Paths.Enterprises.WithEnterprise {
     }
 
     public struct AuditLog {
-        // /enterprises/{enterprise}/audit-log
+        /// Path: `/enterprises/{enterprise}/audit-log`
         public let path: String
 
 
@@ -716,7 +729,7 @@ extension Paths.Enterprises.WithEnterprise {
     }
 
     public struct Settings {
-        // /enterprises/{enterprise}/settings
+        /// Path: `/enterprises/{enterprise}/settings`
         public let path: String
     }
 }
@@ -727,7 +740,7 @@ extension Paths.Enterprises.WithEnterprise.Settings {
     }
 
     public struct Billing {
-        // /enterprises/{enterprise}/settings/billing
+        /// Path: `/enterprises/{enterprise}/settings/billing`
         public let path: String
     }
 }
@@ -738,7 +751,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     }
 
     public struct Actions {
-        // /enterprises/{enterprise}/settings/billing/actions
+        /// Path: `/enterprises/{enterprise}/settings/billing/actions`
         public let path: String
 
         /// Get GitHub Actions billing for an enterprise
@@ -754,7 +767,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     }
 
     public struct AdvancedSecurity {
-        // /enterprises/{enterprise}/settings/billing/advanced-security
+        /// Path: `/enterprises/{enterprise}/settings/billing/advanced-security`
         public let path: String
 
         /// Get GitHub Advanced Security active committers for an enterprise
@@ -770,7 +783,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     }
 
     public struct Packages {
-        // /enterprises/{enterprise}/settings/billing/packages
+        /// Path: `/enterprises/{enterprise}/settings/billing/packages`
         public let path: String
 
         /// Get GitHub Packages billing for an enterprise
@@ -786,7 +799,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
     }
 
     public struct SharedStorage {
-        // /enterprises/{enterprise}/settings/billing/shared-storage
+        /// Path: `/enterprises/{enterprise}/settings/billing/shared-storage`
         public let path: String
 
         /// Get shared storage billing for an enterprise
@@ -802,7 +815,7 @@ extension Paths {
     }
 
     public struct Events {
-        // /events
+        /// Path: `/events`
         public let path: String
 
 
@@ -815,7 +828,7 @@ extension Paths {
     }
 
     public struct Feeds {
-        // /feeds
+        /// Path: `/feeds`
         public let path: String
 
         /// Get feeds
@@ -831,7 +844,7 @@ extension Paths {
     }
 
     public struct Gists {
-        // /gists
+        /// Path: `/gists`
         public let path: String
 
 
@@ -844,7 +857,7 @@ extension Paths.Gists {
     }
 
     public struct Public {
-        // /gists/public
+        /// Path: `/gists/public`
         public let path: String
 
 
@@ -857,7 +870,7 @@ extension Paths.Gists {
     }
 
     public struct Starred {
-        // /gists/starred
+        /// Path: `/gists/starred`
         public let path: String
 
 
@@ -870,7 +883,7 @@ extension Paths.Gists {
     }
 
     public struct WithGistID {
-        // /gists/{gist_id}
+        /// Path: `/gists/{gist_id}`
         public let path: String
 
         /// Get a gist
@@ -891,7 +904,7 @@ extension Paths.Gists.WithGistID {
     }
 
     public struct Comments {
-        // /gists/{gist_id}/comments
+        /// Path: `/gists/{gist_id}/comments`
         public let path: String
 
 
@@ -904,7 +917,7 @@ extension Paths.Gists.WithGistID.Comments {
     }
 
     public struct WithCommentID {
-        // /gists/{gist_id}/comments/{comment_id}
+        /// Path: `/gists/{gist_id}/comments/{comment_id}`
         public let path: String
 
         /// Get a gist comment
@@ -925,7 +938,7 @@ extension Paths.Gists.WithGistID {
     }
 
     public struct Commits {
-        // /gists/{gist_id}/commits
+        /// Path: `/gists/{gist_id}/commits`
         public let path: String
 
 
@@ -938,7 +951,7 @@ extension Paths.Gists.WithGistID {
     }
 
     public struct Forks {
-        // /gists/{gist_id}/forks
+        /// Path: `/gists/{gist_id}/forks`
         public let path: String
 
 
@@ -951,7 +964,7 @@ extension Paths.Gists.WithGistID {
     }
 
     public struct Star {
-        // /gists/{gist_id}/star
+        /// Path: `/gists/{gist_id}/star`
         public let path: String
 
         /// Check if a gist is starred
@@ -972,7 +985,7 @@ extension Paths.Gists.WithGistID {
     }
 
     public struct WithSha {
-        // /gists/{gist_id}/{sha}
+        /// Path: `/gists/{gist_id}/{sha}`
         public let path: String
 
         /// Get a gist revision
@@ -988,7 +1001,7 @@ extension Paths {
     }
 
     public struct Gitignore {
-        // /gitignore
+        /// Path: `/gitignore`
         public let path: String
     }
 }
@@ -999,7 +1012,7 @@ extension Paths.Gitignore {
     }
 
     public struct Templates {
-        // /gitignore/templates
+        /// Path: `/gitignore/templates`
         public let path: String
 
 
@@ -1012,7 +1025,7 @@ extension Paths.Gitignore.Templates {
     }
 
     public struct WithName {
-        // /gitignore/templates/{name}
+        /// Path: `/gitignore/templates/{name}`
         public let path: String
 
         /// Get a gitignore template
@@ -1028,7 +1041,7 @@ extension Paths {
     }
 
     public struct Installation {
-        // /installation
+        /// Path: `/installation`
         public let path: String
     }
 }
@@ -1039,7 +1052,7 @@ extension Paths.Installation {
     }
 
     public struct Repositories {
-        // /installation/repositories
+        /// Path: `/installation/repositories`
         public let path: String
 
 
@@ -1052,7 +1065,7 @@ extension Paths.Installation {
     }
 
     public struct Token {
-        // /installation/token
+        /// Path: `/installation/token`
         public let path: String
 
         /// Revoke an installation access token
@@ -1068,7 +1081,7 @@ extension Paths {
     }
 
     public struct Issues {
-        // /issues
+        /// Path: `/issues`
         public let path: String
 
 
@@ -1081,7 +1094,7 @@ extension Paths {
     }
 
     public struct Licenses {
-        // /licenses
+        /// Path: `/licenses`
         public let path: String
 
 
@@ -1094,7 +1107,7 @@ extension Paths.Licenses {
     }
 
     public struct WithLicense {
-        // /licenses/{license}
+        /// Path: `/licenses/{license}`
         public let path: String
 
         /// Get a license
@@ -1110,7 +1123,7 @@ extension Paths {
     }
 
     public struct Markdown {
-        // /markdown
+        /// Path: `/markdown`
         public let path: String
 
 
@@ -1123,7 +1136,7 @@ extension Paths.Markdown {
     }
 
     public struct Raw {
-        // /markdown/raw
+        /// Path: `/markdown/raw`
         public let path: String
 
 
@@ -1136,7 +1149,7 @@ extension Paths {
     }
 
     public struct MarketplaceListing {
-        // /marketplace_listing
+        /// Path: `/marketplace_listing`
         public let path: String
     }
 }
@@ -1147,7 +1160,7 @@ extension Paths.MarketplaceListing {
     }
 
     public struct Accounts {
-        // /marketplace_listing/accounts
+        /// Path: `/marketplace_listing/accounts`
         public let path: String
     }
 }
@@ -1158,7 +1171,7 @@ extension Paths.MarketplaceListing.Accounts {
     }
 
     public struct WithAccountID {
-        // /marketplace_listing/accounts/{account_id}
+        /// Path: `/marketplace_listing/accounts/{account_id}`
         public let path: String
 
         /// Get a subscription plan for an account
@@ -1174,7 +1187,7 @@ extension Paths.MarketplaceListing {
     }
 
     public struct Plans {
-        // /marketplace_listing/plans
+        /// Path: `/marketplace_listing/plans`
         public let path: String
 
 
@@ -1187,7 +1200,7 @@ extension Paths.MarketplaceListing.Plans {
     }
 
     public struct WithPlanID {
-        // /marketplace_listing/plans/{plan_id}
+        /// Path: `/marketplace_listing/plans/{plan_id}`
         public let path: String
     }
 }
@@ -1198,7 +1211,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
     }
 
     public struct Accounts {
-        // /marketplace_listing/plans/{plan_id}/accounts
+        /// Path: `/marketplace_listing/plans/{plan_id}/accounts`
         public let path: String
 
 
@@ -1211,7 +1224,7 @@ extension Paths.MarketplaceListing {
     }
 
     public struct Stubbed {
-        // /marketplace_listing/stubbed
+        /// Path: `/marketplace_listing/stubbed`
         public let path: String
     }
 }
@@ -1222,7 +1235,7 @@ extension Paths.MarketplaceListing.Stubbed {
     }
 
     public struct Accounts {
-        // /marketplace_listing/stubbed/accounts
+        /// Path: `/marketplace_listing/stubbed/accounts`
         public let path: String
     }
 }
@@ -1233,7 +1246,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
     }
 
     public struct WithAccountID {
-        // /marketplace_listing/stubbed/accounts/{account_id}
+        /// Path: `/marketplace_listing/stubbed/accounts/{account_id}`
         public let path: String
 
         /// Get a subscription plan for an account (stubbed)
@@ -1249,7 +1262,7 @@ extension Paths.MarketplaceListing.Stubbed {
     }
 
     public struct Plans {
-        // /marketplace_listing/stubbed/plans
+        /// Path: `/marketplace_listing/stubbed/plans`
         public let path: String
 
 
@@ -1262,7 +1275,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans {
     }
 
     public struct WithPlanID {
-        // /marketplace_listing/stubbed/plans/{plan_id}
+        /// Path: `/marketplace_listing/stubbed/plans/{plan_id}`
         public let path: String
     }
 }
@@ -1273,7 +1286,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
     }
 
     public struct Accounts {
-        // /marketplace_listing/stubbed/plans/{plan_id}/accounts
+        /// Path: `/marketplace_listing/stubbed/plans/{plan_id}/accounts`
         public let path: String
 
 
@@ -1286,7 +1299,7 @@ extension Paths {
     }
 
     public struct Meta {
-        // /meta
+        /// Path: `/meta`
         public let path: String
 
         /// Get GitHub meta information
@@ -1302,7 +1315,7 @@ extension Paths {
     }
 
     public struct Networks {
-        // /networks
+        /// Path: `/networks`
         public let path: String
     }
 }
@@ -1313,7 +1326,7 @@ extension Paths.Networks {
     }
 
     public struct WithOwner {
-        // /networks/{owner}
+        /// Path: `/networks/{owner}`
         public let path: String
     }
 }
@@ -1324,7 +1337,7 @@ extension Paths.Networks.WithOwner {
     }
 
     public struct WithRepo {
-        // /networks/{owner}/{repo}
+        /// Path: `/networks/{owner}/{repo}`
         public let path: String
     }
 }
@@ -1335,7 +1348,7 @@ extension Paths.Networks.WithOwner.WithRepo {
     }
 
     public struct Events {
-        // /networks/{owner}/{repo}/events
+        /// Path: `/networks/{owner}/{repo}/events`
         public let path: String
 
 
@@ -1348,7 +1361,7 @@ extension Paths {
     }
 
     public struct Notifications {
-        // /notifications
+        /// Path: `/notifications`
         public let path: String
 
 
@@ -1361,7 +1374,7 @@ extension Paths.Notifications {
     }
 
     public struct Threads {
-        // /notifications/threads
+        /// Path: `/notifications/threads`
         public let path: String
     }
 }
@@ -1372,7 +1385,7 @@ extension Paths.Notifications.Threads {
     }
 
     public struct WithThreadID {
-        // /notifications/threads/{thread_id}
+        /// Path: `/notifications/threads/{thread_id}`
         public let path: String
 
         /// Get a thread
@@ -1388,7 +1401,7 @@ extension Paths.Notifications.Threads.WithThreadID {
     }
 
     public struct Subscription {
-        // /notifications/threads/{thread_id}/subscription
+        /// Path: `/notifications/threads/{thread_id}/subscription`
         public let path: String
 
         /// Get a thread subscription for the authenticated user
@@ -1409,7 +1422,7 @@ extension Paths {
     }
 
     public struct Octocat {
-        // /octocat
+        /// Path: `/octocat`
         public let path: String
 
 
@@ -1422,7 +1435,7 @@ extension Paths {
     }
 
     public struct Organizations {
-        // /organizations
+        /// Path: `/organizations`
         public let path: String
 
 
@@ -1435,7 +1448,7 @@ extension Paths.Organizations {
     }
 
     public struct WithOrganizationID {
-        // /organizations/{organization_id}
+        /// Path: `/organizations/{organization_id}`
         public let path: String
     }
 }
@@ -1446,7 +1459,7 @@ extension Paths.Organizations.WithOrganizationID {
     }
 
     public struct CustomRoles {
-        // /organizations/{organization_id}/custom_roles
+        /// Path: `/organizations/{organization_id}/custom_roles`
         public let path: String
 
 
@@ -1459,7 +1472,7 @@ extension Paths {
     }
 
     public struct Orgs {
-        // /orgs
+        /// Path: `/orgs`
         public let path: String
     }
 }
@@ -1470,7 +1483,7 @@ extension Paths.Orgs {
     }
 
     public struct WithOrg {
-        // /orgs/{org}
+        /// Path: `/orgs/{org}`
         public let path: String
 
         /// Get an organization
@@ -1486,7 +1499,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Actions {
-        // /orgs/{org}/actions
+        /// Path: `/orgs/{org}/actions`
         public let path: String
     }
 }
@@ -1497,7 +1510,7 @@ extension Paths.Orgs.WithOrg.Actions {
     }
 
     public struct Permissions {
-        // /orgs/{org}/actions/permissions
+        /// Path: `/orgs/{org}/actions/permissions`
         public let path: String
 
         /// Get GitHub Actions permissions for an organization
@@ -1513,7 +1526,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
     }
 
     public struct Repositories {
-        // /orgs/{org}/actions/permissions/repositories
+        /// Path: `/orgs/{org}/actions/permissions/repositories`
         public let path: String
 
 
@@ -1526,7 +1539,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
     }
 
     public struct WithRepositoryID {
-        // /orgs/{org}/actions/permissions/repositories/{repository_id}
+        /// Path: `/orgs/{org}/actions/permissions/repositories/{repository_id}`
         public let path: String
 
         /// Disable a selected repository for GitHub Actions in an organization
@@ -1542,7 +1555,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
     }
 
     public struct SelectedActions {
-        // /orgs/{org}/actions/permissions/selected-actions
+        /// Path: `/orgs/{org}/actions/permissions/selected-actions`
         public let path: String
 
         /// Get allowed actions for an organization
@@ -1563,7 +1576,7 @@ extension Paths.Orgs.WithOrg.Actions {
     }
 
     public struct RunnerGroups {
-        // /orgs/{org}/actions/runner-groups
+        /// Path: `/orgs/{org}/actions/runner-groups`
         public let path: String
 
 
@@ -1576,7 +1589,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
     }
 
     public struct WithRunnerGroupID {
-        // /orgs/{org}/actions/runner-groups/{runner_group_id}
+        /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}`
         public let path: String
 
         /// Get a self-hosted runner group for an organization
@@ -1597,7 +1610,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
     }
 
     public struct Repositories {
-        // /orgs/{org}/actions/runner-groups/{runner_group_id}/repositories
+        /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories`
         public let path: String
 
 
@@ -1610,7 +1623,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
     }
 
     public struct WithRepositoryID {
-        // /orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}
+        /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}`
         public let path: String
 
         /// Remove repository access to a self-hosted runner group in an organization
@@ -1626,7 +1639,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
     }
 
     public struct Runners {
-        // /orgs/{org}/actions/runner-groups/{runner_group_id}/runners
+        /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners`
         public let path: String
 
 
@@ -1639,7 +1652,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
     }
 
     public struct WithRunnerID {
-        // /orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}
+        /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
         public let path: String
 
         /// Remove a self-hosted runner from a group for an organization
@@ -1655,7 +1668,7 @@ extension Paths.Orgs.WithOrg.Actions {
     }
 
     public struct Runners {
-        // /orgs/{org}/actions/runners
+        /// Path: `/orgs/{org}/actions/runners`
         public let path: String
 
 
@@ -1668,7 +1681,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     }
 
     public struct Downloads {
-        // /orgs/{org}/actions/runners/downloads
+        /// Path: `/orgs/{org}/actions/runners/downloads`
         public let path: String
 
 
@@ -1681,7 +1694,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     }
 
     public struct RegistrationToken {
-        // /orgs/{org}/actions/runners/registration-token
+        /// Path: `/orgs/{org}/actions/runners/registration-token`
         public let path: String
 
 
@@ -1694,7 +1707,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     }
 
     public struct RemoveToken {
-        // /orgs/{org}/actions/runners/remove-token
+        /// Path: `/orgs/{org}/actions/runners/remove-token`
         public let path: String
 
 
@@ -1707,7 +1720,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
     }
 
     public struct WithRunnerID {
-        // /orgs/{org}/actions/runners/{runner_id}
+        /// Path: `/orgs/{org}/actions/runners/{runner_id}`
         public let path: String
 
         /// Get a self-hosted runner for an organization
@@ -1728,7 +1741,7 @@ extension Paths.Orgs.WithOrg.Actions {
     }
 
     public struct Secrets {
-        // /orgs/{org}/actions/secrets
+        /// Path: `/orgs/{org}/actions/secrets`
         public let path: String
 
 
@@ -1741,7 +1754,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
     }
 
     public struct PublicKey {
-        // /orgs/{org}/actions/secrets/public-key
+        /// Path: `/orgs/{org}/actions/secrets/public-key`
         public let path: String
 
         /// Get an organization public key
@@ -1757,7 +1770,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
     }
 
     public struct WithSecretName {
-        // /orgs/{org}/actions/secrets/{secret_name}
+        /// Path: `/orgs/{org}/actions/secrets/{secret_name}`
         public let path: String
 
         /// Get an organization secret
@@ -1778,7 +1791,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
     }
 
     public struct Repositories {
-        // /orgs/{org}/actions/secrets/{secret_name}/repositories
+        /// Path: `/orgs/{org}/actions/secrets/{secret_name}/repositories`
         public let path: String
 
 
@@ -1791,7 +1804,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
     }
 
     public struct WithRepositoryID {
-        // /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}
+        /// Path: `/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}`
         public let path: String
 
         /// Remove selected repository from an organization secret
@@ -1807,7 +1820,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct AuditLog {
-        // /orgs/{org}/audit-log
+        /// Path: `/orgs/{org}/audit-log`
         public let path: String
 
 
@@ -1820,7 +1833,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Blocks {
-        // /orgs/{org}/blocks
+        /// Path: `/orgs/{org}/blocks`
         public let path: String
 
 
@@ -1833,7 +1846,7 @@ extension Paths.Orgs.WithOrg.Blocks {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/blocks/{username}
+        /// Path: `/orgs/{org}/blocks/{username}`
         public let path: String
 
         /// Check if a user is blocked by an organization
@@ -1854,7 +1867,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct CredentialAuthorizations {
-        // /orgs/{org}/credential-authorizations
+        /// Path: `/orgs/{org}/credential-authorizations`
         public let path: String
 
 
@@ -1867,7 +1880,7 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
     }
 
     public struct WithCredentialID {
-        // /orgs/{org}/credential-authorizations/{credential_id}
+        /// Path: `/orgs/{org}/credential-authorizations/{credential_id}`
         public let path: String
 
         /// Remove a SAML SSO authorization for an organization
@@ -1883,7 +1896,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Events {
-        // /orgs/{org}/events
+        /// Path: `/orgs/{org}/events`
         public let path: String
 
 
@@ -1896,7 +1909,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct ExternalGroup {
-        // /orgs/{org}/external-group
+        /// Path: `/orgs/{org}/external-group`
         public let path: String
     }
 }
@@ -1907,7 +1920,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
     }
 
     public struct WithGroupID {
-        // /orgs/{org}/external-group/{group_id}
+        /// Path: `/orgs/{org}/external-group/{group_id}`
         public let path: String
 
         /// Get an external group
@@ -1923,7 +1936,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct ExternalGroups {
-        // /orgs/{org}/external-groups
+        /// Path: `/orgs/{org}/external-groups`
         public let path: String
 
         /// List external groups in an organization
@@ -1943,7 +1956,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct FailedInvitations {
-        // /orgs/{org}/failed_invitations
+        /// Path: `/orgs/{org}/failed_invitations`
         public let path: String
 
 
@@ -1956,7 +1969,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Hooks {
-        // /orgs/{org}/hooks
+        /// Path: `/orgs/{org}/hooks`
         public let path: String
 
 
@@ -1969,7 +1982,7 @@ extension Paths.Orgs.WithOrg.Hooks {
     }
 
     public struct WithHookID {
-        // /orgs/{org}/hooks/{hook_id}
+        /// Path: `/orgs/{org}/hooks/{hook_id}`
         public let path: String
 
         /// Get an organization webhook
@@ -1990,7 +2003,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     }
 
     public struct Config {
-        // /orgs/{org}/hooks/{hook_id}/config
+        /// Path: `/orgs/{org}/hooks/{hook_id}/config`
         public let path: String
 
         /// Get a webhook configuration for an organization
@@ -2006,7 +2019,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     }
 
     public struct Deliveries {
-        // /orgs/{org}/hooks/{hook_id}/deliveries
+        /// Path: `/orgs/{org}/hooks/{hook_id}/deliveries`
         public let path: String
 
 
@@ -2019,7 +2032,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
     }
 
     public struct WithDeliveryID {
-        // /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}
+        /// Path: `/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}`
         public let path: String
 
         /// Get a webhook delivery for an organization webhook
@@ -2035,7 +2048,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
     }
 
     public struct Attempts {
-        // /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts
+        /// Path: `/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
         public let path: String
 
 
@@ -2048,7 +2061,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
     }
 
     public struct Pings {
-        // /orgs/{org}/hooks/{hook_id}/pings
+        /// Path: `/orgs/{org}/hooks/{hook_id}/pings`
         public let path: String
 
 
@@ -2061,7 +2074,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Installation {
-        // /orgs/{org}/installation
+        /// Path: `/orgs/{org}/installation`
         public let path: String
 
         /// Get an organization installation for the authenticated app
@@ -2077,7 +2090,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Installations {
-        // /orgs/{org}/installations
+        /// Path: `/orgs/{org}/installations`
         public let path: String
 
 
@@ -2090,7 +2103,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct InteractionLimits {
-        // /orgs/{org}/interaction-limits
+        /// Path: `/orgs/{org}/interaction-limits`
         public let path: String
 
         /// Set interaction restrictions for an organization
@@ -2111,7 +2124,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Invitations {
-        // /orgs/{org}/invitations
+        /// Path: `/orgs/{org}/invitations`
         public let path: String
 
 
@@ -2124,7 +2137,7 @@ extension Paths.Orgs.WithOrg.Invitations {
     }
 
     public struct WithInvitationID {
-        // /orgs/{org}/invitations/{invitation_id}
+        /// Path: `/orgs/{org}/invitations/{invitation_id}`
         public let path: String
 
         /// Cancel an organization invitation
@@ -2140,7 +2153,7 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
     }
 
     public struct Teams {
-        // /orgs/{org}/invitations/{invitation_id}/teams
+        /// Path: `/orgs/{org}/invitations/{invitation_id}/teams`
         public let path: String
 
 
@@ -2153,7 +2166,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Issues {
-        // /orgs/{org}/issues
+        /// Path: `/orgs/{org}/issues`
         public let path: String
 
 
@@ -2166,7 +2179,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Members {
-        // /orgs/{org}/members
+        /// Path: `/orgs/{org}/members`
         public let path: String
 
 
@@ -2179,7 +2192,7 @@ extension Paths.Orgs.WithOrg.Members {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/members/{username}
+        /// Path: `/orgs/{org}/members/{username}`
         public let path: String
 
         /// Check organization membership for a user
@@ -2200,7 +2213,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Memberships {
-        // /orgs/{org}/memberships
+        /// Path: `/orgs/{org}/memberships`
         public let path: String
     }
 }
@@ -2211,7 +2224,7 @@ extension Paths.Orgs.WithOrg.Memberships {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/memberships/{username}
+        /// Path: `/orgs/{org}/memberships/{username}`
         public let path: String
 
         /// Get organization membership for a user
@@ -2232,7 +2245,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Migrations {
-        // /orgs/{org}/migrations
+        /// Path: `/orgs/{org}/migrations`
         public let path: String
 
 
@@ -2245,7 +2258,7 @@ extension Paths.Orgs.WithOrg.Migrations {
     }
 
     public struct WithMigrationID {
-        // /orgs/{org}/migrations/{migration_id}
+        /// Path: `/orgs/{org}/migrations/{migration_id}`
         public let path: String
 
         /// Get an organization migration status
@@ -2261,7 +2274,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     }
 
     public struct Archive {
-        // /orgs/{org}/migrations/{migration_id}/archive
+        /// Path: `/orgs/{org}/migrations/{migration_id}/archive`
         public let path: String
 
         /// Download an organization migration archive
@@ -2282,7 +2295,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     }
 
     public struct Repos {
-        // /orgs/{org}/migrations/{migration_id}/repos
+        /// Path: `/orgs/{org}/migrations/{migration_id}/repos`
         public let path: String
     }
 }
@@ -2293,7 +2306,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos {
     }
 
     public struct WithRepoName {
-        // /orgs/{org}/migrations/{migration_id}/repos/{repo_name}
+        /// Path: `/orgs/{org}/migrations/{migration_id}/repos/{repo_name}`
         public let path: String
     }
 }
@@ -2304,7 +2317,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
     }
 
     public struct Lock {
-        // /orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock
+        /// Path: `/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock`
         public let path: String
 
         /// Unlock an organization repository
@@ -2320,7 +2333,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
     }
 
     public struct Repositories {
-        // /orgs/{org}/migrations/{migration_id}/repositories
+        /// Path: `/orgs/{org}/migrations/{migration_id}/repositories`
         public let path: String
 
 
@@ -2333,7 +2346,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct OutsideCollaborators {
-        // /orgs/{org}/outside_collaborators
+        /// Path: `/orgs/{org}/outside_collaborators`
         public let path: String
 
 
@@ -2346,7 +2359,7 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/outside_collaborators/{username}
+        /// Path: `/orgs/{org}/outside_collaborators/{username}`
         public let path: String
 
         /// Remove outside collaborator from an organization
@@ -2362,7 +2375,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Packages {
-        // /orgs/{org}/packages
+        /// Path: `/orgs/{org}/packages`
         public let path: String
 
 
@@ -2375,7 +2388,7 @@ extension Paths.Orgs.WithOrg.Packages {
     }
 
     public struct WithPackageType {
-        // /orgs/{org}/packages/{package_type}
+        /// Path: `/orgs/{org}/packages/{package_type}`
         public let path: String
     }
 }
@@ -2386,7 +2399,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
     }
 
     public struct WithPackageName {
-        // /orgs/{org}/packages/{package_type}/{package_name}
+        /// Path: `/orgs/{org}/packages/{package_type}/{package_name}`
         public let path: String
 
         /// Get a package for an organization
@@ -2407,7 +2420,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Restore {
-        // /orgs/{org}/packages/{package_type}/{package_name}/restore
+        /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/restore`
         public let path: String
 
 
@@ -2420,7 +2433,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Versions {
-        // /orgs/{org}/packages/{package_type}/{package_name}/versions
+        /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/versions`
         public let path: String
 
 
@@ -2433,7 +2446,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
     }
 
     public struct WithPackageVersionID {
-        // /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}
+        /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}`
         public let path: String
 
         /// Get a package version for an organization
@@ -2454,7 +2467,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions.W
     }
 
     public struct Restore {
-        // /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
+        /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
 
@@ -2467,7 +2480,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Projects {
-        // /orgs/{org}/projects
+        /// Path: `/orgs/{org}/projects`
         public let path: String
 
 
@@ -2480,7 +2493,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct PublicMembers {
-        // /orgs/{org}/public_members
+        /// Path: `/orgs/{org}/public_members`
         public let path: String
 
 
@@ -2493,7 +2506,7 @@ extension Paths.Orgs.WithOrg.PublicMembers {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/public_members/{username}
+        /// Path: `/orgs/{org}/public_members/{username}`
         public let path: String
 
         /// Check public organization membership for a user
@@ -2514,7 +2527,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Repos {
-        // /orgs/{org}/repos
+        /// Path: `/orgs/{org}/repos`
         public let path: String
 
 
@@ -2527,7 +2540,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct SecretScanning {
-        // /orgs/{org}/secret-scanning
+        /// Path: `/orgs/{org}/secret-scanning`
         public let path: String
     }
 }
@@ -2538,7 +2551,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
     }
 
     public struct Alerts {
-        // /orgs/{org}/secret-scanning/alerts
+        /// Path: `/orgs/{org}/secret-scanning/alerts`
         public let path: String
 
 
@@ -2551,7 +2564,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Settings {
-        // /orgs/{org}/settings
+        /// Path: `/orgs/{org}/settings`
         public let path: String
     }
 }
@@ -2562,7 +2575,7 @@ extension Paths.Orgs.WithOrg.Settings {
     }
 
     public struct Billing {
-        // /orgs/{org}/settings/billing
+        /// Path: `/orgs/{org}/settings/billing`
         public let path: String
     }
 }
@@ -2573,7 +2586,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     }
 
     public struct Actions {
-        // /orgs/{org}/settings/billing/actions
+        /// Path: `/orgs/{org}/settings/billing/actions`
         public let path: String
 
         /// Get GitHub Actions billing for an organization
@@ -2589,7 +2602,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     }
 
     public struct AdvancedSecurity {
-        // /orgs/{org}/settings/billing/advanced-security
+        /// Path: `/orgs/{org}/settings/billing/advanced-security`
         public let path: String
 
         /// Get GitHub Advanced Security active committers for an organization
@@ -2605,7 +2618,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     }
 
     public struct Packages {
-        // /orgs/{org}/settings/billing/packages
+        /// Path: `/orgs/{org}/settings/billing/packages`
         public let path: String
 
         /// Get GitHub Packages billing for an organization
@@ -2621,7 +2634,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
     }
 
     public struct SharedStorage {
-        // /orgs/{org}/settings/billing/shared-storage
+        /// Path: `/orgs/{org}/settings/billing/shared-storage`
         public let path: String
 
         /// Get shared storage billing for an organization
@@ -2637,7 +2650,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct TeamSync {
-        // /orgs/{org}/team-sync
+        /// Path: `/orgs/{org}/team-sync`
         public let path: String
     }
 }
@@ -2648,7 +2661,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
     }
 
     public struct Groups {
-        // /orgs/{org}/team-sync/groups
+        /// Path: `/orgs/{org}/team-sync/groups`
         public let path: String
 
         /// List IdP groups for an organization
@@ -2668,7 +2681,7 @@ extension Paths.Orgs.WithOrg {
     }
 
     public struct Teams {
-        // /orgs/{org}/teams
+        /// Path: `/orgs/{org}/teams`
         public let path: String
 
 
@@ -2681,7 +2694,7 @@ extension Paths.Orgs.WithOrg.Teams {
     }
 
     public struct WithTeamSlug {
-        // /orgs/{org}/teams/{team_slug}
+        /// Path: `/orgs/{org}/teams/{team_slug}`
         public let path: String
 
         /// Get a team by name
@@ -2702,7 +2715,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Discussions {
-        // /orgs/{org}/teams/{team_slug}/discussions
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions`
         public let path: String
 
 
@@ -2715,7 +2728,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
     }
 
     public struct WithDiscussionNumber {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}`
         public let path: String
 
         /// Get a discussion
@@ -2736,7 +2749,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct Comments {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments`
         public let path: String
 
 
@@ -2749,7 +2762,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct WithCommentNumber {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}`
         public let path: String
 
         /// Get a discussion comment
@@ -2770,7 +2783,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct Reactions {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions`
         public let path: String
 
 
@@ -2783,7 +2796,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct WithReactionID {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete team discussion comment reaction
@@ -2799,7 +2812,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct Reactions {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions`
         public let path: String
 
 
@@ -2812,7 +2825,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
     }
 
     public struct WithReactionID {
-        // /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}
+        /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete team discussion reaction
@@ -2828,7 +2841,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct ExternalGroups {
-        // /orgs/{org}/teams/{team_slug}/external-groups
+        /// Path: `/orgs/{org}/teams/{team_slug}/external-groups`
         public let path: String
 
         /// Remove the connection between an external group and a team
@@ -2844,7 +2857,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Invitations {
-        // /orgs/{org}/teams/{team_slug}/invitations
+        /// Path: `/orgs/{org}/teams/{team_slug}/invitations`
         public let path: String
 
 
@@ -2857,7 +2870,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Members {
-        // /orgs/{org}/teams/{team_slug}/members
+        /// Path: `/orgs/{org}/teams/{team_slug}/members`
         public let path: String
 
 
@@ -2870,7 +2883,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Memberships {
-        // /orgs/{org}/teams/{team_slug}/memberships
+        /// Path: `/orgs/{org}/teams/{team_slug}/memberships`
         public let path: String
     }
 }
@@ -2881,7 +2894,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
     }
 
     public struct WithUsername {
-        // /orgs/{org}/teams/{team_slug}/memberships/{username}
+        /// Path: `/orgs/{org}/teams/{team_slug}/memberships/{username}`
         public let path: String
 
         /// Get team membership for a user
@@ -2902,7 +2915,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Projects {
-        // /orgs/{org}/teams/{team_slug}/projects
+        /// Path: `/orgs/{org}/teams/{team_slug}/projects`
         public let path: String
 
 
@@ -2915,7 +2928,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
     }
 
     public struct WithProjectID {
-        // /orgs/{org}/teams/{team_slug}/projects/{project_id}
+        /// Path: `/orgs/{org}/teams/{team_slug}/projects/{project_id}`
         public let path: String
 
         /// Check team permissions for a project
@@ -2936,7 +2949,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Repos {
-        // /orgs/{org}/teams/{team_slug}/repos
+        /// Path: `/orgs/{org}/teams/{team_slug}/repos`
         public let path: String
 
 
@@ -2949,7 +2962,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos {
     }
 
     public struct WithOwner {
-        // /orgs/{org}/teams/{team_slug}/repos/{owner}
+        /// Path: `/orgs/{org}/teams/{team_slug}/repos/{owner}`
         public let path: String
     }
 }
@@ -2960,7 +2973,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
     }
 
     public struct WithRepo {
-        // /orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}
+        /// Path: `/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}`
         public let path: String
 
         /// Check team permissions for a repository
@@ -2981,7 +2994,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct TeamSync {
-        // /orgs/{org}/teams/{team_slug}/team-sync
+        /// Path: `/orgs/{org}/teams/{team_slug}/team-sync`
         public let path: String
     }
 }
@@ -2992,7 +3005,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
     }
 
     public struct GroupMappings {
-        // /orgs/{org}/teams/{team_slug}/team-sync/group-mappings
+        /// Path: `/orgs/{org}/teams/{team_slug}/team-sync/group-mappings`
         public let path: String
 
         /// List IdP groups for a team
@@ -3008,7 +3021,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
     }
 
     public struct Teams {
-        // /orgs/{org}/teams/{team_slug}/teams
+        /// Path: `/orgs/{org}/teams/{team_slug}/teams`
         public let path: String
 
 
@@ -3021,7 +3034,7 @@ extension Paths {
     }
 
     public struct Projects {
-        // /projects
+        /// Path: `/projects`
         public let path: String
     }
 }
@@ -3032,7 +3045,7 @@ extension Paths.Projects {
     }
 
     public struct Columns {
-        // /projects/columns
+        /// Path: `/projects/columns`
         public let path: String
     }
 }
@@ -3043,7 +3056,7 @@ extension Paths.Projects.Columns {
     }
 
     public struct Cards {
-        // /projects/columns/cards
+        /// Path: `/projects/columns/cards`
         public let path: String
     }
 }
@@ -3054,7 +3067,7 @@ extension Paths.Projects.Columns.Cards {
     }
 
     public struct WithCardID {
-        // /projects/columns/cards/{card_id}
+        /// Path: `/projects/columns/cards/{card_id}`
         public let path: String
 
         /// Get a project card
@@ -3075,7 +3088,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
     }
 
     public struct Moves {
-        // /projects/columns/cards/{card_id}/moves
+        /// Path: `/projects/columns/cards/{card_id}/moves`
         public let path: String
 
 
@@ -3088,7 +3101,7 @@ extension Paths.Projects.Columns {
     }
 
     public struct WithColumnID {
-        // /projects/columns/{column_id}
+        /// Path: `/projects/columns/{column_id}`
         public let path: String
 
         /// Get a project column
@@ -3109,7 +3122,7 @@ extension Paths.Projects.Columns.WithColumnID {
     }
 
     public struct Cards {
-        // /projects/columns/{column_id}/cards
+        /// Path: `/projects/columns/{column_id}/cards`
         public let path: String
 
 
@@ -3122,7 +3135,7 @@ extension Paths.Projects.Columns.WithColumnID {
     }
 
     public struct Moves {
-        // /projects/columns/{column_id}/moves
+        /// Path: `/projects/columns/{column_id}/moves`
         public let path: String
 
 
@@ -3135,7 +3148,7 @@ extension Paths.Projects {
     }
 
     public struct WithProjectID {
-        // /projects/{project_id}
+        /// Path: `/projects/{project_id}`
         public let path: String
 
         /// Get a project
@@ -3156,7 +3169,7 @@ extension Paths.Projects.WithProjectID {
     }
 
     public struct Collaborators {
-        // /projects/{project_id}/collaborators
+        /// Path: `/projects/{project_id}/collaborators`
         public let path: String
 
 
@@ -3169,7 +3182,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
     }
 
     public struct WithUsername {
-        // /projects/{project_id}/collaborators/{username}
+        /// Path: `/projects/{project_id}/collaborators/{username}`
         public let path: String
 
         /// Remove user as a collaborator
@@ -3185,7 +3198,7 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
     }
 
     public struct Permission {
-        // /projects/{project_id}/collaborators/{username}/permission
+        /// Path: `/projects/{project_id}/collaborators/{username}/permission`
         public let path: String
 
         /// Get project permission for a user
@@ -3201,7 +3214,7 @@ extension Paths.Projects.WithProjectID {
     }
 
     public struct Columns {
-        // /projects/{project_id}/columns
+        /// Path: `/projects/{project_id}/columns`
         public let path: String
 
 
@@ -3214,7 +3227,7 @@ extension Paths {
     }
 
     public struct RateLimit {
-        // /rate_limit
+        /// Path: `/rate_limit`
         public let path: String
 
         /// Get rate limit status for the authenticated user
@@ -3236,7 +3249,7 @@ extension Paths {
     }
 
     public struct Reactions {
-        // /reactions
+        /// Path: `/reactions`
         public let path: String
     }
 }
@@ -3247,7 +3260,7 @@ extension Paths.Reactions {
     }
 
     public struct WithReactionID {
-        // /reactions/{reaction_id}
+        /// Path: `/reactions/{reaction_id}`
         public let path: String
 
         /// Delete a reaction (Legacy)
@@ -3263,7 +3276,7 @@ extension Paths {
     }
 
     public struct Repos {
-        // /repos
+        /// Path: `/repos`
         public let path: String
     }
 }
@@ -3274,7 +3287,7 @@ extension Paths.Repos {
     }
 
     public struct WithOwner {
-        // /repos/{owner}
+        /// Path: `/repos/{owner}`
         public let path: String
     }
 }
@@ -3285,7 +3298,7 @@ extension Paths.Repos.WithOwner {
     }
 
     public struct WithRepo {
-        // /repos/{owner}/{repo}
+        /// Path: `/repos/{owner}/{repo}`
         public let path: String
 
         /// Get a repository
@@ -3306,7 +3319,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Actions {
-        // /repos/{owner}/{repo}/actions
+        /// Path: `/repos/{owner}/{repo}/actions`
         public let path: String
     }
 }
@@ -3317,7 +3330,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Artifacts {
-        // /repos/{owner}/{repo}/actions/artifacts
+        /// Path: `/repos/{owner}/{repo}/actions/artifacts`
         public let path: String
 
 
@@ -3330,7 +3343,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
     }
 
     public struct WithArtifactID {
-        // /repos/{owner}/{repo}/actions/artifacts/{artifact_id}
+        /// Path: `/repos/{owner}/{repo}/actions/artifacts/{artifact_id}`
         public let path: String
 
         /// Get an artifact
@@ -3351,7 +3364,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts.WithArtifactID {
     }
 
     public struct WithArchiveFormat {
-        // /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}
+        /// Path: `/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}`
         public let path: String
 
         /// Download an artifact
@@ -3367,7 +3380,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Jobs {
-        // /repos/{owner}/{repo}/actions/jobs
+        /// Path: `/repos/{owner}/{repo}/actions/jobs`
         public let path: String
     }
 }
@@ -3378,7 +3391,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
     }
 
     public struct WithJobID {
-        // /repos/{owner}/{repo}/actions/jobs/{job_id}
+        /// Path: `/repos/{owner}/{repo}/actions/jobs/{job_id}`
         public let path: String
 
         /// Get a job for a workflow run
@@ -3394,7 +3407,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs.WithJobID {
     }
 
     public struct Logs {
-        // /repos/{owner}/{repo}/actions/jobs/{job_id}/logs
+        /// Path: `/repos/{owner}/{repo}/actions/jobs/{job_id}/logs`
         public let path: String
 
         /// Download job logs for a workflow run
@@ -3410,7 +3423,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Permissions {
-        // /repos/{owner}/{repo}/actions/permissions
+        /// Path: `/repos/{owner}/{repo}/actions/permissions`
         public let path: String
 
         /// Get GitHub Actions permissions for a repository
@@ -3426,7 +3439,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
     }
 
     public struct SelectedActions {
-        // /repos/{owner}/{repo}/actions/permissions/selected-actions
+        /// Path: `/repos/{owner}/{repo}/actions/permissions/selected-actions`
         public let path: String
 
         /// Get allowed actions for a repository
@@ -3447,7 +3460,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Runners {
-        // /repos/{owner}/{repo}/actions/runners
+        /// Path: `/repos/{owner}/{repo}/actions/runners`
         public let path: String
 
 
@@ -3460,7 +3473,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     }
 
     public struct Downloads {
-        // /repos/{owner}/{repo}/actions/runners/downloads
+        /// Path: `/repos/{owner}/{repo}/actions/runners/downloads`
         public let path: String
 
 
@@ -3473,7 +3486,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     }
 
     public struct RegistrationToken {
-        // /repos/{owner}/{repo}/actions/runners/registration-token
+        /// Path: `/repos/{owner}/{repo}/actions/runners/registration-token`
         public let path: String
 
 
@@ -3486,7 +3499,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     }
 
     public struct RemoveToken {
-        // /repos/{owner}/{repo}/actions/runners/remove-token
+        /// Path: `/repos/{owner}/{repo}/actions/runners/remove-token`
         public let path: String
 
 
@@ -3499,7 +3512,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     }
 
     public struct WithRunnerID {
-        // /repos/{owner}/{repo}/actions/runners/{runner_id}
+        /// Path: `/repos/{owner}/{repo}/actions/runners/{runner_id}`
         public let path: String
 
         /// Get a self-hosted runner for a repository
@@ -3520,7 +3533,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Runs {
-        // /repos/{owner}/{repo}/actions/runs
+        /// Path: `/repos/{owner}/{repo}/actions/runs`
         public let path: String
 
 
@@ -3533,7 +3546,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
     }
 
     public struct WithRunID {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}`
         public let path: String
 
         /// Get a workflow run
@@ -3554,7 +3567,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Approvals {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/approvals
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/approvals`
         public let path: String
 
 
@@ -3567,7 +3580,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Approve {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/approve
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/approve`
         public let path: String
 
 
@@ -3580,7 +3593,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Artifacts {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts`
         public let path: String
 
 
@@ -3593,7 +3606,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Attempts {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts`
         public let path: String
     }
 }
@@ -3604,7 +3617,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
     }
 
     public struct WithAttemptNumber {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}`
         public let path: String
 
         /// Get a workflow run attempt
@@ -3620,7 +3633,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
     }
 
     public struct Jobs {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs`
         public let path: String
 
 
@@ -3633,7 +3646,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
     }
 
     public struct Logs {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs`
         public let path: String
 
         /// Download workflow run attempt logs
@@ -3649,7 +3662,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Cancel {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/cancel
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/cancel`
         public let path: String
 
 
@@ -3662,7 +3675,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Jobs {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/jobs
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/jobs`
         public let path: String
 
 
@@ -3675,7 +3688,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Logs {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/logs
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/logs`
         public let path: String
 
         /// Download workflow run logs
@@ -3696,7 +3709,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct PendingDeployments {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`
         public let path: String
 
 
@@ -3709,7 +3722,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Rerun {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/rerun
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/rerun`
         public let path: String
 
 
@@ -3722,7 +3735,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
     }
 
     public struct Timing {
-        // /repos/{owner}/{repo}/actions/runs/{run_id}/timing
+        /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/timing`
         public let path: String
 
         /// Get workflow run usage
@@ -3738,7 +3751,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Secrets {
-        // /repos/{owner}/{repo}/actions/secrets
+        /// Path: `/repos/{owner}/{repo}/actions/secrets`
         public let path: String
 
 
@@ -3751,7 +3764,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
     }
 
     public struct PublicKey {
-        // /repos/{owner}/{repo}/actions/secrets/public-key
+        /// Path: `/repos/{owner}/{repo}/actions/secrets/public-key`
         public let path: String
 
         /// Get a repository public key
@@ -3767,7 +3780,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
     }
 
     public struct WithSecretName {
-        // /repos/{owner}/{repo}/actions/secrets/{secret_name}
+        /// Path: `/repos/{owner}/{repo}/actions/secrets/{secret_name}`
         public let path: String
 
         /// Get a repository secret
@@ -3788,7 +3801,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
     }
 
     public struct Workflows {
-        // /repos/{owner}/{repo}/actions/workflows
+        /// Path: `/repos/{owner}/{repo}/actions/workflows`
         public let path: String
 
 
@@ -3801,7 +3814,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
     }
 
     public struct WithWorkflowID {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}`
         public let path: String
 
         /// Get a workflow
@@ -3817,7 +3830,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     }
 
     public struct Disable {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable`
         public let path: String
 
 
@@ -3830,7 +3843,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     }
 
     public struct Dispatches {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches`
         public let path: String
 
 
@@ -3843,7 +3856,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     }
 
     public struct Enable {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable`
         public let path: String
 
 
@@ -3856,7 +3869,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     }
 
     public struct Runs {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs`
         public let path: String
 
 
@@ -3869,7 +3882,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
     }
 
     public struct Timing {
-        // /repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing
+        /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing`
         public let path: String
 
         /// Get workflow usage
@@ -3885,7 +3898,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Assignees {
-        // /repos/{owner}/{repo}/assignees
+        /// Path: `/repos/{owner}/{repo}/assignees`
         public let path: String
 
 
@@ -3898,7 +3911,7 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
     }
 
     public struct WithAssignee {
-        // /repos/{owner}/{repo}/assignees/{assignee}
+        /// Path: `/repos/{owner}/{repo}/assignees/{assignee}`
         public let path: String
 
         /// Check if a user can be assigned
@@ -3914,7 +3927,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Autolinks {
-        // /repos/{owner}/{repo}/autolinks
+        /// Path: `/repos/{owner}/{repo}/autolinks`
         public let path: String
 
 
@@ -3927,7 +3940,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
     }
 
     public struct WithAutolinkID {
-        // /repos/{owner}/{repo}/autolinks/{autolink_id}
+        /// Path: `/repos/{owner}/{repo}/autolinks/{autolink_id}`
         public let path: String
 
         /// Get an autolink reference of a repository
@@ -3948,7 +3961,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct AutomatedSecurityFixes {
-        // /repos/{owner}/{repo}/automated-security-fixes
+        /// Path: `/repos/{owner}/{repo}/automated-security-fixes`
         public let path: String
 
         /// Disable automated security fixes
@@ -3964,7 +3977,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Branches {
-        // /repos/{owner}/{repo}/branches
+        /// Path: `/repos/{owner}/{repo}/branches`
         public let path: String
 
 
@@ -3977,7 +3990,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
     }
 
     public struct WithBranch {
-        // /repos/{owner}/{repo}/branches/{branch}
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}`
         public let path: String
 
         /// Get a branch
@@ -3993,7 +4006,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
     }
 
     public struct Protection {
-        // /repos/{owner}/{repo}/branches/{branch}/protection
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection`
         public let path: String
 
         /// Get branch protection
@@ -4014,7 +4027,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     }
 
     public struct EnforceAdmins {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
         public let path: String
 
         /// Get admin branch protection
@@ -4035,7 +4048,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     }
 
     public struct RequiredPullRequestReviews {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews`
         public let path: String
 
         /// Get pull request review protection
@@ -4056,7 +4069,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     }
 
     public struct RequiredSignatures {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures`
         public let path: String
 
         /// Get commit signature protection
@@ -4077,7 +4090,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     }
 
     public struct RequiredStatusChecks {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks`
         public let path: String
 
         /// Get status checks protection
@@ -4098,7 +4111,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
     }
 
     public struct Contexts {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
         public let path: String
 
 
@@ -4111,7 +4124,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
     }
 
     public struct Restrictions {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions`
         public let path: String
 
         /// Get access restrictions
@@ -4132,7 +4145,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     }
 
     public struct Apps {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
         public let path: String
 
 
@@ -4145,7 +4158,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     }
 
     public struct Teams {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
         public let path: String
 
 
@@ -4158,7 +4171,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
     }
 
     public struct Users {
-        // /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
         public let path: String
 
 
@@ -4171,7 +4184,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
     }
 
     public struct Rename {
-        // /repos/{owner}/{repo}/branches/{branch}/rename
+        /// Path: `/repos/{owner}/{repo}/branches/{branch}/rename`
         public let path: String
 
 
@@ -4184,7 +4197,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct CheckRuns {
-        // /repos/{owner}/{repo}/check-runs
+        /// Path: `/repos/{owner}/{repo}/check-runs`
         public let path: String
 
 
@@ -4197,7 +4210,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
     }
 
     public struct WithCheckRunID {
-        // /repos/{owner}/{repo}/check-runs/{check_run_id}
+        /// Path: `/repos/{owner}/{repo}/check-runs/{check_run_id}`
         public let path: String
 
         /// Get a check run
@@ -4213,7 +4226,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
     }
 
     public struct Annotations {
-        // /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations
+        /// Path: `/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations`
         public let path: String
 
 
@@ -4226,7 +4239,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
     }
 
     public struct Rerequest {
-        // /repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest
+        /// Path: `/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest`
         public let path: String
 
 
@@ -4239,7 +4252,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct CheckSuites {
-        // /repos/{owner}/{repo}/check-suites
+        /// Path: `/repos/{owner}/{repo}/check-suites`
         public let path: String
 
 
@@ -4252,7 +4265,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
     }
 
     public struct Preferences {
-        // /repos/{owner}/{repo}/check-suites/preferences
+        /// Path: `/repos/{owner}/{repo}/check-suites/preferences`
         public let path: String
 
 
@@ -4265,7 +4278,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
     }
 
     public struct WithCheckSuiteID {
-        // /repos/{owner}/{repo}/check-suites/{check_suite_id}
+        /// Path: `/repos/{owner}/{repo}/check-suites/{check_suite_id}`
         public let path: String
 
         /// Get a check suite
@@ -4281,7 +4294,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
     }
 
     public struct CheckRuns {
-        // /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs
+        /// Path: `/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs`
         public let path: String
 
 
@@ -4294,7 +4307,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
     }
 
     public struct Rerequest {
-        // /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest
+        /// Path: `/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest`
         public let path: String
 
 
@@ -4307,7 +4320,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct CodeScanning {
-        // /repos/{owner}/{repo}/code-scanning
+        /// Path: `/repos/{owner}/{repo}/code-scanning`
         public let path: String
     }
 }
@@ -4318,7 +4331,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     }
 
     public struct Alerts {
-        // /repos/{owner}/{repo}/code-scanning/alerts
+        /// Path: `/repos/{owner}/{repo}/code-scanning/alerts`
         public let path: String
 
 
@@ -4331,7 +4344,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
     }
 
     public struct WithAlertNumber {
-        // /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}
+        /// Path: `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}`
         public let path: String
 
         /// Get a code scanning alert
@@ -4347,7 +4360,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
     }
 
     public struct Instances {
-        // /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances
+        /// Path: `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances`
         public let path: String
 
 
@@ -4360,7 +4373,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     }
 
     public struct Analyses {
-        // /repos/{owner}/{repo}/code-scanning/analyses
+        /// Path: `/repos/{owner}/{repo}/code-scanning/analyses`
         public let path: String
 
 
@@ -4373,7 +4386,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
     }
 
     public struct WithAnalysisID {
-        // /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}
+        /// Path: `/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}`
         public let path: String
 
         /// Get a code scanning analysis for a repository
@@ -4394,7 +4407,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
     }
 
     public struct Sarifs {
-        // /repos/{owner}/{repo}/code-scanning/sarifs
+        /// Path: `/repos/{owner}/{repo}/code-scanning/sarifs`
         public let path: String
 
 
@@ -4407,7 +4420,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
     }
 
     public struct WithSarifID {
-        // /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}
+        /// Path: `/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}`
         public let path: String
 
         /// Get information about a SARIF upload
@@ -4423,7 +4436,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Codespaces {
-        // /repos/{owner}/{repo}/codespaces
+        /// Path: `/repos/{owner}/{repo}/codespaces`
         public let path: String
 
 
@@ -4436,7 +4449,7 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
     }
 
     public struct Machines {
-        // /repos/{owner}/{repo}/codespaces/machines
+        /// Path: `/repos/{owner}/{repo}/codespaces/machines`
         public let path: String
 
 
@@ -4449,7 +4462,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Collaborators {
-        // /repos/{owner}/{repo}/collaborators
+        /// Path: `/repos/{owner}/{repo}/collaborators`
         public let path: String
 
 
@@ -4462,7 +4475,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
     }
 
     public struct WithUsername {
-        // /repos/{owner}/{repo}/collaborators/{username}
+        /// Path: `/repos/{owner}/{repo}/collaborators/{username}`
         public let path: String
 
         /// Check if a user is a repository collaborator
@@ -4483,7 +4496,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
     }
 
     public struct Permission {
-        // /repos/{owner}/{repo}/collaborators/{username}/permission
+        /// Path: `/repos/{owner}/{repo}/collaborators/{username}/permission`
         public let path: String
 
         /// Get repository permissions for a user
@@ -4499,7 +4512,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/comments
+        /// Path: `/repos/{owner}/{repo}/comments`
         public let path: String
 
 
@@ -4512,7 +4525,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
     }
 
     public struct WithCommentID {
-        // /repos/{owner}/{repo}/comments/{comment_id}
+        /// Path: `/repos/{owner}/{repo}/comments/{comment_id}`
         public let path: String
 
         /// Get a commit comment
@@ -4533,7 +4546,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
     }
 
     public struct Reactions {
-        // /repos/{owner}/{repo}/comments/{comment_id}/reactions
+        /// Path: `/repos/{owner}/{repo}/comments/{comment_id}/reactions`
         public let path: String
 
 
@@ -4546,7 +4559,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID.Reactions {
     }
 
     public struct WithReactionID {
-        // /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}
+        /// Path: `/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete a commit comment reaction
@@ -4562,7 +4575,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Commits {
-        // /repos/{owner}/{repo}/commits
+        /// Path: `/repos/{owner}/{repo}/commits`
         public let path: String
 
 
@@ -4575,7 +4588,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
     }
 
     public struct WithCommitSha {
-        // /repos/{owner}/{repo}/commits/{commit_sha}
+        /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}`
         public let path: String
     }
 }
@@ -4586,7 +4599,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     }
 
     public struct BranchesWhereHead {
-        // /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head
+        /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head`
         public let path: String
 
 
@@ -4599,7 +4612,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/commits/{commit_sha}/comments
+        /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/comments`
         public let path: String
 
 
@@ -4612,7 +4625,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
     }
 
     public struct Pulls {
-        // /repos/{owner}/{repo}/commits/{commit_sha}/pulls
+        /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/pulls`
         public let path: String
 
 
@@ -4625,7 +4638,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/commits/{ref}
+        /// Path: `/repos/{owner}/{repo}/commits/{ref}`
         public let path: String
 
         /// Get a commit
@@ -4641,7 +4654,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     }
 
     public struct CheckRuns {
-        // /repos/{owner}/{repo}/commits/{ref}/check-runs
+        /// Path: `/repos/{owner}/{repo}/commits/{ref}/check-runs`
         public let path: String
 
 
@@ -4654,7 +4667,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     }
 
     public struct CheckSuites {
-        // /repos/{owner}/{repo}/commits/{ref}/check-suites
+        /// Path: `/repos/{owner}/{repo}/commits/{ref}/check-suites`
         public let path: String
 
 
@@ -4667,7 +4680,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     }
 
     public struct Status {
-        // /repos/{owner}/{repo}/commits/{ref}/status
+        /// Path: `/repos/{owner}/{repo}/commits/{ref}/status`
         public let path: String
 
         /// Get the combined status for a specific reference
@@ -4683,7 +4696,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
     }
 
     public struct Statuses {
-        // /repos/{owner}/{repo}/commits/{ref}/statuses
+        /// Path: `/repos/{owner}/{repo}/commits/{ref}/statuses`
         public let path: String
 
 
@@ -4696,7 +4709,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Community {
-        // /repos/{owner}/{repo}/community
+        /// Path: `/repos/{owner}/{repo}/community`
         public let path: String
     }
 }
@@ -4707,7 +4720,7 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
     }
 
     public struct Profile {
-        // /repos/{owner}/{repo}/community/profile
+        /// Path: `/repos/{owner}/{repo}/community/profile`
         public let path: String
 
         /// Get community profile metrics
@@ -4723,7 +4736,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Compare {
-        // /repos/{owner}/{repo}/compare
+        /// Path: `/repos/{owner}/{repo}/compare`
         public let path: String
     }
 }
@@ -4734,7 +4747,7 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
     }
 
     public struct WithBasehead {
-        // /repos/{owner}/{repo}/compare/{basehead}
+        /// Path: `/repos/{owner}/{repo}/compare/{basehead}`
         public let path: String
 
         /// Compare two commits
@@ -4750,7 +4763,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct ContentReferences {
-        // /repos/{owner}/{repo}/content_references
+        /// Path: `/repos/{owner}/{repo}/content_references`
         public let path: String
     }
 }
@@ -4761,7 +4774,7 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences {
     }
 
     public struct WithContentReferenceID {
-        // /repos/{owner}/{repo}/content_references/{content_reference_id}
+        /// Path: `/repos/{owner}/{repo}/content_references/{content_reference_id}`
         public let path: String
     }
 }
@@ -4772,7 +4785,7 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
     }
 
     public struct Attachments {
-        // /repos/{owner}/{repo}/content_references/{content_reference_id}/attachments
+        /// Path: `/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments`
         public let path: String
 
 
@@ -4785,7 +4798,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Contents {
-        // /repos/{owner}/{repo}/contents
+        /// Path: `/repos/{owner}/{repo}/contents`
         public let path: String
     }
 }
@@ -4796,7 +4809,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
     }
 
     public struct WithPath {
-        // /repos/{owner}/{repo}/contents/{path}
+        /// Path: `/repos/{owner}/{repo}/contents/{path}`
         public let path: String
 
         /// Delete a file
@@ -4812,7 +4825,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Contributors {
-        // /repos/{owner}/{repo}/contributors
+        /// Path: `/repos/{owner}/{repo}/contributors`
         public let path: String
 
 
@@ -4825,7 +4838,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Deployments {
-        // /repos/{owner}/{repo}/deployments
+        /// Path: `/repos/{owner}/{repo}/deployments`
         public let path: String
 
 
@@ -4838,7 +4851,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
     }
 
     public struct WithDeploymentID {
-        // /repos/{owner}/{repo}/deployments/{deployment_id}
+        /// Path: `/repos/{owner}/{repo}/deployments/{deployment_id}`
         public let path: String
 
         /// Get a deployment
@@ -4859,7 +4872,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
     }
 
     public struct Statuses {
-        // /repos/{owner}/{repo}/deployments/{deployment_id}/statuses
+        /// Path: `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses`
         public let path: String
 
 
@@ -4872,7 +4885,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
     }
 
     public struct WithStatusID {
-        // /repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}
+        /// Path: `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}`
         public let path: String
 
         /// Get a deployment status
@@ -4888,7 +4901,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Dispatches {
-        // /repos/{owner}/{repo}/dispatches
+        /// Path: `/repos/{owner}/{repo}/dispatches`
         public let path: String
 
 
@@ -4901,7 +4914,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Environments {
-        // /repos/{owner}/{repo}/environments
+        /// Path: `/repos/{owner}/{repo}/environments`
         public let path: String
 
 
@@ -4914,7 +4927,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
     }
 
     public struct WithEnvironmentName {
-        // /repos/{owner}/{repo}/environments/{environment_name}
+        /// Path: `/repos/{owner}/{repo}/environments/{environment_name}`
         public let path: String
 
         /// Get an environment
@@ -4935,7 +4948,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Events {
-        // /repos/{owner}/{repo}/events
+        /// Path: `/repos/{owner}/{repo}/events`
         public let path: String
 
 
@@ -4948,7 +4961,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Forks {
-        // /repos/{owner}/{repo}/forks
+        /// Path: `/repos/{owner}/{repo}/forks`
         public let path: String
 
 
@@ -4961,7 +4974,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Git {
-        // /repos/{owner}/{repo}/git
+        /// Path: `/repos/{owner}/{repo}/git`
         public let path: String
     }
 }
@@ -4972,7 +4985,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Blobs {
-        // /repos/{owner}/{repo}/git/blobs
+        /// Path: `/repos/{owner}/{repo}/git/blobs`
         public let path: String
 
 
@@ -4985,7 +4998,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
     }
 
     public struct WithFileSha {
-        // /repos/{owner}/{repo}/git/blobs/{file_sha}
+        /// Path: `/repos/{owner}/{repo}/git/blobs/{file_sha}`
         public let path: String
 
         /// Get a blob
@@ -5001,7 +5014,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Commits {
-        // /repos/{owner}/{repo}/git/commits
+        /// Path: `/repos/{owner}/{repo}/git/commits`
         public let path: String
 
 
@@ -5014,7 +5027,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
     }
 
     public struct WithCommitSha {
-        // /repos/{owner}/{repo}/git/commits/{commit_sha}
+        /// Path: `/repos/{owner}/{repo}/git/commits/{commit_sha}`
         public let path: String
 
         /// Get a commit
@@ -5030,7 +5043,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct MatchingRefs {
-        // /repos/{owner}/{repo}/git/matching-refs
+        /// Path: `/repos/{owner}/{repo}/git/matching-refs`
         public let path: String
     }
 }
@@ -5041,7 +5054,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/git/matching-refs/{ref}
+        /// Path: `/repos/{owner}/{repo}/git/matching-refs/{ref}`
         public let path: String
 
 
@@ -5054,7 +5067,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Ref {
-        // /repos/{owner}/{repo}/git/ref
+        /// Path: `/repos/{owner}/{repo}/git/ref`
         public let path: String
     }
 }
@@ -5065,7 +5078,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/git/ref/{ref}
+        /// Path: `/repos/{owner}/{repo}/git/ref/{ref}`
         public let path: String
 
         /// Get a reference
@@ -5081,7 +5094,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Refs {
-        // /repos/{owner}/{repo}/git/refs
+        /// Path: `/repos/{owner}/{repo}/git/refs`
         public let path: String
 
 
@@ -5094,7 +5107,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/git/refs/{ref}
+        /// Path: `/repos/{owner}/{repo}/git/refs/{ref}`
         public let path: String
 
         /// Delete a reference
@@ -5110,7 +5123,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Tags {
-        // /repos/{owner}/{repo}/git/tags
+        /// Path: `/repos/{owner}/{repo}/git/tags`
         public let path: String
 
 
@@ -5123,7 +5136,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
     }
 
     public struct WithTagSha {
-        // /repos/{owner}/{repo}/git/tags/{tag_sha}
+        /// Path: `/repos/{owner}/{repo}/git/tags/{tag_sha}`
         public let path: String
 
         /// Get a tag
@@ -5139,7 +5152,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
     }
 
     public struct Trees {
-        // /repos/{owner}/{repo}/git/trees
+        /// Path: `/repos/{owner}/{repo}/git/trees`
         public let path: String
 
 
@@ -5152,7 +5165,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
     }
 
     public struct WithTreeSha {
-        // /repos/{owner}/{repo}/git/trees/{tree_sha}
+        /// Path: `/repos/{owner}/{repo}/git/trees/{tree_sha}`
         public let path: String
 
         /// Get a tree
@@ -5168,7 +5181,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Hooks {
-        // /repos/{owner}/{repo}/hooks
+        /// Path: `/repos/{owner}/{repo}/hooks`
         public let path: String
 
 
@@ -5181,7 +5194,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
     }
 
     public struct WithHookID {
-        // /repos/{owner}/{repo}/hooks/{hook_id}
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}`
         public let path: String
 
         /// Get a repository webhook
@@ -5202,7 +5215,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     }
 
     public struct Config {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/config
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/config`
         public let path: String
 
         /// Get a webhook configuration for a repository
@@ -5218,7 +5231,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     }
 
     public struct Deliveries {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries`
         public let path: String
 
 
@@ -5231,7 +5244,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries {
     }
 
     public struct WithDeliveryID {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}`
         public let path: String
 
         /// Get a delivery for a repository webhook
@@ -5247,7 +5260,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
     }
 
     public struct Attempts {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
         public let path: String
 
 
@@ -5260,7 +5273,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     }
 
     public struct Pings {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/pings
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/pings`
         public let path: String
 
 
@@ -5273,7 +5286,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
     }
 
     public struct Tests {
-        // /repos/{owner}/{repo}/hooks/{hook_id}/tests
+        /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/tests`
         public let path: String
 
 
@@ -5286,7 +5299,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Import {
-        // /repos/{owner}/{repo}/import
+        /// Path: `/repos/{owner}/{repo}/import`
         public let path: String
 
         /// Get an import status
@@ -5307,7 +5320,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     }
 
     public struct Authors {
-        // /repos/{owner}/{repo}/import/authors
+        /// Path: `/repos/{owner}/{repo}/import/authors`
         public let path: String
 
 
@@ -5320,7 +5333,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
     }
 
     public struct WithAuthorID {
-        // /repos/{owner}/{repo}/import/authors/{author_id}
+        /// Path: `/repos/{owner}/{repo}/import/authors/{author_id}`
         public let path: String
 
 
@@ -5333,7 +5346,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     }
 
     public struct LargeFiles {
-        // /repos/{owner}/{repo}/import/large_files
+        /// Path: `/repos/{owner}/{repo}/import/large_files`
         public let path: String
 
 
@@ -5346,7 +5359,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
     }
 
     public struct Lfs {
-        // /repos/{owner}/{repo}/import/lfs
+        /// Path: `/repos/{owner}/{repo}/import/lfs`
         public let path: String
 
 
@@ -5359,7 +5372,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Installation {
-        // /repos/{owner}/{repo}/installation
+        /// Path: `/repos/{owner}/{repo}/installation`
         public let path: String
 
         /// Get a repository installation for the authenticated app
@@ -5375,7 +5388,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct InteractionLimits {
-        // /repos/{owner}/{repo}/interaction-limits
+        /// Path: `/repos/{owner}/{repo}/interaction-limits`
         public let path: String
 
         /// Set interaction restrictions for a repository
@@ -5396,7 +5409,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Invitations {
-        // /repos/{owner}/{repo}/invitations
+        /// Path: `/repos/{owner}/{repo}/invitations`
         public let path: String
 
 
@@ -5409,7 +5422,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
     }
 
     public struct WithInvitationID {
-        // /repos/{owner}/{repo}/invitations/{invitation_id}
+        /// Path: `/repos/{owner}/{repo}/invitations/{invitation_id}`
         public let path: String
 
         /// Delete a repository invitation
@@ -5425,7 +5438,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Issues {
-        // /repos/{owner}/{repo}/issues
+        /// Path: `/repos/{owner}/{repo}/issues`
         public let path: String
 
 
@@ -5438,7 +5451,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/issues/comments
+        /// Path: `/repos/{owner}/{repo}/issues/comments`
         public let path: String
 
 
@@ -5451,7 +5464,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
     }
 
     public struct WithCommentID {
-        // /repos/{owner}/{repo}/issues/comments/{comment_id}
+        /// Path: `/repos/{owner}/{repo}/issues/comments/{comment_id}`
         public let path: String
 
         /// Get an issue comment
@@ -5472,7 +5485,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
     }
 
     public struct Reactions {
-        // /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions
+        /// Path: `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions`
         public let path: String
 
 
@@ -5485,7 +5498,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
     }
 
     public struct WithReactionID {
-        // /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}
+        /// Path: `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete an issue comment reaction
@@ -5501,7 +5514,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
     }
 
     public struct Events {
-        // /repos/{owner}/{repo}/issues/events
+        /// Path: `/repos/{owner}/{repo}/issues/events`
         public let path: String
 
 
@@ -5514,7 +5527,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
     }
 
     public struct WithEventID {
-        // /repos/{owner}/{repo}/issues/events/{event_id}
+        /// Path: `/repos/{owner}/{repo}/issues/events/{event_id}`
         public let path: String
 
         /// Get an issue event
@@ -5530,7 +5543,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
     }
 
     public struct WithIssueNumber {
-        // /repos/{owner}/{repo}/issues/{issue_number}
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}`
         public let path: String
 
         /// Get an issue
@@ -5546,7 +5559,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Assignees {
-        // /repos/{owner}/{repo}/issues/{issue_number}/assignees
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/assignees`
         public let path: String
 
         /// Remove assignees from an issue
@@ -5562,7 +5575,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/issues/{issue_number}/comments
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/comments`
         public let path: String
 
 
@@ -5575,7 +5588,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Events {
-        // /repos/{owner}/{repo}/issues/{issue_number}/events
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/events`
         public let path: String
 
 
@@ -5588,7 +5601,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Labels {
-        // /repos/{owner}/{repo}/issues/{issue_number}/labels
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/labels`
         public let path: String
 
         /// Remove all labels from an issue
@@ -5604,7 +5617,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Labels {
     }
 
     public struct WithName {
-        // /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}`
         public let path: String
 
 
@@ -5617,7 +5630,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Lock {
-        // /repos/{owner}/{repo}/issues/{issue_number}/lock
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/lock`
         public let path: String
 
         /// Unlock an issue
@@ -5633,7 +5646,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Reactions {
-        // /repos/{owner}/{repo}/issues/{issue_number}/reactions
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/reactions`
         public let path: String
 
 
@@ -5646,7 +5659,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
     }
 
     public struct WithReactionID {
-        // /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete an issue reaction
@@ -5662,7 +5675,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     }
 
     public struct Timeline {
-        // /repos/{owner}/{repo}/issues/{issue_number}/timeline
+        /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/timeline`
         public let path: String
 
 
@@ -5675,7 +5688,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Keys {
-        // /repos/{owner}/{repo}/keys
+        /// Path: `/repos/{owner}/{repo}/keys`
         public let path: String
 
 
@@ -5688,7 +5701,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
     }
 
     public struct WithKeyID {
-        // /repos/{owner}/{repo}/keys/{key_id}
+        /// Path: `/repos/{owner}/{repo}/keys/{key_id}`
         public let path: String
 
         /// Get a deploy key
@@ -5709,7 +5722,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Labels {
-        // /repos/{owner}/{repo}/labels
+        /// Path: `/repos/{owner}/{repo}/labels`
         public let path: String
 
 
@@ -5722,7 +5735,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
     }
 
     public struct WithName {
-        // /repos/{owner}/{repo}/labels/{name}
+        /// Path: `/repos/{owner}/{repo}/labels/{name}`
         public let path: String
 
         /// Get a label
@@ -5743,7 +5756,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Languages {
-        // /repos/{owner}/{repo}/languages
+        /// Path: `/repos/{owner}/{repo}/languages`
         public let path: String
 
         /// List repository languages
@@ -5759,7 +5772,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Lfs {
-        // /repos/{owner}/{repo}/lfs
+        /// Path: `/repos/{owner}/{repo}/lfs`
         public let path: String
 
         /// Disable Git LFS for a repository
@@ -5775,7 +5788,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct License {
-        // /repos/{owner}/{repo}/license
+        /// Path: `/repos/{owner}/{repo}/license`
         public let path: String
 
         /// Get the license for a repository
@@ -5791,7 +5804,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct MergeUpstream {
-        // /repos/{owner}/{repo}/merge-upstream
+        /// Path: `/repos/{owner}/{repo}/merge-upstream`
         public let path: String
 
 
@@ -5804,7 +5817,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Merges {
-        // /repos/{owner}/{repo}/merges
+        /// Path: `/repos/{owner}/{repo}/merges`
         public let path: String
 
 
@@ -5817,7 +5830,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Milestones {
-        // /repos/{owner}/{repo}/milestones
+        /// Path: `/repos/{owner}/{repo}/milestones`
         public let path: String
 
 
@@ -5830,7 +5843,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
     }
 
     public struct WithMilestoneNumber {
-        // /repos/{owner}/{repo}/milestones/{milestone_number}
+        /// Path: `/repos/{owner}/{repo}/milestones/{milestone_number}`
         public let path: String
 
         /// Get a milestone
@@ -5851,7 +5864,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
     }
 
     public struct Labels {
-        // /repos/{owner}/{repo}/milestones/{milestone_number}/labels
+        /// Path: `/repos/{owner}/{repo}/milestones/{milestone_number}/labels`
         public let path: String
 
 
@@ -5864,7 +5877,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Notifications {
-        // /repos/{owner}/{repo}/notifications
+        /// Path: `/repos/{owner}/{repo}/notifications`
         public let path: String
 
 
@@ -5877,7 +5890,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Pages {
-        // /repos/{owner}/{repo}/pages
+        /// Path: `/repos/{owner}/{repo}/pages`
         public let path: String
 
         /// Get a GitHub Pages site
@@ -5898,7 +5911,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
     }
 
     public struct Builds {
-        // /repos/{owner}/{repo}/pages/builds
+        /// Path: `/repos/{owner}/{repo}/pages/builds`
         public let path: String
 
 
@@ -5911,7 +5924,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
     }
 
     public struct Latest {
-        // /repos/{owner}/{repo}/pages/builds/latest
+        /// Path: `/repos/{owner}/{repo}/pages/builds/latest`
         public let path: String
 
         /// Get latest Pages build
@@ -5927,7 +5940,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
     }
 
     public struct WithBuildID {
-        // /repos/{owner}/{repo}/pages/builds/{build_id}
+        /// Path: `/repos/{owner}/{repo}/pages/builds/{build_id}`
         public let path: String
 
         /// Get GitHub Pages build
@@ -5943,7 +5956,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
     }
 
     public struct Health {
-        // /repos/{owner}/{repo}/pages/health
+        /// Path: `/repos/{owner}/{repo}/pages/health`
         public let path: String
 
         /// Get a DNS health check for GitHub Pages
@@ -5959,7 +5972,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Projects {
-        // /repos/{owner}/{repo}/projects
+        /// Path: `/repos/{owner}/{repo}/projects`
         public let path: String
 
 
@@ -5972,7 +5985,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Pulls {
-        // /repos/{owner}/{repo}/pulls
+        /// Path: `/repos/{owner}/{repo}/pulls`
         public let path: String
 
 
@@ -5985,7 +5998,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/pulls/comments
+        /// Path: `/repos/{owner}/{repo}/pulls/comments`
         public let path: String
 
 
@@ -5998,7 +6011,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
     }
 
     public struct WithCommentID {
-        // /repos/{owner}/{repo}/pulls/comments/{comment_id}
+        /// Path: `/repos/{owner}/{repo}/pulls/comments/{comment_id}`
         public let path: String
 
         /// Get a review comment for a pull request
@@ -6019,7 +6032,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
     }
 
     public struct Reactions {
-        // /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions
+        /// Path: `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions`
         public let path: String
 
 
@@ -6032,7 +6045,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID.Reactions 
     }
 
     public struct WithReactionID {
-        // /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}
+        /// Path: `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}`
         public let path: String
 
         /// Delete a pull request comment reaction
@@ -6048,7 +6061,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
     }
 
     public struct WithPullNumber {
-        // /repos/{owner}/{repo}/pulls/{pull_number}
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}`
         public let path: String
 
         /// Get a pull request
@@ -6064,7 +6077,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Codespaces {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/codespaces
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/codespaces`
         public let path: String
 
 
@@ -6077,7 +6090,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/comments
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/comments`
         public let path: String
 
 
@@ -6090,7 +6103,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments {
     }
 
     public struct WithCommentID {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}`
         public let path: String
     }
 }
@@ -6101,7 +6114,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
     }
 
     public struct Replies {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies`
         public let path: String
 
 
@@ -6114,7 +6127,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Commits {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/commits
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/commits`
         public let path: String
 
 
@@ -6127,7 +6140,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Files {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/files
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/files`
         public let path: String
 
 
@@ -6140,7 +6153,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Merge {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/merge
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/merge`
         public let path: String
 
         /// Check if a pull request has been merged
@@ -6156,7 +6169,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct RequestedReviewers {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers`
         public let path: String
 
         /// List requested reviewers for a pull request
@@ -6181,7 +6194,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct Reviews {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/reviews
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews`
         public let path: String
 
 
@@ -6194,7 +6207,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
     }
 
     public struct WithReviewID {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}`
         public let path: String
 
         /// Get a review for a pull request
@@ -6215,7 +6228,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     }
 
     public struct Comments {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments`
         public let path: String
 
 
@@ -6228,7 +6241,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     }
 
     public struct Dismissals {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals`
         public let path: String
 
 
@@ -6241,7 +6254,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
     }
 
     public struct Events {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events`
         public let path: String
 
 
@@ -6254,7 +6267,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
     }
 
     public struct UpdateBranch {
-        // /repos/{owner}/{repo}/pulls/{pull_number}/update-branch
+        /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/update-branch`
         public let path: String
 
 
@@ -6267,7 +6280,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Readme {
-        // /repos/{owner}/{repo}/readme
+        /// Path: `/repos/{owner}/{repo}/readme`
         public let path: String
 
         /// Get a repository README
@@ -6283,7 +6296,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
     }
 
     public struct WithDir {
-        // /repos/{owner}/{repo}/readme/{dir}
+        /// Path: `/repos/{owner}/{repo}/readme/{dir}`
         public let path: String
 
         /// Get a repository README for a directory
@@ -6299,7 +6312,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Releases {
-        // /repos/{owner}/{repo}/releases
+        /// Path: `/repos/{owner}/{repo}/releases`
         public let path: String
 
 
@@ -6312,7 +6325,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     }
 
     public struct Assets {
-        // /repos/{owner}/{repo}/releases/assets
+        /// Path: `/repos/{owner}/{repo}/releases/assets`
         public let path: String
     }
 }
@@ -6323,7 +6336,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
     }
 
     public struct WithAssetID {
-        // /repos/{owner}/{repo}/releases/assets/{asset_id}
+        /// Path: `/repos/{owner}/{repo}/releases/assets/{asset_id}`
         public let path: String
 
         /// Get a release asset
@@ -6344,7 +6357,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     }
 
     public struct GenerateNotes {
-        // /repos/{owner}/{repo}/releases/generate-notes
+        /// Path: `/repos/{owner}/{repo}/releases/generate-notes`
         public let path: String
 
 
@@ -6357,7 +6370,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     }
 
     public struct Latest {
-        // /repos/{owner}/{repo}/releases/latest
+        /// Path: `/repos/{owner}/{repo}/releases/latest`
         public let path: String
 
         /// Get the latest release
@@ -6373,7 +6386,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     }
 
     public struct Tags {
-        // /repos/{owner}/{repo}/releases/tags
+        /// Path: `/repos/{owner}/{repo}/releases/tags`
         public let path: String
     }
 }
@@ -6384,7 +6397,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
     }
 
     public struct WithTag {
-        // /repos/{owner}/{repo}/releases/tags/{tag}
+        /// Path: `/repos/{owner}/{repo}/releases/tags/{tag}`
         public let path: String
 
         /// Get a release by tag name
@@ -6400,7 +6413,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
     }
 
     public struct WithReleaseID {
-        // /repos/{owner}/{repo}/releases/{release_id}
+        /// Path: `/repos/{owner}/{repo}/releases/{release_id}`
         public let path: String
 
         /// Get a release
@@ -6421,7 +6434,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
     }
 
     public struct Assets {
-        // /repos/{owner}/{repo}/releases/{release_id}/assets
+        /// Path: `/repos/{owner}/{repo}/releases/{release_id}/assets`
         public let path: String
 
 
@@ -6434,7 +6447,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
     }
 
     public struct Reactions {
-        // /repos/{owner}/{repo}/releases/{release_id}/reactions
+        /// Path: `/repos/{owner}/{repo}/releases/{release_id}/reactions`
         public let path: String
 
 
@@ -6447,7 +6460,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct SecretScanning {
-        // /repos/{owner}/{repo}/secret-scanning
+        /// Path: `/repos/{owner}/{repo}/secret-scanning`
         public let path: String
     }
 }
@@ -6458,7 +6471,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
     }
 
     public struct Alerts {
-        // /repos/{owner}/{repo}/secret-scanning/alerts
+        /// Path: `/repos/{owner}/{repo}/secret-scanning/alerts`
         public let path: String
 
 
@@ -6471,7 +6484,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
     }
 
     public struct WithAlertNumber {
-        // /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}
+        /// Path: `/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}`
         public let path: String
 
         /// Get a secret scanning alert
@@ -6487,7 +6500,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Stargazers {
-        // /repos/{owner}/{repo}/stargazers
+        /// Path: `/repos/{owner}/{repo}/stargazers`
         public let path: String
 
 
@@ -6500,7 +6513,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Stats {
-        // /repos/{owner}/{repo}/stats
+        /// Path: `/repos/{owner}/{repo}/stats`
         public let path: String
     }
 }
@@ -6511,7 +6524,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     }
 
     public struct CodeFrequency {
-        // /repos/{owner}/{repo}/stats/code_frequency
+        /// Path: `/repos/{owner}/{repo}/stats/code_frequency`
         public let path: String
 
 
@@ -6524,7 +6537,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     }
 
     public struct CommitActivity {
-        // /repos/{owner}/{repo}/stats/commit_activity
+        /// Path: `/repos/{owner}/{repo}/stats/commit_activity`
         public let path: String
 
 
@@ -6537,7 +6550,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     }
 
     public struct Contributors {
-        // /repos/{owner}/{repo}/stats/contributors
+        /// Path: `/repos/{owner}/{repo}/stats/contributors`
         public let path: String
 
 
@@ -6550,7 +6563,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     }
 
     public struct Participation {
-        // /repos/{owner}/{repo}/stats/participation
+        /// Path: `/repos/{owner}/{repo}/stats/participation`
         public let path: String
 
         /// Get the weekly commit count
@@ -6566,7 +6579,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
     }
 
     public struct PunchCard {
-        // /repos/{owner}/{repo}/stats/punch_card
+        /// Path: `/repos/{owner}/{repo}/stats/punch_card`
         public let path: String
 
 
@@ -6579,7 +6592,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Statuses {
-        // /repos/{owner}/{repo}/statuses
+        /// Path: `/repos/{owner}/{repo}/statuses`
         public let path: String
     }
 }
@@ -6590,7 +6603,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
     }
 
     public struct WithSha {
-        // /repos/{owner}/{repo}/statuses/{sha}
+        /// Path: `/repos/{owner}/{repo}/statuses/{sha}`
         public let path: String
 
 
@@ -6603,7 +6616,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Subscribers {
-        // /repos/{owner}/{repo}/subscribers
+        /// Path: `/repos/{owner}/{repo}/subscribers`
         public let path: String
 
 
@@ -6616,7 +6629,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Subscription {
-        // /repos/{owner}/{repo}/subscription
+        /// Path: `/repos/{owner}/{repo}/subscription`
         public let path: String
 
         /// Get a repository subscription
@@ -6637,7 +6650,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Tags {
-        // /repos/{owner}/{repo}/tags
+        /// Path: `/repos/{owner}/{repo}/tags`
         public let path: String
 
 
@@ -6650,7 +6663,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Tarball {
-        // /repos/{owner}/{repo}/tarball
+        /// Path: `/repos/{owner}/{repo}/tarball`
         public let path: String
     }
 }
@@ -6661,7 +6674,7 @@ extension Paths.Repos.WithOwner.WithRepo.Tarball {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/tarball/{ref}
+        /// Path: `/repos/{owner}/{repo}/tarball/{ref}`
         public let path: String
 
         /// Download a repository archive (tar)
@@ -6677,7 +6690,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Teams {
-        // /repos/{owner}/{repo}/teams
+        /// Path: `/repos/{owner}/{repo}/teams`
         public let path: String
 
 
@@ -6690,7 +6703,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Topics {
-        // /repos/{owner}/{repo}/topics
+        /// Path: `/repos/{owner}/{repo}/topics`
         public let path: String
 
         /// Get all repository topics
@@ -6706,7 +6719,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Traffic {
-        // /repos/{owner}/{repo}/traffic
+        /// Path: `/repos/{owner}/{repo}/traffic`
         public let path: String
     }
 }
@@ -6717,7 +6730,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     }
 
     public struct Clones {
-        // /repos/{owner}/{repo}/traffic/clones
+        /// Path: `/repos/{owner}/{repo}/traffic/clones`
         public let path: String
 
         /// Get repository clones
@@ -6733,7 +6746,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     }
 
     public struct Popular {
-        // /repos/{owner}/{repo}/traffic/popular
+        /// Path: `/repos/{owner}/{repo}/traffic/popular`
         public let path: String
     }
 }
@@ -6744,7 +6757,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
     }
 
     public struct Paths {
-        // /repos/{owner}/{repo}/traffic/popular/paths
+        /// Path: `/repos/{owner}/{repo}/traffic/popular/paths`
         public let path: String
 
 
@@ -6757,7 +6770,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
     }
 
     public struct Referrers {
-        // /repos/{owner}/{repo}/traffic/popular/referrers
+        /// Path: `/repos/{owner}/{repo}/traffic/popular/referrers`
         public let path: String
 
 
@@ -6770,7 +6783,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
     }
 
     public struct Views {
-        // /repos/{owner}/{repo}/traffic/views
+        /// Path: `/repos/{owner}/{repo}/traffic/views`
         public let path: String
 
         /// Get page views
@@ -6786,7 +6799,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Transfer {
-        // /repos/{owner}/{repo}/transfer
+        /// Path: `/repos/{owner}/{repo}/transfer`
         public let path: String
 
 
@@ -6799,7 +6812,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct VulnerabilityAlerts {
-        // /repos/{owner}/{repo}/vulnerability-alerts
+        /// Path: `/repos/{owner}/{repo}/vulnerability-alerts`
         public let path: String
 
         /// Check if vulnerability alerts are enabled for a repository
@@ -6820,7 +6833,7 @@ extension Paths.Repos.WithOwner.WithRepo {
     }
 
     public struct Zipball {
-        // /repos/{owner}/{repo}/zipball
+        /// Path: `/repos/{owner}/{repo}/zipball`
         public let path: String
     }
 }
@@ -6831,7 +6844,7 @@ extension Paths.Repos.WithOwner.WithRepo.Zipball {
     }
 
     public struct WithRef {
-        // /repos/{owner}/{repo}/zipball/{ref}
+        /// Path: `/repos/{owner}/{repo}/zipball/{ref}`
         public let path: String
 
         /// Download a repository archive (zip)
@@ -6847,7 +6860,7 @@ extension Paths.Repos {
     }
 
     public struct WithTemplateOwner {
-        // /repos/{template_owner}
+        /// Path: `/repos/{template_owner}`
         public let path: String
     }
 }
@@ -6858,7 +6871,7 @@ extension Paths.Repos.WithTemplateOwner {
     }
 
     public struct WithTemplateRepo {
-        // /repos/{template_owner}/{template_repo}
+        /// Path: `/repos/{template_owner}/{template_repo}`
         public let path: String
     }
 }
@@ -6869,7 +6882,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
     }
 
     public struct Generate {
-        // /repos/{template_owner}/{template_repo}/generate
+        /// Path: `/repos/{template_owner}/{template_repo}/generate`
         public let path: String
 
 
@@ -6882,7 +6895,7 @@ extension Paths {
     }
 
     public struct Repositories {
-        // /repositories
+        /// Path: `/repositories`
         public let path: String
 
 
@@ -6895,7 +6908,7 @@ extension Paths.Repositories {
     }
 
     public struct WithRepositoryID {
-        // /repositories/{repository_id}
+        /// Path: `/repositories/{repository_id}`
         public let path: String
     }
 }
@@ -6906,7 +6919,7 @@ extension Paths.Repositories.WithRepositoryID {
     }
 
     public struct Environments {
-        // /repositories/{repository_id}/environments
+        /// Path: `/repositories/{repository_id}/environments`
         public let path: String
     }
 }
@@ -6917,7 +6930,7 @@ extension Paths.Repositories.WithRepositoryID.Environments {
     }
 
     public struct WithEnvironmentName {
-        // /repositories/{repository_id}/environments/{environment_name}
+        /// Path: `/repositories/{repository_id}/environments/{environment_name}`
         public let path: String
     }
 }
@@ -6928,7 +6941,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
     }
 
     public struct Secrets {
-        // /repositories/{repository_id}/environments/{environment_name}/secrets
+        /// Path: `/repositories/{repository_id}/environments/{environment_name}/secrets`
         public let path: String
 
 
@@ -6941,7 +6954,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
     }
 
     public struct PublicKey {
-        // /repositories/{repository_id}/environments/{environment_name}/secrets/public-key
+        /// Path: `/repositories/{repository_id}/environments/{environment_name}/secrets/public-key`
         public let path: String
 
         /// Get an environment public key
@@ -6957,7 +6970,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
     }
 
     public struct WithSecretName {
-        // /repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}
+        /// Path: `/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}`
         public let path: String
 
         /// Get an environment secret
@@ -6978,7 +6991,7 @@ extension Paths {
     }
 
     public struct Scim {
-        // /scim
+        /// Path: `/scim`
         public let path: String
     }
 }
@@ -6989,7 +7002,7 @@ extension Paths.Scim {
     }
 
     public struct V2 {
-        // /scim/v2
+        /// Path: `/scim/v2`
         public let path: String
     }
 }
@@ -7000,7 +7013,7 @@ extension Paths.Scim.V2 {
     }
 
     public struct Enterprises {
-        // /scim/v2/enterprises
+        /// Path: `/scim/v2/enterprises`
         public let path: String
     }
 }
@@ -7011,7 +7024,7 @@ extension Paths.Scim.V2.Enterprises {
     }
 
     public struct WithEnterprise {
-        // /scim/v2/enterprises/{enterprise}
+        /// Path: `/scim/v2/enterprises/{enterprise}`
         public let path: String
     }
 }
@@ -7022,7 +7035,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
     }
 
     public struct Groups {
-        // /scim/v2/enterprises/{enterprise}/Groups
+        /// Path: `/scim/v2/enterprises/{enterprise}/Groups`
         public let path: String
 
         /// List provisioned SCIM groups for an enterprise
@@ -7038,7 +7051,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
     }
 
     public struct WithScimGroupID {
-        // /scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}
+        /// Path: `/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}`
         public let path: String
 
         /// Get SCIM provisioning information for an enterprise group
@@ -7059,7 +7072,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
     }
 
     public struct Users {
-        // /scim/v2/enterprises/{enterprise}/Users
+        /// Path: `/scim/v2/enterprises/{enterprise}/Users`
         public let path: String
 
         /// List SCIM provisioned identities for an enterprise
@@ -7075,7 +7088,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
     }
 
     public struct WithScimUserID {
-        // /scim/v2/enterprises/{enterprise}/Users/{scim_user_id}
+        /// Path: `/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}`
         public let path: String
 
         /// Get SCIM provisioning information for an enterprise user
@@ -7096,7 +7109,7 @@ extension Paths.Scim.V2 {
     }
 
     public struct Organizations {
-        // /scim/v2/organizations
+        /// Path: `/scim/v2/organizations`
         public let path: String
     }
 }
@@ -7107,7 +7120,7 @@ extension Paths.Scim.V2.Organizations {
     }
 
     public struct WithOrg {
-        // /scim/v2/organizations/{org}
+        /// Path: `/scim/v2/organizations/{org}`
         public let path: String
     }
 }
@@ -7118,7 +7131,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
     }
 
     public struct Users {
-        // /scim/v2/organizations/{org}/Users
+        /// Path: `/scim/v2/organizations/{org}/Users`
         public let path: String
 
 
@@ -7131,7 +7144,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
     }
 
     public struct WithScimUserID {
-        // /scim/v2/organizations/{org}/Users/{scim_user_id}
+        /// Path: `/scim/v2/organizations/{org}/Users/{scim_user_id}`
         public let path: String
 
         /// Delete a SCIM user from an organization
@@ -7147,7 +7160,7 @@ extension Paths {
     }
 
     public struct Search {
-        // /search
+        /// Path: `/search`
         public let path: String
     }
 }
@@ -7158,7 +7171,7 @@ extension Paths.Search {
     }
 
     public struct Code {
-        // /search/code
+        /// Path: `/search/code`
         public let path: String
 
 
@@ -7171,7 +7184,7 @@ extension Paths.Search {
     }
 
     public struct Commits {
-        // /search/commits
+        /// Path: `/search/commits`
         public let path: String
 
 
@@ -7184,7 +7197,7 @@ extension Paths.Search {
     }
 
     public struct Issues {
-        // /search/issues
+        /// Path: `/search/issues`
         public let path: String
 
 
@@ -7197,7 +7210,7 @@ extension Paths.Search {
     }
 
     public struct Labels {
-        // /search/labels
+        /// Path: `/search/labels`
         public let path: String
 
 
@@ -7210,7 +7223,7 @@ extension Paths.Search {
     }
 
     public struct Repositories {
-        // /search/repositories
+        /// Path: `/search/repositories`
         public let path: String
 
 
@@ -7223,7 +7236,7 @@ extension Paths.Search {
     }
 
     public struct Topics {
-        // /search/topics
+        /// Path: `/search/topics`
         public let path: String
 
 
@@ -7236,7 +7249,7 @@ extension Paths.Search {
     }
 
     public struct Users {
-        // /search/users
+        /// Path: `/search/users`
         public let path: String
 
 
@@ -7249,7 +7262,7 @@ extension Paths {
     }
 
     public struct Teams {
-        // /teams
+        /// Path: `/teams`
         public let path: String
     }
 }
@@ -7260,7 +7273,7 @@ extension Paths.Teams {
     }
 
     public struct WithTeamID {
-        // /teams/{team_id}
+        /// Path: `/teams/{team_id}`
         public let path: String
 
         /// Get a team (Legacy)
@@ -7281,7 +7294,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Discussions {
-        // /teams/{team_id}/discussions
+        /// Path: `/teams/{team_id}/discussions`
         public let path: String
 
 
@@ -7294,7 +7307,7 @@ extension Paths.Teams.WithTeamID.Discussions {
     }
 
     public struct WithDiscussionNumber {
-        // /teams/{team_id}/discussions/{discussion_number}
+        /// Path: `/teams/{team_id}/discussions/{discussion_number}`
         public let path: String
 
         /// Get a discussion (Legacy)
@@ -7315,7 +7328,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
     }
 
     public struct Comments {
-        // /teams/{team_id}/discussions/{discussion_number}/comments
+        /// Path: `/teams/{team_id}/discussions/{discussion_number}/comments`
         public let path: String
 
 
@@ -7328,7 +7341,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
     }
 
     public struct WithCommentNumber {
-        // /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}
+        /// Path: `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}`
         public let path: String
 
         /// Get a discussion comment (Legacy)
@@ -7349,7 +7362,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
     }
 
     public struct Reactions {
-        // /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions
+        /// Path: `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions`
         public let path: String
 
 
@@ -7362,7 +7375,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
     }
 
     public struct Reactions {
-        // /teams/{team_id}/discussions/{discussion_number}/reactions
+        /// Path: `/teams/{team_id}/discussions/{discussion_number}/reactions`
         public let path: String
 
 
@@ -7375,7 +7388,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Invitations {
-        // /teams/{team_id}/invitations
+        /// Path: `/teams/{team_id}/invitations`
         public let path: String
 
 
@@ -7388,7 +7401,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Members {
-        // /teams/{team_id}/members
+        /// Path: `/teams/{team_id}/members`
         public let path: String
 
 
@@ -7401,7 +7414,7 @@ extension Paths.Teams.WithTeamID.Members {
     }
 
     public struct WithUsername {
-        // /teams/{team_id}/members/{username}
+        /// Path: `/teams/{team_id}/members/{username}`
         public let path: String
 
         /// Get team member (Legacy)
@@ -7422,7 +7435,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Memberships {
-        // /teams/{team_id}/memberships
+        /// Path: `/teams/{team_id}/memberships`
         public let path: String
     }
 }
@@ -7433,7 +7446,7 @@ extension Paths.Teams.WithTeamID.Memberships {
     }
 
     public struct WithUsername {
-        // /teams/{team_id}/memberships/{username}
+        /// Path: `/teams/{team_id}/memberships/{username}`
         public let path: String
 
         /// Get team membership for a user (Legacy)
@@ -7454,7 +7467,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Projects {
-        // /teams/{team_id}/projects
+        /// Path: `/teams/{team_id}/projects`
         public let path: String
 
 
@@ -7467,7 +7480,7 @@ extension Paths.Teams.WithTeamID.Projects {
     }
 
     public struct WithProjectID {
-        // /teams/{team_id}/projects/{project_id}
+        /// Path: `/teams/{team_id}/projects/{project_id}`
         public let path: String
 
         /// Check team permissions for a project (Legacy)
@@ -7488,7 +7501,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Repos {
-        // /teams/{team_id}/repos
+        /// Path: `/teams/{team_id}/repos`
         public let path: String
 
 
@@ -7501,7 +7514,7 @@ extension Paths.Teams.WithTeamID.Repos {
     }
 
     public struct WithOwner {
-        // /teams/{team_id}/repos/{owner}
+        /// Path: `/teams/{team_id}/repos/{owner}`
         public let path: String
     }
 }
@@ -7512,7 +7525,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
     }
 
     public struct WithRepo {
-        // /teams/{team_id}/repos/{owner}/{repo}
+        /// Path: `/teams/{team_id}/repos/{owner}/{repo}`
         public let path: String
 
         /// Check team permissions for a repository (Legacy)
@@ -7533,7 +7546,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct TeamSync {
-        // /teams/{team_id}/team-sync
+        /// Path: `/teams/{team_id}/team-sync`
         public let path: String
     }
 }
@@ -7544,7 +7557,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
     }
 
     public struct GroupMappings {
-        // /teams/{team_id}/team-sync/group-mappings
+        /// Path: `/teams/{team_id}/team-sync/group-mappings`
         public let path: String
 
         /// List IdP groups for a team (Legacy)
@@ -7560,7 +7573,7 @@ extension Paths.Teams.WithTeamID {
     }
 
     public struct Teams {
-        // /teams/{team_id}/teams
+        /// Path: `/teams/{team_id}/teams`
         public let path: String
 
 
@@ -7573,7 +7586,7 @@ extension Paths {
     }
 
     public struct User {
-        // /user
+        /// Path: `/user`
         public let path: String
 
 
@@ -7586,7 +7599,7 @@ extension Paths.User {
     }
 
     public struct Blocks {
-        // /user/blocks
+        /// Path: `/user/blocks`
         public let path: String
 
 
@@ -7599,7 +7612,7 @@ extension Paths.User.Blocks {
     }
 
     public struct WithUsername {
-        // /user/blocks/{username}
+        /// Path: `/user/blocks/{username}`
         public let path: String
 
         /// Check if a user is blocked by the authenticated user
@@ -7620,7 +7633,7 @@ extension Paths.User {
     }
 
     public struct Codespaces {
-        // /user/codespaces
+        /// Path: `/user/codespaces`
         public let path: String
 
 
@@ -7633,7 +7646,7 @@ extension Paths.User.Codespaces {
     }
 
     public struct Secrets {
-        // /user/codespaces/secrets
+        /// Path: `/user/codespaces/secrets`
         public let path: String
 
 
@@ -7646,7 +7659,7 @@ extension Paths.User.Codespaces.Secrets {
     }
 
     public struct PublicKey {
-        // /user/codespaces/secrets/public-key
+        /// Path: `/user/codespaces/secrets/public-key`
         public let path: String
 
         /// Get public key for the authenticated user
@@ -7662,7 +7675,7 @@ extension Paths.User.Codespaces.Secrets {
     }
 
     public struct WithSecretName {
-        // /user/codespaces/secrets/{secret_name}
+        /// Path: `/user/codespaces/secrets/{secret_name}`
         public let path: String
 
         /// Get a secret for the authenticated user
@@ -7683,7 +7696,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
     }
 
     public struct Repositories {
-        // /user/codespaces/secrets/{secret_name}/repositories
+        /// Path: `/user/codespaces/secrets/{secret_name}/repositories`
         public let path: String
 
 
@@ -7696,7 +7709,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
     }
 
     public struct WithRepositoryID {
-        // /user/codespaces/secrets/{secret_name}/repositories/{repository_id}
+        /// Path: `/user/codespaces/secrets/{secret_name}/repositories/{repository_id}`
         public let path: String
 
         /// Remove a selected repository from a user secret
@@ -7712,7 +7725,7 @@ extension Paths.User.Codespaces {
     }
 
     public struct WithCodespaceName {
-        // /user/codespaces/{codespace_name}
+        /// Path: `/user/codespaces/{codespace_name}`
         public let path: String
 
         /// Get a codespace for the authenticated user
@@ -7728,7 +7741,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
     }
 
     public struct Machines {
-        // /user/codespaces/{codespace_name}/machines
+        /// Path: `/user/codespaces/{codespace_name}/machines`
         public let path: String
 
 
@@ -7741,7 +7754,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
     }
 
     public struct Start {
-        // /user/codespaces/{codespace_name}/start
+        /// Path: `/user/codespaces/{codespace_name}/start`
         public let path: String
 
 
@@ -7754,7 +7767,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
     }
 
     public struct Stop {
-        // /user/codespaces/{codespace_name}/stop
+        /// Path: `/user/codespaces/{codespace_name}/stop`
         public let path: String
 
 
@@ -7767,7 +7780,7 @@ extension Paths.User {
     }
 
     public struct Email {
-        // /user/email
+        /// Path: `/user/email`
         public let path: String
     }
 }
@@ -7778,7 +7791,7 @@ extension Paths.User.Email {
     }
 
     public struct Visibility {
-        // /user/email/visibility
+        /// Path: `/user/email/visibility`
         public let path: String
 
 
@@ -7791,7 +7804,7 @@ extension Paths.User {
     }
 
     public struct Emails {
-        // /user/emails
+        /// Path: `/user/emails`
         public let path: String
 
         /// Delete an email address for the authenticated user
@@ -7807,7 +7820,7 @@ extension Paths.User {
     }
 
     public struct Followers {
-        // /user/followers
+        /// Path: `/user/followers`
         public let path: String
 
 
@@ -7820,7 +7833,7 @@ extension Paths.User {
     }
 
     public struct Following {
-        // /user/following
+        /// Path: `/user/following`
         public let path: String
 
 
@@ -7833,7 +7846,7 @@ extension Paths.User.Following {
     }
 
     public struct WithUsername {
-        // /user/following/{username}
+        /// Path: `/user/following/{username}`
         public let path: String
 
         /// Check if a person is followed by the authenticated user
@@ -7854,7 +7867,7 @@ extension Paths.User {
     }
 
     public struct GpgKeys {
-        // /user/gpg_keys
+        /// Path: `/user/gpg_keys`
         public let path: String
 
 
@@ -7867,7 +7880,7 @@ extension Paths.User.GpgKeys {
     }
 
     public struct WithGpgKeyID {
-        // /user/gpg_keys/{gpg_key_id}
+        /// Path: `/user/gpg_keys/{gpg_key_id}`
         public let path: String
 
         /// Get a GPG key for the authenticated user
@@ -7888,7 +7901,7 @@ extension Paths.User {
     }
 
     public struct Installations {
-        // /user/installations
+        /// Path: `/user/installations`
         public let path: String
 
 
@@ -7901,7 +7914,7 @@ extension Paths.User.Installations {
     }
 
     public struct WithInstallationID {
-        // /user/installations/{installation_id}
+        /// Path: `/user/installations/{installation_id}`
         public let path: String
     }
 }
@@ -7912,7 +7925,7 @@ extension Paths.User.Installations.WithInstallationID {
     }
 
     public struct Repositories {
-        // /user/installations/{installation_id}/repositories
+        /// Path: `/user/installations/{installation_id}/repositories`
         public let path: String
 
 
@@ -7925,7 +7938,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
     }
 
     public struct WithRepositoryID {
-        // /user/installations/{installation_id}/repositories/{repository_id}
+        /// Path: `/user/installations/{installation_id}/repositories/{repository_id}`
         public let path: String
 
         /// Remove a repository from an app installation
@@ -7941,7 +7954,7 @@ extension Paths.User {
     }
 
     public struct InteractionLimits {
-        // /user/interaction-limits
+        /// Path: `/user/interaction-limits`
         public let path: String
 
         /// Set interaction restrictions for your public repositories
@@ -7962,7 +7975,7 @@ extension Paths.User {
     }
 
     public struct Issues {
-        // /user/issues
+        /// Path: `/user/issues`
         public let path: String
 
 
@@ -7975,7 +7988,7 @@ extension Paths.User {
     }
 
     public struct Keys {
-        // /user/keys
+        /// Path: `/user/keys`
         public let path: String
 
 
@@ -7988,7 +8001,7 @@ extension Paths.User.Keys {
     }
 
     public struct WithKeyID {
-        // /user/keys/{key_id}
+        /// Path: `/user/keys/{key_id}`
         public let path: String
 
         /// Get a public SSH key for the authenticated user
@@ -8009,7 +8022,7 @@ extension Paths.User {
     }
 
     public struct MarketplacePurchases {
-        // /user/marketplace_purchases
+        /// Path: `/user/marketplace_purchases`
         public let path: String
 
 
@@ -8022,7 +8035,7 @@ extension Paths.User.MarketplacePurchases {
     }
 
     public struct Stubbed {
-        // /user/marketplace_purchases/stubbed
+        /// Path: `/user/marketplace_purchases/stubbed`
         public let path: String
 
 
@@ -8035,7 +8048,7 @@ extension Paths.User {
     }
 
     public struct Memberships {
-        // /user/memberships
+        /// Path: `/user/memberships`
         public let path: String
     }
 }
@@ -8046,7 +8059,7 @@ extension Paths.User.Memberships {
     }
 
     public struct Orgs {
-        // /user/memberships/orgs
+        /// Path: `/user/memberships/orgs`
         public let path: String
 
 
@@ -8059,7 +8072,7 @@ extension Paths.User.Memberships.Orgs {
     }
 
     public struct WithOrg {
-        // /user/memberships/orgs/{org}
+        /// Path: `/user/memberships/orgs/{org}`
         public let path: String
 
         /// Get an organization membership for the authenticated user
@@ -8075,7 +8088,7 @@ extension Paths.User {
     }
 
     public struct Migrations {
-        // /user/migrations
+        /// Path: `/user/migrations`
         public let path: String
 
 
@@ -8088,7 +8101,7 @@ extension Paths.User.Migrations {
     }
 
     public struct WithMigrationID {
-        // /user/migrations/{migration_id}
+        /// Path: `/user/migrations/{migration_id}`
         public let path: String
 
         /// Get a user migration status
@@ -8104,7 +8117,7 @@ extension Paths.User.Migrations.WithMigrationID {
     }
 
     public struct Archive {
-        // /user/migrations/{migration_id}/archive
+        /// Path: `/user/migrations/{migration_id}/archive`
         public let path: String
 
         /// Download a user migration archive
@@ -8125,7 +8138,7 @@ extension Paths.User.Migrations.WithMigrationID {
     }
 
     public struct Repos {
-        // /user/migrations/{migration_id}/repos
+        /// Path: `/user/migrations/{migration_id}/repos`
         public let path: String
     }
 }
@@ -8136,7 +8149,7 @@ extension Paths.User.Migrations.WithMigrationID.Repos {
     }
 
     public struct WithRepoName {
-        // /user/migrations/{migration_id}/repos/{repo_name}
+        /// Path: `/user/migrations/{migration_id}/repos/{repo_name}`
         public let path: String
     }
 }
@@ -8147,7 +8160,7 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
     }
 
     public struct Lock {
-        // /user/migrations/{migration_id}/repos/{repo_name}/lock
+        /// Path: `/user/migrations/{migration_id}/repos/{repo_name}/lock`
         public let path: String
 
         /// Unlock a user repository
@@ -8163,7 +8176,7 @@ extension Paths.User.Migrations.WithMigrationID {
     }
 
     public struct Repositories {
-        // /user/migrations/{migration_id}/repositories
+        /// Path: `/user/migrations/{migration_id}/repositories`
         public let path: String
 
 
@@ -8176,7 +8189,7 @@ extension Paths.User {
     }
 
     public struct Orgs {
-        // /user/orgs
+        /// Path: `/user/orgs`
         public let path: String
 
 
@@ -8189,7 +8202,7 @@ extension Paths.User {
     }
 
     public struct Packages {
-        // /user/packages
+        /// Path: `/user/packages`
         public let path: String
 
 
@@ -8202,7 +8215,7 @@ extension Paths.User.Packages {
     }
 
     public struct WithPackageType {
-        // /user/packages/{package_type}
+        /// Path: `/user/packages/{package_type}`
         public let path: String
     }
 }
@@ -8213,7 +8226,7 @@ extension Paths.User.Packages.WithPackageType {
     }
 
     public struct WithPackageName {
-        // /user/packages/{package_type}/{package_name}
+        /// Path: `/user/packages/{package_type}/{package_name}`
         public let path: String
 
         /// Get a package for the authenticated user
@@ -8234,7 +8247,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Restore {
-        // /user/packages/{package_type}/{package_name}/restore
+        /// Path: `/user/packages/{package_type}/{package_name}/restore`
         public let path: String
 
 
@@ -8247,7 +8260,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Versions {
-        // /user/packages/{package_type}/{package_name}/versions
+        /// Path: `/user/packages/{package_type}/{package_name}/versions`
         public let path: String
 
 
@@ -8260,7 +8273,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
     }
 
     public struct WithPackageVersionID {
-        // /user/packages/{package_type}/{package_name}/versions/{package_version_id}
+        /// Path: `/user/packages/{package_type}/{package_name}/versions/{package_version_id}`
         public let path: String
 
         /// Get a package version for the authenticated user
@@ -8281,7 +8294,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions.WithPacka
     }
 
     public struct Restore {
-        // /user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
+        /// Path: `/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
 
@@ -8294,7 +8307,7 @@ extension Paths.User {
     }
 
     public struct Projects {
-        // /user/projects
+        /// Path: `/user/projects`
         public let path: String
 
 
@@ -8307,7 +8320,7 @@ extension Paths.User {
     }
 
     public struct PublicEmails {
-        // /user/public_emails
+        /// Path: `/user/public_emails`
         public let path: String
 
 
@@ -8320,7 +8333,7 @@ extension Paths.User {
     }
 
     public struct Repos {
-        // /user/repos
+        /// Path: `/user/repos`
         public let path: String
 
 
@@ -8333,7 +8346,7 @@ extension Paths.User {
     }
 
     public struct RepositoryInvitations {
-        // /user/repository_invitations
+        /// Path: `/user/repository_invitations`
         public let path: String
 
 
@@ -8346,7 +8359,7 @@ extension Paths.User.RepositoryInvitations {
     }
 
     public struct WithInvitationID {
-        // /user/repository_invitations/{invitation_id}
+        /// Path: `/user/repository_invitations/{invitation_id}`
         public let path: String
 
         /// Decline a repository invitation
@@ -8362,7 +8375,7 @@ extension Paths.User {
     }
 
     public struct Starred {
-        // /user/starred
+        /// Path: `/user/starred`
         public let path: String
 
 
@@ -8375,7 +8388,7 @@ extension Paths.User.Starred {
     }
 
     public struct WithOwner {
-        // /user/starred/{owner}
+        /// Path: `/user/starred/{owner}`
         public let path: String
     }
 }
@@ -8386,7 +8399,7 @@ extension Paths.User.Starred.WithOwner {
     }
 
     public struct WithRepo {
-        // /user/starred/{owner}/{repo}
+        /// Path: `/user/starred/{owner}/{repo}`
         public let path: String
 
         /// Check if a repository is starred by the authenticated user
@@ -8407,7 +8420,7 @@ extension Paths.User {
     }
 
     public struct Subscriptions {
-        // /user/subscriptions
+        /// Path: `/user/subscriptions`
         public let path: String
 
 
@@ -8420,7 +8433,7 @@ extension Paths.User {
     }
 
     public struct Teams {
-        // /user/teams
+        /// Path: `/user/teams`
         public let path: String
 
 
@@ -8433,7 +8446,7 @@ extension Paths {
     }
 
     public struct Users {
-        // /users
+        /// Path: `/users`
         public let path: String
 
 
@@ -8446,7 +8459,7 @@ extension Paths.Users {
     }
 
     public struct WithUsername {
-        // /users/{username}
+        /// Path: `/users/{username}`
         public let path: String
 
 
@@ -8459,7 +8472,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Events {
-        // /users/{username}/events
+        /// Path: `/users/{username}/events`
         public let path: String
 
 
@@ -8472,7 +8485,7 @@ extension Paths.Users.WithUsername.Events {
     }
 
     public struct Orgs {
-        // /users/{username}/events/orgs
+        /// Path: `/users/{username}/events/orgs`
         public let path: String
     }
 }
@@ -8483,7 +8496,7 @@ extension Paths.Users.WithUsername.Events.Orgs {
     }
 
     public struct WithOrg {
-        // /users/{username}/events/orgs/{org}
+        /// Path: `/users/{username}/events/orgs/{org}`
         public let path: String
 
 
@@ -8496,7 +8509,7 @@ extension Paths.Users.WithUsername.Events {
     }
 
     public struct Public {
-        // /users/{username}/events/public
+        /// Path: `/users/{username}/events/public`
         public let path: String
 
 
@@ -8509,7 +8522,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Followers {
-        // /users/{username}/followers
+        /// Path: `/users/{username}/followers`
         public let path: String
 
 
@@ -8522,7 +8535,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Following {
-        // /users/{username}/following
+        /// Path: `/users/{username}/following`
         public let path: String
 
 
@@ -8535,7 +8548,7 @@ extension Paths.Users.WithUsername.Following {
     }
 
     public struct WithTargetUser {
-        // /users/{username}/following/{target_user}
+        /// Path: `/users/{username}/following/{target_user}`
         public let path: String
 
         /// Check if a user follows another user
@@ -8551,7 +8564,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Gists {
-        // /users/{username}/gists
+        /// Path: `/users/{username}/gists`
         public let path: String
 
 
@@ -8564,7 +8577,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct GpgKeys {
-        // /users/{username}/gpg_keys
+        /// Path: `/users/{username}/gpg_keys`
         public let path: String
 
 
@@ -8577,7 +8590,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Hovercard {
-        // /users/{username}/hovercard
+        /// Path: `/users/{username}/hovercard`
         public let path: String
 
         /// Get contextual information for a user
@@ -8593,7 +8606,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Installation {
-        // /users/{username}/installation
+        /// Path: `/users/{username}/installation`
         public let path: String
 
         /// Get a user installation for the authenticated app
@@ -8609,7 +8622,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Keys {
-        // /users/{username}/keys
+        /// Path: `/users/{username}/keys`
         public let path: String
 
 
@@ -8622,7 +8635,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Orgs {
-        // /users/{username}/orgs
+        /// Path: `/users/{username}/orgs`
         public let path: String
 
 
@@ -8635,7 +8648,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Packages {
-        // /users/{username}/packages
+        /// Path: `/users/{username}/packages`
         public let path: String
 
 
@@ -8648,7 +8661,7 @@ extension Paths.Users.WithUsername.Packages {
     }
 
     public struct WithPackageType {
-        // /users/{username}/packages/{package_type}
+        /// Path: `/users/{username}/packages/{package_type}`
         public let path: String
     }
 }
@@ -8659,7 +8672,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
     }
 
     public struct WithPackageName {
-        // /users/{username}/packages/{package_type}/{package_name}
+        /// Path: `/users/{username}/packages/{package_type}/{package_name}`
         public let path: String
 
         /// Get a package for a user
@@ -8680,7 +8693,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Restore {
-        // /users/{username}/packages/{package_type}/{package_name}/restore
+        /// Path: `/users/{username}/packages/{package_type}/{package_name}/restore`
         public let path: String
 
 
@@ -8693,7 +8706,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
     }
 
     public struct Versions {
-        // /users/{username}/packages/{package_type}/{package_name}/versions
+        /// Path: `/users/{username}/packages/{package_type}/{package_name}/versions`
         public let path: String
 
 
@@ -8706,7 +8719,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
     }
 
     public struct WithPackageVersionID {
-        // /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}
+        /// Path: `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}`
         public let path: String
 
         /// Get a package version for a user
@@ -8727,7 +8740,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
     }
 
     public struct Restore {
-        // /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore
+        /// Path: `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
 
@@ -8740,7 +8753,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Projects {
-        // /users/{username}/projects
+        /// Path: `/users/{username}/projects`
         public let path: String
 
 
@@ -8753,7 +8766,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct ReceivedEvents {
-        // /users/{username}/received_events
+        /// Path: `/users/{username}/received_events`
         public let path: String
 
 
@@ -8766,7 +8779,7 @@ extension Paths.Users.WithUsername.ReceivedEvents {
     }
 
     public struct Public {
-        // /users/{username}/received_events/public
+        /// Path: `/users/{username}/received_events/public`
         public let path: String
 
 
@@ -8779,7 +8792,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Repos {
-        // /users/{username}/repos
+        /// Path: `/users/{username}/repos`
         public let path: String
 
 
@@ -8792,7 +8805,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Settings {
-        // /users/{username}/settings
+        /// Path: `/users/{username}/settings`
         public let path: String
     }
 }
@@ -8803,7 +8816,7 @@ extension Paths.Users.WithUsername.Settings {
     }
 
     public struct Billing {
-        // /users/{username}/settings/billing
+        /// Path: `/users/{username}/settings/billing`
         public let path: String
     }
 }
@@ -8814,7 +8827,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
     }
 
     public struct Actions {
-        // /users/{username}/settings/billing/actions
+        /// Path: `/users/{username}/settings/billing/actions`
         public let path: String
 
         /// Get GitHub Actions billing for a user
@@ -8830,7 +8843,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
     }
 
     public struct Packages {
-        // /users/{username}/settings/billing/packages
+        /// Path: `/users/{username}/settings/billing/packages`
         public let path: String
 
         /// Get GitHub Packages billing for a user
@@ -8846,7 +8859,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
     }
 
     public struct SharedStorage {
-        // /users/{username}/settings/billing/shared-storage
+        /// Path: `/users/{username}/settings/billing/shared-storage`
         public let path: String
 
         /// Get shared storage billing for a user
@@ -8862,7 +8875,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Starred {
-        // /users/{username}/starred
+        /// Path: `/users/{username}/starred`
         public let path: String
 
 
@@ -8875,7 +8888,7 @@ extension Paths.Users.WithUsername {
     }
 
     public struct Subscriptions {
-        // /users/{username}/subscriptions
+        /// Path: `/users/{username}/subscriptions`
         public let path: String
 
 
@@ -8888,7 +8901,7 @@ extension Paths {
     }
 
     public struct Zen {
-        // /zen
+        /// Path: `/zen`
         public let path: String
 
 

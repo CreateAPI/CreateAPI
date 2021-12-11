@@ -15,7 +15,7 @@ extension Paths {
     }
 
     public struct Pets {
-        // /pets
+        /// Path: `/pets`
         public let path: String
 
         /// List all pets
@@ -35,7 +35,7 @@ extension Paths.Pets {
     }
 
     public struct WithPetID {
-        // /pets/{petId}
+        /// Path: `/pets/{petId}`
         public let path: String
 
         /// Info for a specific pet
