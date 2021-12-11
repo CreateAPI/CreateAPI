@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 
+// TODO: When parsing additionalProperties remove known keys
 final class Templates {
     let options: GenerateOptions
     
