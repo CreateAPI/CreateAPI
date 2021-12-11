@@ -6,7 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Disambiguate Scheme/Package (but only if necessary?)
 // TODO: (+Get) How to access response headers, e.g. `x-next` in Petstore/pets.get
     // maybe add Response<T> that provides URLResponse and use it only if headers: are specified
     // + add headers in comments (or add keys?)
