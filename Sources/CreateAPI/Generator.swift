@@ -137,14 +137,13 @@ extension Generator {
         }
         
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
-            if details.properties.isEmpty {
-                var additional = details.additionalProperties
-                if options.isInterpretingEmptyObjectsAsDictionaries {
-                    additional = additional ?? .a(true)
-                }
-                if let additional = additional {
-                    return try makeDictionary(info: info, properties: additional)
-                }
+            // TODO: We can be smarter and combine `properties` with `additionalProperties`
+            var additional = details.additionalProperties
+            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
+                additional = additional ?? .a(true)
+            }
+            if let additional = additional {
+                return try makeDictionary(info: info, properties: additional)
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
