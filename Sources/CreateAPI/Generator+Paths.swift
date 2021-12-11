@@ -362,7 +362,6 @@ extension Generator {
     
     // TODO: Add support for enums
     // TODO: Add an option to customize whether to add headers and add tests
-    // TODO: Add an option to not include HTTPHeaders in imports
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard let headers = response.responseValue?.headers, !headers.isEmpty else {
             return nil
