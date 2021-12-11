@@ -100,6 +100,9 @@ final class Templates {
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
     func decode(property: Property) -> String {
+        if property.isAdditional {
+            return "self.\(property.name.accessor) = try \(property.type).init(from: decoder)"
+        }
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
     }
@@ -165,6 +168,9 @@ final class Templates {
     
     func encode(properties: [Property]) -> String {
         let contents = properties.map {
+            if $0.isAdditional {
+                return "try \($0.name).encode(to: encoder)"
+            }
             let encode = $0.isOptional ? "encodeIfPresent" : "encode"
             return "try values.\(encode)(\($0.name), forKey: \"\($0.key)\")"
         }.joined(separator: "\n")

@@ -173,6 +173,7 @@ extension Paths.AppManifests.WithCode {
             public var clientSecret: String
             public var pem: String
             public var webhookSecret: String?
+            public var additionalProperties: [String: AnyJSON]
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -181,6 +182,7 @@ extension Paths.AppManifests.WithCode {
                 self.clientSecret = try values.decode(String.self, forKey: "client_secret")
                 self.pem = try values.decode(String.self, forKey: "pem")
                 self.webhookSecret = try values.decodeIfPresent(String.self, forKey: "webhook_secret")
+                self.additionalProperties = try [String: AnyJSON].init(from: decoder)
             }
         }
     }
