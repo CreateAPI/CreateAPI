@@ -230,7 +230,7 @@ final class Templates {
                 output += "///\n"
             }
             let description = options.capitilizeDescription ? description.capitalizingFirstLetter() : description
-            for line in description.split(separator: "\n") {
+            for line in description.lines {
                 output += "/// \(line)\n"
             }
         }
@@ -246,7 +246,7 @@ final class Templates {
                 if !output.isEmpty {
                     output += "///\n"
                 }
-                let lines = value.split(separator: "\n")
+                let lines = value.lines
                 if lines.count == 1 {
                     output += "/// Example: \(value)\n"
                 } else {
@@ -289,7 +289,7 @@ final class Templates {
         if options.comments.isEnabled, options.comments.addDescription,
            let description = header.description, !description.isEmpty {
             let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
-            for line in description.split(separator: "\n") {
+            for line in description.lines {
                 output += "/// \(line)\n"
             }
         }
@@ -327,7 +327,7 @@ extension String {
     }
     
     func indented(count: Int) -> String {
-        components(separatedBy: "\n")
+        lines
             .map { $0.isEmpty ? $0 : String(repeating: " ", count: count * 4) + $0 }
             .joined(separator: "\n")
     }

@@ -466,6 +466,7 @@ public struct HasOnlyReadOnly: Codable {
 
 public struct Capitalization: Codable {
     /// Name of the pet
+    /// 
     public var attName: String?
     public var capitalCamel: String?
     public var capitalSnake: String?

@@ -466,6 +466,7 @@ enum EnumClass: String, Codable, CaseIterable {
 
  struct Capitalization: Codable {
     /// Name of the pet
+    /// 
     var attName: String?
     var capitalCamel: String?
     var capitalSnake: String?

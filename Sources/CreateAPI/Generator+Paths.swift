@@ -198,7 +198,7 @@ extension Generator {
         var output = ""
         if options.comments.isEnabled {
             if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
-                for line in summary.split(separator: "\n") {
+                for line in summary.lines {
                     output += "/// \(line)\n"
                 }
             }
