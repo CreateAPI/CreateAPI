@@ -105,26 +105,9 @@ extension Generator {
         }
         
         /// E.g. [String: String], [String: [String: AnyJSON]]
-        func makeDictionary(info: JSONSchemaContext, properties: Either<Bool, JSONSchema>) throws -> Property {
-            switch properties {
-            case .a:
-                return child(name: propertyName, type: "[String: AnyJSON]", info: info)
-            case .b(let schema):
-                // TODO: Do this recursively, but for now two levels will suffice (map of map)
-                if case .object(let info, let details) = schema,
-                   details.properties.isEmpty,
-                   let additional = details.additionalProperties {
-                    let property = try makeAdditionalProperties(key: key, additional, context: context)
-                    return child(name: propertyName, type: property.type, info: info, nested: property.nested)
-                }
-                if let type = try? getPrimitiveType(for: schema) {
-                    return child(name: propertyName, type: "[String: \(type)]", info: info, nested: nil)
-                }
-                let nestedTypeName = makeTypeName(key).appending("Item")
-                // TODO: implement shiftRight (fix nested enums)
-                let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-                return child(name: propertyName, type: "[String: \(nestedTypeName)]", info: info, nested: nested)
-            }
+        func makeDictionary(info: JSONSchemaContext, schema: Either<Bool, JSONSchema>) throws -> Property {
+            let property = try makeAdditionalProperties(info: info, key: key, schema, context: context)
+            return child(name: propertyName, type: property.type, info: info, nested: property.nested)
         }
         
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
@@ -134,7 +117,7 @@ extension Generator {
                 additional = additional ?? .a(true)
             }
             if let additional = additional {
-                return try makeDictionary(info: info, properties: additional)
+                return try makeDictionary(info: info, schema: additional)
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
@@ -198,21 +181,38 @@ extension Generator {
     
     private struct AdditionalProperties {
         let type: String
+        let info: JSONSchemaContext
         var nested: String?
     }
     
     // TODO: Do this recursively, but for now two levels will suffice (map of map)
-    private func makeAdditionalProperties(key: String, _ schema: Either<Bool, JSONSchema>, context: Context) throws -> AdditionalProperties {
+    private func makeAdditionalProperties(info: JSONSchemaContext, key: String, _ schema: Either<Bool, JSONSchema>, context: Context) throws -> AdditionalProperties {
         switch schema {
         case .a:
-            return AdditionalProperties(type: "[String: [String: AnyJSON]]")
+            return AdditionalProperties(type: "[String: AnyJSON]", info: info)
         case .b(let schema):
+            // TODO: Do this recursively, but for now two levels will suffice (map of map)
+            if case .object(let info, let details) = schema,
+               details.properties.isEmpty,
+               let additional = details.additionalProperties {
+                switch additional {
+                case .a:
+                    return AdditionalProperties(type: "[String: [String: AnyJSON]]", info: info)
+                case .b(let schema):
+                    if let type = try? getPrimitiveType(for: schema) {
+                        return AdditionalProperties(type: "[String: [String: \(type)]]", info: info)
+                    }
+                    let nestedTypeName = makeTypeName(key).appending("Item")
+                    let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
+                    return AdditionalProperties(type: "[String: [String: \(nestedTypeName)]]", info: info, nested: nested)
+                }
+            }
             if let type = try? getPrimitiveType(for: schema) {
-                return AdditionalProperties(type: "[String: [String: \(type)]]")
+                return AdditionalProperties(type: "[String: \(type)]", info: info)
             }
             let nestedTypeName = makeTypeName(key).appending("Item")
             let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-            return AdditionalProperties(type: "[String: [String: \(nestedTypeName)]]", nested: nested)
+            return AdditionalProperties(type: "[String: \(nestedTypeName)]", info: info, nested: nested)
         }
     }
     

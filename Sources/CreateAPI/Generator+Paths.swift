@@ -179,6 +179,10 @@ extension Generator {
     }
     
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+//        guard operation.operationId == "apps/create-from-manifest" else {
+//            throw GeneratorError("skip")
+//        }
+        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
