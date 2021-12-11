@@ -39,7 +39,12 @@ extension Paths.Pet {
         /// Path: `/pet/findByStatus`
         let path: String
 
-
+        /// Finds Pets by status
+        ///
+        /// Multiple status values can be provided with comma separated strings
+        func get() -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path)
+        }
     }
 }
 
@@ -52,7 +57,12 @@ extension Paths.Pet {
         /// Path: `/pet/findByTags`
         let path: String
 
-
+        /// Finds Pets by tags
+        ///
+        /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+        func get() -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path)
+        }
     }
 }
 

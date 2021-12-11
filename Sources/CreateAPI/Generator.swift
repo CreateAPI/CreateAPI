@@ -154,8 +154,11 @@ extension Generator {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if let type = try? getPrimitiveType(for: item) {
-                return child(name: propertyName, type: "[\(type.namespace(context.namespace))]", info: info)
+            if var type = try? getPrimitiveType(for: item) {
+                if case .reference = item, !type.starts(with: "[") { // TODO: Refactor
+                   type = type.namespace(context.namespace)
+                }
+                return child(name: propertyName, type: "[\(type)]", info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
             let nested = try makeTopDeclaration(name: name, schema: item, context: context)

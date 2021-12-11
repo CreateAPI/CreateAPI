@@ -179,9 +179,10 @@ extension Generator {
     }
     
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
-        if operation.operationId == "loginUser" {
-            print("a")
-        }
+        #warning("TEMP")
+//        if operation.operationId != "apps/create-from-manifest" {
+//            throw GeneratorError("skip")
+//        }
         
         let responseType: String
         var headers: String?
@@ -373,12 +374,10 @@ extension Generator {
                         return ResponseType(type: "String")
                     case .integer, .boolean:
                         return ResponseType(type: "Data")
-                    case .object:
+                    default:
                         // TODO: Add a way to cutomize which namespace to use
                         let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
                         return ResponseType(type: property.type, nested: property.nested)
-                    default:
-                        throw GeneratorError("ERROR: response inline scheme not handler")
                     }
                 default:
                     throw GeneratorError("ERROR: response not handled")

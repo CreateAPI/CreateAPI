@@ -201,7 +201,16 @@ extension Paths.App.Hook {
         /// Path: `/app/hook/deliveries`
         public let path: String
 
-
+        /// List deliveries for an app webhook
+        ///
+        /// Returns a list of webhook deliveries for the webhook configured for a GitHub App.
+        /// 
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook)
+        public func get() -> Request<[github.HookDeliveryItem]> {
+            .get(path)
+        }
     }
 }
 
@@ -249,7 +258,20 @@ extension Paths.App {
         /// Path: `/app/installations`
         public let path: String
 
+        /// List installations for the authenticated app
+        ///
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        /// 
+        /// The permissions the installation has are included under the `permissions` key.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)
+        public func get() -> Request<[github.Installation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -341,7 +363,21 @@ extension Paths.Applications {
         /// Path: `/applications/grants`
         public let path: String
 
+        /// List your grants
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        /// 
+        /// You can use this API to list the set of OAuth applications that have been granted access to your account. Unlike the [list your authorizations](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations) API, this API does not manage individual tokens. This API will return one entry for each OAuth application that has been granted access to your account, regardless of the number of tokens an application has generated for your user. The list of OAuth applications returned matches what is shown on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized). The `scopes` returned are the union of scopes authorized for the application. For example, if an application has one token with `repo` scope and another token with `user` scope, the grant will return `["repo", "user"]`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.ApplicationGrant]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -485,7 +521,19 @@ extension Paths {
         /// Path: `/authorizations`
         public let path: String
 
+        /// List your authorizations
+        ///
+        /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.Authorization]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -566,7 +614,12 @@ extension Paths {
         /// Path: `/codes_of_conduct`
         public let path: String
 
-
+        /// Get all codes of conduct
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-all-codes-of-conduct)
+        public func get() -> Request<[github.CodeOfConduct]> {
+            .get(path)
+        }
     }
 }
 
@@ -977,7 +1030,16 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Path: `/enterprises/{enterprise}/actions/runners/downloads`
         public let path: String
 
-
+        /// List runner applications for an enterprise
+        ///
+        /// Lists binaries for the runner application that you can download and run.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise)
+        public func get() -> Request<[github.RunnerApplication]> {
+            .get(path)
+        }
     }
 }
 
@@ -1049,7 +1111,14 @@ extension Paths.Enterprises.WithEnterprise {
         /// Path: `/enterprises/{enterprise}/audit-log`
         public let path: String
 
-
+        /// Get the audit log for an enterprise
+        ///
+        /// Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise)
+        public func get() -> Request<[github.AuditLogEvent]> {
+            .get(path)
+        }
     }
 }
 
@@ -1177,7 +1246,14 @@ extension Paths {
         /// Path: `/events`
         public let path: String
 
-
+        /// List public events
+        ///
+        /// We delay the public events feed by five minutes, which means the most recent event returned by the public events API actually occurred at least five minutes ago.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -1220,7 +1296,18 @@ extension Paths {
         /// Path: `/gists`
         public let path: String
 
+        /// List gists for the authenticated user
+        ///
+        /// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user)
+        public func get() -> Request<[github.BaseGist]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1233,7 +1320,20 @@ extension Paths.Gists {
         /// Path: `/gists/public`
         public let path: String
 
+        /// List public gists
+        ///
+        /// List public gists sorted by most recently updated to least recently updated.
+        /// 
+        /// Note: With [pagination](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination), you can fetch up to 3000 gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-public-gists)
+        public func get() -> Request<[github.BaseGist]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1246,7 +1346,18 @@ extension Paths.Gists {
         /// Path: `/gists/starred`
         public let path: String
 
+        /// List starred gists
+        ///
+        /// List the authenticated user's starred gists:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-starred-gists)
+        public func get() -> Request<[github.BaseGist]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1284,7 +1395,16 @@ extension Paths.Gists.WithGistID {
         /// Path: `/gists/{gist_id}/comments`
         public let path: String
 
+        /// List gist comments
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-comments)
+        public func get() -> Request<[github.GistComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1322,7 +1442,16 @@ extension Paths.Gists.WithGistID {
         /// Path: `/gists/{gist_id}/commits`
         public let path: String
 
+        /// List gist commits
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-commits)
+        public func get() -> Request<[github.GistCommit]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1335,7 +1464,16 @@ extension Paths.Gists.WithGistID {
         /// Path: `/gists/{gist_id}/forks`
         public let path: String
 
+        /// List gist forks
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-forks)
+        public func get() -> Request<[github.GistSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1402,7 +1540,14 @@ extension Paths.Gitignore {
         /// Path: `/gitignore/templates`
         public let path: String
 
-
+        /// Get all gitignore templates
+        ///
+        /// List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-all-gitignore-templates)
+        public func get() -> Request<[String]> {
+            .get(path)
+        }
     }
 }
 
@@ -1511,7 +1656,26 @@ extension Paths {
         /// Path: `/issues`
         public let path: String
 
+        /// List issues assigned to the authenticated user
+        ///
+        /// List issues assigned to the authenticated user across all visible repositories including owned repositories, member
+        /// repositories, and organization repositories. You can use the `filter` query parameter to fetch issues that are not
+        /// necessarily assigned to you.
+        /// 
+        /// 
+        /// **Note**: GitHub's REST API v3 considers every pull request an issue, but not every issue is a pull request. For this
+        /// reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
+        /// the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
+        /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
+        public func get() -> Request<[github.Issue]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1524,7 +1688,12 @@ extension Paths {
         /// Path: `/licenses`
         public let path: String
 
-
+        /// Get all commonly used licenses
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses)
+        public func get() -> Request<[github.LicenseSimple]> {
+            .get(path)
+        }
     }
 }
 
@@ -1625,7 +1794,20 @@ extension Paths.MarketplaceListing {
         /// Path: `/marketplace_listing/plans`
         public let path: String
 
+        /// List plans
+        ///
+        /// Lists all plans that are part of your GitHub Marketplace listing.
+        /// 
+        /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans)
+        public func get() -> Request<[github.MarketplaceListingPlan]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1649,7 +1831,20 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
         /// Path: `/marketplace_listing/plans/{plan_id}/accounts`
         public let path: String
 
+        /// List accounts for a plan
+        ///
+        /// Returns user and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
+        /// 
+        /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan)
+        public func get() -> Request<[github.MarketplacePurchase]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1706,7 +1901,20 @@ extension Paths.MarketplaceListing.Stubbed {
         /// Path: `/marketplace_listing/stubbed/plans`
         public let path: String
 
+        /// List plans (stubbed)
+        ///
+        /// Lists all plans that are part of your GitHub Marketplace listing.
+        /// 
+        /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans-stubbed)
+        public func get() -> Request<[github.MarketplaceListingPlan]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1730,7 +1938,20 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
         /// Path: `/marketplace_listing/stubbed/plans/{plan_id}/accounts`
         public let path: String
 
+        /// List accounts for a plan (stubbed)
+        ///
+        /// Returns repository and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
+        /// 
+        /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed)
+        public func get() -> Request<[github.MarketplacePurchase]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1798,7 +2019,12 @@ extension Paths.Networks.WithOwner.WithRepo {
         /// Path: `/networks/{owner}/{repo}/events`
         public let path: String
 
-
+        /// List public events for a network of repositories
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -1811,7 +2037,18 @@ extension Paths {
         /// Path: `/notifications`
         public let path: String
 
+        /// List notifications for the authenticated user
+        ///
+        /// List all notifications for the current user, sorted by most recently updated.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)
+        public func get() -> Request<[github.Thread]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -1897,7 +2134,20 @@ extension Paths {
         /// Path: `/organizations`
         public let path: String
 
+        /// List organizations
+        ///
+        /// Lists all organizations, in the order that they were created on GitHub.
+        /// 
+        /// **Note:** Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of organizations.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations)
+        public func get() -> Request<[github.OrganizationSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2347,7 +2597,16 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// Path: `/orgs/{org}/actions/runners/downloads`
         public let path: String
 
-
+        /// List runner applications for an organization
+        ///
+        /// Lists binaries for the runner application that you can download and run.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-runner-applications-for-an-organization)
+        public func get() -> Request<[github.RunnerApplication]> {
+            .get(path)
+        }
     }
 }
 
@@ -2554,7 +2813,16 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/audit-log`
         public let path: String
 
-
+        /// Get the audit log for an organization
+        ///
+        /// Gets the audit log for an organization. For more information, see "[Reviewing the audit log for your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization)."
+        /// 
+        /// To use this endpoint, you must be an organization owner, and you must use an access token with the `admin:org` scope. GitHub Apps must have the `organization_administration` read permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-audit-log)
+        public func get() -> Request<[github.AuditLogEvent]> {
+            .get(path)
+        }
     }
 }
 
@@ -2567,7 +2835,14 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/blocks`
         public let path: String
 
-
+        /// List users blocked by an organization
+        ///
+        /// List the users blocked by an organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-users-blocked-by-an-organization)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
     }
 }
 
@@ -2605,7 +2880,16 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/credential-authorizations`
         public let path: String
 
-
+        /// List SAML SSO authorizations for an organization
+        ///
+        /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
+        /// 
+        /// An authenticated organization owner with the `read:org` scope can list all credential authorizations for an organization that uses SAML single sign-on (SSO). The credentials are either personal access tokens or SSH keys that organization members have authorized for the organization. For more information, see [About authentication with SAML single sign-on](https://help.github.com/en/articles/about-authentication-with-saml-single-sign-on).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization)
+        public func get() -> Request<[github.CredentialAuthorization]> {
+            .get(path)
+        }
     }
 }
 
@@ -2640,7 +2924,12 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/events`
         public let path: String
 
-
+        /// List public organization events
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-organization-events)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -2712,7 +3001,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/failed_invitations`
         public let path: String
 
+        /// List failed organization invitations
+        ///
+        /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation failed and the reason for the failure.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-failed-organization-invitations)
+        public func get() -> Request<[github.OrganizationInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2725,7 +3025,16 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/hooks`
         public let path: String
 
+        /// List organization webhooks
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-webhooks)
+        public func get() -> Request<[github.OrgHook]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2787,7 +3096,14 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Path: `/orgs/{org}/hooks/{hook_id}/deliveries`
         public let path: String
 
-
+        /// List deliveries for an organization webhook
+        ///
+        /// Returns a list of webhook deliveries for a webhook configured in an organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-deliveries-for-an-organization-webhook)
+        public func get() -> Request<[github.HookDeliveryItem]> {
+            .get(path)
+        }
     }
 }
 
@@ -2903,6 +3219,29 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/interaction-limits`
         public let path: String
 
+        /// Get interaction restrictions for an organization
+        ///
+        /// Shows which type of GitHub user can interact with this organization and when the restriction expires. If there is no restrictions, you will see an empty response.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-an-organization)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            /// Interaction Limits
+            ///
+            /// Interaction limit settings.
+            public var interactionLimitResponse: InteractionLimitResponse?
+            public var object: [String: AnyJSON]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.object = try? container.decode([String: AnyJSON].self)
+            }
+        }
+
         /// Set interaction restrictions for an organization
         ///
         /// Temporarily restricts interactions to a certain type of GitHub user in any public repository in the given organization. You must be an organization owner to set these restrictions. Setting the interaction limit at the organization level will overwrite any interaction limits that are set for individual repositories owned by the organization.
@@ -2932,7 +3271,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/invitations`
         public let path: String
 
+        /// List pending organization invitations
+        ///
+        /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations)
+        public func get() -> Request<[github.OrganizationInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2967,7 +3317,18 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
         /// Path: `/orgs/{org}/invitations/{invitation_id}/teams`
         public let path: String
 
+        /// List organization invitation teams
+        ///
+        /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated user must be an organization owner.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-invitation-teams)
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2980,7 +3341,23 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/issues`
         public let path: String
 
+        /// List organization issues assigned to the authenticated user
+        ///
+        /// List issues in an organization assigned to the authenticated user.
+        /// 
+        /// **Note**: GitHub's REST API v3 considers every pull request an issue, but not every issue is a pull request. For this
+        /// reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
+        /// the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
+        /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user)
+        public func get() -> Request<[github.Issue]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -2993,7 +3370,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/members`
         public let path: String
 
+        /// List organization members
+        ///
+        /// List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-members)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3077,7 +3465,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/migrations`
         public let path: String
 
+        /// List organization migrations
+        ///
+        /// Lists the most recent migrations.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-organization-migrations)
+        public func get() -> Request<[github.Migration]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3188,7 +3587,18 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         /// Path: `/orgs/{org}/migrations/{migration_id}/repositories`
         public let path: String
 
+        /// List repositories in an organization migration
+        ///
+        /// List all the repositories for this organization migration.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-in-an-organization-migration)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3201,7 +3611,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/outside_collaborators`
         public let path: String
 
+        /// List outside collaborators for an organization
+        ///
+        /// List all users who are outside collaborators of an organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3234,7 +3655,17 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/packages`
         public let path: String
 
-
+        /// List packages for an organization
+        ///
+        /// Lists all packages in an organization readable by the user.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-an-organization)
+        public func get() -> Request<[github.Package]> {
+            .get(path)
+        }
     }
 }
 
@@ -3307,7 +3738,17 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/versions`
         public let path: String
 
-
+        /// Get all package versions for a package owned by an organization
+        ///
+        /// Returns all package versions for a package owned by an organization.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization)
+        public func get() -> Request<[github.PackageVersion]> {
+            .get(path)
+        }
     }
 }
 
@@ -3369,7 +3810,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/projects`
         public let path: String
 
+        /// List organization projects
+        ///
+        /// Lists the projects in an organization. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-organization-projects)
+        public func get() -> Request<[github.Project]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3382,7 +3834,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/public_members`
         public let path: String
 
+        /// List public organization members
+        ///
+        /// Members of an organization can choose to have their membership publicized or not.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-public-organization-members)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3420,7 +3883,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/repos`
         public let path: String
 
+        /// List organization repositories
+        ///
+        /// Lists repositories for the specified organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-organization-repositories)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3444,7 +3918,21 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         /// Path: `/orgs/{org}/secret-scanning/alerts`
         public let path: String
 
+        /// List secret scanning alerts by organization
+        ///
+        /// Lists all secret scanning alerts for all eligible repositories in an organization, from newest to oldest.
+        /// To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// 
+        /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-by-organization)
+        public func get() -> Request<[github.OrganizationSecretScanningAlert]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3610,7 +4098,18 @@ extension Paths.Orgs.WithOrg {
         /// Path: `/orgs/{org}/teams`
         public let path: String
 
+        /// List teams
+        ///
+        /// Lists all teams in an organization that are visible to the authenticated user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams)
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3658,7 +4157,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/discussions`
         public let path: String
 
+        /// List discussions
+        ///
+        /// List all discussions on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions)
+        public func get() -> Request<[github.TeamDiscussion]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3704,7 +4216,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments`
         public let path: String
 
+        /// List discussion comments
+        ///
+        /// List all comments on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments)
+        public func get() -> Request<[github.TeamDiscussionComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3750,7 +4275,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions`
         public let path: String
 
+        /// List reactions for a team discussion comment
+        ///
+        /// List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments/). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3785,7 +4323,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// Path: `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions`
         public let path: String
 
+        /// List reactions for a team discussion
+        ///
+        /// List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3842,7 +4393,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/invitations`
         public let path: String
 
+        /// List pending team invitations
+        ///
+        /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations)
+        public func get() -> Request<[github.OrganizationInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3855,7 +4419,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/members`
         public let path: String
 
+        /// List team members
+        ///
+        /// Team members will include the members of child teams.
+        /// 
+        /// To list members in a team, the team must be visible to the authenticated user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3923,7 +4500,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/projects`
         public let path: String
 
+        /// List team projects
+        ///
+        /// Lists the organization projects for a team.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/projects`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-projects)
+        public func get() -> Request<[github.TeamProject]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -3969,7 +4559,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/repos`
         public let path: String
 
+        /// List team repositories
+        ///
+        /// Lists a team's repositories visible to the authenticated user.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-repositories)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -4065,7 +4668,20 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// Path: `/orgs/{org}/teams/{team_slug}/teams`
         public let path: String
 
+        /// List child teams
+        ///
+        /// Lists the child teams of the team specified by `{team_slug}`.
+        /// 
+        /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-child-teams)
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -4174,7 +4790,16 @@ extension Paths.Projects.Columns.WithColumnID {
         /// Path: `/projects/columns/{column_id}/cards`
         public let path: String
 
+        /// List project cards
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-cards)
+        public func get() -> Request<[github.ProjectCard]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -4229,7 +4854,18 @@ extension Paths.Projects.WithProjectID {
         /// Path: `/projects/{project_id}/collaborators`
         public let path: String
 
+        /// List project collaborators
+        ///
+        /// Lists the collaborators for an organization project. For a project, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners. You must be an organization owner or a project `admin` to list collaborators.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-collaborators)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -4282,7 +4918,16 @@ extension Paths.Projects.WithProjectID {
         /// Path: `/projects/{project_id}/columns`
         public let path: String
 
+        /// List project columns
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-columns)
+        public func get() -> Request<[github.ProjectColumn]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -4658,7 +5303,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// Path: `/repos/{owner}/{repo}/actions/runners/downloads`
         public let path: String
 
-
+        /// List runner applications for a repository
+        ///
+        /// Lists binaries for the runner application that you can download and run.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-runner-applications-for-a-repository)
+        public func get() -> Request<[github.RunnerApplication]> {
+            .get(path)
+        }
     }
 }
 
@@ -4800,7 +5454,14 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/approvals`
         public let path: String
 
-
+        /// Get the review history for a workflow run
+        ///
+        /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-the-review-history-for-a-workflow-run)
+        public func get() -> Request<[github.EnvironmentApprovals]> {
+            .get(path)
+        }
     }
 }
 
@@ -5033,7 +5694,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`
         public let path: String
 
-
+        /// Get pending deployments for a workflow run
+        ///
+        /// Get all deployment environments for a workflow run that are waiting for protection rules to pass.
+        /// 
+        /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-pending-deployments-for-a-workflow-run)
+        public func get() -> Request<[github.PendingDeployment]> {
+            .get(path)
+        }
     }
 }
 
@@ -5318,7 +5988,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/assignees`
         public let path: String
 
+        /// List assignees
+        ///
+        /// Lists the [available assignees](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/) for issues in a repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-assignees)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -5355,7 +6036,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/autolinks`
         public let path: String
 
-
+        /// List all autolinks of a repository
+        ///
+        /// This returns a list of autolinks configured for the given repository.
+        /// 
+        /// Information about autolinks are only available to repository administrators.
+        ///
+        /// [API method documentation](https://docs.github.com/v3/repos#list-autolinks)
+        public func get() -> Request<[github.Autolink]> {
+            .get(path)
+        }
     }
 }
 
@@ -5421,7 +6111,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/branches`
         public let path: String
 
+        /// List branches
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches)
+        public func get() -> Request<[github.ShortBranch]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -5605,7 +6304,23 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
         public let path: String
 
+        /// Get all status check contexts
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-status-check-contexts)
+        public func get() -> Request<[String]> {
+            .get(path)
+        }
 
+        /// Remove status check contexts
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-contexts)
+        public func delete() -> Request<[String]> {
+            .delete(path)
+        }
     }
 }
 
@@ -5653,7 +6368,31 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
         public let path: String
 
+        /// Get apps with access to the protected branch
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Lists the GitHub Apps that have push access to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-apps-with-access-to-the-protected-branch)
+        public func get() -> Request<[github.Integration]> {
+            .get(path)
+        }
 
+        /// Remove app access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Removes the ability of an app to push to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
+        /// 
+        /// | Type    | Description                                                                                                                                                |
+        /// | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | The GitHub Apps that have push access to this branch. Use the app's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-app-access-restrictions)
+        public func delete() -> Request<[github.Integration]> {
+            .delete(path)
+        }
     }
 }
 
@@ -5666,7 +6405,31 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
         public let path: String
 
+        /// Get teams with access to the protected branch
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Lists the teams who have push access to this branch. The list includes child teams.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch)
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        /// Remove team access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Removes the ability of a team to push to this branch. You can also remove push access for child teams.
+        /// 
+        /// | Type    | Description                                                                                                                                         |
+        /// | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | Teams that should no longer have push access. Use the team's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-team-access-restrictions)
+        public func delete() -> Request<[github.Team]> {
+            .delete(path)
+        }
     }
 }
 
@@ -5679,7 +6442,31 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// Path: `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
         public let path: String
 
+        /// Get users with access to the protected branch
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Lists the people who have push access to this branch.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        /// Remove user access restrictions
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Removes the ability of a user to push to this branch.
+        /// 
+        /// | Type    | Description                                                                                                                                   |
+        /// | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | `array` | Usernames of the people who should no longer have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-user-access-restrictions)
+        public func delete() -> Request<[github.SimpleUser]> {
+            .delete(path)
+        }
     }
 }
 
@@ -5740,7 +6527,18 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         /// Path: `/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations`
         public let path: String
 
+        /// List check run annotations
+        ///
+        /// Lists annotations for a check run using the annotation `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get annotations for a check run. OAuth Apps and authenticated users must have the `repo` scope to get annotations for a check run in a private repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-run-annotations)
+        public func get() -> Request<[github.CheckAnnotation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -5875,7 +6673,22 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// Path: `/repos/{owner}/{repo}/code-scanning/alerts`
         public let path: String
 
-
+        /// List code scanning alerts for a repository
+        ///
+        /// Lists all open code scanning alerts for the default branch (usually `main`
+        /// or `master`). You must use an access token with the `security_events` scope to use
+        /// this endpoint. GitHub Apps must have the `security_events` read permission to use
+        /// this endpoint.
+        /// 
+        /// The response includes a `most_recent_instance` object.
+        /// This provides details of the most recent instance of this alert
+        /// for the default branch or for the specified Git reference
+        /// (if you used `ref` in the request).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
+        public func get() -> Request<[github.CodeScanningAlertItems]> {
+            .get(path)
+        }
     }
 }
 
@@ -5911,7 +6724,14 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         /// Path: `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances`
         public let path: String
 
-
+        /// List instances of a code scanning alert
+        ///
+        /// Lists all instances of the specified code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
+        public func get() -> Request<[github.CodeScanningAlertInstance]> {
+            .get(path)
+        }
     }
 }
 
@@ -5924,7 +6744,29 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// Path: `/repos/{owner}/{repo}/code-scanning/analyses`
         public let path: String
 
-
+        /// List code scanning analyses for a repository
+        ///
+        /// Lists the details of all code scanning analyses for a repository,
+        /// starting with the most recent.
+        /// The response is paginated and you can use the `page` and `per_page` parameters
+        /// to list the analyses you're interested in.
+        /// By default 30 analyses are listed per page.
+        /// 
+        /// The `rules_count` field in the response give the number of rules
+        /// that were run in the analysis.
+        /// For very old analyses this data is not available,
+        /// and `0` is returned in this field.
+        /// 
+        /// You must use an access token with the `security_events` scope to use this endpoint.
+        /// GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// 
+        /// **Deprecation notice**:
+        /// The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository)
+        public func get() -> Request<[github.CodeScanningAnalysis]> {
+            .get(path)
+        }
     }
 }
 
@@ -6149,7 +6991,22 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/collaborators`
         public let path: String
 
+        /// List repository collaborators
+        ///
+        /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
+        /// 
+        /// Team members will include the members of child teams.
+        /// 
+        /// You must have push access to the repository in order to list collaborators.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-collaborators)
+        public func get() -> Request<[github.Collaborator]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6211,7 +7068,20 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/comments`
         public let path: String
 
+        /// List commit comments for a repository
+        ///
+        /// Commit Comments use [these custom media types](https://docs.github.com/rest/reference/repos#custom-media-types). You can read more about the use of media types in the API [here](https://docs.github.com/rest/overview/media-types/).
+        /// 
+        /// Comments are ordered by ascending ID.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository)
+        public func get() -> Request<[github.CommitComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6249,7 +7119,18 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         /// Path: `/repos/{owner}/{repo}/comments/{comment_id}/reactions`
         public let path: String
 
+        /// List reactions for a commit comment
+        ///
+        /// List the reactions to a [commit comment](https://docs.github.com/rest/reference/repos#comments).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6284,7 +7165,45 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/commits`
         public let path: String
 
+        /// List commits
+        ///
+        /// **Signature verification object**
+        /// 
+        /// The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object:
+        /// 
+        /// | Name | Type | Description |
+        /// | ---- | ---- | ----------- |
+        /// | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. |
+        /// | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. |
+        /// | `signature` | `string` | The signature that was extracted from the commit. |
+        /// | `payload` | `string` | The value that was signed. |
+        /// 
+        /// These are the possible values for `reason` in the `verification` object:
+        /// 
+        /// | Value | Description |
+        /// | ----- | ----------- |
+        /// | `expired_key` | The key that made the signature is expired. |
+        /// | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. |
+        /// | `gpgverify_error` | There was an error communicating with the signature verification service. |
+        /// | `gpgverify_unavailable` | The signature verification service is currently unavailable. |
+        /// | `unsigned` | The object does not include a signature. |
+        /// | `unknown_signature_type` | A non-PGP signature was found in the commit. |
+        /// | `no_user` | No user was associated with the `committer` email address in the commit. |
+        /// | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on her/his account. |
+        /// | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. |
+        /// | `unknown_key` | The key that made the signature has not been registered with any user's account. |
+        /// | `malformed_signature` | There was an error parsing the signature. |
+        /// | `invalid` | The signature could not be cryptographically verified using the key whose key-id was found in the signature. |
+        /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commits)
+        public func get() -> Request<[github.Commit]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6308,7 +7227,16 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head`
         public let path: String
 
-
+        /// List branches for HEAD commit
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Returns all branches where the given commit SHA is the HEAD, or latest commit for the branch.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches-for-head-commit)
+        public func get() -> Request<[github.BranchShort]> {
+            .get(path)
+        }
     }
 }
 
@@ -6321,7 +7249,18 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/comments`
         public let path: String
 
+        /// List commit comments
+        ///
+        /// Use the `:commit_sha` to specify the commit that will have its comments listed.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments)
+        public func get() -> Request<[github.CommitComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6334,7 +7273,18 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// Path: `/repos/{owner}/{repo}/commits/{commit_sha}/pulls`
         public let path: String
 
+        /// List pull requests associated with a commit
+        ///
+        /// Lists the merged pull request that introduced the commit to the repository. If the commit is not present in the default branch, additionally returns open pull requests associated with the commit. The results may include open and closed pull requests. Additional preview headers may be required to see certain details for associated pull requests, such as whether a pull request is in a draft state. For more information about previews that might affect this endpoint, see the [List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-pull-requests-associated-with-a-commit)
+        public func get() -> Request<[github.PullRequestSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6503,7 +7453,20 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Path: `/repos/{owner}/{repo}/commits/{ref}/statuses`
         public let path: String
 
+        /// List commit statuses for a reference
+        ///
+        /// Users with pull access in a repository can view commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name. Statuses are returned in reverse chronological order. The first status in the list will be the latest one.
+        /// 
+        /// This resource is also available via a legacy route: `GET /repos/:owner/:repo/statuses/:ref`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-statuses-for-a-reference)
+        public func get() -> Request<[github.Status]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6674,6 +7637,68 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// Path: `/repos/{owner}/{repo}/contents/{path}`
         public let path: String
 
+        /// Get repository content
+        ///
+        /// Gets the contents of a file or directory in a repository. Specify the file path or directory in `:path`. If you omit
+        /// `:path`, you will receive the contents of the repository's root directory. See the description below regarding what the API response includes for directories. 
+        /// 
+        /// Files and symlinks support [a custom media type](https://docs.github.com/rest/reference/repos#custom-media-types) for
+        /// retrieving the raw content or rendered HTML (when supported). All content types support [a custom media
+        /// type](https://docs.github.com/rest/reference/repos#custom-media-types) to ensure the content is returned in a consistent
+        /// object format.
+        /// 
+        /// **Note**:
+        /// *   To get a repository's contents recursively, you can [recursively get the tree](https://docs.github.com/rest/reference/git#trees).
+        /// *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
+        /// API](https://docs.github.com/rest/reference/git#get-a-tree).
+        /// *   This API supports files up to 1 megabyte in size.
+        /// 
+        /// #### If the content is a directory
+        /// The response will be an array of objects, one object for each item in the directory.
+        /// When listing the contents of a directory, submodules have their "type" specified as "file". Logically, the value
+        /// _should_ be "submodule". This behavior exists in API v3 [for backwards compatibility purposes](https://git.io/v1YCW).
+        /// In the next major version of the API, the type will be returned as "submodule".
+        /// 
+        /// #### If the content is a symlink 
+        /// If the requested `:path` points to a symlink, and the symlink's target is a normal file in the repository, then the
+        /// API responds with the content of the file (in the format shown in the example. Otherwise, the API responds with an object 
+        /// describing the symlink itself.
+        /// 
+        /// #### If the content is a submodule
+        /// The `submodule_git_url` identifies the location of the submodule repository, and the `sha` identifies a specific
+        /// commit within the submodule repository. Git uses the given URL when cloning the submodule repository, and checks out
+        /// the submodule at that specific commit.
+        /// 
+        /// If the submodule repository is not hosted on github.com, the Git URLs (`git_url` and `_links["git"]`) and the
+        /// github.com URLs (`html_url` and `_links["html"]`) will have null values.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-content)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
+
+        public enum GetResponse: Codable {
+            case contentDirectory(ContentDirectory)
+            case contentFile(ContentFile)
+            case contentSymlink(ContentSymlink)
+            case contentSubmodule(ContentSubmodule)
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(ContentDirectory.self) {
+                    self = .contentDirectory(value)
+                } else if let value = try? container.decode(ContentFile.self) {
+                    self = .contentFile(value)
+                } else if let value = try? container.decode(ContentSymlink.self) {
+                    self = .contentSymlink(value)
+                } else if let value = try? container.decode(ContentSubmodule.self) {
+                    self = .contentSubmodule(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
+
         /// Delete a file
         ///
         /// Deletes a file in a repository.
@@ -6700,7 +7725,20 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/contributors`
         public let path: String
 
+        /// List repository contributors
+        ///
+        /// Lists contributors to the specified repository and sorts them by the number of commits per contributor in descending order. This endpoint may return information that is a few hours old because the GitHub REST API v3 caches contributor data to improve performance.
+        /// 
+        /// GitHub identifies contributors by author email address. This endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will appear as anonymous contributors without associated GitHub user information.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-contributors)
+        public func get() -> Request<[github.Contributor]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6713,7 +7751,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/deployments`
         public let path: String
 
+        /// List deployments
+        ///
+        /// Simple filtering of deployments is available via query parameters:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployments)
+        public func get() -> Request<[github.Deployment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6760,7 +7809,18 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         /// Path: `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses`
         public let path: String
 
+        /// List deployment statuses
+        ///
+        /// Users with pull access can view deployment statuses for a deployment:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployment-statuses)
+        public func get() -> Request<[github.DeploymentStatus]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -6869,7 +7929,12 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/events`
         public let path: String
 
-
+        /// List repository events
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-events)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -6882,7 +7947,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/forks`
         public let path: String
 
+        /// List forks
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-forks)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7014,7 +8088,24 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         /// Path: `/repos/{owner}/{repo}/git/matching-refs/{ref}`
         public let path: String
 
+        /// List matching references
+        ///
+        /// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist in the repository, but existing refs start with `:ref`, they will be returned as an array.
+        /// 
+        /// When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`.
+        /// 
+        /// **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+        /// 
+        /// If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#list-matching-references)
+        public func get() -> Request<[github.GitRef]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7186,7 +8277,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/hooks`
         public let path: String
 
+        /// List repository webhooks
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-webhooks)
+        public func get() -> Request<[github.Hook]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7248,7 +8348,14 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries`
         public let path: String
 
-
+        /// List deliveries for a repository webhook
+        ///
+        /// Returns a list of webhook deliveries for a webhook configured in a repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deliveries-for-a-repository-webhook)
+        public func get() -> Request<[github.HookDeliveryItem]> {
+            .get(path)
+        }
     }
 }
 
@@ -7382,7 +8489,16 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         /// Path: `/repos/{owner}/{repo}/import/authors`
         public let path: String
 
-
+        /// Get commit authors
+        ///
+        /// Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`.
+        /// 
+        /// This endpoint and the [Map a commit author](https://docs.github.com/rest/reference/migrations#map-a-commit-author) endpoint allow you to provide correct Git author information.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-commit-authors)
+        public func get() -> Request<[github.PorterAuthor]> {
+            .get(path)
+        }
     }
 }
 
@@ -7408,7 +8524,14 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         /// Path: `/repos/{owner}/{repo}/import/large_files`
         public let path: String
 
-
+        /// Get large files
+        ///
+        /// List files larger than 100MB found during the import
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-large-files)
+        public func get() -> Request<[github.PorterLargeFile]> {
+            .get(path)
+        }
     }
 }
 
@@ -7456,6 +8579,29 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/interaction-limits`
         public let path: String
 
+        /// Get interaction restrictions for a repository
+        ///
+        /// Shows which type of GitHub user can interact with this repository and when the restriction expires. If there are no restrictions, you will see an empty response.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-a-repository)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            /// Interaction Limits
+            ///
+            /// Interaction limit settings.
+            public var interactionLimitResponse: InteractionLimitResponse?
+            public var object: [String: AnyJSON]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.object = try? container.decode([String: AnyJSON].self)
+            }
+        }
+
         /// Set interaction restrictions for a repository
         ///
         /// Temporarily restricts interactions to a certain type of GitHub user within the given repository. You must have owner or admin access to set these restrictions. If an interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
@@ -7485,7 +8631,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/invitations`
         public let path: String
 
+        /// List repository invitations
+        ///
+        /// When authenticating as a user with admin rights to a repository, this endpoint will list all currently open repository invitations.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations)
+        public func get() -> Request<[github.RepositoryInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7516,7 +8673,23 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/issues`
         public let path: String
 
+        /// List repository issues
+        ///
+        /// List issues in a repository.
+        /// 
+        /// **Note**: GitHub's REST API v3 considers every pull request an issue, but not every issue is a pull request. For this
+        /// reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
+        /// the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
+        /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-repository-issues)
+        public func get() -> Request<[github.Issue]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7529,7 +8702,18 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// Path: `/repos/{owner}/{repo}/issues/comments`
         public let path: String
 
+        /// List issue comments for a repository
+        ///
+        /// By default, Issue Comments are ordered by ascending ID.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository)
+        public func get() -> Request<[github.IssueComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7567,7 +8751,18 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         /// Path: `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions`
         public let path: String
 
+        /// List reactions for an issue comment
+        ///
+        /// List the reactions to an [issue comment](https://docs.github.com/rest/reference/issues#comments).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7602,7 +8797,16 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// Path: `/repos/{owner}/{repo}/issues/events`
         public let path: String
 
+        /// List issue events for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository)
+        public func get() -> Request<[github.IssueEvent]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7683,7 +8887,18 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/comments`
         public let path: String
 
+        /// List issue comments
+        ///
+        /// Issue Comments are ordered by ascending ID.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments)
+        public func get() -> Request<[github.IssueComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7696,7 +8911,16 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/events`
         public let path: String
 
+        /// List issue events
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events)
+        public func get() -> Request<[github.IssueEventForIssue]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7708,6 +8932,17 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
     public struct Labels {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/labels`
         public let path: String
+
+        /// List labels for an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-an-issue)
+        public func get() -> Request<[github.Label]> {
+            .get(path)
+        }
+
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
 
         /// Remove all labels from an issue
         ///
@@ -7727,7 +8962,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Labels {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}`
         public let path: String
 
-
+        /// Remove a label from an issue
+        ///
+        /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns a `404 Not Found` status if the label does not exist.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-a-label-from-an-issue)
+        public func delete() -> Request<[github.Label]> {
+            .delete(path)
+        }
     }
 }
 
@@ -7760,7 +9002,18 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/reactions`
         public let path: String
 
+        /// List reactions for an issue
+        ///
+        /// List the reactions to an [issue](https://docs.github.com/rest/reference/issues).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7795,7 +9048,16 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Path: `/repos/{owner}/{repo}/issues/{issue_number}/timeline`
         public let path: String
 
+        /// List timeline events for an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue)
+        public func get() -> Request<[github.TimelineIssueEvents]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7808,7 +9070,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/keys`
         public let path: String
 
+        /// List deploy keys
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deploy-keys)
+        public func get() -> Request<[github.DeployKey]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7848,7 +9119,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/labels`
         public let path: String
 
+        /// List labels for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-a-repository)
+        public func get() -> Request<[github.Label]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -7974,7 +9254,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/milestones`
         public let path: String
 
+        /// List milestones
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-milestones)
+        public func get() -> Request<[github.Milestone]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8012,7 +9301,16 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
         /// Path: `/repos/{owner}/{repo}/milestones/{milestone_number}/labels`
         public let path: String
 
+        /// List labels for issues in a milestone
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone)
+        public func get() -> Request<[github.Label]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8025,7 +9323,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/notifications`
         public let path: String
 
+        /// List repository notifications for the authenticated user
+        ///
+        /// List all notifications for the current user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user)
+        public func get() -> Request<[github.Thread]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8063,7 +9372,16 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         /// Path: `/repos/{owner}/{repo}/pages/builds`
         public let path: String
 
+        /// List GitHub Pages builds
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-github-pages-builds)
+        public func get() -> Request<[github.PageBuild]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8136,7 +9454,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/projects`
         public let path: String
 
+        /// List repository projects
+        ///
+        /// Lists the projects in a repository. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-repository-projects)
+        public func get() -> Request<[github.Project]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8149,7 +9478,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/pulls`
         public let path: String
 
+        /// List pull requests
+        ///
+        /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests)
+        public func get() -> Request<[github.PullRequestSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8162,7 +9502,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         /// Path: `/repos/{owner}/{repo}/pulls/comments`
         public let path: String
 
+        /// List review comments in a repository
+        ///
+        /// Lists review comments for all pull requests in a repository. By default, review comments are in ascending order by ID.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository)
+        public func get() -> Request<[github.PullRequestReviewComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8204,7 +9555,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         /// Path: `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions`
         public let path: String
 
+        /// List reactions for a pull request review comment
+        ///
+        /// List the reactions to a [pull request review comment](https://docs.github.com/rest/reference/pulls#review-comments).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8286,7 +9648,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/comments`
         public let path: String
 
+        /// List review comments on a pull request
+        ///
+        /// Lists all review comments for a pull request. By default, review comments are in ascending order by ID.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request)
+        public func get() -> Request<[github.PullRequestReviewComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8323,7 +9696,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/commits`
         public let path: String
 
+        /// List commits on a pull request
+        ///
+        /// Lists a maximum of 250 commits for a pull request. To receive a complete commit list for pull requests with more than 250 commits, use the [List commits](https://docs.github.com/rest/reference/repos#list-commits) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-commits-on-a-pull-request)
+        public func get() -> Request<[github.Commit]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8336,7 +9720,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/files`
         public let path: String
 
+        /// List pull requests files
+        ///
+        /// **Note:** Responses include a maximum of 3000 files. The paginated response returns 30 files per page by default.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests-files)
+        public func get() -> Request<[github.DiffEntry]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8396,7 +9791,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews`
         public let path: String
 
+        /// List reviews for a pull request
+        ///
+        /// The list of reviews returns in chronological order.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request)
+        public func get() -> Request<[github.PullRequestReview]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8434,7 +9840,18 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// Path: `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments`
         public let path: String
 
+        /// List comments for a pull request review
+        ///
+        /// List comments for a specific pull request review.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review)
+        public func get() -> Request<[github.ReviewComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8530,7 +9947,20 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/releases`
         public let path: String
 
+        /// List releases
+        ///
+        /// This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/reference/repos#list-repository-tags).
+        /// 
+        /// Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-releases)
+        public func get() -> Request<[github.Release]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8676,7 +10106,16 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// Path: `/repos/{owner}/{repo}/releases/{release_id}/assets`
         public let path: String
 
+        /// List release assets
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-release-assets)
+        public func get() -> Request<[github.ReleaseAsset]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8713,7 +10152,16 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
         /// Path: `/repos/{owner}/{repo}/secret-scanning/alerts`
         public let path: String
 
-
+        /// List secret scanning alerts for a repository
+        ///
+        /// Lists all secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// 
+        /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository)
+        public func get() -> Request<[github.SecretScanningAlert]> {
+            .get(path)
+        }
     }
 }
 
@@ -8748,7 +10196,31 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/stargazers`
         public let path: String
 
+        /// List stargazers
+        ///
+        /// Lists the people that have starred the repository.
+        /// 
+        /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-stargazers)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Decodable {
+            public var simpleUsers: [github.SimpleUser]?
+            public var stargazers: [github.Stargazer]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.simpleUsers = try? container.decode([github.SimpleUser].self)
+                self.stargazers = try? container.decode([github.Stargazer].self)
+            }
+        }
     }
 }
 
@@ -8772,7 +10244,14 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// Path: `/repos/{owner}/{repo}/stats/code_frequency`
         public let path: String
 
-
+        /// Get the weekly commit activity
+        ///
+        /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-activity)
+        public func get() -> Request<[[Int]]> {
+            .get(path)
+        }
     }
 }
 
@@ -8785,7 +10264,14 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// Path: `/repos/{owner}/{repo}/stats/commit_activity`
         public let path: String
 
-
+        /// Get the last year of commit activity
+        ///
+        /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day, starting on `Sunday`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-last-year-of-commit-activity)
+        public func get() -> Request<[github.CommitActivity]> {
+            .get(path)
+        }
     }
 }
 
@@ -8798,7 +10284,20 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// Path: `/repos/{owner}/{repo}/stats/contributors`
         public let path: String
 
-
+        /// Get all contributor commit activity
+        ///
+        /// 
+        /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly Hash (`weeks` array) with the following information:
+        /// 
+        /// *   `w` - Start of the week, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).
+        /// *   `a` - Number of additions
+        /// *   `d` - Number of deletions
+        /// *   `c` - Number of commits
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-contributor-commit-activity)
+        public func get() -> Request<[github.ContributorActivity]> {
+            .get(path)
+        }
     }
 }
 
@@ -8833,7 +10332,20 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// Path: `/repos/{owner}/{repo}/stats/punch_card`
         public let path: String
 
-
+        /// Get the hourly commit count for each day
+        ///
+        /// Each array contains the day number, hour number, and number of commits:
+        /// 
+        /// *   `0-6`: Sunday - Saturday
+        /// *   `0-23`: Hour of day
+        /// *   Number of commits
+        /// 
+        /// For example, `[2, 14, 25]` indicates that there were 25 total commits, during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-hourly-commit-count-for-each-day)
+        public func get() -> Request<[[Int]]> {
+            .get(path)
+        }
     }
 }
 
@@ -8870,7 +10382,18 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/subscribers`
         public let path: String
 
+        /// List watchers
+        ///
+        /// Lists the people watching the specified repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-watchers)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8910,7 +10433,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/tags`
         public let path: String
 
+        /// List repository tags
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-tags)
+        public func get() -> Request<[github.Tag]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -8957,7 +10489,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/teams`
         public let path: String
 
+        /// List repository teams
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-teams)
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -9030,7 +10571,14 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
         /// Path: `/repos/{owner}/{repo}/traffic/popular/paths`
         public let path: String
 
-
+        /// Get top referral paths
+        ///
+        /// Get the top 10 popular contents over the last 14 days.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-top-referral-paths)
+        public func get() -> Request<[github.ContentTraffic]> {
+            .get(path)
+        }
     }
 }
 
@@ -9043,7 +10591,14 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
         /// Path: `/repos/{owner}/{repo}/traffic/popular/referrers`
         public let path: String
 
-
+        /// Get top referral sources
+        ///
+        /// Get the top 10 referrers over the last 14 days.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-top-referral-sources)
+        public func get() -> Request<[github.ReferrerTraffic]> {
+            .get(path)
+        }
     }
 }
 
@@ -9187,7 +10742,22 @@ extension Paths {
         /// Path: `/repositories`
         public let path: String
 
+        /// List public repositories
+        ///
+        /// Lists all public repositories in the order that they were created.
+        /// 
+        /// Note:
+        /// - For GitHub Enterprise Server, this endpoint will only list repositories available to all users on the enterprise.
+        /// - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-public-repositories)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -9884,7 +11454,21 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/discussions`
         public let path: String
 
+        /// List discussions (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/reference/teams#list-discussions) endpoint.
+        /// 
+        /// List all discussions on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.TeamDiscussion]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -9932,7 +11516,21 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// Path: `/teams/{team_id}/discussions/{discussion_number}/comments`
         public let path: String
 
+        /// List discussion comments (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/reference/teams#list-discussion-comments) endpoint.
+        /// 
+        /// List all comments on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.TeamDiscussionComment]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -9980,7 +11578,21 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// Path: `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions`
         public let path: String
 
+        /// List reactions for a team discussion comment (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
+        /// 
+        /// List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -9993,7 +11605,21 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// Path: `/teams/{team_id}/discussions/{discussion_number}/reactions`
         public let path: String
 
+        /// List reactions for a team discussion (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
+        /// 
+        /// List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.Reaction]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10006,7 +11632,21 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/invitations`
         public let path: String
 
+        /// List pending team invitations (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/reference/teams#list-pending-team-invitations) endpoint.
+        /// 
+        /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.OrganizationInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10019,7 +11659,21 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/members`
         public let path: String
 
+        /// List team members (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/reference/teams#list-team-members) endpoint.
+        /// 
+        /// Team members will include the members of child teams.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10132,7 +11786,21 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/projects`
         public let path: String
 
+        /// List team projects (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/reference/teams#list-team-projects) endpoint.
+        /// 
+        /// Lists the organization projects for a team.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-projects-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.TeamProject]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10180,7 +11848,19 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/repos`
         public let path: String
 
+        /// List team repositories (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/reference/teams#list-team-repositories) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-repositories-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10277,7 +11957,19 @@ extension Paths.Teams.WithTeamID {
         /// Path: `/teams/{team_id}/teams`
         public let path: String
 
+        /// List child teams (Legacy)
+        ///
+        /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/reference/teams#list-child-teams) endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-child-teams-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func get() -> Request<[github.Team]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10290,7 +11982,32 @@ extension Paths {
         /// Path: `/user`
         public let path: String
 
+        /// Get the authenticated user
+        ///
+        /// If the authenticated user is authenticated through basic authentication or OAuth with the `user` scope, then the response lists public and private profile information.
+        /// 
+        /// If the authenticated user is authenticated through OAuth without the `user` scope, then the response lists only public profile information.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#get-the-authenticated-user)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetResponse: Codable {
+            case privateUser(PrivateUser)
+            case publicUser(PublicUser)
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(PrivateUser.self) {
+                    self = .privateUser(value)
+                } else if let value = try? container.decode(PublicUser.self) {
+                    self = .publicUser(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
     }
 }
 
@@ -10303,7 +12020,14 @@ extension Paths.User {
         /// Path: `/user/blocks`
         public let path: String
 
-
+        /// List users blocked by the authenticated user
+        ///
+        /// List the users you've blocked on your personal account.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-users-blocked-by-the-authenticated-user)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
     }
 }
 
@@ -10619,6 +12343,19 @@ extension Paths.User {
         /// Path: `/user/emails`
         public let path: String
 
+        /// List email addresses for the authenticated user
+        ///
+        /// Lists all of your email addresses, and specifies which one is visible to the public. This endpoint is accessible with the `user:email` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user)
+        public func get() -> Request<[github.Email]> {
+            .get(path)
+        }
+
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
         /// Delete an email address for the authenticated user
         ///
         /// This endpoint is accessible with the `user` scope.
@@ -10639,7 +12376,18 @@ extension Paths.User {
         /// Path: `/user/followers`
         public let path: String
 
+        /// List followers of the authenticated user
+        ///
+        /// Lists the people following the authenticated user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-the-authenticated-user)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10652,7 +12400,18 @@ extension Paths.User {
         /// Path: `/user/following`
         public let path: String
 
+        /// List the people the authenticated user follows
+        ///
+        /// Lists the people who the authenticated user follows.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-the-authenticated-user-follows)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10692,7 +12451,18 @@ extension Paths.User {
         /// Path: `/user/gpg_keys`
         public let path: String
 
+        /// List GPG keys for the authenticated user
+        ///
+        /// Lists the current user's GPG keys. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user)
+        public func get() -> Request<[github.GpgKey]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10851,6 +12621,29 @@ extension Paths.User {
         /// Path: `/user/interaction-limits`
         public let path: String
 
+        /// Get interaction restrictions for your public repositories
+        ///
+        /// Shows which type of GitHub user can interact with your public repositories and when the restriction expires.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            /// Interaction Limits
+            ///
+            /// Interaction limit settings.
+            public var interactionLimitResponse: InteractionLimitResponse?
+            public var object: [String: AnyJSON]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.object = try? container.decode([String: AnyJSON].self)
+            }
+        }
+
         /// Set interaction restrictions for your public repositories
         ///
         /// Temporarily restricts which type of GitHub user can interact with your public repositories. Setting the interaction limit at the user level will overwrite any interaction limits that are set for individual repositories owned by the user.
@@ -10880,7 +12673,23 @@ extension Paths.User {
         /// Path: `/user/issues`
         public let path: String
 
+        /// List user account issues assigned to the authenticated user
+        ///
+        /// List issues across owned and member repositories assigned to the authenticated user.
+        /// 
+        /// **Note**: GitHub's REST API v3 considers every pull request an issue, but not every issue is a pull request. For this
+        /// reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
+        /// the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
+        /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user)
+        public func get() -> Request<[github.Issue]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10893,7 +12702,18 @@ extension Paths.User {
         /// Path: `/user/keys`
         public let path: String
 
+        /// List public SSH keys for the authenticated user
+        ///
+        /// Lists the public SSH keys for the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user)
+        public func get() -> Request<[github.Key]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10935,7 +12755,18 @@ extension Paths.User {
         /// Path: `/user/marketplace_purchases`
         public let path: String
 
+        /// List subscriptions for the authenticated user
+        ///
+        /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
+        public func get() -> Request<[github.UserMarketplacePurchase]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10948,7 +12779,18 @@ extension Paths.User.MarketplacePurchases {
         /// Path: `/user/marketplace_purchases/stubbed`
         public let path: String
 
+        /// List subscriptions for the authenticated user (stubbed)
+        ///
+        /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed)
+        public func get() -> Request<[github.UserMarketplacePurchase]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -10972,7 +12814,16 @@ extension Paths.User.Memberships {
         /// Path: `/user/memberships/orgs`
         public let path: String
 
+        /// List organization memberships for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
+        public func get() -> Request<[github.OrgMembership]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11003,7 +12854,18 @@ extension Paths.User {
         /// Path: `/user/migrations`
         public let path: String
 
+        /// List user migrations
+        ///
+        /// Lists all migrations a user has started.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-user-migrations)
+        public func get() -> Request<[github.Migration]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11134,7 +12996,18 @@ extension Paths.User.Migrations.WithMigrationID {
         /// Path: `/user/migrations/{migration_id}/repositories`
         public let path: String
 
+        /// List repositories for a user migration
+        ///
+        /// Lists all the repositories for this user migration.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11147,7 +13020,22 @@ extension Paths.User {
         /// Path: `/user/orgs`
         public let path: String
 
+        /// List organizations for the authenticated user
+        ///
+        /// List organizations for the authenticated user.
+        /// 
+        /// **OAuth scope requirements**
+        /// 
+        /// This only lists organizations that your authorization allows you to operate on in some way (e.g., you can list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.). Therefore, this API requires at least `user` or `read:org` scope. OAuth requests with insufficient scope receive a `403 Forbidden` response.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user)
+        public func get() -> Request<[github.OrganizationSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11160,7 +13048,17 @@ extension Paths.User {
         /// Path: `/user/packages`
         public let path: String
 
-
+        /// List packages for the authenticated user's namespace
+        ///
+        /// Lists packages owned by the authenticated user within the user's namespace.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-the-authenticated-user)
+        public func get() -> Request<[github.Package]> {
+            .get(path)
+        }
     }
 }
 
@@ -11232,7 +13130,17 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         /// Path: `/user/packages/{package_type}/{package_name}/versions`
         public let path: String
 
-
+        /// Get all package versions for a package owned by the authenticated user
+        ///
+        /// Returns all package versions for a package owned by the authenticated user.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user)
+        public func get() -> Request<[github.PackageVersion]> {
+            .get(path)
+        }
     }
 }
 
@@ -11306,7 +13214,18 @@ extension Paths.User {
         /// Path: `/user/public_emails`
         public let path: String
 
+        /// List public email addresses for the authenticated user
+        ///
+        /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user)
+        public func get() -> Request<[github.Email]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11319,7 +13238,16 @@ extension Paths.User {
         /// Path: `/user/repos`
         public let path: String
 
-
+        /// List repositories for the authenticated user
+        ///
+        /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
+        /// 
+        /// The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user)
+        public func get() -> Request<[github.Repository]> {
+            .get(path)
+        }
     }
 }
 
@@ -11332,7 +13260,18 @@ extension Paths.User {
         /// Path: `/user/repository_invitations`
         public let path: String
 
+        /// List repository invitations for the authenticated user
+        ///
+        /// When authenticating as a user, this endpoint will list all currently open repository invitations for that user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations-for-the-authenticated-user)
+        public func get() -> Request<[github.RepositoryInvitation]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11363,7 +13302,20 @@ extension Paths.User {
         /// Path: `/user/starred`
         public let path: String
 
+        /// List repositories starred by the authenticated user
+        ///
+        /// Lists repositories the authenticated user has starred.
+        /// 
+        /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user)
+        public func get() -> Request<[github.Repository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11412,7 +13364,18 @@ extension Paths.User {
         /// Path: `/user/subscriptions`
         public let path: String
 
+        /// List repositories watched by the authenticated user
+        ///
+        /// Lists repositories the authenticated user is watching.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11425,7 +13388,18 @@ extension Paths.User {
         /// Path: `/user/teams`
         public let path: String
 
+        /// List teams for the authenticated user
+        ///
+        /// List all of the teams across all of the organizations to which the authenticated user belongs. This method requires `user`, `repo`, or `read:org` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/) when authenticating via [OAuth](https://docs.github.com/apps/building-oauth-apps/).
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user)
+        public func get() -> Request<[github.TeamFull]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11438,7 +13412,20 @@ extension Paths {
         /// Path: `/users`
         public let path: String
 
+        /// List users
+        ///
+        /// Lists all users, in the order that they signed up on GitHub. This list includes personal user accounts and organization accounts.
+        /// 
+        /// Note: Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of users.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-users)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11451,7 +13438,36 @@ extension Paths.Users {
         /// Path: `/users/{username}`
         public let path: String
 
+        /// Get a user
+        ///
+        /// Provides publicly available information about someone with a GitHub account.
+        /// 
+        /// GitHub Apps with the `Plan` user permission can use this endpoint to retrieve information about a user's GitHub plan. The GitHub App must be authenticated as a user. See "[Identifying and authorizing users for GitHub Apps](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/)" for details about authentication. For an example response, see 'Response with GitHub plan information' below"
+        /// 
+        /// The `email` key in the following response is the publicly visible email address from your GitHub [profile page](https://github.com/settings/profile). When setting up your profile, you can select a primary email address to be “public” which provides an email entry for this endpoint. If you do not set a public email address for `email`, then it will have a value of `null`. You only see publicly visible email addresses when authenticated with GitHub. For more information, see [Authentication](https://docs.github.com/rest/overview/resources-in-the-rest-api#authentication).
+        /// 
+        /// The Emails API enables you to list all of your email addresses, and toggle a primary email to be visible publicly. For more information, see "[Emails API](https://docs.github.com/rest/reference/users#emails)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-user)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetResponse: Codable {
+            case privateUser(PrivateUser)
+            case publicUser(PublicUser)
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let value = try? container.decode(PrivateUser.self) {
+                    self = .privateUser(value)
+                } else if let value = try? container.decode(PublicUser.self) {
+                    self = .publicUser(value)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+        }
     }
 }
 
@@ -11464,7 +13480,14 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/events`
         public let path: String
 
-
+        /// List events for the authenticated user
+        ///
+        /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-for-the-authenticated-user)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -11488,7 +13511,14 @@ extension Paths.Users.WithUsername.Events.Orgs {
         /// Path: `/users/{username}/events/orgs/{org}`
         public let path: String
 
-
+        /// List organization events for the authenticated user
+        ///
+        /// This is the user's organization dashboard. You must be authenticated as the user to view this.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -11501,7 +13531,12 @@ extension Paths.Users.WithUsername.Events {
         /// Path: `/users/{username}/events/public`
         public let path: String
 
-
+        /// List public events for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-user)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -11514,7 +13549,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/followers`
         public let path: String
 
+        /// List followers of a user
+        ///
+        /// Lists the people following the specified user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-a-user)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11527,7 +13573,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/following`
         public let path: String
 
+        /// List the people a user follows
+        ///
+        /// Lists the people who the specified user follows.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-a-user-follows)
+        public func get() -> Request<[github.SimpleUser]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11558,7 +13615,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/gists`
         public let path: String
 
+        /// List gists for a user
+        ///
+        /// Lists public gists for the specified user:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-a-user)
+        public func get() -> Request<[github.BaseGist]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11571,7 +13639,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/gpg_keys`
         public let path: String
 
+        /// List GPG keys for a user
+        ///
+        /// Lists the GPG keys for a user. This information is accessible by anyone.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-a-user)
+        public func get() -> Request<[github.GpgKey]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11633,7 +13712,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/keys`
         public let path: String
 
+        /// List public keys for a user
+        ///
+        /// Lists the _verified_ public SSH keys for a user. This is accessible by anyone.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-keys-for-a-user)
+        public func get() -> Request<[github.KeySimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11646,7 +13736,20 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/orgs`
         public let path: String
 
+        /// List organizations for a user
+        ///
+        /// List [public organization memberships](https://help.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
+        /// 
+        /// This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user)
+        public func get() -> Request<[github.OrganizationSimple]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11659,7 +13762,17 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/packages`
         public let path: String
 
-
+        /// List packages for a user
+        ///
+        /// Lists all packages in a user's namespace for which the requesting user has access.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-user)
+        public func get() -> Request<[github.Package]> {
+            .get(path)
+        }
     }
 }
 
@@ -11732,7 +13845,17 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         /// Path: `/users/{username}/packages/{package_type}/{package_name}/versions`
         public let path: String
 
-
+        /// Get all package versions for a package owned by a user
+        ///
+        /// Returns all package versions for a public package owned by a specified user.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` scope.
+        /// If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-a-user)
+        public func get() -> Request<[github.PackageVersion]> {
+            .get(path)
+        }
     }
 }
 
@@ -11794,7 +13917,16 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/projects`
         public let path: String
 
+        /// List user projects
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#list-user-projects)
+        public func get() -> Request<[github.Project]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11807,7 +13939,14 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/received_events`
         public let path: String
 
-
+        /// List events received by the authenticated user
+        ///
+        /// These are events that you've received by watching repos and following users. If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-received-by-the-authenticated-user)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -11820,7 +13959,12 @@ extension Paths.Users.WithUsername.ReceivedEvents {
         /// Path: `/users/{username}/received_events/public`
         public let path: String
 
-
+        /// List public events received by a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-received-by-a-user)
+        public func get() -> Request<[github.Event]> {
+            .get(path)
+        }
     }
 }
 
@@ -11833,7 +13977,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/repos`
         public let path: String
 
+        /// List repositories for a user
+        ///
+        /// Lists public repositories for the specified user. Note: For GitHub AE, this endpoint will list internal repositories for the specified user.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-a-user)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
@@ -11940,7 +14095,31 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/starred`
         public let path: String
 
+        /// List repositories starred by a user
+        ///
+        /// Lists repositories a user has starred.
+        /// 
+        /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user)
+        public func get() -> Request<GetResponse> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        public struct GetResponse: Decodable {
+            public var starredRepositories: [github.StarredRepository]?
+            public var repositories: [github.Repository]?
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                self.starredRepositories = try? container.decode([github.StarredRepository].self)
+                self.repositories = try? container.decode([github.Repository].self)
+            }
+        }
     }
 }
 
@@ -11953,7 +14132,18 @@ extension Paths.Users.WithUsername {
         /// Path: `/users/{username}/subscriptions`
         public let path: String
 
+        /// List repositories watched by a user
+        ///
+        /// Lists repositories a user is watching.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-a-user)
+        public func get() -> Request<[github.MinimalRepository]> {
+            .get(path)
+        }
 
+        public enum GetHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
     }
 }
 
