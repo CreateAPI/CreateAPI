@@ -15975,8 +15975,6 @@ public struct DeployKey: Codable {
     }
 }
 
-public typealias Language = [String: Int]
-
 public struct LicenseContent: Codable {
     public var links: Links
     public var content: String

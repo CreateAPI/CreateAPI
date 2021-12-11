@@ -4075,7 +4075,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret)
-        public func put(_ body: PutRequest) -> Request<EmptyObject> {
+        public func put(_ body: PutRequest) -> Request<Void> {
             .put(path, body: body)
         }
 
@@ -15066,7 +15066,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-languages)
-        public func get() -> Request<Language> {
+        public func get() -> Request<[String: Int]> {
             .get(path)
         }
     }
@@ -18204,7 +18204,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret)
-        public func put(_ body: PutRequest) -> Request<EmptyObject> {
+        public func put(_ body: PutRequest) -> Request<Void> {
             .put(path, body: body)
         }
 

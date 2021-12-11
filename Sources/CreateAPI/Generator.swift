@@ -202,8 +202,9 @@ extension Generator {
     
     // MARK: Object
     
-    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String {
+    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String? {
         if let type = try? getPrimitiveType(for: JSONSchema.object(info, details)), type != "Void" {
+            guard !options.isInliningPrimitiveTypes else { return nil }
             return templates.typealias(name: name, type: TypeName(processedRawValue: type))
         }
         
@@ -361,7 +362,7 @@ extension Generator {
         case .integer: return true
         case .string(let info, _):
             return !isEnum(info)
-        case .object: return false
+        case .object: return true
         case .array(_, let details):
             if let item = details.items {
                 return (try? getPrimitiveType(for: item)) != nil
