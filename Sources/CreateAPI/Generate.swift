@@ -33,11 +33,6 @@ struct Generate: ParsableCommand {
     
     @Option(help: "Enabled vendor-specific logic")
     var vendor: String?
-        
-    // TODO: pass as parameters (maybe in YML file?)
-    let `import` = "APIClient"
-    let namespace = "Paths"
-    let access = "public"
     
     // TODO: tabs/spaces + count
     

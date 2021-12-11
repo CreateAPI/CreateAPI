@@ -350,11 +350,8 @@ extension Generator {
                     case .integer, .boolean:
                         return ResponseType(type: "Data")
                     case .object:
-                        var property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: []))
-                        // TODO: handle scenario when inline type uses schemas that require namespacing
-                        if arguments.vendor == "github" {
-                            property.nested = property.nested?.replacingOccurrences(of: "[Installation]", with: "[github.Installation]")
-                        }
+                        // TODO: Add a way to cutomize which namespace to use
+                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: [], namespace: arguments.package))
                         return ResponseType(type: property.type, nested: property.nested)
                     default:
                         throw GeneratorError("ERROR: response inline scheme not handler")

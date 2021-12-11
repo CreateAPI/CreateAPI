@@ -79,7 +79,6 @@ extension Generator {
         }
     }
     
-    // TODO: rename
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
         let propertyName = makePropertyName(key)
         
@@ -157,7 +156,7 @@ extension Generator {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try? getPrimitiveType(for: item) {
-                return child(name: propertyName, type: "[\(type)]", info: info)
+                return child(name: propertyName, type: "[\(type.namespace(context.namespace))]", info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
             let nested = try makeTopDeclaration(name: name, schema: item, context: context)
@@ -180,16 +179,15 @@ extension Generator {
             return child(name: propertyName, type: name.rawValue, info: schema.coreContext, nested: nested)
         }
         
+        func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
+            let deref = try reference.dereferenced(in: spec.components)
+            let info = deref.coreContext
+            let type = try getPrimitiveType(for: schema)
+            return child(name: propertyName, type: type, info: info)
+        }
+        
         func makeProperty(schema: JSONSchema) throws -> Property {
-            let info: JSONSchemaContext?
-            switch schema {
-                // TODO: rewrite
-            case .reference(let ref, _):
-                let deref = try ref.dereferenced(in: spec.components)
-                info = deref.coreContext
-            default:
-                info = schema.coreContext
-            }
+            let info = schema.coreContext
             let type = try getPrimitiveType(for: schema)
             return child(name: propertyName, type: type, info: info)
         }
@@ -199,6 +197,7 @@ extension Generator {
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
         case .all, .one, .any: return try makeSomeOf()
+        case .reference(let ref, _): return try makeReference(reference: ref)
         case .not: throw GeneratorError("`not` properties are not supported")
         default: return try makeProperty(schema: schema)
         }
@@ -208,7 +207,7 @@ extension Generator {
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String {
         var contents: [String] = []
-        let context = Context(parents: context.parents + [name])
+        let context = context.adding(name)
         let properties = makeProperties(for: details, context: context)
         
         contents.append(templates.properties(properties))
@@ -580,10 +579,11 @@ struct GeneratorError: Error, LocalizedError {
 }
 
 struct Context {
-    let parents: [TypeName]
+    var parents: [TypeName]
+    var namespace: String?
     
     func adding(_ parent: TypeName) -> Context {
-        Context(parents: parents + [parent])
+        Context(parents: parents + [parent], namespace: namespace)
     }
 }
 

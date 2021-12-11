@@ -338,6 +338,13 @@ extension String {
         }
         return replacingOccurrences(of: "    ", with: indetation)
     }
+    
+    func namespace(_ namespace: String?) -> String {
+        guard let namespace = namespace, !namespace.isEmpty else {
+            return self
+        }
+        return "\(namespace).\(self)"
+    }
 }
 
 private let keywords = Set(["func", "public", "private", "open", "fileprivate", "internal", "default", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "where", "associatedtype", "guard", "enum", "struct", "class", "protocol", "extension", "if", "else", "self", "none", "throw", "throws", "rethrows", "inout", "operator", "static", "subscript", "case", "break", "continue", "defer", "do", "fallthrough", "repeat", "while", "as", "some", "super", "catch", "false", "true", "is", "nil"])
