@@ -61,11 +61,13 @@ final class GenerateOptions {
     
     struct Paths {
         var namespace: String
+        var isAddingResponseHeaders: Bool
         var isAddingOperationIds: Bool
         var imports: Set<String>
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
+            self.isAddingResponseHeaders = paths?.isAddingResponseHeaders ?? true
             self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
             self.imports = Set(paths?.imports ?? ["APIClient", "HTTPHeaders"])
         }
@@ -159,6 +161,7 @@ final class GenerateOptionsScheme: Decodable {
     
     struct Paths: Decodable {
         var namespace: String?
+        var isAddingResponseHeaders: Bool?
         var isAddingOperationIds: Bool?
         var imports: [String]?
     }
