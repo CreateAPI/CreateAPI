@@ -273,7 +273,7 @@ extension Generator {
     }
     
     private func makeProperties(for object: JSONSchema.ObjectContext, context: Context) -> [Property] {
-        var properties: [Property] = object.properties.keys.sorted().compactMap { key in
+        object.properties.keys.sorted().compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
@@ -283,21 +283,6 @@ extension Generator {
                 return nil
             }
         }
-        // TODO: Add support for typed additional properties AND refactor
-        if let additional = object.additionalProperties {
-            if case .a(let allowed) = additional, !allowed {
-                // do nothing
-            } else {
-                let type: String
-                if let scheme = additional.schemaValue, let value = try? getPrimitiveType(for: scheme) {
-                    type = "[String: \(value)]"
-                } else {
-                    type = "[String: AnyJSON]"
-                }
-                properties.append(Property(name: .init(processedRawValue:  "additionalProperties"), type: type, isOptional: false, key: "additionalProperties", schema: .object, context: nil, nested: nil, isAdditional: true))
-            }
-        }
-        return properties
     }
     
     private func makeNestedArrayTypeName(for key: String) -> TypeName {
