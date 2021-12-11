@@ -360,7 +360,6 @@ extension Generator {
         return type
     }
     
-    // TODO: Add support for enums
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders else {
             return nil
