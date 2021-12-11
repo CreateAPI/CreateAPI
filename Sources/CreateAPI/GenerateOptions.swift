@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
+// TODO: Add an option to add spacing between properties with comments
 final class GenerateOptions {
     var access: String
     var paths: Paths

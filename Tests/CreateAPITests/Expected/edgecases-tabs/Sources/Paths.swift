@@ -5,6 +5,7 @@
 
 import Foundation
 import APIClient
+import HTTPHeaders
 
 public enum Paths {}
 
@@ -207,7 +208,18 @@ extension Paths.User {
 		/// Path: `/user/login`
 		public let path: String
 
+		/// Logs user into the system
+		public func get() -> Request<String> {
+			.get(path)
+		}
 
+		public enum GetHeaders {
+			/// Calls per hour allowed by the user
+			@available(*, deprecated, message: "Deprecated")
+			public static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
+			/// Date in UTC when toekn expires
+			public static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
+		}
 	}
 }
 

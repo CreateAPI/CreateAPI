@@ -10,11 +10,13 @@ let package = Package(
         .library(name: "edgecases-rename", targets: ["edgecases-rename"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/APIClient", branch: "main")
+        .package(url: "https://github.com/kean/APIClient", branch: "main"), 
+        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main")
     ],
     targets: [
         .target(name: "edgecases-rename", dependencies: [
-            .product(name: "APIClient", package: "APIClient")
+            .product(name: "APIClient", package: "APIClient"), 
+            .product(name: "HTTPHeaders", package: "HTTPHeaders")
         ], path: "Sources")
     ]
 )

@@ -175,6 +175,10 @@ extension Generator {
     }
     
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+        if operation.operationId == "loginUser" {
+            print("a")
+        }
+        
         let responseType: String
         var headers: String?
         if let response = getSuccessfulResponse(for: operation) {
@@ -295,7 +299,6 @@ extension Generator {
         return operation.responses.first { $0.key.isSuccess }?.value
     }
         
-    // TODO: Add text/plain schema: type String support
     // TODO: Add inline array/dictionary responses
     // TODO: Generate proper nested response types (<PathComponent>Response)
     // TODO: application/pdf and other binary files
@@ -323,10 +326,19 @@ extension Generator {
                     let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
                     return addNamespaceIfNeeded(for: type, context: context)
                 case .b(let schema):
-                    throw GeneratorError("ERROR: response inline scheme not handler")
+                    switch schema {
+                    case .string:
+                        return "String"
+                    case .integer, .boolean:
+                        return "Data"
+                    default:
+                        throw GeneratorError("ERROR: response inline scheme not handler")
+                    }
                 default:
                     throw GeneratorError("ERROR: response not handled")
                 }
+            } else if let content = scheme.content[.anyText] {
+                return "String"
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
@@ -346,7 +358,7 @@ extension Generator {
     // TODO: Add an option to customize whether to add headers and add tests
     // TODO: Add an option to not include HTTPHeaders in imports
     // TODO: explode?
-    // TODO: Add deprecated, required, and other available info
+    // TODO: Add required, and other available info
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard let headers = response.responseValue?.headers, !headers.isEmpty else {
             return nil

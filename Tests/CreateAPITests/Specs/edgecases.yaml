@@ -435,6 +435,7 @@ paths:
           headers:
             X-Rate-Limit:
               description: calls per hour allowed by the user
+              deprecated: true
               schema:
                 type: integer
                 format: int32
