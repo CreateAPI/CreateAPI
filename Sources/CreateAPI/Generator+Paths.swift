@@ -141,7 +141,7 @@ extension Generator {
     
     private func makeImports() -> [String] {
         var imports = options.paths.imports
-        if options.isRemovingUnneededImported && !isHTTPHeadersDependencyNeeded {
+        if options.isRemovingUnneededImports && !isHTTPHeadersDependencyNeeded {
             imports.remove("APIClient")
         }
         return imports.sorted()
@@ -325,6 +325,10 @@ extension Generator {
     // TODO: Add "descripton" to "- returns" comments
     // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
     private func makeResponse(for response: Response, method: String, context: Context) throws -> ResponseType {
+        var context = context
+        context.namespace = arguments.module
+        context.isEncodableNeeded = false
+        
         switch response {
         case .a(let reference):
             switch reference {
@@ -341,7 +345,7 @@ extension Generator {
                 switch content.schema {
                 case .a(let reference):
                     // TODO: what about nested types?
-                    let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: Context(parents: [])).type
+                    let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
                     return ResponseType(type: addNamespaceIfNeeded(for: type, context: context))
                 case .b(let schema):
                     switch schema {
@@ -351,7 +355,7 @@ extension Generator {
                         return ResponseType(type: "Data")
                     case .object:
                         // TODO: Add a way to cutomize which namespace to use
-                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: Context(parents: [], namespace: arguments.module))
+                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
                         return ResponseType(type: property.type, nested: property.nested)
                     default:
                         throw GeneratorError("ERROR: response inline scheme not handler")

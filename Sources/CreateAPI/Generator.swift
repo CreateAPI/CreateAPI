@@ -139,7 +139,7 @@ extension Generator {
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
             if details.properties.isEmpty {
                 var additional = details.additionalProperties
-                if options.isInterpretingEmptyObjectsAsDictionary {
+                if options.isInterpretingEmptyObjectsAsDictionaries {
                     additional = additional ?? .a(true)
                 }
                 if let additional = additional {
@@ -213,7 +213,7 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         
-        let protocols = getProtocols(for: name)
+        let protocols = getProtocols(for: name, context: context)
         
         if protocols.contains("Codable") || protocols.contains("Decodable") {
             // Generate init with cocde
@@ -246,14 +246,14 @@ extension Generator {
         
         
         var output = templates.comments(for: info, name: name.rawValue)
-        output += makeEntity(name: name, contents: contents)
+        output += makeEntity(name: name, contents: contents, context: context)
         return output
     }
     
     // TODO: Simplify
-    private func getProtocols(for type: TypeName) -> Set<String> {
+    private func getProtocols(for type: TypeName, context: Context) -> Set<String> {
         var protocols = options.schemes.adoptedProtocols
-        let needsEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable"))
+        let needsEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable")) && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
         if !needsEncodable {
             if protocols.contains("Codable") {
                 protocols.remove("Codable")
@@ -265,8 +265,8 @@ extension Generator {
         return protocols
     }
     
-    private func makeEntity(name: TypeName, contents: [String]) -> String {
-        let protocols = getProtocols(for: name).sorted()
+    private func makeEntity(name: TypeName, contents: [String], context: Context) -> String {
+        let protocols = getProtocols(for: name, context: context).sorted()
         return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
@@ -458,7 +458,7 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         contents.append(templates.initFromDecoderAnyOf(properties: properties))
-        return makeEntity(name: name, contents: contents)
+        return makeEntity(name: name, contents: contents, context: context)
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
@@ -487,7 +487,7 @@ extension Generator {
         }.joined(separator: "\n")
         contents.append(templates.initFromDecoder(contents: decoderContents))
         
-        return makeEntity(name: name, contents: contents)
+        return makeEntity(name: name, contents: contents, context: context)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {
@@ -581,9 +581,10 @@ struct GeneratorError: Error, LocalizedError {
 struct Context {
     var parents: [TypeName]
     var namespace: String?
+    var isEncodableNeeded = true
     
     func adding(_ parent: TypeName) -> Context {
-        Context(parents: parents + [parent], namespace: namespace)
+        Context(parents: parents + [parent], namespace: namespace, isEncodableNeeded: isEncodableNeeded)
     }
 }
 

@@ -427,7 +427,7 @@ final class GenerateTests: XCTestCase {
             "--vendor", "github",
             "--config", config("""
             {
-                "isInterpretingEmptyObjectsAsDictionary": true,
+                "isInterpretingEmptyObjectsAsDictionaries": true,
                 "pluralizationExceptions": ["ConfigWas", "EventsWere"]
             }
             """)

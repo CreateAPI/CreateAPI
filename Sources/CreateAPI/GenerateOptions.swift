@@ -6,7 +6,7 @@
 // TODO: Add an option to generate parametes as `let` and a list of exceptions
 final class GenerateOptions {
     var access: String
-    var isRemovingUnneededImported: Bool
+    var isRemovingUnneededImports: Bool
     var paths: Paths
     var schemes: SchemesOptions
     var isAddingDeprecations: Bool
@@ -21,7 +21,7 @@ final class GenerateOptions {
     var spaceWidth: Int
     var isPluralizationEnabled: Bool
     var pluralizationExceptions: Set<String>
-    var isInterpretingEmptyObjectsAsDictionary: Bool
+    var isInterpretingEmptyObjectsAsDictionaries: Bool
     
     enum Indentation: String, Codable {
         case spaces
@@ -82,6 +82,7 @@ final class GenerateOptions {
         var isMakingClassesFinal: Bool
         var baseClass: String?
         var adoptedProtocols: Set<String>
+        var isSkippingRedundantProtocols: Bool
         // TODO: simplify this
         var isGeneratingInitWithCoder: Bool
         var isGeneratingDecode: Bool
@@ -98,6 +99,7 @@ final class GenerateOptions {
             self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
             self.isGeneratingDecode = schemes?.isGeneratingDecode ?? true
             self.adoptedProtocols = Set(schemes?.adoptedProtocols ?? ["Codable"])
+            self.isSkippingRedundantProtocols = schemes?.isSkippingRedundantProtocols ?? true
             self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
             self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
         }
@@ -106,7 +108,7 @@ final class GenerateOptions {
     init(_ options: GenerateOptionsScheme = .init()) {
         self.access = options.access ?? "public"
 #warning("TODO: replace with Get")
-        self.isRemovingUnneededImported = options.isRemovingUnneededImported ?? true
+        self.isRemovingUnneededImports = options.isRemovingUnneededImports ?? true
         self.paths = Paths(options.paths)
         self.isAddingDeprecations = options.isAddingDeprecations ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
@@ -121,13 +123,13 @@ final class GenerateOptions {
         self.spaceWidth = options.spaceWidth ?? 4
         self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
         self.pluralizationExceptions = Set(options.pluralizationExceptions ?? [])
-        self.isInterpretingEmptyObjectsAsDictionary = options.isInterpretingEmptyObjectsAsDictionary ?? false
+        self.isInterpretingEmptyObjectsAsDictionaries = options.isInterpretingEmptyObjectsAsDictionaries ?? false
     }
 }
 
 final class GenerateOptionsScheme: Decodable {
     var access: String?
-    var isRemovingUnneededImported: Bool?
+    var isRemovingUnneededImports: Bool?
     var paths: Paths?
     var isAddingDeprecations: Bool?
     var isGeneratingEnums: Bool?
@@ -142,7 +144,7 @@ final class GenerateOptionsScheme: Decodable {
     var spaceWidth: Int?
     var isPluralizationEnabled: Bool?
     var pluralizationExceptions: [String]?
-    var isInterpretingEmptyObjectsAsDictionary: Bool?
+    var isInterpretingEmptyObjectsAsDictionaries: Bool?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?
@@ -174,6 +176,7 @@ final class GenerateOptionsScheme: Decodable {
         var isMakingClassesFinal: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
+        var isSkippingRedundantProtocols: Bool?
         var isGeneratingInitWithCoder: Bool?
         var isGeneratingDecode: Bool?
         var mappedPropertyNames: [String: String]?
