@@ -18,7 +18,6 @@ extension Paths {
         /// Path: `/pets`
         public let path: String
 
-        /// List all pets
         public func get() -> Request<[Pet]> {
             .get(path)
         }
@@ -38,7 +37,6 @@ extension Paths.Pets {
         /// Path: `/pets/{petId}`
         public let path: String
 
-        /// Info for a specific pet
         public func get() -> Request<Pet> {
             .get(path)
         }

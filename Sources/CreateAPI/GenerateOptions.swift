@@ -46,6 +46,7 @@ final class GenerateOptions {
         var addDescription: Bool
         var addExamples: Bool
         var addSummary: Bool
+        var isAddingExternalDocumentation: Bool
         var capitilizeTitle: Bool
         var capitilizeDescription: Bool
         
@@ -55,6 +56,7 @@ final class GenerateOptions {
             self.addDescription = comments?.addDescription ?? true
             self.addExamples = comments?.addExamples ?? true
             self.addSummary = comments?.addSummary ?? true
+            self.isAddingExternalDocumentation = comments?.isAddingExternalDocumentation ?? true
             self.capitilizeTitle = comments?.capitilizeTitle ?? true
             self.capitilizeDescription = comments?.capitilizeDescription ?? true
         }
@@ -158,6 +160,7 @@ final class GenerateOptionsScheme: Decodable {
         var addDescription: Bool?
         var addExamples: Bool?
         var addSummary: Bool?
+        var isAddingExternalDocumentation: Bool?
         var capitilizeTitle: Bool?
         var capitilizeDescription: Bool?
     }

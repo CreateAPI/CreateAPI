@@ -21,7 +21,6 @@ import GrammaticalNumber
 //    - common parameters in components (inline?)
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
-// TODO: Add a link to external docs
 // TODO: Parse in: path parameters and support types other than just String
 // TODO: Remove Markdown from description (or keep if it it looks OK - test)
 // TODO: Add an option to generate a plain list of APIs instead of using namespaces
@@ -198,9 +197,18 @@ extension Generator {
             responseType = "Void"
         }
         var output = ""
-        if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
-            for line in summary.split(separator: "\n") {
-                output += "/// \(line)\n"
+        if options.comments.isEnabled {
+            if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
+                for line in summary.split(separator: "\n") {
+                    output += "/// \(line)\n"
+                }
+            }
+            if options.comments.isAddingExternalDocumentation, let docs = operation.externalDocs {
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                // I tried to use `seealso`, but Xcode doesn't render it
+                output += "/// [\(docs.description ?? "External Documentation")](\(docs.url.absoluteString))\n"
             }
         }
         var parameters: [String] = []

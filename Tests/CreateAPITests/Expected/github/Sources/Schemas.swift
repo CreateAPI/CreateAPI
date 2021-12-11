@@ -20,7 +20,7 @@ public struct Integration: Codable {
     /// The list of events for the GitHub app
     ///
     /// Example:
-
+    ///
     /// [
     ///   "label",
     ///   "deployment"
@@ -47,7 +47,7 @@ public struct Integration: Codable {
     /// The set of permissions for the GitHub app
     ///
     /// Example:
-
+    ///
     /// {
     ///   "deployments" : "write",
     ///   "issues" : "read"
@@ -65,7 +65,7 @@ public struct Integration: Codable {
     /// The set of permissions for the GitHub app
     ///
     /// Example:
-
+    ///
     /// {
     ///   "deployments" : "write",
     ///   "issues" : "read"
@@ -674,7 +674,7 @@ public struct Enterprise: Codable {
 /// The permissions granted to the user-to-server access token.
 ///
 /// Example:
-
+///
 /// {
 ///   "contents" : "read",
 ///   "deployments" : "write",
@@ -1022,7 +1022,7 @@ public struct Installation: Codable {
     /// The permissions granted to the user-to-server access token.
     ///
     /// Example:
-
+    ///
     /// {
     ///   "contents" : "read",
     ///   "deployments" : "write",
@@ -1036,7 +1036,7 @@ public struct Installation: Codable {
     /// Example: config.yaml
     public var singleFileName: String?
     /// Example:
-
+    ///
     /// [
     ///   "config.yml",
     ///   ".github\/issue_TEMPLATE.md"
@@ -1841,7 +1841,7 @@ public struct InstallationToken: Codable {
     /// The permissions granted to the user-to-server access token.
     ///
     /// Example:
-
+    ///
     /// {
     ///   "contents" : "read",
     ///   "deployments" : "write",
@@ -1854,7 +1854,7 @@ public struct InstallationToken: Codable {
     /// Example: README.md
     public var singleFile: String?
     /// Example:
-
+    ///
     /// [
     ///   "config.yml",
     ///   ".github\/issue_TEMPLATE.md"
@@ -1899,7 +1899,7 @@ public struct ApplicationGrant: Codable {
     public var createdAt: Date
     public var id: Int
     /// Example:
-
+    ///
     /// [
     ///   "public_repo"
     /// ]
@@ -1963,7 +1963,7 @@ public struct ScopedInstallation: Codable {
     /// The permissions granted to the user-to-server access token.
     ///
     /// Example:
-
+    ///
     /// {
     ///   "contents" : "read",
     ///   "deployments" : "write",
@@ -1977,7 +1977,7 @@ public struct ScopedInstallation: Codable {
     /// Example: config.yaml
     public var singleFileName: String?
     /// Example:
-
+    ///
     /// [
     ///   "config.yml",
     ///   ".github\/issue_TEMPLATE.md"
@@ -2095,7 +2095,7 @@ public struct Authorization: Codable {
 
 public struct CodeOfConduct: Codable {
     /// Example:
-
+    ///
     /// # Contributor Covenant Code of Conduct
     /// ## Our Pledge
     /// In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
@@ -2406,7 +2406,7 @@ public struct AuthenticationToken: Codable {
     /// Example: 2016-07-11T22:14:10Z
     public var expiresAt: Date
     /// Example:
-
+    ///
     /// {
     ///   "deployments" : "write",
     ///   "issues" : "read"
@@ -2894,7 +2894,7 @@ public struct Issue: Codable {
     /// Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
     ///
     /// Example:
-
+    ///
     /// [
     ///   "bug",
     ///   "registration"
@@ -3291,7 +3291,7 @@ public struct Feed: Codable {
     public var currentUserActorURL: String?
     public var currentUserOrganizationURL: String?
     /// Example:
-
+    ///
     /// [
     ///   0
     /// ]
@@ -4017,7 +4017,7 @@ public struct GistCommit: Codable {
 public struct GitignoreTemplate: Codable {
     public var name: String
     /// Example:
-
+    ///
     /// # Object files
     /// *.o
     /// # Libraries
@@ -4082,7 +4082,7 @@ public struct LicenseSimple: Codable {
 
 public struct License: Codable {
     /// Example:
-
+    ///
     /// The MIT License (MIT)
     /// Copyright (c) [year] [fullname]
     /// Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -4102,7 +4102,7 @@ public struct License: Codable {
     /// SOFTWARE.
     public var body: String
     /// Example:
-
+    ///
     /// [
     ///   "include-copyright"
     /// ]
@@ -4117,7 +4117,7 @@ public struct License: Codable {
     /// Example: mit
     public var key: String
     /// Example:
-
+    ///
     /// [
     ///   "no-liability"
     /// ]
@@ -4127,7 +4127,7 @@ public struct License: Codable {
     /// Example: MDc6TGljZW5zZW1pdA==
     public var nodeID: String
     /// Example:
-
+    ///
     /// [
     ///   "commercial-use",
     ///   "modifications",
@@ -4178,7 +4178,7 @@ public struct License: Codable {
 public struct MarketplaceListingPlan: Codable {
     public var accountsURL: URL
     /// Example:
-
+    ///
     /// [
     ///   "Up to 25 private repositories",
     ///   "11 concurrent builds"
@@ -4339,46 +4339,46 @@ public struct MarketplacePurchase: Codable {
 
 public struct APIOverview: Codable {
     /// Example:
-
+    ///
     /// [
     ///   "13.64.0.0\/16",
     ///   "13.65.0.0\/16"
     /// ]
     public var actions: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "127.0.0.1\/32"
     /// ]
     public var api: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "192.168.7.15\/32",
     ///   "192.168.7.16\/32"
     /// ]
     public var dependabot: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "127.0.0.1\/32"
     /// ]
     public var git: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "127.0.0.1\/32"
     /// ]
     public var hooks: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "54.158.161.132",
     ///   "54.226.70.38"
     /// ]
     public var importer: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "13.65.0.0\/16",
     ///   "157.55.204.33\/32",
@@ -4386,7 +4386,7 @@ public struct APIOverview: Codable {
     /// ]
     public var packages: [String]?
     /// Example:
-
+    ///
     /// [
     ///   "192.30.252.153\/32",
     ///   "192.30.252.154\/32"
@@ -4396,7 +4396,7 @@ public struct APIOverview: Codable {
     /// Example: true
     public var isVerifiablePasswordAuthentication: Bool
     /// Example:
-
+    ///
     /// [
     ///   "127.0.0.1\/32"
     /// ]
@@ -5298,7 +5298,7 @@ public struct CredentialAuthorization: Codable {
     /// List of oauth scopes the token has been granted.
     ///
     /// Example:
-
+    ///
     /// [
     ///   "user",
     ///   "repo"
@@ -5353,7 +5353,7 @@ public struct ExternalGroup: Codable {
     /// An array of external members linked to this group
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "member_email" : "mona_lisa@github.com",
@@ -5372,7 +5372,7 @@ public struct ExternalGroup: Codable {
     /// An array of teams linked to this group
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "team_id" : 1,
@@ -5467,7 +5467,7 @@ public struct ExternalGroups: Codable {
     /// An array of external groups available to be mapped to a team
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "group_id" : 1,
@@ -5575,7 +5575,7 @@ public struct OrgHook: Codable {
     public var createdAt: Date
     public var deliveriesURL: URL?
     /// Example:
-
+    ///
     /// [
     ///   "push",
     ///   "pull_request"
@@ -6293,7 +6293,7 @@ public struct GroupMapping: Codable {
     /// Array of groups to be mapped to this team
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "group_description" : "A group of Developers working on AzureAD SAML SSO",
@@ -7515,7 +7515,7 @@ public struct FullRepository: Codable {
     /// A git repository
     public var templateRepository: Repository?
     /// Example:
-
+    ///
     /// [
     ///   "octocat",
     ///   "atom",
@@ -7886,7 +7886,7 @@ public struct Job: Codable {
     /// Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
     ///
     /// Example:
-
+    ///
     /// [
     ///   "self-hosted",
     ///   "foo",
@@ -9845,7 +9845,7 @@ public struct BranchWithProtection: Codable {
 
 public struct StatusCheckPolicy: Codable {
     /// Example:
-
+    ///
     /// [
     ///   "continuous-integration\/travis-ci"
     /// ]
@@ -13576,7 +13576,7 @@ public struct GitTree: Codable {
     /// Objects specifying a tree structure
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "mode" : "100644",
@@ -13705,7 +13705,7 @@ public struct Hook: Codable {
     /// Determines what events the hook is triggered for. Default: ['push'].
     ///
     /// Example:
-
+    ///
     /// [
     ///   "push",
     ///   "pull_request"
@@ -16262,7 +16262,7 @@ public struct PagesHTTPSCertificate: Codable {
     /// Array of the domain set and its alternate name (if it is configured)
     ///
     /// Example:
-
+    ///
     /// [
     ///   "example.com",
     ///   "www.example.com"
@@ -18510,7 +18510,7 @@ public struct Stargazer: Codable {
 
 public struct CommitActivity: Codable {
     /// Example:
-
+    ///
     /// [
     ///   0,
     ///   3,
@@ -18547,7 +18547,7 @@ public struct ContributorActivity: Codable {
     /// Example: 135
     public var total: Int
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "a" : 6898,
@@ -19256,7 +19256,7 @@ public struct ScimUser: Codable {
     /// User emails
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "primary" : true,
@@ -19280,7 +19280,7 @@ public struct ScimUser: Codable {
     public var id: String
     public var meta: Meta
     /// Example:
-
+    ///
     /// {
     ///   "familyName" : "User",
     ///   "givenName" : "Jane"
@@ -19289,7 +19289,7 @@ public struct ScimUser: Codable {
     /// Set of operations to be performed
     ///
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "op" : "replace",
@@ -19369,7 +19369,7 @@ public struct ScimUser: Codable {
     }
 
     /// Example:
-
+    ///
     /// {
     ///   "familyName" : "User",
     ///   "givenName" : "Jane"
@@ -19552,7 +19552,7 @@ public struct CodeSearchResultItem: Codable {
     public var language: String?
     public var lastModifiedAt: Date?
     /// Example:
-
+    ///
     /// [
     ///   "73..77",
     ///   "77..78"
@@ -20801,7 +20801,7 @@ public struct GpgKey: Codable {
     /// Example: 2016-03-24T11:31:04-06:00
     public var createdAt: Date
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "email" : "mastahyeti@users.noreply.github.com",
@@ -20818,7 +20818,7 @@ public struct GpgKey: Codable {
     public var publicKey: String
     public var rawKey: String?
     /// Example:
-
+    ///
     /// [
     ///   {
     ///     "can_certify" : false,

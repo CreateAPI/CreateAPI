@@ -19,6 +19,8 @@ extension Paths {
         public let path: String
 
         /// GitHub API Root
+        ///
+        /// [API method documentation](https://docs.github.com/rest/overview/resources-in-the-rest-api#root-endpoint)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -108,6 +110,8 @@ extension Paths {
         public let path: String
 
         /// Get the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-the-authenticated-app)
         public func get() -> Request<Integration> {
             .get(path)
         }
@@ -170,6 +174,8 @@ extension Paths.App.Hook {
         public let path: String
 
         /// Get a webhook configuration for an app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -199,6 +205,8 @@ extension Paths.App.Hook.Deliveries {
         public let path: String
 
         /// Get a delivery for an app webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook)
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -241,11 +249,15 @@ extension Paths.App.Installations {
         public let path: String
 
         /// Get an installation for the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app)
         public func get() -> Request<Installation> {
             .get(path)
         }
 
         /// Delete an installation for the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -275,6 +287,8 @@ extension Paths.App.Installations.WithInstallationID {
         public let path: String
 
         /// Unsuspend an app installation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -315,11 +329,15 @@ extension Paths.Applications.Grants {
         public let path: String
 
         /// Get a single grant
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant)
         public func get() -> Request<ApplicationGrant> {
             .get(path)
         }
 
         /// Delete a grant
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -347,6 +365,8 @@ extension Paths.Applications.WithClientID {
         public let path: String
 
         /// Delete an app authorization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -363,6 +383,8 @@ extension Paths.Applications.WithClientID {
         public let path: String
 
         /// Delete an app token
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -403,6 +425,8 @@ extension Paths.Apps {
         public let path: String
 
         /// Get an app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps/#get-an-app)
         public func get() -> Request<Integration> {
             .get(path)
         }
@@ -469,11 +493,15 @@ extension Paths.Authorizations {
         public let path: String
 
         /// Get a single authorization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization)
         public func get() -> Request<Authorization> {
             .get(path)
         }
 
         /// Delete an authorization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -503,6 +531,8 @@ extension Paths.CodesOfConduct {
         public let path: String
 
         /// Get a code of conduct
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-a-code-of-conduct)
         public func get() -> Request<CodeOfConduct> {
             .get(path)
         }
@@ -519,6 +549,8 @@ extension Paths {
         public let path: String
 
         /// Get emojis
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/emojis#get-emojis)
         public func get() -> Request<[String: String]> {
             .get(path)
         }
@@ -568,6 +600,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         public let path: String
 
         /// Get GitHub Actions permissions for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise)
         public func get() -> Request<ActionsEnterprisePermissions> {
             .get(path)
         }
@@ -584,6 +618,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         public let path: String
 
         /// List selected organizations enabled for GitHub Actions in an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -611,6 +647,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         public let path: String
 
         /// Disable a selected organization for GitHub Actions in an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -627,11 +665,15 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise)
         public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
         /// Set allowed actions for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise)
         public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
@@ -648,6 +690,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         public let path: String
 
         /// List self-hosted runner groups for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -675,11 +719,15 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         public let path: String
 
         /// Get a self-hosted runner group for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
         public func get() -> Request<RunnerGroupsEnterprise> {
             .get(path)
         }
 
         /// Delete a self-hosted runner group from an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -696,6 +744,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         public let path: String
 
         /// List organization access to a self-hosted runner group in an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -723,6 +773,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         public let path: String
 
         /// Remove organization access to a self-hosted runner group in an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -739,6 +791,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         public let path: String
 
         /// List self-hosted runners in a group for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -770,6 +824,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         public let path: String
 
         /// Remove a self-hosted runner from a group for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -786,6 +842,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         public let path: String
 
         /// List self-hosted runners for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -856,11 +914,15 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         public let path: String
 
         /// Get a self-hosted runner for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise)
         public func get() -> Request<Runner> {
             .get(path)
         }
 
         /// Delete a self-hosted runner from an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -912,6 +974,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         public let path: String
 
         /// Get GitHub Actions billing for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise)
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -928,6 +992,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         public let path: String
 
         /// Get GitHub Advanced Security active committers for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise)
         public func get() -> Request<AdvancedSecurityActiveCommitters> {
             .get(path)
         }
@@ -944,6 +1010,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         public let path: String
 
         /// Get GitHub Packages billing for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise)
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -960,6 +1028,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         public let path: String
 
         /// Get shared storage billing for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise)
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }
@@ -989,6 +1059,8 @@ extension Paths {
         public let path: String
 
         /// Get feeds
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#get-feeds)
         public func get() -> Request<Feed> {
             .get(path)
         }
@@ -1044,11 +1116,15 @@ extension Paths.Gists {
         public let path: String
 
         /// Get a gist
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist)
         public func get() -> Request<GistSimple> {
             .get(path)
         }
 
         /// Delete a gist
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1078,11 +1154,15 @@ extension Paths.Gists.WithGistID.Comments {
         public let path: String
 
         /// Get a gist comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-comment)
         public func get() -> Request<GistComment> {
             .get(path)
         }
 
         /// Delete a gist comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist-comment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1125,11 +1205,15 @@ extension Paths.Gists.WithGistID {
         public let path: String
 
         /// Check if a gist is starred
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Unstar a gist
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#unstar-a-gist)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1146,6 +1230,8 @@ extension Paths.Gists.WithGistID {
         public let path: String
 
         /// Get a gist revision
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-revision)
         public func get() -> Request<GistSimple> {
             .get(path)
         }
@@ -1186,6 +1272,8 @@ extension Paths.Gitignore.Templates {
         public let path: String
 
         /// Get a gitignore template
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template)
         public func get() -> Request<GitignoreTemplate> {
             .get(path)
         }
@@ -1213,6 +1301,8 @@ extension Paths.Installation {
         public let path: String
 
         /// List repositories accessible to the app installation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1247,6 +1337,8 @@ extension Paths.Installation {
         public let path: String
 
         /// Revoke an installation access token
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1289,6 +1381,8 @@ extension Paths.Licenses {
         public let path: String
 
         /// Get a license
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-a-license)
         public func get() -> Request<License> {
             .get(path)
         }
@@ -1353,6 +1447,8 @@ extension Paths.MarketplaceListing.Accounts {
         public let path: String
 
         /// Get a subscription plan for an account
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account)
         public func get() -> Request<MarketplacePurchase> {
             .get(path)
         }
@@ -1428,6 +1524,8 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         public let path: String
 
         /// Get a subscription plan for an account (stubbed)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed)
         public func get() -> Request<MarketplacePurchase> {
             .get(path)
         }
@@ -1481,6 +1579,8 @@ extension Paths {
         public let path: String
 
         /// Get GitHub meta information
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/meta#get-github-meta-information)
         public func get() -> Request<APIOverview> {
             .get(path)
         }
@@ -1567,6 +1667,8 @@ extension Paths.Notifications.Threads {
         public let path: String
 
         /// Get a thread
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread)
         public func get() -> Request<Thread> {
             .get(path)
         }
@@ -1583,11 +1685,15 @@ extension Paths.Notifications.Threads.WithThreadID {
         public let path: String
 
         /// Get a thread subscription for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user)
         public func get() -> Request<ThreadSubscription> {
             .get(path)
         }
 
         /// Delete a thread subscription
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1641,6 +1747,8 @@ extension Paths.Organizations.WithOrganizationID {
         public let path: String
 
         /// List custom repository roles in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1680,6 +1788,8 @@ extension Paths.Orgs {
         public let path: String
 
         /// Get an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization)
         public func get() -> Request<OrganizationFull> {
             .get(path)
         }
@@ -1707,6 +1817,8 @@ extension Paths.Orgs.WithOrg.Actions {
         public let path: String
 
         /// Get GitHub Actions permissions for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization)
         public func get() -> Request<ActionsOrganizationPermissions> {
             .get(path)
         }
@@ -1723,6 +1835,8 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         public let path: String
 
         /// List selected repositories enabled for GitHub Actions in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1750,6 +1864,8 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         public let path: String
 
         /// Disable a selected repository for GitHub Actions in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1766,11 +1882,15 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization)
         public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
         /// Set allowed actions for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization)
         public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
@@ -1787,6 +1907,8 @@ extension Paths.Orgs.WithOrg.Actions {
         public let path: String
 
         /// List self-hosted runner groups for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1814,11 +1936,15 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         public let path: String
 
         /// Get a self-hosted runner group for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
         public func get() -> Request<RunnerGroupsOrg> {
             .get(path)
         }
 
         /// Delete a self-hosted runner group from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1835,6 +1961,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         public let path: String
 
         /// List repository access to a self-hosted runner group in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1862,6 +1990,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         public let path: String
 
         /// Remove repository access to a self-hosted runner group in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1878,6 +2008,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         public let path: String
 
         /// List self-hosted runners in a group for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1909,6 +2041,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         public let path: String
 
         /// Remove a self-hosted runner from a group for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -1925,6 +2059,8 @@ extension Paths.Orgs.WithOrg.Actions {
         public let path: String
 
         /// List self-hosted runners for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -1995,11 +2131,15 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         public let path: String
 
         /// Get a self-hosted runner for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
         public func get() -> Request<Runner> {
             .get(path)
         }
 
         /// Delete a self-hosted runner from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2016,6 +2156,8 @@ extension Paths.Orgs.WithOrg.Actions {
         public let path: String
 
         /// List organization secrets
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-organization-secrets)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -2047,6 +2189,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         public let path: String
 
         /// Get an organization public key
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-public-key)
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -2063,11 +2207,15 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         public let path: String
 
         /// Get an organization secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-secret)
         public func get() -> Request<OrganizationActionsSecret> {
             .get(path)
         }
 
         /// Delete an organization secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-organization-secret)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2084,6 +2232,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         public let path: String
 
         /// List selected repositories for an organization secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -2111,6 +2261,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
         public let path: String
 
         /// Remove selected repository from an organization secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2153,11 +2305,15 @@ extension Paths.Orgs.WithOrg.Blocks {
         public let path: String
 
         /// Check if a user is blocked by an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Unblock a user from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#unblock-a-user-from-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2187,6 +2343,8 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
         public let path: String
 
         /// Remove a SAML SSO authorization for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2227,6 +2385,8 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         public let path: String
 
         /// Get an external group
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization)
         public func get() -> Request<github.ExternalGroup> {
             .get(path)
         }
@@ -2243,6 +2403,8 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// List external groups in an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
         public func get() -> Request<github.ExternalGroups> {
             .get(path)
         }
@@ -2289,11 +2451,15 @@ extension Paths.Orgs.WithOrg.Hooks {
         public let path: String
 
         /// Get an organization webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-webhook)
         public func get() -> Request<OrgHook> {
             .get(path)
         }
 
         /// Delete an organization webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#delete-an-organization-webhook)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2310,6 +2476,8 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         public let path: String
 
         /// Get a webhook configuration for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -2339,6 +2507,8 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
         public let path: String
 
         /// Get a webhook delivery for an organization webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook)
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -2381,6 +2551,8 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// Get an organization installation for the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app)
         public func get() -> Request<github.Installation> {
             .get(path)
         }
@@ -2397,6 +2569,8 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// List app installations for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-app-installations-for-an-organization)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -2428,11 +2602,15 @@ extension Paths.Orgs.WithOrg {
         public let path: String
 
         /// Set interaction restrictions for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-an-organization)
         public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
             .put(path, body: body)
         }
 
         /// Remove interaction restrictions for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2462,6 +2640,8 @@ extension Paths.Orgs.WithOrg.Invitations {
         public let path: String
 
         /// Cancel an organization invitation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2517,11 +2697,15 @@ extension Paths.Orgs.WithOrg.Members {
         public let path: String
 
         /// Check organization membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-organization-membership-for-a-user)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Remove an organization member
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-an-organization-member)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2549,11 +2733,15 @@ extension Paths.Orgs.WithOrg.Memberships {
         public let path: String
 
         /// Get organization membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user)
         public func get() -> Request<OrgMembership> {
             .get(path)
         }
 
         /// Remove organization membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2583,6 +2771,8 @@ extension Paths.Orgs.WithOrg.Migrations {
         public let path: String
 
         /// Get an organization migration status
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status)
         public func get() -> Request<Migration> {
             .get(path)
         }
@@ -2599,11 +2789,15 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         public let path: String
 
         /// Download an organization migration archive
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-an-organization-migration-archive)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Delete an organization migration archive
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-an-organization-migration-archive)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2642,6 +2836,8 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
         public let path: String
 
         /// Unlock an organization repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-an-organization-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2684,6 +2880,8 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         public let path: String
 
         /// Remove outside collaborator from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-outside-collaborator-from-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2724,11 +2922,15 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         public let path: String
 
         /// Get a package for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization)
         public func get() -> Request<Package> {
             .get(path)
         }
 
         /// Delete a package for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2771,11 +2973,15 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         public let path: String
 
         /// Get a package version for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization)
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
 
         /// Delete package version for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2831,11 +3037,15 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         public let path: String
 
         /// Check public organization membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Remove public organization membership for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -2911,6 +3121,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         public let path: String
 
         /// Get GitHub Actions billing for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization)
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -2927,6 +3139,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         public let path: String
 
         /// Get GitHub Advanced Security active committers for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization)
         public func get() -> Request<AdvancedSecurityActiveCommitters> {
             .get(path)
         }
@@ -2943,6 +3157,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         public let path: String
 
         /// Get GitHub Packages billing for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization)
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -2959,6 +3175,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         public let path: String
 
         /// Get shared storage billing for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization)
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }
@@ -2986,6 +3204,8 @@ extension Paths.Orgs.WithOrg.TeamSync {
         public let path: String
 
         /// List IdP groups for an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -3019,11 +3239,15 @@ extension Paths.Orgs.WithOrg.Teams {
         public let path: String
 
         /// Get a team by name
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
         public func get() -> Request<TeamFull> {
             .get(path)
         }
 
         /// Delete a team
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-team)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3053,11 +3277,15 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         public let path: String
 
         /// Get a discussion
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
 
         /// Delete a discussion
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3087,11 +3315,15 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         public let path: String
 
         /// Get a discussion comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
 
         /// Delete a discussion comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3121,6 +3353,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         public let path: String
 
         /// Delete team discussion comment reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-comment-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3150,6 +3384,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         public let path: String
 
         /// Delete team discussion reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3166,6 +3402,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         public let path: String
 
         /// Remove the connection between an external group and a team
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3219,11 +3457,15 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         public let path: String
 
         /// Get team membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user)
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
 
         /// Remove team membership for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3253,11 +3495,15 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         public let path: String
 
         /// Check team permissions for a project
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
         public func get() -> Request<TeamProject> {
             .get(path)
         }
 
         /// Remove a project from a team
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3298,11 +3544,15 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         public let path: String
 
         /// Check team permissions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
         public func get() -> Request<TeamRepository> {
             .get(path)
         }
 
         /// Remove a repository from a team
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3330,6 +3580,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         public let path: String
 
         /// List IdP groups for a team
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team)
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -3392,11 +3644,15 @@ extension Paths.Projects.Columns.Cards {
         public let path: String
 
         /// Get a project card
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-card)
         public func get() -> Request<ProjectCard> {
             .get(path)
         }
 
         /// Delete a project card
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-card)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3426,11 +3682,15 @@ extension Paths.Projects.Columns {
         public let path: String
 
         /// Get a project column
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-column)
         public func get() -> Request<ProjectColumn> {
             .get(path)
         }
 
         /// Delete a project column
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-column)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3473,11 +3733,15 @@ extension Paths.Projects {
         public let path: String
 
         /// Get a project
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project)
         public func get() -> Request<Project> {
             .get(path)
         }
 
         /// Delete a project
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3507,6 +3771,8 @@ extension Paths.Projects.WithProjectID.Collaborators {
         public let path: String
 
         /// Remove user as a collaborator
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#remove-project-collaborator)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3523,6 +3789,8 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
         public let path: String
 
         /// Get project permission for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user)
         public func get() -> Request<ProjectCollaboratorPermission> {
             .get(path)
         }
@@ -3552,6 +3820,8 @@ extension Paths {
         public let path: String
 
         /// Get rate limit status for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user)
         public func get() -> Request<RateLimitOverview> {
             .get(path)
         }
@@ -3585,6 +3855,8 @@ extension Paths.Reactions {
         public let path: String
 
         /// Delete a reaction (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3623,11 +3895,15 @@ extension Paths.Repos.WithOwner {
         public let path: String
 
         /// Get a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository)
         public func get() -> Request<FullRepository> {
             .get(path)
         }
 
         /// Delete a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3655,6 +3931,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// List artifacts for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-artifacts-for-a-repository)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -3686,11 +3964,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         public let path: String
 
         /// Get an artifact
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-artifact)
         public func get() -> Request<Artifact> {
             .get(path)
         }
 
         /// Delete an artifact
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-artifact)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3707,6 +3989,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts.WithArtifactID {
         public let path: String
 
         /// Download an artifact
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#download-an-artifact)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3734,6 +4018,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
         public let path: String
 
         /// Get a job for a workflow run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run)
         public func get() -> Request<Job> {
             .get(path)
         }
@@ -3750,6 +4036,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs.WithJobID {
         public let path: String
 
         /// Download job logs for a workflow run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#download-job-logs-for-a-workflow-run)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -3766,6 +4054,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// Get GitHub Actions permissions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository)
         public func get() -> Request<ActionsRepositoryPermissions> {
             .get(path)
         }
@@ -3782,11 +4072,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         public let path: String
 
         /// Get allowed actions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository)
         public func get() -> Request<github.SelectedActions> {
             .get(path)
         }
 
         /// Set allowed actions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository)
         public func put(_ body: github.SelectedActions) -> Request<Void> {
             .put(path, body: body)
         }
@@ -3803,6 +4097,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// List self-hosted runners for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-a-repository)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -3873,11 +4169,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         public let path: String
 
         /// Get a self-hosted runner for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-a-repository)
         public func get() -> Request<Runner> {
             .get(path)
         }
 
         /// Delete a self-hosted runner from a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-a-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3894,6 +4194,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// List workflow runs for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -3925,11 +4227,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         public let path: String
 
         /// Get a workflow run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run)
         public func get() -> Request<WorkflowRun> {
             .get(path)
         }
 
         /// Delete a workflow run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-workflow-run)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -3972,6 +4278,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public let path: String
 
         /// List workflow run artifacts
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-run-artifacts)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4014,6 +4322,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         public let path: String
 
         /// Get a workflow run attempt
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt)
         public func get() -> Request<WorkflowRun> {
             .get(path)
         }
@@ -4030,6 +4340,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         public let path: String
 
         /// List jobs for a workflow run attempt
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4061,6 +4373,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         public let path: String
 
         /// Download workflow run attempt logs
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-attempt-logs)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -4090,6 +4404,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public let path: String
 
         /// List jobs for a workflow run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4121,11 +4437,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public let path: String
 
         /// Download workflow run logs
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-logs)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Delete workflow run logs
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-workflow-run-logs)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4168,6 +4488,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public let path: String
 
         /// Get workflow run usage
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-run-usage)
         public func get() -> Request<WorkflowRunUsage> {
             .get(path)
         }
@@ -4184,6 +4506,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// List repository secrets
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-secrets)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4215,6 +4539,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         public let path: String
 
         /// Get a repository public key
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-public-key)
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -4231,11 +4557,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         public let path: String
 
         /// Get a repository secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-secret)
         public func get() -> Request<ActionsSecret> {
             .get(path)
         }
 
         /// Delete a repository secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-repository-secret)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4252,6 +4582,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         public let path: String
 
         /// List repository workflows
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-workflows)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4283,6 +4615,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
         public let path: String
 
         /// Get a workflow
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow)
         public func get() -> Request<Workflow> {
             .get(path)
         }
@@ -4338,6 +4672,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         public let path: String
 
         /// List workflow runs
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4369,6 +4705,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         public let path: String
 
         /// Get workflow usage
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-usage)
         public func get() -> Request<WorkflowUsage> {
             .get(path)
         }
@@ -4398,6 +4736,8 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
         public let path: String
 
         /// Check if a user can be assigned
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -4427,11 +4767,15 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         public let path: String
 
         /// Get an autolink reference of a repository
+        ///
+        /// [API method documentation](https://docs.github.com/v3/repos#get-autolink)
         public func get() -> Request<Autolink> {
             .get(path)
         }
 
         /// Delete an autolink reference from a repository
+        ///
+        /// [API method documentation](https://docs.github.com/v3/repos#delete-autolink)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4448,6 +4792,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Disable automated security fixes
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-automated-security-fixes)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4477,6 +4823,8 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
         public let path: String
 
         /// Get a branch
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-branch)
         public func get() -> Request<BranchWithProtection> {
             .get(path)
         }
@@ -4493,11 +4841,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         public let path: String
 
         /// Get branch protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-branch-protection)
         public func get() -> Request<BranchProtection> {
             .get(path)
         }
 
         /// Delete branch protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-branch-protection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4514,11 +4866,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public let path: String
 
         /// Get admin branch protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-admin-branch-protection)
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
         }
 
         /// Delete admin branch protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-admin-branch-protection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4535,11 +4891,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public let path: String
 
         /// Get pull request review protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-pull-request-review-protection)
         public func get() -> Request<ProtectedBranchPullRequestReview> {
             .get(path)
         }
 
         /// Delete pull request review protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4556,11 +4916,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public let path: String
 
         /// Get commit signature protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-commit-signature-protection)
         public func get() -> Request<ProtectedBranchAdminEnforced> {
             .get(path)
         }
 
         /// Delete commit signature protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-commit-signature-protection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4577,11 +4941,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public let path: String
 
         /// Get status checks protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-status-checks-protection)
         public func get() -> Request<StatusCheckPolicy> {
             .get(path)
         }
 
         /// Remove status check protection
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-protection)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4611,11 +4979,15 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public let path: String
 
         /// Get access restrictions
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-access-restrictions)
         public func get() -> Request<BranchRestrictionPolicy> {
             .get(path)
         }
 
         /// Delete access restrictions
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-access-restrictions)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -4697,6 +5069,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         public let path: String
 
         /// Get a check run
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-run)
         public func get() -> Request<CheckRun> {
             .get(path)
         }
@@ -4765,6 +5139,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         public let path: String
 
         /// Get a check suite
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-suite)
         public func get() -> Request<CheckSuite> {
             .get(path)
         }
@@ -4781,6 +5157,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         public let path: String
 
         /// List check runs in a check suite
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4849,6 +5227,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         public let path: String
 
         /// Get a code scanning alert
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert)
         public func get() -> Request<CodeScanningAlert> {
             .get(path)
         }
@@ -4891,11 +5271,15 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         public let path: String
 
         /// Get a code scanning analysis for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)
         public func get() -> Request<CodeScanningAnalysis> {
             .get(path)
         }
 
         /// Delete a code scanning analysis from a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
         public func delete() -> Request<CodeScanningAnalysisDeletion> {
             .delete(path)
         }
@@ -4925,6 +5309,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
         public let path: String
 
         /// Get information about a SARIF upload
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository)
         public func get() -> Request<CodeScanningSarifsStatus> {
             .get(path)
         }
@@ -4941,6 +5327,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// List codespaces in a repository for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -4968,6 +5356,8 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         public let path: String
 
         /// List available machine types for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -5008,11 +5398,15 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         public let path: String
 
         /// Check if a user is a repository collaborator
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Remove a repository collaborator
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-a-repository-collaborator)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5029,6 +5423,8 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
         public let path: String
 
         /// Get repository permissions for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user)
         public func get() -> Request<RepositoryCollaboratorPermission> {
             .get(path)
         }
@@ -5058,11 +5454,15 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         public let path: String
 
         /// Get a commit comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit-comment)
         public func get() -> Request<CommitComment> {
             .get(path)
         }
 
         /// Delete a commit comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-commit-comment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5092,6 +5492,8 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID.Reactions {
         public let path: String
 
         /// Delete a commit comment reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-commit-comment-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5171,6 +5573,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         public let path: String
 
         /// Get a commit
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit)
         public func get() -> Request<Commit> {
             .get(path)
         }
@@ -5187,6 +5591,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         public let path: String
 
         /// List check runs for a Git reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -5218,6 +5624,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         public let path: String
 
         /// List check suites for a Git reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -5249,6 +5657,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         public let path: String
 
         /// Get the combined status for a specific reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference)
         public func get() -> Request<CombinedCommitStatus> {
             .get(path)
         }
@@ -5289,6 +5699,8 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
         public let path: String
 
         /// Get community profile metrics
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-community-profile-metrics)
         public func get() -> Request<CommunityProfile> {
             .get(path)
         }
@@ -5316,6 +5728,8 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         public let path: String
 
         /// Compare two commits
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#compare-two-commits)
         public func get() -> Request<CommitComparison> {
             .get(path)
         }
@@ -5378,6 +5792,8 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         public let path: String
 
         /// Delete a file
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
         public func delete() -> Request<FileCommit> {
             .delete(path)
         }
@@ -5420,11 +5836,15 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         public let path: String
 
         /// Get a deployment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment)
         public func get() -> Request<Deployment> {
             .get(path)
         }
 
         /// Delete a deployment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deployment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5454,6 +5874,8 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
         public let path: String
 
         /// Get a deployment status
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment-status)
         public func get() -> Request<DeploymentStatus> {
             .get(path)
         }
@@ -5483,6 +5905,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get all environments
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-environments)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -5511,11 +5935,15 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         public let path: String
 
         /// Get an environment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-an-environment)
         public func get() -> Request<Environment> {
             .get(path)
         }
 
         /// Delete an environment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-an-environment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5582,6 +6010,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         public let path: String
 
         /// Get a blob
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-blob)
         public func get() -> Request<Blob> {
             .get(path)
         }
@@ -5611,6 +6041,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         public let path: String
 
         /// Get a commit
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-commit)
         public func get() -> Request<GitCommit> {
             .get(path)
         }
@@ -5662,6 +6094,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         public let path: String
 
         /// Get a reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-reference)
         public func get() -> Request<GitRef> {
             .get(path)
         }
@@ -5691,6 +6125,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         public let path: String
 
         /// Delete a reference
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#delete-a-reference)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5720,6 +6156,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         public let path: String
 
         /// Get a tag
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tag)
         public func get() -> Request<GitTag> {
             .get(path)
         }
@@ -5749,6 +6187,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         public let path: String
 
         /// Get a tree
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
         public func get() -> Request<GitTree> {
             .get(path)
         }
@@ -5778,11 +6218,15 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         public let path: String
 
         /// Get a repository webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-webhook)
         public func get() -> Request<Hook> {
             .get(path)
         }
 
         /// Delete a repository webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-webhook)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5799,6 +6243,8 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         public let path: String
 
         /// Get a webhook configuration for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
         public func get() -> Request<WebhookConfig> {
             .get(path)
         }
@@ -5828,6 +6274,8 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries {
         public let path: String
 
         /// Get a delivery for a repository webhook
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-delivery-for-a-repository-webhook)
         public func get() -> Request<HookDelivery> {
             .get(path)
         }
@@ -5883,11 +6331,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get an import status
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-import-status)
         public func get() -> Request<github.Import> {
             .get(path)
         }
 
         /// Cancel an import
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#cancel-an-import)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -5956,6 +6408,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get a repository installation for the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app)
         public func get() -> Request<github.Installation> {
             .get(path)
         }
@@ -5972,11 +6426,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Set interaction restrictions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository)
         public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
             .put(path, body: body)
         }
 
         /// Remove interaction restrictions for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-a-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6006,6 +6464,8 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         public let path: String
 
         /// Delete a repository invitation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-invitation)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6048,11 +6508,15 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         public let path: String
 
         /// Get an issue comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-comment)
         public func get() -> Request<IssueComment> {
             .get(path)
         }
 
         /// Delete an issue comment
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-an-issue-comment)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6082,6 +6546,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
         public let path: String
 
         /// Delete an issue comment reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6111,6 +6577,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
         public let path: String
 
         /// Get an issue event
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-event)
         public func get() -> Request<IssueEvent> {
             .get(path)
         }
@@ -6127,6 +6595,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         public let path: String
 
         /// Get an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue)
         public func get() -> Request<Issue> {
             .get(path)
         }
@@ -6143,6 +6613,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         public let path: String
 
         /// Remove assignees from an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
         public func delete() -> Request<Issue> {
             .delete(path)
         }
@@ -6185,6 +6657,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         public let path: String
 
         /// Remove all labels from an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-all-labels-from-an-issue)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6214,6 +6688,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         public let path: String
 
         /// Unlock an issue
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#unlock-an-issue)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6243,6 +6719,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
         public let path: String
 
         /// Delete an issue reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6285,11 +6763,15 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         public let path: String
 
         /// Get a deploy key
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deploy-key)
         public func get() -> Request<DeployKey> {
             .get(path)
         }
 
         /// Delete a deploy key
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deploy-key)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6319,11 +6801,15 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         public let path: String
 
         /// Get a label
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-label)
         public func get() -> Request<Label> {
             .get(path)
         }
 
         /// Delete a label
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-label)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6340,6 +6826,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// List repository languages
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-languages)
         public func get() -> Request<Language> {
             .get(path)
         }
@@ -6356,6 +6844,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Disable Git LFS for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6372,6 +6862,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get the license for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository)
         public func get() -> Request<LicenseContent> {
             .get(path)
         }
@@ -6427,11 +6919,15 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         public let path: String
 
         /// Get a milestone
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-milestone)
         public func get() -> Request<Milestone> {
             .get(path)
         }
 
         /// Delete a milestone
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-milestone)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6474,11 +6970,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get a GitHub Pages site
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-github-pages-site)
         public func get() -> Request<Page> {
             .get(path)
         }
 
         /// Delete a GitHub Pages site
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-github-pages-site)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6508,6 +7008,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         public let path: String
 
         /// Get latest Pages build
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-latest-pages-build)
         public func get() -> Request<PageBuild> {
             .get(path)
         }
@@ -6524,6 +7026,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         public let path: String
 
         /// Get GitHub Pages build
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-github-pages-build)
         public func get() -> Request<PageBuild> {
             .get(path)
         }
@@ -6540,6 +7044,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         public let path: String
 
         /// Get a DNS health check for GitHub Pages
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages)
         public func get() -> Request<PagesHealthCheck> {
             .get(path)
         }
@@ -6595,11 +7101,15 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         public let path: String
 
         /// Get a review comment for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
         public func get() -> Request<PullRequestReviewComment> {
             .get(path)
         }
 
         /// Delete a review comment for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-review-comment-for-a-pull-request)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6629,6 +7139,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID.Reactions 
         public let path: String
 
         /// Delete a pull request comment reaction
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-pull-request-comment-reaction)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6645,6 +7157,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         public let path: String
 
         /// Get a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-pull-request)
         public func get() -> Request<PullRequest> {
             .get(path)
         }
@@ -6737,6 +7251,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         public let path: String
 
         /// Check if a pull request has been merged
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#check-if-a-pull-request-has-been-merged)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -6753,6 +7269,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         public let path: String
 
         /// List requested reviewers for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
         public func get() -> Request<PullRequestReviewRequest> {
             .get(path)
         }
@@ -6762,6 +7280,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         /// Remove requested reviewers from a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
         public func delete() -> Request<PullRequestSimple> {
             .delete(path)
         }
@@ -6791,11 +7311,15 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         public let path: String
 
         /// Get a review for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request)
         public func get() -> Request<PullRequestReview> {
             .get(path)
         }
 
         /// Delete a pending review for a pull request
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request)
         public func delete() -> Request<PullRequestReview> {
             .delete(path)
         }
@@ -6864,6 +7388,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get a repository README
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-readme)
         public func get() -> Request<ContentFile> {
             .get(path)
         }
@@ -6880,6 +7406,8 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         public let path: String
 
         /// Get a repository README for a directory
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
         public func get() -> Request<ContentFile> {
             .get(path)
         }
@@ -6920,11 +7448,15 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         public let path: String
 
         /// Get a release asset
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-asset)
         public func get() -> Request<ReleaseAsset> {
             .get(path)
         }
 
         /// Delete a release asset
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release-asset)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -6954,6 +7486,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         public let path: String
 
         /// Get the latest release
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-latest-release)
         public func get() -> Request<Release> {
             .get(path)
         }
@@ -6981,6 +7515,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
         public let path: String
 
         /// Get a release by tag name
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name)
         public func get() -> Request<Release> {
             .get(path)
         }
@@ -6997,11 +7533,15 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         public let path: String
 
         /// Get a release
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release)
         public func get() -> Request<Release> {
             .get(path)
         }
 
         /// Delete a release
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7068,6 +7608,8 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         public let path: String
 
         /// Get a secret scanning alert
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert)
         public func get() -> Request<SecretScanningAlert> {
             .get(path)
         }
@@ -7147,6 +7689,8 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         public let path: String
 
         /// Get the weekly commit count
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count)
         public func get() -> Request<ParticipationStats> {
             .get(path)
         }
@@ -7213,11 +7757,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get a repository subscription
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-repository-subscription)
         public func get() -> Request<RepositorySubscription> {
             .get(path)
         }
 
         /// Delete a repository subscription
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7258,6 +7806,8 @@ extension Paths.Repos.WithOwner.WithRepo.Tarball {
         public let path: String
 
         /// Download a repository archive (tar)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#download-a-repository-archive)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7287,6 +7837,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Get all repository topics
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
         public func get() -> Request<Topic> {
             .get(path)
         }
@@ -7314,6 +7866,8 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         public let path: String
 
         /// Get repository clones
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-clones)
         public func get() -> Request<CloneTraffic> {
             .get(path)
         }
@@ -7367,6 +7921,8 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         public let path: String
 
         /// Get page views
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#get-page-views)
         public func get() -> Request<ViewTraffic> {
             .get(path)
         }
@@ -7396,11 +7952,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         public let path: String
 
         /// Check if vulnerability alerts are enabled for a repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Disable vulnerability alerts
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-vulnerability-alerts)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7428,6 +7988,8 @@ extension Paths.Repos.WithOwner.WithRepo.Zipball {
         public let path: String
 
         /// Download a repository archive (zip)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#download-a-repository-archive)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -7525,6 +8087,8 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         public let path: String
 
         /// List environment secrets
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-environment-secrets)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7556,6 +8120,8 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         public let path: String
 
         /// Get an environment public key
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-public-key)
         public func get() -> Request<ActionsPublicKey> {
             .get(path)
         }
@@ -7572,11 +8138,15 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         public let path: String
 
         /// Get an environment secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-secret)
         public func get() -> Request<ActionsSecret> {
             .get(path)
         }
 
         /// Delete an environment secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-environment-secret)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7637,6 +8207,8 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         public let path: String
 
         /// List provisioned SCIM groups for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
         public func get() -> Request<ScimGroupListEnterprise> {
             .get(path)
         }
@@ -7653,11 +8225,15 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         public let path: String
 
         /// Get SCIM provisioning information for an enterprise group
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
         public func get() -> Request<ScimEnterpriseGroup> {
             .get(path)
         }
 
         /// Delete a SCIM group from an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-group-from-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7674,6 +8250,8 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         public let path: String
 
         /// List SCIM provisioned identities for an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise)
         public func get() -> Request<ScimUserListEnterprise> {
             .get(path)
         }
@@ -7690,11 +8268,15 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         public let path: String
 
         /// Get SCIM provisioning information for an enterprise user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user)
         public func get() -> Request<ScimEnterpriseUser> {
             .get(path)
         }
 
         /// Delete a SCIM user from an enterprise
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-user-from-an-enterprise)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7746,6 +8328,8 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         public let path: String
 
         /// Delete a SCIM user from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/scim#delete-a-scim-user-from-an-organization)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -7773,6 +8357,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search code
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-code)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7802,6 +8388,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search commits
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-commits)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7831,6 +8419,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search issues and pull requests
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-issues-and-pull-requests)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7860,6 +8450,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search labels
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-labels)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7889,6 +8481,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search repositories
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-repositories)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7918,6 +8512,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search topics
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-topics)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7947,6 +8543,8 @@ extension Paths.Search {
         public let path: String
 
         /// Search users
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/search#search-users)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -7987,11 +8585,15 @@ extension Paths.Teams {
         public let path: String
 
         /// Get a team (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#get-a-team-legacy)
         public func get() -> Request<TeamFull> {
             .get(path)
         }
 
         /// Delete a team (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#delete-a-team-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8021,11 +8623,15 @@ extension Paths.Teams.WithTeamID.Discussions {
         public let path: String
 
         /// Get a discussion (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
         public func get() -> Request<TeamDiscussion> {
             .get(path)
         }
 
         /// Delete a discussion (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8055,11 +8661,15 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         public let path: String
 
         /// Get a discussion comment (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy)
         public func get() -> Request<TeamDiscussionComment> {
             .get(path)
         }
 
         /// Delete a discussion comment (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8128,11 +8738,15 @@ extension Paths.Teams.WithTeamID.Members {
         public let path: String
 
         /// Get team member (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-member-legacy)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Remove team member (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-member-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8160,11 +8774,15 @@ extension Paths.Teams.WithTeamID.Memberships {
         public let path: String
 
         /// Get team membership for a user (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
         public func get() -> Request<TeamMembership> {
             .get(path)
         }
 
         /// Remove team membership for a user (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8194,11 +8812,15 @@ extension Paths.Teams.WithTeamID.Projects {
         public let path: String
 
         /// Check team permissions for a project (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
         public func get() -> Request<TeamProject> {
             .get(path)
         }
 
         /// Remove a project from a team (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8239,11 +8861,15 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         public let path: String
 
         /// Check team permissions for a repository (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
         public func get() -> Request<TeamRepository> {
             .get(path)
         }
 
         /// Remove a repository from a team (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8271,6 +8897,8 @@ extension Paths.Teams.WithTeamID.TeamSync {
         public let path: String
 
         /// List IdP groups for a team (Legacy)
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
         public func get() -> Request<GroupMapping> {
             .get(path)
         }
@@ -8326,11 +8954,15 @@ extension Paths.User.Blocks {
         public let path: String
 
         /// Check if a user is blocked by the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Unblock a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#unblock-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8347,6 +8979,8 @@ extension Paths.User {
         public let path: String
 
         /// List codespaces for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8374,6 +9008,8 @@ extension Paths.User.Codespaces {
         public let path: String
 
         /// List secrets for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-secrets-for-the-authenticated-user)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8405,6 +9041,8 @@ extension Paths.User.Codespaces.Secrets {
         public let path: String
 
         /// Get public key for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user)
         public func get() -> Request<CodespacesUserPublicKey> {
             .get(path)
         }
@@ -8421,11 +9059,15 @@ extension Paths.User.Codespaces.Secrets {
         public let path: String
 
         /// Get a secret for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user)
         public func get() -> Request<CodespacesSecret> {
             .get(path)
         }
 
         /// Delete a secret for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-secret-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8442,6 +9084,8 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         public let path: String
 
         /// List selected repositories for a user secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8469,6 +9113,8 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         public let path: String
 
         /// Remove a selected repository from a user secret
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8485,6 +9131,8 @@ extension Paths.User.Codespaces {
         public let path: String
 
         /// Get a codespace for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
         public func get() -> Request<Codespace> {
             .get(path)
         }
@@ -8501,6 +9149,8 @@ extension Paths.User.Codespaces.WithCodespaceName {
         public let path: String
 
         /// List machine types for a codespace
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8578,6 +9228,8 @@ extension Paths.User {
         public let path: String
 
         /// Delete an email address for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8620,11 +9272,15 @@ extension Paths.User.Following {
         public let path: String
 
         /// Check if a person is followed by the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Unfollow a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#unfollow-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8654,11 +9310,15 @@ extension Paths.User.GpgKeys {
         public let path: String
 
         /// Get a GPG key for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user)
         public func get() -> Request<GpgKey> {
             .get(path)
         }
 
         /// Delete a GPG key for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8675,6 +9335,8 @@ extension Paths.User {
         public let path: String
 
         /// List app installations accessible to the user access token
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8717,6 +9379,8 @@ extension Paths.User.Installations.WithInstallationID {
         public let path: String
 
         /// List repositories accessible to the user access token
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
         public func get() -> Request<GetResponse> {
             .get(path)
         }
@@ -8750,6 +9414,8 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         public let path: String
 
         /// Remove a repository from an app installation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8766,11 +9432,15 @@ extension Paths.User {
         public let path: String
 
         /// Set interaction restrictions for your public repositories
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories)
         public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
             .put(path, body: body)
         }
 
         /// Remove interaction restrictions from your public repositories
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-from-your-public-repositories)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8813,11 +9483,15 @@ extension Paths.User.Keys {
         public let path: String
 
         /// Get a public SSH key for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user)
         public func get() -> Request<Key> {
             .get(path)
         }
 
         /// Delete a public SSH key for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8884,6 +9558,8 @@ extension Paths.User.Memberships.Orgs {
         public let path: String
 
         /// Get an organization membership for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
         public func get() -> Request<OrgMembership> {
             .get(path)
         }
@@ -8913,6 +9589,8 @@ extension Paths.User.Migrations {
         public let path: String
 
         /// Get a user migration status
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
         public func get() -> Request<Migration> {
             .get(path)
         }
@@ -8929,11 +9607,15 @@ extension Paths.User.Migrations.WithMigrationID {
         public let path: String
 
         /// Download a user migration archive
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Delete a user migration archive
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-a-user-migration-archive)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -8972,6 +9654,8 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
         public let path: String
 
         /// Unlock a user repository
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-a-user-repository)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9038,11 +9722,15 @@ extension Paths.User.Packages.WithPackageType {
         public let path: String
 
         /// Get a package for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-the-authenticated-user)
         public func get() -> Request<Package> {
             .get(path)
         }
 
         /// Delete a package for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9085,11 +9773,15 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         public let path: String
 
         /// Get a package version for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user)
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
 
         /// Delete a package version for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9171,6 +9863,8 @@ extension Paths.User.RepositoryInvitations {
         public let path: String
 
         /// Decline a repository invitation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#decline-a-repository-invitation)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9211,11 +9905,15 @@ extension Paths.User.Starred.WithOwner {
         public let path: String
 
         /// Check if a repository is starred by the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
         public func get() -> Request<Void> {
             .get(path)
         }
 
         /// Unstar a repository for the authenticated user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#unstar-a-repository-for-the-authenticated-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9360,6 +10058,8 @@ extension Paths.Users.WithUsername.Following {
         public let path: String
 
         /// Check if a user follows another user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user)
         public func get() -> Request<Void> {
             .get(path)
         }
@@ -9402,6 +10102,8 @@ extension Paths.Users.WithUsername {
         public let path: String
 
         /// Get contextual information for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user)
         public func get() -> Request<github.Hovercard> {
             .get(path)
         }
@@ -9418,6 +10120,8 @@ extension Paths.Users.WithUsername {
         public let path: String
 
         /// Get a user installation for the authenticated app
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app)
         public func get() -> Request<github.Installation> {
             .get(path)
         }
@@ -9484,11 +10188,15 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         public let path: String
 
         /// Get a package for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-a-user)
         public func get() -> Request<Package> {
             .get(path)
         }
 
         /// Delete a package for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9531,11 +10239,15 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         public let path: String
 
         /// Get a package version for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-a-user)
         public func get() -> Request<PackageVersion> {
             .get(path)
         }
 
         /// Delete package version for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-a-user)
         public func delete() -> Request<Void> {
             .delete(path)
         }
@@ -9639,6 +10351,8 @@ extension Paths.Users.WithUsername.Settings.Billing {
         public let path: String
 
         /// Get GitHub Actions billing for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user)
         public func get() -> Request<ActionsBillingUsage> {
             .get(path)
         }
@@ -9655,6 +10369,8 @@ extension Paths.Users.WithUsername.Settings.Billing {
         public let path: String
 
         /// Get GitHub Packages billing for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user)
         public func get() -> Request<PackagesBillingUsage> {
             .get(path)
         }
@@ -9671,6 +10387,8 @@ extension Paths.Users.WithUsername.Settings.Billing {
         public let path: String
 
         /// Get shared storage billing for a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user)
         public func get() -> Request<CombinedBillingUsage> {
             .get(path)
         }

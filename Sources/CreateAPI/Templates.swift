@@ -236,11 +236,6 @@ final class Templates {
         }
         if options.addExamples, let example = context.example?.value {
             let value: String
-            func format(dictionary: [String: Any]) -> String {
-                let values = dictionary.keys.sorted().map { "  \"\($0)\": \"\(dictionary[$0]!)\"" }
-                return "{\n\(values.joined(separator: ",\n"))\n}"
-            }
-            
             if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
                 value = String(data: data ?? Data(), encoding: .utf8) ?? ""
@@ -255,7 +250,7 @@ final class Templates {
                 if lines.count == 1 {
                     output += "/// Example: \(value)\n"
                 } else {
-                    output += "/// Example:\n\n"
+                    output += "/// Example:\n///\n"
                     for line in lines {
                         output += "/// \(line)\n"
                     }
