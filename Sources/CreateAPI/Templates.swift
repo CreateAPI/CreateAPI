@@ -338,20 +338,28 @@ final class Templates {
     
     // MARK: Method
 
-    func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
+    func methodOrProperty(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
         if parameters.isEmpty && options.paths.isUsingPropertiesForMethodsWithNoArguments {
-            return """
-            \(access)var \(name): \(type) {
-            \(contents.indented)
-            }
-            """
+            return property(name: name, returning: type, contents: contents)
         } else {
-            return """
-            \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
-            \(contents.indented)
-            }
-            """
+            return method(name: name, parameters: parameters, returning: type, contents: contents)
         }
+    }
+    
+    func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
+        """
+        \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
+        \(contents.indented)
+        }
+        """
+    }
+    
+    func property(name: String, returning type: String, contents: String) -> String {
+        """
+        \(access)var \(name): \(type) {
+        \(contents.indented)
+        }
+        """
     }
     
     // MARK: Headers

@@ -239,7 +239,7 @@ extension Generator {
             contents += ".id(\"\(operationId)\")"
         }
         // TODO: use properties instead of function when there are not arguments? (and add an option)
-        output += templates.method(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
+        output += templates.methodOrProperty(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
         if let headers = responseHeaders {
             output += "\n\n"
             output += headers
