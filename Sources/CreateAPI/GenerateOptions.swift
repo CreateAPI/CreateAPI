@@ -16,6 +16,7 @@ final class GenerateOptions {
     var isReplacingCommonAcronyms: Bool
     var additionalAcronyms: [String]
     var fileHeader: FileHeader
+    var rename: Rename
     var comments: Comments
     var indentation: Indentation
     var spaceWidth: Int
@@ -37,6 +38,11 @@ final class GenerateOptions {
             self.addSwiftLintDisabled = fileHeader?.addSwiftLintDisabled ?? true
             self.addGetImport = fileHeader?.addGetImport ?? true
             self.header = fileHeader?.header
+        }
+    }
+    
+    struct Rename {
+        init(_ paths: GenerateOptionsScheme.Rename?) {
         }
     }
     
@@ -69,12 +75,14 @@ final class GenerateOptions {
         var isAddingOperationIds: Bool
         var imports: Set<String>
         var propertyCountThreshold: Int = 3
+        var overrideResponses: [String: String]
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
             self.isAddingResponseHeaders = paths?.isAddingResponseHeaders ?? true
             self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
             self.imports = Set(paths?.imports ?? ["APIClient", "HTTPHeaders"])
+            self.overrideResponses = paths?.overrideResponses ?? [:]
         }
     }
     
@@ -124,6 +132,7 @@ final class GenerateOptions {
         self.additionalAcronyms = (options.additionalAcronyms ?? []).map { $0.lowercased() }
         self.schemes = SchemesOptions(options.schemes)
         self.fileHeader = FileHeader(options.fileHeader)
+        self.rename = Rename(options.rename)
         self.comments = Comments(options.comments)
         self.indentation = options.indentation ?? .spaces
         self.spaceWidth = options.spaceWidth ?? 4
@@ -145,6 +154,7 @@ final class GenerateOptionsScheme: Decodable {
     var additionalAcronyms: [String]?
     var schemes: SchemesOptions?
     var fileHeader: FileHeader?
+    var rename: Rename?
     var comments: Comments?
     var indentation: GenerateOptions.Indentation?
     var spaceWidth: Int?
@@ -156,6 +166,9 @@ final class GenerateOptionsScheme: Decodable {
         var addSwiftLintDisabled: Bool?
         var addGetImport: Bool?
         var header: String?
+    }
+    
+    struct Rename: Decodable {
     }
     
     struct Comments: Decodable {
@@ -174,6 +187,7 @@ final class GenerateOptionsScheme: Decodable {
         var isAddingResponseHeaders: Bool?
         var isAddingOperationIds: Bool?
         var imports: [String]?
+        var overrideResponses: [String: String]?
     }
     
     struct SchemesOptions: Decodable {

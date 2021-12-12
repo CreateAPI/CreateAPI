@@ -431,7 +431,13 @@ extension Generator {
         case .a(let reference):
             switch reference {
             case .internal(let reference):
-                guard let name = reference.name, let key = OpenAPI.ComponentKey(rawValue: name), let value = spec.components.responses[key] else {
+                guard let name = reference.name else {
+                    throw GeneratorError("Response reference name is missing")
+                }
+                if let rename = options.paths.overrideResponses[name] {
+                    return GeneratedType(type: TypeName(rename))
+                }
+                guard let key = OpenAPI.ComponentKey(rawValue: name), let value = spec.components.responses[key] else {
                     throw GeneratorError("Failed to find a response body")
                 }
                 schema = value

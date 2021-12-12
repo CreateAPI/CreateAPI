@@ -428,7 +428,12 @@ final class GenerateTests: XCTestCase {
             "--config", config("""
             {
                 "isInterpretingEmptyObjectsAsDictionaries": true,
-                "pluralizationExceptions": ["ConfigWas", "EventsWere"]
+                "pluralizationExceptions": ["ConfigWas", "EventsWere"],
+                "paths": {
+                    "overrideResponses": {
+                        "accepted": "Void"
+                    }
+                }
             }
             """)
         ])
