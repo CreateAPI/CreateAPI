@@ -135,7 +135,7 @@ extension Generator {
         
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
-                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: TypeName(processed: "CreateAPIEnumPlaceholderName")).rawValue)
+                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: TypeName("CreateAPIEnumPlaceholderName")).rawValue)
                 let nested = try makeEnum(name: typeName, info: info)
                 return child(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
             }
@@ -186,14 +186,14 @@ extension Generator {
     private func makeDictionary(info: JSONSchemaContext, key: String, _ schema: Either<Bool, JSONSchema>, context: Context) throws -> AdditionalProperties {
         switch schema {
         case .a:
-            return AdditionalProperties(type: TypeName(processed: "[String: AnyJSON]"), info: info)
+            return AdditionalProperties(type: TypeName("[String: AnyJSON]"), info: info)
         case .b(let schema):
             if let type = try? getPrimitiveType(for: schema, context: context) {
-                return AdditionalProperties(type: TypeName(processed: "[String: \(type)]"), info: info)
+                return AdditionalProperties(type: TypeName("[String: \(type)]"), info: info)
             }
             let nestedTypeName = makeTypeName(key).appending("Item")
             let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
-            return AdditionalProperties(type: TypeName(processed: "[String: \(nestedTypeName)]"), info: info, nested: nested)
+            return AdditionalProperties(type: TypeName("[String: \(nestedTypeName)]"), info: info, nested: nested)
         }
     }
     
@@ -290,7 +290,7 @@ extension Generator {
         let name = makeTypeName(key)
         if options.isPluralizationEnabled, !options.pluralizationExceptions.contains(name.rawValue) {
             // Some know words that the library doesn't handle well
-            if name.rawValue == "Environments" { return TypeName(processed: "Environment") }
+            if name.rawValue == "Environments" { return TypeName("Environment") }
             let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
             if words.last?.singularized() != words.last {
                 let sing = (words.dropLast() + [words.last?.singularized()])
@@ -373,23 +373,23 @@ extension Generator {
     // Anything that's not an object or a reference.
     private func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName {
         switch json {
-        case .boolean: return TypeName(processed: "Bool")
-        case .number: return TypeName(processed: "Double")
-        case .integer: return TypeName(processed: "Int")
+        case .boolean: return TypeName("Bool")
+        case .number: return TypeName("Double")
+        case .integer: return TypeName("Int")
         case .string(let info, _):
             if isEnum(info) {
                 throw GeneratorError("Enum isn't a primitive type")
             }
             switch info.format {
             case .dateTime:
-                return TypeName(processed: "Date")
+                return TypeName("Date")
             case .other(let other):
                 if other == "uri" {
-                    return TypeName(processed: "URL")
+                    return TypeName("URL")
                 }
             default: break
             }
-            return TypeName(processed: "String")
+            return TypeName("String")
         case .object(let info, let details):
             var additional = details.additionalProperties
             if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
@@ -398,10 +398,10 @@ extension Generator {
             if details.properties.isEmpty, let additional = details.additionalProperties {
                 switch additional {
                 case .a(let allowsAdditionalProperties):
-                    return TypeName(processed: allowsAdditionalProperties ? "[String: AnyJSON]" : "Void")
+                    return TypeName(allowsAdditionalProperties ? "[String: AnyJSON]" : "Void")
                 case .b(let schema):
                     if let type = try? getPrimitiveType(for: schema, context: context) {
-                        return TypeName(processed: "[String: \(type)]")
+                        return TypeName("[String: \(type)]")
                     }
                 }
             }
@@ -423,7 +423,7 @@ extension Generator {
             return try getReferenceType(reference, context: context)
         case .fragment:
             setAnyJsonNeeded()
-            return TypeName(processed: "AnyJSON")
+            return TypeName("AnyJSON")
         }
     }
     
@@ -450,7 +450,7 @@ extension Generator {
             // TODO: Remove duplication
             if !options.schemes.mappedTypeNames.isEmpty {
                 if let mapped = options.schemes.mappedTypeNames[name] {
-                    return TypeName(processed: mapped.namespace(context.namespace))
+                    return TypeName(mapped.namespace(context.namespace))
                 }
             }
             return makeTypeName(name).namespace(context.namespace)
@@ -538,7 +538,7 @@ extension Generator {
         var genericCount = 1
         func makeNextGenericName() -> TypeName {
             defer { genericCount += 1 }
-            return TypeName(processed: "Object\((unnamedCount == 1 && genericCount == 1) ? "" : "\(genericCount)")")
+            return TypeName("Object\((unnamedCount == 1 && genericCount == 1) ? "" : "\(genericCount)")")
         }
         for (index, _) in schemas.enumerated() {
             if types[index] == nil {
@@ -568,7 +568,7 @@ extension Generator {
     }
     
     func makeTypeName(_ rawValue: String) -> TypeName {
-        TypeName(rawValue, options: options)
+        TypeName(processing: rawValue, options: options)
     }
     
     // MARK: State

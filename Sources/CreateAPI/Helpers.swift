@@ -141,31 +141,31 @@ protocol DeclarationName: CustomStringConvertible {}
 struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
         
-    init(_ rawValue: String, options: GenerateOptions) {
+    init(processing rawValue: String, options: GenerateOptions) {
         self.rawValue = rawValue.process(isProperty: false, options: options)
     }
 
-    init(processed: String) {
-        self.rawValue = processed
+    init(_ rawValue: String) {
+        self.rawValue = rawValue
     }
 
     var description: String { rawValue }
     
     // Appends the name without re-doing most of the processing.
     func appending(_ text: String) -> TypeName {
-        TypeName(processed: rawValue + text)
+        TypeName(rawValue + text)
     }
     
     func prepending(_ text: String) -> TypeName {
-        TypeName(processed: text + rawValue)
+        TypeName(text + rawValue)
     }
     
     func namespace(_ namespace: String?) -> TypeName {
-        TypeName(processed: rawValue.namespace(namespace))
+        TypeName(rawValue.namespace(namespace))
     }
     
     var asArray: TypeName {
-        TypeName(processed: "[\(rawValue)]")
+        TypeName("[\(rawValue)]")
     }
     
     var isVoid: Bool {

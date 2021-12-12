@@ -11,7 +11,7 @@ final class HelpersTests: XCTestCase {
         let options = GenerateOptions()
 
         func typeName(_ rawString: String) -> String {
-            TypeName(rawString, options: options).rawValue
+            TypeName(processing: rawString, options: options).rawValue
         }
         
         XCTAssertEqual(typeName("app"), "App")
@@ -49,7 +49,7 @@ final class HelpersTests: XCTestCase {
         do {
             let options = GenerateOptions()
             options.additionalAcronyms = ["nft"]
-            XCTAssertEqual(TypeName("myNft", options: options).rawValue, "MyNFT")
+            XCTAssertEqual(TypeName(processing: "myNft", options: options).rawValue, "MyNFT")
         }
         
         // Keywords

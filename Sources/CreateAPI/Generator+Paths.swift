@@ -63,7 +63,7 @@ extension Generator {
                 let component = components.last!
                 let isLast = index == allComponents.endIndex - 1
                 let isTopLevel = components.count == 1
-                let type = component.isEmpty ? TypeName(processed: "Root") : makeType(component)
+                let type = component.isEmpty ? TypeName("Root") : makeType(component)
                 let isParameter = component.starts(with: "{")
                 let stat = isTopLevel ? "static " : ""
                 
@@ -231,7 +231,7 @@ extension Generator {
 
         let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
         if !query.isEmpty {
-            let type = TypeName(processed: "\(method.capitalizingFirstLetter())Parameters")
+            let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
             // TODO: create a single type describing this + add comments and stuff
             let properties = query.map {
                 Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, context: nil)
@@ -377,13 +377,13 @@ extension Generator {
             #warning("TEMP")
             switch reference {
             case .internal(let reference):
-                return GeneratedType(type: TypeName(processed: reference.name ?? "Void"))
+                return GeneratedType(type: TypeName(reference.name ?? "Void"))
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
         case .b(let scheme):
             if scheme.content.values.isEmpty {
-                return GeneratedType(type: TypeName(processed: "Void"))
+                return GeneratedType(type: TypeName("Void"))
             } else if let content = scheme.content.values.first {
                 // TODO: Parse example
                 switch content.schema {
@@ -439,7 +439,7 @@ extension Generator {
             }
         case .b(let schema):
             if schema.content.values.isEmpty {
-                return GeneratedType(type: TypeName(processed: "Void"))
+                return GeneratedType(type: TypeName("Void"))
             } else if let content = schema.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
@@ -450,9 +450,9 @@ extension Generator {
                 case .b(let schema):
                     switch schema {
                     case .string:
-                        return GeneratedType(type: TypeName(processed: "String"))
+                        return GeneratedType(type: TypeName("String"))
                     case .integer, .boolean:
-                        return GeneratedType(type: TypeName(processed: "Data"))
+                        return GeneratedType(type: TypeName("Data"))
                     default:
                         // TODO: Add a way to cutomize which namespace to use
                         let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
@@ -462,7 +462,7 @@ extension Generator {
                     throw GeneratorError("ERROR: response not handled")
                 }
             } else if schema.content[.anyText] != nil {
-                return GeneratedType(type: TypeName(processed: "String")) // Assume UTF8 encoding
+                return GeneratedType(type: TypeName("String")) // Assume UTF8 encoding
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
@@ -505,7 +505,7 @@ extension Generator {
     }
 
     private func makeType(_ string: String) -> TypeName {
-        let name = TypeName(string, options: options)
+        let name = TypeName(processing: string, options: options)
         if string.starts(with: "{") {
             return name.prepending("With")
         }
