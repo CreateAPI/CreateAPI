@@ -452,6 +452,14 @@ var suggestedCoreCount: Int {
     ProcessInfo.processInfo.processorCount
 }
 
+extension NSLock {
+    func sync(_ closure: () -> Void) {
+        lock()
+        closure()
+        unlock()
+    }
+}
+
 let anyJSON = """
 public enum AnyJSON: Equatable {
     case string(String)

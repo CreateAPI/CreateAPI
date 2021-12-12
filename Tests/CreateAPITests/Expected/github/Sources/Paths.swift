@@ -334,12 +334,8 @@ extension Paths.App.Hook {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let cursor = self.cursor {
-                    query["cursor"] = cursor.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -417,25 +413,22 @@ extension Paths.App {
         public struct GetParameters {
             public var perPage: Int?
             public var page: Int?
+            public var since: Date?
             public var outdated: String?
 
-            public init(perPage: Int? = nil, page: Int? = nil, outdated: String? = nil) {
+            public init(perPage: Int? = nil, page: Int? = nil, since: Date? = nil, outdated: String? = nil) {
                 self.perPage = perPage
                 self.page = page
+                self.since = since
                 self.outdated = outdated
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let outdated = self.outdated {
-                    query["outdated"] = outdated.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["outdated"] = outdated.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -618,15 +611,9 @@ extension Paths.Applications {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let clientID = self.clientID {
-                    query["client_id"] = clientID.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["client_id"] = clientID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -936,15 +923,9 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let clientID = self.clientID {
-                    query["client_id"] = clientID.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["client_id"] = clientID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -1442,12 +1423,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -1592,12 +1569,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -1770,12 +1743,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -1891,12 +1860,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2013,12 +1978,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2176,21 +2137,11 @@ extension Paths.Enterprises.WithEnterprise {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let phrase = self.phrase {
-                    query["phrase"] = phrase.description
-                }
-                if let after = self.after {
-                    query["after"] = after.description
-                }
-                if let before = self.before {
-                    query["before"] = before.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["phrase"] = phrase.map(QueryParameterEncoder.encode)
+                query["after"] = after.map(QueryParameterEncoder.encode)
+                query["before"] = before.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2273,12 +2224,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2362,12 +2309,8 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2427,22 +2370,21 @@ extension Paths {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2531,22 +2473,21 @@ extension Paths.Gists {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2576,22 +2517,21 @@ extension Paths.Gists {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2700,12 +2640,8 @@ extension Paths.Gists.WithGistID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2818,12 +2754,8 @@ extension Paths.Gists.WithGistID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -2861,12 +2793,8 @@ extension Paths.Gists.WithGistID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3056,12 +2984,8 @@ extension Paths.Installation {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3124,6 +3048,7 @@ extension Paths {
 
         public struct GetParameters {
             public var labels: String?
+            public var since: Date?
             public var collab: Bool?
             public var orgs: Bool?
             public var owned: Bool?
@@ -3131,8 +3056,9 @@ extension Paths {
             public var perPage: Int?
             public var page: Int?
 
-            public init(labels: String? = nil, collab: Bool? = nil, orgs: Bool? = nil, owned: Bool? = nil, pulls: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(labels: String? = nil, since: Date? = nil, collab: Bool? = nil, orgs: Bool? = nil, owned: Bool? = nil, pulls: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.labels = labels
+                self.since = since
                 self.collab = collab
                 self.orgs = orgs
                 self.owned = owned
@@ -3143,27 +3069,14 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let labels = self.labels {
-                    query["labels"] = labels.description
-                }
-                if let collab = self.collab {
-                    query["collab"] = collab.description
-                }
-                if let orgs = self.orgs {
-                    query["orgs"] = orgs.description
-                }
-                if let owned = self.owned {
-                    query["owned"] = owned.description
-                }
-                if let pulls = self.pulls {
-                    query["pulls"] = pulls.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["labels"] = labels.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["collab"] = collab.map(QueryParameterEncoder.encode)
+                query["orgs"] = orgs.map(QueryParameterEncoder.encode)
+                query["owned"] = owned.map(QueryParameterEncoder.encode)
+                query["pulls"] = pulls.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3199,15 +3112,9 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let featured = self.featured {
-                    query["featured"] = featured.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["featured"] = featured.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3337,12 +3244,8 @@ extension Paths.MarketplaceListing {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3395,12 +3298,8 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3486,12 +3385,8 @@ extension Paths.MarketplaceListing.Stubbed {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3544,12 +3439,8 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3638,12 +3529,8 @@ extension Paths.Networks.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3675,30 +3562,28 @@ extension Paths {
         public struct GetParameters {
             public var all: Bool?
             public var participating: Bool?
+            public var since: Date?
+            public var before: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(all: Bool? = nil, participating: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(all: Bool? = nil, participating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.all = all
                 self.participating = participating
+                self.since = since
+                self.before = before
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let all = self.all {
-                    query["all"] = all.description
-                }
-                if let participating = self.participating {
-                    query["participating"] = participating.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["all"] = all.map(QueryParameterEncoder.encode)
+                query["participating"] = participating.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["before"] = before.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -3887,12 +3772,8 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let since = self.since {
-                    query["since"] = since.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -4241,12 +4122,8 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -4397,12 +4274,8 @@ extension Paths.Orgs.WithOrg.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -4587,12 +4460,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -4719,12 +4588,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -4849,12 +4714,8 @@ extension Paths.Orgs.WithOrg.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5026,12 +4887,8 @@ extension Paths.Orgs.WithOrg.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5254,12 +5111,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5353,18 +5206,10 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let phrase = self.phrase {
-                    query["phrase"] = phrase.description
-                }
-                if let after = self.after {
-                    query["after"] = after.description
-                }
-                if let before = self.before {
-                    query["before"] = before.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["phrase"] = phrase.map(QueryParameterEncoder.encode)
+                query["after"] = after.map(QueryParameterEncoder.encode)
+                query["before"] = before.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5494,12 +5339,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5576,15 +5417,9 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let displayName = self.displayName {
-                    query["display_name"] = displayName.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["display_name"] = displayName.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5624,12 +5459,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5667,12 +5498,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -5947,12 +5774,8 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let cursor = self.cursor {
-                    query["cursor"] = cursor.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6090,12 +5913,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6185,12 +6004,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6302,12 +6117,8 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6343,26 +6154,23 @@ extension Paths.Orgs.WithOrg {
 
         public struct GetParameters {
             public var labels: String?
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(labels: String? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(labels: String? = nil, since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.labels = labels
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let labels = self.labels {
-                    query["labels"] = labels.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["labels"] = labels.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6402,12 +6210,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6559,12 +6363,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6756,12 +6556,8 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6801,12 +6597,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6947,9 +6739,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let token = self.token {
-                    query["token"] = token.description
-                }
+                query["token"] = token.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -6988,12 +6778,8 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7097,12 +6883,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7169,12 +6951,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7250,12 +7028,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7422,18 +7196,10 @@ extension Paths.Orgs.WithOrg.SecretScanning {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let secretType = self.secretType {
-                    query["secret_type"] = secretType.description
-                }
-                if let resolution = self.resolution {
-                    query["resolution"] = resolution.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["secret_type"] = secretType.map(QueryParameterEncoder.encode)
+                query["resolution"] = resolution.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7517,12 +7283,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7623,12 +7385,8 @@ extension Paths.Orgs.WithOrg.TeamSync {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7668,12 +7426,8 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -7904,15 +7658,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let pinned = self.pinned {
-                    query["pinned"] = pinned.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["pinned"] = pinned.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8051,12 +7799,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8183,12 +7927,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8289,12 +8029,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8442,12 +8178,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8489,12 +8221,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8634,12 +8362,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8754,12 +8478,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -8985,12 +8705,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -9203,12 +8919,8 @@ extension Paths.Projects.Columns.WithColumnID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -9422,12 +9134,8 @@ extension Paths.Projects.WithProjectID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -9539,12 +9247,8 @@ extension Paths.Projects.WithProjectID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -9898,12 +9602,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10156,12 +9856,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10329,37 +10025,28 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             public var event: String?
             public var perPage: Int?
             public var page: Int?
+            public var created: Date?
             public var excludePullRequests: Bool?
 
-            public init(actor: String? = nil, branch: String? = nil, event: String? = nil, perPage: Int? = nil, page: Int? = nil, excludePullRequests: Bool? = nil) {
+            public init(actor: String? = nil, branch: String? = nil, event: String? = nil, perPage: Int? = nil, page: Int? = nil, created: Date? = nil, excludePullRequests: Bool? = nil) {
                 self.actor = actor
                 self.branch = branch
                 self.event = event
                 self.perPage = perPage
                 self.page = page
+                self.created = created
                 self.excludePullRequests = excludePullRequests
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let actor = self.actor {
-                    query["actor"] = actor.description
-                }
-                if let branch = self.branch {
-                    query["branch"] = branch.description
-                }
-                if let event = self.event {
-                    query["event"] = event.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let excludePullRequests = self.excludePullRequests {
-                    query["exclude_pull_requests"] = excludePullRequests.description
-                }
+                query["actor"] = actor.map(QueryParameterEncoder.encode)
+                query["branch"] = branch.map(QueryParameterEncoder.encode)
+                query["event"] = event.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["created"] = created.map(QueryParameterEncoder.encode)
+                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10393,9 +10080,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let excludePullRequests = self.excludePullRequests {
-                    query["exclude_pull_requests"] = excludePullRequests.description
-                }
+                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10504,12 +10189,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10557,9 +10238,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let excludePullRequests = self.excludePullRequests {
-                    query["exclude_pull_requests"] = excludePullRequests.description
-                }
+                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10615,12 +10294,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10719,12 +10394,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -10929,12 +10600,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -11140,12 +10807,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -11304,37 +10967,28 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
             public var event: String?
             public var perPage: Int?
             public var page: Int?
+            public var created: Date?
             public var excludePullRequests: Bool?
 
-            public init(actor: String? = nil, branch: String? = nil, event: String? = nil, perPage: Int? = nil, page: Int? = nil, excludePullRequests: Bool? = nil) {
+            public init(actor: String? = nil, branch: String? = nil, event: String? = nil, perPage: Int? = nil, page: Int? = nil, created: Date? = nil, excludePullRequests: Bool? = nil) {
                 self.actor = actor
                 self.branch = branch
                 self.event = event
                 self.perPage = perPage
                 self.page = page
+                self.created = created
                 self.excludePullRequests = excludePullRequests
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let actor = self.actor {
-                    query["actor"] = actor.description
-                }
-                if let branch = self.branch {
-                    query["branch"] = branch.description
-                }
-                if let event = self.event {
-                    query["event"] = event.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let excludePullRequests = self.excludePullRequests {
-                    query["exclude_pull_requests"] = excludePullRequests.description
-                }
+                query["actor"] = actor.map(QueryParameterEncoder.encode)
+                query["branch"] = branch.map(QueryParameterEncoder.encode)
+                query["event"] = event.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["created"] = created.map(QueryParameterEncoder.encode)
+                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -11396,12 +11050,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -11461,9 +11111,7 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -11596,15 +11244,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let protected = self.protected {
-                    query["protected"] = protected.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["protected"] = protected.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13259,12 +12901,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13456,15 +13094,9 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let checkName = self.checkName {
-                    query["check_name"] = checkName.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13547,21 +13179,11 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let toolName = self.toolName {
-                    query["tool_name"] = toolName.description
-                }
-                if let toolGuid = self.toolGuid {
-                    query["tool_guid"] = toolGuid.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
+                query["tool_name"] = toolName.map(QueryParameterEncoder.encode)
+                query["tool_guid"] = toolGuid.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13649,15 +13271,9 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13716,24 +13332,12 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let toolName = self.toolName {
-                    query["tool_name"] = toolName.description
-                }
-                if let toolGuid = self.toolGuid {
-                    query["tool_guid"] = toolGuid.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
-                if let sarifID = self.sarifID {
-                    query["sarif_id"] = sarifID.description
-                }
+                query["tool_name"] = toolName.map(QueryParameterEncoder.encode)
+                query["tool_guid"] = toolGuid.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
+                query["sarif_id"] = sarifID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -13858,9 +13462,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let confirmDelete = self.confirmDelete {
-                    query["confirm_delete"] = confirmDelete.description
-                }
+                query["confirm_delete"] = confirmDelete.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14006,12 +13608,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14102,7 +13700,7 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["location"] = self.location.description
+                query["location"] = QueryParameterEncoder.encode(location)
                 return query
             }
         }
@@ -14146,12 +13744,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14300,12 +13894,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14391,12 +13981,8 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14513,34 +14099,30 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var sha: String?
             public var path: String?
             public var author: String?
+            public var since: Date?
+            public var until: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(sha: String? = nil, path: String? = nil, author: String? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(sha: String? = nil, path: String? = nil, author: String? = nil, since: Date? = nil, until: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.sha = sha
                 self.path = path
                 self.author = author
+                self.since = since
+                self.until = until
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let sha = self.sha {
-                    query["sha"] = sha.description
-                }
-                if let path = self.path {
-                    query["path"] = path.description
-                }
-                if let author = self.author {
-                    query["author"] = author.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["sha"] = sha.map(QueryParameterEncoder.encode)
+                query["path"] = path.map(QueryParameterEncoder.encode)
+                query["author"] = author.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["until"] = until.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14613,12 +14195,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14699,12 +14277,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14775,12 +14349,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14842,18 +14412,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let checkName = self.checkName {
-                    query["check_name"] = checkName.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let appID = self.appID {
-                    query["app_id"] = appID.description
-                }
+                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["app_id"] = appID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14915,18 +14477,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let appID = self.appID {
-                    query["app_id"] = appID.description
-                }
-                if let checkName = self.checkName {
-                    query["check_name"] = checkName.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["app_id"] = appID.map(QueryParameterEncoder.encode)
+                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -14969,12 +14523,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15016,12 +14566,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15149,12 +14695,8 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15320,9 +14862,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15538,15 +15078,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let anon = self.anon {
-                    query["anon"] = anon.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["anon"] = anon.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15594,24 +15128,12 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let sha = self.sha {
-                    query["sha"] = sha.description
-                }
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
-                if let task = self.task {
-                    query["task"] = task.description
-                }
-                if let environment = self.environment {
-                    query["environment"] = environment.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["sha"] = sha.map(QueryParameterEncoder.encode)
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
+                query["task"] = task.map(QueryParameterEncoder.encode)
+                query["environment"] = environment.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -15796,12 +15318,8 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -16102,12 +15620,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -16145,12 +15659,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -16487,12 +15997,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -16906,9 +16412,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let recursive = self.recursive {
-                    query["recursive"] = recursive.description
-                }
+                query["recursive"] = recursive.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -16946,12 +16450,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -17239,12 +16739,8 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let cursor = self.cursor {
-                    query["cursor"] = cursor.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -17511,9 +17007,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let since = self.since {
-                    query["since"] = since.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -17723,12 +17217,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -17816,42 +17306,31 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var creator: String?
             public var mentioned: String?
             public var labels: String?
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(milestone: String? = nil, assignee: String? = nil, creator: String? = nil, mentioned: String? = nil, labels: String? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(milestone: String? = nil, assignee: String? = nil, creator: String? = nil, mentioned: String? = nil, labels: String? = nil, since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.milestone = milestone
                 self.assignee = assignee
                 self.creator = creator
                 self.mentioned = mentioned
                 self.labels = labels
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let milestone = self.milestone {
-                    query["milestone"] = milestone.description
-                }
-                if let assignee = self.assignee {
-                    query["assignee"] = assignee.description
-                }
-                if let creator = self.creator {
-                    query["creator"] = creator.description
-                }
-                if let mentioned = self.mentioned {
-                    query["mentioned"] = mentioned.description
-                }
-                if let labels = self.labels {
-                    query["labels"] = labels.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["milestone"] = milestone.map(QueryParameterEncoder.encode)
+                query["assignee"] = assignee.map(QueryParameterEncoder.encode)
+                query["creator"] = creator.map(QueryParameterEncoder.encode)
+                query["mentioned"] = mentioned.map(QueryParameterEncoder.encode)
+                query["labels"] = labels.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -17990,22 +17469,21 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18091,12 +17569,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18191,12 +17665,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18444,22 +17914,21 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18524,12 +17993,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18567,12 +18032,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18860,12 +18321,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -18960,12 +18417,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19003,12 +18456,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19110,12 +18559,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19387,12 +18832,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19537,12 +18978,8 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19574,30 +19011,28 @@ extension Paths.Repos.WithOwner.WithRepo {
         public struct GetParameters {
             public var all: Bool?
             public var participating: Bool?
+            public var since: Date?
+            public var before: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(all: Bool? = nil, participating: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(all: Bool? = nil, participating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.all = all
                 self.participating = participating
+                self.since = since
+                self.before = before
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let all = self.all {
-                    query["all"] = all.description
-                }
-                if let participating = self.participating {
-                    query["participating"] = participating.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["all"] = all.map(QueryParameterEncoder.encode)
+                query["participating"] = participating.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["before"] = before.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19824,12 +19259,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -19940,12 +19371,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20016,18 +19443,10 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let head = self.head {
-                    query["head"] = head.description
-                }
-                if let base = self.base {
-                    query["base"] = base.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["head"] = head.map(QueryParameterEncoder.encode)
+                query["base"] = base.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20113,22 +19532,21 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20220,12 +19638,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20437,22 +19851,21 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20622,12 +20035,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20667,12 +20076,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20770,12 +20175,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -20886,12 +20287,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21065,12 +20462,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21237,9 +20630,7 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21275,9 +20666,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let ref = self.ref {
-                    query["ref"] = ref.description
-                }
+                query["ref"] = ref.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21319,12 +20708,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21663,12 +21048,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21710,10 +21091,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["name"] = self.name.description
-                if let label = self.label {
-                    query["label"] = label.description
-                }
+                query["name"] = QueryParameterEncoder.encode(name)
+                query["label"] = label.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21810,18 +21189,10 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let secretType = self.secretType {
-                    query["secret_type"] = secretType.description
-                }
-                if let resolution = self.resolution {
-                    query["resolution"] = resolution.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["secret_type"] = secretType.map(QueryParameterEncoder.encode)
+                query["resolution"] = resolution.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -21925,12 +21296,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22168,12 +21535,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22265,12 +21628,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22342,12 +21701,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22381,12 +21736,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22744,9 +22095,7 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let since = self.since {
-                    query["since"] = since.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -22835,12 +22184,8 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23074,18 +22419,10 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let startIndex = self.startIndex {
-                    query["startIndex"] = startIndex.description
-                }
-                if let count = self.count {
-                    query["count"] = count.description
-                }
-                if let filter = self.filter {
-                    query["filter"] = filter.description
-                }
-                if let excludedAttributes = self.excludedAttributes {
-                    query["excludedAttributes"] = excludedAttributes.description
-                }
+                query["startIndex"] = startIndex.map(QueryParameterEncoder.encode)
+                query["count"] = count.map(QueryParameterEncoder.encode)
+                query["filter"] = filter.map(QueryParameterEncoder.encode)
+                query["excludedAttributes"] = excludedAttributes.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23165,9 +22502,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let excludedAttributes = self.excludedAttributes {
-                    query["excludedAttributes"] = excludedAttributes.description
-                }
+                query["excludedAttributes"] = excludedAttributes.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23335,15 +22670,9 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let startIndex = self.startIndex {
-                    query["startIndex"] = startIndex.description
-                }
-                if let count = self.count {
-                    query["count"] = count.description
-                }
-                if let filter = self.filter {
-                    query["filter"] = filter.description
-                }
+                query["startIndex"] = startIndex.map(QueryParameterEncoder.encode)
+                query["count"] = count.map(QueryParameterEncoder.encode)
+                query["filter"] = filter.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23746,13 +23075,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23816,13 +23141,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23890,13 +23211,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -23963,14 +23280,10 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["repository_id"] = self.repositoryID.description
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["repository_id"] = QueryParameterEncoder.encode(repositoryID)
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24035,13 +23348,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24106,13 +23415,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24177,13 +23482,9 @@ extension Paths.Search {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["q"] = self.q.description
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["q"] = QueryParameterEncoder.encode(q)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24345,12 +23646,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24494,12 +23791,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24631,12 +23924,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24717,12 +24006,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24803,12 +24088,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -24851,12 +24132,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -25063,12 +24340,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -25185,12 +24458,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -25426,12 +24695,8 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -25640,15 +24905,9 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let repositoryID = self.repositoryID {
-                    query["repository_id"] = repositoryID.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["repository_id"] = repositoryID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -25807,12 +25066,8 @@ extension Paths.User.Codespaces {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26290,12 +25545,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26435,12 +25686,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26480,12 +25727,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26563,12 +25806,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26682,12 +25921,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26763,12 +25998,8 @@ extension Paths.User.Installations.WithInstallationID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26887,26 +26118,23 @@ extension Paths.User {
 
         public struct GetParameters {
             public var labels: String?
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(labels: String? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(labels: String? = nil, since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.labels = labels
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let labels = self.labels {
-                    query["labels"] = labels.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["labels"] = labels.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -26946,12 +26174,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27049,12 +26273,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27094,12 +26314,8 @@ extension Paths.User.MarketplacePurchases {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27148,12 +26364,8 @@ extension Paths.User.Memberships {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27237,12 +26449,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27463,12 +26671,8 @@ extension Paths.User.Migrations.WithMigrationID {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27512,12 +26716,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27626,9 +26826,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let token = self.token {
-                    query["token"] = token.description
-                }
+                query["token"] = token.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27667,12 +26865,8 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let page = self.page {
-                    query["page"] = page.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27813,12 +27007,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -27849,24 +27039,24 @@ extension Paths.User {
             public var affiliation: String?
             public var perPage: Int?
             public var page: Int?
+            public var since: Date?
+            public var before: Date?
 
-            public init(affiliation: String? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(affiliation: String? = nil, perPage: Int? = nil, page: Int? = nil, since: Date? = nil, before: Date? = nil) {
                 self.affiliation = affiliation
                 self.perPage = perPage
                 self.page = page
+                self.since = since
+                self.before = before
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let affiliation = self.affiliation {
-                    query["affiliation"] = affiliation.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["affiliation"] = affiliation.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["before"] = before.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28034,12 +27224,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28106,12 +27292,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28196,12 +27378,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28241,12 +27419,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28288,12 +27462,8 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let since = self.since {
-                    query["since"] = since.description
-                }
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28371,12 +27541,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28423,12 +27589,8 @@ extension Paths.Users.WithUsername.Events.Orgs {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28462,12 +27624,8 @@ extension Paths.Users.WithUsername.Events {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28507,12 +27665,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28552,12 +27706,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28605,22 +27755,21 @@ extension Paths.Users.WithUsername {
         }
 
         public struct GetParameters {
+            public var since: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(since: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.since = since
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["since"] = since.map(QueryParameterEncoder.encode)
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28660,12 +27809,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28706,9 +27851,7 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let subjectID = self.subjectID {
-                    query["subject_id"] = subjectID.description
-                }
+                query["subject_id"] = subjectID.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28770,12 +27913,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28817,12 +27956,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -28934,9 +28069,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let token = self.token {
-                    query["token"] = token.description
-                }
+                query["token"] = token.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29061,12 +28194,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29102,12 +28231,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29141,12 +28266,8 @@ extension Paths.Users.WithUsername.ReceivedEvents {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29186,12 +28307,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29338,12 +28455,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29383,12 +28496,8 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let perPage = self.perPage {
-                    query["per_page"] = perPage.description
-                }
-                if let page = self.page {
-                    query["page"] = page.description
-                }
+                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+                query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -29405,6 +28514,29 @@ extension Paths {
         public let path: String
 
 
+    }
+}
+
+
+private struct QueryParameterEncoder {
+    static func encode(_ value: Int) -> String? {
+        String(value)
+    }
+
+    static func encode(_ value: Double) -> String? {
+        String(value)
+    }
+
+    static func encode(_ value: Bool) -> String? {
+        value ? "true" : "false"
+    }
+
+    static func encode(_ value: Date) -> String? {
+        ISO8601DateFormatter().string(from: value)
+    }
+
+    static func encode(_ value: String) -> String? {
+        value
     }
 }
 

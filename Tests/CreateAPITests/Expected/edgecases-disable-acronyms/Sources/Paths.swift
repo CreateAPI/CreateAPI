@@ -299,8 +299,8 @@ extension Paths.User {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["username"] = self.username.description
-                query["password"] = self.password.description
+                query["username"] = QueryParameterEncoder.encode(username)
+                query["password"] = QueryParameterEncoder.encode(password)
                 return query
             }
         }
@@ -378,9 +378,7 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let enumQueryInteger = self.enumQueryInteger {
-                    query["enum_query_integer"] = enumQueryInteger.description
-                }
+                query["enum_query_integer"] = enumQueryInteger.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -466,6 +464,29 @@ extension Paths {
         public func patch(_ body: edgecases_disable_acronyms.Client) -> Request<edgecases_disable_acronyms.Client> {
             .patch(path, body: body)
         }
+    }
+}
+
+
+private struct QueryParameterEncoder {
+    static func encode(_ value: Bool) -> String? {
+        value ? "true" : "false"
+    }
+
+    static func encode(_ value: String) -> String? {
+        value
+    }
+
+    static func encode(_ value: Date) -> String? {
+        ISO8601DateFormatter().string(from: value)
+    }
+
+    static func encode(_ value: Int) -> String? {
+        String(value)
+    }
+
+    static func encode(_ value: Double) -> String? {
+        String(value)
     }
 }
 

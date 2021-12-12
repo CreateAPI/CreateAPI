@@ -37,9 +37,7 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                if let limit = self.limit {
-                    query["limit"] = limit.description
-                }
+                query["limit"] = limit.map(QueryParameterEncoder.encode)
                 return query
             }
         }
@@ -68,12 +66,32 @@ extension Paths.Pets {
 }
 
 
-
 extension Request {
     private func id(_ id: String) -> Request {
         var copy = self
         copy.id = id
         return copy
+    }
+}
+private struct QueryParameterEncoder {
+    static func encode(_ value: Bool) -> String? {
+        value ? "true" : "false"
+    }
+
+    static func encode(_ value: Date) -> String? {
+        ISO8601DateFormatter().string(from: value)
+    }
+
+    static func encode(_ value: Int) -> String? {
+        String(value)
+    }
+
+    static func encode(_ value: String) -> String? {
+        value
+    }
+
+    static func encode(_ value: Double) -> String? {
+        String(value)
     }
 }
 

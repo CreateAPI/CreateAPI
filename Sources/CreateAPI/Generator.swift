@@ -19,6 +19,7 @@ final class Generator {
     var isHTTPHeadersDependencyNeeded = false
     var isRequestOperationIdExtensionNeeded = false
     var isEmptyObjectNeeded = false
+    var isQueryParameterEncoderNeeded = false
     var needsEncodable = Set<TypeName>()
     let lock = NSLock()
     
@@ -403,7 +404,7 @@ extension Generator {
         case .reference(let reference, _):
             return try getReferenceType(reference, context: context)
         case .fragment:
-            setAnyJsonNeeded()
+            setNeedsAnyJson()
             return TypeName("AnyJSON")
         }
     }
@@ -572,28 +573,24 @@ extension Generator {
     
     // MARK: State
     
-    func setAnyJsonNeeded() {
-        lock.lock()
-        isAnyJSONUsed = true
-        lock.unlock()
+    func setNeedsAnyJson() {
+        lock.sync { isAnyJSONUsed = true }
     }
     
-    func setHTTPHeadersDependencyNeeded() {
-        lock.lock()
-        isHTTPHeadersDependencyNeeded = true
-        lock.unlock()
+    func setNeedsHTTPHeadersDependency() {
+        lock.sync { isHTTPHeadersDependencyNeeded = true }
     }
     
     func setNeedsEncodable(for type: TypeName) {
-        lock.lock()
-        needsEncodable.insert(type)
-        lock.unlock()
+        lock.sync { needsEncodable.insert(type) }
     }
     
-    func setRequestOperationIdExtensionNeeded() {
-        lock.lock()
-        isRequestOperationIdExtensionNeeded = true
-        lock.unlock()
+    func setNeedsRequestOperationIdExtension() {
+        lock.sync { isRequestOperationIdExtensionNeeded = true }
+    }
+    
+    func setNeedsQueryParameterEncoder() {
+        lock.sync { isQueryParameterEncoderNeeded = true }
     }
 }
 

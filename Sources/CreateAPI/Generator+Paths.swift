@@ -120,10 +120,19 @@ extension Generator {
             }
         }
 
+        var extensions: [String] = []
+        
         if isRequestOperationIdExtensionNeeded {
-            output += "\n\n"
-            output += templates.requestOperationIdExtension
-            output += "\n\n"
+            extensions.append(templates.requestOperationIdExtension)
+        }
+        
+        if isQueryParameterEncoderNeeded {
+            extensions.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders))
+        }
+        
+        for value in extensions {
+            output += "\n"
+            output += value
         }
         
         var header = templates.fileHeader
@@ -136,7 +145,7 @@ extension Generator {
         
         stopMeasuring("generating paths (\(spec.paths.count))")
         
-        return (header + "\n\n" + output).indent(using: options)
+        return (header + "\n\n" + output + "\n\n").indent(using: options)
     }
     
     private func makeImports() -> [String] {
@@ -252,7 +261,7 @@ extension Generator {
         // TODO: Align this and contents based on the line count (and add option)
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
         if options.paths.isAddingOperationIds, let operationId = operation.operationId, !operationId.isEmpty {
-            setRequestOperationIdExtensionNeeded()
+            setNeedsRequestOperationIdExtension()
             contents += ".id(\"\(operationId)\")"
         }
         // TODO: use properties instead of function when there are not arguments? (and add an option)
@@ -260,7 +269,7 @@ extension Generator {
         if let headers = responseHeaders {
             output += "\n\n"
             output += headers
-            setHTTPHeadersDependencyNeeded()
+            setNeedsHTTPHeadersDependency()
         }
         for value in nested {
             output += "\n\n"
@@ -274,9 +283,10 @@ extension Generator {
             guard let parameter = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            guard Set(["String", "Int", "Double", "Bool"]).contains(parameter.type.rawValue) else {
+            guard options.paths.queryParameterEncoders.keys.contains(parameter.type.rawValue) else {
                 throw GeneratorError("Unsupported parameter type: \(parameter.type)")
             }
+            setNeedsQueryParameterEncoder()
             return parameter
         } catch {
             // TODO: Change to non-failing version

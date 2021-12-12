@@ -2,6 +2,8 @@
 //
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
+import Foundation
+
 // TODO: Add an option to add spacing between properties with comments
 // TODO: Add an option to generate parametes as `let` and a list of exceptions
 final class GenerateOptions {
@@ -40,7 +42,7 @@ final class GenerateOptions {
             self.header = fileHeader?.header
         }
     }
-    
+        
     struct Rename {
         init(_ paths: GenerateOptionsScheme.Rename?) {
         }
@@ -76,6 +78,7 @@ final class GenerateOptions {
         var imports: Set<String>
         var propertyCountThreshold: Int = 3
         var overrideResponses: [String: String]
+        let queryParameterEncoders: [String: String]
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
@@ -83,9 +86,14 @@ final class GenerateOptions {
             self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
             self.imports = Set(paths?.imports ?? ["APIClient", "HTTPHeaders"])
             self.overrideResponses = paths?.overrideResponses ?? [:]
+            var queryParameterEncoders = makeDefaultParameterEncoders()
+            for (key, value) in paths?.queryParameterEncoders ?? [:] {
+                queryParameterEncoders[key] = value // Override default values
+            }
+            self.queryParameterEncoders = queryParameterEncoders
         }
     }
-    
+        
     // TODO: Inline this?
     struct SchemesOptions {
         var isGeneratingStructs: Bool
@@ -188,6 +196,7 @@ final class GenerateOptionsScheme: Decodable {
         var isAddingOperationIds: Bool?
         var imports: [String]?
         var overrideResponses: [String: String]?
+        var queryParameterEncoders: [String: String]?
     }
     
     struct SchemesOptions: Decodable {
@@ -211,4 +220,14 @@ struct GenerateArguments {
     let isParallel: Bool
     let vendor: String?
     let module: ModuleName?
+}
+
+private func makeDefaultParameterEncoders() -> [String: String] {
+    return [
+        "String": "value",
+        "Int": "String(value)",
+        "Double": "String(value)",
+        "Bool": #"value ? "true" : "false""#,
+        "Date": "ISO8601DateFormatter().string(from: value)"
+    ]
 }

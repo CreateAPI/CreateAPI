@@ -96,14 +96,13 @@ final class Templates {
     
     func toQueryParameters(properties: [Property]) -> String {
         let statements: [String] = properties.map {
+            let prefix = $0.name.rawValue == "query" ? "self." : ""
             if $0.isOptional {
                 return """
-                if let \($0.name) = self.\($0.name.accessor) {
-                    query["\($0.key)"] = \($0.name).description
-                }
+                query["\($0.key)"] = \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)
                 """
             } else {
-                return "query[\"\($0.key)\"] = self.\($0.name.accessor).description"
+                return "query[\"\($0.key)\"] = QueryParameterEncoder.encode(\(prefix)\($0.name.accessor))"
             }
         }
         return """
@@ -376,6 +375,21 @@ final class Templates {
            }
        }
        """
+    }
+    
+    func queryParameterEncoders(_ encoders: [String: String]) -> String {
+        let methods = encoders.map { key, value in
+            """
+            static func encode(_ value: \(key)) -> String? {
+            \(value.indented)
+            }
+            """
+        }
+        return """
+        private struct QueryParameterEncoder {
+        \(methods.joined(separator: "\n\n").indented)
+        }
+        """
     }
 }
 
