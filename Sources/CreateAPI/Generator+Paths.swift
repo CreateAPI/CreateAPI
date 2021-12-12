@@ -239,7 +239,7 @@ extension Generator {
             call.append("query: parameters.asQuery()")
         }
         
-        if let requestBody = operation.requestBody {
+        if let requestBody = operation.requestBody, method != "get" {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
             if !requestBody.type.isVoid {
                 if let value = requestBody.nested {

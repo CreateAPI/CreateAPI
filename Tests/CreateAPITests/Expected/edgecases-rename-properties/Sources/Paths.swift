@@ -365,8 +365,8 @@ extension Paths {
         /// To test enum parameters
         ///
         /// To test enum parameters
-        public func get(parameters: GetParameters, _ body: GetRequest) -> Request<Void> {
-            .get(path, query: parameters.asQuery(), body: body)
+        public func get(parameters: GetParameters) -> Request<Void> {
+            .get(path, query: parameters.asQuery())
         }
 
         public struct GetParameters {
@@ -382,40 +382,6 @@ extension Paths {
                     query["enum_query_integer"] = enumQueryInteger.description
                 }
                 return query
-            }
-        }
-
-        public struct GetRequest: Encodable {
-            /// Form parameter enum test (string)
-            public var enumFormString: EnumFormString?
-            /// Form parameter enum test (string array)
-            public var enumFormStringArray: [EnumFormStringArrayItem]?
-            /// Query parameter enum test (double)
-            public var enumQueryDouble: Double?
-
-            /// Form parameter enum test (string)
-            public enum EnumFormString: String, Codable, CaseIterable {
-                case abc = "_abc"
-                case minusefg = "-efg"
-                case xyz = "(xyz)"
-            }
-
-            public enum EnumFormStringArrayItem: String, Codable, CaseIterable {
-                case greaterThan = ">"
-                case dollar = "$"
-            }
-
-            public init(enumFormString: EnumFormString? = nil, enumFormStringArray: [EnumFormStringArrayItem]? = nil, enumQueryDouble: Double? = nil) {
-                self.enumFormString = enumFormString
-                self.enumFormStringArray = enumFormStringArray
-                self.enumQueryDouble = enumQueryDouble
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(enumFormString, forKey: "enum_form_string")
-                try values.encodeIfPresent(enumFormStringArray, forKey: "enum_form_string_array")
-                try values.encodeIfPresent(enumQueryDouble, forKey: "enum_query_double")
             }
         }
 
