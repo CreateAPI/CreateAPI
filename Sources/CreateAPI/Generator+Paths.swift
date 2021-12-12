@@ -63,7 +63,7 @@ extension Generator {
                 let component = components.last!
                 let isLast = index == allComponents.endIndex - 1
                 let isTopLevel = components.count == 1
-                let type = component.isEmpty ? TypeName(processedRawValue: "Root") : makeType(component)
+                let type = component.isEmpty ? TypeName(processed: "Root") : makeType(component)
                 let isParameter = component.starts(with: "{")
                 let stat = isTopLevel ? "static " : ""
                 
@@ -231,7 +231,7 @@ extension Generator {
 
         let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
         if !query.isEmpty {
-            let type = TypeName(processedRawValue: "\(method.capitalizingFirstLetter())Parameters")
+            let type = TypeName(processed: "\(method.capitalizingFirstLetter())Parameters")
             // TODO: create a single type describing this + add comments and stuff
             let properties = query.map {
                 Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, context: nil)
@@ -368,7 +368,7 @@ extension Generator {
                 }
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                setNeedsEncodable(for: TypeName(processedRawValue: type.type))
+                setNeedsEncodable(for: TypeName(processed: type.type))
                 return GeneratedType(type: type.type, nested: type.nested)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
@@ -389,11 +389,11 @@ extension Generator {
                 switch content.schema {
                 case .a(let reference):
                     let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
-                    setNeedsEncodable(for: TypeName(processedRawValue: type.type))
+                    setNeedsEncodable(for: TypeName(processed: type.type))
                     return GeneratedType(type: type.type, nested: type.nested)
                 case .b(let schema):
                     let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                    setNeedsEncodable(for: TypeName(processedRawValue: type.type))
+                    setNeedsEncodable(for: TypeName(processed: type.type))
                     return GeneratedType(type: type.type, nested: type.nested)
                 default:
                     throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")

@@ -145,23 +145,23 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
         self.rawValue = rawValue.process(isProperty: false, options: options)
     }
 
-    init(processedRawValue: String) {
-        self.rawValue = processedRawValue
+    init(processed: String) {
+        self.rawValue = processed
     }
 
     var description: String { rawValue }
     
     // Appends the name without re-doing most of the processing.
     func appending(_ text: String) -> TypeName {
-        TypeName(processedRawValue: rawValue + text)
+        TypeName(processed: rawValue + text)
     }
     
     func prepending(_ text: String) -> TypeName {
-        TypeName(processedRawValue: text + rawValue)
+        TypeName(processed: text + rawValue)
     }
     
     var asArray: TypeName {
-        TypeName(processedRawValue: "[\(rawValue)]")
+        TypeName(processed: "[\(rawValue)]")
     }
 }
 

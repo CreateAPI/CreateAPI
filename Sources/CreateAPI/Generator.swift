@@ -125,7 +125,7 @@ extension Generator {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if var type = try? getPrimitiveType(for: item, context: context) {
+            if let type = try? getPrimitiveType(for: item, context: context) {
                 return child(name: propertyName, type: "[\(type)]", info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
@@ -202,7 +202,7 @@ extension Generator {
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String? {
         if let type = try? getPrimitiveType(for: JSONSchema.object(info, details), context: context), type != "Void" {
             guard !options.isInliningPrimitiveTypes else { return nil }
-            return templates.typealias(name: name, type: TypeName(processedRawValue: type))
+            return templates.typealias(name: name, type: TypeName(processed: type))
         }
         
         var contents: [String] = []
@@ -290,7 +290,7 @@ extension Generator {
         let name = makeTypeName(key)
         if options.isPluralizationEnabled, !options.pluralizationExceptions.contains(name.rawValue) {
             // Some know words that the library doesn't handle well
-            if name.rawValue == "Environments" { return TypeName(processedRawValue: "Environment") }
+            if name.rawValue == "Environments" { return TypeName(processed: "Environment") }
             let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
             if words.last?.singularized() != words.last {
                 let sing = (words.dropLast() + [words.last?.singularized()])
@@ -370,7 +370,7 @@ extension Generator {
     // MARK: Misc
     
     private func getTypeName(for json: JSONSchema, context: Context) throws -> TypeName {
-        TypeName(processedRawValue: try getPrimitiveType(for: json, context: context))
+        TypeName(processed: try getPrimitiveType(for: json, context: context))
     }
     
     // TODO: Return `nil` when primitive types can't be found

@@ -131,7 +131,7 @@ extension Generator {
         let name = makeTypeName(key.rawValue)
         if !options.schemes.mappedTypeNames.isEmpty {
             if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
-                return TypeName(processedRawValue: mapped)
+                return TypeName(processed: mapped)
             }
         }
         return makeTypeName(key.rawValue)
