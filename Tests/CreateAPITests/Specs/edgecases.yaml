@@ -653,14 +653,8 @@ paths:
         - fake
       summary: |
         Fake endpoint for testing various parameters
-        假端點
-        偽のエンドポイント
-        가짜 엔드 포인트
       description: |
         Fake endpoint for testing various parameters
-        假端點
-        偽のエンドポイント
-        가짜 엔드 포인트
       operationId: testEndpointParameters
       requestBody:
         content:

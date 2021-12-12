@@ -391,15 +391,9 @@ extension Paths {
         }
 
         /// Fake endpoint for testing various parameters
-        /// 假端點
-        /// 偽のエンドポイント
-        /// 가짜 엔드 포인트
         /// 
         ///
         /// Fake endpoint for testing various parameters
-        /// 假端點
-        /// 偽のエンドポイント
-        /// 가짜 엔드 포인트
         /// 
         public func post(_ body: PostRequest) -> Request<Void> {
             .post(path, body: body)
