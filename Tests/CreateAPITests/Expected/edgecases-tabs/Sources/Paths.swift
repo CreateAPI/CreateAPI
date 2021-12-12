@@ -288,8 +288,8 @@ extension Paths.User {
 		public let path: String
 
 		/// Logs user into the system
-		public func get() -> Request<String> {
-			.get(path)
+		public func get(parameters: GetParameters) -> Request<String> {
+			.get(path, query: parameters.asQuery())
 		}
 
 		public enum GetResponseHeaders {
@@ -298,6 +298,23 @@ extension Paths.User {
 			public static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
 			/// Date in UTC when toekn expires
 			public static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
+		}
+
+		public struct GetParameters {
+			public var username: String
+			public var password: String
+
+			public init(username: String, password: String) {
+				self.username = username
+				self.password = password
+			}
+
+			public func asQuery() -> [String: String?] {
+				var query: [String: String?] = [:]
+				query["username"] = self.username.description
+				query["password"] = self.password.description
+				return query
+			}
 		}
 	}
 }
@@ -360,8 +377,24 @@ extension Paths {
 		/// To test enum parameters
 		///
 		/// To test enum parameters
-		public func get() -> Request<Void> {
-			.get(path)
+		public func get(parameters: GetParameters) -> Request<Void> {
+			.get(path, query: parameters.asQuery())
+		}
+
+		public struct GetParameters {
+			public var enumQueryInteger: Int?
+
+			public init(enumQueryInteger: Int? = nil) {
+				self.enumQueryInteger = enumQueryInteger
+			}
+
+			public func asQuery() -> [String: String?] {
+				var query: [String: String?] = [:]
+				if let enumQueryInteger = self.enumQueryInteger {
+					query["enum_query_integer"] = enumQueryInteger.description
+				}
+				return query
+			}
 		}
 
 		/// Fake endpoint for testing various parameters

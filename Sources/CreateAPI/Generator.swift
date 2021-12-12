@@ -634,5 +634,4 @@ struct Property {
     let schema: JSONSchema
     let context: JSONSchemaContext?
     var nested: String?
-    var isAdditional = false
 }

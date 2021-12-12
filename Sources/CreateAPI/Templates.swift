@@ -53,8 +53,10 @@ final class Templates {
         let rhs = ([isStruct ? nil : options.schemes.baseClass] + protocols)
             .compactMap { $0 }.joined(separator: ", ")
 
+        let declaration = rhs.isEmpty ? lhs : "\(lhs): \(rhs)"
+        
         return """
-        \(lhs): \(rhs) {
+        \(declaration) {
         \(contents.joined(separator: "\n\n").indented)
         }
         """
@@ -92,6 +94,29 @@ final class Templates {
         """
     }
     
+    // MARK: Query Parameters
+    
+    func toQueryParameters(properties: [Property]) -> String {
+        let statements: [String] = properties.map {
+            if $0.isOptional {
+                return """
+                if let \($0.name) = self.\($0.name.accessor) {
+                    query["\($0.key)"] = \($0.name).description
+                }
+                """
+            } else {
+                return "query[\"\($0.key)\"] = self.\($0.name.accessor).description"
+            }
+        }
+        return """
+        \(access)func asQuery() -> [String: String?] {
+            var query: [String: String?] = [:]
+        \(statements.joined(separator: "\n").indented)
+            return query
+        }
+        """
+    }
+    
     // MARK: Init
     
     func initializer(properties: [Property]) -> String {
@@ -121,9 +146,6 @@ final class Templates {
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
     func decode(property: Property) -> String {
-        if property.isAdditional {
-            return "self.\(property.name.accessor) = try \(property.type).init(from: decoder)"
-        }
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \"\(property.key)\")"
     }
@@ -203,9 +225,6 @@ final class Templates {
     
     func encode(properties: [Property]) -> String {
         let contents = properties.map {
-            if $0.isAdditional {
-                return "try \($0.name).encode(to: encoder)"
-            }
             let encode = $0.isOptional ? "encodeIfPresent" : "encode"
             return "try values.\(encode)(\($0.name), forKey: \"\($0.key)\")"
         }.joined(separator: "\n")

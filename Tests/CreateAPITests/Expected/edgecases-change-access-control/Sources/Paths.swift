@@ -288,8 +288,8 @@ extension Paths.User {
         let path: String
 
         /// Logs user into the system
-        func get() -> Request<String> {
-            .get(path)
+        func get(parameters: GetParameters) -> Request<String> {
+            .get(path, query: parameters.asQuery())
         }
 
         enum GetResponseHeaders {
@@ -298,6 +298,23 @@ extension Paths.User {
             static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
             /// Date in UTC when toekn expires
             static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
+        }
+
+         struct GetParameters {
+            var username: String
+            var password: String
+
+            init(username: String, password: String) {
+                self.username = username
+                self.password = password
+            }
+
+            func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                query["username"] = self.username.description
+                query["password"] = self.password.description
+                return query
+            }
         }
     }
 }
@@ -360,8 +377,24 @@ extension Paths {
         /// To test enum parameters
         ///
         /// To test enum parameters
-        func get() -> Request<Void> {
-            .get(path)
+        func get(parameters: GetParameters) -> Request<Void> {
+            .get(path, query: parameters.asQuery())
+        }
+
+         struct GetParameters {
+            var enumQueryInteger: Int?
+
+            init(enumQueryInteger: Int? = nil) {
+                self.enumQueryInteger = enumQueryInteger
+            }
+
+            func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let enumQueryInteger = self.enumQueryInteger {
+                    query["enum_query_integer"] = enumQueryInteger.description
+                }
+                return query
+            }
         }
 
         /// Fake endpoint for testing various parameters

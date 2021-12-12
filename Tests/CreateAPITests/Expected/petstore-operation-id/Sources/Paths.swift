@@ -19,13 +19,29 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get() -> Request<[Pet]> {
-            .get(path).id("listPets")
+        public func get(parameters: GetParameters) -> Request<[Pet]> {
+            .get(path, query: parameters.asQuery()).id("listPets")
         }
 
         public enum GetResponseHeaders {
             /// A link to the next page of responses
             public static let next = HTTPHeader<String>(field: "x-next")
+        }
+
+        public struct GetParameters {
+            public var limit: Int?
+
+            public init(limit: Int? = nil) {
+                self.limit = limit
+            }
+
+            public func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let limit = self.limit {
+                    query["limit"] = limit.description
+                }
+                return query
+            }
         }
     }
 }

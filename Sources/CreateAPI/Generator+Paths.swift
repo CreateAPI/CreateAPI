@@ -180,11 +180,8 @@ extension Generator {
         }
     }
     
+    // TODO: Add support for header parameters
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
-//        guard operation.operationId == "apps/create-from-manifest" else {
-//            throw GeneratorError("skip")
-//        }
-        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -228,22 +225,34 @@ extension Generator {
         if options.isAddingDeprecations, operation.deprecated {
             output += templates.deprecated
         }
-        operation.parameters
+
         var parameters: [String] = []
-        var isBodyNeeded = false
+        var call: [String] = ["path"]
+
+        let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
+        if !query.isEmpty {
+            let type = TypeName(processedRawValue: "\(method.capitalizingFirstLetter())Parameters")
+            // TODO: create a single type describing this + add comments and stuff
+            let properties = query.map {
+                Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, context: nil)
+            }
+            let props = properties.map(templates.property).joined(separator: "\n")
+            let initializer = templates.initializer(properties: properties)
+            let toQuery = templates.toQueryParameters(properties: properties)
+            nested.append(templates.entity(name: type, contents: [props, initializer, toQuery], protocols: []))
+            parameters.append("parameters: \(type)")
+            call.append("query: parameters.asQuery()")
+        }
+        
         if hasBody(method) {
             let request = try makeRequestBodyType(for: operation, method: method, context: context)
             if request.type != "Void" {
-                isBodyNeeded = true
                 if let value = request.nested {
                     nested.append(value)
                 }
                 parameters.append("_ body: \(request.type)")
+                call.append("body: body")
             }
-        }
-        var call: [String] = ["path"]
-        if isBodyNeeded {
-            call.append("body: body")
         }
         // TODO: Align this and contents based on the line count (and add option)
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
@@ -265,25 +274,56 @@ extension Generator {
         return output.indented
     }
     
-    private struct QueryParameter {
-        let description: String?
-        let isDeprecated: Bool
-        let name: String
-        let type: String
-        let isOptional: Bool
+    private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> QueryParameter? {
+        do {
+            guard let parameter = try _makeQueryParameter(for: input, context: context) else {
+                return nil
+            }
+            guard Set(["String", "Int", "Double", "Bool"]).contains(parameter.type) else {
+                throw GeneratorError("Unsupported parameter type: \(parameter.type)")
+            }
+            return parameter
+        } catch {
+            // TODO: Change to non-failing version
+            print("ERROR: Fail to generate query parameter \(input.description)")
+            return nil
+        }
     }
-        
-    // TODO: Add support for header parameters
-    private func makeQueryParameter(for parameter: OpenAPI.Parameter) throws -> QueryParameter? {
+    
+    // TODO: Add support for other types (arrays, etc); currrently only basic built-in structs will works (see `Order`)
+    // TODO: Why are all parameters optional?
+    // TODO: Conveniecne args with a threshold
+    private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> QueryParameter? {
+        let parameter: OpenAPI.Parameter
+        switch input {
+        case .a(let reference):
+            parameter = try reference.dereferenced(in: spec.components).underlyingParameter
+        case .b(let value):
+            parameter = value
+        }
         guard parameter.context.inQuery else {
             return nil
+        }
+        let type: String
+        switch parameter.schemaOrContent {
+        case .a(let schemaContext):
+            let schema: JSONSchema
+            switch schemaContext.schema {
+            case .a(let reference):
+                schema = JSONSchema.reference(reference)
+            case .b(let value):
+                schema = value
+            }
+            type = try makeProperty(key: parameter.name, schema: schema, isRequired: true, in: context).type
+        case .b:
+            throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
         }
         // TODO: use propertyCountThreshold
         return QueryParameter(
             description: parameter.description,
             isDeprecated: parameter.deprecated,
             name: parameter.name,
-            type: "String",
+            type: type,
             isOptional: !parameter.required
         )
     }
@@ -481,4 +521,12 @@ extension Generator {
         }
         return name
     }
+}
+
+struct QueryParameter {
+    let description: String?
+    let isDeprecated: Bool
+    let name: String
+    let type: String
+    let isOptional: Bool
 }

@@ -18,12 +18,28 @@ extension Paths {
         /// Path: `/pets`
         public let path: String
 
-        public func get() -> Request<[Pet]> {
-            .get(path)
+        public func get(parameters: GetParameters) -> Request<[Pet]> {
+            .get(path, query: parameters.asQuery())
         }
 
         public enum GetResponseHeaders {
             public static let next = HTTPHeader<String>(field: "x-next")
+        }
+
+        public struct GetParameters {
+            public var limit: Int?
+
+            public init(limit: Int? = nil) {
+                self.limit = limit
+            }
+
+            public func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let limit = self.limit {
+                    query["limit"] = limit.description
+                }
+                return query
+            }
         }
     }
 }
