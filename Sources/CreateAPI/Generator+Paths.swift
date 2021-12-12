@@ -182,6 +182,10 @@ extension Generator {
     
     // TODO: Add support for header parameters
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+//        guard operation.operationId == "apps/redeliver-webhook-delivery" else {
+//            throw GeneratorError("Skip")
+//        }
+        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -433,43 +437,49 @@ extension Generator {
         var context = context
         context.isEncodableNeeded = false
         
+        let schema: OpenAPI.Response
         switch response {
         case .a(let reference):
             switch reference {
             case .internal(let reference):
-                throw GeneratorError("Responses references are not supported")
+                guard let name = reference.name, let key = OpenAPI.ComponentKey(rawValue: name), let value = spec.components.responses[key] else {
+                    throw GeneratorError("Failed to find a response body")
+                }
+                schema = value
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
-        case .b(let schema):
-            if schema.content.values.isEmpty {
-                return GeneratedType(type: TypeName("Void"))
-            } else if let content = schema.content[.json] {
-                // TODO: Parse example
-                switch content.schema {
-                case .a(let reference):
-                    // TODO: what about nested types?
-                    let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
-                    return GeneratedType(type: type)
-                case .b(let schema):
-                    switch schema {
-                    case .string:
-                        return GeneratedType(type: TypeName("String"))
-                    case .integer, .boolean:
-                        return GeneratedType(type: TypeName("Data"))
-                    default:
-                        // TODO: Add a way to cutomize which namespace to use
-                        let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
-                        return GeneratedType(type: property.type, nested: property.nested)
-                    }
+        case .b(let value):
+            schema = value
+        }
+        
+        if schema.content.values.isEmpty {
+            return GeneratedType(type: TypeName("Void"))
+        } else if let content = schema.content[.json] {
+            // TODO: Parse example
+            switch content.schema {
+            case .a(let reference):
+                // TODO: what about nested types?
+                let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
+                return GeneratedType(type: type)
+            case .b(let schema):
+                switch schema {
+                case .string:
+                    return GeneratedType(type: TypeName("String"))
+                case .integer, .boolean:
+                    return GeneratedType(type: TypeName("Data"))
                 default:
-                    throw GeneratorError("ERROR: response not handled")
+                    // TODO: Add a way to cutomize which namespace to use
+                    let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
+                    return GeneratedType(type: property.type, nested: property.nested)
                 }
-            } else if schema.content[.anyText] != nil {
-                return GeneratedType(type: TypeName("String")) // Assume UTF8 encoding
-            } else {
-                throw GeneratorError("More than one schema in content which is not currently supported")
+            default:
+                throw GeneratorError("ERROR: response not handled")
             }
+        } else if schema.content[.anyText] != nil {
+            return GeneratedType(type: TypeName("String")) // Assume UTF8 encoding
+        } else {
+            throw GeneratorError("More than one schema in content which is not currently supported")
         }
     }
         
