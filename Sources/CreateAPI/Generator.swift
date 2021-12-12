@@ -125,7 +125,7 @@ extension Generator {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if let type = try? getPrimitiveType(for: item, context: context) {
+            if let type = try getPrimitiveType(for: item, context: context) {
                 return child(name: propertyName, type: type.asArray, info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
@@ -139,7 +139,9 @@ extension Generator {
                 let nested = try makeEnum(name: typeName, info: info)
                 return child(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
             }
-            let type = try getPrimitiveType(for: schema, context: context)
+            guard let type = try getPrimitiveType(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
             return child(name: propertyName, type: type, info: info)
         }
         
@@ -152,18 +154,23 @@ extension Generator {
         func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
             let deref = try reference.dereferenced(in: spec.components)
             let info = deref.coreContext
-            let type = try getPrimitiveType(for: schema, context: context)
+            guard let type = try getPrimitiveType(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
             return child(name: propertyName, type: type, info: info)
         }
         
         func makeProperty(schema: JSONSchema) throws -> Property {
             let info = schema.coreContext
-            let type = try getPrimitiveType(for: schema, context: context)
+            guard let type = try getPrimitiveType(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
             return child(name: propertyName, type: type, info: info)
         }
         
         switch schema {
         case .object(let info, let details):
+            // Try go generate primitive type first
             if let property = try? makeProperty(schema: schema) {
                 return property
             }
@@ -188,7 +195,7 @@ extension Generator {
         case .a:
             return AdditionalProperties(type: TypeName("[String: AnyJSON]"), info: info)
         case .b(let schema):
-            if let type = try? getPrimitiveType(for: schema, context: context) {
+            if let type = try getPrimitiveType(for: schema, context: context) {
                 return AdditionalProperties(type: TypeName("[String: \(type)]"), info: info)
             }
             let nestedTypeName = makeTypeName(key).appending("Item")
@@ -200,7 +207,7 @@ extension Generator {
     // MARK: Object
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String? {
-        if let type = try? getPrimitiveType(for: JSONSchema.object(info, details), context: context), !type.isVoid {
+        if let type = try getPrimitiveType(for: JSONSchema.object(info, details), context: context), !type.isVoid {
             guard !options.isInliningPrimitiveTypes else { return nil }
             return templates.typealias(name: name, type: type)
         }
@@ -308,7 +315,7 @@ extension Generator {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try? getPrimitiveType(for: item, context: context) {
+        if let type = try getPrimitiveType(for: item, context: context) {
             guard !options.isInliningPrimitiveTypes else {
                 return ""
             }
@@ -371,26 +378,20 @@ extension Generator {
     
     // TODO: Return `nil` when primitive types can't be found
     // Anything that's not an object or a reference.
-    private func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName {
+    private func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName? {
         switch json {
         case .boolean: return TypeName("Bool")
         case .number: return TypeName("Double")
         case .integer: return TypeName("Int")
         case .string(let info, _):
-            if isEnum(info) {
-                throw GeneratorError("Enum isn't a primitive type")
-            }
+            guard !isEnum(info) else { return nil }
             switch info.format {
-            case .dateTime:
-                return TypeName("Date")
-            case .other(let other):
-                if other == "uri" {
-                    return TypeName("URL")
-                }
+            case .dateTime: return TypeName("Date")
+            case .other(let other): if other == "uri" { return TypeName("URL") }
             default: break
             }
             return TypeName("String")
-        case .object(let info, let details):
+        case .object(_, let details):
             var additional = details.additionalProperties
             if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
                 additional = additional ?? .a(true)
@@ -400,25 +401,20 @@ extension Generator {
                 case .a(let allowsAdditionalProperties):
                     return TypeName(allowsAdditionalProperties ? "[String: AnyJSON]" : "Void")
                 case .b(let schema):
-                    if let type = try? getPrimitiveType(for: schema, context: context) {
+                    if let type = try getPrimitiveType(for: schema, context: context) {
                         return TypeName("[String: \(type)]")
                     }
                 }
             }
-            throw GeneratorError("`object` is not supported: \(info)")
+            return nil
         case .array(_, let details):
             guard let items = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return try getPrimitiveType(for: items, context: context).asArray
-        case .all(let of, _):
-            throw GeneratorError("`allOf` is not supported: \(of)")
-        case .one(let of, _):
-            throw GeneratorError("`oneOf` is not supported: \(of)")
-        case .any(let of, _):
-            throw GeneratorError("`anyOf` is not supported: \(of)")
-        case .not(let scheme, _):
-            throw GeneratorError("`not` is not supported: \(scheme)")
+            return try getPrimitiveType(for: items, context: context)?.asArray
+        // TODO: Can't one of these be a primitive type too?
+        case .all, .one, .any, .not:
+            return nil
         case .reference(let reference, _):
             return try getReferenceType(reference, context: context)
         case .fragment:
@@ -440,7 +436,7 @@ extension Generator {
             if options.isInliningPrimitiveTypes,
                let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
                let scheme = spec.components.schemas[key],
-               let inlined = try? getPrimitiveType(for: scheme, context: context),
+               let inlined = try getPrimitiveType(for: scheme, context: context),
                isInlinable(scheme, context: context) {
                 return inlined // Inline simple types
             }
