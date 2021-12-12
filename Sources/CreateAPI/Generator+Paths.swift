@@ -405,7 +405,6 @@ extension Generator {
     // TODO: 204 (empty response body)
     // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
     // TODO: Add "descripton" to "- returns" comments
-    // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
     private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isEncodableNeeded = false
