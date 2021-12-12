@@ -195,6 +195,14 @@ public enum WebhookConfigInsecureSSL: Codable {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
         }
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .string(let value): try container.encode(value)
+        case .double(let value): try container.encode(value)
+        }
+    }
 }
 
 /// Webhook Configuration
@@ -397,6 +405,15 @@ public struct ValidationError: Codable {
                     self = .strings(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .string(let value): try container.encode(value)
+                case .int(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
                 }
             }
         }
@@ -3645,6 +3662,14 @@ public struct Issue: Codable {
                 self = .object(value)
             } else {
                 throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            }
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .string(let value): try container.encode(value)
+            case .object(let value): try container.encode(value)
             }
         }
     }
@@ -10658,6 +10683,14 @@ public struct Deployment: Codable {
                 self = .string(value)
             } else {
                 throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            }
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .object(let value): try container.encode(value)
+            case .string(let value): try container.encode(value)
             }
         }
     }
@@ -24292,6 +24325,15 @@ public struct ScimUser: Codable {
                     self = .anyJSONs(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .string(let value): try container.encode(value)
+                case .object(let value): try container.encode(value)
+                case .anyJSONs(let value): try container.encode(value)
                 }
             }
         }

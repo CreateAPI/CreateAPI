@@ -160,17 +160,17 @@ final class Templates {
     }
     
     func initFromDecoderOneOf(properties: [Property]) -> String {
-        var contents = ""
+        var statements = ""
         for property in properties {
-            contents += """
+            statements += """
             if let value = try? container.decode(\(property.type).self) {
                 self = .\(property.name)(value)
             } else
             """
-            contents += " "
+            statements += " "
         }
         
-        contents += """
+        statements += """
         {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
         }
@@ -179,7 +179,21 @@ final class Templates {
         return """
         \(access)init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-        \(contents.indented)
+        \(statements.indented)
+        }
+        """
+    }
+    
+    func encodeOneOf(properties: [Property]) -> String {
+        let statements = properties.map {
+            "case .\($0.name)(let value): try container.encode(value)"
+        }
+        return """
+        \(access)func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+        \(statements.joined(separator: "\n").indented)
+            }
         }
         """
     }

@@ -7779,6 +7779,14 @@ extension Paths.Projects.Columns.WithColumnID {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -10294,6 +10302,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Set status check contexts
@@ -10343,6 +10359,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                     self = .strings(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
                 }
             }
         }
@@ -10468,6 +10492,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Set app access restrictions
@@ -10523,6 +10555,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self = .strings(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
                 }
             }
         }
@@ -10619,6 +10659,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Set team access restrictions
@@ -10674,6 +10722,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self = .strings(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
                 }
             }
         }
@@ -10770,6 +10826,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Set user access restrictions
@@ -10825,6 +10889,14 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self = .strings(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
                 }
             }
         }
@@ -10933,6 +11005,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self = .object2(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
                 }
             }
         }
@@ -12630,6 +12710,16 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .contentDirectory(let value): try container.encode(value)
+                case .contentFile(let value): try container.encode(value)
+                case .contentSymlink(let value): try container.encode(value)
+                case .contentSubmodule(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Create or update file contents
@@ -12894,6 +12984,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self = .string(value)
                     } else {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .object(let value): try container.encode(value)
+                    case .string(let value): try container.encode(value)
                     }
                 }
             }
@@ -14867,6 +14965,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                     }
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .object(let value): try container.encode(value)
+                    }
+                }
             }
 
             public enum Milestone: Codable {
@@ -14883,6 +14989,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                     }
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .int(let value): try container.encode(value)
+                    }
+                }
             }
 
             public enum Title: Codable {
@@ -14897,6 +15011,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self = .int(value)
                     } else {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .int(let value): try container.encode(value)
                     }
                 }
             }
@@ -15230,6 +15352,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                     }
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .object(let value): try container.encode(value)
+                    }
+                }
             }
 
             public enum Milestone: Codable {
@@ -15244,6 +15374,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                         self = .int(value)
                     } else {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .int(let value): try container.encode(value)
                     }
                 }
             }
@@ -15266,6 +15404,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                         self = .int(value)
                     } else {
                         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    }
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .string(let value): try container.encode(value)
+                    case .int(let value): try container.encode(value)
                     }
                 }
             }
@@ -15554,6 +15700,17 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
+                case .object3(let value): try container.encode(value)
+                case .string(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Set labels for an issue
@@ -15659,6 +15816,17 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     self = .string(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
+                case .object3(let value): try container.encode(value)
+                case .string(let value): try container.encode(value)
                 }
             }
         }
@@ -21714,6 +21882,14 @@ extension Paths {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .privateUser(let value): try container.encode(value)
+                case .publicUser(let value): try container.encode(value)
+                }
+            }
         }
 
         /// Update the authenticated user
@@ -21997,6 +22173,14 @@ extension Paths.User {
                     self = .object2(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
                 }
             }
         }
@@ -22545,6 +22729,15 @@ extension Paths.User {
                     self = .string(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                case .string(let value): try container.encode(value)
                 }
             }
         }
@@ -24017,6 +24210,14 @@ extension Paths.Users {
                     self = .publicUser(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .privateUser(let value): try container.encode(value)
+                case .publicUser(let value): try container.encode(value)
                 }
             }
         }

@@ -470,6 +470,7 @@ extension Generator {
         contents.append(properties.map(templates.case).joined(separator: "\n"))
         contents += properties.compactMap { $0.nested }
         contents.append(templates.initFromDecoderOneOf(properties: properties))
+        contents.append(templates.encodeOneOf(properties: properties))
         return templates.enumOneOf(name: name, contents: contents)
     }
     
