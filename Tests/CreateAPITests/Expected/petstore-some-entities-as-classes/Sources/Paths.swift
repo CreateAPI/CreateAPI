@@ -43,7 +43,7 @@ extension Paths {
         }
 
         /// Create a pet
-        public func post() -> Request<Void> {
+        public var post: Request<Void> {
             .post(path)
         }
     }
@@ -59,7 +59,7 @@ extension Paths.Pets {
         public let path: String
 
         /// Info for a specific pet
-        public func get() -> Request<petstore_some_entities_as_classes.Pet> {
+        public var get: Request<petstore_some_entities_as_classes.Pet> {
             .get(path)
         }
     }

@@ -42,7 +42,7 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        public func get() -> Request<[edgecases_disable_acronyms.Pet]> {
+        public var get: Request<[edgecases_disable_acronyms.Pet]> {
             .get(path)
         }
     }
@@ -60,7 +60,7 @@ extension Paths.Pet {
         /// Finds Pets by tags
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-        public func get() -> Request<[edgecases_disable_acronyms.Pet]> {
+        public var get: Request<[edgecases_disable_acronyms.Pet]> {
             .get(path)
         }
     }
@@ -78,7 +78,7 @@ extension Paths.Pet {
         /// Find pet by ID
         ///
         /// Returns a single pet
-        public func get() -> Request<edgecases_disable_acronyms.Pet> {
+        public var get: Request<edgecases_disable_acronyms.Pet> {
             .get(path)
         }
 
@@ -106,7 +106,7 @@ extension Paths.Pet {
         }
 
         /// Deletes a pet
-        public func delete() -> Request<Void> {
+        public var delete: Request<Void> {
             .delete(path)
         }
     }
@@ -169,7 +169,7 @@ extension Paths.Store {
         /// Returns pet inventories by status
         ///
         /// Returns a map of status codes to quantities
-        public func get() -> Request<[String: Int]> {
+        public var get: Request<[String: Int]> {
             .get(path)
         }
     }
@@ -203,14 +203,14 @@ extension Paths.Store.Order {
         /// Find purchase order by ID
         ///
         /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-        public func get() -> Request<edgecases_disable_acronyms.Order> {
+        public var get: Request<edgecases_disable_acronyms.Order> {
             .get(path)
         }
 
         /// Delete purchase order by ID
         ///
         /// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-        public func delete() -> Request<Void> {
+        public var delete: Request<Void> {
             .delete(path)
         }
     }
@@ -317,7 +317,7 @@ extension Paths.User {
         public let path: String
 
         /// Logs out current logged in user session
-        public func get() -> Request<Void> {
+        public var get: Request<Void> {
             .get(path)
         }
     }
@@ -333,7 +333,7 @@ extension Paths.User {
         public let path: String
 
         /// Get user by user name
-        public func get() -> Request<edgecases_disable_acronyms.User> {
+        public var get: Request<edgecases_disable_acronyms.User> {
             .get(path)
         }
 
@@ -347,7 +347,7 @@ extension Paths.User {
         /// Delete user
         ///
         /// This can only be done by the logged in user.
-        public func delete() -> Request<Void> {
+        public var delete: Request<Void> {
             .delete(path)
         }
     }

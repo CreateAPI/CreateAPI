@@ -339,11 +339,19 @@ final class Templates {
     // MARK: Method
 
     func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
-        """
-        \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
-        \(contents.indented)
+        if parameters.isEmpty && options.paths.isUsingPropertiesForMethodsWithNoArguments {
+            return """
+            \(access)var \(name): \(type) {
+            \(contents.indented)
+            }
+            """
+        } else {
+            return """
+            \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
+            \(contents.indented)
+            }
+            """
         }
-        """
     }
     
     // MARK: Headers

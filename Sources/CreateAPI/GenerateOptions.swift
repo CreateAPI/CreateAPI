@@ -73,7 +73,8 @@ final class GenerateOptions {
         var imports: Set<String>
         var propertyCountThreshold: Int = 3
         var overrideResponses: [String: String]
-        let queryParameterEncoders: [String: String]
+        var queryParameterEncoders: [String: String]
+        var isUsingPropertiesForMethodsWithNoArguments: Bool
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
@@ -86,6 +87,7 @@ final class GenerateOptions {
                 queryParameterEncoders[key] = value // Override default values
             }
             self.queryParameterEncoders = queryParameterEncoders
+            self.isUsingPropertiesForMethodsWithNoArguments = paths?.isUsingPropertiesForMethodsWithNoArguments ?? true
         }
     }
         
@@ -190,6 +192,7 @@ final class GenerateOptionsScheme: Decodable {
         var imports: [String]?
         var overrideResponses: [String: String]?
         var queryParameterEncoders: [String: String]?
+        var isUsingPropertiesForMethodsWithNoArguments: Bool?
     }
     
     struct SchemesOptions: Decodable {

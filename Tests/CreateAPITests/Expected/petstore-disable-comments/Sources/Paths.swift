@@ -40,7 +40,7 @@ extension Paths {
             }
         }
 
-        public func post() -> Request<Void> {
+        public var post: Request<Void> {
             .post(path)
         }
     }
@@ -55,7 +55,7 @@ extension Paths.Pets {
         /// Path: `/pets/{petId}`
         public let path: String
 
-        public func get() -> Request<petstore_disable_comments.Pet> {
+        public var get: Request<petstore_disable_comments.Pet> {
             .get(path)
         }
     }
