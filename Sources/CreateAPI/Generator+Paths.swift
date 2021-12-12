@@ -476,8 +476,7 @@ extension Generator {
             throw GeneratorError("More than one schema in content which is not currently supported")
         }
     }
-        
-    // TODO: Add support for schema references
+
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
