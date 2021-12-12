@@ -83,7 +83,7 @@ extension Paths.Pet {
         }
 
         /// Updates a pet in the store with form data
-        public func post(_ body: PostRequest) -> Request<Void> {
+        public func post(_ body: PostRequest? = nil) -> Request<Void> {
             .post(path, body: body)
         }
 
@@ -122,7 +122,7 @@ extension Paths.Pet.WithPetID {
         public let path: String
 
         /// Uploads an image
-        public func post(_ body: PostRequest) -> Request<edgecases_disable_enums.APIResponse> {
+        public func post(_ body: PostRequest? = nil) -> Request<edgecases_disable_enums.APIResponse> {
             .post(path, body: body)
         }
 
@@ -386,7 +386,7 @@ extension Paths {
 
         /// Fake endpoint for testing various parameters
 
-        public func post(_ body: PostRequest) -> Request<Void> {
+        public func post(_ body: PostRequest? = nil) -> Request<Void> {
             .post(path, body: body)
         }
 

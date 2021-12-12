@@ -83,7 +83,7 @@ extension Paths.Pet {
         }
 
         /// Updates a pet in the store with form data
-        func post(_ body: PostRequest) -> Request<Void> {
+        func post(_ body: PostRequest? = nil) -> Request<Void> {
             .post(path, body: body)
         }
 
@@ -122,7 +122,7 @@ extension Paths.Pet.WithPetID {
         let path: String
 
         /// Uploads an image
-        func post(_ body: PostRequest) -> Request<edgecases_change_access_control.APIResponse> {
+        func post(_ body: PostRequest? = nil) -> Request<edgecases_change_access_control.APIResponse> {
             .post(path, body: body)
         }
 
@@ -383,7 +383,7 @@ extension Paths {
 
         /// Fake endpoint for testing various parameters
 
-        func post(_ body: PostRequest) -> Request<Void> {
+        func post(_ body: PostRequest? = nil) -> Request<Void> {
             .post(path, body: body)
         }
 

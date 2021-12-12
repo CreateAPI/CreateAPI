@@ -280,6 +280,12 @@ struct Protocols: ExpressibleByArrayLiteral {
     }
 }
 
+extension JSONSchema {
+    var isOptional: Bool {
+        !self.required || self.nullable
+    }
+}
+
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 

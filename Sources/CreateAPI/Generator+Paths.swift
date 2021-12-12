@@ -228,7 +228,7 @@ extension Generator {
                 if let value = requestBody.nested {
                     nested.append(value)
                 }
-                parameters.append("_ body: \(requestBody.type)")
+                parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
                 call.append("body: body")
             }
         }
@@ -349,7 +349,7 @@ extension Generator {
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                 setNeedsEncodable(for: type.type)
-                return GeneratedType(type: type.type, nested: type.nested)
+                return GeneratedType(type: type.type, nested: type.nested, isOptional: schema.isOptional)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
             }
@@ -370,11 +370,11 @@ extension Generator {
                 case .a(let reference):
                     let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
                     setNeedsEncodable(for: type.type)
-                    return GeneratedType(type: type.type, nested: type.nested)
+                    return GeneratedType(type: type.type, nested: type.nested, isOptional: !scheme.required)
                 case .b(let schema):
                     let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                     setNeedsEncodable(for: type.type)
-                    return GeneratedType(type: type.type, nested: type.nested)
+                    return GeneratedType(type: type.type, nested: type.nested, isOptional: !scheme.required)
                 default:
                     throw GeneratorError("Response not handled")
                 }
@@ -398,6 +398,7 @@ extension Generator {
     private struct GeneratedType {
         var type: TypeName
         var nested: String?
+        var isOptional = false
     }
 
     // TODO: application/pdf and other binary files
