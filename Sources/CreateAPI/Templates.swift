@@ -271,27 +271,27 @@ final class Templates {
         
         var title = metadata.title ?? ""
         var description = metadata.description ?? ""
-        if title == description && options.addTitle && options.addDescription {
+        if title == description && options.isAddingTitles && options.isAddingDescription {
             description = ""
         }
         if title.components(separatedBy: .whitespaces).joined(separator: "").caseInsensitiveCompare(name) == .orderedSame {
             title = ""
         }
         
-        if options.addTitle, !title.isEmpty {
-            let title = options.capitilizeTitle ? title.capitalizingFirstLetter() : title
+        if options.isAddingTitles, !title.isEmpty {
+            let title = options.isCapitalizationEnabled ? title.capitalizingFirstLetter() : title
             output += "/// \(title)\n"
         }
-        if options.addDescription, !description.isEmpty, description != metadata.title {
+        if options.isAddingDescription, !description.isEmpty, description != metadata.title {
             if !output.isEmpty {
                 output += "///\n"
             }
-            let description = options.capitilizeDescription ? description.capitalizingFirstLetter() : description
+            let description = options.isCapitalizationEnabled ? description.capitalizingFirstLetter() : description
             for line in description.lines {
                 output += "/// \(line)\n"
             }
         }
-        if options.addExamples, let example = metadata.example?.value {
+        if options.isAddingExamples, let example = metadata.example?.value {
             let value: String
             if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
@@ -362,9 +362,9 @@ final class Templates {
             name = PropertyName(String(property.key.dropFirst(2)), options: options).rawValue
         }
         var output = ""
-        if options.comments.isEnabled, options.comments.addDescription,
+        if options.comments.isEnabled, options.comments.isAddingDescription,
            let description = header.description, !description.isEmpty {
-            let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
+            let description = options.comments.isCapitalizationEnabled ? description.capitalizingFirstLetter() : description
             for line in description.lines {
                 output += "/// \(line)\n"
             }

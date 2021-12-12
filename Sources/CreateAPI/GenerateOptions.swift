@@ -50,22 +50,19 @@ final class GenerateOptions {
     
     struct Comments {
         var isEnabled: Bool
-        var addTitle: Bool
-        var addDescription: Bool
-        var addExamples: Bool
+        var isAddingTitles: Bool
+        var isAddingDescription: Bool
+        var isAddingExamples: Bool
         var isAddingExternalDocumentation: Bool
-        // TODO: Add a single option intead and applied to "summary" and "documentation"
-        var capitilizeTitle: Bool
-        var capitilizeDescription: Bool
+        var isCapitalizationEnabled: Bool
         
         init(_ comments: GenerateOptionsScheme.Comments?) {
             self.isEnabled = comments?.isEnabled ?? true
-            self.addTitle = comments?.addTitle ?? true
-            self.addDescription = comments?.addDescription ?? true
-            self.addExamples = comments?.addExamples ?? true
+            self.isAddingTitles = comments?.isAddingTitles ?? true
+            self.isAddingDescription = comments?.isAddingDescription ?? true
+            self.isAddingExamples = comments?.isAddingExamples ?? true
             self.isAddingExternalDocumentation = comments?.isAddingExternalDocumentation ?? true
-            self.capitilizeTitle = comments?.capitilizeTitle ?? true
-            self.capitilizeDescription = comments?.capitilizeDescription ?? true
+            self.isCapitalizationEnabled = comments?.isCapitalizationEnabled ?? true
         }
     }
     
@@ -179,12 +176,11 @@ final class GenerateOptionsScheme: Decodable {
     
     struct Comments: Decodable {
         var isEnabled: Bool?
-        var addTitle: Bool?
-        var addDescription: Bool?
-        var addExamples: Bool?
+        var isAddingTitles: Bool?
+        var isAddingDescription: Bool?
+        var isAddingExamples: Bool?
         var isAddingExternalDocumentation: Bool?
-        var capitilizeTitle: Bool?
-        var capitilizeDescription: Bool?
+        var isCapitalizationEnabled: Bool?
     }
     
     struct Paths: Decodable {
