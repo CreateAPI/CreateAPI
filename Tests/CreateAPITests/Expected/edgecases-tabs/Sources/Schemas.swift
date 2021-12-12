@@ -316,6 +316,12 @@ public struct Dog: Codable {
 		self.animal = try Animal(from: decoder)
 		self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
 	}
+
+	public func encode(to encoder: Encoder) throws {
+		var values = encoder.container(keyedBy: StringCodingKey.self)
+		try values.encode(animal, forKey: "animal")
+		try values.encodeIfPresent(breed, forKey: "breed")
+	}
 }
 
 public struct Cat: Codable {
@@ -326,6 +332,12 @@ public struct Cat: Codable {
 		let values = try decoder.container(keyedBy: StringCodingKey.self)
 		self.animal = try Animal(from: decoder)
 		self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
+	}
+
+	public func encode(to encoder: Encoder) throws {
+		var values = encoder.container(keyedBy: StringCodingKey.self)
+		try values.encode(animal, forKey: "animal")
+		try values.encodeIfPresent(isDeclawed, forKey: "declawed")
 	}
 }
 

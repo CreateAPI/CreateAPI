@@ -316,6 +316,12 @@ import Foundation
         self.animal = try Animal(from: decoder)
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
     }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(animal, forKey: "animal")
+        try values.encodeIfPresent(breed, forKey: "breed")
+    }
 }
 
  struct Cat: Codable {
@@ -326,6 +332,12 @@ import Foundation
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
         self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(animal, forKey: "animal")
+        try values.encodeIfPresent(isDeclawed, forKey: "declawed")
     }
 }
 

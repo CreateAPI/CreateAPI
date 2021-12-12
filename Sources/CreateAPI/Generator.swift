@@ -482,7 +482,6 @@ extension Generator {
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
-        var protocols = getProtocols(for: name, context: context)
         var contents: [String] = []
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -490,6 +489,7 @@ extension Generator {
         }
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
+        let protocols = getProtocols(for: name, context: context)
         if protocols.contains("Codable") || protocols.contains("Decodable") {
             contents.append(templates.initFromDecoderAnyOf(properties: properties))
         }
@@ -511,8 +511,6 @@ extension Generator {
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }
         }
-        let protocols = getProtocols(for: name, context: context)
-
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
@@ -524,8 +522,13 @@ extension Generator {
                 return templates.decode(property: $0)
             }
         }.joined(separator: "\n")
-        contents.append(templates.initFromDecoder(contents: decoderContents))
-        
+        let protocols = getProtocols(for: name, context: context)
+        if protocols.contains("Codable") || protocols.contains("Decodable") {
+            contents.append(templates.initFromDecoder(contents: decoderContents))
+        }
+        if protocols.contains("Codable") || protocols.contains("Encodable") {
+            contents.append(templates.encode(properties: properties))
+        }
         return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
