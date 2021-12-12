@@ -634,6 +634,8 @@ struct Property {
 struct Metadata {
     var title: String?
     var description: String?
+    var externalDocsDescription: String?
+    var externalDocsURL: URL?
     var example: AnyCodable?
     var isDeprecated: Bool
     
@@ -641,6 +643,17 @@ struct Metadata {
         self.title = schema?.title
         self.description = schema?.description
         self.example = schema?.example
+        self.externalDocsDescription = schema?.externalDocs?.description
+        self.externalDocsURL = schema?.externalDocs?.url
         self.isDeprecated = schema?.deprecated ?? false
+    }
+    
+    init(_ operation: OpenAPI.Operation) {
+        self.title = operation.summary
+        self.description = operation.description
+        self.example = nil
+        self.externalDocsDescription = operation.externalDocs?.description
+        self.externalDocsURL = operation.externalDocs?.url
+        self.isDeprecated = operation.deprecated
     }
 }

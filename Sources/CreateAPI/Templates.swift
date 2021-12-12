@@ -314,6 +314,16 @@ final class Templates {
                 }
             }
         }
+        if options.isAddingExternalDocumentation, let docsURL = metadata.externalDocsURL {
+            if !output.isEmpty {
+                output += "///\n"
+            }
+            // I tried to use `seealso`, but Xcode doesn't render it
+            output += "/// [\(metadata.externalDocsDescription ?? "External Documentation")](\(docsURL.absoluteString))\n"
+        }
+        if self.options.isAddingDeprecations, metadata.isDeprecated {
+            output += deprecated
+        }
         return output
     }
     

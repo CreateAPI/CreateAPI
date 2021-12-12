@@ -121,7 +121,7 @@ extension Paths.Pet.WithPetId {
         /// Path: `/pet/{petId}/uploadImage`
         public let path: String
 
-        /// uploads an image
+        /// Uploads an image
         public func post(_ body: PostRequest) -> Request<edgecases_disable_acronyms.ApiResponse> {
             .post(path, body: body)
         }
@@ -363,8 +363,6 @@ extension Paths {
         public let path: String
 
         /// To test enum parameters
-        ///
-        /// To test enum parameters
         public func get(parameters: GetParameters) -> Request<Void> {
             .get(path, query: parameters.asQuery())
         }
@@ -384,10 +382,7 @@ extension Paths {
         }
 
         /// Fake endpoint for testing various parameters
-        /// 
-        ///
-        /// Fake endpoint for testing various parameters
-        /// 
+
         public func post(_ body: PostRequest) -> Request<Void> {
             .post(path, body: body)
         }
@@ -458,8 +453,6 @@ extension Paths {
             }
         }
 
-        /// To test "client" model
-        ///
         /// To test "client" model
         public func patch(_ body: edgecases_disable_acronyms.Client) -> Request<edgecases_disable_acronyms.Client> {
             .patch(path, body: body)

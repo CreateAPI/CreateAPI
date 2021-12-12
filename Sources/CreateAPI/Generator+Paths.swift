@@ -201,34 +201,7 @@ extension Generator {
             responseType = "Void"
         }
         
-        var output = ""
-        if options.comments.isEnabled {
-            if options.comments.addSummary, let summary = operation.summary, !summary.isEmpty {
-                for line in summary.lines {
-                    output += "/// \(line)\n"
-                }
-            }
-            // TODO: Reuse this code (move to Templates)
-            if options.comments.addDescription, let description = operation.description, !description.isEmpty {
-                if !output.isEmpty {
-                    output += "///\n"
-                }
-                let description = options.comments.capitilizeDescription ? description.capitalizingFirstLetter() : description
-                for line in description.lines {
-                    output += "/// \(line)\n"
-                }
-            }
-            if options.comments.isAddingExternalDocumentation, let docs = operation.externalDocs {
-                if !output.isEmpty {
-                    output += "///\n"
-                }
-                // I tried to use `seealso`, but Xcode doesn't render it
-                output += "/// [\(docs.description ?? "External Documentation")](\(docs.url.absoluteString))\n"
-            }
-        }
-        if options.isAddingDeprecations, operation.deprecated {
-            output += templates.deprecated
-        }
+        var output = templates.comments(for: .init(operation), name: "")
 
         var parameters: [String] = []
         var call: [String] = ["path"]
