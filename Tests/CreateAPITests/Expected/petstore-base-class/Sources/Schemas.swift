@@ -8,7 +8,7 @@ import Foundation
 /// A pet title
 ///
 /// A pet description
-public final class Pet: Codable, NSObject {
+public final class Pet: NSObject, Codable {
     public var id: Int
     /// Example: Buddy
     public var name: String
@@ -35,7 +35,7 @@ public final class Pet: Codable, NSObject {
     }
 }
 
-public final class Store: Codable, NSObject {
+public final class Store: NSObject, Codable {
     public var pets: [Pet]
 
     public init(pets: [Pet]) {
@@ -53,7 +53,7 @@ public final class Store: Codable, NSObject {
     }
 }
 
-public final class Error: Codable, NSObject {
+public final class Error: NSObject, Codable {
     public var code: Int
     public var message: String
 

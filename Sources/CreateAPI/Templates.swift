@@ -50,8 +50,8 @@ final class Templates {
         let type = isStruct ? "struct" : (options.schemes.isMakingClassesFinal ? "final class" : "class")
         let lhs = [options.access, type, name.rawValue]
             .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.schemes.baseClass] + protocols.rawValue)
-            .compactMap { $0 }.sorted().joined(separator: ", ")
+        let rhs = ([isStruct ? nil : options.schemes.baseClass] + protocols.sorted())
+            .compactMap { $0 }.joined(separator: ", ")
 
         let declaration = rhs.isEmpty ? lhs : "\(lhs): \(rhs)"
         
