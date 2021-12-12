@@ -19,6 +19,7 @@ import GrammaticalNumber
 //    - deprecated
 //    - path-level parameters
 //    - common parameters in components (inline?)
+// TODO: Improve how Patch parameters are generated
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
 // TODO: Parse in: path parameters and support types other than just String
