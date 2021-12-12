@@ -4581,12 +4581,12 @@ public struct GistSimple: Codable {
     public var files: [String: FilesItem]?
     /// Gist
     public var forkOf: ForkOf?
-    @available(*, deprecated, message: "Deprecated")
+    /// - warning: Deprecated.
     public var forks: [Fork]?
     public var forksURL: String?
     public var gitPullURL: String?
     public var gitPushURL: String?
-    @available(*, deprecated, message: "Deprecated")
+    /// - warning: Deprecated.
     public var history: [GistHistory]?
     public var htmlURL: String?
     public var id: String?

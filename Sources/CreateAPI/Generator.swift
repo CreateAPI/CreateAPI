@@ -638,6 +638,7 @@ struct Metadata {
     var externalDocsURL: URL?
     var example: AnyCodable?
     var isDeprecated: Bool
+    var isProperty: Bool
     
     init(_ schema: JSONSchemaContext?) {
         self.title = schema?.title
@@ -646,6 +647,7 @@ struct Metadata {
         self.externalDocsDescription = schema?.externalDocs?.description
         self.externalDocsURL = schema?.externalDocs?.url
         self.isDeprecated = schema?.deprecated ?? false
+        self.isProperty = true
     }
     
     init(_ operation: OpenAPI.Operation) {
@@ -655,5 +657,6 @@ struct Metadata {
         self.externalDocsDescription = operation.externalDocs?.description
         self.externalDocsURL = operation.externalDocs?.url
         self.isDeprecated = operation.deprecated
+        self.isProperty = false
     }
 }

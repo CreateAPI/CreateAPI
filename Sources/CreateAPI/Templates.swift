@@ -322,13 +322,22 @@ final class Templates {
             output += "/// [\(metadata.externalDocsDescription ?? "External Documentation")](\(docsURL.absoluteString))\n"
         }
         if self.options.isAddingDeprecations, metadata.isDeprecated {
-            output += deprecated
+            // We can't mark properties deprecated because then initialier and
+            // encoder will start throwing warnings.
+            if metadata.isProperty {
+                if !output.isEmpty {
+                    output += "///\n"
+                }
+                output += "/// - warning: Deprecated.\n"
+            } else {
+                output += deprecated
+            }
         }
         return output
     }
     
     // MARK: Method
-    
+
     func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
         """
         \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
