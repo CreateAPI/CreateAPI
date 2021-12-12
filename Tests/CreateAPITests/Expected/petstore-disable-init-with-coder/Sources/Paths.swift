@@ -19,8 +19,8 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(parameters: GetParameters) -> Request<[petstore_disable_init_with_coder.Pet]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[petstore_disable_init_with_coder.Pet]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {

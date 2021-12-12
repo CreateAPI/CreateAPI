@@ -19,8 +19,8 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(parameters: GetParameters) -> Request<[petstore_operation_id.Pet]> {
-            .get(path, query: parameters.asQuery()).id("listPets")
+        public func get(parameters: GetParameters? = nil) -> Request<[petstore_operation_id.Pet]> {
+            .get(path, query: parameters?.asQuery()).id("listPets")
         }
 
         public enum GetResponseHeaders {

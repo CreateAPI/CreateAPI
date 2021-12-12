@@ -363,8 +363,8 @@ extension Paths {
         let path: String
 
         /// To test enum parameters
-        func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+        func get(parameters: GetParameters? = nil) -> Request<Void> {
+            .get(path, query: parameters?.asQuery())
         }
 
          struct GetParameters {

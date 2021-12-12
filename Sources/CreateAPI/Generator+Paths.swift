@@ -218,8 +218,9 @@ extension Generator {
             let initializer = templates.initializer(properties: properties)
             let toQuery = templates.toQueryParameters(properties: properties)
             nested.append(templates.entity(name: type, contents: [props, initializer, toQuery], protocols: []))
-            parameters.append("parameters: \(type)")
-            call.append("query: parameters.asQuery()")
+            let isOptional = query.allSatisfy { $0.isOptional }
+            parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
+            call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
         }
         
         if let requestBody = operation.requestBody, method != "get" {

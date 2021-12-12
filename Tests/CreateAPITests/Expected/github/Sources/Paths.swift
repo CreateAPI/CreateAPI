@@ -319,8 +319,8 @@ extension Paths.App.Hook {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook)
-        public func get(parameters: GetParameters) -> Request<[github.HookDeliveryItem]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.HookDeliveryItem]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -402,8 +402,8 @@ extension Paths.App {
         /// The permissions the installation has are included under the `permissions` key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)
-        public func get(parameters: GetParameters) -> Request<[github.Installation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Installation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -590,8 +590,8 @@ extension Paths.Applications {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.ApplicationGrant]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ApplicationGrant]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -902,8 +902,8 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.Authorization]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Authorization]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -1392,8 +1392,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -1538,8 +1538,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -1712,8 +1712,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -1825,8 +1825,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -1943,8 +1943,8 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2116,8 +2116,8 @@ extension Paths.Enterprises.WithEnterprise {
         /// Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<[github.AuditLogEvent]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.AuditLogEvent]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -2209,8 +2209,8 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// Each distinct user login across all repositories is counted as a single Advanced Security seat, so the total_advanced_security_committers is not the sum of active_users for each repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise)
-        public func get(parameters: GetParameters) -> Request<github.AdvancedSecurityActiveCommitters> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.AdvancedSecurityActiveCommitters> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -2294,8 +2294,8 @@ extension Paths {
         /// We delay the public events feed by five minutes, which means the most recent event returned by the public events API actually occurred at least five minutes ago.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -2361,8 +2361,8 @@ extension Paths {
         /// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.BaseGist]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.BaseGist]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2464,8 +2464,8 @@ extension Paths.Gists {
         /// Note: With [pagination](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination), you can fetch up to 3000 gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-public-gists)
-        public func get(parameters: GetParameters) -> Request<[github.BaseGist]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.BaseGist]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2508,8 +2508,8 @@ extension Paths.Gists {
         /// List the authenticated user's starred gists:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-starred-gists)
-        public func get(parameters: GetParameters) -> Request<[github.BaseGist]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.BaseGist]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2621,8 +2621,8 @@ extension Paths.Gists.WithGistID {
         /// List gist comments
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-comments)
-        public func get(parameters: GetParameters) -> Request<[github.GistComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GistComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2735,8 +2735,8 @@ extension Paths.Gists.WithGistID {
         /// List gist commits
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-commits)
-        public func get(parameters: GetParameters) -> Request<[github.GistCommit]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GistCommit]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2774,8 +2774,8 @@ extension Paths.Gists.WithGistID {
         /// List gist forks
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-forks)
-        public func get(parameters: GetParameters) -> Request<[github.GistSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GistSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -2945,8 +2945,8 @@ extension Paths.Installation {
         /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3038,8 +3038,8 @@ extension Paths {
         /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Issue]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Issue]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3095,8 +3095,8 @@ extension Paths {
         /// Get all commonly used licenses
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses)
-        public func get(parameters: GetParameters) -> Request<[github.LicenseSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.LicenseSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -3225,8 +3225,8 @@ extension Paths.MarketplaceListing {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans)
-        public func get(parameters: GetParameters) -> Request<[github.MarketplaceListingPlan]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MarketplaceListingPlan]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3279,8 +3279,8 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan)
-        public func get(parameters: GetParameters) -> Request<[github.MarketplacePurchase]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MarketplacePurchase]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3366,8 +3366,8 @@ extension Paths.MarketplaceListing.Stubbed {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans-stubbed)
-        public func get(parameters: GetParameters) -> Request<[github.MarketplaceListingPlan]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MarketplaceListingPlan]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3420,8 +3420,8 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed)
-        public func get(parameters: GetParameters) -> Request<[github.MarketplacePurchase]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MarketplacePurchase]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3514,8 +3514,8 @@ extension Paths.Networks.WithOwner.WithRepo {
         /// List public events for a network of repositories
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -3551,8 +3551,8 @@ extension Paths {
         /// List all notifications for the current user, sorted by most recently updated.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Thread]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Thread]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -3753,8 +3753,8 @@ extension Paths {
         /// **Note:** Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of organizations.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -4091,8 +4091,8 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -4243,8 +4243,8 @@ extension Paths.Orgs.WithOrg.Actions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -4429,8 +4429,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -4553,8 +4553,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -4679,8 +4679,8 @@ extension Paths.Orgs.WithOrg.Actions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -4852,8 +4852,8 @@ extension Paths.Orgs.WithOrg.Actions {
         /// Lists all secrets available in an organization without revealing their encrypted values. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-organization-secrets)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -5080,8 +5080,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -5187,8 +5187,8 @@ extension Paths.Orgs.WithOrg {
         /// To use this endpoint, you must be an organization owner, and you must use an access token with the `admin:org` scope. GitHub Apps must have the `organization_administration` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-audit-log)
-        public func get(parameters: GetParameters) -> Request<[github.AuditLogEvent]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.AuditLogEvent]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -5324,8 +5324,8 @@ extension Paths.Orgs.WithOrg {
         /// List public organization events
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-organization-events)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -5396,8 +5396,8 @@ extension Paths.Orgs.WithOrg {
         /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<github.ExternalGroups> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ExternalGroups> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -5440,8 +5440,8 @@ extension Paths.Orgs.WithOrg {
         /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation failed and the reason for the failure.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-failed-organization-invitations)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -5479,8 +5479,8 @@ extension Paths.Orgs.WithOrg {
         /// List organization webhooks
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-webhooks)
-        public func get(parameters: GetParameters) -> Request<[github.OrgHook]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrgHook]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -5759,8 +5759,8 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Returns a list of webhook deliveries for a webhook configured in an organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-deliveries-for-an-organization-webhook)
-        public func get(parameters: GetParameters) -> Request<[github.HookDeliveryItem]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.HookDeliveryItem]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -5878,8 +5878,8 @@ extension Paths.Orgs.WithOrg {
         /// Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on repositories in the organization. You must be an organization owner with `admin:read` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-app-installations-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -5985,8 +5985,8 @@ extension Paths.Orgs.WithOrg {
         /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6098,8 +6098,8 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
         /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated user must be an organization owner.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-invitation-teams)
-        public func get(parameters: GetParameters) -> Request<[github.Team]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Team]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6144,8 +6144,8 @@ extension Paths.Orgs.WithOrg {
         /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Issue]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Issue]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6191,8 +6191,8 @@ extension Paths.Orgs.WithOrg {
         /// List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-members)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6344,8 +6344,8 @@ extension Paths.Orgs.WithOrg {
         /// Lists the most recent migrations.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-organization-migrations)
-        public func get(parameters: GetParameters) -> Request<[github.Migration]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Migration]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6537,8 +6537,8 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         /// List all the repositories for this organization migration.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-in-an-organization-migration)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6578,8 +6578,8 @@ extension Paths.Orgs.WithOrg {
         /// List all users who are outside collaborators of an organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6726,8 +6726,8 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-an-organization)
-        public func post(parameters: PostParameters) -> Request<Void> {
-            .post(path, query: parameters.asQuery())
+        public func post(parameters: PostParameters? = nil) -> Request<Void> {
+            .post(path, query: parameters?.asQuery())
         }
 
         public struct PostParameters {
@@ -6763,8 +6763,8 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization)
-        public func get(parameters: GetParameters) -> Request<[github.PackageVersion]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PackageVersion]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -6864,8 +6864,8 @@ extension Paths.Orgs.WithOrg {
         /// Lists the projects in an organization. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-organization-projects)
-        public func get(parameters: GetParameters) -> Request<[github.Project]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Project]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -6932,8 +6932,8 @@ extension Paths.Orgs.WithOrg {
         /// Members of an organization can choose to have their membership publicized or not.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-public-organization-members)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7009,8 +7009,8 @@ extension Paths.Orgs.WithOrg {
         /// Lists repositories for the specified organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-organization-repositories)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7173,8 +7173,8 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-by-organization)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationSecretScanningAlert]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationSecretScanningAlert]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7268,8 +7268,8 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// If this organization defers to an enterprise for billing, the total_advanced_security_committers returned from the organization API may include some users that are in more than one organization, so they will only consume a single Advanced Security seat at the enterprise level.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<github.AdvancedSecurityActiveCommitters> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.AdvancedSecurityActiveCommitters> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -7366,8 +7366,8 @@ extension Paths.Orgs.WithOrg.TeamSync {
         /// List IdP groups available in an organization. You can limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<github.GroupMapping> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.GroupMapping> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7407,8 +7407,8 @@ extension Paths.Orgs.WithOrg {
         /// Lists all teams in an organization that are visible to the authenticated user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams)
-        public func get(parameters: GetParameters) -> Request<[github.Team]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Team]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7637,8 +7637,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions)
-        public func get(parameters: GetParameters) -> Request<[github.TeamDiscussion]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamDiscussion]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7780,8 +7780,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments)
-        public func get(parameters: GetParameters) -> Request<[github.TeamDiscussionComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamDiscussionComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -7908,8 +7908,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8010,8 +8010,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8159,8 +8159,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8202,8 +8202,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// To list members in a team, the team must be visible to the authenticated user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8343,8 +8343,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/projects`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-projects)
-        public func get(parameters: GetParameters) -> Request<[github.TeamProject]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamProject]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8459,8 +8459,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-repositories)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8686,8 +8686,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-child-teams)
-        public func get(parameters: GetParameters) -> Request<[github.Team]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Team]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -8900,8 +8900,8 @@ extension Paths.Projects.Columns.WithColumnID {
         /// List project cards
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-cards)
-        public func get(parameters: GetParameters) -> Request<[github.ProjectCard]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ProjectCard]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -9115,8 +9115,8 @@ extension Paths.Projects.WithProjectID {
         /// Lists the collaborators for an organization project. For a project, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners. You must be an organization owner or a project `admin` to list collaborators.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-collaborators)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -9228,8 +9228,8 @@ extension Paths.Projects.WithProjectID {
         /// List project columns
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-columns)
-        public func get(parameters: GetParameters) -> Request<[github.ProjectColumn]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ProjectColumn]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -9567,8 +9567,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Lists all artifacts for a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-artifacts-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -9821,8 +9821,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Lists all self-hosted runners configured in a repository. You must authenticate using an access token with the `repo` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -9995,8 +9995,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10067,8 +10067,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run)
-        public func get(parameters: GetParameters) -> Request<github.WorkflowRun> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.WorkflowRun> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -10154,8 +10154,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-run-artifacts)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10225,8 +10225,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         /// use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt)
-        public func get(parameters: GetParameters) -> Request<github.WorkflowRun> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.WorkflowRun> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -10259,8 +10259,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         /// Lists jobs for a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10359,8 +10359,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Lists jobs for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10565,8 +10565,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Lists all secrets available in a repository without revealing their encrypted values. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-secrets)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10772,8 +10772,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// Lists the workflows in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-workflows)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -10937,8 +10937,8 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -11031,8 +11031,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Lists the [available assignees](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/) for issues in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-assignees)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -11098,8 +11098,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Information about autolinks are only available to repository administrators.
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#list-autolinks)
-        public func get(parameters: GetParameters) -> Request<[github.Autolink]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Autolink]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -11223,8 +11223,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List branches
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches)
-        public func get(parameters: GetParameters) -> Request<[github.ShortBranch]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ShortBranch]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -12882,8 +12882,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         /// Lists annotations for a check run using the annotation `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get annotations for a check run. OAuth Apps and authenticated users must have the `repo` scope to get annotations for a check run in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-run-annotations)
-        public func get(parameters: GetParameters) -> Request<[github.CheckAnnotation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CheckAnnotation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -13057,8 +13057,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         /// Lists check runs for a check suite using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -13158,8 +13158,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// (if you used `ref` in the request).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.CodeScanningAlertItems]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CodeScanningAlertItems]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -13254,8 +13254,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         /// Lists all instances of the specified code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
-        public func get(parameters: GetParameters) -> Request<[github.CodeScanningAlertInstance]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CodeScanningAlertInstance]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -13309,8 +13309,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.CodeScanningAnalysis]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CodeScanningAnalysis]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -13449,8 +13449,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// The above process assumes that you want to remove all trace of the tool's analyses from the GitHub user interface, for the specified repository, and it therefore uses the `confirm_delete_url` value. Alternatively, you could use the `next_analysis_url` value, which would leave the last analysis in each set undeleted to avoid removing a tool's analysis entirely.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
-        public func delete(parameters: DeleteParameters) -> Request<github.CodeScanningAnalysisDeletion> {
-            .delete(path, query: parameters.asQuery())
+        public func delete(parameters: DeleteParameters? = nil) -> Request<github.CodeScanningAnalysisDeletion> {
+            .delete(path, query: parameters?.asQuery())
         }
 
         public struct DeleteParameters {
@@ -13577,8 +13577,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -13725,8 +13725,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// You must have push access to the repository in order to list collaborators.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-collaborators)
-        public func get(parameters: GetParameters) -> Request<[github.Collaborator]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Collaborator]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -13875,8 +13875,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Comments are ordered by ascending ID.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.CommitComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CommitComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -13962,8 +13962,8 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         /// List the reactions to a [commit comment](https://docs.github.com/rest/reference/repos#comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14087,8 +14087,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commits)
-        public func get(parameters: GetParameters) -> Request<[github.Commit]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Commit]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14176,8 +14176,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// Use the `:commit_sha` to specify the commit that will have its comments listed.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments)
-        public func get(parameters: GetParameters) -> Request<[github.CommitComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CommitComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14258,8 +14258,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// Lists the merged pull request that introduced the commit to the repository. If the commit is not present in the default branch, additionally returns open pull requests associated with the commit. The results may include open and closed pull requests. Additional preview headers may be required to see certain details for associated pull requests, such as whether a pull request is in a draft state. For more information about previews that might affect this endpoint, see the [List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-pull-requests-associated-with-a-commit)
-        public func get(parameters: GetParameters) -> Request<[github.PullRequestSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PullRequestSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14334,8 +14334,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit)
-        public func get(parameters: GetParameters) -> Request<github.Commit> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.Commit> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -14373,8 +14373,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14438,8 +14438,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to list check suites. OAuth Apps and authenticated users must have the `repo` scope to get check suites in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14508,8 +14508,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// *   **success** if the latest status for all contexts is `success`
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference)
-        public func get(parameters: GetParameters) -> Request<github.CombinedCommitStatus> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.CombinedCommitStatus> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -14547,8 +14547,8 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// This resource is also available via a legacy route: `GET /repos/:owner/:repo/statuses/:ref`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-statuses-for-a-reference)
-        public func get(parameters: GetParameters) -> Request<[github.Status]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Status]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -14680,8 +14680,8 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#compare-two-commits)
-        public func get(parameters: GetParameters) -> Request<github.CommitComparison> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.CommitComparison> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -14827,8 +14827,8 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// github.com URLs (`html_url` and `_links["html"]`) will have null values.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-content)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponse: Decodable {
@@ -15057,8 +15057,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// GitHub identifies contributors by author email address. This endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will appear as anonymous contributors without associated GitHub user information.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-contributors)
-        public func get(parameters: GetParameters) -> Request<[github.Contributor]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Contributor]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -15101,8 +15101,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Simple filtering of deployments is available via query parameters:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployments)
-        public func get(parameters: GetParameters) -> Request<[github.Deployment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Deployment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -15299,8 +15299,8 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         /// Users with pull access can view deployment statuses for a deployment:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployment-statuses)
-        public func get(parameters: GetParameters) -> Request<[github.DeploymentStatus]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.DeploymentStatus]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -15605,8 +15605,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List repository events
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-events)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -15640,8 +15640,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List forks
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-forks)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -15978,8 +15978,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         /// If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#list-matching-references)
-        public func get(parameters: GetParameters) -> Request<[github.GitRef]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GitRef]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -16399,8 +16399,8 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         /// If `truncated` is `true` in the response then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use the non-recursive method of fetching trees, and fetch one sub-tree at a time.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
-        public func get(parameters: GetParameters) -> Request<github.GitTree> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.GitTree> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -16431,8 +16431,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List repository webhooks
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-webhooks)
-        public func get(parameters: GetParameters) -> Request<[github.Hook]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Hook]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -16724,8 +16724,8 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Returns a list of webhook deliveries for a webhook configured in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deliveries-for-a-repository-webhook)
-        public func get(parameters: GetParameters) -> Request<[github.HookDeliveryItem]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.HookDeliveryItem]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -16994,8 +16994,8 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         /// This endpoint and the [Map a commit author](https://docs.github.com/rest/reference/migrations#map-a-commit-author) endpoint allow you to provide correct Git author information.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-commit-authors)
-        public func get(parameters: GetParameters) -> Request<[github.PorterAuthor]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PorterAuthor]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -17198,8 +17198,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// When authenticating as a user with admin rights to a repository, this endpoint will list all currently open repository invitations.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations)
-        public func get(parameters: GetParameters) -> Request<[github.RepositoryInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.RepositoryInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17292,8 +17292,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-repository-issues)
-        public func get(parameters: GetParameters) -> Request<[github.Issue]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Issue]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17460,8 +17460,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// By default, Issue Comments are ordered by ascending ID.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.IssueComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.IssueComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17550,8 +17550,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         /// List the reactions to an [issue comment](https://docs.github.com/rest/reference/issues#comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17646,8 +17646,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// List issue events for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.IssueEvent]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.IssueEvent]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17905,8 +17905,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Issue Comments are ordered by ascending ID.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments)
-        public func get(parameters: GetParameters) -> Request<[github.IssueComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.IssueComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -17974,8 +17974,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// List issue events
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events)
-        public func get(parameters: GetParameters) -> Request<[github.IssueEventForIssue]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.IssueEventForIssue]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18013,8 +18013,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// List labels for an issue
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-an-issue)
-        public func get(parameters: GetParameters) -> Request<[github.Label]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Label]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18302,8 +18302,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// List the reactions to an [issue](https://docs.github.com/rest/reference/issues).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18398,8 +18398,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// List timeline events for an issue
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue)
-        public func get(parameters: GetParameters) -> Request<[github.TimelineIssueEvents]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TimelineIssueEvents]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18437,8 +18437,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List deploy keys
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deploy-keys)
-        public func get(parameters: GetParameters) -> Request<[github.DeployKey]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.DeployKey]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18540,8 +18540,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List labels for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.Label]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Label]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18813,8 +18813,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List milestones
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-milestones)
-        public func get(parameters: GetParameters) -> Request<[github.Milestone]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Milestone]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -18959,8 +18959,8 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
         /// List labels for issues in a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone)
-        public func get(parameters: GetParameters) -> Request<[github.Label]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Label]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19000,8 +19000,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List all notifications for the current user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Thread]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Thread]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19240,8 +19240,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         /// List GitHub Pages builds
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-github-pages-builds)
-        public func get(parameters: GetParameters) -> Request<[github.PageBuild]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PageBuild]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19352,8 +19352,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Lists the projects in a repository. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-repository-projects)
-        public func get(parameters: GetParameters) -> Request<[github.Project]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Project]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19420,8 +19420,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests)
-        public func get(parameters: GetParameters) -> Request<[github.PullRequestSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PullRequestSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19523,8 +19523,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         /// Lists review comments for all pull requests in a repository. By default, review comments are in ascending order by ID.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.PullRequestReviewComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PullRequestReviewComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19619,8 +19619,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         /// List the reactions to a [pull request review comment](https://docs.github.com/rest/reference/pulls#review-comments).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -19842,8 +19842,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Lists all review comments for a pull request. By default, review comments are in ascending order by ID.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request)
-        public func get(parameters: GetParameters) -> Request<[github.PullRequestReviewComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PullRequestReviewComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20016,8 +20016,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Lists a maximum of 250 commits for a pull request. To receive a complete commit list for pull requests with more than 250 commits, use the [List commits](https://docs.github.com/rest/reference/repos#list-commits) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-commits-on-a-pull-request)
-        public func get(parameters: GetParameters) -> Request<[github.Commit]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Commit]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20057,8 +20057,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// **Note:** Responses include a maximum of 3000 files. The paginated response returns 30 files per page by default.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests-files)
-        public func get(parameters: GetParameters) -> Request<[github.DiffEntry]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.DiffEntry]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20156,8 +20156,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// List requested reviewers for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
-        public func get(parameters: GetParameters) -> Request<github.PullRequestReviewRequest> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.PullRequestReviewRequest> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20268,8 +20268,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// The list of reviews returns in chronological order.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request)
-        public func get(parameters: GetParameters) -> Request<[github.PullRequestReview]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PullRequestReview]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20443,8 +20443,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// List comments for a specific pull request review.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review)
-        public func get(parameters: GetParameters) -> Request<[github.ReviewComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ReviewComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -20617,8 +20617,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-readme)
-        public func get(parameters: GetParameters) -> Request<github.ContentFile> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ContentFile> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -20653,8 +20653,8 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
-        public func get(parameters: GetParameters) -> Request<github.ContentFile> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ContentFile> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -20689,8 +20689,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-releases)
-        public func get(parameters: GetParameters) -> Request<[github.Release]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Release]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21029,8 +21029,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// List release assets
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-release-assets)
-        public func get(parameters: GetParameters) -> Request<[github.ReleaseAsset]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.ReleaseAsset]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21170,8 +21170,8 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository)
-        public func get(parameters: GetParameters) -> Request<[github.SecretScanningAlert]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SecretScanningAlert]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -21266,8 +21266,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-stargazers)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21516,8 +21516,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Lists the people watching the specified repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-watchers)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21609,8 +21609,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List repository tags
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-tags)
-        public func get(parameters: GetParameters) -> Request<[github.Tag]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Tag]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21682,8 +21682,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// List repository teams
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-teams)
-        public func get(parameters: GetParameters) -> Request<[github.Team]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Team]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -21721,8 +21721,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get all repository topics
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
-        public func get(parameters: GetParameters) -> Request<github.Topic> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.Topic> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -22078,8 +22078,8 @@ extension Paths {
         /// - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-public-repositories)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -22149,8 +22149,8 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         /// Lists all secrets available in an environment without revealing their encrypted values. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-environment-secrets)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -22400,8 +22400,8 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<github.ScimGroupListEnterprise> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ScimGroupListEnterprise> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -22489,8 +22489,8 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
-        public func get(parameters: GetParameters) -> Request<github.ScimEnterpriseGroup> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ScimEnterpriseGroup> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -22653,8 +22653,8 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///    - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub enterprise, and the external identity `null` entry remains in place.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<github.ScimUserListEnterprise> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.ScimUserListEnterprise> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -23627,8 +23627,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.TeamDiscussion]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamDiscussion]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -23772,8 +23772,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.TeamDiscussionComment]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamDiscussionComment]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -23905,8 +23905,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -23987,8 +23987,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.Reaction]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Reaction]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24069,8 +24069,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24113,8 +24113,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24321,8 +24321,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-projects-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.TeamProject]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamProject]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24439,8 +24439,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-repositories-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24676,8 +24676,8 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-child-teams-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get(parameters: GetParameters) -> Request<[github.Team]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Team]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -24872,8 +24872,8 @@ extension Paths.User {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetResponse: Decodable {
@@ -25031,8 +25031,8 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `user` or `read:user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-secrets-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25526,8 +25526,8 @@ extension Paths.User {
         /// Lists all of your email addresses, and specifies which one is visible to the public. This endpoint is accessible with the `user:email` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Email]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Email]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25667,8 +25667,8 @@ extension Paths.User {
         /// Lists the people following the authenticated user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25708,8 +25708,8 @@ extension Paths.User {
         /// Lists the people who the authenticated user follows.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-the-authenticated-user-follows)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25787,8 +25787,8 @@ extension Paths.User {
         /// Lists the current user's GPG keys. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.GpgKey]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GpgKey]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25886,8 +25886,8 @@ extension Paths.User {
         /// You can find the permissions for the installation under the `permissions` key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -25960,8 +25960,8 @@ extension Paths.User.Installations.WithInstallationID {
         /// The access the user has to each repository is included in the hash under the `permissions` key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26108,8 +26108,8 @@ extension Paths.User {
         /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Issue]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Issue]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26155,8 +26155,8 @@ extension Paths.User {
         /// Lists the public SSH keys for the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Key]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Key]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26254,8 +26254,8 @@ extension Paths.User {
         /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.UserMarketplacePurchase]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.UserMarketplacePurchase]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26295,8 +26295,8 @@ extension Paths.User.MarketplacePurchases {
         /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed)
-        public func get(parameters: GetParameters) -> Request<[github.UserMarketplacePurchase]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.UserMarketplacePurchase]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26345,8 +26345,8 @@ extension Paths.User.Memberships {
         /// List organization memberships for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.OrgMembership]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrgMembership]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26430,8 +26430,8 @@ extension Paths.User {
         /// Lists all migrations a user has started.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-user-migrations)
-        public func get(parameters: GetParameters) -> Request<[github.Migration]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Migration]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26652,8 +26652,8 @@ extension Paths.User.Migrations.WithMigrationID {
         /// Lists all the repositories for this user migration.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26697,8 +26697,8 @@ extension Paths.User {
         /// This only lists organizations that your authorization allows you to operate on in some way (e.g., you can list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.). Therefore, this API requires at least `user` or `read:org` scope. OAuth requests with insufficient scope receive a `403 Forbidden` response.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -26813,8 +26813,8 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user)
-        public func post(parameters: PostParameters) -> Request<Void> {
-            .post(path, query: parameters.asQuery())
+        public func post(parameters: PostParameters? = nil) -> Request<Void> {
+            .post(path, query: parameters?.asQuery())
         }
 
         public struct PostParameters {
@@ -26850,8 +26850,8 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.PackageVersion]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.PackageVersion]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -26988,8 +26988,8 @@ extension Paths.User {
         /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Email]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Email]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27031,8 +27031,8 @@ extension Paths.User {
         /// The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Repository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Repository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -27205,8 +27205,8 @@ extension Paths.User {
         /// When authenticating as a user, this endpoint will list all currently open repository invitations for that user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.RepositoryInvitation]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.RepositoryInvitation]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27273,8 +27273,8 @@ extension Paths.User {
         /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Repository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Repository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27359,8 +27359,8 @@ extension Paths.User {
         /// Lists repositories the authenticated user is watching.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27400,8 +27400,8 @@ extension Paths.User {
         /// List all of the teams across all of the organizations to which the authenticated user belongs. This method requires `user`, `repo`, or `read:org` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/) when authenticating via [OAuth](https://docs.github.com/apps/building-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.TeamFull]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.TeamFull]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27443,8 +27443,8 @@ extension Paths {
         /// Note: Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of users.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-users)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27526,8 +27526,8 @@ extension Paths.Users.WithUsername {
         /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -27574,8 +27574,8 @@ extension Paths.Users.WithUsername.Events.Orgs {
         /// This is the user's organization dashboard. You must be authenticated as the user to view this.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -27609,8 +27609,8 @@ extension Paths.Users.WithUsername.Events {
         /// List public events for a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -27646,8 +27646,8 @@ extension Paths.Users.WithUsername {
         /// Lists the people following the specified user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27687,8 +27687,8 @@ extension Paths.Users.WithUsername {
         /// Lists the people who the specified user follows.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-a-user-follows)
-        public func get(parameters: GetParameters) -> Request<[github.SimpleUser]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.SimpleUser]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27746,8 +27746,8 @@ extension Paths.Users.WithUsername {
         /// Lists public gists for the specified user:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.BaseGist]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.BaseGist]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27790,8 +27790,8 @@ extension Paths.Users.WithUsername {
         /// Lists the GPG keys for a user. This information is accessible by anyone.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.GpgKey]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.GpgKey]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27838,8 +27838,8 @@ extension Paths.Users.WithUsername {
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user)
-        public func get(parameters: GetParameters) -> Request<github.Hovercard> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<github.Hovercard> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -27894,8 +27894,8 @@ extension Paths.Users.WithUsername {
         /// Lists the _verified_ public SSH keys for a user. This is accessible by anyone.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-keys-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.KeySimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.KeySimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -27937,8 +27937,8 @@ extension Paths.Users.WithUsername {
         /// This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.OrganizationSimple]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationSimple]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -28056,8 +28056,8 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user)
-        public func post(parameters: PostParameters) -> Request<Void> {
-            .post(path, query: parameters.asQuery())
+        public func post(parameters: PostParameters? = nil) -> Request<Void> {
+            .post(path, query: parameters?.asQuery())
         }
 
         public struct PostParameters {
@@ -28175,8 +28175,8 @@ extension Paths.Users.WithUsername {
         /// List user projects
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-user-projects)
-        public func get(parameters: GetParameters) -> Request<[github.Project]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Project]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -28216,8 +28216,8 @@ extension Paths.Users.WithUsername {
         /// These are events that you've received by watching repos and following users. If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-received-by-the-authenticated-user)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -28251,8 +28251,8 @@ extension Paths.Users.WithUsername.ReceivedEvents {
         /// List public events received by a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-received-by-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.Event]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.Event]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public struct GetParameters {
@@ -28288,8 +28288,8 @@ extension Paths.Users.WithUsername {
         /// Lists public repositories for the specified user. Note: For GitHub AE, this endpoint will list internal repositories for the specified user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -28425,8 +28425,8 @@ extension Paths.Users.WithUsername {
         /// You can also find out _when_ stars were created by passing the following custom [media type](https://docs.github.com/rest/overview/media-types/) via the `Accept` header:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user)
-        public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
@@ -28477,8 +28477,8 @@ extension Paths.Users.WithUsername {
         /// Lists repositories a user is watching.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-a-user)
-        public func get(parameters: GetParameters) -> Request<[github.MinimalRepository]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[github.MinimalRepository]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {

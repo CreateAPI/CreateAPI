@@ -18,8 +18,8 @@ extension Paths {
         /// Path: `/pets`
         public let path: String
 
-        public func get(parameters: GetParameters) -> Request<[petstore_disable_comments.Pet]> {
-            .get(path, query: parameters.asQuery())
+        public func get(parameters: GetParameters? = nil) -> Request<[petstore_disable_comments.Pet]> {
+            .get(path, query: parameters?.asQuery())
         }
 
         public enum GetResponseHeaders {
