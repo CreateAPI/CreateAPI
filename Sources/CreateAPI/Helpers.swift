@@ -234,6 +234,52 @@ struct ModuleName: CustomStringConvertible {
     }
 }
 
+struct Protocols: ExpressibleByArrayLiteral {
+    var rawValue: Set<String>
+    
+    init(_ rawValue: Set<String>) {
+        self.rawValue = rawValue
+    }
+    
+    init(arrayLiteral elements: String...) {
+        self.rawValue = Set(elements)
+    }
+    
+    var isDecodable: Bool {
+        rawValue.contains("Decodable") || rawValue.contains( "Codable")
+    }
+    
+    var isEncodable: Bool {
+        rawValue.contains("Encodable") || rawValue.contains( "Codable")
+    }
+    
+    mutating func removeDecodable() {
+        if rawValue.contains("Codable") {
+            rawValue.remove("Codable")
+            rawValue.insert("Encodable")
+        } else {
+            rawValue.remove("Decodable")
+        }
+    }
+    
+    mutating func removeEncodable() {
+        if rawValue.contains("Codable") {
+            rawValue.remove("Codable")
+            rawValue.insert("Decodable")
+        } else {
+            rawValue.remove("Encodable")
+        }
+    }
+    
+    mutating func insert(_ protocol: String) {
+        rawValue.insert(`protocol`)
+    }
+    
+    func sorted() -> [String] {
+        rawValue.sorted()
+    }
+}
+
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 

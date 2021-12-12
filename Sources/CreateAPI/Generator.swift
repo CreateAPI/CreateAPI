@@ -232,15 +232,13 @@ extension Generator {
         }
         
         let protocols = getProtocols(for: name, context: context)
-
-        if protocols.contains("Codable") || protocols.contains("Decodable") {
+        if protocols.isDecodable {
             // Generate init with cocde
             if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {
                 contents.append(templates.initFromDecoder(properties: properties))
             }
         }
-        
-        if protocols.contains("Codable") || protocols.contains("Encodable") {
+        if protocols.isEncodable {
             if !properties.isEmpty && options.schemes.isGeneratingDecode {
                 contents.append(templates.encode(properties: properties))
             }
@@ -269,26 +267,12 @@ extension Generator {
     }
     
     // TODO: Simplify
-    private func getProtocols(for type: TypeName, context: Context) -> Set<String> {
-        var protocols = options.schemes.adoptedProtocols
-        let isDecodable = (protocols.contains("Decodable") || protocols.contains( "Codable")) && (context.isDecodableNeeded || !options.schemes.isSkippingRedundantProtocols)
-        let isEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable")) && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
-        if !isDecodable {
-            if protocols.contains("Codable") {
-                protocols.remove("Codable")
-                protocols.insert("Encodable")
-            } else {
-                protocols.remove("Decodable")
-            }
-        }
-        if !isEncodable {
-            if protocols.contains("Codable") {
-                protocols.remove("Codable")
-                protocols.insert("Decodable")
-            } else {
-                protocols.remove("Encodable")
-            }
-        }
+    private func getProtocols(for type: TypeName, context: Context) -> Protocols {
+        var protocols = Protocols(options.schemes.adoptedProtocols)
+        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.schemes.isSkippingRedundantProtocols)
+        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
+        if !isDecodable { protocols.removeDecodable() }
+        if !isEncodable { protocols.removeEncodable() }
         return protocols
     }
     
@@ -470,10 +454,10 @@ extension Generator {
         var contents: [String] = []
         contents.append(properties.map(templates.case).joined(separator: "\n"))
         contents += properties.compactMap { $0.nested }
-        if protocols.contains("Codable") || protocols.contains("Decodable") {
+        if protocols.isDecodable {
             contents.append(templates.initFromDecoderOneOf(properties: properties))
         }
-        if protocols.contains("Codable") || protocols.contains("Encodable") {
+        if protocols.isEncodable {
             contents.append(templates.encodeOneOf(properties: properties))
         }
         return templates.enumOneOf(name: name, contents: contents, protocols: protocols)
@@ -490,10 +474,10 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
         let protocols = getProtocols(for: name, context: context)
-        if protocols.contains("Codable") || protocols.contains("Decodable") {
+        if protocols.isDecodable {
             contents.append(templates.initFromDecoderAnyOf(properties: properties))
         }
-        if protocols.contains("Codable") || protocols.contains("Encodable") {
+        if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))
         }
         return templates.entity(name: name, contents: contents, protocols: protocols)
@@ -523,10 +507,10 @@ extension Generator {
             }
         }.joined(separator: "\n")
         let protocols = getProtocols(for: name, context: context)
-        if protocols.contains("Codable") || protocols.contains("Decodable") {
+        if protocols.isDecodable {
             contents.append(templates.initFromDecoder(contents: decoderContents))
         }
-        if protocols.contains("Codable") || protocols.contains("Encodable") {
+        if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))
         }
         return templates.entity(name: name, contents: contents, protocols: protocols)
