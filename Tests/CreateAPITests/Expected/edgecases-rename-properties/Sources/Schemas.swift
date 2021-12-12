@@ -21,6 +21,15 @@ public struct Order: Codable {
         case delivered
     }
 
+    public init(isDone: Bool? = nil, identifier: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil) {
+        self.isDone = isDone
+        self.identifier = identifier
+        self.petID = petID
+        self.quantity = quantity
+        self.shipDate = shipDate
+        self.status = status
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete")
@@ -46,6 +55,11 @@ public struct Category: Codable {
     public var identifier: Int?
     public var title: String?
 
+    public init(identifier: Int? = nil, title: String? = nil) {
+        self.identifier = identifier
+        self.title = title
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
@@ -69,6 +83,17 @@ public struct User: Codable {
     /// User Status
     public var userStatus: Int?
     public var username: String?
+
+    public init(email: String? = nil, firstName: String? = nil, identifier: Int? = nil, lastName: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil, username: String? = nil) {
+        self.email = email
+        self.firstName = firstName
+        self.identifier = identifier
+        self.lastName = lastName
+        self.password = password
+        self.phone = phone
+        self.userStatus = userStatus
+        self.username = username
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -98,6 +123,11 @@ public struct User: Codable {
 public struct Tag: Codable {
     public var identifier: Int?
     public var name: String?
+
+    public init(identifier: Int? = nil, name: String? = nil) {
+        self.identifier = identifier
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -129,6 +159,15 @@ public struct Pet: Codable {
         case sold
     }
 
+    public init(category: Category? = nil, identifier: Int? = nil, name: String, photoURLs: [String], state: State? = nil, tags: [Tag]? = nil) {
+        self.category = category
+        self.identifier = identifier
+        self.name = name
+        self.photoURLs = photoURLs
+        self.state = state
+        self.tags = tags
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.category = try values.decodeIfPresent(Category.self, forKey: "category")
@@ -155,6 +194,12 @@ public struct APIResponse: Codable {
     public var message: String?
     public var type: String?
 
+    public init(code: Int? = nil, message: String? = nil, type: String? = nil) {
+        self.code = code
+        self.message = message
+        self.type = type
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.code = try values.decodeIfPresent(Int.self, forKey: "code")
@@ -174,6 +219,10 @@ public struct APIResponse: Codable {
 public struct Return: Codable {
     public var `return`: Int?
 
+    public init(`return`: Int? = nil) {
+        self.return = `return`
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.return = try values.decodeIfPresent(Int.self, forKey: "return")
@@ -191,6 +240,13 @@ public struct Name: Codable {
     public var name: Int
     public var property: String?
     public var snakeCase: Int?
+
+    public init(_123Number: Int? = nil, name: Int, property: String? = nil, snakeCase: Int? = nil) {
+        self._123Number = _123Number
+        self.name = name
+        self.property = property
+        self.snakeCase = snakeCase
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -214,6 +270,11 @@ public struct _200Response: Codable {
     public var `class`: String?
     public var name: Int?
 
+    public init(`class`: String? = nil, name: Int? = nil) {
+        self.class = `class`
+        self.name = name
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.class = try values.decodeIfPresent(String.self, forKey: "class")
@@ -230,6 +291,10 @@ public struct _200Response: Codable {
 /// Model for testing model with "_class" property
 public struct ClassModel: Codable {
     public var `class`: String?
+
+    public init(`class`: String? = nil) {
+        self.class = `class`
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -268,6 +333,11 @@ public struct Animal: Codable {
     public var className: String
     public var color: String?
 
+    public init(className: String, color: String? = nil) {
+        self.className = className
+        self.color = color
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.className = try values.decode(String.self, forKey: "className")
@@ -295,6 +365,22 @@ public struct FormatTest: Codable {
     public var password: String
     public var string: String?
     public var uuid: String?
+
+    public init(binary: String? = nil, byte: String, date: String, dateTime: Date? = nil, double: Double? = nil, float: Double? = nil, int32: Int? = nil, int64: Int? = nil, integer: Int? = nil, number: Double, password: String, string: String? = nil, uuid: String? = nil) {
+        self.binary = binary
+        self.byte = byte
+        self.date = date
+        self.dateTime = dateTime
+        self.double = double
+        self.float = float
+        self.int32 = int32
+        self.int64 = int64
+        self.integer = integer
+        self.number = number
+        self.password = password
+        self.string = string
+        self.uuid = uuid
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -348,6 +434,13 @@ public struct EnumTest: Codable {
         case lower
     }
 
+    public init(enumInteger: Int? = nil, enumNumber: Double? = nil, enumString: EnumString? = nil, outerEnum: OuterEnum? = nil) {
+        self.enumInteger = enumInteger
+        self.enumNumber = enumNumber
+        self.enumString = enumString
+        self.outerEnum = outerEnum
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.enumInteger = try values.decodeIfPresent(Int.self, forKey: "enum_integer")
@@ -369,6 +462,11 @@ public struct AdditionalPropertiesClass: Codable {
     public var mapOfMapProperty: [String: [String: String]]?
     public var mapProperty: [String: String]?
 
+    public init(mapOfMapProperty: [String: [String: String]]? = nil, mapProperty: [String: String]? = nil) {
+        self.mapOfMapProperty = mapOfMapProperty
+        self.mapProperty = mapProperty
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.mapOfMapProperty = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_of_map_property")
@@ -386,6 +484,12 @@ public struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
     public var dateTime: Date?
     public var map: [String: Animal]?
     public var uuid: String?
+
+    public init(dateTime: Date? = nil, map: [String: Animal]? = nil, uuid: String? = nil) {
+        self.dateTime = dateTime
+        self.map = map
+        self.uuid = uuid
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -405,6 +509,10 @@ public struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
 public struct List: Codable {
     public var _123List: String?
 
+    public init(_123List: String? = nil) {
+        self._123List = _123List
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self._123List = try values.decodeIfPresent(String.self, forKey: "123-list")
@@ -418,6 +526,10 @@ public struct List: Codable {
 
 public struct Client: Codable {
     public var client: String?
+
+    public init(client: String? = nil) {
+        self.client = client
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -433,6 +545,11 @@ public struct Client: Codable {
 public struct ReadOnlyFirst: Codable {
     public var bar: String?
     public var baz: String?
+
+    public init(bar: String? = nil, baz: String? = nil) {
+        self.bar = bar
+        self.baz = baz
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -450,6 +567,11 @@ public struct ReadOnlyFirst: Codable {
 public struct HasOnlyReadOnly: Codable {
     public var bar: String?
     public var foo: String?
+
+    public init(bar: String? = nil, foo: String? = nil) {
+        self.bar = bar
+        self.foo = foo
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -473,6 +595,15 @@ public struct Capitalization: Codable {
     public var sCAETHFlowPoints: String?
     public var smallCamel: String?
     public var smallSnake: String?
+
+    public init(attName: String? = nil, capitalCamel: String? = nil, capitalSnake: String? = nil, sCAETHFlowPoints: String? = nil, smallCamel: String? = nil, smallSnake: String? = nil) {
+        self.attName = attName
+        self.capitalCamel = capitalCamel
+        self.capitalSnake = capitalSnake
+        self.sCAETHFlowPoints = sCAETHFlowPoints
+        self.smallCamel = smallCamel
+        self.smallSnake = smallSnake
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -504,6 +635,11 @@ public struct MapTest: Codable {
         case lower
     }
 
+    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
+        self.mapMapOfString = mapMapOfString
+        self.mapOfEnumString = mapOfEnumString
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.mapMapOfString = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_map_of_string")
@@ -521,6 +657,12 @@ public struct ArrayTest: Codable {
     public var arrayArrayOfInteger: [[Int]]?
     public var arrayArrayOfModel: [[ReadOnlyFirst]]?
     public var arrayOfString: [String]?
+
+    public init(arrayArrayOfInteger: [[Int]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil, arrayOfString: [String]? = nil) {
+        self.arrayArrayOfInteger = arrayArrayOfInteger
+        self.arrayArrayOfModel = arrayArrayOfModel
+        self.arrayOfString = arrayOfString
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -540,6 +682,10 @@ public struct ArrayTest: Codable {
 public struct NumberOnly: Codable {
     public var justNumber: Double?
 
+    public init(justNumber: Double? = nil) {
+        self.justNumber = justNumber
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.justNumber = try values.decodeIfPresent(Double.self, forKey: "JustNumber")
@@ -554,6 +700,10 @@ public struct NumberOnly: Codable {
 public struct ArrayOfNumberOnly: Codable {
     public var arrayNumber: [Double]?
 
+    public init(arrayNumber: [Double]? = nil) {
+        self.arrayNumber = arrayNumber
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.arrayNumber = try values.decodeIfPresent([Double].self, forKey: "ArrayNumber")
@@ -567,6 +717,10 @@ public struct ArrayOfNumberOnly: Codable {
 
 public struct ArrayOfArrayOfNumberOnly: Codable {
     public var arrayArrayNumber: [[Double]]?
+
+    public init(arrayArrayNumber: [[Double]]? = nil) {
+        self.arrayArrayNumber = arrayArrayNumber
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -591,6 +745,11 @@ public struct EnumArrays: Codable {
     public enum JustSymbol: String, Codable, CaseIterable {
         case greaterThanOrEqualTo = ">="
         case dollar = "$"
+    }
+
+    public init(arrayEnum: [ArrayEnumItem]? = nil, justSymbol: JustSymbol? = nil) {
+        self.arrayEnum = arrayEnum
+        self.justSymbol = justSymbol
     }
 
     public init(from decoder: Decoder) throws {
@@ -630,6 +789,11 @@ public struct ContainerA: Codable {
                 case b
             }
 
+            public init(`enum`: Enum, renameMe: String) {
+                self.enum = `enum`
+                self.renameMe = renameMe
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.enum = try values.decode(Enum.self, forKey: "enum")
@@ -648,6 +812,12 @@ public struct ContainerA: Codable {
             case b
         }
 
+        public init(child: Child, `enum`: Enum, renameMe: String) {
+            self.child = child
+            self.enum = `enum`
+            self.renameMe = renameMe
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.child = try values.decode(Child.self, forKey: "child")
@@ -661,6 +831,11 @@ public struct ContainerA: Codable {
             try values.encode(`enum`, forKey: "enum")
             try values.encode(renameMe, forKey: "rename-me")
         }
+    }
+
+    public init(child: Child? = nil, refChild: AnyJSON) {
+        self.child = child
+        self.refChild = refChild
     }
 
     public init(from decoder: Decoder) throws {
@@ -693,6 +868,11 @@ public struct ContainerB: Codable {
                 case b
             }
 
+            public init(`enum`: Enum, renameMe: String) {
+                self.enum = `enum`
+                self.renameMe = renameMe
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.enum = try values.decode(Enum.self, forKey: "enum")
@@ -711,6 +891,12 @@ public struct ContainerB: Codable {
             case b
         }
 
+        public init(child: Child, `enum`: Enum, renameMe: String) {
+            self.child = child
+            self.enum = `enum`
+            self.renameMe = renameMe
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.child = try values.decode(Child.self, forKey: "child")
@@ -724,6 +910,10 @@ public struct ContainerB: Codable {
             try values.encode(`enum`, forKey: "enum")
             try values.encode(renameMe, forKey: "rename-me")
         }
+    }
+
+    public init(child: Child) {
+        self.child = child
     }
 
     public init(from decoder: Decoder) throws {
@@ -749,6 +939,11 @@ public struct ContainerC: Codable {
             case b
         }
 
+        public init(`enum`: Enum, renameMe: String) {
+            self.enum = `enum`
+            self.renameMe = renameMe
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.enum = try values.decode(Enum.self, forKey: "enum")
@@ -760,6 +955,10 @@ public struct ContainerC: Codable {
             try values.encode(`enum`, forKey: "enum")
             try values.encode(renameMe, forKey: "rename-me")
         }
+    }
+
+    public init(child: Child) {
+        self.child = child
     }
 
     public init(from decoder: Decoder) throws {

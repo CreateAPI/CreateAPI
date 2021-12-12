@@ -88,6 +88,7 @@ final class GenerateOptions {
         var adoptedProtocols: Set<String>
         var isSkippingRedundantProtocols: Bool
         // TODO: simplify this
+        var isGeneratingInitializers: Bool
         var isGeneratingInitWithCoder: Bool
         var isGeneratingDecode: Bool
         // TODO: Move to separate "Rename" object
@@ -100,10 +101,11 @@ final class GenerateOptions {
             self.entitiesGeneratedAsStructs = Set(schemes?.entitiesGeneratedAsStructs ?? [])
             self.isMakingClassesFinal = schemes?.isMakingClassesFinal ?? true
             self.baseClass = schemes?.baseClass
-            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
-            self.isGeneratingDecode = schemes?.isGeneratingDecode ?? true
             self.adoptedProtocols = Set(schemes?.adoptedProtocols ?? ["Codable"])
             self.isSkippingRedundantProtocols = schemes?.isSkippingRedundantProtocols ?? true
+            self.isGeneratingInitializers = schemes?.isGeneratingInitializers ?? true
+            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
+            self.isGeneratingDecode = schemes?.isGeneratingDecode ?? true
             self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
             self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
         }
@@ -179,6 +181,7 @@ final class GenerateOptionsScheme: Decodable {
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
         var isMakingClassesFinal: Bool?
+        var isGeneratingInitializers: Bool?
         var baseClass: String?
         var adoptedProtocols: [String]?
         var isSkippingRedundantProtocols: Bool?

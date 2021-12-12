@@ -312,6 +312,9 @@ extension String {
                 }
             }
         }
+        if output == "self" {
+            output = "this" // Otherwise it'll mess-up initializers
+        }
         
         output = isProperty ? output.escapedPropertyName : output.escapedTypeName
         return output

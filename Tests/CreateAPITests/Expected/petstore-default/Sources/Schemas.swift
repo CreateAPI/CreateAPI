@@ -14,6 +14,12 @@ public struct Pet: Codable {
     public var name: String
     public var tag: String?
 
+    public init(id: Int, name: String, tag: String? = nil) {
+        self.id = id
+        self.name = name
+        self.tag = tag
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.id = try values.decode(Int.self, forKey: "id")
@@ -32,6 +38,10 @@ public struct Pet: Codable {
 public struct Store: Codable {
     public var pets: [Pet]
 
+    public init(pets: [Pet]) {
+        self.pets = pets
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.pets = try values.decode([Pet].self, forKey: "pets")
@@ -46,6 +56,11 @@ public struct Store: Codable {
 public struct Error: Codable {
     public var code: Int
     public var message: String
+
+    public init(code: Int, message: String) {
+        self.code = code
+        self.message = message
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)

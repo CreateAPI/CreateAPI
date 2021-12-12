@@ -6,8 +6,9 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code 
+// TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code
 
+// TODO: Fix empty public struct ConfigWasItem: Codable { and other init() {}
 // TODO: Fix AnyJSON and StringCodingKeys layout
 // TODO: Add option to hide AnyJSON
 // TODO: testEdgecasesRename "Status": "State" is not working
@@ -32,7 +33,6 @@ import GrammaticalNumber
 // TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
-// TODO: Add an option to generate an initializer
 // TODO: See what needs to be fixed in petstore-all
 // TODO: Add support for default values
 // TODO: Option to disable custom key generation

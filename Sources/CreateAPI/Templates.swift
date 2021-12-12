@@ -91,6 +91,25 @@ final class Templates {
         """
     }
     
+    // MARK: Init
+    
+    func initializer(properties: [Property]) -> String {
+        guard !properties.isEmpty else {
+            return "public init() {}"
+        }
+        let statemenets = properties.map {
+            "self.\($0.name.accessor) = \($0.name)"
+        }.joined(separator: "\n")
+        let arguments = properties.map {
+            "\($0.name): \($0.type)\($0.isOptional ? "? = nil" : "")"
+        }.joined(separator: ", ")
+        return """
+        \(access)init(\(arguments)) {
+        \(statemenets.indented)
+        }
+        """
+    }
+    
     // MARK: Decodable
     
     func decode(properties: [Property]) -> String {

@@ -214,9 +214,13 @@ extension Generator {
         
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
+
+        if options.schemes.isGeneratingInitializers {
+            contents.append(templates.initializer(properties: properties))
+        }
         
         let protocols = getProtocols(for: name, context: context)
-        
+
         if protocols.contains("Codable") || protocols.contains("Decodable") {
             // Generate init with cocde
             if !properties.isEmpty && options.schemes.isGeneratingInitWithCoder {

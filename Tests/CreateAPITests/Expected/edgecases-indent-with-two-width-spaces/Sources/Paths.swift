@@ -93,6 +93,11 @@ extension Paths.Pet {
       /// Updated status of the pet
       public var status: String?
 
+      public init(name: String? = nil, status: String? = nil) {
+        self.name = name
+        self.status = status
+      }
+
       public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
@@ -132,6 +137,11 @@ extension Paths.Pet.WithPetID {
       public var additionalMetadata: String?
       /// File to upload
       public var file: String?
+
+      public init(additionalMetadata: String? = nil, file: String? = nil) {
+        self.additionalMetadata = additionalMetadata
+        self.file = file
+      }
 
       public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -398,6 +408,23 @@ extension Paths {
       public var patternWithoutDelimiter: String
       /// None
       public var string: String?
+
+      public init(binary: String? = nil, byte: String, callback: String? = nil, date: String? = nil, dateTime: Date? = nil, double: Double, float: Double? = nil, int32: Int? = nil, int64: Int? = nil, integer: Int? = nil, number: Double, password: String? = nil, patternWithoutDelimiter: String, string: String? = nil) {
+        self.binary = binary
+        self.byte = byte
+        self.callback = callback
+        self.date = date
+        self.dateTime = dateTime
+        self.double = double
+        self.float = float
+        self.int32 = int32
+        self.int64 = int64
+        self.integer = integer
+        self.number = number
+        self.password = password
+        self.patternWithoutDelimiter = patternWithoutDelimiter
+        self.string = string
+      }
 
       public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)

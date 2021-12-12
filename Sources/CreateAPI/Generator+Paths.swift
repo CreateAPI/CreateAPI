@@ -276,6 +276,7 @@ extension Generator {
         guard parameter.context.inQuery else {
             return nil
         }
+        // TODO: use propertyCountThreshold
         return QueryParameter(
             description: parameter.description,
             isDeprecated: parameter.deprecated,

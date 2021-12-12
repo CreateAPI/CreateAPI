@@ -62,6 +62,26 @@ public struct Integration: Codable {
     /// Example: "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b"
     public var webhookSecret: String?
 
+    public init(clientID: String? = nil, clientSecret: String? = nil, createdAt: Date, description: String? = nil, events: [String], externalURL: URL, htmlURL: URL, id: Int, installationsCount: Int? = nil, name: String, nodeID: String, owner: SimpleUser? = nil, pem: String? = nil, permissions: [String: String], slug: String? = nil, updatedAt: Date, webhookSecret: String? = nil) {
+        self.clientID = clientID
+        self.clientSecret = clientSecret
+        self.createdAt = createdAt
+        self.description = description
+        self.events = events
+        self.externalURL = externalURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.installationsCount = installationsCount
+        self.name = name
+        self.nodeID = nodeID
+        self.owner = owner
+        self.pem = pem
+        self.permissions = permissions
+        self.slug = slug
+        self.updatedAt = updatedAt
+        self.webhookSecret = webhookSecret
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.clientID = try values.decodeIfPresent(String.self, forKey: "client_id")
@@ -111,6 +131,13 @@ public struct BasicError: Codable {
     public var status: String?
     public var url: String?
 
+    public init(documentationURL: String? = nil, message: String? = nil, status: String? = nil, url: String? = nil) {
+        self.documentationURL = documentationURL
+        self.message = message
+        self.status = status
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.documentationURL = try values.decodeIfPresent(String.self, forKey: "documentation_url")
@@ -132,6 +159,12 @@ public struct ValidationErrorSimple: Codable {
     public var documentationURL: String
     public var errors: [String]?
     public var message: String
+
+    public init(documentationURL: String, errors: [String]? = nil, message: String) {
+        self.documentationURL = documentationURL
+        self.errors = errors
+        self.message = message
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -179,6 +212,13 @@ public struct WebhookConfig: Codable {
     public var secret: String?
     /// The URL to which the payloads will be delivered.
     public var url: URL?
+
+    public init(contentType: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL? = nil) {
+        self.contentType = contentType
+        self.insecureSSL = insecureSSL
+        self.secret = secret
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -246,6 +286,20 @@ public struct HookDeliveryItem: Codable {
     /// Example: 502
     public var statusCode: Int
 
+    public init(action: String? = nil, deliveredAt: Date, duration: Double, event: String, guid: String, id: Int, installationID: Int? = nil, isRedelivery: Bool, repositoryID: Int? = nil, status: String, statusCode: Int) {
+        self.action = action
+        self.deliveredAt = deliveredAt
+        self.duration = duration
+        self.event = event
+        self.guid = guid
+        self.id = id
+        self.installationID = installationID
+        self.isRedelivery = isRedelivery
+        self.repositoryID = repositoryID
+        self.status = status
+        self.statusCode = statusCode
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.action = try values.decodeIfPresent(String.self, forKey: "action")
@@ -284,6 +338,15 @@ public struct ScimError: Codable {
     public var schemas: [String]?
     public var scimType: String?
     public var status: Int?
+
+    public init(detail: String? = nil, documentationURL: String? = nil, message: String? = nil, schemas: [String]? = nil, scimType: String? = nil, status: Int? = nil) {
+        self.detail = detail
+        self.documentationURL = documentationURL
+        self.message = message
+        self.schemas = schemas
+        self.scimType = scimType
+        self.status = status
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -338,6 +401,15 @@ public struct ValidationError: Codable {
             }
         }
 
+        public init(code: String, field: String? = nil, index: Int? = nil, message: String? = nil, resource: String? = nil, value: Value? = nil) {
+            self.code = code
+            self.field = field
+            self.index = index
+            self.message = message
+            self.resource = resource
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.code = try values.decode(String.self, forKey: "code")
@@ -357,6 +429,12 @@ public struct ValidationError: Codable {
             try values.encodeIfPresent(resource, forKey: "resource")
             try values.encodeIfPresent(value, forKey: "value")
         }
+    }
+
+    public init(documentationURL: String, errors: [Error]? = nil, message: String) {
+        self.documentationURL = documentationURL
+        self.errors = errors
+        self.message = message
     }
 
     public init(from decoder: Decoder) throws {
@@ -433,6 +511,11 @@ public struct HookDelivery: Codable {
         /// The webhook payload.
         public var payload: [String: AnyJSON]?
 
+        public init(headers: [String: AnyJSON]? = nil, payload: [String: AnyJSON]? = nil) {
+            self.headers = headers
+            self.payload = payload
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
@@ -452,6 +535,11 @@ public struct HookDelivery: Codable {
         /// The response payload received.
         public var payload: String?
 
+        public init(headers: [String: AnyJSON]? = nil, payload: String? = nil) {
+            self.headers = headers
+            self.payload = payload
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
@@ -463,6 +551,23 @@ public struct HookDelivery: Codable {
             try values.encodeIfPresent(headers, forKey: "headers")
             try values.encodeIfPresent(payload, forKey: "payload")
         }
+    }
+
+    public init(action: String? = nil, deliveredAt: Date, duration: Double, event: String, guid: String, id: Int, installationID: Int? = nil, isRedelivery: Bool, repositoryID: Int? = nil, request: Request, response: Response, status: String, statusCode: Int, url: String? = nil) {
+        self.action = action
+        self.deliveredAt = deliveredAt
+        self.duration = duration
+        self.event = event
+        self.guid = guid
+        self.id = id
+        self.installationID = installationID
+        self.isRedelivery = isRedelivery
+        self.repositoryID = repositoryID
+        self.request = request
+        self.response = response
+        self.status = status
+        self.statusCode = statusCode
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -529,6 +634,30 @@ public struct SimpleUser: Codable {
     /// Example: User
     public var type: String
     public var url: URL
+
+    public init(avatarURL: URL, email: String? = nil, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, name: String? = nil, nodeID: String, organizationsURL: URL, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredAt: String? = nil, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+        self.avatarURL = avatarURL
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followersURL = followersURL
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.htmlURL = htmlURL
+        self.id = id
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.isSiteAdmin = isSiteAdmin
+        self.starredAt = starredAt
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.type = type
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -607,6 +736,19 @@ public struct Enterprise: Codable {
     public var updatedAt: Date?
     /// The enterprise's website URL.
     public var websiteURL: URL?
+
+    public init(avatarURL: URL, createdAt: Date? = nil, description: String? = nil, htmlURL: URL, id: Int, name: String, nodeID: String, slug: String, updatedAt: Date? = nil, websiteURL: URL? = nil) {
+        self.avatarURL = avatarURL
+        self.createdAt = createdAt
+        self.description = description
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.slug = slug
+        self.updatedAt = updatedAt
+        self.websiteURL = websiteURL
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -897,6 +1039,40 @@ public struct AppPermissions: Codable {
         case write
     }
 
+    public init(actions: Actions? = nil, administration: Administration? = nil, checks: Checks? = nil, contentReferences: ContentReferences? = nil, contents: Contents? = nil, deployments: Deployments? = nil, environments: Environments? = nil, issues: Issues? = nil, members: Members? = nil, metadata: Metadata? = nil, organizationAdministration: OrganizationAdministration? = nil, organizationHooks: OrganizationHooks? = nil, organizationPackages: OrganizationPackages? = nil, organizationPlan: OrganizationPlan? = nil, organizationProjects: OrganizationProjects? = nil, organizationSecrets: OrganizationSecrets? = nil, organizationSelfHostedRunners: OrganizationSelfHostedRunners? = nil, organizationUserBlocking: OrganizationUserBlocking? = nil, packages: Packages? = nil, pages: Pages? = nil, pullRequests: PullRequests? = nil, repositoryHooks: RepositoryHooks? = nil, repositoryProjects: RepositoryProjects? = nil, secretScanningAlerts: SecretScanningAlerts? = nil, secrets: Secrets? = nil, securityEvents: SecurityEvents? = nil, singleFile: SingleFile? = nil, statuses: Statuses? = nil, teamDiscussions: TeamDiscussions? = nil, vulnerabilityAlerts: VulnerabilityAlerts? = nil, workflows: Workflows? = nil) {
+        self.actions = actions
+        self.administration = administration
+        self.checks = checks
+        self.contentReferences = contentReferences
+        self.contents = contents
+        self.deployments = deployments
+        self.environments = environments
+        self.issues = issues
+        self.members = members
+        self.metadata = metadata
+        self.organizationAdministration = organizationAdministration
+        self.organizationHooks = organizationHooks
+        self.organizationPackages = organizationPackages
+        self.organizationPlan = organizationPlan
+        self.organizationProjects = organizationProjects
+        self.organizationSecrets = organizationSecrets
+        self.organizationSelfHostedRunners = organizationSelfHostedRunners
+        self.organizationUserBlocking = organizationUserBlocking
+        self.packages = packages
+        self.pages = pages
+        self.pullRequests = pullRequests
+        self.repositoryHooks = repositoryHooks
+        self.repositoryProjects = repositoryProjects
+        self.secretScanningAlerts = secretScanningAlerts
+        self.secrets = secrets
+        self.securityEvents = securityEvents
+        self.singleFile = singleFile
+        self.statuses = statuses
+        self.teamDiscussions = teamDiscussions
+        self.vulnerabilityAlerts = vulnerabilityAlerts
+        self.workflows = workflows
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.actions = try values.decodeIfPresent(Actions.self, forKey: "actions")
@@ -1033,6 +1209,29 @@ public struct Installation: Codable {
     public enum RepositorySelection: String, Codable, CaseIterable {
         case all
         case selected
+    }
+
+    public init(accessTokensURL: URL, account: Account? = nil, appID: Int, appSlug: String, contactEmail: String? = nil, createdAt: Date, events: [String], hasMultipleSingleFiles: Bool? = nil, htmlURL: URL, id: Int, permissions: AppPermissions, repositoriesURL: URL, repositorySelection: RepositorySelection, singleFileName: String? = nil, singleFilePaths: [String]? = nil, suspendedAt: Date? = nil, suspendedBy: SimpleUser? = nil, targetID: Int, targetType: String, updatedAt: Date) {
+        self.accessTokensURL = accessTokensURL
+        self.account = account
+        self.appID = appID
+        self.appSlug = appSlug
+        self.contactEmail = contactEmail
+        self.createdAt = createdAt
+        self.events = events
+        self.hasMultipleSingleFiles = hasMultipleSingleFiles
+        self.htmlURL = htmlURL
+        self.id = id
+        self.permissions = permissions
+        self.repositoriesURL = repositoriesURL
+        self.repositorySelection = repositorySelection
+        self.singleFileName = singleFileName
+        self.singleFilePaths = singleFilePaths
+        self.suspendedAt = suspendedAt
+        self.suspendedBy = suspendedBy
+        self.targetID = targetID
+        self.targetType = targetType
+        self.updatedAt = updatedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -1241,6 +1440,14 @@ public struct Repository: Codable {
         public var isPush: Bool
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -1364,6 +1571,27 @@ public struct Repository: Codable {
             public var type: String?
             public var url: String?
 
+            public init(avatarURL: String? = nil, eventsURL: String? = nil, followersURL: String? = nil, followingURL: String? = nil, gistsURL: String? = nil, gravatarID: String? = nil, htmlURL: String? = nil, id: Int? = nil, login: String? = nil, nodeID: String? = nil, organizationsURL: String? = nil, receivedEventsURL: String? = nil, reposURL: String? = nil, isSiteAdmin: Bool? = nil, starredURL: String? = nil, subscriptionsURL: String? = nil, type: String? = nil, url: String? = nil) {
+                self.avatarURL = avatarURL
+                self.eventsURL = eventsURL
+                self.followersURL = followersURL
+                self.followingURL = followingURL
+                self.gistsURL = gistsURL
+                self.gravatarID = gravatarID
+                self.htmlURL = htmlURL
+                self.id = id
+                self.login = login
+                self.nodeID = nodeID
+                self.organizationsURL = organizationsURL
+                self.receivedEventsURL = receivedEventsURL
+                self.reposURL = reposURL
+                self.isSiteAdmin = isSiteAdmin
+                self.starredURL = starredURL
+                self.subscriptionsURL = subscriptionsURL
+                self.type = type
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
@@ -1416,6 +1644,14 @@ public struct Repository: Codable {
             public var isPush: Bool?
             public var isTriage: Bool?
 
+            public init(isAdmin: Bool? = nil, isMaintain: Bool? = nil, isPull: Bool? = nil, isPush: Bool? = nil, isTriage: Bool? = nil) {
+                self.isAdmin = isAdmin
+                self.isMaintain = isMaintain
+                self.isPull = isPull
+                self.isPush = isPush
+                self.isTriage = isTriage
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.isAdmin = try values.decodeIfPresent(Bool.self, forKey: "admin")
@@ -1433,6 +1669,91 @@ public struct Repository: Codable {
                 try values.encodeIfPresent(isPush, forKey: "push")
                 try values.encodeIfPresent(isTriage, forKey: "triage")
             }
+        }
+
+        public init(allowAutoMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, allowUpdateBranch: Bool? = nil, archiveURL: String? = nil, isArchived: Bool? = nil, assigneesURL: String? = nil, blobsURL: String? = nil, branchesURL: String? = nil, cloneURL: String? = nil, collaboratorsURL: String? = nil, commentsURL: String? = nil, commitsURL: String? = nil, compareURL: String? = nil, contentsURL: String? = nil, contributorsURL: String? = nil, createdAt: String? = nil, defaultBranch: String? = nil, deleteBranchOnMerge: Bool? = nil, deploymentsURL: String? = nil, description: String? = nil, isDisabled: Bool? = nil, downloadsURL: String? = nil, eventsURL: String? = nil, isFork: Bool? = nil, forksCount: Int? = nil, forksURL: String? = nil, fullName: String? = nil, gitCommitsURL: String? = nil, gitRefsURL: String? = nil, gitTagsURL: String? = nil, gitURL: String? = nil, hasDownloads: Bool? = nil, hasIssues: Bool? = nil, hasPages: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, homepage: String? = nil, hooksURL: String? = nil, htmlURL: String? = nil, id: Int? = nil, isTemplate: Bool? = nil, issueCommentURL: String? = nil, issueEventsURL: String? = nil, issuesURL: String? = nil, keysURL: String? = nil, labelsURL: String? = nil, language: String? = nil, languagesURL: String? = nil, mergesURL: String? = nil, milestonesURL: String? = nil, mirrorURL: String? = nil, name: String? = nil, networkCount: Int? = nil, nodeID: String? = nil, notificationsURL: String? = nil, openIssuesCount: Int? = nil, owner: Owner? = nil, permissions: Permissions? = nil, isPrivate: Bool? = nil, pullsURL: String? = nil, pushedAt: String? = nil, releasesURL: String? = nil, size: Int? = nil, sshURL: String? = nil, stargazersCount: Int? = nil, stargazersURL: String? = nil, statusesURL: String? = nil, subscribersCount: Int? = nil, subscribersURL: String? = nil, subscriptionURL: String? = nil, svnURL: String? = nil, tagsURL: String? = nil, teamsURL: String? = nil, tempCloneToken: String? = nil, topics: [String]? = nil, treesURL: String? = nil, updatedAt: String? = nil, url: String? = nil, visibility: String? = nil, watchersCount: Int? = nil) {
+            self.allowAutoMerge = allowAutoMerge
+            self.allowMergeCommit = allowMergeCommit
+            self.allowRebaseMerge = allowRebaseMerge
+            self.allowSquashMerge = allowSquashMerge
+            self.allowUpdateBranch = allowUpdateBranch
+            self.archiveURL = archiveURL
+            self.isArchived = isArchived
+            self.assigneesURL = assigneesURL
+            self.blobsURL = blobsURL
+            self.branchesURL = branchesURL
+            self.cloneURL = cloneURL
+            self.collaboratorsURL = collaboratorsURL
+            self.commentsURL = commentsURL
+            self.commitsURL = commitsURL
+            self.compareURL = compareURL
+            self.contentsURL = contentsURL
+            self.contributorsURL = contributorsURL
+            self.createdAt = createdAt
+            self.defaultBranch = defaultBranch
+            self.deleteBranchOnMerge = deleteBranchOnMerge
+            self.deploymentsURL = deploymentsURL
+            self.description = description
+            self.isDisabled = isDisabled
+            self.downloadsURL = downloadsURL
+            self.eventsURL = eventsURL
+            self.isFork = isFork
+            self.forksCount = forksCount
+            self.forksURL = forksURL
+            self.fullName = fullName
+            self.gitCommitsURL = gitCommitsURL
+            self.gitRefsURL = gitRefsURL
+            self.gitTagsURL = gitTagsURL
+            self.gitURL = gitURL
+            self.hasDownloads = hasDownloads
+            self.hasIssues = hasIssues
+            self.hasPages = hasPages
+            self.hasProjects = hasProjects
+            self.hasWiki = hasWiki
+            self.homepage = homepage
+            self.hooksURL = hooksURL
+            self.htmlURL = htmlURL
+            self.id = id
+            self.isTemplate = isTemplate
+            self.issueCommentURL = issueCommentURL
+            self.issueEventsURL = issueEventsURL
+            self.issuesURL = issuesURL
+            self.keysURL = keysURL
+            self.labelsURL = labelsURL
+            self.language = language
+            self.languagesURL = languagesURL
+            self.mergesURL = mergesURL
+            self.milestonesURL = milestonesURL
+            self.mirrorURL = mirrorURL
+            self.name = name
+            self.networkCount = networkCount
+            self.nodeID = nodeID
+            self.notificationsURL = notificationsURL
+            self.openIssuesCount = openIssuesCount
+            self.owner = owner
+            self.permissions = permissions
+            self.isPrivate = isPrivate
+            self.pullsURL = pullsURL
+            self.pushedAt = pushedAt
+            self.releasesURL = releasesURL
+            self.size = size
+            self.sshURL = sshURL
+            self.stargazersCount = stargazersCount
+            self.stargazersURL = stargazersURL
+            self.statusesURL = statusesURL
+            self.subscribersCount = subscribersCount
+            self.subscribersURL = subscribersURL
+            self.subscriptionURL = subscriptionURL
+            self.svnURL = svnURL
+            self.tagsURL = tagsURL
+            self.teamsURL = teamsURL
+            self.tempCloneToken = tempCloneToken
+            self.topics = topics
+            self.treesURL = treesURL
+            self.updatedAt = updatedAt
+            self.url = url
+            self.visibility = visibility
+            self.watchersCount = watchersCount
         }
 
         public init(from decoder: Decoder) throws {
@@ -1606,6 +1927,99 @@ public struct Repository: Codable {
             try values.encodeIfPresent(visibility, forKey: "visibility")
             try values.encodeIfPresent(watchersCount, forKey: "watchers_count")
         }
+    }
+
+    public init(allowAutoMerge: Bool? = nil, allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date? = nil, defaultBranch: String, deleteBranchOnMerge: Bool? = nil, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: LicenseSimple? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, networkCount: Int? = nil, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, organization: SimpleUser? = nil, owner: SimpleUser, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date? = nil, releasesURL: String, size: Int, sshURL: String, stargazersCount: Int, stargazersURL: URL, starredAt: String? = nil, statusesURL: String, subscribersCount: Int? = nil, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, templateRepository: TemplateRepository? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date? = nil, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+        self.allowAutoMerge = allowAutoMerge
+        self.allowForking = allowForking
+        self.allowMergeCommit = allowMergeCommit
+        self.allowRebaseMerge = allowRebaseMerge
+        self.allowSquashMerge = allowSquashMerge
+        self.archiveURL = archiveURL
+        self.isArchived = isArchived
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.cloneURL = cloneURL
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.createdAt = createdAt
+        self.defaultBranch = defaultBranch
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.deploymentsURL = deploymentsURL
+        self.description = description
+        self.isDisabled = isDisabled
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.isFork = isFork
+        self.forks = forks
+        self.forksCount = forksCount
+        self.forksURL = forksURL
+        self.fullName = fullName
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.hasDownloads = hasDownloads
+        self.hasIssues = hasIssues
+        self.hasPages = hasPages
+        self.hasProjects = hasProjects
+        self.hasWiki = hasWiki
+        self.homepage = homepage
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isTemplate = isTemplate
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.language = language
+        self.languagesURL = languagesURL
+        self.license = license
+        self.masterBranch = masterBranch
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.mirrorURL = mirrorURL
+        self.name = name
+        self.networkCount = networkCount
+        self.nodeID = nodeID
+        self.notificationsURL = notificationsURL
+        self.openIssues = openIssues
+        self.openIssuesCount = openIssuesCount
+        self.organization = organization
+        self.owner = owner
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.pullsURL = pullsURL
+        self.pushedAt = pushedAt
+        self.releasesURL = releasesURL
+        self.size = size
+        self.sshURL = sshURL
+        self.stargazersCount = stargazersCount
+        self.stargazersURL = stargazersURL
+        self.starredAt = starredAt
+        self.statusesURL = statusesURL
+        self.subscribersCount = subscribersCount
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.svnURL = svnURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.tempCloneToken = tempCloneToken
+        self.templateRepository = templateRepository
+        self.topics = topics
+        self.treesURL = treesURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.visibility = visibility
+        self.watchers = watchers
+        self.watchersCount = watchersCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -1833,6 +2247,17 @@ public struct InstallationToken: Codable {
         case selected
     }
 
+    public init(expiresAt: String, hasMultipleSingleFiles: Bool? = nil, permissions: AppPermissions? = nil, repositories: [Repository]? = nil, repositorySelection: RepositorySelection? = nil, singleFile: String? = nil, singleFilePaths: [String]? = nil, token: String) {
+        self.expiresAt = expiresAt
+        self.hasMultipleSingleFiles = hasMultipleSingleFiles
+        self.permissions = permissions
+        self.repositories = repositories
+        self.repositorySelection = repositorySelection
+        self.singleFile = singleFile
+        self.singleFilePaths = singleFilePaths
+        self.token = token
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.expiresAt = try values.decode(String.self, forKey: "expires_at")
@@ -1881,6 +2306,12 @@ public struct ApplicationGrant: Codable {
         public var name: String
         public var url: URL
 
+        public init(clientID: String, name: String, url: URL) {
+            self.clientID = clientID
+            self.name = name
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.clientID = try values.decode(String.self, forKey: "client_id")
@@ -1894,6 +2325,16 @@ public struct ApplicationGrant: Codable {
             try values.encode(name, forKey: "name")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(app: App, createdAt: Date, id: Int, scopes: [String], updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.app = app
+        self.createdAt = createdAt
+        self.id = id
+        self.scopes = scopes
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -1956,6 +2397,16 @@ public struct ScopedInstallation: Codable {
         case selected
     }
 
+    public init(account: SimpleUser, hasMultipleSingleFiles: Bool? = nil, permissions: AppPermissions, repositoriesURL: URL, repositorySelection: RepositorySelection, singleFileName: String? = nil, singleFilePaths: [String]? = nil) {
+        self.account = account
+        self.hasMultipleSingleFiles = hasMultipleSingleFiles
+        self.permissions = permissions
+        self.repositoriesURL = repositoriesURL
+        self.repositorySelection = repositorySelection
+        self.singleFileName = singleFileName
+        self.singleFilePaths = singleFilePaths
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.account = try values.decode(SimpleUser.self, forKey: "account")
@@ -2005,6 +2456,12 @@ public struct Authorization: Codable {
         public var name: String
         public var url: URL
 
+        public init(clientID: String, name: String, url: URL) {
+            self.clientID = clientID
+            self.name = name
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.clientID = try values.decode(String.self, forKey: "client_id")
@@ -2018,6 +2475,24 @@ public struct Authorization: Codable {
             try values.encode(name, forKey: "name")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(app: App, createdAt: Date, expiresAt: Date? = nil, fingerprint: String? = nil, hashedToken: String? = nil, id: Int, installation: ScopedInstallation? = nil, note: String? = nil, noteURL: URL? = nil, scopes: [String]? = nil, token: String, tokenLastEight: String? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.app = app
+        self.createdAt = createdAt
+        self.expiresAt = expiresAt
+        self.fingerprint = fingerprint
+        self.hashedToken = hashedToken
+        self.id = id
+        self.installation = installation
+        self.note = note
+        self.noteURL = noteURL
+        self.scopes = scopes
+        self.token = token
+        self.tokenLastEight = tokenLastEight
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -2119,6 +2594,14 @@ public struct CodeOfConduct: Codable {
     public var name: String
     public var url: URL
 
+    public init(body: String? = nil, htmlURL: URL? = nil, key: String, name: String, url: URL) {
+        self.body = body
+        self.htmlURL = htmlURL
+        self.key = key
+        self.name = name
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.body = try values.decodeIfPresent(String.self, forKey: "body")
@@ -2162,6 +2645,13 @@ public struct ActionsEnterprisePermissions: Codable {
     /// The API URL to use to get or set the selected organizations that are allowed to run GitHub Actions, when `enabled_organizations` is set to `selected`.
     public var selectedOrganizationsURL: String?
 
+    public init(allowedActions: AllowedActions? = nil, enabledOrganizations: EnabledOrganizations, selectedActionsURL: String? = nil, selectedOrganizationsURL: String? = nil) {
+        self.allowedActions = allowedActions
+        self.enabledOrganizations = enabledOrganizations
+        self.selectedActionsURL = selectedActionsURL
+        self.selectedOrganizationsURL = selectedOrganizationsURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
@@ -2195,6 +2685,21 @@ public struct OrganizationSimple: Codable {
     public var publicMembersURL: String
     public var reposURL: URL
     public var url: URL
+
+    public init(avatarURL: String, description: String? = nil, eventsURL: URL, hooksURL: String, id: Int, issuesURL: String, login: String, membersURL: String, nodeID: String, publicMembersURL: String, reposURL: URL, url: URL) {
+        self.avatarURL = avatarURL
+        self.description = description
+        self.eventsURL = eventsURL
+        self.hooksURL = hooksURL
+        self.id = id
+        self.issuesURL = issuesURL
+        self.login = login
+        self.membersURL = membersURL
+        self.nodeID = nodeID
+        self.publicMembersURL = publicMembersURL
+        self.reposURL = reposURL
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2237,6 +2742,12 @@ public struct SelectedActions: Codable {
     /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
     public var isVerifiedAllowed: Bool?
 
+    public init(isGithubOwnedAllowed: Bool? = nil, patternsAllowed: [String]? = nil, isVerifiedAllowed: Bool? = nil) {
+        self.isGithubOwnedAllowed = isGithubOwnedAllowed
+        self.patternsAllowed = patternsAllowed
+        self.isVerifiedAllowed = isVerifiedAllowed
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isGithubOwnedAllowed = try values.decodeIfPresent(Bool.self, forKey: "github_owned_allowed")
@@ -2260,6 +2771,16 @@ public struct RunnerGroupsEnterprise: Codable {
     public var runnersURL: String
     public var selectedOrganizationsURL: String?
     public var visibility: String
+
+    public init(allowsPublicRepositories: Bool, isDefault: Bool, id: Double, name: String, runnersURL: String, selectedOrganizationsURL: String? = nil, visibility: String) {
+        self.allowsPublicRepositories = allowsPublicRepositories
+        self.isDefault = isDefault
+        self.id = id
+        self.name = name
+        self.runnersURL = runnersURL
+        self.selectedOrganizationsURL = selectedOrganizationsURL
+        self.visibility = visibility
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2319,6 +2840,12 @@ public struct Runner: Codable {
             case custom
         }
 
+        public init(id: Int? = nil, name: String? = nil, type: `Type`? = nil) {
+            self.id = id
+            self.name = name
+            self.type = type
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.id = try values.decodeIfPresent(Int.self, forKey: "id")
@@ -2332,6 +2859,15 @@ public struct Runner: Codable {
             try values.encodeIfPresent(name, forKey: "name")
             try values.encodeIfPresent(type, forKey: "type")
         }
+    }
+
+    public init(isBusy: Bool, id: Int, labels: [Label], name: String, os: String, status: String) {
+        self.isBusy = isBusy
+        self.id = id
+        self.labels = labels
+        self.name = name
+        self.os = os
+        self.status = status
     }
 
     public init(from decoder: Decoder) throws {
@@ -2363,6 +2899,15 @@ public struct RunnerApplication: Codable {
     public var sha256Checksum: String?
     /// A short lived bearer token used to download the runner, if needed.
     public var tempDownloadToken: String?
+
+    public init(architecture: String, downloadURL: String, filename: String, os: String, sha256Checksum: String? = nil, tempDownloadToken: String? = nil) {
+        self.architecture = architecture
+        self.downloadURL = downloadURL
+        self.filename = filename
+        self.os = os
+        self.sha256Checksum = sha256Checksum
+        self.tempDownloadToken = tempDownloadToken
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2412,6 +2957,15 @@ public struct AuthenticationToken: Codable {
     public enum RepositorySelection: String, Codable, CaseIterable {
         case all
         case selected
+    }
+
+    public init(expiresAt: Date, permissions: [String: AnyJSON]? = nil, repositories: [Repository]? = nil, repositorySelection: RepositorySelection? = nil, singleFile: String? = nil, token: String) {
+        self.expiresAt = expiresAt
+        self.permissions = permissions
+        self.repositories = repositories
+        self.repositorySelection = repositorySelection
+        self.singleFile = singleFile
+        self.token = token
     }
 
     public init(from decoder: Decoder) throws {
@@ -2493,6 +3047,10 @@ public struct AuditLogEvent: Codable {
     public struct ActorLocation: Codable {
         public var countryName: String?
 
+        public init(countryName: String? = nil) {
+            self.countryName = countryName
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.countryName = try values.decodeIfPresent(String.self, forKey: "country_name")
@@ -2506,18 +3064,69 @@ public struct AuditLogEvent: Codable {
 
     public struct ConfigItem: Codable {
 
+
+        public init() {}
     }
 
     public struct ConfigWasItem: Codable {
 
+
+        public init() {}
     }
 
     public struct Event: Codable {
 
+
+        public init() {}
     }
 
     public struct EventsWereItem: Codable {
 
+
+        public init() {}
+    }
+
+    public init(timestamp: Int? = nil, documentID: String? = nil, action: String? = nil, isActive: Bool? = nil, activeWas: Bool? = nil, actor: String? = nil, actorID: Int? = nil, actorLocation: ActorLocation? = nil, blockedUser: String? = nil, business: String? = nil, config: [ConfigItem]? = nil, configWas: [ConfigWasItem]? = nil, contentType: String? = nil, createdAt: Int? = nil, data: [String: AnyJSON]? = nil, deployKeyFingerprint: String? = nil, emoji: String? = nil, events: [Event]? = nil, eventsWere: [EventsWereItem]? = nil, explanation: String? = nil, fingerprint: String? = nil, hookID: Int? = nil, isLimitedAvailability: Bool? = nil, message: String? = nil, name: String? = nil, oldUser: String? = nil, opensshPublicKey: String? = nil, org: String? = nil, orgID: Int? = nil, previousVisibility: String? = nil, isReadOnly: Bool? = nil, repo: String? = nil, repository: String? = nil, isRepositoryPublic: Bool? = nil, targetLogin: String? = nil, team: String? = nil, transportProtocol: Int? = nil, transportProtocolName: String? = nil, user: String? = nil, visibility: String? = nil) {
+        self.timestamp = timestamp
+        self.documentID = documentID
+        self.action = action
+        self.isActive = isActive
+        self.activeWas = activeWas
+        self.actor = actor
+        self.actorID = actorID
+        self.actorLocation = actorLocation
+        self.blockedUser = blockedUser
+        self.business = business
+        self.config = config
+        self.configWas = configWas
+        self.contentType = contentType
+        self.createdAt = createdAt
+        self.data = data
+        self.deployKeyFingerprint = deployKeyFingerprint
+        self.emoji = emoji
+        self.events = events
+        self.eventsWere = eventsWere
+        self.explanation = explanation
+        self.fingerprint = fingerprint
+        self.hookID = hookID
+        self.isLimitedAvailability = isLimitedAvailability
+        self.message = message
+        self.name = name
+        self.oldUser = oldUser
+        self.opensshPublicKey = opensshPublicKey
+        self.org = org
+        self.orgID = orgID
+        self.previousVisibility = previousVisibility
+        self.isReadOnly = isReadOnly
+        self.repo = repo
+        self.repository = repository
+        self.isRepositoryPublic = isRepositoryPublic
+        self.targetLogin = targetLogin
+        self.team = team
+        self.transportProtocol = transportProtocol
+        self.transportProtocolName = transportProtocolName
+        self.user = user
+        self.visibility = visibility
     }
 
     public init(from decoder: Decoder) throws {
@@ -2626,6 +3235,12 @@ public struct ActionsBillingUsage: Codable {
         /// Total minutes used on Windows runner machines.
         public var windows: Int?
 
+        public init(macos: Int? = nil, ubuntu: Int? = nil, windows: Int? = nil) {
+            self.macos = macos
+            self.ubuntu = ubuntu
+            self.windows = windows
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.macos = try values.decodeIfPresent(Int.self, forKey: "MACOS")
@@ -2639,6 +3254,13 @@ public struct ActionsBillingUsage: Codable {
             try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
             try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
+    }
+
+    public init(includedMinutes: Int, minutesUsedBreakdown: MinutesUsedBreakdown, totalMinutesUsed: Int, totalPaidMinutesUsed: Int) {
+        self.includedMinutes = includedMinutes
+        self.minutesUsedBreakdown = minutesUsedBreakdown
+        self.totalMinutesUsed = totalMinutesUsed
+        self.totalPaidMinutesUsed = totalPaidMinutesUsed
     }
 
     public init(from decoder: Decoder) throws {
@@ -2663,6 +3285,11 @@ public struct AdvancedSecurityActiveCommittersUser: Codable {
     public var lastPushedDate: String
     public var userLogin: String
 
+    public init(lastPushedDate: String, userLogin: String) {
+        self.lastPushedDate = lastPushedDate
+        self.userLogin = userLogin
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.lastPushedDate = try values.decode(String.self, forKey: "last_pushed_date")
@@ -2682,6 +3309,12 @@ public struct AdvancedSecurityActiveCommittersRepository: Codable {
     public var advancedSecurityCommittersBreakdown: [AdvancedSecurityActiveCommittersUser]
     /// Example: octocat/Hello-World
     public var name: String
+
+    public init(advancedSecurityCommitters: Int, advancedSecurityCommittersBreakdown: [AdvancedSecurityActiveCommittersUser], name: String) {
+        self.advancedSecurityCommitters = advancedSecurityCommitters
+        self.advancedSecurityCommittersBreakdown = advancedSecurityCommittersBreakdown
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2703,6 +3336,11 @@ public struct AdvancedSecurityActiveCommitters: Codable {
     /// Example: 25
     public var totalAdvancedSecurityCommitters: Int?
 
+    public init(repositories: [AdvancedSecurityActiveCommittersRepository], totalAdvancedSecurityCommitters: Int? = nil) {
+        self.repositories = repositories
+        self.totalAdvancedSecurityCommitters = totalAdvancedSecurityCommitters
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.repositories = try values.decode([AdvancedSecurityActiveCommittersRepository].self, forKey: "repositories")
@@ -2723,6 +3361,12 @@ public struct PackagesBillingUsage: Codable {
     public var totalGigabytesBandwidthUsed: Int
     /// Total paid storage space (GB) for GitHuub Packages.
     public var totalPaidGigabytesBandwidthUsed: Int
+
+    public init(includedGigabytesBandwidth: Int, totalGigabytesBandwidthUsed: Int, totalPaidGigabytesBandwidthUsed: Int) {
+        self.includedGigabytesBandwidth = includedGigabytesBandwidth
+        self.totalGigabytesBandwidthUsed = totalGigabytesBandwidthUsed
+        self.totalPaidGigabytesBandwidthUsed = totalPaidGigabytesBandwidthUsed
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2747,6 +3391,12 @@ public struct CombinedBillingUsage: Codable {
     /// Estimated sum of free and paid storage space (GB) used in billing cycle.
     public var estimatedStorageForMonth: Int
 
+    public init(daysLeftInBillingCycle: Int, estimatedPaidStorageForMonth: Int, estimatedStorageForMonth: Int) {
+        self.daysLeftInBillingCycle = daysLeftInBillingCycle
+        self.estimatedPaidStorageForMonth = estimatedPaidStorageForMonth
+        self.estimatedStorageForMonth = estimatedStorageForMonth
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.daysLeftInBillingCycle = try values.decode(Int.self, forKey: "days_left_in_billing_cycle")
@@ -2769,6 +3419,15 @@ public struct Actor: Codable {
     public var id: Int
     public var login: String
     public var url: URL
+
+    public init(avatarURL: URL, displayLogin: String? = nil, gravatarID: String? = nil, id: Int, login: String, url: URL) {
+        self.avatarURL = avatarURL
+        self.displayLogin = displayLogin
+        self.gravatarID = gravatarID
+        self.id = id
+        self.login = login
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2818,6 +3477,19 @@ public struct ReactionRollup: Codable {
     public var rocket: Int
     public var totalCount: Int
     public var url: URL
+
+    public init(plus1: Int, minus1: Int, confused: Int, eyes: Int, heart: Int, hooray: Int, laugh: Int, rocket: Int, totalCount: Int, url: URL) {
+        self.plus1 = plus1
+        self.minus1 = minus1
+        self.confused = confused
+        self.eyes = eyes
+        self.heart = heart
+        self.hooray = hooray
+        self.laugh = laugh
+        self.rocket = rocket
+        self.totalCount = totalCount
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2932,6 +3604,16 @@ public struct Issue: Codable {
             public var nodeID: String?
             public var url: URL?
 
+            public init(color: String? = nil, isDefault: Bool? = nil, description: String? = nil, id: Int? = nil, name: String? = nil, nodeID: String? = nil, url: URL? = nil) {
+                self.color = color
+                self.isDefault = isDefault
+                self.description = description
+                self.id = id
+                self.name = name
+                self.nodeID = nodeID
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.color = try values.decodeIfPresent(String.self, forKey: "color")
@@ -2974,6 +3656,14 @@ public struct Issue: Codable {
         public var patchURL: URL?
         public var url: URL?
 
+        public init(diffURL: URL? = nil, htmlURL: URL? = nil, mergedAt: Date? = nil, patchURL: URL? = nil, url: URL? = nil) {
+            self.diffURL = diffURL
+            self.htmlURL = htmlURL
+            self.mergedAt = mergedAt
+            self.patchURL = patchURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.diffURL = try values.decodeIfPresent(URL.self, forKey: "diff_url")
@@ -2991,6 +3681,42 @@ public struct Issue: Codable {
             try values.encodeIfPresent(patchURL, forKey: "patch_url")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(activeLockReason: String? = nil, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, authorAssociation: AuthorAssociation, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, closedAt: Date? = nil, closedBy: SimpleUser? = nil, comments: Int, commentsURL: URL, createdAt: Date, isDraft: Bool? = nil, eventsURL: URL, htmlURL: URL, id: Int, labels: [Label], labelsURL: String, isLocked: Bool, milestone: Milestone? = nil, nodeID: String, number: Int, performedViaGithubApp: Integration? = nil, pullRequest: PullRequest? = nil, reactions: ReactionRollup? = nil, repository: Repository? = nil, repositoryURL: URL, state: String, timelineURL: URL? = nil, title: String, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.activeLockReason = activeLockReason
+        self.assignee = assignee
+        self.assignees = assignees
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.closedAt = closedAt
+        self.closedBy = closedBy
+        self.comments = comments
+        self.commentsURL = commentsURL
+        self.createdAt = createdAt
+        self.isDraft = isDraft
+        self.eventsURL = eventsURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.labels = labels
+        self.labelsURL = labelsURL
+        self.isLocked = isLocked
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.number = number
+        self.performedViaGithubApp = performedViaGithubApp
+        self.pullRequest = pullRequest
+        self.reactions = reactions
+        self.repository = repository
+        self.repositoryURL = repositoryURL
+        self.state = state
+        self.timelineURL = timelineURL
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -3104,6 +3830,23 @@ public struct IssueComment: Codable {
     /// Simple User
     public var user: SimpleUser?
 
+    public init(authorAssociation: AuthorAssociation, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, createdAt: Date, htmlURL: URL, id: Int, issueURL: URL, nodeID: String, performedViaGithubApp: Integration? = nil, reactions: ReactionRollup? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.id = id
+        self.issueURL = issueURL
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.reactions = reactions
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
@@ -3170,6 +3913,15 @@ public struct Event: Codable {
             public var summary: String?
             public var title: String?
 
+            public init(action: String? = nil, htmlURL: String? = nil, pageName: String? = nil, sha: String? = nil, summary: String? = nil, title: String? = nil) {
+                self.action = action
+                self.htmlURL = htmlURL
+                self.pageName = pageName
+                self.sha = sha
+                self.summary = summary
+                self.title = title
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.action = try values.decodeIfPresent(String.self, forKey: "action")
@@ -3189,6 +3941,13 @@ public struct Event: Codable {
                 try values.encodeIfPresent(summary, forKey: "summary")
                 try values.encodeIfPresent(title, forKey: "title")
             }
+        }
+
+        public init(action: String? = nil, comment: IssueComment? = nil, issue: Issue? = nil, pages: [Page]? = nil) {
+            self.action = action
+            self.comment = comment
+            self.issue = issue
+            self.pages = pages
         }
 
         public init(from decoder: Decoder) throws {
@@ -3213,6 +3972,12 @@ public struct Event: Codable {
         public var name: String
         public var url: URL
 
+        public init(id: Int, name: String, url: URL) {
+            self.id = id
+            self.name = name
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.id = try values.decode(Int.self, forKey: "id")
@@ -3226,6 +3991,17 @@ public struct Event: Codable {
             try values.encode(name, forKey: "name")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(actor: Actor, createdAt: Date? = nil, id: String, org: Actor? = nil, payload: Payload, isPublic: Bool, repo: Repo, type: String? = nil) {
+        self.actor = actor
+        self.createdAt = createdAt
+        self.id = id
+        self.org = org
+        self.payload = payload
+        self.isPublic = isPublic
+        self.repo = repo
+        self.type = type
     }
 
     public init(from decoder: Decoder) throws {
@@ -3257,6 +4033,11 @@ public struct Event: Codable {
 public struct LinkWithType: Codable {
     public var href: String
     public var type: String
+
+    public init(href: String, type: String) {
+        self.href = href
+        self.type = type
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3318,6 +4099,17 @@ public struct Feed: Codable {
         /// Hypermedia Link with Type
         public var user: LinkWithType
 
+        public init(currentUser: LinkWithType? = nil, currentUserActor: LinkWithType? = nil, currentUserOrganization: LinkWithType? = nil, currentUserOrganizations: [LinkWithType]? = nil, currentUserPublic: LinkWithType? = nil, securityAdvisories: LinkWithType? = nil, timeline: LinkWithType, user: LinkWithType) {
+            self.currentUser = currentUser
+            self.currentUserActor = currentUserActor
+            self.currentUserOrganization = currentUserOrganization
+            self.currentUserOrganizations = currentUserOrganizations
+            self.currentUserPublic = currentUserPublic
+            self.securityAdvisories = securityAdvisories
+            self.timeline = timeline
+            self.user = user
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.currentUser = try values.decodeIfPresent(LinkWithType.self, forKey: "current_user")
@@ -3341,6 +4133,18 @@ public struct Feed: Codable {
             try values.encode(timeline, forKey: "timeline")
             try values.encode(user, forKey: "user")
         }
+    }
+
+    public init(links: Links, currentUserActorURL: String? = nil, currentUserOrganizationURL: String? = nil, currentUserOrganizationURLs: [URL]? = nil, currentUserPublicURL: String? = nil, currentUserURL: String? = nil, securityAdvisoriesURL: String? = nil, timelineURL: String, userURL: String) {
+        self.links = links
+        self.currentUserActorURL = currentUserActorURL
+        self.currentUserOrganizationURL = currentUserOrganizationURL
+        self.currentUserOrganizationURLs = currentUserOrganizationURLs
+        self.currentUserPublicURL = currentUserPublicURL
+        self.currentUserURL = currentUserURL
+        self.securityAdvisoriesURL = securityAdvisoriesURL
+        self.timelineURL = timelineURL
+        self.userURL = userURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -3401,6 +4205,14 @@ public struct BaseGist: Codable {
         public var size: Int?
         public var type: String?
 
+        public init(filename: String? = nil, language: String? = nil, rawURL: String? = nil, size: Int? = nil, type: String? = nil) {
+            self.filename = filename
+            self.language = language
+            self.rawURL = rawURL
+            self.size = size
+            self.type = type
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.filename = try values.decodeIfPresent(String.self, forKey: "filename")
@@ -3418,6 +4230,29 @@ public struct BaseGist: Codable {
             try values.encodeIfPresent(size, forKey: "size")
             try values.encodeIfPresent(type, forKey: "type")
         }
+    }
+
+    public init(comments: Int, commentsURL: URL, commitsURL: URL, createdAt: Date, description: String? = nil, files: [String: FilesItem], forks: [AnyJSON]? = nil, forksURL: URL, gitPullURL: URL, gitPushURL: URL, history: [AnyJSON]? = nil, htmlURL: URL, id: String, nodeID: String, owner: SimpleUser? = nil, isPublic: Bool, isTruncated: Bool? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.comments = comments
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.createdAt = createdAt
+        self.description = description
+        self.files = files
+        self.forks = forks
+        self.forksURL = forksURL
+        self.gitPullURL = gitPullURL
+        self.gitPushURL = gitPushURL
+        self.history = history
+        self.htmlURL = htmlURL
+        self.id = id
+        self.nodeID = nodeID
+        self.owner = owner
+        self.isPublic = isPublic
+        self.isTruncated = isTruncated
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -3516,6 +4351,13 @@ public struct PublicUser: Codable {
         public var privateRepos: Int
         public var space: Int
 
+        public init(collaborators: Int, name: String, privateRepos: Int, space: Int) {
+            self.collaborators = collaborators
+            self.name = name
+            self.privateRepos = privateRepos
+            self.space = space
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.collaborators = try values.decode(Int.self, forKey: "collaborators")
@@ -3531,6 +4373,48 @@ public struct PublicUser: Codable {
             try values.encode(privateRepos, forKey: "private_repos")
             try values.encode(space, forKey: "space")
         }
+    }
+
+    public init(avatarURL: URL, bio: String? = nil, blog: String? = nil, collaborators: Int? = nil, company: String? = nil, createdAt: Date, diskUsage: Int? = nil, email: String? = nil, eventsURL: String, followers: Int, followersURL: URL, following: Int, followingURL: String, gistsURL: String, gravatarID: String? = nil, isHireable: Bool? = nil, htmlURL: URL, id: Int, location: String? = nil, login: String, name: String? = nil, nodeID: String, organizationsURL: URL, ownedPrivateRepos: Int? = nil, plan: Plan? = nil, privateGists: Int? = nil, publicGists: Int, publicRepos: Int, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, suspendedAt: Date? = nil, totalPrivateRepos: Int? = nil, twitterUsername: String? = nil, type: String, updatedAt: Date, url: URL) {
+        self.avatarURL = avatarURL
+        self.bio = bio
+        self.blog = blog
+        self.collaborators = collaborators
+        self.company = company
+        self.createdAt = createdAt
+        self.diskUsage = diskUsage
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followers = followers
+        self.followersURL = followersURL
+        self.following = following
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.isHireable = isHireable
+        self.htmlURL = htmlURL
+        self.id = id
+        self.location = location
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.ownedPrivateRepos = ownedPrivateRepos
+        self.plan = plan
+        self.privateGists = privateGists
+        self.publicGists = publicGists
+        self.publicRepos = publicRepos
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.isSiteAdmin = isSiteAdmin
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.suspendedAt = suspendedAt
+        self.totalPrivateRepos = totalPrivateRepos
+        self.twitterUsername = twitterUsername
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -3633,6 +4517,12 @@ public struct GistHistory: Codable {
         public var deletions: Int?
         public var total: Int?
 
+        public init(additions: Int? = nil, deletions: Int? = nil, total: Int? = nil) {
+            self.additions = additions
+            self.deletions = deletions
+            self.total = total
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
@@ -3646,6 +4536,14 @@ public struct GistHistory: Codable {
             try values.encodeIfPresent(deletions, forKey: "deletions")
             try values.encodeIfPresent(total, forKey: "total")
         }
+    }
+
+    public init(changeStatus: ChangeStatus? = nil, committedAt: Date? = nil, url: URL? = nil, user: SimpleUser? = nil, version: String? = nil) {
+        self.changeStatus = changeStatus
+        self.committedAt = committedAt
+        self.url = url
+        self.user = user
+        self.version = version
     }
 
     public init(from decoder: Decoder) throws {
@@ -3700,6 +4598,16 @@ public struct GistSimple: Codable {
         public var size: Int?
         public var isTruncated: Bool?
         public var type: String?
+
+        public init(content: String? = nil, filename: String? = nil, language: String? = nil, rawURL: String? = nil, size: Int? = nil, isTruncated: Bool? = nil, type: String? = nil) {
+            self.content = content
+            self.filename = filename
+            self.language = language
+            self.rawURL = rawURL
+            self.size = size
+            self.isTruncated = isTruncated
+            self.type = type
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3756,6 +4664,14 @@ public struct GistSimple: Codable {
             public var size: Int?
             public var type: String?
 
+            public init(filename: String? = nil, language: String? = nil, rawURL: String? = nil, size: Int? = nil, type: String? = nil) {
+                self.filename = filename
+                self.language = language
+                self.rawURL = rawURL
+                self.size = size
+                self.type = type
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.filename = try values.decodeIfPresent(String.self, forKey: "filename")
@@ -3773,6 +4689,29 @@ public struct GistSimple: Codable {
                 try values.encodeIfPresent(size, forKey: "size")
                 try values.encodeIfPresent(type, forKey: "type")
             }
+        }
+
+        public init(comments: Int, commentsURL: URL, commitsURL: URL, createdAt: Date, description: String? = nil, files: [String: FilesItem], forks: [AnyJSON]? = nil, forksURL: URL, gitPullURL: URL, gitPushURL: URL, history: [AnyJSON]? = nil, htmlURL: URL, id: String, nodeID: String, owner: SimpleUser? = nil, isPublic: Bool, isTruncated: Bool? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+            self.comments = comments
+            self.commentsURL = commentsURL
+            self.commitsURL = commitsURL
+            self.createdAt = createdAt
+            self.description = description
+            self.files = files
+            self.forks = forks
+            self.forksURL = forksURL
+            self.gitPullURL = gitPullURL
+            self.gitPushURL = gitPushURL
+            self.history = history
+            self.htmlURL = htmlURL
+            self.id = id
+            self.nodeID = nodeID
+            self.owner = owner
+            self.isPublic = isPublic
+            self.isTruncated = isTruncated
+            self.updatedAt = updatedAt
+            self.url = url
+            self.user = user
         }
 
         public init(from decoder: Decoder) throws {
@@ -3832,6 +4771,14 @@ public struct GistSimple: Codable {
         /// Public User
         public var user: PublicUser?
 
+        public init(createdAt: Date? = nil, id: String? = nil, updatedAt: Date? = nil, url: URL? = nil, user: PublicUser? = nil) {
+            self.createdAt = createdAt
+            self.id = id
+            self.updatedAt = updatedAt
+            self.url = url
+            self.user = user
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
@@ -3849,6 +4796,30 @@ public struct GistSimple: Codable {
             try values.encodeIfPresent(url, forKey: "url")
             try values.encodeIfPresent(user, forKey: "user")
         }
+    }
+
+    public init(comments: Int? = nil, commentsURL: String? = nil, commitsURL: String? = nil, createdAt: String? = nil, description: String? = nil, files: [String: FilesItem]? = nil, forkOf: ForkOf? = nil, forks: [Fork]? = nil, forksURL: String? = nil, gitPullURL: String? = nil, gitPushURL: String? = nil, history: [GistHistory]? = nil, htmlURL: String? = nil, id: String? = nil, nodeID: String? = nil, owner: SimpleUser? = nil, isPublic: Bool? = nil, isTruncated: Bool? = nil, updatedAt: String? = nil, url: String? = nil, user: String? = nil) {
+        self.comments = comments
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.createdAt = createdAt
+        self.description = description
+        self.files = files
+        self.forkOf = forkOf
+        self.forks = forks
+        self.forksURL = forksURL
+        self.gitPullURL = gitPullURL
+        self.gitPushURL = gitPushURL
+        self.history = history
+        self.htmlURL = htmlURL
+        self.id = id
+        self.nodeID = nodeID
+        self.owner = owner
+        self.isPublic = isPublic
+        self.isTruncated = isTruncated
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -3925,6 +4896,17 @@ public struct GistComment: Codable {
     /// Simple User
     public var user: SimpleUser?
 
+    public init(authorAssociation: AuthorAssociation, body: String, createdAt: Date, id: Int, nodeID: String, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.createdAt = createdAt
+        self.id = id
+        self.nodeID = nodeID
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
@@ -3965,6 +4947,12 @@ public struct GistCommit: Codable {
         public var deletions: Int?
         public var total: Int?
 
+        public init(additions: Int? = nil, deletions: Int? = nil, total: Int? = nil) {
+            self.additions = additions
+            self.deletions = deletions
+            self.total = total
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
@@ -3978,6 +4966,14 @@ public struct GistCommit: Codable {
             try values.encodeIfPresent(deletions, forKey: "deletions")
             try values.encodeIfPresent(total, forKey: "total")
         }
+    }
+
+    public init(changeStatus: ChangeStatus, committedAt: Date, url: URL, user: SimpleUser? = nil, version: String) {
+        self.changeStatus = changeStatus
+        self.committedAt = committedAt
+        self.url = url
+        self.user = user
+        self.version = version
     }
 
     public init(from decoder: Decoder) throws {
@@ -4023,6 +5019,11 @@ public struct GitignoreTemplate: Codable {
     /// 
     public var source: String
 
+    public init(name: String, source: String) {
+        self.name = name
+        self.source = source
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.name = try values.decode(String.self, forKey: "name")
@@ -4047,6 +5048,15 @@ public struct LicenseSimple: Codable {
     /// Example: MIT
     public var spdxID: String?
     public var url: URL?
+
+    public init(htmlURL: URL? = nil, key: String, name: String, nodeID: String, spdxID: String? = nil, url: URL? = nil) {
+        self.htmlURL = htmlURL
+        self.key = key
+        self.name = name
+        self.nodeID = nodeID
+        self.spdxID = spdxID
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -4136,6 +5146,22 @@ public struct License: Codable {
     public var spdxID: String?
     public var url: URL?
 
+    public init(body: String, conditions: [String], description: String, isFeatured: Bool, htmlURL: URL, implementation: String, key: String, limitations: [String], name: String, nodeID: String, permissions: [String], spdxID: String? = nil, url: URL? = nil) {
+        self.body = body
+        self.conditions = conditions
+        self.description = description
+        self.isFeatured = isFeatured
+        self.htmlURL = htmlURL
+        self.implementation = implementation
+        self.key = key
+        self.limitations = limitations
+        self.name = name
+        self.nodeID = nodeID
+        self.permissions = permissions
+        self.spdxID = spdxID
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.body = try values.decode(String.self, forKey: "body")
@@ -4200,6 +5226,22 @@ public struct MarketplaceListingPlan: Codable {
     /// Example: 11870
     public var yearlyPriceInCents: Int
 
+    public init(accountsURL: URL, bullets: [String], description: String, hasFreeTrial: Bool, id: Int, monthlyPriceInCents: Int, name: String, number: Int, priceModel: String, state: String, unitName: String? = nil, url: URL, yearlyPriceInCents: Int) {
+        self.accountsURL = accountsURL
+        self.bullets = bullets
+        self.description = description
+        self.hasFreeTrial = hasFreeTrial
+        self.id = id
+        self.monthlyPriceInCents = monthlyPriceInCents
+        self.name = name
+        self.number = number
+        self.priceModel = priceModel
+        self.state = state
+        self.unitName = unitName
+        self.url = url
+        self.yearlyPriceInCents = yearlyPriceInCents
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.accountsURL = try values.decode(URL.self, forKey: "accounts_url")
@@ -4253,6 +5295,14 @@ public struct MarketplacePurchase: Codable {
         public var plan: MarketplaceListingPlan?
         public var unitCount: Int?
 
+        public init(effectiveDate: String? = nil, id: Int? = nil, isInstalled: Bool? = nil, plan: MarketplaceListingPlan? = nil, unitCount: Int? = nil) {
+            self.effectiveDate = effectiveDate
+            self.id = id
+            self.isInstalled = isInstalled
+            self.plan = plan
+            self.unitCount = unitCount
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.effectiveDate = try values.decodeIfPresent(String.self, forKey: "effective_date")
@@ -4283,6 +5333,17 @@ public struct MarketplacePurchase: Codable {
         public var unitCount: Int?
         public var updatedAt: String?
 
+        public init(billingCycle: String? = nil, freeTrialEndsOn: String? = nil, isInstalled: Bool? = nil, nextBillingDate: String? = nil, isOnFreeTrial: Bool? = nil, plan: MarketplaceListingPlan? = nil, unitCount: Int? = nil, updatedAt: String? = nil) {
+            self.billingCycle = billingCycle
+            self.freeTrialEndsOn = freeTrialEndsOn
+            self.isInstalled = isInstalled
+            self.nextBillingDate = nextBillingDate
+            self.isOnFreeTrial = isOnFreeTrial
+            self.plan = plan
+            self.unitCount = unitCount
+            self.updatedAt = updatedAt
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.billingCycle = try values.decodeIfPresent(String.self, forKey: "billing_cycle")
@@ -4306,6 +5367,17 @@ public struct MarketplacePurchase: Codable {
             try values.encodeIfPresent(unitCount, forKey: "unit_count")
             try values.encodeIfPresent(updatedAt, forKey: "updated_at")
         }
+    }
+
+    public init(email: String? = nil, id: Int, login: String, marketplacePendingChange: MarketplacePendingChange? = nil, marketplacePurchase: MarketplacePurchase, organizationBillingEmail: String? = nil, type: String, url: String) {
+        self.email = email
+        self.id = id
+        self.login = login
+        self.marketplacePendingChange = marketplacePendingChange
+        self.marketplacePurchase = marketplacePurchase
+        self.organizationBillingEmail = organizationBillingEmail
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -4404,6 +5476,13 @@ public struct APIOverview: Codable {
         public var sha256Ed25519: String?
         public var sha256Rsa: String?
 
+        public init(sha256Dsa: String? = nil, sha256Ecdsa: String? = nil, sha256Ed25519: String? = nil, sha256Rsa: String? = nil) {
+            self.sha256Dsa = sha256Dsa
+            self.sha256Ecdsa = sha256Ecdsa
+            self.sha256Ed25519 = sha256Ed25519
+            self.sha256Rsa = sha256Rsa
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha256Dsa = try values.decodeIfPresent(String.self, forKey: "SHA256_DSA")
@@ -4419,6 +5498,20 @@ public struct APIOverview: Codable {
             try values.encodeIfPresent(sha256Ed25519, forKey: "SHA256_ED25519")
             try values.encodeIfPresent(sha256Rsa, forKey: "SHA256_RSA")
         }
+    }
+
+    public init(actions: [String]? = nil, api: [String]? = nil, dependabot: [String]? = nil, git: [String]? = nil, hooks: [String]? = nil, importer: [String]? = nil, packages: [String]? = nil, pages: [String]? = nil, sshKeyFingerprints: SshKeyFingerprints? = nil, isVerifiablePasswordAuthentication: Bool, web: [String]? = nil) {
+        self.actions = actions
+        self.api = api
+        self.dependabot = dependabot
+        self.git = git
+        self.hooks = hooks
+        self.importer = importer
+        self.packages = packages
+        self.pages = pages
+        self.sshKeyFingerprints = sshKeyFingerprints
+        self.isVerifiablePasswordAuthentication = isVerifiablePasswordAuthentication
+        self.web = web
     }
 
     public init(from decoder: Decoder) throws {
@@ -4559,6 +5652,14 @@ public struct MinimalRepository: Codable {
         public var spdxID: String?
         public var url: String?
 
+        public init(key: String? = nil, name: String? = nil, nodeID: String? = nil, spdxID: String? = nil, url: String? = nil) {
+            self.key = key
+            self.name = name
+            self.nodeID = nodeID
+            self.spdxID = spdxID
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.key = try values.decodeIfPresent(String.self, forKey: "key")
@@ -4585,6 +5686,14 @@ public struct MinimalRepository: Codable {
         public var isPush: Bool?
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool? = nil, isMaintain: Bool? = nil, isPull: Bool? = nil, isPush: Bool? = nil, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decodeIfPresent(Bool.self, forKey: "admin")
@@ -4602,6 +5711,94 @@ public struct MinimalRepository: Codable {
             try values.encodeIfPresent(isPush, forKey: "push")
             try values.encodeIfPresent(isTriage, forKey: "triage")
         }
+    }
+
+    public init(allowForking: Bool? = nil, archiveURL: String, isArchived: Bool? = nil, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String? = nil, codeOfConduct: CodeOfConduct? = nil, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date? = nil, defaultBranch: String? = nil, deleteBranchOnMerge: Bool? = nil, deploymentsURL: URL, description: String? = nil, isDisabled: Bool? = nil, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int? = nil, forksCount: Int? = nil, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String? = nil, hasDownloads: Bool? = nil, hasIssues: Bool? = nil, hasPages: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, homepage: String? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: License? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: String? = nil, name: String, networkCount: Int? = nil, nodeID: String, notificationsURL: String, openIssues: Int? = nil, openIssuesCount: Int? = nil, owner: SimpleUser, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date? = nil, releasesURL: String, roleName: String? = nil, size: Int? = nil, sshURL: String? = nil, stargazersCount: Int? = nil, stargazersURL: URL, statusesURL: String, subscribersCount: Int? = nil, subscribersURL: URL, subscriptionURL: URL, svnURL: String? = nil, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, templateRepository: Repository? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date? = nil, url: URL, visibility: String? = nil, watchers: Int? = nil, watchersCount: Int? = nil) {
+        self.allowForking = allowForking
+        self.archiveURL = archiveURL
+        self.isArchived = isArchived
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.cloneURL = cloneURL
+        self.codeOfConduct = codeOfConduct
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.createdAt = createdAt
+        self.defaultBranch = defaultBranch
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.deploymentsURL = deploymentsURL
+        self.description = description
+        self.isDisabled = isDisabled
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.isFork = isFork
+        self.forks = forks
+        self.forksCount = forksCount
+        self.forksURL = forksURL
+        self.fullName = fullName
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.hasDownloads = hasDownloads
+        self.hasIssues = hasIssues
+        self.hasPages = hasPages
+        self.hasProjects = hasProjects
+        self.hasWiki = hasWiki
+        self.homepage = homepage
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isTemplate = isTemplate
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.language = language
+        self.languagesURL = languagesURL
+        self.license = license
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.mirrorURL = mirrorURL
+        self.name = name
+        self.networkCount = networkCount
+        self.nodeID = nodeID
+        self.notificationsURL = notificationsURL
+        self.openIssues = openIssues
+        self.openIssuesCount = openIssuesCount
+        self.owner = owner
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.pullsURL = pullsURL
+        self.pushedAt = pushedAt
+        self.releasesURL = releasesURL
+        self.roleName = roleName
+        self.size = size
+        self.sshURL = sshURL
+        self.stargazersCount = stargazersCount
+        self.stargazersURL = stargazersURL
+        self.statusesURL = statusesURL
+        self.subscribersCount = subscribersCount
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.svnURL = svnURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.tempCloneToken = tempCloneToken
+        self.templateRepository = templateRepository
+        self.topics = topics
+        self.treesURL = treesURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.visibility = visibility
+        self.watchers = watchers
+        self.watchersCount = watchersCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -4801,6 +5998,13 @@ public struct Thread: Codable {
         public var type: String
         public var url: String
 
+        public init(latestCommentURL: String, title: String, type: String, url: String) {
+            self.latestCommentURL = latestCommentURL
+            self.title = title
+            self.type = type
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.latestCommentURL = try values.decode(String.self, forKey: "latest_comment_url")
@@ -4816,6 +6020,18 @@ public struct Thread: Codable {
             try values.encode(type, forKey: "type")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(id: String, lastReadAt: String? = nil, reason: String, repository: MinimalRepository, subject: Subject, subscriptionURL: String, isUnread: Bool, updatedAt: String, url: String) {
+        self.id = id
+        self.lastReadAt = lastReadAt
+        self.reason = reason
+        self.repository = repository
+        self.subject = subject
+        self.subscriptionURL = subscriptionURL
+        self.isUnread = isUnread
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -4856,6 +6072,16 @@ public struct ThreadSubscription: Codable {
     public var threadURL: URL?
     public var url: URL
 
+    public init(createdAt: Date? = nil, isIgnored: Bool, reason: String? = nil, repositoryURL: URL? = nil, isSubscribed: Bool, threadURL: URL? = nil, url: URL) {
+        self.createdAt = createdAt
+        self.isIgnored = isIgnored
+        self.reason = reason
+        self.repositoryURL = repositoryURL
+        self.isSubscribed = isSubscribed
+        self.threadURL = threadURL
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
@@ -4883,6 +6109,11 @@ public struct ThreadSubscription: Codable {
 public struct OrganizationCustomRepositoryRole: Codable {
     public var id: Int
     public var name: String
+
+    public init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -4980,6 +6211,14 @@ public struct OrganizationFull: Codable {
         public var seats: Int?
         public var space: Int
 
+        public init(filledSeats: Int? = nil, name: String, privateRepos: Int, seats: Int? = nil, space: Int) {
+            self.filledSeats = filledSeats
+            self.name = name
+            self.privateRepos = privateRepos
+            self.seats = seats
+            self.space = space
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.filledSeats = try values.decodeIfPresent(Int.self, forKey: "filled_seats")
@@ -4997,6 +6236,55 @@ public struct OrganizationFull: Codable {
             try values.encodeIfPresent(seats, forKey: "seats")
             try values.encode(space, forKey: "space")
         }
+    }
+
+    public init(avatarURL: String, billingEmail: String? = nil, blog: URL? = nil, collaborators: Int? = nil, company: String? = nil, createdAt: Date, defaultRepositoryPermission: String? = nil, description: String? = nil, diskUsage: Int? = nil, email: String? = nil, eventsURL: URL, followers: Int, following: Int, hasOrganizationProjects: Bool, hasRepositoryProjects: Bool, hooksURL: String, htmlURL: URL, id: Int, isVerified: Bool? = nil, issuesURL: String, location: String? = nil, login: String, membersAllowedRepositoryCreationType: String? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersCanCreateRepositories: Bool? = nil, membersURL: String, name: String? = nil, nodeID: String, ownedPrivateRepos: Int? = nil, plan: Plan? = nil, privateGists: Int? = nil, publicGists: Int, publicMembersURL: String, publicRepos: Int, reposURL: URL, totalPrivateRepos: Int? = nil, twitterUsername: String? = nil, isTwoFactorRequirementEnabled: Bool? = nil, type: String, updatedAt: Date, url: URL) {
+        self.avatarURL = avatarURL
+        self.billingEmail = billingEmail
+        self.blog = blog
+        self.collaborators = collaborators
+        self.company = company
+        self.createdAt = createdAt
+        self.defaultRepositoryPermission = defaultRepositoryPermission
+        self.description = description
+        self.diskUsage = diskUsage
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followers = followers
+        self.following = following
+        self.hasOrganizationProjects = hasOrganizationProjects
+        self.hasRepositoryProjects = hasRepositoryProjects
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isVerified = isVerified
+        self.issuesURL = issuesURL
+        self.location = location
+        self.login = login
+        self.membersAllowedRepositoryCreationType = membersAllowedRepositoryCreationType
+        self.membersCanCreateInternalRepositories = membersCanCreateInternalRepositories
+        self.membersCanCreatePages = membersCanCreatePages
+        self.membersCanCreatePrivatePages = membersCanCreatePrivatePages
+        self.membersCanCreatePrivateRepositories = membersCanCreatePrivateRepositories
+        self.membersCanCreatePublicPages = membersCanCreatePublicPages
+        self.membersCanCreatePublicRepositories = membersCanCreatePublicRepositories
+        self.membersCanCreateRepositories = membersCanCreateRepositories
+        self.membersURL = membersURL
+        self.name = name
+        self.nodeID = nodeID
+        self.ownedPrivateRepos = ownedPrivateRepos
+        self.plan = plan
+        self.privateGists = privateGists
+        self.publicGists = publicGists
+        self.publicMembersURL = publicMembersURL
+        self.publicRepos = publicRepos
+        self.reposURL = reposURL
+        self.totalPrivateRepos = totalPrivateRepos
+        self.twitterUsername = twitterUsername
+        self.isTwoFactorRequirementEnabled = isTwoFactorRequirementEnabled
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -5117,6 +6405,13 @@ public struct ActionsOrganizationPermissions: Codable {
     /// The API URL to use to get or set the selected repositories that are allowed to run GitHub Actions, when `enabled_repositories` is set to `selected`.
     public var selectedRepositoriesURL: String?
 
+    public init(allowedActions: AllowedActions? = nil, enabledRepositories: EnabledRepositories, selectedActionsURL: String? = nil, selectedRepositoriesURL: String? = nil) {
+        self.allowedActions = allowedActions
+        self.enabledRepositories = enabledRepositories
+        self.selectedActionsURL = selectedActionsURL
+        self.selectedRepositoriesURL = selectedRepositoriesURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
@@ -5145,6 +6440,18 @@ public struct RunnerGroupsOrg: Codable {
     /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
     public var selectedRepositoriesURL: String?
     public var visibility: String
+
+    public init(allowsPublicRepositories: Bool, isDefault: Bool, id: Double, isInherited: Bool, inheritedAllowsPublicRepositories: Bool? = nil, name: String, runnersURL: String, selectedRepositoriesURL: String? = nil, visibility: String) {
+        self.allowsPublicRepositories = allowsPublicRepositories
+        self.isDefault = isDefault
+        self.id = id
+        self.isInherited = isInherited
+        self.inheritedAllowsPublicRepositories = inheritedAllowsPublicRepositories
+        self.name = name
+        self.runnersURL = runnersURL
+        self.selectedRepositoriesURL = selectedRepositoriesURL
+        self.visibility = visibility
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -5194,6 +6501,14 @@ public struct OrganizationActionsSecret: Codable {
         case selected
     }
 
+    public init(createdAt: Date, name: String, selectedRepositoriesURL: URL? = nil, updatedAt: Date, visibility: Visibility) {
+        self.createdAt = createdAt
+        self.name = name
+        self.selectedRepositoriesURL = selectedRepositoriesURL
+        self.updatedAt = updatedAt
+        self.visibility = visibility
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -5230,6 +6545,15 @@ public struct ActionsPublicKey: Codable {
     public var title: String?
     public var url: String?
 
+    public init(createdAt: String? = nil, id: Int? = nil, key: String, keyID: String, title: String? = nil, url: String? = nil) {
+        self.createdAt = createdAt
+        self.id = id
+        self.key = key
+        self.keyID = keyID
+        self.title = title
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decodeIfPresent(String.self, forKey: "created_at")
@@ -5254,6 +6578,8 @@ public struct ActionsPublicKey: Codable {
 /// An object without any properties.
 public struct EmptyObject: Codable {
 
+
+    public init() {}
 }
 
 public struct CredentialAuthorization: Codable {
@@ -5304,6 +6630,21 @@ public struct CredentialAuthorization: Codable {
     ///
     /// Example: 12345678
     public var tokenLastEight: String?
+
+    public init(authorizedCredentialExpiresAt: Date? = nil, authorizedCredentialID: Int? = nil, authorizedCredentialNote: String? = nil, authorizedCredentialTitle: String? = nil, credentialAccessedAt: Date? = nil, credentialAuthorizedAt: Date, credentialID: Int, credentialType: String, fingerprint: String? = nil, login: String, scopes: [String]? = nil, tokenLastEight: String? = nil) {
+        self.authorizedCredentialExpiresAt = authorizedCredentialExpiresAt
+        self.authorizedCredentialID = authorizedCredentialID
+        self.authorizedCredentialNote = authorizedCredentialNote
+        self.authorizedCredentialTitle = authorizedCredentialTitle
+        self.credentialAccessedAt = credentialAccessedAt
+        self.credentialAuthorizedAt = credentialAuthorizedAt
+        self.credentialID = credentialID
+        self.credentialType = credentialType
+        self.fingerprint = fingerprint
+        self.login = login
+        self.scopes = scopes
+        self.tokenLastEight = tokenLastEight
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -5401,6 +6742,13 @@ public struct ExternalGroup: Codable {
         /// Example: Mona Lisa
         public var memberName: String
 
+        public init(memberEmail: String, memberID: Int, memberLogin: String, memberName: String) {
+            self.memberEmail = memberEmail
+            self.memberID = memberID
+            self.memberLogin = memberLogin
+            self.memberName = memberName
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.memberEmail = try values.decode(String.self, forKey: "member_email")
@@ -5426,6 +6774,11 @@ public struct ExternalGroup: Codable {
         /// Example: team-test
         public var teamName: String
 
+        public init(teamID: Int, teamName: String) {
+            self.teamID = teamID
+            self.teamName = teamName
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.teamID = try values.decode(Int.self, forKey: "team_id")
@@ -5437,6 +6790,14 @@ public struct ExternalGroup: Codable {
             try values.encode(teamID, forKey: "team_id")
             try values.encode(teamName, forKey: "team_name")
         }
+    }
+
+    public init(groupID: Int, groupName: String, members: [Member], teams: [Team], updatedAt: String? = nil) {
+        self.groupID = groupID
+        self.groupName = groupName
+        self.members = members
+        self.teams = teams
+        self.updatedAt = updatedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -5490,6 +6851,12 @@ public struct ExternalGroups: Codable {
         /// Example: 1635
         public var updatedAt: String
 
+        public init(groupID: Int, groupName: String, updatedAt: String) {
+            self.groupID = groupID
+            self.groupName = groupName
+            self.updatedAt = updatedAt
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.groupID = try values.decode(Int.self, forKey: "group_id")
@@ -5503,6 +6870,10 @@ public struct ExternalGroups: Codable {
             try values.encode(groupName, forKey: "group_name")
             try values.encode(updatedAt, forKey: "updated_at")
         }
+    }
+
+    public init(groups: [Group]? = nil) {
+        self.groups = groups
     }
 
     public init(from decoder: Decoder) throws {
@@ -5531,6 +6902,20 @@ public struct OrganizationInvitation: Codable {
     public var nodeID: String
     public var role: String
     public var teamCount: Int
+
+    public init(createdAt: String, email: String? = nil, failedAt: String? = nil, failedReason: String? = nil, id: Int, invitationTeamsURL: String, inviter: SimpleUser, login: String? = nil, nodeID: String, role: String, teamCount: Int) {
+        self.createdAt = createdAt
+        self.email = email
+        self.failedAt = failedAt
+        self.failedReason = failedReason
+        self.id = id
+        self.invitationTeamsURL = invitationTeamsURL
+        self.inviter = inviter
+        self.login = login
+        self.nodeID = nodeID
+        self.role = role
+        self.teamCount = teamCount
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -5596,6 +6981,13 @@ public struct OrgHook: Codable {
         /// Example: "http://example.com/2"
         public var url: String?
 
+        public init(contentType: String? = nil, insecureSSL: String? = nil, secret: String? = nil, url: String? = nil) {
+            self.contentType = contentType
+            self.insecureSSL = insecureSSL
+            self.secret = secret
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
@@ -5611,6 +7003,20 @@ public struct OrgHook: Codable {
             try values.encodeIfPresent(secret, forKey: "secret")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(isActive: Bool, config: Config, createdAt: Date, deliveriesURL: URL? = nil, events: [String], id: Int, name: String, pingURL: URL, type: String, updatedAt: Date, url: URL) {
+        self.isActive = isActive
+        self.config = config
+        self.createdAt = createdAt
+        self.deliveriesURL = deliveriesURL
+        self.events = events
+        self.id = id
+        self.name = name
+        self.pingURL = pingURL
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -5666,6 +7072,12 @@ public struct InteractionLimitResponse: Codable {
     /// Example: repository
     public var origin: String
 
+    public init(expiresAt: Date, limit: InteractionGroup, origin: String) {
+        self.expiresAt = expiresAt
+        self.limit = limit
+        self.origin = origin
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.expiresAt = try values.decode(Date.self, forKey: "expires_at")
@@ -5704,6 +7116,11 @@ public struct InteractionLimit: Codable {
     ///
     /// Example: collaborators_only
     public var limit: InteractionGroup
+
+    public init(expiry: InteractionExpiry? = nil, limit: InteractionGroup) {
+        self.expiry = expiry
+        self.limit = limit
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -5744,6 +7161,14 @@ public struct Team: Codable {
         public var isPush: Bool
         public var isTriage: Bool
 
+        public init(isAdmin: Bool, isMaintain: Bool, isPull: Bool, isPush: Bool, isTriage: Bool) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -5761,6 +7186,22 @@ public struct Team: Codable {
             try values.encode(isPush, forKey: "push")
             try values.encode(isTriage, forKey: "triage")
         }
+    }
+
+    public init(description: String? = nil, htmlURL: URL, id: Int, membersURL: String, name: String, nodeID: String, parent: TeamSimple? = nil, permission: String, permissions: Permissions? = nil, privacy: String? = nil, repositoriesURL: URL, slug: String, url: URL) {
+        self.description = description
+        self.htmlURL = htmlURL
+        self.id = id
+        self.membersURL = membersURL
+        self.name = name
+        self.nodeID = nodeID
+        self.parent = parent
+        self.permission = permission
+        self.permissions = permissions
+        self.privacy = privacy
+        self.repositoriesURL = repositoriesURL
+        self.slug = slug
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -5818,6 +7259,10 @@ public struct OrgMembership: Codable {
     public struct Permissions: Codable {
         public var canCreateRepository: Bool
 
+        public init(canCreateRepository: Bool) {
+            self.canCreateRepository = canCreateRepository
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.canCreateRepository = try values.decode(Bool.self, forKey: "can_create_repository")
@@ -5844,6 +7289,16 @@ public struct OrgMembership: Codable {
     public enum State: String, Codable, CaseIterable {
         case active
         case pending
+    }
+
+    public init(organization: OrganizationSimple, organizationURL: URL, permissions: Permissions? = nil, role: Role, state: State, url: URL, user: SimpleUser? = nil) {
+        self.organization = organization
+        self.organizationURL = organizationURL
+        self.permissions = permissions
+        self.role = role
+        self.state = state
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -5895,6 +7350,26 @@ public struct Migration: Codable {
     /// Example: 2015-07-06T15:33:38-07:00
     public var updatedAt: Date
     public var url: URL
+
+    public init(archiveURL: URL? = nil, createdAt: Date, exclude: [AnyJSON]? = nil, excludeAttachments: Bool, excludeGitData: Bool, excludeMetadata: Bool, excludeOwnerProjects: Bool, excludeReleases: Bool, guid: String, id: Int, lockRepositories: Bool, nodeID: String, owner: SimpleUser? = nil, repositories: [Repository], state: String, updatedAt: Date, url: URL) {
+        self.archiveURL = archiveURL
+        self.createdAt = createdAt
+        self.exclude = exclude
+        self.excludeAttachments = excludeAttachments
+        self.excludeGitData = excludeGitData
+        self.excludeMetadata = excludeMetadata
+        self.excludeOwnerProjects = excludeOwnerProjects
+        self.excludeReleases = excludeReleases
+        self.guid = guid
+        self.id = id
+        self.lockRepositories = lockRepositories
+        self.nodeID = nodeID
+        self.owner = owner
+        self.repositories = repositories
+        self.state = state
+        self.updatedAt = updatedAt
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -5978,6 +7453,20 @@ public struct Package: Codable {
         case `public`
     }
 
+    public init(createdAt: Date, htmlURL: String, id: Int, name: String, owner: SimpleUser? = nil, packageType: PackageType, repository: MinimalRepository? = nil, updatedAt: Date, url: String, versionCount: Int, visibility: Visibility) {
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.owner = owner
+        self.packageType = packageType
+        self.repository = repository
+        self.updatedAt = updatedAt
+        self.url = url
+        self.versionCount = versionCount
+        self.visibility = visibility
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -6045,6 +7534,10 @@ public struct PackageVersion: Codable {
         public struct Container: Codable {
             public var tags: [String]
 
+            public init(tags: [String]) {
+                self.tags = tags
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.tags = try values.decode([String].self, forKey: "tags")
@@ -6060,6 +7553,11 @@ public struct PackageVersion: Codable {
         public struct Docker: Codable {
             public var tag: [String]?
             public var tags: AnyJSON
+
+            public init(tag: [String]? = nil, tags: AnyJSON) {
+                self.tag = tag
+                self.tags = tags
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -6084,6 +7582,12 @@ public struct PackageVersion: Codable {
             case container
         }
 
+        public init(container: Container? = nil, docker: Docker? = nil, packageType: PackageType) {
+            self.container = container
+            self.docker = docker
+            self.packageType = packageType
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.container = try values.decodeIfPresent(Container.self, forKey: "container")
@@ -6097,6 +7601,20 @@ public struct PackageVersion: Codable {
             try values.encodeIfPresent(docker, forKey: "docker")
             try values.encode(packageType, forKey: "package_type")
         }
+    }
+
+    public init(createdAt: Date, deletedAt: Date? = nil, description: String? = nil, htmlURL: String? = nil, id: Int, license: String? = nil, metadata: Metadata? = nil, name: String, packageHTMLURL: String, updatedAt: Date, url: String) {
+        self.createdAt = createdAt
+        self.deletedAt = deletedAt
+        self.description = description
+        self.htmlURL = htmlURL
+        self.id = id
+        self.license = license
+        self.metadata = metadata
+        self.name = name
+        self.packageHTMLURL = packageHTMLURL
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -6170,6 +7688,24 @@ public struct Project: Codable {
         case write
         case admin
         case `none`
+    }
+
+    public init(body: String? = nil, columnsURL: URL, createdAt: Date, creator: SimpleUser? = nil, htmlURL: URL, id: Int, name: String, nodeID: String, number: Int, organizationPermission: OrganizationPermission? = nil, ownerURL: URL, isPrivate: Bool? = nil, state: String, updatedAt: Date, url: URL) {
+        self.body = body
+        self.columnsURL = columnsURL
+        self.createdAt = createdAt
+        self.creator = creator
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.number = number
+        self.organizationPermission = organizationPermission
+        self.ownerURL = ownerURL
+        self.isPrivate = isPrivate
+        self.state = state
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -6251,6 +7787,21 @@ public struct OrganizationSecretScanningAlert: Codable {
     /// The REST API URL of the alert resource.
     public var url: URL?
 
+    public init(createdAt: Date? = nil, htmlURL: URL? = nil, locationsURL: URL? = nil, number: Int? = nil, repository: MinimalRepository? = nil, resolution: SecretScanningAlertResolution? = nil, resolvedAt: Date? = nil, resolvedBy: SimpleUser? = nil, secret: String? = nil, secretType: String? = nil, state: SecretScanningAlertState? = nil, url: URL? = nil) {
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.locationsURL = locationsURL
+        self.number = number
+        self.repository = repository
+        self.resolution = resolution
+        self.resolvedAt = resolvedAt
+        self.resolvedBy = resolvedBy
+        self.secret = secret
+        self.secretType = secretType
+        self.state = state
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
@@ -6326,6 +7877,14 @@ public struct GroupMapping: Codable {
         /// Example: 1635
         public var syncedAt: String?
 
+        public init(groupDescription: String, groupID: String, groupName: String, status: String? = nil, syncedAt: String? = nil) {
+            self.groupDescription = groupDescription
+            self.groupID = groupID
+            self.groupName = groupName
+            self.status = status
+            self.syncedAt = syncedAt
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.groupDescription = try values.decode(String.self, forKey: "group_description")
@@ -6343,6 +7902,10 @@ public struct GroupMapping: Codable {
             try values.encodeIfPresent(status, forKey: "status")
             try values.encodeIfPresent(syncedAt, forKey: "synced_at")
         }
+    }
+
+    public init(groups: [Group]? = nil) {
+        self.groups = groups
     }
 
     public init(from decoder: Decoder) throws {
@@ -6411,6 +7974,27 @@ public struct TeamFull: Codable {
     public enum Privacy: String, Codable, CaseIterable {
         case closed
         case secret
+    }
+
+    public init(createdAt: Date, description: String? = nil, htmlURL: URL, id: Int, ldapDn: String? = nil, membersCount: Int, membersURL: String, name: String, nodeID: String, organization: OrganizationFull, parent: TeamSimple? = nil, permission: String, privacy: Privacy? = nil, reposCount: Int, repositoriesURL: URL, slug: String, updatedAt: Date, url: URL) {
+        self.createdAt = createdAt
+        self.description = description
+        self.htmlURL = htmlURL
+        self.id = id
+        self.ldapDn = ldapDn
+        self.membersCount = membersCount
+        self.membersURL = membersURL
+        self.name = name
+        self.nodeID = nodeID
+        self.organization = organization
+        self.parent = parent
+        self.permission = permission
+        self.privacy = privacy
+        self.reposCount = reposCount
+        self.repositoriesURL = repositoriesURL
+        self.slug = slug
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -6503,6 +8087,27 @@ public struct TeamDiscussion: Codable {
     public var updatedAt: Date
     public var url: URL
 
+    public init(author: SimpleUser? = nil, body: String, bodyHTML: String, bodyVersion: String, commentsCount: Int, commentsURL: URL, createdAt: Date, htmlURL: URL, lastEditedAt: Date? = nil, nodeID: String, number: Int, isPinned: Bool, isPrivate: Bool, reactions: ReactionRollup? = nil, teamURL: URL, title: String, updatedAt: Date, url: URL) {
+        self.author = author
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyVersion = bodyVersion
+        self.commentsCount = commentsCount
+        self.commentsURL = commentsURL
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.lastEditedAt = lastEditedAt
+        self.nodeID = nodeID
+        self.number = number
+        self.isPinned = isPinned
+        self.isPrivate = isPrivate
+        self.reactions = reactions
+        self.teamURL = teamURL
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.author = try values.decodeIfPresent(SimpleUser.self, forKey: "author")
@@ -6579,6 +8184,22 @@ public struct TeamDiscussionComment: Codable {
     public var updatedAt: Date
     public var url: URL
 
+    public init(author: SimpleUser? = nil, body: String, bodyHTML: String, bodyVersion: String, createdAt: Date, discussionURL: URL, htmlURL: URL, lastEditedAt: Date? = nil, nodeID: String, number: Int, reactions: ReactionRollup? = nil, updatedAt: Date, url: URL) {
+        self.author = author
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyVersion = bodyVersion
+        self.createdAt = createdAt
+        self.discussionURL = discussionURL
+        self.htmlURL = htmlURL
+        self.lastEditedAt = lastEditedAt
+        self.nodeID = nodeID
+        self.number = number
+        self.reactions = reactions
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.author = try values.decodeIfPresent(SimpleUser.self, forKey: "author")
@@ -6642,6 +8263,14 @@ public struct Reaction: Codable {
         case eyes
     }
 
+    public init(content: Content, createdAt: Date, id: Int, nodeID: String, user: SimpleUser? = nil) {
+        self.content = content
+        self.createdAt = createdAt
+        self.id = id
+        self.nodeID = nodeID
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.content = try values.decode(Content.self, forKey: "content")
@@ -6682,6 +8311,12 @@ public struct TeamMembership: Codable {
     public enum State: String, Codable, CaseIterable {
         case active
         case pending
+    }
+
+    public init(role: Role, state: State, url: URL) {
+        self.role = role
+        self.state = state
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -6726,6 +8361,12 @@ public struct TeamProject: Codable {
         public var isRead: Bool
         public var isWrite: Bool
 
+        public init(isAdmin: Bool, isRead: Bool, isWrite: Bool) {
+            self.isAdmin = isAdmin
+            self.isRead = isRead
+            self.isWrite = isWrite
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -6739,6 +8380,25 @@ public struct TeamProject: Codable {
             try values.encode(isRead, forKey: "read")
             try values.encode(isWrite, forKey: "write")
         }
+    }
+
+    public init(body: String? = nil, columnsURL: String, createdAt: String, creator: SimpleUser, htmlURL: String, id: Int, name: String, nodeID: String, number: Int, organizationPermission: String? = nil, ownerURL: String, permissions: Permissions, isPrivate: Bool? = nil, state: String, updatedAt: String, url: String) {
+        self.body = body
+        self.columnsURL = columnsURL
+        self.createdAt = createdAt
+        self.creator = creator
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.number = number
+        self.organizationPermission = organizationPermission
+        self.ownerURL = ownerURL
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.state = state
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -6942,6 +8602,14 @@ public struct TeamRepository: Codable {
         public var isPush: Bool
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -6959,6 +8627,98 @@ public struct TeamRepository: Codable {
             try values.encode(isPush, forKey: "push")
             try values.encodeIfPresent(isTriage, forKey: "triage")
         }
+    }
+
+    public init(allowAutoMerge: Bool? = nil, allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date? = nil, defaultBranch: String, deleteBranchOnMerge: Bool? = nil, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: LicenseSimple? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, networkCount: Int? = nil, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, owner: SimpleUser? = nil, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date? = nil, releasesURL: String, roleName: String? = nil, size: Int, sshURL: String, stargazersCount: Int, stargazersURL: URL, statusesURL: String, subscribersCount: Int? = nil, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, templateRepository: Repository? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date? = nil, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+        self.allowAutoMerge = allowAutoMerge
+        self.allowForking = allowForking
+        self.allowMergeCommit = allowMergeCommit
+        self.allowRebaseMerge = allowRebaseMerge
+        self.allowSquashMerge = allowSquashMerge
+        self.archiveURL = archiveURL
+        self.isArchived = isArchived
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.cloneURL = cloneURL
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.createdAt = createdAt
+        self.defaultBranch = defaultBranch
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.deploymentsURL = deploymentsURL
+        self.description = description
+        self.isDisabled = isDisabled
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.isFork = isFork
+        self.forks = forks
+        self.forksCount = forksCount
+        self.forksURL = forksURL
+        self.fullName = fullName
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.hasDownloads = hasDownloads
+        self.hasIssues = hasIssues
+        self.hasPages = hasPages
+        self.hasProjects = hasProjects
+        self.hasWiki = hasWiki
+        self.homepage = homepage
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isTemplate = isTemplate
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.language = language
+        self.languagesURL = languagesURL
+        self.license = license
+        self.masterBranch = masterBranch
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.mirrorURL = mirrorURL
+        self.name = name
+        self.networkCount = networkCount
+        self.nodeID = nodeID
+        self.notificationsURL = notificationsURL
+        self.openIssues = openIssues
+        self.openIssuesCount = openIssuesCount
+        self.owner = owner
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.pullsURL = pullsURL
+        self.pushedAt = pushedAt
+        self.releasesURL = releasesURL
+        self.roleName = roleName
+        self.size = size
+        self.sshURL = sshURL
+        self.stargazersCount = stargazersCount
+        self.stargazersURL = stargazersURL
+        self.statusesURL = statusesURL
+        self.subscribersCount = subscribersCount
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.svnURL = svnURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.tempCloneToken = tempCloneToken
+        self.templateRepository = templateRepository
+        self.topics = topics
+        self.treesURL = treesURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.visibility = visibility
+        self.watchers = watchers
+        self.watchersCount = watchersCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -7175,6 +8935,22 @@ public struct ProjectCard: Codable {
     public var updatedAt: Date
     public var url: URL
 
+    public init(isArchived: Bool? = nil, columnName: String? = nil, columnURL: URL, contentURL: URL? = nil, createdAt: Date, creator: SimpleUser? = nil, id: Int, nodeID: String, note: String? = nil, projectID: String? = nil, projectURL: URL, updatedAt: Date, url: URL) {
+        self.isArchived = isArchived
+        self.columnName = columnName
+        self.columnURL = columnURL
+        self.contentURL = contentURL
+        self.createdAt = createdAt
+        self.creator = creator
+        self.id = id
+        self.nodeID = nodeID
+        self.note = note
+        self.projectID = projectID
+        self.projectURL = projectURL
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
@@ -7230,6 +9006,17 @@ public struct ProjectColumn: Codable {
     public var updatedAt: Date
     public var url: URL
 
+    public init(cardsURL: URL, createdAt: Date, id: Int, name: String, nodeID: String, projectURL: URL, updatedAt: Date, url: URL) {
+        self.cardsURL = cardsURL
+        self.createdAt = createdAt
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.projectURL = projectURL
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.cardsURL = try values.decode(URL.self, forKey: "cards_url")
@@ -7260,6 +9047,11 @@ public struct ProjectCollaboratorPermission: Codable {
     /// Simple User
     public var user: SimpleUser?
 
+    public init(permission: String, user: SimpleUser? = nil) {
+        self.permission = permission
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.permission = try values.decode(String.self, forKey: "permission")
@@ -7278,6 +9070,13 @@ public struct RateLimit: Codable {
     public var remaining: Int
     public var reset: Int
     public var used: Int
+
+    public init(limit: Int, remaining: Int, reset: Int, used: Int) {
+        self.limit = limit
+        self.remaining = remaining
+        self.reset = reset
+        self.used = used
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -7319,6 +9118,17 @@ public struct RateLimitOverview: Codable {
         /// Rate Limit
         public var sourceImport: RateLimit?
 
+        public init(actionsRunnerRegistration: RateLimit? = nil, codeScanningUpload: RateLimit? = nil, core: RateLimit, graphql: RateLimit? = nil, integrationManifest: RateLimit? = nil, scim: RateLimit? = nil, search: RateLimit, sourceImport: RateLimit? = nil) {
+            self.actionsRunnerRegistration = actionsRunnerRegistration
+            self.codeScanningUpload = codeScanningUpload
+            self.core = core
+            self.graphql = graphql
+            self.integrationManifest = integrationManifest
+            self.scim = scim
+            self.search = search
+            self.sourceImport = sourceImport
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.actionsRunnerRegistration = try values.decodeIfPresent(RateLimit.self, forKey: "actions_runner_registration")
@@ -7344,6 +9154,11 @@ public struct RateLimitOverview: Codable {
         }
     }
 
+    public init(rate: RateLimit, resources: Resources) {
+        self.rate = rate
+        self.resources = resources
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.rate = try values.decode(RateLimit.self, forKey: "rate")
@@ -7365,6 +9180,13 @@ public struct CodeOfConductSimple: Codable {
     /// Example: Citizen Code of Conduct
     public var name: String
     public var url: URL
+
+    public init(htmlURL: URL? = nil, key: String, name: String, url: URL) {
+        self.htmlURL = htmlURL
+        self.key = key
+        self.name = name
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -7538,6 +9360,14 @@ public struct FullRepository: Codable {
         public var isPush: Bool
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -7569,6 +9399,10 @@ public struct FullRepository: Codable {
                 case disabled
             }
 
+            public init(status: Status? = nil) {
+                self.status = status
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.status = try values.decodeIfPresent(Status.self, forKey: "status")
@@ -7588,6 +9422,10 @@ public struct FullRepository: Codable {
                 case disabled
             }
 
+            public init(status: Status? = nil) {
+                self.status = status
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.status = try values.decodeIfPresent(Status.self, forKey: "status")
@@ -7597,6 +9435,11 @@ public struct FullRepository: Codable {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(status, forKey: "status")
             }
+        }
+
+        public init(advancedSecurity: AdvancedSecurity? = nil, secretScanning: SecretScanning? = nil) {
+            self.advancedSecurity = advancedSecurity
+            self.secretScanning = secretScanning
         }
 
         public init(from decoder: Decoder) throws {
@@ -7610,6 +9453,103 @@ public struct FullRepository: Codable {
             try values.encodeIfPresent(advancedSecurity, forKey: "advanced_security")
             try values.encodeIfPresent(secretScanning, forKey: "secret_scanning")
         }
+    }
+
+    public init(allowAutoMerge: Bool? = nil, allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, isAnonymousAccessEnabled: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, codeOfConduct: CodeOfConductSimple? = nil, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date, defaultBranch: String, deleteBranchOnMerge: Bool? = nil, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: LicenseSimple? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, networkCount: Int, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, organization: SimpleUser? = nil, owner: SimpleUser, parent: Repository? = nil, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date, releasesURL: String, securityAndAnalysis: SecurityAndAnalysis? = nil, size: Int, source: Repository? = nil, sshURL: String, stargazersCount: Int, stargazersURL: URL, statusesURL: String, subscribersCount: Int, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, templateRepository: Repository? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+        self.allowAutoMerge = allowAutoMerge
+        self.allowForking = allowForking
+        self.allowMergeCommit = allowMergeCommit
+        self.allowRebaseMerge = allowRebaseMerge
+        self.allowSquashMerge = allowSquashMerge
+        self.isAnonymousAccessEnabled = isAnonymousAccessEnabled
+        self.archiveURL = archiveURL
+        self.isArchived = isArchived
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.cloneURL = cloneURL
+        self.codeOfConduct = codeOfConduct
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.createdAt = createdAt
+        self.defaultBranch = defaultBranch
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.deploymentsURL = deploymentsURL
+        self.description = description
+        self.isDisabled = isDisabled
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.isFork = isFork
+        self.forks = forks
+        self.forksCount = forksCount
+        self.forksURL = forksURL
+        self.fullName = fullName
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.hasDownloads = hasDownloads
+        self.hasIssues = hasIssues
+        self.hasPages = hasPages
+        self.hasProjects = hasProjects
+        self.hasWiki = hasWiki
+        self.homepage = homepage
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isTemplate = isTemplate
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.language = language
+        self.languagesURL = languagesURL
+        self.license = license
+        self.masterBranch = masterBranch
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.mirrorURL = mirrorURL
+        self.name = name
+        self.networkCount = networkCount
+        self.nodeID = nodeID
+        self.notificationsURL = notificationsURL
+        self.openIssues = openIssues
+        self.openIssuesCount = openIssuesCount
+        self.organization = organization
+        self.owner = owner
+        self.parent = parent
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.pullsURL = pullsURL
+        self.pushedAt = pushedAt
+        self.releasesURL = releasesURL
+        self.securityAndAnalysis = securityAndAnalysis
+        self.size = size
+        self.source = source
+        self.sshURL = sshURL
+        self.stargazersCount = stargazersCount
+        self.stargazersURL = stargazersURL
+        self.statusesURL = statusesURL
+        self.subscribersCount = subscribersCount
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.svnURL = svnURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.tempCloneToken = tempCloneToken
+        self.templateRepository = templateRepository
+        self.topics = topics
+        self.treesURL = treesURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.visibility = visibility
+        self.watchers = watchers
+        self.watchersCount = watchersCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -7830,6 +9770,19 @@ public struct Artifact: Codable {
     public var updatedAt: Date?
     public var url: String
 
+    public init(archiveDownloadURL: String, createdAt: Date? = nil, isExpired: Bool, expiresAt: Date? = nil, id: Int, name: String, nodeID: String, sizeInBytes: Int, updatedAt: Date? = nil, url: String) {
+        self.archiveDownloadURL = archiveDownloadURL
+        self.createdAt = createdAt
+        self.isExpired = isExpired
+        self.expiresAt = expiresAt
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.sizeInBytes = sizeInBytes
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.archiveDownloadURL = try values.decode(String.self, forKey: "archive_download_url")
@@ -7965,6 +9918,15 @@ public struct Job: Codable {
             case completed
         }
 
+        public init(completedAt: Date? = nil, conclusion: String? = nil, name: String, number: Int, startedAt: Date? = nil, status: Status) {
+            self.completedAt = completedAt
+            self.conclusion = conclusion
+            self.name = name
+            self.number = number
+            self.startedAt = startedAt
+            self.status = status
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
@@ -7984,6 +9946,29 @@ public struct Job: Codable {
             try values.encodeIfPresent(startedAt, forKey: "started_at")
             try values.encode(status, forKey: "status")
         }
+    }
+
+    public init(checkRunURL: String, completedAt: Date? = nil, conclusion: String? = nil, headSha: String, htmlURL: String? = nil, id: Int, labels: [String], name: String, nodeID: String, runAttempt: Int? = nil, runID: Int, runURL: String, runnerGroupID: Int? = nil, runnerGroupName: String? = nil, runnerID: Int? = nil, runnerName: String? = nil, startedAt: Date, status: Status, steps: [Step]? = nil, url: String) {
+        self.checkRunURL = checkRunURL
+        self.completedAt = completedAt
+        self.conclusion = conclusion
+        self.headSha = headSha
+        self.htmlURL = htmlURL
+        self.id = id
+        self.labels = labels
+        self.name = name
+        self.nodeID = nodeID
+        self.runAttempt = runAttempt
+        self.runID = runID
+        self.runURL = runURL
+        self.runnerGroupID = runnerGroupID
+        self.runnerGroupName = runnerGroupName
+        self.runnerID = runnerID
+        self.runnerName = runnerName
+        self.startedAt = startedAt
+        self.status = status
+        self.steps = steps
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -8043,6 +10028,12 @@ public struct ActionsRepositoryPermissions: Codable {
     /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
     public var selectedActionsURL: String?
 
+    public init(allowedActions: AllowedActions? = nil, isEnabled: Bool, selectedActionsURL: String? = nil) {
+        self.allowedActions = allowedActions
+        self.isEnabled = isEnabled
+        self.selectedActionsURL = selectedActionsURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
@@ -8075,6 +10066,12 @@ public struct PullRequestMinimal: Codable {
             public var name: String
             public var url: String
 
+            public init(id: Int, name: String, url: String) {
+                self.id = id
+                self.name = name
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decode(Int.self, forKey: "id")
@@ -8088,6 +10085,12 @@ public struct PullRequestMinimal: Codable {
                 try values.encode(name, forKey: "name")
                 try values.encode(url, forKey: "url")
             }
+        }
+
+        public init(ref: String, repo: Repo, sha: String) {
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
         }
 
         public init(from decoder: Decoder) throws {
@@ -8115,6 +10118,12 @@ public struct PullRequestMinimal: Codable {
             public var name: String
             public var url: String
 
+            public init(id: Int, name: String, url: String) {
+                self.id = id
+                self.name = name
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decode(Int.self, forKey: "id")
@@ -8130,6 +10139,12 @@ public struct PullRequestMinimal: Codable {
             }
         }
 
+        public init(ref: String, repo: Repo, sha: String) {
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.ref = try values.decode(String.self, forKey: "ref")
@@ -8143,6 +10158,14 @@ public struct PullRequestMinimal: Codable {
             try values.encode(repo, forKey: "repo")
             try values.encode(sha, forKey: "sha")
         }
+    }
+
+    public init(base: Base, head: Head, id: Int, number: Int, url: String) {
+        self.base = base
+        self.head = head
+        self.id = id
+        self.number = number
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -8233,6 +10256,40 @@ public struct WorkflowRun: Codable {
     public var workflowID: Int
     /// The URL to the workflow.
     public var workflowURL: String
+
+    public init(artifactsURL: String, cancelURL: String, checkSuiteID: Int? = nil, checkSuiteNodeID: String? = nil, checkSuiteURL: String, conclusion: String? = nil, createdAt: Date, event: String, headBranch: String? = nil, headCommit: SimpleCommit? = nil, headRepository: MinimalRepository, headRepositoryID: Int? = nil, headSha: String, htmlURL: String, id: Int, jobsURL: String, logsURL: String, name: String? = nil, nodeID: String, previousAttemptURL: String? = nil, pullRequests: [PullRequestMinimal]? = nil, repository: MinimalRepository, rerunURL: String, runAttempt: Int? = nil, runNumber: Int, runStartedAt: Date? = nil, status: String? = nil, updatedAt: Date, url: String, workflowID: Int, workflowURL: String) {
+        self.artifactsURL = artifactsURL
+        self.cancelURL = cancelURL
+        self.checkSuiteID = checkSuiteID
+        self.checkSuiteNodeID = checkSuiteNodeID
+        self.checkSuiteURL = checkSuiteURL
+        self.conclusion = conclusion
+        self.createdAt = createdAt
+        self.event = event
+        self.headBranch = headBranch
+        self.headCommit = headCommit
+        self.headRepository = headRepository
+        self.headRepositoryID = headRepositoryID
+        self.headSha = headSha
+        self.htmlURL = htmlURL
+        self.id = id
+        self.jobsURL = jobsURL
+        self.logsURL = logsURL
+        self.name = name
+        self.nodeID = nodeID
+        self.previousAttemptURL = previousAttemptURL
+        self.pullRequests = pullRequests
+        self.repository = repository
+        self.rerunURL = rerunURL
+        self.runAttempt = runAttempt
+        self.runNumber = runNumber
+        self.runStartedAt = runStartedAt
+        self.status = status
+        self.updatedAt = updatedAt
+        self.url = url
+        self.workflowID = workflowID
+        self.workflowURL = workflowURL
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -8344,6 +10401,16 @@ public struct EnvironmentApprovals: Codable {
         public var updatedAt: Date?
         public var url: String?
 
+        public init(createdAt: Date? = nil, htmlURL: String? = nil, id: Int? = nil, name: String? = nil, nodeID: String? = nil, updatedAt: Date? = nil, url: String? = nil) {
+            self.createdAt = createdAt
+            self.htmlURL = htmlURL
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.updatedAt = updatedAt
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
@@ -8373,6 +10440,13 @@ public struct EnvironmentApprovals: Codable {
     public enum State: String, Codable, CaseIterable {
         case approved
         case rejected
+    }
+
+    public init(comment: String, environments: [Environment], state: State, user: SimpleUser) {
+        self.comment = comment
+        self.environments = environments
+        self.state = state
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -8432,6 +10506,14 @@ public struct PendingDeployment: Codable {
         public var nodeID: String?
         public var url: String?
 
+        public init(htmlURL: String? = nil, id: Int? = nil, name: String? = nil, nodeID: String? = nil, url: String? = nil) {
+            self.htmlURL = htmlURL
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
@@ -8470,6 +10552,11 @@ public struct PendingDeployment: Codable {
             }
         }
 
+        public init(reviewer: Reviewer? = nil, type: DeploymentReviewerType? = nil) {
+            self.reviewer = reviewer
+            self.type = type
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
@@ -8481,6 +10568,14 @@ public struct PendingDeployment: Codable {
             try values.encodeIfPresent(reviewer, forKey: "reviewer")
             try values.encodeIfPresent(type, forKey: "type")
         }
+    }
+
+    public init(currentUserCanApprove: Bool, environment: Environment, reviewers: [Reviewer], waitTimer: Int, waitTimerStartedAt: Date? = nil) {
+        self.currentUserCanApprove = currentUserCanApprove
+        self.environment = environment
+        self.reviewers = reviewers
+        self.waitTimer = waitTimer
+        self.waitTimerStartedAt = waitTimerStartedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -8567,6 +10662,27 @@ public struct Deployment: Codable {
         }
     }
 
+    public init(createdAt: Date, creator: SimpleUser? = nil, description: String? = nil, environment: String, id: Int, nodeID: String, originalEnvironment: String? = nil, payload: Payload, performedViaGithubApp: Integration? = nil, isProductionEnvironment: Bool? = nil, ref: String, repositoryURL: URL, sha: String, statusesURL: URL, task: String, isTransientEnvironment: Bool? = nil, updatedAt: Date, url: URL) {
+        self.createdAt = createdAt
+        self.creator = creator
+        self.description = description
+        self.environment = environment
+        self.id = id
+        self.nodeID = nodeID
+        self.originalEnvironment = originalEnvironment
+        self.payload = payload
+        self.performedViaGithubApp = performedViaGithubApp
+        self.isProductionEnvironment = isProductionEnvironment
+        self.ref = ref
+        self.repositoryURL = repositoryURL
+        self.sha = sha
+        self.statusesURL = statusesURL
+        self.task = task
+        self.isTransientEnvironment = isTransientEnvironment
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -8630,6 +10746,11 @@ public struct WorkflowRunUsage: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
+                public init(durationMs: Int, jobID: Int) {
+                    self.durationMs = durationMs
+                    self.jobID = jobID
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
@@ -8641,6 +10762,12 @@ public struct WorkflowRunUsage: Codable {
                     try values.encode(durationMs, forKey: "duration_ms")
                     try values.encode(jobID, forKey: "job_id")
                 }
+            }
+
+            public init(jobRuns: [JobRun]? = nil, jobs: Int, totalMs: Int) {
+                self.jobRuns = jobRuns
+                self.jobs = jobs
+                self.totalMs = totalMs
             }
 
             public init(from decoder: Decoder) throws {
@@ -8667,6 +10794,11 @@ public struct WorkflowRunUsage: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
+                public init(durationMs: Int, jobID: Int) {
+                    self.durationMs = durationMs
+                    self.jobID = jobID
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
@@ -8678,6 +10810,12 @@ public struct WorkflowRunUsage: Codable {
                     try values.encode(durationMs, forKey: "duration_ms")
                     try values.encode(jobID, forKey: "job_id")
                 }
+            }
+
+            public init(jobRuns: [JobRun]? = nil, jobs: Int, totalMs: Int) {
+                self.jobRuns = jobRuns
+                self.jobs = jobs
+                self.totalMs = totalMs
             }
 
             public init(from decoder: Decoder) throws {
@@ -8704,6 +10842,11 @@ public struct WorkflowRunUsage: Codable {
                 public var durationMs: Int
                 public var jobID: Int
 
+                public init(durationMs: Int, jobID: Int) {
+                    self.durationMs = durationMs
+                    self.jobID = jobID
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
@@ -8715,6 +10858,12 @@ public struct WorkflowRunUsage: Codable {
                     try values.encode(durationMs, forKey: "duration_ms")
                     try values.encode(jobID, forKey: "job_id")
                 }
+            }
+
+            public init(jobRuns: [JobRun]? = nil, jobs: Int, totalMs: Int) {
+                self.jobRuns = jobRuns
+                self.jobs = jobs
+                self.totalMs = totalMs
             }
 
             public init(from decoder: Decoder) throws {
@@ -8732,6 +10881,12 @@ public struct WorkflowRunUsage: Codable {
             }
         }
 
+        public init(macos: Macos? = nil, ubuntu: Ubuntu? = nil, windows: Windows? = nil) {
+            self.macos = macos
+            self.ubuntu = ubuntu
+            self.windows = windows
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.macos = try values.decodeIfPresent(Macos.self, forKey: "MACOS")
@@ -8745,6 +10900,11 @@ public struct WorkflowRunUsage: Codable {
             try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
             try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
+    }
+
+    public init(billable: Billable, runDurationMs: Int? = nil) {
+        self.billable = billable
+        self.runDurationMs = runDurationMs
     }
 
     public init(from decoder: Decoder) throws {
@@ -8768,6 +10928,12 @@ public struct ActionsSecret: Codable {
     /// Example: SECRET_TOKEN
     public var name: String
     public var updatedAt: Date
+
+    public init(createdAt: Date, name: String, updatedAt: Date) {
+        self.createdAt = createdAt
+        self.name = name
+        self.updatedAt = updatedAt
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -8814,6 +10980,20 @@ public struct Workflow: Codable {
         case disabledManually = "disabled_manually"
     }
 
+    public init(badgeURL: String, createdAt: Date, deletedAt: Date? = nil, htmlURL: String, id: Int, name: String, nodeID: String, path: String, state: State, updatedAt: Date, url: String) {
+        self.badgeURL = badgeURL
+        self.createdAt = createdAt
+        self.deletedAt = deletedAt
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.path = path
+        self.state = state
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.badgeURL = try values.decode(String.self, forKey: "badge_url")
@@ -8856,6 +11036,10 @@ public struct WorkflowUsage: Codable {
         public struct Macos: Codable {
             public var totalMs: Int?
 
+            public init(totalMs: Int? = nil) {
+                self.totalMs = totalMs
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
@@ -8869,6 +11053,10 @@ public struct WorkflowUsage: Codable {
 
         public struct Ubuntu: Codable {
             public var totalMs: Int?
+
+            public init(totalMs: Int? = nil) {
+                self.totalMs = totalMs
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -8884,6 +11072,10 @@ public struct WorkflowUsage: Codable {
         public struct Windows: Codable {
             public var totalMs: Int?
 
+            public init(totalMs: Int? = nil) {
+                self.totalMs = totalMs
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
@@ -8893,6 +11085,12 @@ public struct WorkflowUsage: Codable {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(totalMs, forKey: "total_ms")
             }
+        }
+
+        public init(macos: Macos? = nil, ubuntu: Ubuntu? = nil, windows: Windows? = nil) {
+            self.macos = macos
+            self.ubuntu = ubuntu
+            self.windows = windows
         }
 
         public init(from decoder: Decoder) throws {
@@ -8908,6 +11106,10 @@ public struct WorkflowUsage: Codable {
             try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
             try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
+    }
+
+    public init(billable: Billable) {
+        self.billable = billable
     }
 
     public init(from decoder: Decoder) throws {
@@ -8933,6 +11135,12 @@ public struct Autolink: Codable {
     /// A template for the target URL that is generated if a key was found.
     public var urlTemplate: String
 
+    public init(id: Int, keyPrefix: String, urlTemplate: String) {
+        self.id = id
+        self.keyPrefix = keyPrefix
+        self.urlTemplate = urlTemplate
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.id = try values.decode(Int.self, forKey: "id")
@@ -8952,6 +11160,11 @@ public struct ProtectedBranchAdminEnforced: Codable {
     /// Example: true
     public var isEnabled: Bool
     public var url: URL
+
+    public init(isEnabled: Bool, url: URL) {
+        self.isEnabled = isEnabled
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -8987,6 +11200,14 @@ public struct ProtectedBranchPullRequestReview: Codable {
         /// Example: "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/users"
         public var usersURL: String?
 
+        public init(teams: [Team]? = nil, teamsURL: String? = nil, url: String? = nil, users: [SimpleUser]? = nil, usersURL: String? = nil) {
+            self.teams = teams
+            self.teamsURL = teamsURL
+            self.url = url
+            self.users = users
+            self.usersURL = usersURL
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.teams = try values.decodeIfPresent([Team].self, forKey: "teams")
@@ -9004,6 +11225,14 @@ public struct ProtectedBranchPullRequestReview: Codable {
             try values.encodeIfPresent(users, forKey: "users")
             try values.encodeIfPresent(usersURL, forKey: "users_url")
         }
+    }
+
+    public init(dismissStaleReviews: Bool, dismissalRestrictions: DismissalRestrictions? = nil, requireCodeOwnerReviews: Bool, requiredApprovingReviewCount: Int? = nil, url: URL? = nil) {
+        self.dismissStaleReviews = dismissStaleReviews
+        self.dismissalRestrictions = dismissalRestrictions
+        self.requireCodeOwnerReviews = requireCodeOwnerReviews
+        self.requiredApprovingReviewCount = requiredApprovingReviewCount
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -9084,6 +11313,32 @@ public struct BranchRestrictionPolicy: Codable {
             public var type: String?
             public var url: String?
 
+            public init(avatarURL: String? = nil, description: String? = nil, eventsURL: String? = nil, followersURL: String? = nil, followingURL: String? = nil, gistsURL: String? = nil, gravatarID: String? = nil, hooksURL: String? = nil, htmlURL: String? = nil, id: Int? = nil, issuesURL: String? = nil, login: String? = nil, membersURL: String? = nil, nodeID: String? = nil, organizationsURL: String? = nil, publicMembersURL: String? = nil, receivedEventsURL: String? = nil, reposURL: String? = nil, isSiteAdmin: Bool? = nil, starredURL: String? = nil, subscriptionsURL: String? = nil, type: String? = nil, url: String? = nil) {
+                self.avatarURL = avatarURL
+                self.description = description
+                self.eventsURL = eventsURL
+                self.followersURL = followersURL
+                self.followingURL = followingURL
+                self.gistsURL = gistsURL
+                self.gravatarID = gravatarID
+                self.hooksURL = hooksURL
+                self.htmlURL = htmlURL
+                self.id = id
+                self.issuesURL = issuesURL
+                self.login = login
+                self.membersURL = membersURL
+                self.nodeID = nodeID
+                self.organizationsURL = organizationsURL
+                self.publicMembersURL = publicMembersURL
+                self.receivedEventsURL = receivedEventsURL
+                self.reposURL = reposURL
+                self.isSiteAdmin = isSiteAdmin
+                self.starredURL = starredURL
+                self.subscriptionsURL = subscriptionsURL
+                self.type = type
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
@@ -9145,6 +11400,13 @@ public struct BranchRestrictionPolicy: Codable {
             public var metadata: String?
             public var singleFile: String?
 
+            public init(contents: String? = nil, issues: String? = nil, metadata: String? = nil, singleFile: String? = nil) {
+                self.contents = contents
+                self.issues = issues
+                self.metadata = metadata
+                self.singleFile = singleFile
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.contents = try values.decodeIfPresent(String.self, forKey: "contents")
@@ -9160,6 +11422,21 @@ public struct BranchRestrictionPolicy: Codable {
                 try values.encodeIfPresent(metadata, forKey: "metadata")
                 try values.encodeIfPresent(singleFile, forKey: "single_file")
             }
+        }
+
+        public init(createdAt: String? = nil, description: String? = nil, events: [String]? = nil, externalURL: String? = nil, htmlURL: String? = nil, id: Int? = nil, name: String? = nil, nodeID: String? = nil, owner: Owner? = nil, permissions: Permissions? = nil, slug: String? = nil, updatedAt: String? = nil) {
+            self.createdAt = createdAt
+            self.description = description
+            self.events = events
+            self.externalURL = externalURL
+            self.htmlURL = htmlURL
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.owner = owner
+            self.permissions = permissions
+            self.slug = slug
+            self.updatedAt = updatedAt
         }
 
         public init(from decoder: Decoder) throws {
@@ -9208,6 +11485,21 @@ public struct BranchRestrictionPolicy: Codable {
         public var repositoriesURL: String?
         public var slug: String?
         public var url: String?
+
+        public init(description: String? = nil, htmlURL: String? = nil, id: Int? = nil, membersURL: String? = nil, name: String? = nil, nodeID: String? = nil, parent: String? = nil, permission: String? = nil, privacy: String? = nil, repositoriesURL: String? = nil, slug: String? = nil, url: String? = nil) {
+            self.description = description
+            self.htmlURL = htmlURL
+            self.id = id
+            self.membersURL = membersURL
+            self.name = name
+            self.nodeID = nodeID
+            self.parent = parent
+            self.permission = permission
+            self.privacy = privacy
+            self.repositoriesURL = repositoriesURL
+            self.slug = slug
+            self.url = url
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9262,6 +11554,27 @@ public struct BranchRestrictionPolicy: Codable {
         public var type: String?
         public var url: String?
 
+        public init(avatarURL: String? = nil, eventsURL: String? = nil, followersURL: String? = nil, followingURL: String? = nil, gistsURL: String? = nil, gravatarID: String? = nil, htmlURL: String? = nil, id: Int? = nil, login: String? = nil, nodeID: String? = nil, organizationsURL: String? = nil, receivedEventsURL: String? = nil, reposURL: String? = nil, isSiteAdmin: Bool? = nil, starredURL: String? = nil, subscriptionsURL: String? = nil, type: String? = nil, url: String? = nil) {
+            self.avatarURL = avatarURL
+            self.eventsURL = eventsURL
+            self.followersURL = followersURL
+            self.followingURL = followingURL
+            self.gistsURL = gistsURL
+            self.gravatarID = gravatarID
+            self.htmlURL = htmlURL
+            self.id = id
+            self.login = login
+            self.nodeID = nodeID
+            self.organizationsURL = organizationsURL
+            self.receivedEventsURL = receivedEventsURL
+            self.reposURL = reposURL
+            self.isSiteAdmin = isSiteAdmin
+            self.starredURL = starredURL
+            self.subscriptionsURL = subscriptionsURL
+            self.type = type
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
@@ -9305,6 +11618,16 @@ public struct BranchRestrictionPolicy: Codable {
             try values.encodeIfPresent(type, forKey: "type")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(apps: [App], appsURL: URL, teams: [Team], teamsURL: URL, url: URL, users: [User], usersURL: URL) {
+        self.apps = apps
+        self.appsURL = appsURL
+        self.teams = teams
+        self.teamsURL = teamsURL
+        self.url = url
+        self.users = users
+        self.usersURL = usersURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -9353,6 +11676,10 @@ public struct BranchProtection: Codable {
     public struct AllowDeletions: Codable {
         public var isEnabled: Bool?
 
+        public init(isEnabled: Bool? = nil) {
+            self.isEnabled = isEnabled
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
@@ -9366,6 +11693,10 @@ public struct BranchProtection: Codable {
 
     public struct AllowForcePushes: Codable {
         public var isEnabled: Bool?
+
+        public init(isEnabled: Bool? = nil) {
+            self.isEnabled = isEnabled
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9381,6 +11712,10 @@ public struct BranchProtection: Codable {
     public struct RequiredConversationResolution: Codable {
         public var isEnabled: Bool?
 
+        public init(isEnabled: Bool? = nil) {
+            self.isEnabled = isEnabled
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
@@ -9394,6 +11729,10 @@ public struct BranchProtection: Codable {
 
     public struct RequiredLinearHistory: Codable {
         public var isEnabled: Bool?
+
+        public init(isEnabled: Bool? = nil) {
+            self.isEnabled = isEnabled
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9410,6 +11749,11 @@ public struct BranchProtection: Codable {
         /// Example: true
         public var isEnabled: Bool
         public var url: URL
+
+        public init(isEnabled: Bool, url: URL) {
+            self.isEnabled = isEnabled
+            self.url = url
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9431,6 +11775,14 @@ public struct BranchProtection: Codable {
         public var isStrict: Bool?
         public var url: String?
 
+        public init(contexts: [String], contextsURL: String? = nil, enforcementLevel: String? = nil, isStrict: Bool? = nil, url: String? = nil) {
+            self.contexts = contexts
+            self.contextsURL = contextsURL
+            self.enforcementLevel = enforcementLevel
+            self.isStrict = isStrict
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.contexts = try values.decode([String].self, forKey: "contexts")
@@ -9448,6 +11800,22 @@ public struct BranchProtection: Codable {
             try values.encodeIfPresent(isStrict, forKey: "strict")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(allowDeletions: AllowDeletions? = nil, allowForcePushes: AllowForcePushes? = nil, isEnabled: Bool? = nil, enforceAdmins: ProtectedBranchAdminEnforced? = nil, name: String? = nil, protectionURL: String? = nil, requiredConversationResolution: RequiredConversationResolution? = nil, requiredLinearHistory: RequiredLinearHistory? = nil, requiredPullRequestReviews: ProtectedBranchPullRequestReview? = nil, requiredSignatures: RequiredSignatures? = nil, requiredStatusChecks: RequiredStatusChecks? = nil, restrictions: BranchRestrictionPolicy? = nil, url: String? = nil) {
+        self.allowDeletions = allowDeletions
+        self.allowForcePushes = allowForcePushes
+        self.isEnabled = isEnabled
+        self.enforceAdmins = enforceAdmins
+        self.name = name
+        self.protectionURL = protectionURL
+        self.requiredConversationResolution = requiredConversationResolution
+        self.requiredLinearHistory = requiredLinearHistory
+        self.requiredPullRequestReviews = requiredPullRequestReviews
+        self.requiredSignatures = requiredSignatures
+        self.requiredStatusChecks = requiredStatusChecks
+        self.restrictions = restrictions
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -9497,6 +11865,11 @@ public struct ShortBranch: Codable {
         public var sha: String
         public var url: URL
 
+        public init(sha: String, url: URL) {
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -9508,6 +11881,14 @@ public struct ShortBranch: Codable {
             try values.encode(sha, forKey: "sha")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(commit: Commit, name: String, isProtected: Bool, protection: BranchProtection? = nil, protectionURL: URL? = nil) {
+        self.commit = commit
+        self.name = name
+        self.isProtected = isProtected
+        self.protection = protection
+        self.protectionURL = protectionURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -9538,6 +11919,12 @@ public struct GitUser: Codable {
     /// Example: "Chris Wanstrath"
     public var name: String?
 
+    public init(date: String? = nil, email: String? = nil, name: String? = nil) {
+        self.date = date
+        self.email = email
+        self.name = name
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.date = try values.decodeIfPresent(String.self, forKey: "date")
@@ -9558,6 +11945,13 @@ public struct Verification: Codable {
     public var reason: String
     public var signature: String?
     public var isVerified: Bool
+
+    public init(payload: String? = nil, reason: String, signature: String? = nil, isVerified: Bool) {
+        self.payload = payload
+        self.reason = reason
+        self.signature = signature
+        self.isVerified = isVerified
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9606,6 +12000,20 @@ public struct DiffEntry: Codable {
         case copied
         case changed
         case unchanged
+    }
+
+    public init(additions: Int, blobURL: URL, changes: Int, contentsURL: URL, deletions: Int, filename: String, patch: String? = nil, previousFilename: String? = nil, rawURL: URL, sha: String, status: Status) {
+        self.additions = additions
+        self.blobURL = blobURL
+        self.changes = changes
+        self.contentsURL = contentsURL
+        self.deletions = deletions
+        self.filename = filename
+        self.patch = patch
+        self.previousFilename = previousFilename
+        self.rawURL = rawURL
+        self.sha = sha
+        self.status = status
     }
 
     public init(from decoder: Decoder) throws {
@@ -9677,6 +12085,11 @@ public struct Commit: Codable {
             public var sha: String
             public var url: URL
 
+            public init(sha: String, url: URL) {
+                self.sha = sha
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.sha = try values.decode(String.self, forKey: "sha")
@@ -9688,6 +12101,16 @@ public struct Commit: Codable {
                 try values.encode(sha, forKey: "sha")
                 try values.encode(url, forKey: "url")
             }
+        }
+
+        public init(author: GitUser? = nil, commentCount: Int, committer: GitUser? = nil, message: String, tree: Tree, url: URL, verification: Verification? = nil) {
+            self.author = author
+            self.commentCount = commentCount
+            self.committer = committer
+            self.message = message
+            self.tree = tree
+            self.url = url
+            self.verification = verification
         }
 
         public init(from decoder: Decoder) throws {
@@ -9719,6 +12142,12 @@ public struct Commit: Codable {
         public var sha: String
         public var url: URL
 
+        public init(htmlURL: URL? = nil, sha: String, url: URL) {
+            self.htmlURL = htmlURL
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
@@ -9739,6 +12168,12 @@ public struct Commit: Codable {
         public var deletions: Int?
         public var total: Int?
 
+        public init(additions: Int? = nil, deletions: Int? = nil, total: Int? = nil) {
+            self.additions = additions
+            self.deletions = deletions
+            self.total = total
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
@@ -9752,6 +12187,20 @@ public struct Commit: Codable {
             try values.encodeIfPresent(deletions, forKey: "deletions")
             try values.encodeIfPresent(total, forKey: "total")
         }
+    }
+
+    public init(author: SimpleUser? = nil, commentsURL: URL, commit: Commit, committer: SimpleUser? = nil, files: [DiffEntry]? = nil, htmlURL: URL, nodeID: String, parents: [Parent], sha: String, stats: Stats? = nil, url: URL) {
+        self.author = author
+        self.commentsURL = commentsURL
+        self.commit = commit
+        self.committer = committer
+        self.files = files
+        self.htmlURL = htmlURL
+        self.nodeID = nodeID
+        self.parents = parents
+        self.sha = sha
+        self.stats = stats
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -9799,19 +12248,35 @@ public struct BranchWithProtection: Codable {
 
     public struct Links: Codable {
         public var html: String
-        public var `self`: URL
+        public var this: URL
+
+        public init(html: String, this: URL) {
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(String.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encode(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, commit: Commit, name: String, pattern: String? = nil, isProtected: Bool, protection: BranchProtection, protectionURL: URL, requiredApprovingReviewCount: Int? = nil) {
+        self.links = links
+        self.commit = commit
+        self.name = name
+        self.pattern = pattern
+        self.isProtected = isProtected
+        self.protection = protection
+        self.protectionURL = protectionURL
+        self.requiredApprovingReviewCount = requiredApprovingReviewCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -9850,6 +12315,13 @@ public struct StatusCheckPolicy: Codable {
     /// Example: true
     public var isStrict: Bool
     public var url: URL
+
+    public init(contexts: [String], contextsURL: URL, isStrict: Bool, url: URL) {
+        self.contexts = contexts
+        self.contextsURL = contextsURL
+        self.isStrict = isStrict
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -9897,6 +12369,14 @@ public struct ProtectedBranch: Codable {
             public var users: [SimpleUser]
             public var usersURL: URL
 
+            public init(teams: [Team], teamsURL: URL, url: URL, users: [SimpleUser], usersURL: URL) {
+                self.teams = teams
+                self.teamsURL = teamsURL
+                self.url = url
+                self.users = users
+                self.usersURL = usersURL
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.teams = try values.decode([Team].self, forKey: "teams")
@@ -9914,6 +12394,14 @@ public struct ProtectedBranch: Codable {
                 try values.encode(users, forKey: "users")
                 try values.encode(usersURL, forKey: "users_url")
             }
+        }
+
+        public init(dismissStaleReviews: Bool? = nil, dismissalRestrictions: DismissalRestrictions? = nil, requireCodeOwnerReviews: Bool? = nil, requiredApprovingReviewCount: Int? = nil, url: URL) {
+            self.dismissStaleReviews = dismissStaleReviews
+            self.dismissalRestrictions = dismissalRestrictions
+            self.requireCodeOwnerReviews = requireCodeOwnerReviews
+            self.requiredApprovingReviewCount = requiredApprovingReviewCount
+            self.url = url
         }
 
         public init(from decoder: Decoder) throws {
@@ -9940,6 +12428,11 @@ public struct ProtectedBranch: Codable {
         public var isEnabled: Bool
         public var url: URL
 
+        public init(isEnabled: Bool, url: URL) {
+            self.isEnabled = isEnabled
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
@@ -9951,6 +12444,19 @@ public struct ProtectedBranch: Codable {
             try values.encode(isEnabled, forKey: "enabled")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(allowDeletions: [String: AnyJSON]? = nil, allowForcePushes: [String: AnyJSON]? = nil, enforceAdmins: [String: AnyJSON]? = nil, requiredConversationResolution: [String: AnyJSON]? = nil, requiredLinearHistory: [String: AnyJSON]? = nil, requiredPullRequestReviews: RequiredPullRequestReviews? = nil, requiredSignatures: RequiredSignatures? = nil, requiredStatusChecks: StatusCheckPolicy? = nil, restrictions: BranchRestrictionPolicy? = nil, url: URL) {
+        self.allowDeletions = allowDeletions
+        self.allowForcePushes = allowForcePushes
+        self.enforceAdmins = enforceAdmins
+        self.requiredConversationResolution = requiredConversationResolution
+        self.requiredLinearHistory = requiredLinearHistory
+        self.requiredPullRequestReviews = requiredPullRequestReviews
+        self.requiredSignatures = requiredSignatures
+        self.requiredStatusChecks = requiredStatusChecks
+        self.restrictions = restrictions
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -10023,6 +12529,23 @@ public struct DeploymentSimple: Codable {
     /// Example: 2012-07-20T01:19:13Z
     public var updatedAt: Date
     public var url: URL
+
+    public init(createdAt: Date, description: String? = nil, environment: String, id: Int, nodeID: String, originalEnvironment: String? = nil, performedViaGithubApp: Integration? = nil, isProductionEnvironment: Bool? = nil, repositoryURL: URL, statusesURL: URL, task: String, isTransientEnvironment: Bool? = nil, updatedAt: Date, url: URL) {
+        self.createdAt = createdAt
+        self.description = description
+        self.environment = environment
+        self.id = id
+        self.nodeID = nodeID
+        self.originalEnvironment = originalEnvironment
+        self.performedViaGithubApp = performedViaGithubApp
+        self.isProductionEnvironment = isProductionEnvironment
+        self.repositoryURL = repositoryURL
+        self.statusesURL = statusesURL
+        self.task = task
+        self.isTransientEnvironment = isTransientEnvironment
+        self.updatedAt = updatedAt
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -10105,6 +12628,10 @@ public struct CheckRun: Codable {
     public struct CheckSuite: Codable {
         public var id: Int
 
+        public init(id: Int) {
+            self.id = id
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.id = try values.decode(Int.self, forKey: "id")
@@ -10134,6 +12661,14 @@ public struct CheckRun: Codable {
         public var text: String?
         public var title: String?
 
+        public init(annotationsCount: Int, annotationsURL: URL, summary: String? = nil, text: String? = nil, title: String? = nil) {
+            self.annotationsCount = annotationsCount
+            self.annotationsURL = annotationsURL
+            self.summary = summary
+            self.text = text
+            self.title = title
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.annotationsCount = try values.decode(Int.self, forKey: "annotations_count")
@@ -10160,6 +12695,26 @@ public struct CheckRun: Codable {
         case queued
         case inProgress = "in_progress"
         case completed
+    }
+
+    public init(app: Integration? = nil, checkSuite: CheckSuite? = nil, completedAt: Date? = nil, conclusion: Conclusion? = nil, deployment: DeploymentSimple? = nil, detailsURL: String? = nil, externalID: String? = nil, headSha: String, htmlURL: String? = nil, id: Int, name: String, nodeID: String, output: Output, pullRequests: [PullRequestMinimal], startedAt: Date? = nil, status: Status, url: String) {
+        self.app = app
+        self.checkSuite = checkSuite
+        self.completedAt = completedAt
+        self.conclusion = conclusion
+        self.deployment = deployment
+        self.detailsURL = detailsURL
+        self.externalID = externalID
+        self.headSha = headSha
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.output = output
+        self.pullRequests = pullRequests
+        self.startedAt = startedAt
+        self.status = status
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -10223,6 +12778,19 @@ public struct CheckAnnotation: Codable {
     /// Example: Spell Checker
     public var title: String?
 
+    public init(annotationLevel: String? = nil, blobHref: String, endColumn: Int? = nil, endLine: Int, message: String? = nil, path: String, rawDetails: String? = nil, startColumn: Int? = nil, startLine: Int, title: String? = nil) {
+        self.annotationLevel = annotationLevel
+        self.blobHref = blobHref
+        self.endColumn = endColumn
+        self.endLine = endLine
+        self.message = message
+        self.path = path
+        self.rawDetails = rawDetails
+        self.startColumn = startColumn
+        self.startLine = startLine
+        self.title = title
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.annotationLevel = try values.decodeIfPresent(String.self, forKey: "annotation_level")
@@ -10264,6 +12832,11 @@ public struct SimpleCommit: Codable {
         public var email: String
         public var name: String
 
+        public init(email: String, name: String) {
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.email = try values.decode(String.self, forKey: "email")
@@ -10281,6 +12854,11 @@ public struct SimpleCommit: Codable {
         public var email: String
         public var name: String
 
+        public init(email: String, name: String) {
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.email = try values.decode(String.self, forKey: "email")
@@ -10292,6 +12870,15 @@ public struct SimpleCommit: Codable {
             try values.encode(email, forKey: "email")
             try values.encode(name, forKey: "name")
         }
+    }
+
+    public init(author: Author? = nil, committer: Committer? = nil, id: String, message: String, timestamp: Date, treeID: String) {
+        self.author = author
+        self.committer = committer
+        self.id = id
+        self.message = message
+        self.timestamp = timestamp
+        self.treeID = treeID
     }
 
     public init(from decoder: Decoder) throws {
@@ -10367,6 +12954,26 @@ public struct CheckSuite: Codable {
         case completed
     }
 
+    public init(after: String? = nil, app: Integration? = nil, before: String? = nil, checkRunsURL: String, conclusion: Conclusion? = nil, createdAt: Date? = nil, headBranch: String? = nil, headCommit: SimpleCommit, headSha: String, id: Int, latestCheckRunsCount: Int, nodeID: String, pullRequests: [PullRequestMinimal]? = nil, repository: MinimalRepository, status: Status? = nil, updatedAt: Date? = nil, url: String? = nil) {
+        self.after = after
+        self.app = app
+        self.before = before
+        self.checkRunsURL = checkRunsURL
+        self.conclusion = conclusion
+        self.createdAt = createdAt
+        self.headBranch = headBranch
+        self.headCommit = headCommit
+        self.headSha = headSha
+        self.id = id
+        self.latestCheckRunsCount = latestCheckRunsCount
+        self.nodeID = nodeID
+        self.pullRequests = pullRequests
+        self.repository = repository
+        self.status = status
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.after = try values.decodeIfPresent(String.self, forKey: "after")
@@ -10423,6 +13030,11 @@ public struct CheckSuitePreference: Codable {
             public var appID: Int
             public var isSetting: Bool
 
+            public init(appID: Int, isSetting: Bool) {
+                self.appID = appID
+                self.isSetting = isSetting
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.appID = try values.decode(Int.self, forKey: "app_id")
@@ -10436,6 +13048,10 @@ public struct CheckSuitePreference: Codable {
             }
         }
 
+        public init(autoTriggerChecks: [AutoTriggerCheck]? = nil) {
+            self.autoTriggerChecks = autoTriggerChecks
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerCheck].self, forKey: "auto_trigger_checks")
@@ -10445,6 +13061,11 @@ public struct CheckSuitePreference: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(autoTriggerChecks, forKey: "auto_trigger_checks")
         }
+    }
+
+    public init(preferences: Preferences, repository: MinimalRepository) {
+        self.preferences = preferences
+        self.repository = repository
     }
 
     public init(from decoder: Decoder) throws {
@@ -10493,6 +13114,13 @@ public struct CodeScanningAlertRuleSummary: Codable {
         case error
     }
 
+    public init(description: String? = nil, id: String? = nil, name: String? = nil, severity: Severity? = nil) {
+        self.description = description
+        self.id = id
+        self.name = name
+        self.severity = severity
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
@@ -10518,6 +13146,12 @@ public struct CodeScanningAnalysisTool: Codable {
     /// The version of the tool used to generate the code scanning analysis.
     public var version: String?
 
+    public init(guid: String? = nil, name: String? = nil, version: String? = nil) {
+        self.guid = guid
+        self.name = name
+        self.version = version
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.guid = try values.decodeIfPresent(String.self, forKey: "guid")
@@ -10540,6 +13174,14 @@ public struct CodeScanningAlertLocation: Codable {
     public var path: String?
     public var startColumn: Int?
     public var startLine: Int?
+
+    public init(endColumn: Int? = nil, endLine: Int? = nil, path: String? = nil, startColumn: Int? = nil, startLine: Int? = nil) {
+        self.endColumn = endColumn
+        self.endLine = endLine
+        self.path = path
+        self.startColumn = startColumn
+        self.startLine = startLine
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -10592,6 +13234,10 @@ public struct CodeScanningAlertInstance: Codable {
     public struct Message: Codable {
         public var text: String?
 
+        public init(text: String? = nil) {
+            self.text = text
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.text = try values.decodeIfPresent(String.self, forKey: "text")
@@ -10601,6 +13247,19 @@ public struct CodeScanningAlertInstance: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(text, forKey: "text")
         }
+    }
+
+    public init(analysisKey: String? = nil, category: String? = nil, classifications: [CodeScanningAlertClassification]? = nil, commitSha: String? = nil, environment: String? = nil, htmlURL: String? = nil, location: CodeScanningAlertLocation? = nil, message: Message? = nil, ref: String? = nil, state: CodeScanningAlertState? = nil) {
+        self.analysisKey = analysisKey
+        self.category = category
+        self.classifications = classifications
+        self.commitSha = commitSha
+        self.environment = environment
+        self.htmlURL = htmlURL
+        self.location = location
+        self.message = message
+        self.ref = ref
+        self.state = state
     }
 
     public init(from decoder: Decoder) throws {
@@ -10654,6 +13313,21 @@ public struct CodeScanningAlertItems: Codable {
     public var tool: CodeScanningAnalysisTool
     /// The REST API URL of the alert resource.
     public var url: URL
+
+    public init(createdAt: Date, dismissedAt: Date? = nil, dismissedBy: SimpleUser? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, htmlURL: URL, instancesURL: URL, mostRecentInstance: CodeScanningAlertInstance, number: Int, rule: CodeScanningAlertRuleSummary, state: CodeScanningAlertState, tool: CodeScanningAnalysisTool, url: URL) {
+        self.createdAt = createdAt
+        self.dismissedAt = dismissedAt
+        self.dismissedBy = dismissedBy
+        self.dismissedReason = dismissedReason
+        self.htmlURL = htmlURL
+        self.instancesURL = instancesURL
+        self.mostRecentInstance = mostRecentInstance
+        self.number = number
+        self.rule = rule
+        self.state = state
+        self.tool = tool
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -10722,6 +13396,17 @@ public struct CodeScanningAlertRule: Codable {
         case error
     }
 
+    public init(description: String? = nil, fullDescription: String? = nil, help: String? = nil, id: String? = nil, name: String? = nil, securitySeverityLevel: SecuritySeverityLevel? = nil, severity: Severity? = nil, tags: [String]? = nil) {
+        self.description = description
+        self.fullDescription = fullDescription
+        self.help = help
+        self.id = id
+        self.name = name
+        self.securitySeverityLevel = securitySeverityLevel
+        self.severity = severity
+        self.tags = tags
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
@@ -10769,6 +13454,21 @@ public struct CodeScanningAlert: Codable {
     public var tool: CodeScanningAnalysisTool
     /// The REST API URL of the alert resource.
     public var url: URL
+
+    public init(createdAt: Date, dismissedAt: Date? = nil, dismissedBy: SimpleUser? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, htmlURL: URL, instancesURL: URL, mostRecentInstance: CodeScanningAlertInstance, number: Int, rule: CodeScanningAlertRule, state: CodeScanningAlertState, tool: CodeScanningAnalysisTool, url: URL) {
+        self.createdAt = createdAt
+        self.dismissedAt = dismissedAt
+        self.dismissedBy = dismissedBy
+        self.dismissedReason = dismissedReason
+        self.htmlURL = htmlURL
+        self.instancesURL = instancesURL
+        self.mostRecentInstance = mostRecentInstance
+        self.number = number
+        self.rule = rule
+        self.state = state
+        self.tool = tool
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -10844,6 +13544,24 @@ public struct CodeScanningAnalysis: Codable {
     /// Example: 123 results were ignored
     public var warning: String
 
+    public init(analysisKey: String, category: String? = nil, commitSha: String, createdAt: Date, isDeletable: Bool, environment: String, error: String, id: Int, ref: String, resultsCount: Int, rulesCount: Int, sarifID: String, tool: CodeScanningAnalysisTool, url: URL, warning: String) {
+        self.analysisKey = analysisKey
+        self.category = category
+        self.commitSha = commitSha
+        self.createdAt = createdAt
+        self.isDeletable = isDeletable
+        self.environment = environment
+        self.error = error
+        self.id = id
+        self.ref = ref
+        self.resultsCount = resultsCount
+        self.rulesCount = rulesCount
+        self.sarifID = sarifID
+        self.tool = tool
+        self.url = url
+        self.warning = warning
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.analysisKey = try values.decode(String.self, forKey: "analysis_key")
@@ -10892,6 +13610,11 @@ public struct CodeScanningAnalysisDeletion: Codable {
     /// Next deletable analysis in chain, without last analysis deletion confirmation
     public var nextAnalysisURL: URL?
 
+    public init(confirmDeleteURL: URL? = nil, nextAnalysisURL: URL? = nil) {
+        self.confirmDeleteURL = confirmDeleteURL
+        self.nextAnalysisURL = nextAnalysisURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.confirmDeleteURL = try values.decodeIfPresent(URL.self, forKey: "confirm_delete_url")
@@ -10912,6 +13635,11 @@ public struct CodeScanningSarifsReceipt: Codable {
     public var id: String?
     /// The REST API URL for checking the status of the upload.
     public var url: URL?
+
+    public init(id: String? = nil, url: URL? = nil) {
+        self.id = id
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -10939,6 +13667,12 @@ public struct CodeScanningSarifsStatus: Codable {
         case pending
         case complete
         case failed
+    }
+
+    public init(analysesURL: URL? = nil, errors: [String]? = nil, processingStatus: ProcessingStatus? = nil) {
+        self.analysesURL = analysesURL
+        self.errors = errors
+        self.processingStatus = processingStatus
     }
 
     public init(from decoder: Decoder) throws {
@@ -11032,6 +13766,14 @@ public struct Codespace: Codable {
         /// Example: main
         public var ref: String?
 
+        public init(ahead: Int? = nil, behind: Int? = nil, hasUncommittedChanges: Bool? = nil, hasUnpushedChanges: Bool? = nil, ref: String? = nil) {
+            self.ahead = ahead
+            self.behind = behind
+            self.hasUncommittedChanges = hasUncommittedChanges
+            self.hasUnpushedChanges = hasUnpushedChanges
+            self.ref = ref
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.ahead = try values.decodeIfPresent(Int.self, forKey: "ahead")
@@ -11082,6 +13824,31 @@ public struct Codespace: Codable {
         case exporting = "Exporting"
         case updating = "Updating"
         case rebuilding = "Rebuilding"
+    }
+
+    public init(billableOwner: SimpleUser, createdAt: Date, environmentID: String? = nil, gitStatus: GitStatus, id: Int, idleTimeoutMinutes: Int? = nil, lastUsedAt: Date, location: Location, machine: CodespaceMachine? = nil, machinesURL: URL, name: String, owner: SimpleUser, isPrebuild: Bool? = nil, pullsURL: URL? = nil, recentFolders: [String], repository: MinimalRepository, startURL: URL, state: State, stopURL: URL, updatedAt: Date, url: URL, webURL: URL) {
+        self.billableOwner = billableOwner
+        self.createdAt = createdAt
+        self.environmentID = environmentID
+        self.gitStatus = gitStatus
+        self.id = id
+        self.idleTimeoutMinutes = idleTimeoutMinutes
+        self.lastUsedAt = lastUsedAt
+        self.location = location
+        self.machine = machine
+        self.machinesURL = machinesURL
+        self.name = name
+        self.owner = owner
+        self.isPrebuild = isPrebuild
+        self.pullsURL = pullsURL
+        self.recentFolders = recentFolders
+        self.repository = repository
+        self.startURL = startURL
+        self.state = state
+        self.stopURL = stopURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.webURL = webURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -11175,6 +13942,16 @@ public struct CodespaceMachine: Codable {
         case pool
     }
 
+    public init(cpus: Int, displayName: String, memoryInBytes: Int, name: String, operatingSystem: String, prebuildAvailability: PrebuildAvailability? = nil, storageInBytes: Int) {
+        self.cpus = cpus
+        self.displayName = displayName
+        self.memoryInBytes = memoryInBytes
+        self.name = name
+        self.operatingSystem = operatingSystem
+        self.prebuildAvailability = prebuildAvailability
+        self.storageInBytes = storageInBytes
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.cpus = try values.decode(Int.self, forKey: "cpus")
@@ -11234,6 +14011,14 @@ public struct Collaborator: Codable {
         public var isPush: Bool
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -11251,6 +14036,31 @@ public struct Collaborator: Codable {
             try values.encode(isPush, forKey: "push")
             try values.encodeIfPresent(isTriage, forKey: "triage")
         }
+    }
+
+    public init(avatarURL: URL, email: String? = nil, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, name: String? = nil, nodeID: String, organizationsURL: URL, permissions: Permissions? = nil, receivedEventsURL: URL, reposURL: URL, roleName: String, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+        self.avatarURL = avatarURL
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followersURL = followersURL
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.htmlURL = htmlURL
+        self.id = id
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.permissions = permissions
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.roleName = roleName
+        self.isSiteAdmin = isSiteAdmin
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -11342,6 +14152,19 @@ public struct RepositoryInvitation: Codable {
         case maintain
     }
 
+    public init(createdAt: Date, isExpired: Bool? = nil, htmlURL: String, id: Int, invitee: SimpleUser? = nil, inviter: SimpleUser? = nil, nodeID: String, permissions: Permissions, repository: MinimalRepository, url: String) {
+        self.createdAt = createdAt
+        self.isExpired = isExpired
+        self.htmlURL = htmlURL
+        self.id = id
+        self.invitee = invitee
+        self.inviter = inviter
+        self.nodeID = nodeID
+        self.permissions = permissions
+        self.repository = repository
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -11377,6 +14200,12 @@ public struct RepositoryCollaboratorPermission: Codable {
     public var roleName: String
     /// Collaborator
     public var user: Collaborator?
+
+    public init(permission: String, roleName: String, user: Collaborator? = nil) {
+        self.permission = permission
+        self.roleName = roleName
+        self.user = user
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -11415,6 +14244,23 @@ public struct CommitComment: Codable {
     public var url: URL
     /// Simple User
     public var user: SimpleUser?
+
+    public init(authorAssociation: AuthorAssociation, body: String, commitID: String, createdAt: Date, htmlURL: URL, id: Int, line: Int? = nil, nodeID: String, path: String? = nil, position: Int? = nil, reactions: ReactionRollup? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.commitID = commitID
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.id = id
+        self.line = line
+        self.nodeID = nodeID
+        self.path = path
+        self.position = position
+        self.reactions = reactions
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -11462,6 +14308,11 @@ public struct BranchShort: Codable {
         public var sha: String
         public var url: String
 
+        public init(sha: String, url: String) {
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -11473,6 +14324,12 @@ public struct BranchShort: Codable {
             try values.encode(sha, forKey: "sha")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(commit: Commit, name: String, isProtected: Bool) {
+        self.commit = commit
+        self.name = name
+        self.isProtected = isProtected
     }
 
     public init(from decoder: Decoder) throws {
@@ -11493,6 +14350,10 @@ public struct BranchShort: Codable {
 /// Hypermedia Link
 public struct Link: Codable {
     public var href: String
+
+    public init(href: String) {
+        self.href = href
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -11521,6 +14382,13 @@ public struct AutoMerge: Codable {
         case merge
         case squash
         case rebase
+    }
+
+    public init(commitMessage: String, commitTitle: String, enabledBy: SimpleUser, mergeMethod: MergeMethod) {
+        self.commitMessage = commitMessage
+        self.commitTitle = commitTitle
+        self.enabledBy = enabledBy
+        self.mergeMethod = mergeMethod
     }
 
     public init(from decoder: Decoder) throws {
@@ -11630,11 +14498,22 @@ public struct PullRequestSimple: Codable {
         /// Link
         ///
         /// Hypermedia Link
-        public var `self`: Link
+        public var this: Link
         /// Link
         ///
         /// Hypermedia Link
         public var statuses: Link
+
+        public init(comments: Link, commits: Link, html: Link, issue: Link, reviewComment: Link, reviewComments: Link, this: Link, statuses: Link) {
+            self.comments = comments
+            self.commits = commits
+            self.html = html
+            self.issue = issue
+            self.reviewComment = reviewComment
+            self.reviewComments = reviewComments
+            self.this = this
+            self.statuses = statuses
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -11644,7 +14523,7 @@ public struct PullRequestSimple: Codable {
             self.issue = try values.decode(Link.self, forKey: "issue")
             self.reviewComment = try values.decode(Link.self, forKey: "review_comment")
             self.reviewComments = try values.decode(Link.self, forKey: "review_comments")
-            self.`self` = try values.decode(Link.self, forKey: "self")
+            self.this = try values.decode(Link.self, forKey: "self")
             self.statuses = try values.decode(Link.self, forKey: "statuses")
         }
 
@@ -11656,7 +14535,7 @@ public struct PullRequestSimple: Codable {
             try values.encode(issue, forKey: "issue")
             try values.encode(reviewComment, forKey: "review_comment")
             try values.encode(reviewComments, forKey: "review_comments")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
             try values.encode(statuses, forKey: "statuses")
         }
     }
@@ -11671,6 +14550,14 @@ public struct PullRequestSimple: Codable {
         public var sha: String
         /// Simple User
         public var user: SimpleUser?
+
+        public init(label: String, ref: String, repo: Repository, sha: String, user: SimpleUser? = nil) {
+            self.label = label
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
+            self.user = user
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -11702,6 +14589,14 @@ public struct PullRequestSimple: Codable {
         /// Simple User
         public var user: SimpleUser?
 
+        public init(label: String, ref: String, repo: Repository, sha: String, user: SimpleUser? = nil) {
+            self.label = label
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
+            self.user = user
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.label = try values.decode(String.self, forKey: "label")
@@ -11730,6 +14625,16 @@ public struct PullRequestSimple: Codable {
         public var nodeID: String
         public var url: String
 
+        public init(color: String, isDefault: Bool, description: String, id: Int, name: String, nodeID: String, url: String) {
+            self.color = color
+            self.isDefault = isDefault
+            self.description = description
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decode(String.self, forKey: "color")
@@ -11751,6 +14656,45 @@ public struct PullRequestSimple: Codable {
             try values.encode(nodeID, forKey: "node_id")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(links: Links, activeLockReason: String? = nil, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, authorAssociation: AuthorAssociation, autoMerge: AutoMerge? = nil, base: Base, body: String? = nil, closedAt: Date? = nil, commentsURL: URL, commitsURL: URL, createdAt: Date, diffURL: URL, isDraft: Bool? = nil, head: Head, htmlURL: URL, id: Int, issueURL: URL, labels: [Label], isLocked: Bool, mergeCommitSha: String? = nil, mergedAt: Date? = nil, milestone: Milestone? = nil, nodeID: String, number: Int, patchURL: URL, requestedReviewers: [SimpleUser]? = nil, requestedTeams: [Team]? = nil, reviewCommentURL: String, reviewCommentsURL: URL, state: String, statusesURL: URL, title: String, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.links = links
+        self.activeLockReason = activeLockReason
+        self.assignee = assignee
+        self.assignees = assignees
+        self.authorAssociation = authorAssociation
+        self.autoMerge = autoMerge
+        self.base = base
+        self.body = body
+        self.closedAt = closedAt
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.createdAt = createdAt
+        self.diffURL = diffURL
+        self.isDraft = isDraft
+        self.head = head
+        self.htmlURL = htmlURL
+        self.id = id
+        self.issueURL = issueURL
+        self.labels = labels
+        self.isLocked = isLocked
+        self.mergeCommitSha = mergeCommitSha
+        self.mergedAt = mergedAt
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.number = number
+        self.patchURL = patchURL
+        self.requestedReviewers = requestedReviewers
+        self.requestedTeams = requestedTeams
+        self.reviewCommentURL = reviewCommentURL
+        self.reviewCommentsURL = reviewCommentsURL
+        self.state = state
+        self.statusesURL = statusesURL
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -11847,6 +14791,20 @@ public struct SimpleCommitStatus: Codable {
     public var updatedAt: Date
     public var url: URL
 
+    public init(avatarURL: URL? = nil, context: String, createdAt: Date, description: String? = nil, id: Int, nodeID: String, isRequired: Bool? = nil, state: String, targetURL: URL, updatedAt: Date, url: URL) {
+        self.avatarURL = avatarURL
+        self.context = context
+        self.createdAt = createdAt
+        self.description = description
+        self.id = id
+        self.nodeID = nodeID
+        self.isRequired = isRequired
+        self.state = state
+        self.targetURL = targetURL
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.avatarURL = try values.decodeIfPresent(URL.self, forKey: "avatar_url")
@@ -11888,6 +14846,16 @@ public struct CombinedCommitStatus: Codable {
     public var totalCount: Int
     public var url: URL
 
+    public init(commitURL: URL, repository: MinimalRepository, sha: String, state: String, statuses: [SimpleCommitStatus], totalCount: Int, url: URL) {
+        self.commitURL = commitURL
+        self.repository = repository
+        self.sha = sha
+        self.state = state
+        self.statuses = statuses
+        self.totalCount = totalCount
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.commitURL = try values.decode(URL.self, forKey: "commit_url")
@@ -11926,6 +14894,20 @@ public struct Status: Codable {
     public var updatedAt: String
     public var url: String
 
+    public init(avatarURL: String? = nil, context: String, createdAt: String, creator: SimpleUser? = nil, description: String, id: Int, nodeID: String, state: String, targetURL: String, updatedAt: String, url: String) {
+        self.avatarURL = avatarURL
+        self.context = context
+        self.createdAt = createdAt
+        self.creator = creator
+        self.description = description
+        self.id = id
+        self.nodeID = nodeID
+        self.state = state
+        self.targetURL = targetURL
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
@@ -11960,6 +14942,11 @@ public struct Status: Codable {
 public struct CommunityHealthFile: Codable {
     public var htmlURL: URL
     public var url: URL
+
+    public init(htmlURL: URL, url: URL) {
+        self.htmlURL = htmlURL
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -12005,6 +14992,16 @@ public struct CommunityProfile: Codable {
         /// Community Health File
         public var readme: CommunityHealthFile?
 
+        public init(codeOfConduct: CodeOfConductSimple? = nil, codeOfConductFile: CommunityHealthFile? = nil, contributing: CommunityHealthFile? = nil, issueTemplate: CommunityHealthFile? = nil, license: LicenseSimple? = nil, pullRequestTemplate: CommunityHealthFile? = nil, readme: CommunityHealthFile? = nil) {
+            self.codeOfConduct = codeOfConduct
+            self.codeOfConductFile = codeOfConductFile
+            self.contributing = contributing
+            self.issueTemplate = issueTemplate
+            self.license = license
+            self.pullRequestTemplate = pullRequestTemplate
+            self.readme = readme
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.codeOfConduct = try values.decodeIfPresent(CodeOfConductSimple.self, forKey: "code_of_conduct")
@@ -12026,6 +15023,15 @@ public struct CommunityProfile: Codable {
             try values.encodeIfPresent(pullRequestTemplate, forKey: "pull_request_template")
             try values.encodeIfPresent(readme, forKey: "readme")
         }
+    }
+
+    public init(isContentReportsEnabled: Bool? = nil, description: String? = nil, documentation: String? = nil, files: Files, healthPercentage: Int, updatedAt: Date? = nil) {
+        self.isContentReportsEnabled = isContentReportsEnabled
+        self.description = description
+        self.documentation = documentation
+        self.files = files
+        self.healthPercentage = healthPercentage
+        self.updatedAt = updatedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -12073,6 +15079,22 @@ public struct CommitComparison: Codable {
         case ahead
         case behind
         case identical
+    }
+
+    public init(aheadBy: Int, baseCommit: Commit, behindBy: Int, commits: [Commit], diffURL: URL, files: [DiffEntry]? = nil, htmlURL: URL, mergeBaseCommit: Commit, patchURL: URL, permalinkURL: URL, status: Status, totalCommits: Int, url: URL) {
+        self.aheadBy = aheadBy
+        self.baseCommit = baseCommit
+        self.behindBy = behindBy
+        self.commits = commits
+        self.diffURL = diffURL
+        self.files = files
+        self.htmlURL = htmlURL
+        self.mergeBaseCommit = mergeBaseCommit
+        self.patchURL = patchURL
+        self.permalinkURL = permalinkURL
+        self.status = status
+        self.totalCommits = totalCommits
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12129,6 +15151,13 @@ public struct ContentReferenceAttachment: Codable {
     /// Example: Title of the attachment
     public var title: String
 
+    public init(body: String, id: Int, nodeID: String? = nil, title: String) {
+        self.body = body
+        self.id = id
+        self.nodeID = nodeID
+        self.title = title
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.body = try values.decode(String.self, forKey: "body")
@@ -12164,20 +15193,26 @@ public struct ContentTree: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -12197,21 +15232,41 @@ public struct ContentTree: Codable {
         public struct Links: Codable {
             public var git: URL?
             public var html: URL?
-            public var `self`: URL
+            public var this: URL
+
+            public init(git: URL? = nil, html: URL? = nil, this: URL) {
+                self.git = git
+                self.html = html
+                self.this = this
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.git = try values.decodeIfPresent(URL.self, forKey: "git")
                 self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-                self.`self` = try values.decode(URL.self, forKey: "self")
+                self.this = try values.decode(URL.self, forKey: "self")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(git, forKey: "git")
                 try values.encodeIfPresent(html, forKey: "html")
-                try values.encode(`self`, forKey: "self")
+                try values.encode(this, forKey: "self")
             }
+        }
+
+        public init(links: Links, content: String? = nil, downloadURL: URL? = nil, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, type: String, url: URL) {
+            self.links = links
+            self.content = content
+            self.downloadURL = downloadURL
+            self.gitURL = gitURL
+            self.htmlURL = htmlURL
+            self.name = name
+            self.path = path
+            self.sha = sha
+            self.size = size
+            self.type = type
+            self.url = url
         }
 
         public init(from decoder: Decoder) throws {
@@ -12243,6 +15298,22 @@ public struct ContentTree: Codable {
             try values.encode(type, forKey: "type")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(links: Links, content: AnyJSON, downloadURL: URL? = nil, encoding: AnyJSON, entries: [Entry]? = nil, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, type: String, url: URL) {
+        self.links = links
+        self.content = content
+        self.downloadURL = downloadURL
+        self.encoding = encoding
+        self.entries = entries
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12298,21 +15369,41 @@ public struct ContentDirectoryItem: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, content: String? = nil, downloadURL: URL? = nil, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, type: String, url: URL) {
+        self.links = links
+        self.content = content
+        self.downloadURL = downloadURL
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12367,21 +15458,44 @@ public struct ContentFile: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, content: String, downloadURL: URL? = nil, encoding: String, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, submoduleGitURL: String? = nil, target: String? = nil, type: String, url: URL) {
+        self.links = links
+        self.content = content
+        self.downloadURL = downloadURL
+        self.encoding = encoding
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.submoduleGitURL = submoduleGitURL
+        self.target = target
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12440,21 +15554,41 @@ public struct ContentSymlink: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, downloadURL: URL? = nil, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, target: String, type: String, url: URL) {
+        self.links = links
+        self.downloadURL = downloadURL
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.target = target
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12507,21 +15641,41 @@ public struct ContentSubmodule: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, downloadURL: URL? = nil, gitURL: URL? = nil, htmlURL: URL? = nil, name: String, path: String, sha: String, size: Int, submoduleGitURL: URL, type: String, url: URL) {
+        self.links = links
+        self.downloadURL = downloadURL
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.submoduleGitURL = submoduleGitURL
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -12576,6 +15730,12 @@ public struct FileCommit: Codable {
             public var email: String?
             public var name: String?
 
+            public init(date: String? = nil, email: String? = nil, name: String? = nil) {
+                self.date = date
+                self.email = email
+                self.name = name
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.date = try values.decodeIfPresent(String.self, forKey: "date")
@@ -12595,6 +15755,12 @@ public struct FileCommit: Codable {
             public var date: String?
             public var email: String?
             public var name: String?
+
+            public init(date: String? = nil, email: String? = nil, name: String? = nil) {
+                self.date = date
+                self.email = email
+                self.name = name
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -12616,6 +15782,12 @@ public struct FileCommit: Codable {
             public var sha: String?
             public var url: String?
 
+            public init(htmlURL: String? = nil, sha: String? = nil, url: String? = nil) {
+                self.htmlURL = htmlURL
+                self.sha = sha
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
@@ -12634,6 +15806,11 @@ public struct FileCommit: Codable {
         public struct Tree: Codable {
             public var sha: String?
             public var url: String?
+
+            public init(sha: String? = nil, url: String? = nil) {
+                self.sha = sha
+                self.url = url
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -12654,6 +15831,13 @@ public struct FileCommit: Codable {
             public var signature: String?
             public var isVerified: Bool?
 
+            public init(payload: String? = nil, reason: String? = nil, signature: String? = nil, isVerified: Bool? = nil) {
+                self.payload = payload
+                self.reason = reason
+                self.signature = signature
+                self.isVerified = isVerified
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
@@ -12669,6 +15853,19 @@ public struct FileCommit: Codable {
                 try values.encodeIfPresent(signature, forKey: "signature")
                 try values.encodeIfPresent(isVerified, forKey: "verified")
             }
+        }
+
+        public init(author: Author? = nil, committer: Committer? = nil, htmlURL: String? = nil, message: String? = nil, nodeID: String? = nil, parents: [Parent]? = nil, sha: String? = nil, tree: Tree? = nil, url: String? = nil, verification: Verification? = nil) {
+            self.author = author
+            self.committer = committer
+            self.htmlURL = htmlURL
+            self.message = message
+            self.nodeID = nodeID
+            self.parents = parents
+            self.sha = sha
+            self.tree = tree
+            self.url = url
+            self.verification = verification
         }
 
         public init(from decoder: Decoder) throws {
@@ -12715,21 +15912,40 @@ public struct FileCommit: Codable {
         public struct Links: Codable {
             public var git: String?
             public var html: String?
-            public var `self`: String?
+            public var this: String?
+
+            public init(git: String? = nil, html: String? = nil, this: String? = nil) {
+                self.git = git
+                self.html = html
+                self.this = this
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.git = try values.decodeIfPresent(String.self, forKey: "git")
                 self.html = try values.decodeIfPresent(String.self, forKey: "html")
-                self.`self` = try values.decodeIfPresent(String.self, forKey: "self")
+                self.this = try values.decodeIfPresent(String.self, forKey: "self")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(git, forKey: "git")
                 try values.encodeIfPresent(html, forKey: "html")
-                try values.encodeIfPresent(`self`, forKey: "self")
+                try values.encodeIfPresent(this, forKey: "self")
             }
+        }
+
+        public init(links: Links? = nil, downloadURL: String? = nil, gitURL: String? = nil, htmlURL: String? = nil, name: String? = nil, path: String? = nil, sha: String? = nil, size: Int? = nil, type: String? = nil, url: String? = nil) {
+            self.links = links
+            self.downloadURL = downloadURL
+            self.gitURL = gitURL
+            self.htmlURL = htmlURL
+            self.name = name
+            self.path = path
+            self.sha = sha
+            self.size = size
+            self.type = type
+            self.url = url
         }
 
         public init(from decoder: Decoder) throws {
@@ -12759,6 +15975,11 @@ public struct FileCommit: Codable {
             try values.encodeIfPresent(type, forKey: "type")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(commit: Commit, content: Content? = nil) {
+        self.commit = commit
+        self.content = content
     }
 
     public init(from decoder: Decoder) throws {
@@ -12796,6 +16017,30 @@ public struct Contributor: Codable {
     public var subscriptionsURL: URL?
     public var type: String
     public var url: URL?
+
+    public init(avatarURL: URL? = nil, contributions: Int, email: String? = nil, eventsURL: String? = nil, followersURL: URL? = nil, followingURL: String? = nil, gistsURL: String? = nil, gravatarID: String? = nil, htmlURL: URL? = nil, id: Int? = nil, login: String? = nil, name: String? = nil, nodeID: String? = nil, organizationsURL: URL? = nil, receivedEventsURL: URL? = nil, reposURL: URL? = nil, isSiteAdmin: Bool? = nil, starredURL: String? = nil, subscriptionsURL: URL? = nil, type: String, url: URL? = nil) {
+        self.avatarURL = avatarURL
+        self.contributions = contributions
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followersURL = followersURL
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.htmlURL = htmlURL
+        self.id = id
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.isSiteAdmin = isSiteAdmin
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.type = type
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -12898,6 +16143,24 @@ public struct DeploymentStatus: Codable {
         case inProgress = "in_progress"
     }
 
+    public init(createdAt: Date, creator: SimpleUser? = nil, deploymentURL: URL, description: String, environment: String? = nil, environmentURL: URL? = nil, id: Int, logURL: URL? = nil, nodeID: String, performedViaGithubApp: Integration? = nil, repositoryURL: URL, state: State, targetURL: URL, updatedAt: Date, url: URL) {
+        self.createdAt = createdAt
+        self.creator = creator
+        self.deploymentURL = deploymentURL
+        self.description = description
+        self.environment = environment
+        self.environmentURL = environmentURL
+        self.id = id
+        self.logURL = logURL
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.repositoryURL = repositoryURL
+        self.state = state
+        self.targetURL = targetURL
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -12943,6 +16206,11 @@ public struct DeploymentBranchPolicy: Codable {
     public var isCustomBranchPolicies: Bool
     /// Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`.
     public var isProtectedBranches: Bool
+
+    public init(isCustomBranchPolicies: Bool, isProtectedBranches: Bool) {
+        self.isCustomBranchPolicies = isCustomBranchPolicies
+        self.isProtectedBranches = isProtectedBranches
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -13000,6 +16268,13 @@ public struct Environment: Codable {
             /// Example: 30
             public var waitTimer: Int?
 
+            public init(id: Int, nodeID: String, type: String, waitTimer: Int? = nil) {
+                self.id = id
+                self.nodeID = nodeID
+                self.type = type
+                self.waitTimer = waitTimer
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decode(Int.self, forKey: "id")
@@ -13046,6 +16321,11 @@ public struct Environment: Codable {
                     }
                 }
 
+                public init(reviewer: Reviewer? = nil, type: DeploymentReviewerType? = nil) {
+                    self.reviewer = reviewer
+                    self.type = type
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
@@ -13057,6 +16337,13 @@ public struct Environment: Codable {
                     try values.encodeIfPresent(reviewer, forKey: "reviewer")
                     try values.encodeIfPresent(type, forKey: "type")
                 }
+            }
+
+            public init(id: Int, nodeID: String, reviewers: [Reviewer]? = nil, type: String) {
+                self.id = id
+                self.nodeID = nodeID
+                self.reviewers = reviewers
+                self.type = type
             }
 
             public init(from decoder: Decoder) throws {
@@ -13084,6 +16371,12 @@ public struct Environment: Codable {
             /// Example: branch_policy
             public var type: String
 
+            public init(id: Int, nodeID: String, type: String) {
+                self.id = id
+                self.nodeID = nodeID
+                self.type = type
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decode(Int.self, forKey: "id")
@@ -13105,6 +16398,18 @@ public struct Environment: Codable {
             self.object2 = try? container.decode(Object2.self)
             self.object3 = try? container.decode(Object3.self)
         }
+    }
+
+    public init(createdAt: Date, deploymentBranchPolicy: DeploymentBranchPolicy? = nil, htmlURL: String, id: Int, name: String, nodeID: String, protectionRules: [ProtectionRule]? = nil, updatedAt: Date, url: String) {
+        self.createdAt = createdAt
+        self.deploymentBranchPolicy = deploymentBranchPolicy
+        self.htmlURL = htmlURL
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.protectionRules = protectionRules
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -13138,6 +16443,11 @@ public struct ShortBlob: Codable {
     public var sha: String
     public var url: String
 
+    public init(sha: String, url: String) {
+        self.sha = sha
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.sha = try values.decode(String.self, forKey: "sha")
@@ -13159,6 +16469,16 @@ public struct Blob: Codable {
     public var sha: String
     public var size: Int?
     public var url: URL
+
+    public init(content: String, encoding: String, highlightedContent: String? = nil, nodeID: String, sha: String, size: Int? = nil, url: URL) {
+        self.content = content
+        self.encoding = encoding
+        self.highlightedContent = highlightedContent
+        self.nodeID = nodeID
+        self.sha = sha
+        self.size = size
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -13219,6 +16539,12 @@ public struct GitCommit: Codable {
         /// Example: Monalisa Octocat
         public var name: String
 
+        public init(date: Date, email: String, name: String) {
+            self.date = date
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.date = try values.decode(Date.self, forKey: "date")
@@ -13249,6 +16575,12 @@ public struct GitCommit: Codable {
         /// Example: Monalisa Octocat
         public var name: String
 
+        public init(date: Date, email: String, name: String) {
+            self.date = date
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.date = try values.decode(Date.self, forKey: "date")
@@ -13272,6 +16604,12 @@ public struct GitCommit: Codable {
         public var sha: String
         public var url: URL
 
+        public init(htmlURL: URL, sha: String, url: URL) {
+            self.htmlURL = htmlURL
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.htmlURL = try values.decode(URL.self, forKey: "html_url")
@@ -13294,6 +16632,11 @@ public struct GitCommit: Codable {
         public var sha: String
         public var url: URL
 
+        public init(sha: String, url: URL) {
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -13313,6 +16656,13 @@ public struct GitCommit: Codable {
         public var signature: String?
         public var isVerified: Bool
 
+        public init(payload: String? = nil, reason: String, signature: String? = nil, isVerified: Bool) {
+            self.payload = payload
+            self.reason = reason
+            self.signature = signature
+            self.isVerified = isVerified
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
@@ -13328,6 +16678,19 @@ public struct GitCommit: Codable {
             try values.encodeIfPresent(signature, forKey: "signature")
             try values.encode(isVerified, forKey: "verified")
         }
+    }
+
+    public init(author: Author, committer: Committer, htmlURL: URL, message: String, nodeID: String, parents: [Parent], sha: String, tree: Tree, url: URL, verification: Verification) {
+        self.author = author
+        self.committer = committer
+        self.htmlURL = htmlURL
+        self.message = message
+        self.nodeID = nodeID
+        self.parents = parents
+        self.sha = sha
+        self.tree = tree
+        self.url = url
+        self.verification = verification
     }
 
     public init(from decoder: Decoder) throws {
@@ -13376,6 +16739,12 @@ public struct GitRef: Codable {
         public var type: String
         public var url: URL
 
+        public init(sha: String, type: String, url: URL) {
+            self.sha = sha
+            self.type = type
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -13389,6 +16758,13 @@ public struct GitRef: Codable {
             try values.encode(type, forKey: "type")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(nodeID: String, object: Object, ref: String, url: URL) {
+        self.nodeID = nodeID
+        self.object = object
+        self.ref = ref
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -13433,6 +16809,12 @@ public struct GitTag: Codable {
         public var type: String
         public var url: URL
 
+        public init(sha: String, type: String, url: URL) {
+            self.sha = sha
+            self.type = type
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -13453,6 +16835,12 @@ public struct GitTag: Codable {
         public var email: String
         public var name: String
 
+        public init(date: String, email: String, name: String) {
+            self.date = date
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.date = try values.decode(String.self, forKey: "date")
@@ -13466,6 +16854,17 @@ public struct GitTag: Codable {
             try values.encode(email, forKey: "email")
             try values.encode(name, forKey: "name")
         }
+    }
+
+    public init(message: String, nodeID: String, object: Object, sha: String, tag: String, tagger: Tagger, url: URL, verification: Verification? = nil) {
+        self.message = message
+        self.nodeID = nodeID
+        self.object = object
+        self.sha = sha
+        self.tag = tag
+        self.tagger = tagger
+        self.url = url
+        self.verification = verification
     }
 
     public init(from decoder: Decoder) throws {
@@ -13555,6 +16954,15 @@ public struct GitTree: Codable {
         public var type: String?
         public var url: String?
 
+        public init(mode: String? = nil, path: String? = nil, sha: String? = nil, size: Int? = nil, type: String? = nil, url: String? = nil) {
+            self.mode = mode
+            self.path = path
+            self.sha = sha
+            self.size = size
+            self.type = type
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.mode = try values.decodeIfPresent(String.self, forKey: "mode")
@@ -13574,6 +16982,13 @@ public struct GitTree: Codable {
             try values.encodeIfPresent(type, forKey: "type")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(sha: String, tree: [TreeItem], isTruncated: Bool, url: URL) {
+        self.sha = sha
+        self.tree = tree
+        self.isTruncated = isTruncated
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -13597,6 +17012,12 @@ public struct HookResponse: Codable {
     public var code: Int?
     public var message: String?
     public var status: String?
+
+    public init(code: Int? = nil, message: String? = nil, status: String? = nil) {
+        self.code = code
+        self.message = message
+        self.status = status
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -13676,6 +17097,19 @@ public struct Hook: Codable {
         /// The URL to which the payloads will be delivered.
         public var url: URL?
 
+        public init(contentType: String? = nil, digest: String? = nil, email: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, password: String? = nil, room: String? = nil, secret: String? = nil, subdomain: String? = nil, token: String? = nil, url: URL? = nil) {
+            self.contentType = contentType
+            self.digest = digest
+            self.email = email
+            self.insecureSSL = insecureSSL
+            self.password = password
+            self.room = room
+            self.secret = secret
+            self.subdomain = subdomain
+            self.token = token
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
@@ -13703,6 +17137,22 @@ public struct Hook: Codable {
             try values.encodeIfPresent(token, forKey: "token")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(isActive: Bool, config: Config, createdAt: Date, deliveriesURL: URL? = nil, events: [String], id: Int, lastResponse: HookResponse, name: String, pingURL: URL, testURL: URL, type: String, updatedAt: Date, url: URL) {
+        self.isActive = isActive
+        self.config = config
+        self.createdAt = createdAt
+        self.deliveriesURL = deliveriesURL
+        self.events = events
+        self.id = id
+        self.lastResponse = lastResponse
+        self.name = name
+        self.pingURL = pingURL
+        self.testURL = testURL
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -13772,6 +17222,12 @@ public struct Import: Codable {
         public var tfvcProject: String?
         public var vcs: String?
 
+        public init(humanName: String? = nil, tfvcProject: String? = nil, vcs: String? = nil) {
+            self.humanName = humanName
+            self.tfvcProject = tfvcProject
+            self.vcs = vcs
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.humanName = try values.decodeIfPresent(String.self, forKey: "human_name")
@@ -13804,6 +17260,32 @@ public struct Import: Codable {
         case detectionFoundMultiple = "detection_found_multiple"
         case detectionFoundNothing = "detection_found_nothing"
         case detectionNeedsAuth = "detection_needs_auth"
+    }
+
+    public init(authorsCount: Int? = nil, authorsURL: URL, commitCount: Int? = nil, errorMessage: String? = nil, failedStep: String? = nil, hasLargeFiles: Bool? = nil, htmlURL: URL, importPercent: Int? = nil, largeFilesCount: Int? = nil, largeFilesSize: Int? = nil, message: String? = nil, projectChoices: [ProjectChoice]? = nil, pushPercent: Int? = nil, repositoryURL: URL, status: Status, statusText: String? = nil, svcRoot: String? = nil, svnRoot: String? = nil, tfvcProject: String? = nil, url: URL, useLfs: Bool? = nil, vcs: String? = nil, vcsURL: String) {
+        self.authorsCount = authorsCount
+        self.authorsURL = authorsURL
+        self.commitCount = commitCount
+        self.errorMessage = errorMessage
+        self.failedStep = failedStep
+        self.hasLargeFiles = hasLargeFiles
+        self.htmlURL = htmlURL
+        self.importPercent = importPercent
+        self.largeFilesCount = largeFilesCount
+        self.largeFilesSize = largeFilesSize
+        self.message = message
+        self.projectChoices = projectChoices
+        self.pushPercent = pushPercent
+        self.repositoryURL = repositoryURL
+        self.status = status
+        self.statusText = statusText
+        self.svcRoot = svcRoot
+        self.svnRoot = svnRoot
+        self.tfvcProject = tfvcProject
+        self.url = url
+        self.useLfs = useLfs
+        self.vcs = vcs
+        self.vcsURL = vcsURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -13870,6 +17352,16 @@ public struct PorterAuthor: Codable {
     public var remoteName: String
     public var url: URL
 
+    public init(email: String, id: Int, importURL: URL, name: String, remoteID: String, remoteName: String, url: URL) {
+        self.email = email
+        self.id = id
+        self.importURL = importURL
+        self.name = name
+        self.remoteID = remoteID
+        self.remoteName = remoteName
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.email = try values.decode(String.self, forKey: "email")
@@ -13899,6 +17391,13 @@ public struct PorterLargeFile: Codable {
     public var refName: String
     public var size: Int
 
+    public init(oid: String, path: String, refName: String, size: Int) {
+        self.oid = oid
+        self.path = path
+        self.refName = refName
+        self.size = size
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.oid = try values.decode(String.self, forKey: "oid")
@@ -13920,6 +17419,11 @@ public struct IssueEventLabel: Codable {
     public var color: String?
     public var name: String?
 
+    public init(color: String? = nil, name: String? = nil) {
+        self.color = color
+        self.name = name
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.color = try values.decodeIfPresent(String.self, forKey: "color")
@@ -13938,6 +17442,13 @@ public struct IssueEventDismissedReview: Codable {
     public var dismissalMessage: String?
     public var reviewID: Int
     public var state: String
+
+    public init(dismissalCommitID: String? = nil, dismissalMessage: String? = nil, reviewID: Int, state: String) {
+        self.dismissalCommitID = dismissalCommitID
+        self.dismissalMessage = dismissalMessage
+        self.reviewID = reviewID
+        self.state = state
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -13959,6 +17470,10 @@ public struct IssueEventDismissedReview: Codable {
 public struct IssueEventMilestone: Codable {
     public var title: String
 
+    public init(title: String) {
+        self.title = title
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.title = try values.decode(String.self, forKey: "title")
@@ -13977,6 +17492,15 @@ public struct IssueEventProjectCard: Codable {
     public var projectID: Int
     public var projectURL: URL
     public var url: URL
+
+    public init(columnName: String, id: Int, previousColumnName: String? = nil, projectID: Int, projectURL: URL, url: URL) {
+        self.columnName = columnName
+        self.id = id
+        self.previousColumnName = previousColumnName
+        self.projectID = projectID
+        self.projectURL = projectURL
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14002,6 +17526,11 @@ public struct IssueEventProjectCard: Codable {
 public struct IssueEventRename: Codable {
     public var from: String
     public var to: String
+
+    public init(from: String, to: String) {
+        self.from = from
+        self.to = to
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14065,6 +17594,31 @@ public struct IssueEvent: Codable {
     /// Simple User
     public var reviewRequester: SimpleUser?
     public var url: URL
+
+    public init(actor: SimpleUser? = nil, assignee: SimpleUser? = nil, assigner: SimpleUser? = nil, authorAssociation: AuthorAssociation? = nil, commitID: String? = nil, commitURL: String? = nil, createdAt: Date, dismissedReview: IssueEventDismissedReview? = nil, event: String, id: Int, issue: Issue? = nil, label: IssueEventLabel? = nil, lockReason: String? = nil, milestone: IssueEventMilestone? = nil, nodeID: String, performedViaGithubApp: Integration? = nil, projectCard: IssueEventProjectCard? = nil, rename: IssueEventRename? = nil, requestedReviewer: SimpleUser? = nil, requestedTeam: Team? = nil, reviewRequester: SimpleUser? = nil, url: URL) {
+        self.actor = actor
+        self.assignee = assignee
+        self.assigner = assigner
+        self.authorAssociation = authorAssociation
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.dismissedReview = dismissedReview
+        self.event = event
+        self.id = id
+        self.issue = issue
+        self.label = label
+        self.lockReason = lockReason
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.projectCard = projectCard
+        self.rename = rename
+        self.requestedReviewer = requestedReviewer
+        self.requestedTeam = requestedTeam
+        self.reviewRequester = reviewRequester
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14139,6 +17693,11 @@ public struct LabeledIssueEvent: Codable {
         public var color: String
         public var name: String
 
+        public init(color: String, name: String) {
+            self.color = color
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decode(String.self, forKey: "color")
@@ -14150,6 +17709,19 @@ public struct LabeledIssueEvent: Codable {
             try values.encode(color, forKey: "color")
             try values.encode(name, forKey: "name")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, label: Label, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.label = label
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14201,6 +17773,11 @@ public struct UnlabeledIssueEvent: Codable {
         public var color: String
         public var name: String
 
+        public init(color: String, name: String) {
+            self.color = color
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decode(String.self, forKey: "color")
@@ -14212,6 +17789,19 @@ public struct UnlabeledIssueEvent: Codable {
             try values.encode(color, forKey: "color")
             try values.encode(name, forKey: "name")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, label: Label, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.label = label
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14261,6 +17851,20 @@ public struct AssignedIssueEvent: Codable {
     /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     public var performedViaGithubApp: Integration
     public var url: String
+
+    public init(actor: SimpleUser, assignee: SimpleUser, assigner: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration, url: String) {
+        self.actor = actor
+        self.assignee = assignee
+        self.assigner = assigner
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14312,6 +17916,20 @@ public struct UnassignedIssueEvent: Codable {
     public var performedViaGithubApp: Integration?
     public var url: String
 
+    public init(actor: SimpleUser, assignee: SimpleUser, assigner: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.assignee = assignee
+        self.assigner = assigner
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.actor = try values.decode(SimpleUser.self, forKey: "actor")
@@ -14362,6 +17980,10 @@ public struct MilestonedIssueEvent: Codable {
     public struct Milestone: Codable {
         public var title: String
 
+        public init(title: String) {
+            self.title = title
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.title = try values.decode(String.self, forKey: "title")
@@ -14371,6 +17993,19 @@ public struct MilestonedIssueEvent: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encode(title, forKey: "title")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, milestone: Milestone, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14421,6 +18056,10 @@ public struct DemilestonedIssueEvent: Codable {
     public struct Milestone: Codable {
         public var title: String
 
+        public init(title: String) {
+            self.title = title
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.title = try values.decode(String.self, forKey: "title")
@@ -14430,6 +18069,19 @@ public struct DemilestonedIssueEvent: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encode(title, forKey: "title")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, milestone: Milestone, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14481,6 +18133,11 @@ public struct RenamedIssueEvent: Codable {
         public var from: String
         public var to: String
 
+        public init(from: String, to: String) {
+            self.from = from
+            self.to = to
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.from = try values.decode(String.self, forKey: "from")
@@ -14492,6 +18149,19 @@ public struct RenamedIssueEvent: Codable {
             try values.encode(from, forKey: "from")
             try values.encode(to, forKey: "to")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, rename: Rename, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.rename = rename
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14545,6 +18215,21 @@ public struct ReviewRequestedIssueEvent: Codable {
     /// Simple User
     public var reviewRequester: SimpleUser
     public var url: String
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, requestedReviewer: SimpleUser? = nil, requestedTeam: Team? = nil, reviewRequester: SimpleUser, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.requestedReviewer = requestedReviewer
+        self.requestedTeam = requestedTeam
+        self.reviewRequester = reviewRequester
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14602,6 +18287,21 @@ public struct ReviewRequestRemovedIssueEvent: Codable {
     public var reviewRequester: SimpleUser
     public var url: String
 
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, requestedReviewer: SimpleUser? = nil, requestedTeam: Team? = nil, reviewRequester: SimpleUser, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.requestedReviewer = requestedReviewer
+        self.requestedTeam = requestedTeam
+        self.reviewRequester = reviewRequester
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.actor = try values.decode(SimpleUser.self, forKey: "actor")
@@ -14657,6 +18357,13 @@ public struct ReviewDismissedIssueEvent: Codable {
         public var reviewID: Int
         public var state: String
 
+        public init(dismissalCommitID: String? = nil, dismissalMessage: String? = nil, reviewID: Int, state: String) {
+            self.dismissalCommitID = dismissalCommitID
+            self.dismissalMessage = dismissalMessage
+            self.reviewID = reviewID
+            self.state = state
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.dismissalCommitID = try values.decodeIfPresent(String.self, forKey: "dismissal_commit_id")
@@ -14672,6 +18379,19 @@ public struct ReviewDismissedIssueEvent: Codable {
             try values.encode(reviewID, forKey: "review_id")
             try values.encode(state, forKey: "state")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, dismissedReview: DismissedReview, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.dismissedReview = dismissedReview
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14719,6 +18439,19 @@ public struct LockedIssueEvent: Codable {
     /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     public var performedViaGithubApp: Integration?
     public var url: String
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, lockReason: String? = nil, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.lockReason = lockReason
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -14773,6 +18506,15 @@ public struct AddedToProjectIssueEvent: Codable {
         public var projectURL: URL
         public var url: URL
 
+        public init(columnName: String, id: Int, previousColumnName: String? = nil, projectID: Int, projectURL: URL, url: URL) {
+            self.columnName = columnName
+            self.id = id
+            self.previousColumnName = previousColumnName
+            self.projectID = projectID
+            self.projectURL = projectURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.columnName = try values.decode(String.self, forKey: "column_name")
@@ -14792,6 +18534,19 @@ public struct AddedToProjectIssueEvent: Codable {
             try values.encode(projectURL, forKey: "project_url")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, projectCard: ProjectCard? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.projectCard = projectCard
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14847,6 +18602,15 @@ public struct MovedColumnInProjectIssueEvent: Codable {
         public var projectURL: URL
         public var url: URL
 
+        public init(columnName: String, id: Int, previousColumnName: String? = nil, projectID: Int, projectURL: URL, url: URL) {
+            self.columnName = columnName
+            self.id = id
+            self.previousColumnName = previousColumnName
+            self.projectID = projectID
+            self.projectURL = projectURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.columnName = try values.decode(String.self, forKey: "column_name")
@@ -14866,6 +18630,19 @@ public struct MovedColumnInProjectIssueEvent: Codable {
             try values.encode(projectURL, forKey: "project_url")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, projectCard: ProjectCard? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.projectCard = projectCard
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14921,6 +18698,15 @@ public struct RemovedFromProjectIssueEvent: Codable {
         public var projectURL: URL
         public var url: URL
 
+        public init(columnName: String, id: Int, previousColumnName: String? = nil, projectID: Int, projectURL: URL, url: URL) {
+            self.columnName = columnName
+            self.id = id
+            self.previousColumnName = previousColumnName
+            self.projectID = projectID
+            self.projectURL = projectURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.columnName = try values.decode(String.self, forKey: "column_name")
@@ -14940,6 +18726,19 @@ public struct RemovedFromProjectIssueEvent: Codable {
             try values.encode(projectURL, forKey: "project_url")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, projectCard: ProjectCard? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.projectCard = projectCard
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -14995,6 +18794,15 @@ public struct ConvertedNoteToIssueIssueEvent: Codable {
         public var projectURL: URL
         public var url: URL
 
+        public init(columnName: String, id: Int, previousColumnName: String? = nil, projectID: Int, projectURL: URL, url: URL) {
+            self.columnName = columnName
+            self.id = id
+            self.previousColumnName = previousColumnName
+            self.projectID = projectID
+            self.projectURL = projectURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.columnName = try values.decode(String.self, forKey: "column_name")
@@ -15014,6 +18822,19 @@ public struct ConvertedNoteToIssueIssueEvent: Codable {
             try values.encode(projectURL, forKey: "project_url")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(actor: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration, projectCard: ProjectCard? = nil, url: String) {
+        self.actor = actor
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.projectCard = projectCard
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -15103,6 +18924,16 @@ public struct Label: Codable {
     /// URL for the label
     public var url: URL
 
+    public init(color: String, isDefault: Bool, description: String? = nil, id: Int, name: String, nodeID: String, url: URL) {
+        self.color = color
+        self.isDefault = isDefault
+        self.description = description
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.color = try values.decode(String.self, forKey: "color")
@@ -15164,6 +18995,25 @@ public struct TimelineCommentEvent: Codable {
     /// Simple User
     public var user: SimpleUser
 
+    public init(actor: SimpleUser, authorAssociation: AuthorAssociation, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, createdAt: Date, event: String, htmlURL: URL, id: Int, issueURL: URL, nodeID: String, performedViaGithubApp: Integration? = nil, reactions: ReactionRollup? = nil, updatedAt: Date, url: URL, user: SimpleUser) {
+        self.actor = actor
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.createdAt = createdAt
+        self.event = event
+        self.htmlURL = htmlURL
+        self.id = id
+        self.issueURL = issueURL
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.reactions = reactions
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.actor = try values.decode(SimpleUser.self, forKey: "actor")
@@ -15218,6 +19068,11 @@ public struct TimelineCrossReferencedEvent: Codable {
         public var issue: Issue?
         public var type: String?
 
+        public init(issue: Issue? = nil, type: String? = nil) {
+            self.issue = issue
+            self.type = type
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
@@ -15229,6 +19084,14 @@ public struct TimelineCrossReferencedEvent: Codable {
             try values.encodeIfPresent(issue, forKey: "issue")
             try values.encodeIfPresent(type, forKey: "type")
         }
+    }
+
+    public init(actor: SimpleUser? = nil, createdAt: Date, event: String, source: Source, updatedAt: Date) {
+        self.actor = actor
+        self.createdAt = createdAt
+        self.event = event
+        self.source = source
+        self.updatedAt = updatedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -15286,6 +19149,12 @@ public struct TimelineCommittedEvent: Codable {
         /// Example: Monalisa Octocat
         public var name: String
 
+        public init(date: Date, email: String, name: String) {
+            self.date = date
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.date = try values.decode(Date.self, forKey: "date")
@@ -15316,6 +19185,12 @@ public struct TimelineCommittedEvent: Codable {
         /// Example: Monalisa Octocat
         public var name: String
 
+        public init(date: Date, email: String, name: String) {
+            self.date = date
+            self.email = email
+            self.name = name
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.date = try values.decode(Date.self, forKey: "date")
@@ -15339,6 +19214,12 @@ public struct TimelineCommittedEvent: Codable {
         public var sha: String
         public var url: URL
 
+        public init(htmlURL: URL, sha: String, url: URL) {
+            self.htmlURL = htmlURL
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.htmlURL = try values.decode(URL.self, forKey: "html_url")
@@ -15361,6 +19242,11 @@ public struct TimelineCommittedEvent: Codable {
         public var sha: String
         public var url: URL
 
+        public init(sha: String, url: URL) {
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -15380,6 +19266,13 @@ public struct TimelineCommittedEvent: Codable {
         public var signature: String?
         public var isVerified: Bool
 
+        public init(payload: String? = nil, reason: String, signature: String? = nil, isVerified: Bool) {
+            self.payload = payload
+            self.reason = reason
+            self.signature = signature
+            self.isVerified = isVerified
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
@@ -15395,6 +19288,20 @@ public struct TimelineCommittedEvent: Codable {
             try values.encodeIfPresent(signature, forKey: "signature")
             try values.encode(isVerified, forKey: "verified")
         }
+    }
+
+    public init(author: Author, committer: Committer, event: String? = nil, htmlURL: URL, message: String, nodeID: String, parents: [Parent], sha: String, tree: Tree, url: URL, verification: Verification) {
+        self.author = author
+        self.committer = committer
+        self.event = event
+        self.htmlURL = htmlURL
+        self.message = message
+        self.nodeID = nodeID
+        self.parents = parents
+        self.sha = sha
+        self.tree = tree
+        self.url = url
+        self.verification = verification
     }
 
     public init(from decoder: Decoder) throws {
@@ -15468,6 +19375,10 @@ public struct TimelineReviewedEvent: Codable {
         public struct HTML: Codable {
             public var href: String
 
+            public init(href: String) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
@@ -15482,6 +19393,10 @@ public struct TimelineReviewedEvent: Codable {
         public struct PullRequest: Codable {
             public var href: String
 
+            public init(href: String) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
@@ -15491,6 +19406,11 @@ public struct TimelineReviewedEvent: Codable {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encode(href, forKey: "href")
             }
+        }
+
+        public init(html: HTML, pullRequest: PullRequest) {
+            self.html = html
+            self.pullRequest = pullRequest
         }
 
         public init(from decoder: Decoder) throws {
@@ -15504,6 +19424,23 @@ public struct TimelineReviewedEvent: Codable {
             try values.encode(html, forKey: "html")
             try values.encode(pullRequest, forKey: "pull_request")
         }
+    }
+
+    public init(links: Links, authorAssociation: AuthorAssociation, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, commitID: String, event: String, htmlURL: URL, id: Int, nodeID: String, pullRequestURL: URL, state: String, submittedAt: Date? = nil, user: SimpleUser) {
+        self.links = links
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.commitID = commitID
+        self.event = event
+        self.htmlURL = htmlURL
+        self.id = id
+        self.nodeID = nodeID
+        self.pullRequestURL = pullRequestURL
+        self.state = state
+        self.submittedAt = submittedAt
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -15622,10 +19559,14 @@ public struct PullRequestReviewComment: Codable {
     public struct Links: Codable {
         public var html: HTML
         public var pullRequest: PullRequest
-        public var `self`: `Self`
+        public var this: `Self`
 
         public struct HTML: Codable {
             public var href: URL
+
+            public init(href: URL) {
+                self.href = href
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -15641,6 +19582,10 @@ public struct PullRequestReviewComment: Codable {
         public struct PullRequest: Codable {
             public var href: URL
 
+            public init(href: URL) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(URL.self, forKey: "href")
@@ -15655,6 +19600,10 @@ public struct PullRequestReviewComment: Codable {
         public struct `Self`: Codable {
             public var href: URL
 
+            public init(href: URL) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(URL.self, forKey: "href")
@@ -15666,18 +19615,24 @@ public struct PullRequestReviewComment: Codable {
             }
         }
 
+        public init(html: HTML, pullRequest: PullRequest, this: `Self`) {
+            self.html = html
+            self.pullRequest = pullRequest
+            self.this = this
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(HTML.self, forKey: "html")
             self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
-            self.`self` = try values.decode(`Self`.self, forKey: "self")
+            self.this = try values.decode(`Self`.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encode(html, forKey: "html")
             try values.encode(pullRequest, forKey: "pull_request")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -15691,6 +19646,37 @@ public struct PullRequestReviewComment: Codable {
     public enum StartSide: String, Codable, CaseIterable {
         case left = "LEFT"
         case right = "RIGHT"
+    }
+
+    public init(links: Links, authorAssociation: AuthorAssociation, body: String, bodyHTML: String? = nil, bodyText: String? = nil, commitID: String, createdAt: Date, diffHunk: String, htmlURL: URL, id: Int, inReplyToID: Int? = nil, line: Int? = nil, nodeID: String, originalCommitID: String, originalLine: Int? = nil, originalPosition: Int, originalStartLine: Int? = nil, path: String, position: Int, pullRequestReviewID: Int? = nil, pullRequestURL: URL, reactions: ReactionRollup? = nil, side: Side? = nil, startLine: Int? = nil, startSide: StartSide? = nil, updatedAt: Date, url: String, user: SimpleUser) {
+        self.links = links
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.commitID = commitID
+        self.createdAt = createdAt
+        self.diffHunk = diffHunk
+        self.htmlURL = htmlURL
+        self.id = id
+        self.inReplyToID = inReplyToID
+        self.line = line
+        self.nodeID = nodeID
+        self.originalCommitID = originalCommitID
+        self.originalLine = originalLine
+        self.originalPosition = originalPosition
+        self.originalStartLine = originalStartLine
+        self.path = path
+        self.position = position
+        self.pullRequestReviewID = pullRequestReviewID
+        self.pullRequestURL = pullRequestURL
+        self.reactions = reactions
+        self.side = side
+        self.startLine = startLine
+        self.startSide = startSide
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -15763,6 +19749,12 @@ public struct TimelineLineCommentedEvent: Codable {
     public var event: String?
     public var nodeID: String?
 
+    public init(comments: [PullRequestReviewComment]? = nil, event: String? = nil, nodeID: String? = nil) {
+        self.comments = comments
+        self.event = event
+        self.nodeID = nodeID
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.comments = try values.decodeIfPresent([PullRequestReviewComment].self, forKey: "comments")
@@ -15783,6 +19775,13 @@ public struct TimelineCommitCommentedEvent: Codable {
     public var commitID: String?
     public var event: String?
     public var nodeID: String?
+
+    public init(comments: [CommitComment]? = nil, commitID: String? = nil, event: String? = nil, nodeID: String? = nil) {
+        self.comments = comments
+        self.commitID = commitID
+        self.event = event
+        self.nodeID = nodeID
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -15817,6 +19816,19 @@ public struct TimelineAssignedIssueEvent: Codable {
     /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     public var performedViaGithubApp: Integration?
     public var url: String
+
+    public init(actor: SimpleUser, assignee: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.assignee = assignee
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -15863,6 +19875,19 @@ public struct TimelineUnassignedIssueEvent: Codable {
     /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     public var performedViaGithubApp: Integration?
     public var url: String
+
+    public init(actor: SimpleUser, assignee: SimpleUser, commitID: String? = nil, commitURL: String? = nil, createdAt: String, event: String, id: Int, nodeID: String, performedViaGithubApp: Integration? = nil, url: String) {
+        self.actor = actor
+        self.assignee = assignee
+        self.commitID = commitID
+        self.commitURL = commitURL
+        self.createdAt = createdAt
+        self.event = event
+        self.id = id
+        self.nodeID = nodeID
+        self.performedViaGithubApp = performedViaGithubApp
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -15952,6 +19977,16 @@ public struct DeployKey: Codable {
     public var url: String
     public var isVerified: Bool
 
+    public init(createdAt: String, id: Int, key: String, isReadOnly: Bool, title: String, url: String, isVerified: Bool) {
+        self.createdAt = createdAt
+        self.id = id
+        self.key = key
+        self.isReadOnly = isReadOnly
+        self.title = title
+        self.url = url
+        self.isVerified = isVerified
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(String.self, forKey: "created_at")
@@ -15994,21 +20029,43 @@ public struct LicenseContent: Codable {
     public struct Links: Codable {
         public var git: URL?
         public var html: URL?
-        public var `self`: URL
+        public var this: URL
+
+        public init(git: URL? = nil, html: URL? = nil, this: URL) {
+            self.git = git
+            self.html = html
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.git = try values.decodeIfPresent(URL.self, forKey: "git")
             self.html = try values.decodeIfPresent(URL.self, forKey: "html")
-            self.`self` = try values.decode(URL.self, forKey: "self")
+            self.this = try values.decode(URL.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(git, forKey: "git")
             try values.encodeIfPresent(html, forKey: "html")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
+    }
+
+    public init(links: Links, content: String, downloadURL: URL? = nil, encoding: String, gitURL: URL? = nil, htmlURL: URL? = nil, license: LicenseSimple? = nil, name: String, path: String, sha: String, size: Int, type: String, url: URL) {
+        self.links = links
+        self.content = content
+        self.downloadURL = downloadURL
+        self.encoding = encoding
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.license = license
+        self.name = name
+        self.path = path
+        self.sha = sha
+        self.size = size
+        self.type = type
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -16056,6 +20113,12 @@ public struct MergedUpstream: Codable {
         case merge
         case fastForward = "fast-forward"
         case `none`
+    }
+
+    public init(baseBranch: String? = nil, mergeType: MergeType? = nil, message: String? = nil) {
+        self.baseBranch = baseBranch
+        self.mergeType = mergeType
+        self.message = message
     }
 
     public init(from decoder: Decoder) throws {
@@ -16117,6 +20180,25 @@ public struct Milestone: Codable {
         case closed
     }
 
+    public init(closedAt: Date? = nil, closedIssues: Int, createdAt: Date, creator: SimpleUser? = nil, description: String? = nil, dueOn: Date? = nil, htmlURL: URL, id: Int, labelsURL: URL, nodeID: String, number: Int, openIssues: Int, state: State, title: String, updatedAt: Date, url: URL) {
+        self.closedAt = closedAt
+        self.closedIssues = closedIssues
+        self.createdAt = createdAt
+        self.creator = creator
+        self.description = description
+        self.dueOn = dueOn
+        self.htmlURL = htmlURL
+        self.id = id
+        self.labelsURL = labelsURL
+        self.nodeID = nodeID
+        self.number = number
+        self.openIssues = openIssues
+        self.state = state
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.closedAt = try values.decodeIfPresent(Date.self, forKey: "closed_at")
@@ -16162,6 +20244,11 @@ public struct PagesSourceHash: Codable {
     public var branch: String
     public var path: String
 
+    public init(branch: String, path: String) {
+        self.branch = branch
+        self.path = path
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.branch = try values.decode(String.self, forKey: "branch")
@@ -16205,6 +20292,13 @@ public struct PagesHTTPSCertificate: Codable {
         case badAuthz = "bad_authz"
         case destroyPending = "destroy_pending"
         case dnsChanged = "dns_changed"
+    }
+
+    public init(description: String, domains: [String], expiresAt: String? = nil, state: State) {
+        self.description = description
+        self.domains = domains
+        self.expiresAt = expiresAt
+        self.state = state
     }
 
     public init(from decoder: Decoder) throws {
@@ -16281,6 +20375,20 @@ public struct Page: Codable {
         case errored
     }
 
+    public init(cname: String? = nil, isCustom404: Bool, htmlURL: URL? = nil, httpsCertificate: PagesHTTPSCertificate? = nil, isHTTPSEnforced: Bool? = nil, pendingDomainUnverifiedAt: Date? = nil, protectedDomainState: ProtectedDomainState? = nil, isPublic: Bool, source: PagesSourceHash? = nil, status: Status? = nil, url: URL) {
+        self.cname = cname
+        self.isCustom404 = isCustom404
+        self.htmlURL = htmlURL
+        self.httpsCertificate = httpsCertificate
+        self.isHTTPSEnforced = isHTTPSEnforced
+        self.pendingDomainUnverifiedAt = pendingDomainUnverifiedAt
+        self.protectedDomainState = protectedDomainState
+        self.isPublic = isPublic
+        self.source = source
+        self.status = status
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.cname = try values.decodeIfPresent(String.self, forKey: "cname")
@@ -16326,6 +20434,10 @@ public struct PageBuild: Codable {
     public struct Error: Codable {
         public var message: String?
 
+        public init(message: String? = nil) {
+            self.message = message
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.message = try values.decodeIfPresent(String.self, forKey: "message")
@@ -16335,6 +20447,17 @@ public struct PageBuild: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(message, forKey: "message")
         }
+    }
+
+    public init(commit: String, createdAt: Date, duration: Int, error: Error, pusher: SimpleUser? = nil, status: String, updatedAt: Date, url: URL) {
+        self.commit = commit
+        self.createdAt = createdAt
+        self.duration = duration
+        self.error = error
+        self.pusher = pusher
+        self.status = status
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -16366,6 +20489,11 @@ public struct PageBuildStatus: Codable {
     /// Example: queued
     public var status: String
     public var url: URL
+
+    public init(status: String, url: URL) {
+        self.status = status
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -16414,6 +20542,37 @@ public struct PagesHealthCheck: Codable {
         public var respondsToHTTPS: Bool?
         public var shouldBeARecord: Bool?
         public var uri: String?
+
+        public init(caaError: String? = nil, dnsResolves: Bool? = nil, enforcesHTTPS: Bool? = nil, hasCnameRecord: Bool? = nil, hasMxRecordsPresent: Bool? = nil, host: String? = nil, httpsError: String? = nil, isARecord: Bool? = nil, isApexDomain: Bool? = nil, isCloudflareIp: Bool? = nil, isCnameToFastly: Bool? = nil, isCnameToGithubUserDomain: Bool? = nil, isCnameToPagesDotGithubDotCom: Bool? = nil, isFastlyIp: Bool? = nil, isHTTPSEligible: Bool? = nil, isNonGithubPagesIpPresent: Bool? = nil, isOldIpAddress: Bool? = nil, isPagesDomain: Bool? = nil, isPointedToGithubPagesIp: Bool? = nil, isProxied: Bool? = nil, isServedByPages: Bool? = nil, isValid: Bool? = nil, isValidDomain: Bool? = nil, nameservers: String? = nil, reason: String? = nil, respondsToHTTPS: Bool? = nil, shouldBeARecord: Bool? = nil, uri: String? = nil) {
+            self.caaError = caaError
+            self.dnsResolves = dnsResolves
+            self.enforcesHTTPS = enforcesHTTPS
+            self.hasCnameRecord = hasCnameRecord
+            self.hasMxRecordsPresent = hasMxRecordsPresent
+            self.host = host
+            self.httpsError = httpsError
+            self.isARecord = isARecord
+            self.isApexDomain = isApexDomain
+            self.isCloudflareIp = isCloudflareIp
+            self.isCnameToFastly = isCnameToFastly
+            self.isCnameToGithubUserDomain = isCnameToGithubUserDomain
+            self.isCnameToPagesDotGithubDotCom = isCnameToPagesDotGithubDotCom
+            self.isFastlyIp = isFastlyIp
+            self.isHTTPSEligible = isHTTPSEligible
+            self.isNonGithubPagesIpPresent = isNonGithubPagesIpPresent
+            self.isOldIpAddress = isOldIpAddress
+            self.isPagesDomain = isPagesDomain
+            self.isPointedToGithubPagesIp = isPointedToGithubPagesIp
+            self.isProxied = isProxied
+            self.isServedByPages = isServedByPages
+            self.isValid = isValid
+            self.isValidDomain = isValidDomain
+            self.nameservers = nameservers
+            self.reason = reason
+            self.respondsToHTTPS = respondsToHTTPS
+            self.shouldBeARecord = shouldBeARecord
+            self.uri = uri
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -16510,6 +20669,37 @@ public struct PagesHealthCheck: Codable {
         public var shouldBeARecord: Bool?
         public var uri: String?
 
+        public init(caaError: String? = nil, dnsResolves: Bool? = nil, enforcesHTTPS: Bool? = nil, hasCnameRecord: Bool? = nil, hasMxRecordsPresent: Bool? = nil, host: String? = nil, httpsError: String? = nil, isARecord: Bool? = nil, isApexDomain: Bool? = nil, isCloudflareIp: Bool? = nil, isCnameToFastly: Bool? = nil, isCnameToGithubUserDomain: Bool? = nil, isCnameToPagesDotGithubDotCom: Bool? = nil, isFastlyIp: Bool? = nil, isHTTPSEligible: Bool? = nil, isNonGithubPagesIpPresent: Bool? = nil, isOldIpAddress: Bool? = nil, isPagesDomain: Bool? = nil, isPointedToGithubPagesIp: Bool? = nil, isProxied: Bool? = nil, isServedByPages: Bool? = nil, isValid: Bool? = nil, isValidDomain: Bool? = nil, nameservers: String? = nil, reason: String? = nil, respondsToHTTPS: Bool? = nil, shouldBeARecord: Bool? = nil, uri: String? = nil) {
+            self.caaError = caaError
+            self.dnsResolves = dnsResolves
+            self.enforcesHTTPS = enforcesHTTPS
+            self.hasCnameRecord = hasCnameRecord
+            self.hasMxRecordsPresent = hasMxRecordsPresent
+            self.host = host
+            self.httpsError = httpsError
+            self.isARecord = isARecord
+            self.isApexDomain = isApexDomain
+            self.isCloudflareIp = isCloudflareIp
+            self.isCnameToFastly = isCnameToFastly
+            self.isCnameToGithubUserDomain = isCnameToGithubUserDomain
+            self.isCnameToPagesDotGithubDotCom = isCnameToPagesDotGithubDotCom
+            self.isFastlyIp = isFastlyIp
+            self.isHTTPSEligible = isHTTPSEligible
+            self.isNonGithubPagesIpPresent = isNonGithubPagesIpPresent
+            self.isOldIpAddress = isOldIpAddress
+            self.isPagesDomain = isPagesDomain
+            self.isPointedToGithubPagesIp = isPointedToGithubPagesIp
+            self.isProxied = isProxied
+            self.isServedByPages = isServedByPages
+            self.isValid = isValid
+            self.isValidDomain = isValidDomain
+            self.nameservers = nameservers
+            self.reason = reason
+            self.respondsToHTTPS = respondsToHTTPS
+            self.shouldBeARecord = shouldBeARecord
+            self.uri = uri
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.caaError = try values.decodeIfPresent(String.self, forKey: "caa_error")
@@ -16575,6 +20765,11 @@ public struct PagesHealthCheck: Codable {
         }
     }
 
+    public init(altDomain: AltDomain? = nil, domain: Domain? = nil) {
+        self.altDomain = altDomain
+        self.domain = domain
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.altDomain = try values.decodeIfPresent(AltDomain.self, forKey: "alt_domain")
@@ -16621,6 +20816,21 @@ public struct TeamSimple: Codable {
     public var slug: String
     /// URL for the team
     public var url: URL
+
+    public init(description: String? = nil, htmlURL: URL, id: Int, ldapDn: String? = nil, membersURL: String, name: String, nodeID: String, permission: String, privacy: String? = nil, repositoriesURL: URL, slug: String, url: URL) {
+        self.description = description
+        self.htmlURL = htmlURL
+        self.id = id
+        self.ldapDn = ldapDn
+        self.membersURL = membersURL
+        self.name = name
+        self.nodeID = nodeID
+        self.permission = permission
+        self.privacy = privacy
+        self.repositoriesURL = repositoriesURL
+        self.slug = slug
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -16773,11 +20983,22 @@ public struct PullRequest: Codable {
         /// Link
         ///
         /// Hypermedia Link
-        public var `self`: Link
+        public var this: Link
         /// Link
         ///
         /// Hypermedia Link
         public var statuses: Link
+
+        public init(comments: Link, commits: Link, html: Link, issue: Link, reviewComment: Link, reviewComments: Link, this: Link, statuses: Link) {
+            self.comments = comments
+            self.commits = commits
+            self.html = html
+            self.issue = issue
+            self.reviewComment = reviewComment
+            self.reviewComments = reviewComments
+            self.this = this
+            self.statuses = statuses
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -16787,7 +21008,7 @@ public struct PullRequest: Codable {
             self.issue = try values.decode(Link.self, forKey: "issue")
             self.reviewComment = try values.decode(Link.self, forKey: "review_comment")
             self.reviewComments = try values.decode(Link.self, forKey: "review_comments")
-            self.`self` = try values.decode(Link.self, forKey: "self")
+            self.this = try values.decode(Link.self, forKey: "self")
             self.statuses = try values.decode(Link.self, forKey: "statuses")
         }
 
@@ -16799,7 +21020,7 @@ public struct PullRequest: Codable {
             try values.encode(issue, forKey: "issue")
             try values.encode(reviewComment, forKey: "review_comment")
             try values.encode(reviewComments, forKey: "review_comments")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
             try values.encode(statuses, forKey: "statuses")
         }
     }
@@ -16918,6 +21139,27 @@ public struct PullRequest: Codable {
                 public var type: String
                 public var url: URL
 
+                public init(avatarURL: URL, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, nodeID: String, organizationsURL: URL, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+                    self.avatarURL = avatarURL
+                    self.eventsURL = eventsURL
+                    self.followersURL = followersURL
+                    self.followingURL = followingURL
+                    self.gistsURL = gistsURL
+                    self.gravatarID = gravatarID
+                    self.htmlURL = htmlURL
+                    self.id = id
+                    self.login = login
+                    self.nodeID = nodeID
+                    self.organizationsURL = organizationsURL
+                    self.receivedEventsURL = receivedEventsURL
+                    self.reposURL = reposURL
+                    self.isSiteAdmin = isSiteAdmin
+                    self.starredURL = starredURL
+                    self.subscriptionsURL = subscriptionsURL
+                    self.type = type
+                    self.url = url
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
@@ -16970,6 +21212,14 @@ public struct PullRequest: Codable {
                 public var isPush: Bool
                 public var isTriage: Bool?
 
+                public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+                    self.isAdmin = isAdmin
+                    self.isMaintain = isMaintain
+                    self.isPull = isPull
+                    self.isPush = isPush
+                    self.isTriage = isTriage
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -16987,6 +21237,92 @@ public struct PullRequest: Codable {
                     try values.encode(isPush, forKey: "push")
                     try values.encodeIfPresent(isTriage, forKey: "triage")
                 }
+            }
+
+            public init(allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date, defaultBranch: String, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: LicenseSimple? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, owner: Owner, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date, releasesURL: String, size: Int, sshURL: String, stargazersCount: Int, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+                self.allowForking = allowForking
+                self.allowMergeCommit = allowMergeCommit
+                self.allowRebaseMerge = allowRebaseMerge
+                self.allowSquashMerge = allowSquashMerge
+                self.archiveURL = archiveURL
+                self.isArchived = isArchived
+                self.assigneesURL = assigneesURL
+                self.blobsURL = blobsURL
+                self.branchesURL = branchesURL
+                self.cloneURL = cloneURL
+                self.collaboratorsURL = collaboratorsURL
+                self.commentsURL = commentsURL
+                self.commitsURL = commitsURL
+                self.compareURL = compareURL
+                self.contentsURL = contentsURL
+                self.contributorsURL = contributorsURL
+                self.createdAt = createdAt
+                self.defaultBranch = defaultBranch
+                self.deploymentsURL = deploymentsURL
+                self.description = description
+                self.isDisabled = isDisabled
+                self.downloadsURL = downloadsURL
+                self.eventsURL = eventsURL
+                self.isFork = isFork
+                self.forks = forks
+                self.forksCount = forksCount
+                self.forksURL = forksURL
+                self.fullName = fullName
+                self.gitCommitsURL = gitCommitsURL
+                self.gitRefsURL = gitRefsURL
+                self.gitTagsURL = gitTagsURL
+                self.gitURL = gitURL
+                self.hasDownloads = hasDownloads
+                self.hasIssues = hasIssues
+                self.hasPages = hasPages
+                self.hasProjects = hasProjects
+                self.hasWiki = hasWiki
+                self.homepage = homepage
+                self.hooksURL = hooksURL
+                self.htmlURL = htmlURL
+                self.id = id
+                self.isTemplate = isTemplate
+                self.issueCommentURL = issueCommentURL
+                self.issueEventsURL = issueEventsURL
+                self.issuesURL = issuesURL
+                self.keysURL = keysURL
+                self.labelsURL = labelsURL
+                self.language = language
+                self.languagesURL = languagesURL
+                self.license = license
+                self.masterBranch = masterBranch
+                self.mergesURL = mergesURL
+                self.milestonesURL = milestonesURL
+                self.mirrorURL = mirrorURL
+                self.name = name
+                self.nodeID = nodeID
+                self.notificationsURL = notificationsURL
+                self.openIssues = openIssues
+                self.openIssuesCount = openIssuesCount
+                self.owner = owner
+                self.permissions = permissions
+                self.isPrivate = isPrivate
+                self.pullsURL = pullsURL
+                self.pushedAt = pushedAt
+                self.releasesURL = releasesURL
+                self.size = size
+                self.sshURL = sshURL
+                self.stargazersCount = stargazersCount
+                self.stargazersURL = stargazersURL
+                self.statusesURL = statusesURL
+                self.subscribersURL = subscribersURL
+                self.subscriptionURL = subscriptionURL
+                self.svnURL = svnURL
+                self.tagsURL = tagsURL
+                self.teamsURL = teamsURL
+                self.tempCloneToken = tempCloneToken
+                self.topics = topics
+                self.treesURL = treesURL
+                self.updatedAt = updatedAt
+                self.url = url
+                self.visibility = visibility
+                self.watchers = watchers
+                self.watchersCount = watchersCount
             }
 
             public init(from decoder: Decoder) throws {
@@ -17184,6 +21520,27 @@ public struct PullRequest: Codable {
             public var type: String
             public var url: URL
 
+            public init(avatarURL: URL, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, nodeID: String, organizationsURL: URL, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+                self.avatarURL = avatarURL
+                self.eventsURL = eventsURL
+                self.followersURL = followersURL
+                self.followingURL = followingURL
+                self.gistsURL = gistsURL
+                self.gravatarID = gravatarID
+                self.htmlURL = htmlURL
+                self.id = id
+                self.login = login
+                self.nodeID = nodeID
+                self.organizationsURL = organizationsURL
+                self.receivedEventsURL = receivedEventsURL
+                self.reposURL = reposURL
+                self.isSiteAdmin = isSiteAdmin
+                self.starredURL = starredURL
+                self.subscriptionsURL = subscriptionsURL
+                self.type = type
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
@@ -17227,6 +21584,14 @@ public struct PullRequest: Codable {
                 try values.encode(type, forKey: "type")
                 try values.encode(url, forKey: "url")
             }
+        }
+
+        public init(label: String, ref: String, repo: Repo, sha: String, user: User) {
+            self.label = label
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
+            self.user = user
         }
 
         public init(from decoder: Decoder) throws {
@@ -17348,6 +21713,14 @@ public struct PullRequest: Codable {
                 public var spdxID: String?
                 public var url: URL?
 
+                public init(key: String, name: String, nodeID: String, spdxID: String? = nil, url: URL? = nil) {
+                    self.key = key
+                    self.name = name
+                    self.nodeID = nodeID
+                    self.spdxID = spdxID
+                    self.url = url
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.key = try values.decode(String.self, forKey: "key")
@@ -17386,6 +21759,27 @@ public struct PullRequest: Codable {
                 public var subscriptionsURL: URL
                 public var type: String
                 public var url: URL
+
+                public init(avatarURL: URL, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, nodeID: String, organizationsURL: URL, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+                    self.avatarURL = avatarURL
+                    self.eventsURL = eventsURL
+                    self.followersURL = followersURL
+                    self.followingURL = followingURL
+                    self.gistsURL = gistsURL
+                    self.gravatarID = gravatarID
+                    self.htmlURL = htmlURL
+                    self.id = id
+                    self.login = login
+                    self.nodeID = nodeID
+                    self.organizationsURL = organizationsURL
+                    self.receivedEventsURL = receivedEventsURL
+                    self.reposURL = reposURL
+                    self.isSiteAdmin = isSiteAdmin
+                    self.starredURL = starredURL
+                    self.subscriptionsURL = subscriptionsURL
+                    self.type = type
+                    self.url = url
+                }
 
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -17439,6 +21833,14 @@ public struct PullRequest: Codable {
                 public var isPush: Bool
                 public var isTriage: Bool?
 
+                public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+                    self.isAdmin = isAdmin
+                    self.isMaintain = isMaintain
+                    self.isPull = isPull
+                    self.isPush = isPush
+                    self.isTriage = isTriage
+                }
+
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -17456,6 +21858,92 @@ public struct PullRequest: Codable {
                     try values.encode(isPush, forKey: "push")
                     try values.encodeIfPresent(isTriage, forKey: "triage")
                 }
+            }
+
+            public init(allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date, defaultBranch: String, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: License? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, owner: Owner, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date, releasesURL: String, size: Int, sshURL: String, stargazersCount: Int, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+                self.allowForking = allowForking
+                self.allowMergeCommit = allowMergeCommit
+                self.allowRebaseMerge = allowRebaseMerge
+                self.allowSquashMerge = allowSquashMerge
+                self.archiveURL = archiveURL
+                self.isArchived = isArchived
+                self.assigneesURL = assigneesURL
+                self.blobsURL = blobsURL
+                self.branchesURL = branchesURL
+                self.cloneURL = cloneURL
+                self.collaboratorsURL = collaboratorsURL
+                self.commentsURL = commentsURL
+                self.commitsURL = commitsURL
+                self.compareURL = compareURL
+                self.contentsURL = contentsURL
+                self.contributorsURL = contributorsURL
+                self.createdAt = createdAt
+                self.defaultBranch = defaultBranch
+                self.deploymentsURL = deploymentsURL
+                self.description = description
+                self.isDisabled = isDisabled
+                self.downloadsURL = downloadsURL
+                self.eventsURL = eventsURL
+                self.isFork = isFork
+                self.forks = forks
+                self.forksCount = forksCount
+                self.forksURL = forksURL
+                self.fullName = fullName
+                self.gitCommitsURL = gitCommitsURL
+                self.gitRefsURL = gitRefsURL
+                self.gitTagsURL = gitTagsURL
+                self.gitURL = gitURL
+                self.hasDownloads = hasDownloads
+                self.hasIssues = hasIssues
+                self.hasPages = hasPages
+                self.hasProjects = hasProjects
+                self.hasWiki = hasWiki
+                self.homepage = homepage
+                self.hooksURL = hooksURL
+                self.htmlURL = htmlURL
+                self.id = id
+                self.isTemplate = isTemplate
+                self.issueCommentURL = issueCommentURL
+                self.issueEventsURL = issueEventsURL
+                self.issuesURL = issuesURL
+                self.keysURL = keysURL
+                self.labelsURL = labelsURL
+                self.language = language
+                self.languagesURL = languagesURL
+                self.license = license
+                self.masterBranch = masterBranch
+                self.mergesURL = mergesURL
+                self.milestonesURL = milestonesURL
+                self.mirrorURL = mirrorURL
+                self.name = name
+                self.nodeID = nodeID
+                self.notificationsURL = notificationsURL
+                self.openIssues = openIssues
+                self.openIssuesCount = openIssuesCount
+                self.owner = owner
+                self.permissions = permissions
+                self.isPrivate = isPrivate
+                self.pullsURL = pullsURL
+                self.pushedAt = pushedAt
+                self.releasesURL = releasesURL
+                self.size = size
+                self.sshURL = sshURL
+                self.stargazersCount = stargazersCount
+                self.stargazersURL = stargazersURL
+                self.statusesURL = statusesURL
+                self.subscribersURL = subscribersURL
+                self.subscriptionURL = subscriptionURL
+                self.svnURL = svnURL
+                self.tagsURL = tagsURL
+                self.teamsURL = teamsURL
+                self.tempCloneToken = tempCloneToken
+                self.topics = topics
+                self.treesURL = treesURL
+                self.updatedAt = updatedAt
+                self.url = url
+                self.visibility = visibility
+                self.watchers = watchers
+                self.watchersCount = watchersCount
             }
 
             public init(from decoder: Decoder) throws {
@@ -17653,6 +22141,27 @@ public struct PullRequest: Codable {
             public var type: String
             public var url: URL
 
+            public init(avatarURL: URL, eventsURL: String, followersURL: URL, followingURL: String, gistsURL: String, gravatarID: String? = nil, htmlURL: URL, id: Int, login: String, nodeID: String, organizationsURL: URL, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, type: String, url: URL) {
+                self.avatarURL = avatarURL
+                self.eventsURL = eventsURL
+                self.followersURL = followersURL
+                self.followingURL = followingURL
+                self.gistsURL = gistsURL
+                self.gravatarID = gravatarID
+                self.htmlURL = htmlURL
+                self.id = id
+                self.login = login
+                self.nodeID = nodeID
+                self.organizationsURL = organizationsURL
+                self.receivedEventsURL = receivedEventsURL
+                self.reposURL = reposURL
+                self.isSiteAdmin = isSiteAdmin
+                self.starredURL = starredURL
+                self.subscriptionsURL = subscriptionsURL
+                self.type = type
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
@@ -17698,6 +22207,14 @@ public struct PullRequest: Codable {
             }
         }
 
+        public init(label: String, ref: String, repo: Repo? = nil, sha: String, user: User) {
+            self.label = label
+            self.ref = ref
+            self.repo = repo
+            self.sha = sha
+            self.user = user
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.label = try values.decode(String.self, forKey: "label")
@@ -17725,6 +22242,16 @@ public struct PullRequest: Codable {
         public var name: String
         public var nodeID: String
         public var url: String
+
+        public init(color: String, isDefault: Bool, description: String? = nil, id: Int, name: String, nodeID: String, url: String) {
+            self.color = color
+            self.isDefault = isDefault
+            self.description = description
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.url = url
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -17755,6 +22282,57 @@ public struct PullRequest: Codable {
     public enum State: String, Codable, CaseIterable {
         case `open`
         case closed
+    }
+
+    public init(links: Links, activeLockReason: String? = nil, additions: Int, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, authorAssociation: AuthorAssociation, autoMerge: AutoMerge? = nil, base: Base, body: String? = nil, changedFiles: Int, closedAt: Date? = nil, comments: Int, commentsURL: URL, commits: Int, commitsURL: URL, createdAt: Date, deletions: Int, diffURL: URL, isDraft: Bool? = nil, head: Head, htmlURL: URL, id: Int, issueURL: URL, labels: [Label], isLocked: Bool, maintainerCanModify: Bool, mergeCommitSha: String? = nil, isMergeable: Bool? = nil, mergeableState: String, isMerged: Bool, mergedAt: Date? = nil, mergedBy: SimpleUser? = nil, milestone: Milestone? = nil, nodeID: String, number: Int, patchURL: URL, isRebaseable: Bool? = nil, requestedReviewers: [SimpleUser]? = nil, requestedTeams: [TeamSimple]? = nil, reviewCommentURL: String, reviewComments: Int, reviewCommentsURL: URL, state: State, statusesURL: URL, title: String, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.links = links
+        self.activeLockReason = activeLockReason
+        self.additions = additions
+        self.assignee = assignee
+        self.assignees = assignees
+        self.authorAssociation = authorAssociation
+        self.autoMerge = autoMerge
+        self.base = base
+        self.body = body
+        self.changedFiles = changedFiles
+        self.closedAt = closedAt
+        self.comments = comments
+        self.commentsURL = commentsURL
+        self.commits = commits
+        self.commitsURL = commitsURL
+        self.createdAt = createdAt
+        self.deletions = deletions
+        self.diffURL = diffURL
+        self.isDraft = isDraft
+        self.head = head
+        self.htmlURL = htmlURL
+        self.id = id
+        self.issueURL = issueURL
+        self.labels = labels
+        self.isLocked = isLocked
+        self.maintainerCanModify = maintainerCanModify
+        self.mergeCommitSha = mergeCommitSha
+        self.isMergeable = isMergeable
+        self.mergeableState = mergeableState
+        self.isMerged = isMerged
+        self.mergedAt = mergedAt
+        self.mergedBy = mergedBy
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.number = number
+        self.patchURL = patchURL
+        self.isRebaseable = isRebaseable
+        self.requestedReviewers = requestedReviewers
+        self.requestedTeams = requestedTeams
+        self.reviewCommentURL = reviewCommentURL
+        self.reviewComments = reviewComments
+        self.reviewCommentsURL = reviewCommentsURL
+        self.state = state
+        self.statusesURL = statusesURL
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -17867,6 +22445,12 @@ public struct PullRequestMergeResult: Codable {
     public var message: String
     public var sha: String
 
+    public init(isMerged: Bool, message: String, sha: String) {
+        self.isMerged = isMerged
+        self.message = message
+        self.sha = sha
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isMerged = try values.decode(Bool.self, forKey: "merged")
@@ -17885,6 +22469,11 @@ public struct PullRequestMergeResult: Codable {
 public struct PullRequestReviewRequest: Codable {
     public var teams: [Team]
     public var users: [SimpleUser]
+
+    public init(teams: [Team], users: [SimpleUser]) {
+        self.teams = teams
+        self.users = users
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -17939,6 +22528,10 @@ public struct PullRequestReview: Codable {
         public struct HTML: Codable {
             public var href: String
 
+            public init(href: String) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
@@ -17953,6 +22546,10 @@ public struct PullRequestReview: Codable {
         public struct PullRequest: Codable {
             public var href: String
 
+            public init(href: String) {
+                self.href = href
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.href = try values.decode(String.self, forKey: "href")
@@ -17962,6 +22559,11 @@ public struct PullRequestReview: Codable {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encode(href, forKey: "href")
             }
+        }
+
+        public init(html: HTML, pullRequest: PullRequest) {
+            self.html = html
+            self.pullRequest = pullRequest
         }
 
         public init(from decoder: Decoder) throws {
@@ -17975,6 +22577,22 @@ public struct PullRequestReview: Codable {
             try values.encode(html, forKey: "html")
             try values.encode(pullRequest, forKey: "pull_request")
         }
+    }
+
+    public init(links: Links, authorAssociation: AuthorAssociation, body: String, bodyHTML: String? = nil, bodyText: String? = nil, commitID: String, htmlURL: URL, id: Int, nodeID: String, pullRequestURL: URL, state: String, submittedAt: Date? = nil, user: SimpleUser? = nil) {
+        self.links = links
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.commitID = commitID
+        self.htmlURL = htmlURL
+        self.id = id
+        self.nodeID = nodeID
+        self.pullRequestURL = pullRequestURL
+        self.state = state
+        self.submittedAt = submittedAt
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -18078,20 +22696,26 @@ public struct ReviewComment: Codable {
         /// Link
         ///
         /// Hypermedia Link
-        public var `self`: Link
+        public var this: Link
+
+        public init(html: Link, pullRequest: Link, this: Link) {
+            self.html = html
+            self.pullRequest = pullRequest
+            self.this = this
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.html = try values.decode(Link.self, forKey: "html")
             self.pullRequest = try values.decode(Link.self, forKey: "pull_request")
-            self.`self` = try values.decode(Link.self, forKey: "self")
+            self.this = try values.decode(Link.self, forKey: "self")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encode(html, forKey: "html")
             try values.encode(pullRequest, forKey: "pull_request")
-            try values.encode(`self`, forKey: "self")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -18105,6 +22729,37 @@ public struct ReviewComment: Codable {
     public enum StartSide: String, Codable, CaseIterable {
         case left = "LEFT"
         case right = "RIGHT"
+    }
+
+    public init(links: Links, authorAssociation: AuthorAssociation, body: String, bodyHTML: String? = nil, bodyText: String? = nil, commitID: String, createdAt: Date, diffHunk: String, htmlURL: URL, id: Int, inReplyToID: Int? = nil, line: Int? = nil, nodeID: String, originalCommitID: String, originalLine: Int? = nil, originalPosition: Int, originalStartLine: Int? = nil, path: String, position: Int? = nil, pullRequestReviewID: Int? = nil, pullRequestURL: URL, reactions: ReactionRollup? = nil, side: Side? = nil, startLine: Int? = nil, startSide: StartSide? = nil, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.links = links
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.commitID = commitID
+        self.createdAt = createdAt
+        self.diffHunk = diffHunk
+        self.htmlURL = htmlURL
+        self.id = id
+        self.inReplyToID = inReplyToID
+        self.line = line
+        self.nodeID = nodeID
+        self.originalCommitID = originalCommitID
+        self.originalLine = originalLine
+        self.originalPosition = originalPosition
+        self.originalStartLine = originalStartLine
+        self.path = path
+        self.position = position
+        self.pullRequestReviewID = pullRequestReviewID
+        self.pullRequestURL = pullRequestURL
+        self.reactions = reactions
+        self.side = side
+        self.startLine = startLine
+        self.startSide = startSide
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -18199,6 +22854,22 @@ public struct ReleaseAsset: Codable {
         case `open`
     }
 
+    public init(browserDownloadURL: URL, contentType: String, createdAt: Date, downloadCount: Int, id: Int, label: String? = nil, name: String, nodeID: String, size: Int, state: State, updatedAt: Date, uploader: SimpleUser? = nil, url: URL) {
+        self.browserDownloadURL = browserDownloadURL
+        self.contentType = contentType
+        self.createdAt = createdAt
+        self.downloadCount = downloadCount
+        self.id = id
+        self.label = label
+        self.name = name
+        self.nodeID = nodeID
+        self.size = size
+        self.state = state
+        self.updatedAt = updatedAt
+        self.uploader = uploader
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.browserDownloadURL = try values.decode(URL.self, forKey: "browser_download_url")
@@ -18275,6 +22946,32 @@ public struct Release: Codable {
     public var url: URL
     public var zipballURL: URL?
 
+    public init(assets: [ReleaseAsset], assetsURL: URL, author: SimpleUser, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, createdAt: Date, discussionURL: URL? = nil, isDraft: Bool, htmlURL: URL, id: Int, mentionsCount: Int? = nil, name: String? = nil, nodeID: String, isPrerelease: Bool, publishedAt: Date? = nil, reactions: ReactionRollup? = nil, tagName: String, tarballURL: URL? = nil, targetCommitish: String, uploadURL: String, url: URL, zipballURL: URL? = nil) {
+        self.assets = assets
+        self.assetsURL = assetsURL
+        self.author = author
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.createdAt = createdAt
+        self.discussionURL = discussionURL
+        self.isDraft = isDraft
+        self.htmlURL = htmlURL
+        self.id = id
+        self.mentionsCount = mentionsCount
+        self.name = name
+        self.nodeID = nodeID
+        self.isPrerelease = isPrerelease
+        self.publishedAt = publishedAt
+        self.reactions = reactions
+        self.tagName = tagName
+        self.tarballURL = tarballURL
+        self.targetCommitish = targetCommitish
+        self.uploadURL = uploadURL
+        self.url = url
+        self.zipballURL = zipballURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.assets = try values.decode([ReleaseAsset].self, forKey: "assets")
@@ -18341,6 +23038,11 @@ public struct ReleaseNotesContent: Codable {
     /// Example: Release v1.0.0 is now available!
     public var name: String
 
+    public init(body: String, name: String) {
+        self.body = body
+        self.name = name
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.body = try values.decode(String.self, forKey: "body")
@@ -18378,6 +23080,20 @@ public struct SecretScanningAlert: Codable {
     /// The REST API URL of the alert resource.
     public var url: URL?
 
+    public init(createdAt: Date? = nil, htmlURL: URL? = nil, locationsURL: URL? = nil, number: Int? = nil, resolution: SecretScanningAlertResolution? = nil, resolvedAt: Date? = nil, resolvedBy: SimpleUser? = nil, secret: String? = nil, secretType: String? = nil, state: SecretScanningAlertState? = nil, url: URL? = nil) {
+        self.createdAt = createdAt
+        self.htmlURL = htmlURL
+        self.locationsURL = locationsURL
+        self.number = number
+        self.resolution = resolution
+        self.resolvedAt = resolvedAt
+        self.resolvedBy = resolvedBy
+        self.secret = secret
+        self.secretType = secretType
+        self.state = state
+        self.url = url
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
@@ -18414,6 +23130,11 @@ public struct Stargazer: Codable {
     /// Simple User
     public var user: SimpleUser?
 
+    public init(starredAt: Date, user: SimpleUser? = nil) {
+        self.starredAt = starredAt
+        self.user = user
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.starredAt = try values.decode(Date.self, forKey: "starred_at")
@@ -18444,6 +23165,12 @@ public struct CommitActivity: Codable {
     public var total: Int
     /// Example: 1336280400
     public var week: Int
+
+    public init(days: [Int], total: Int, week: Int) {
+        self.days = days
+        self.total = total
+        self.week = week
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18483,6 +23210,13 @@ public struct ContributorActivity: Codable {
         public var d: Int?
         public var w: Int?
 
+        public init(a: Int? = nil, c: Int? = nil, d: Int? = nil, w: Int? = nil) {
+            self.a = a
+            self.c = c
+            self.d = d
+            self.w = w
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.a = try values.decodeIfPresent(Int.self, forKey: "a")
@@ -18498,6 +23232,12 @@ public struct ContributorActivity: Codable {
             try values.encodeIfPresent(d, forKey: "d")
             try values.encodeIfPresent(w, forKey: "w")
         }
+    }
+
+    public init(author: SimpleUser? = nil, total: Int, weeks: [Week]) {
+        self.author = author
+        self.total = total
+        self.weeks = weeks
     }
 
     public init(from decoder: Decoder) throws {
@@ -18518,6 +23258,11 @@ public struct ContributorActivity: Codable {
 public struct ParticipationStats: Codable {
     public var all: [Int]
     public var owner: [Int]
+
+    public init(all: [Int], owner: [Int]) {
+        self.all = all
+        self.owner = owner
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18547,6 +23292,15 @@ public struct RepositorySubscription: Codable {
     /// Example: true
     public var isSubscribed: Bool
     public var url: URL
+
+    public init(createdAt: Date, isIgnored: Bool, reason: String? = nil, repositoryURL: URL, isSubscribed: Bool, url: URL) {
+        self.createdAt = createdAt
+        self.isIgnored = isIgnored
+        self.reason = reason
+        self.repositoryURL = repositoryURL
+        self.isSubscribed = isSubscribed
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18581,6 +23335,11 @@ public struct Tag: Codable {
         public var sha: String
         public var url: URL
 
+        public init(sha: String, url: URL) {
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.sha = try values.decode(String.self, forKey: "sha")
@@ -18592,6 +23351,14 @@ public struct Tag: Codable {
             try values.encode(sha, forKey: "sha")
             try values.encode(url, forKey: "url")
         }
+    }
+
+    public init(commit: Commit, name: String, nodeID: String, tarballURL: URL, zipballURL: URL) {
+        self.commit = commit
+        self.name = name
+        self.nodeID = nodeID
+        self.tarballURL = tarballURL
+        self.zipballURL = zipballURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -18617,6 +23384,10 @@ public struct Tag: Codable {
 public struct Topic: Codable {
     public var names: [String]
 
+    public init(names: [String]) {
+        self.names = names
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.names = try values.decode([String].self, forKey: "names")
@@ -18632,6 +23403,12 @@ public struct Traffic: Codable {
     public var count: Int
     public var timestamp: Date
     public var uniques: Int
+
+    public init(count: Int, timestamp: Date, uniques: Int) {
+        self.count = count
+        self.timestamp = timestamp
+        self.uniques = uniques
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18654,6 +23431,12 @@ public struct CloneTraffic: Codable {
     public var count: Int
     /// Example: 128
     public var uniques: Int
+
+    public init(clones: [Traffic], count: Int, uniques: Int) {
+        self.clones = clones
+        self.count = count
+        self.uniques = uniques
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18680,6 +23463,13 @@ public struct ContentTraffic: Codable {
     /// Example: 2225
     public var uniques: Int
 
+    public init(count: Int, path: String, title: String, uniques: Int) {
+        self.count = count
+        self.path = path
+        self.title = title
+        self.uniques = uniques
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.count = try values.decode(Int.self, forKey: "count")
@@ -18703,6 +23493,12 @@ public struct ReferrerTraffic: Codable {
     public var referrer: String
     public var uniques: Int
 
+    public init(count: Int, referrer: String, uniques: Int) {
+        self.count = count
+        self.referrer = referrer
+        self.uniques = uniques
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.count = try values.decode(Int.self, forKey: "count")
@@ -18724,6 +23520,12 @@ public struct ViewTraffic: Codable {
     /// Example: 3782
     public var uniques: Int
     public var views: [Traffic]
+
+    public init(count: Int, uniques: Int, views: [Traffic]) {
+        self.count = count
+        self.uniques = uniques
+        self.views = views
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18760,6 +23562,12 @@ public struct ScimGroupListEnterprise: Codable {
             public var display: String?
             public var value: String?
 
+            public init(ref: String? = nil, display: String? = nil, value: String? = nil) {
+                self.ref = ref
+                self.display = display
+                self.value = value
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.ref = try values.decodeIfPresent(String.self, forKey: "$ref")
@@ -18781,6 +23589,13 @@ public struct ScimGroupListEnterprise: Codable {
             public var location: String?
             public var resourceType: String?
 
+            public init(created: String? = nil, lastModified: String? = nil, location: String? = nil, resourceType: String? = nil) {
+                self.created = created
+                self.lastModified = lastModified
+                self.location = location
+                self.resourceType = resourceType
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.created = try values.decodeIfPresent(String.self, forKey: "created")
@@ -18796,6 +23611,15 @@ public struct ScimGroupListEnterprise: Codable {
                 try values.encodeIfPresent(location, forKey: "location")
                 try values.encodeIfPresent(resourceType, forKey: "resourceType")
             }
+        }
+
+        public init(displayName: String? = nil, externalID: String? = nil, id: String, members: [Member]? = nil, meta: Meta? = nil, schemas: [String]) {
+            self.displayName = displayName
+            self.externalID = externalID
+            self.id = id
+            self.members = members
+            self.meta = meta
+            self.schemas = schemas
         }
 
         public init(from decoder: Decoder) throws {
@@ -18817,6 +23641,14 @@ public struct ScimGroupListEnterprise: Codable {
             try values.encodeIfPresent(meta, forKey: "meta")
             try values.encode(schemas, forKey: "schemas")
         }
+    }
+
+    public init(resources: [Resource], itemsPerPage: Double, schemas: [String], startIndex: Double, totalResults: Double) {
+        self.resources = resources
+        self.itemsPerPage = itemsPerPage
+        self.schemas = schemas
+        self.startIndex = startIndex
+        self.totalResults = totalResults
     }
 
     public init(from decoder: Decoder) throws {
@@ -18851,6 +23683,12 @@ public struct ScimEnterpriseGroup: Codable {
         public var display: String?
         public var value: String?
 
+        public init(ref: String? = nil, display: String? = nil, value: String? = nil) {
+            self.ref = ref
+            self.display = display
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.ref = try values.decodeIfPresent(String.self, forKey: "$ref")
@@ -18872,6 +23710,13 @@ public struct ScimEnterpriseGroup: Codable {
         public var location: String?
         public var resourceType: String?
 
+        public init(created: String? = nil, lastModified: String? = nil, location: String? = nil, resourceType: String? = nil) {
+            self.created = created
+            self.lastModified = lastModified
+            self.location = location
+            self.resourceType = resourceType
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.created = try values.decodeIfPresent(String.self, forKey: "created")
@@ -18887,6 +23732,15 @@ public struct ScimEnterpriseGroup: Codable {
             try values.encodeIfPresent(location, forKey: "location")
             try values.encodeIfPresent(resourceType, forKey: "resourceType")
         }
+    }
+
+    public init(displayName: String? = nil, externalID: String? = nil, id: String, members: [Member]? = nil, meta: Meta? = nil, schemas: [String]) {
+        self.displayName = displayName
+        self.externalID = externalID
+        self.id = id
+        self.members = members
+        self.meta = meta
+        self.schemas = schemas
     }
 
     public init(from decoder: Decoder) throws {
@@ -18933,6 +23787,12 @@ public struct ScimUserListEnterprise: Codable {
             public var type: String?
             public var value: String?
 
+            public init(isPrimary: Bool? = nil, type: String? = nil, value: String? = nil) {
+                self.isPrimary = isPrimary
+                self.type = type
+                self.value = value
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.isPrimary = try values.decodeIfPresent(Bool.self, forKey: "primary")
@@ -18951,6 +23811,10 @@ public struct ScimUserListEnterprise: Codable {
         public struct Group: Codable {
             public var value: String?
 
+            public init(value: String? = nil) {
+                self.value = value
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.value = try values.decodeIfPresent(String.self, forKey: "value")
@@ -18967,6 +23831,13 @@ public struct ScimUserListEnterprise: Codable {
             public var lastModified: String?
             public var location: String?
             public var resourceType: String?
+
+            public init(created: String? = nil, lastModified: String? = nil, location: String? = nil, resourceType: String? = nil) {
+                self.created = created
+                self.lastModified = lastModified
+                self.location = location
+                self.resourceType = resourceType
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -18989,6 +23860,11 @@ public struct ScimUserListEnterprise: Codable {
             public var familyName: String?
             public var givenName: String?
 
+            public init(familyName: String? = nil, givenName: String? = nil) {
+                self.familyName = familyName
+                self.givenName = givenName
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.familyName = try values.decodeIfPresent(String.self, forKey: "familyName")
@@ -19000,6 +23876,18 @@ public struct ScimUserListEnterprise: Codable {
                 try values.encodeIfPresent(familyName, forKey: "familyName")
                 try values.encodeIfPresent(givenName, forKey: "givenName")
             }
+        }
+
+        public init(isActive: Bool? = nil, emails: [Email]? = nil, externalID: String? = nil, groups: [Group]? = nil, id: String, meta: Meta? = nil, name: Name? = nil, schemas: [String], userName: String? = nil) {
+            self.isActive = isActive
+            self.emails = emails
+            self.externalID = externalID
+            self.groups = groups
+            self.id = id
+            self.meta = meta
+            self.name = name
+            self.schemas = schemas
+            self.userName = userName
         }
 
         public init(from decoder: Decoder) throws {
@@ -19027,6 +23915,14 @@ public struct ScimUserListEnterprise: Codable {
             try values.encode(schemas, forKey: "schemas")
             try values.encodeIfPresent(userName, forKey: "userName")
         }
+    }
+
+    public init(resources: [Resource], itemsPerPage: Double, schemas: [String], startIndex: Double, totalResults: Double) {
+        self.resources = resources
+        self.itemsPerPage = itemsPerPage
+        self.schemas = schemas
+        self.startIndex = startIndex
+        self.totalResults = totalResults
     }
 
     public init(from decoder: Decoder) throws {
@@ -19064,6 +23960,12 @@ public struct ScimEnterpriseUser: Codable {
         public var type: String?
         public var value: String?
 
+        public init(isPrimary: Bool? = nil, type: String? = nil, value: String? = nil) {
+            self.isPrimary = isPrimary
+            self.type = type
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isPrimary = try values.decodeIfPresent(Bool.self, forKey: "primary")
@@ -19082,6 +23984,10 @@ public struct ScimEnterpriseUser: Codable {
     public struct Group: Codable {
         public var value: String?
 
+        public init(value: String? = nil) {
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.value = try values.decodeIfPresent(String.self, forKey: "value")
@@ -19098,6 +24004,13 @@ public struct ScimEnterpriseUser: Codable {
         public var lastModified: String?
         public var location: String?
         public var resourceType: String?
+
+        public init(created: String? = nil, lastModified: String? = nil, location: String? = nil, resourceType: String? = nil) {
+            self.created = created
+            self.lastModified = lastModified
+            self.location = location
+            self.resourceType = resourceType
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19120,6 +24033,11 @@ public struct ScimEnterpriseUser: Codable {
         public var familyName: String?
         public var givenName: String?
 
+        public init(familyName: String? = nil, givenName: String? = nil) {
+            self.familyName = familyName
+            self.givenName = givenName
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.familyName = try values.decodeIfPresent(String.self, forKey: "familyName")
@@ -19131,6 +24049,18 @@ public struct ScimEnterpriseUser: Codable {
             try values.encodeIfPresent(familyName, forKey: "familyName")
             try values.encodeIfPresent(givenName, forKey: "givenName")
         }
+    }
+
+    public init(isActive: Bool? = nil, emails: [Email]? = nil, externalID: String? = nil, groups: [Group]? = nil, id: String, meta: Meta? = nil, name: Name? = nil, schemas: [String], userName: String? = nil) {
+        self.isActive = isActive
+        self.emails = emails
+        self.externalID = externalID
+        self.groups = groups
+        self.id = id
+        self.meta = meta
+        self.name = name
+        self.schemas = schemas
+        self.userName = userName
     }
 
     public init(from decoder: Decoder) throws {
@@ -19231,6 +24161,11 @@ public struct ScimUser: Codable {
         public var isPrimary: Bool?
         public var value: String
 
+        public init(isPrimary: Bool? = nil, value: String) {
+            self.isPrimary = isPrimary
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isPrimary = try values.decodeIfPresent(Bool.self, forKey: "primary")
@@ -19247,6 +24182,11 @@ public struct ScimUser: Codable {
     public struct Group: Codable {
         public var display: String?
         public var value: String?
+
+        public init(display: String? = nil, value: String? = nil) {
+            self.display = display
+            self.value = value
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19269,6 +24209,13 @@ public struct ScimUser: Codable {
         public var location: URL?
         /// Example: User
         public var resourceType: String?
+
+        public init(created: Date? = nil, lastModified: Date? = nil, location: URL? = nil, resourceType: String? = nil) {
+            self.created = created
+            self.lastModified = lastModified
+            self.location = location
+            self.resourceType = resourceType
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19297,6 +24244,12 @@ public struct ScimUser: Codable {
         public var familyName: String?
         public var formatted: String?
         public var givenName: String?
+
+        public init(familyName: String? = nil, formatted: String? = nil, givenName: String? = nil) {
+            self.familyName = familyName
+            self.formatted = formatted
+            self.givenName = givenName
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19343,6 +24296,12 @@ public struct ScimUser: Codable {
             }
         }
 
+        public init(op: Op, path: String? = nil, value: Value? = nil) {
+            self.op = op
+            self.path = path
+            self.value = value
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.op = try values.decode(Op.self, forKey: "op")
@@ -19356,6 +24315,21 @@ public struct ScimUser: Codable {
             try values.encodeIfPresent(path, forKey: "path")
             try values.encodeIfPresent(value, forKey: "value")
         }
+    }
+
+    public init(isActive: Bool, displayName: String? = nil, emails: [Email], externalID: String? = nil, groups: [Group]? = nil, id: String, meta: Meta, name: Name, operations: [Operation]? = nil, organizationID: Int? = nil, schemas: [String], userName: String? = nil) {
+        self.isActive = isActive
+        self.displayName = displayName
+        self.emails = emails
+        self.externalID = externalID
+        self.groups = groups
+        self.id = id
+        self.meta = meta
+        self.name = name
+        self.operations = operations
+        self.organizationID = organizationID
+        self.schemas = schemas
+        self.userName = userName
     }
 
     public init(from decoder: Decoder) throws {
@@ -19400,6 +24374,14 @@ public struct ScimUserList: Codable {
     public var startIndex: Int
     public var totalResults: Int
 
+    public init(resources: [ScimUser], itemsPerPage: Int, schemas: [String], startIndex: Int, totalResults: Int) {
+        self.resources = resources
+        self.itemsPerPage = itemsPerPage
+        self.schemas = schemas
+        self.startIndex = startIndex
+        self.totalResults = totalResults
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.resources = try values.decode([ScimUser].self, forKey: "Resources")
@@ -19432,6 +24414,11 @@ public struct SearchResultTextMatchesItem: Codable {
         public var indices: [Int]?
         public var text: String?
 
+        public init(indices: [Int]? = nil, text: String? = nil) {
+            self.indices = indices
+            self.text = text
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.indices = try values.decodeIfPresent([Int].self, forKey: "indices")
@@ -19443,6 +24430,14 @@ public struct SearchResultTextMatchesItem: Codable {
             try values.encodeIfPresent(indices, forKey: "indices")
             try values.encodeIfPresent(text, forKey: "text")
         }
+    }
+
+    public init(fragment: String? = nil, matches: [Match]? = nil, objectType: String? = nil, objectURL: String? = nil, property: String? = nil) {
+        self.fragment = fragment
+        self.matches = matches
+        self.objectType = objectType
+        self.objectURL = objectURL
+        self.property = property
     }
 
     public init(from decoder: Decoder) throws {
@@ -19486,6 +24481,22 @@ public struct CodeSearchResultItem: Codable {
     /// Search Result Text Matches
     public var textMatches: SearchResultTextMatches?
     public var url: URL
+
+    public init(fileSize: Int? = nil, gitURL: URL, htmlURL: URL, language: String? = nil, lastModifiedAt: Date? = nil, lineNumbers: [String]? = nil, name: String, path: String, repository: MinimalRepository, score: Double, sha: String, textMatches: SearchResultTextMatches? = nil, url: URL) {
+        self.fileSize = fileSize
+        self.gitURL = gitURL
+        self.htmlURL = htmlURL
+        self.language = language
+        self.lastModifiedAt = lastModifiedAt
+        self.lineNumbers = lineNumbers
+        self.name = name
+        self.path = path
+        self.repository = repository
+        self.score = score
+        self.sha = sha
+        self.textMatches = textMatches
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19559,6 +24570,12 @@ public struct CommitSearchResultItem: Codable {
             public var email: String
             public var name: String
 
+            public init(date: Date, email: String, name: String) {
+                self.date = date
+                self.email = email
+                self.name = name
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.date = try values.decode(Date.self, forKey: "date")
@@ -19578,6 +24595,11 @@ public struct CommitSearchResultItem: Codable {
             public var sha: String
             public var url: URL
 
+            public init(sha: String, url: URL) {
+                self.sha = sha
+                self.url = url
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.sha = try values.decode(String.self, forKey: "sha")
@@ -19589,6 +24611,16 @@ public struct CommitSearchResultItem: Codable {
                 try values.encode(sha, forKey: "sha")
                 try values.encode(url, forKey: "url")
             }
+        }
+
+        public init(author: Author, commentCount: Int, committer: GitUser? = nil, message: String, tree: Tree, url: URL, verification: Verification? = nil) {
+            self.author = author
+            self.commentCount = commentCount
+            self.committer = committer
+            self.message = message
+            self.tree = tree
+            self.url = url
+            self.verification = verification
         }
 
         public init(from decoder: Decoder) throws {
@@ -19619,6 +24651,12 @@ public struct CommitSearchResultItem: Codable {
         public var sha: String?
         public var url: String?
 
+        public init(htmlURL: String? = nil, sha: String? = nil, url: String? = nil) {
+            self.htmlURL = htmlURL
+            self.sha = sha
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
@@ -19632,6 +24670,21 @@ public struct CommitSearchResultItem: Codable {
             try values.encodeIfPresent(sha, forKey: "sha")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(author: SimpleUser? = nil, commentsURL: URL, commit: Commit, committer: GitUser? = nil, htmlURL: URL, nodeID: String, parents: [Parent], repository: MinimalRepository, score: Double, sha: String, textMatches: SearchResultTextMatches? = nil, url: URL) {
+        self.author = author
+        self.commentsURL = commentsURL
+        self.commit = commit
+        self.committer = committer
+        self.htmlURL = htmlURL
+        self.nodeID = nodeID
+        self.parents = parents
+        self.repository = repository
+        self.score = score
+        self.sha = sha
+        self.textMatches = textMatches
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -19726,6 +24779,16 @@ public struct IssueSearchResultItem: Codable {
         public var nodeID: String?
         public var url: String?
 
+        public init(color: String? = nil, isDefault: Bool? = nil, description: String? = nil, id: Int? = nil, name: String? = nil, nodeID: String? = nil, url: String? = nil) {
+            self.color = color
+            self.isDefault = isDefault
+            self.description = description
+            self.id = id
+            self.name = name
+            self.nodeID = nodeID
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.color = try values.decodeIfPresent(String.self, forKey: "color")
@@ -19756,6 +24819,14 @@ public struct IssueSearchResultItem: Codable {
         public var patchURL: URL?
         public var url: URL?
 
+        public init(diffURL: URL? = nil, htmlURL: URL? = nil, mergedAt: Date? = nil, patchURL: URL? = nil, url: URL? = nil) {
+            self.diffURL = diffURL
+            self.htmlURL = htmlURL
+            self.mergedAt = mergedAt
+            self.patchURL = patchURL
+            self.url = url
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.diffURL = try values.decodeIfPresent(URL.self, forKey: "diff_url")
@@ -19773,6 +24844,43 @@ public struct IssueSearchResultItem: Codable {
             try values.encodeIfPresent(patchURL, forKey: "patch_url")
             try values.encodeIfPresent(url, forKey: "url")
         }
+    }
+
+    public init(activeLockReason: String? = nil, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, authorAssociation: AuthorAssociation, body: String? = nil, bodyHTML: String? = nil, bodyText: String? = nil, closedAt: Date? = nil, comments: Int, commentsURL: URL, createdAt: Date, isDraft: Bool? = nil, eventsURL: URL, htmlURL: URL, id: Int, labels: [Label], labelsURL: String, isLocked: Bool, milestone: Milestone? = nil, nodeID: String, number: Int, performedViaGithubApp: Integration? = nil, pullRequest: PullRequest? = nil, reactions: ReactionRollup? = nil, repository: Repository? = nil, repositoryURL: URL, score: Double, state: String, textMatches: SearchResultTextMatches? = nil, timelineURL: URL? = nil, title: String, updatedAt: Date, url: URL, user: SimpleUser? = nil) {
+        self.activeLockReason = activeLockReason
+        self.assignee = assignee
+        self.assignees = assignees
+        self.authorAssociation = authorAssociation
+        self.body = body
+        self.bodyHTML = bodyHTML
+        self.bodyText = bodyText
+        self.closedAt = closedAt
+        self.comments = comments
+        self.commentsURL = commentsURL
+        self.createdAt = createdAt
+        self.isDraft = isDraft
+        self.eventsURL = eventsURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.labels = labels
+        self.labelsURL = labelsURL
+        self.isLocked = isLocked
+        self.milestone = milestone
+        self.nodeID = nodeID
+        self.number = number
+        self.performedViaGithubApp = performedViaGithubApp
+        self.pullRequest = pullRequest
+        self.reactions = reactions
+        self.repository = repository
+        self.repositoryURL = repositoryURL
+        self.score = score
+        self.state = state
+        self.textMatches = textMatches
+        self.timelineURL = timelineURL
+        self.title = title
+        self.updatedAt = updatedAt
+        self.url = url
+        self.user = user
     }
 
     public init(from decoder: Decoder) throws {
@@ -19863,6 +24971,18 @@ public struct LabelSearchResultItem: Codable {
     /// Search Result Text Matches
     public var textMatches: SearchResultTextMatches?
     public var url: URL
+
+    public init(color: String, isDefault: Bool, description: String? = nil, id: Int, name: String, nodeID: String, score: Double, textMatches: SearchResultTextMatches? = nil, url: URL) {
+        self.color = color
+        self.isDefault = isDefault
+        self.description = description
+        self.id = id
+        self.name = name
+        self.nodeID = nodeID
+        self.score = score
+        self.textMatches = textMatches
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -19992,6 +25112,14 @@ public struct RepoSearchResultItem: Codable {
         public var isPush: Bool
         public var isTriage: Bool?
 
+        public init(isAdmin: Bool, isMaintain: Bool? = nil, isPull: Bool, isPush: Bool, isTriage: Bool? = nil) {
+            self.isAdmin = isAdmin
+            self.isMaintain = isMaintain
+            self.isPull = isPull
+            self.isPush = isPush
+            self.isTriage = isTriage
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.isAdmin = try values.decode(Bool.self, forKey: "admin")
@@ -20009,6 +25137,96 @@ public struct RepoSearchResultItem: Codable {
             try values.encode(isPush, forKey: "push")
             try values.encodeIfPresent(isTriage, forKey: "triage")
         }
+    }
+
+    public init(allowAutoMerge: Bool? = nil, allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, archiveURL: String, isArchived: Bool, assigneesURL: String, blobsURL: String, branchesURL: String, cloneURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, createdAt: Date, defaultBranch: String, deleteBranchOnMerge: Bool? = nil, deploymentsURL: URL, description: String? = nil, isDisabled: Bool, downloadsURL: URL, eventsURL: URL, isFork: Bool, forks: Int, forksCount: Int, forksURL: URL, fullName: String, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, homepage: URL? = nil, hooksURL: URL, htmlURL: URL, id: Int, isTemplate: Bool? = nil, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, language: String? = nil, languagesURL: URL, license: LicenseSimple? = nil, masterBranch: String? = nil, mergesURL: URL, milestonesURL: String, mirrorURL: URL? = nil, name: String, nodeID: String, notificationsURL: String, openIssues: Int, openIssuesCount: Int, owner: SimpleUser? = nil, permissions: Permissions? = nil, isPrivate: Bool, pullsURL: String, pushedAt: Date, releasesURL: String, score: Double, size: Int, sshURL: String, stargazersCount: Int, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, svnURL: URL, tagsURL: URL, teamsURL: URL, tempCloneToken: String? = nil, textMatches: SearchResultTextMatches? = nil, topics: [String]? = nil, treesURL: String, updatedAt: Date, url: URL, visibility: String? = nil, watchers: Int, watchersCount: Int) {
+        self.allowAutoMerge = allowAutoMerge
+        self.allowForking = allowForking
+        self.allowMergeCommit = allowMergeCommit
+        self.allowRebaseMerge = allowRebaseMerge
+        self.allowSquashMerge = allowSquashMerge
+        self.archiveURL = archiveURL
+        self.isArchived = isArchived
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.cloneURL = cloneURL
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.createdAt = createdAt
+        self.defaultBranch = defaultBranch
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.deploymentsURL = deploymentsURL
+        self.description = description
+        self.isDisabled = isDisabled
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.isFork = isFork
+        self.forks = forks
+        self.forksCount = forksCount
+        self.forksURL = forksURL
+        self.fullName = fullName
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.hasDownloads = hasDownloads
+        self.hasIssues = hasIssues
+        self.hasPages = hasPages
+        self.hasProjects = hasProjects
+        self.hasWiki = hasWiki
+        self.homepage = homepage
+        self.hooksURL = hooksURL
+        self.htmlURL = htmlURL
+        self.id = id
+        self.isTemplate = isTemplate
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.language = language
+        self.languagesURL = languagesURL
+        self.license = license
+        self.masterBranch = masterBranch
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.mirrorURL = mirrorURL
+        self.name = name
+        self.nodeID = nodeID
+        self.notificationsURL = notificationsURL
+        self.openIssues = openIssues
+        self.openIssuesCount = openIssuesCount
+        self.owner = owner
+        self.permissions = permissions
+        self.isPrivate = isPrivate
+        self.pullsURL = pullsURL
+        self.pushedAt = pushedAt
+        self.releasesURL = releasesURL
+        self.score = score
+        self.size = size
+        self.sshURL = sshURL
+        self.stargazersCount = stargazersCount
+        self.stargazersURL = stargazersURL
+        self.statusesURL = statusesURL
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.svnURL = svnURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.tempCloneToken = tempCloneToken
+        self.textMatches = textMatches
+        self.topics = topics
+        self.treesURL = treesURL
+        self.updatedAt = updatedAt
+        self.url = url
+        self.visibility = visibility
+        self.watchers = watchers
+        self.watchersCount = watchersCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -20222,6 +25440,13 @@ public struct TopicSearchResultItem: Codable {
             public var relationType: String?
             public var topicID: Int?
 
+            public init(id: Int? = nil, name: String? = nil, relationType: String? = nil, topicID: Int? = nil) {
+                self.id = id
+                self.name = name
+                self.relationType = relationType
+                self.topicID = topicID
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decodeIfPresent(Int.self, forKey: "id")
@@ -20237,6 +25462,10 @@ public struct TopicSearchResultItem: Codable {
                 try values.encodeIfPresent(relationType, forKey: "relation_type")
                 try values.encodeIfPresent(topicID, forKey: "topic_id")
             }
+        }
+
+        public init(topicRelation: TopicRelation? = nil) {
+            self.topicRelation = topicRelation
         }
 
         public init(from decoder: Decoder) throws {
@@ -20259,6 +25488,13 @@ public struct TopicSearchResultItem: Codable {
             public var relationType: String?
             public var topicID: Int?
 
+            public init(id: Int? = nil, name: String? = nil, relationType: String? = nil, topicID: Int? = nil) {
+                self.id = id
+                self.name = name
+                self.relationType = relationType
+                self.topicID = topicID
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.id = try values.decodeIfPresent(Int.self, forKey: "id")
@@ -20276,6 +25512,10 @@ public struct TopicSearchResultItem: Codable {
             }
         }
 
+        public init(topicRelation: TopicRelation? = nil) {
+            self.topicRelation = topicRelation
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.topicRelation = try values.decodeIfPresent(TopicRelation.self, forKey: "topic_relation")
@@ -20285,6 +25525,25 @@ public struct TopicSearchResultItem: Codable {
             var values = encoder.container(keyedBy: StringCodingKey.self)
             try values.encodeIfPresent(topicRelation, forKey: "topic_relation")
         }
+    }
+
+    public init(aliases: [Alias]? = nil, createdAt: Date, createdBy: String? = nil, isCurated: Bool, description: String? = nil, displayName: String? = nil, isFeatured: Bool, logoURL: URL? = nil, name: String, related: [RelatedItem]? = nil, released: String? = nil, repositoryCount: Int? = nil, score: Double, shortDescription: String? = nil, textMatches: SearchResultTextMatches? = nil, updatedAt: Date) {
+        self.aliases = aliases
+        self.createdAt = createdAt
+        self.createdBy = createdBy
+        self.isCurated = isCurated
+        self.description = description
+        self.displayName = displayName
+        self.isFeatured = isFeatured
+        self.logoURL = logoURL
+        self.name = name
+        self.related = related
+        self.released = released
+        self.repositoryCount = repositoryCount
+        self.score = score
+        self.shortDescription = shortDescription
+        self.textMatches = textMatches
+        self.updatedAt = updatedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -20364,6 +25623,43 @@ public struct UserSearchResultItem: Codable {
     public var type: String
     public var updatedAt: Date?
     public var url: URL
+
+    public init(avatarURL: URL, bio: String? = nil, blog: String? = nil, company: String? = nil, createdAt: Date? = nil, email: String? = nil, eventsURL: String, followers: Int? = nil, followersURL: URL, following: Int? = nil, followingURL: String, gistsURL: String, gravatarID: String? = nil, isHireable: Bool? = nil, htmlURL: URL, id: Int, location: String? = nil, login: String, name: String? = nil, nodeID: String, organizationsURL: URL, publicGists: Int? = nil, publicRepos: Int? = nil, receivedEventsURL: URL, reposURL: URL, score: Double, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, suspendedAt: Date? = nil, textMatches: SearchResultTextMatches? = nil, type: String, updatedAt: Date? = nil, url: URL) {
+        self.avatarURL = avatarURL
+        self.bio = bio
+        self.blog = blog
+        self.company = company
+        self.createdAt = createdAt
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followers = followers
+        self.followersURL = followersURL
+        self.following = following
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.isHireable = isHireable
+        self.htmlURL = htmlURL
+        self.id = id
+        self.location = location
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.publicGists = publicGists
+        self.publicRepos = publicRepos
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.score = score
+        self.isSiteAdmin = isSiteAdmin
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.suspendedAt = suspendedAt
+        self.textMatches = textMatches
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -20510,6 +25806,13 @@ public struct PrivateUser: Codable {
         public var privateRepos: Int
         public var space: Int
 
+        public init(collaborators: Int, name: String, privateRepos: Int, space: Int) {
+            self.collaborators = collaborators
+            self.name = name
+            self.privateRepos = privateRepos
+            self.space = space
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.collaborators = try values.decode(Int.self, forKey: "collaborators")
@@ -20525,6 +25828,51 @@ public struct PrivateUser: Codable {
             try values.encode(privateRepos, forKey: "private_repos")
             try values.encode(space, forKey: "space")
         }
+    }
+
+    public init(avatarURL: URL, bio: String? = nil, blog: String? = nil, isBusinessPlus: Bool? = nil, collaborators: Int, company: String? = nil, createdAt: Date, diskUsage: Int, email: String? = nil, eventsURL: String, followers: Int, followersURL: URL, following: Int, followingURL: String, gistsURL: String, gravatarID: String? = nil, isHireable: Bool? = nil, htmlURL: URL, id: Int, ldapDn: String? = nil, location: String? = nil, login: String, name: String? = nil, nodeID: String, organizationsURL: URL, ownedPrivateRepos: Int, plan: Plan? = nil, privateGists: Int, publicGists: Int, publicRepos: Int, receivedEventsURL: URL, reposURL: URL, isSiteAdmin: Bool, starredURL: String, subscriptionsURL: URL, suspendedAt: Date? = nil, totalPrivateRepos: Int, twitterUsername: String? = nil, isTwoFactorAuthentication: Bool, type: String, updatedAt: Date, url: URL) {
+        self.avatarURL = avatarURL
+        self.bio = bio
+        self.blog = blog
+        self.isBusinessPlus = isBusinessPlus
+        self.collaborators = collaborators
+        self.company = company
+        self.createdAt = createdAt
+        self.diskUsage = diskUsage
+        self.email = email
+        self.eventsURL = eventsURL
+        self.followers = followers
+        self.followersURL = followersURL
+        self.following = following
+        self.followingURL = followingURL
+        self.gistsURL = gistsURL
+        self.gravatarID = gravatarID
+        self.isHireable = isHireable
+        self.htmlURL = htmlURL
+        self.id = id
+        self.ldapDn = ldapDn
+        self.location = location
+        self.login = login
+        self.name = name
+        self.nodeID = nodeID
+        self.organizationsURL = organizationsURL
+        self.ownedPrivateRepos = ownedPrivateRepos
+        self.plan = plan
+        self.privateGists = privateGists
+        self.publicGists = publicGists
+        self.publicRepos = publicRepos
+        self.receivedEventsURL = receivedEventsURL
+        self.reposURL = reposURL
+        self.isSiteAdmin = isSiteAdmin
+        self.starredURL = starredURL
+        self.subscriptionsURL = subscriptionsURL
+        self.suspendedAt = suspendedAt
+        self.totalPrivateRepos = totalPrivateRepos
+        self.twitterUsername = twitterUsername
+        self.isTwoFactorAuthentication = isTwoFactorAuthentication
+        self.type = type
+        self.updatedAt = updatedAt
+        self.url = url
     }
 
     public init(from decoder: Decoder) throws {
@@ -20639,6 +25987,14 @@ public struct CodespacesSecret: Codable {
         case selected
     }
 
+    public init(createdAt: Date, name: String, selectedRepositoriesURL: URL, updatedAt: Date, visibility: Visibility) {
+        self.createdAt = createdAt
+        self.name = name
+        self.selectedRepositoriesURL = selectedRepositoriesURL
+        self.updatedAt = updatedAt
+        self.visibility = visibility
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -20669,6 +26025,11 @@ public struct CodespacesUserPublicKey: Codable {
     /// Example: 1234567
     public var keyID: String
 
+    public init(key: String, keyID: String) {
+        self.key = key
+        self.keyID = keyID
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.key = try values.decode(String.self, forKey: "key")
@@ -20691,6 +26052,13 @@ public struct Email: Codable {
     public var isVerified: Bool
     /// Example: public
     public var visibility: String?
+
+    public init(email: String, isPrimary: Bool, isVerified: Bool, visibility: String? = nil) {
+        self.email = email
+        self.isPrimary = isPrimary
+        self.isVerified = isVerified
+        self.visibility = visibility
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -20764,6 +26132,11 @@ public struct GpgKey: Codable {
         public var email: String?
         public var isVerified: Bool?
 
+        public init(email: String? = nil, isVerified: Bool? = nil) {
+            self.email = email
+            self.isVerified = isVerified
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.email = try values.decodeIfPresent(String.self, forKey: "email")
@@ -20791,6 +26164,22 @@ public struct GpgKey: Codable {
         public var publicKey: String?
         public var rawKey: String?
         public var subkeys: [AnyJSON]?
+
+        public init(canCertify: Bool? = nil, canEncryptComms: Bool? = nil, canEncryptStorage: Bool? = nil, canSign: Bool? = nil, createdAt: String? = nil, emails: [AnyJSON]? = nil, expiresAt: String? = nil, id: Int? = nil, keyID: String? = nil, primaryKeyID: Int? = nil, publicKey: String? = nil, rawKey: String? = nil, subkeys: [AnyJSON]? = nil) {
+            self.canCertify = canCertify
+            self.canEncryptComms = canEncryptComms
+            self.canEncryptStorage = canEncryptStorage
+            self.canSign = canSign
+            self.createdAt = createdAt
+            self.emails = emails
+            self.expiresAt = expiresAt
+            self.id = id
+            self.keyID = keyID
+            self.primaryKeyID = primaryKeyID
+            self.publicKey = publicKey
+            self.rawKey = rawKey
+            self.subkeys = subkeys
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -20825,6 +26214,22 @@ public struct GpgKey: Codable {
             try values.encodeIfPresent(rawKey, forKey: "raw_key")
             try values.encodeIfPresent(subkeys, forKey: "subkeys")
         }
+    }
+
+    public init(canCertify: Bool, canEncryptComms: Bool, canEncryptStorage: Bool, canSign: Bool, createdAt: Date, emails: [Email], expiresAt: Date? = nil, id: Int, keyID: String, primaryKeyID: Int? = nil, publicKey: String, rawKey: String? = nil, subkeys: [Subkey]) {
+        self.canCertify = canCertify
+        self.canEncryptComms = canEncryptComms
+        self.canEncryptStorage = canEncryptStorage
+        self.canSign = canSign
+        self.createdAt = createdAt
+        self.emails = emails
+        self.expiresAt = expiresAt
+        self.id = id
+        self.keyID = keyID
+        self.primaryKeyID = primaryKeyID
+        self.publicKey = publicKey
+        self.rawKey = rawKey
+        self.subkeys = subkeys
     }
 
     public init(from decoder: Decoder) throws {
@@ -20871,6 +26276,16 @@ public struct Key: Codable {
     public var url: String
     public var isVerified: Bool
 
+    public init(createdAt: Date, id: Int, key: String, isReadOnly: Bool, title: String, url: String, isVerified: Bool) {
+        self.createdAt = createdAt
+        self.id = id
+        self.key = key
+        self.isReadOnly = isReadOnly
+        self.title = title
+        self.url = url
+        self.isVerified = isVerified
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
@@ -20902,6 +26317,16 @@ public struct MarketplaceAccount: Codable {
     public var organizationBillingEmail: String?
     public var type: String
     public var url: URL
+
+    public init(email: String? = nil, id: Int, login: String, nodeID: String? = nil, organizationBillingEmail: String? = nil, type: String, url: URL) {
+        self.email = email
+        self.id = id
+        self.login = login
+        self.nodeID = nodeID
+        self.organizationBillingEmail = organizationBillingEmail
+        self.type = type
+        self.url = url
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -20943,6 +26368,17 @@ public struct UserMarketplacePurchase: Codable {
     /// Example: 2017-11-02T01:12:12Z
     public var updatedAt: Date?
 
+    public init(account: MarketplaceAccount, billingCycle: String, freeTrialEndsOn: Date? = nil, nextBillingDate: Date? = nil, isOnFreeTrial: Bool, plan: MarketplaceListingPlan, unitCount: Int? = nil, updatedAt: Date? = nil) {
+        self.account = account
+        self.billingCycle = billingCycle
+        self.freeTrialEndsOn = freeTrialEndsOn
+        self.nextBillingDate = nextBillingDate
+        self.isOnFreeTrial = isOnFreeTrial
+        self.plan = plan
+        self.unitCount = unitCount
+        self.updatedAt = updatedAt
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.account = try values.decode(MarketplaceAccount.self, forKey: "account")
@@ -20975,6 +26411,11 @@ public struct StarredRepository: Codable {
     public var repo: Repository
     public var starredAt: Date
 
+    public init(repo: Repository, starredAt: Date) {
+        self.repo = repo
+        self.starredAt = starredAt
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.repo = try values.decode(Repository.self, forKey: "repo")
@@ -20995,6 +26436,11 @@ public struct Hovercard: Codable {
         public var message: String
         public var octicon: String
 
+        public init(message: String, octicon: String) {
+            self.message = message
+            self.octicon = octicon
+        }
+
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.message = try values.decode(String.self, forKey: "message")
@@ -21006,6 +26452,10 @@ public struct Hovercard: Codable {
             try values.encode(message, forKey: "message")
             try values.encode(octicon, forKey: "octicon")
         }
+    }
+
+    public init(contexts: [Context]) {
+        self.contexts = contexts
     }
 
     public init(from decoder: Decoder) throws {
@@ -21022,6 +26472,11 @@ public struct Hovercard: Codable {
 public struct KeySimple: Codable {
     public var id: Int
     public var key: String
+
+    public init(id: Int, key: String) {
+        self.id = id
+        self.key = key
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
