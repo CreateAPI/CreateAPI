@@ -5895,8 +5895,53 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)
-        public func patch(_ body: [String: AnyJSON]) -> Request<github.WebhookConfig> {
+        public func patch(_ body: PatchRequest) -> Request<github.WebhookConfig> {
             .patch(path, body: body)
+        }
+
+        /// Example:
+        ///
+        /// {
+        ///   "content_type" : "json",
+        ///   "insecure_ssl" : "0",
+        ///   "secret" : "********",
+        ///   "url" : 0
+        /// }
+        public struct PatchRequest: Codable {
+            /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+            ///
+            /// Example: "json"
+            public var contentType: String?
+            public var insecureSSL: github.WebhookConfigInsecureSSL?
+            /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+            ///
+            /// Example: "********"
+            public var secret: String?
+            /// The URL to which the payloads will be delivered.
+            public var url: URL?
+
+            public init(contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL? = nil) {
+                self.contentType = contentType
+                self.insecureSSL = insecureSSL
+                self.secret = secret
+                self.url = url
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
     }
 }
@@ -8935,8 +8980,56 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
-        public func patch(_ body: [String: AnyJSON]) -> Request<github.GroupMapping> {
+        public func patch(_ body: PatchRequest) -> Request<github.GroupMapping> {
             .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
+            public var groups: [Group]?
+
+            public struct Group: Codable {
+                /// Description of the IdP group.
+                public var groupDescription: String
+                /// ID of the IdP group.
+                public var groupID: String
+                /// Name of the IdP group.
+                public var groupName: String
+
+                public init(groupDescription: String, groupID: String, groupName: String) {
+                    self.groupDescription = groupDescription
+                    self.groupID = groupID
+                    self.groupName = groupName
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.groupDescription = try values.decode(String.self, forKey: "group_description")
+                    self.groupID = try values.decode(String.self, forKey: "group_id")
+                    self.groupName = try values.decode(String.self, forKey: "group_name")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(groupDescription, forKey: "group_description")
+                    try values.encode(groupID, forKey: "group_id")
+                    try values.encode(groupName, forKey: "group_name")
+                }
+            }
+
+            public init(groups: [Group]? = nil) {
+                self.groups = groups
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(groups, forKey: "groups")
+            }
         }
     }
 }
@@ -15788,8 +15881,67 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         /// You must authenticate using an access token with the repo scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-an-environment)
-        public func put(_ body: [String: AnyJSON]) -> Request<github.Environment> {
+        public func put(_ body: PutRequest) -> Request<github.Environment> {
             .put(path, body: body)
+        }
+
+        public struct PutRequest: Codable {
+            /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
+            public var deploymentBranchPolicy: github.DeploymentBranchPolicy?
+            /// The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+            public var reviewers: [Reviewer]?
+            /// The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days).
+            ///
+            /// Example: 30
+            public var waitTimer: Int?
+
+            public struct Reviewer: Codable {
+                /// The id of the user or team who can review the deployment
+                ///
+                /// Example: 4532992
+                public var id: Int?
+                /// The type of reviewer. Must be one of: `User` or `Team`
+                ///
+                /// Example: User
+                public var type: github.DeploymentReviewerType?
+
+                public init(id: Int? = nil, type: github.DeploymentReviewerType? = nil) {
+                    self.id = id
+                    self.type = type
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                    self.type = try values.decodeIfPresent(github.DeploymentReviewerType.self, forKey: "type")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(id, forKey: "id")
+                    try values.encodeIfPresent(type, forKey: "type")
+                }
+            }
+
+            public init(deploymentBranchPolicy: github.DeploymentBranchPolicy? = nil, reviewers: [Reviewer]? = nil, waitTimer: Int? = nil) {
+                self.deploymentBranchPolicy = deploymentBranchPolicy
+                self.reviewers = reviewers
+                self.waitTimer = waitTimer
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.deploymentBranchPolicy = try values.decodeIfPresent(github.DeploymentBranchPolicy.self, forKey: "deployment_branch_policy")
+                self.reviewers = try values.decodeIfPresent([Reviewer].self, forKey: "reviewers")
+                self.waitTimer = try values.decodeIfPresent(Int.self, forKey: "wait_timer")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(deploymentBranchPolicy, forKey: "deployment_branch_policy")
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(waitTimer, forKey: "wait_timer")
+            }
         }
 
         /// Delete an environment
@@ -16769,12 +16921,94 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// share the same `config` as long as those webhooks do not have any `events` that overlap.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-webhook)
-        public func post(_ body: [String: AnyJSON]) -> Request<github.Hook> {
+        public func post(_ body: PostRequest) -> Request<github.Hook> {
             .post(path, body: body)
         }
 
         public enum PostResponseHeaders {
             public static let location = HTTPHeader<String>(field: "Location")
+        }
+
+        public struct PostRequest: Codable {
+            /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+            public var isActive: Bool?
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
+            public var config: Config?
+            /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+            public var events: [String]?
+            /// Use `web` to create a webhook. Default: `web`. This parameter only accepts the value `web`.
+            public var name: String?
+
+            /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
+            public struct Config: Codable {
+                /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+                ///
+                /// Example: "json"
+                public var contentType: String?
+                /// Example: "sha256"
+                public var digest: String?
+                public var insecureSSL: github.WebhookConfigInsecureSSL?
+                /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+                ///
+                /// Example: "********"
+                public var secret: String?
+                /// Example: "abc"
+                public var token: String?
+                /// The URL to which the payloads will be delivered.
+                public var url: URL?
+
+                public init(contentType: String? = nil, digest: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, secret: String? = nil, token: String? = nil, url: URL? = nil) {
+                    self.contentType = contentType
+                    self.digest = digest
+                    self.insecureSSL = insecureSSL
+                    self.secret = secret
+                    self.token = token
+                    self.url = url
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                    self.digest = try values.decodeIfPresent(String.self, forKey: "digest")
+                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                    self.token = try values.decodeIfPresent(String.self, forKey: "token")
+                    self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(digest, forKey: "digest")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(token, forKey: "token")
+                    try values.encodeIfPresent(url, forKey: "url")
+                }
+            }
+
+            public init(isActive: Bool? = nil, config: Config? = nil, events: [String]? = nil, name: String? = nil) {
+                self.isActive = isActive
+                self.config = config
+                self.events = events
+                self.name = name
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
+                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
+                self.events = try values.decodeIfPresent([String].self, forKey: "events")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
     }
 }
@@ -16929,8 +17163,53 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Access tokens must have the `write:repo_hook` or `repo` scope, and GitHub Apps must have the `repository_hooks:write` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository)
-        public func patch(_ body: [String: AnyJSON]) -> Request<github.WebhookConfig> {
+        public func patch(_ body: PatchRequest) -> Request<github.WebhookConfig> {
             .patch(path, body: body)
+        }
+
+        /// Example:
+        ///
+        /// {
+        ///   "content_type" : "json",
+        ///   "insecure_ssl" : "0",
+        ///   "secret" : "********",
+        ///   "url" : 0
+        /// }
+        public struct PatchRequest: Codable {
+            /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+            ///
+            /// Example: "json"
+            public var contentType: String?
+            public var insecureSSL: github.WebhookConfigInsecureSSL?
+            /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+            ///
+            /// Example: "********"
+            public var secret: String?
+            /// The URL to which the payloads will be delivered.
+            public var url: URL?
+
+            public init(contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL? = nil) {
+                self.contentType = contentType
+                self.insecureSSL = insecureSSL
+                self.secret = secret
+                self.url = url
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(url, forKey: "url")
+            }
         }
     }
 }
@@ -17253,8 +17532,32 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
         /// Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#map-a-commit-author)
-        public func patch(_ body: [String: AnyJSON]) -> Request<github.PorterAuthor> {
+        public func patch(_ body: PatchRequest) -> Request<github.PorterAuthor> {
             .patch(path, body: body)
+        }
+
+        public struct PatchRequest: Codable {
+            /// The new Git author email.
+            public var email: String?
+            /// The new Git author name.
+            public var name: String?
+
+            public init(email: String? = nil, name: String? = nil) {
+                self.email = email
+                self.name = name
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
     }
 }

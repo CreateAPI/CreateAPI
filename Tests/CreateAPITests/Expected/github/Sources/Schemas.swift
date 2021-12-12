@@ -12375,11 +12375,11 @@ public struct StatusCheckPolicy: Codable {
 
 /// Branch protections protect branches
 public struct ProtectedBranch: Codable {
-    public var allowDeletions: [String: AnyJSON]?
-    public var allowForcePushes: [String: AnyJSON]?
-    public var enforceAdmins: [String: AnyJSON]?
-    public var requiredConversationResolution: [String: AnyJSON]?
-    public var requiredLinearHistory: [String: AnyJSON]?
+    public var allowDeletions: AllowDeletions?
+    public var allowForcePushes: AllowForcePushes?
+    public var enforceAdmins: EnforceAdmins?
+    public var requiredConversationResolution: RequiredConversationResolution?
+    public var requiredLinearHistory: RequiredLinearHistory?
     public var requiredPullRequestReviews: RequiredPullRequestReviews?
     public var requiredSignatures: RequiredSignatures?
     /// Status Check Policy
@@ -12387,6 +12387,100 @@ public struct ProtectedBranch: Codable {
     /// Branch Restriction Policy
     public var restrictions: BranchRestrictionPolicy?
     public var url: URL
+
+    public struct AllowDeletions: Codable {
+        public var isEnabled: Bool
+
+        public init(isEnabled: Bool) {
+            self.isEnabled = isEnabled
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
+    }
+
+    public struct AllowForcePushes: Codable {
+        public var isEnabled: Bool
+
+        public init(isEnabled: Bool) {
+            self.isEnabled = isEnabled
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
+    }
+
+    public struct EnforceAdmins: Codable {
+        public var isEnabled: Bool
+        public var url: URL
+
+        public init(isEnabled: Bool, url: URL) {
+            self.isEnabled = isEnabled
+            self.url = url
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+            try values.encode(url, forKey: "url")
+        }
+    }
+
+    public struct RequiredConversationResolution: Codable {
+        public var isEnabled: Bool?
+
+        public init(isEnabled: Bool? = nil) {
+            self.isEnabled = isEnabled
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
+        }
+    }
+
+    public struct RequiredLinearHistory: Codable {
+        public var isEnabled: Bool
+
+        public init(isEnabled: Bool) {
+            self.isEnabled = isEnabled
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
+        }
+    }
 
     public struct RequiredPullRequestReviews: Codable {
         public var dismissStaleReviews: Bool?
@@ -12479,7 +12573,7 @@ public struct ProtectedBranch: Codable {
         }
     }
 
-    public init(allowDeletions: [String: AnyJSON]? = nil, allowForcePushes: [String: AnyJSON]? = nil, enforceAdmins: [String: AnyJSON]? = nil, requiredConversationResolution: [String: AnyJSON]? = nil, requiredLinearHistory: [String: AnyJSON]? = nil, requiredPullRequestReviews: RequiredPullRequestReviews? = nil, requiredSignatures: RequiredSignatures? = nil, requiredStatusChecks: StatusCheckPolicy? = nil, restrictions: BranchRestrictionPolicy? = nil, url: URL) {
+    public init(allowDeletions: AllowDeletions? = nil, allowForcePushes: AllowForcePushes? = nil, enforceAdmins: EnforceAdmins? = nil, requiredConversationResolution: RequiredConversationResolution? = nil, requiredLinearHistory: RequiredLinearHistory? = nil, requiredPullRequestReviews: RequiredPullRequestReviews? = nil, requiredSignatures: RequiredSignatures? = nil, requiredStatusChecks: StatusCheckPolicy? = nil, restrictions: BranchRestrictionPolicy? = nil, url: URL) {
         self.allowDeletions = allowDeletions
         self.allowForcePushes = allowForcePushes
         self.enforceAdmins = enforceAdmins
@@ -12494,11 +12588,11 @@ public struct ProtectedBranch: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.allowDeletions = try values.decodeIfPresent([String: AnyJSON].self, forKey: "allow_deletions")
-        self.allowForcePushes = try values.decodeIfPresent([String: AnyJSON].self, forKey: "allow_force_pushes")
-        self.enforceAdmins = try values.decodeIfPresent([String: AnyJSON].self, forKey: "enforce_admins")
-        self.requiredConversationResolution = try values.decodeIfPresent([String: AnyJSON].self, forKey: "required_conversation_resolution")
-        self.requiredLinearHistory = try values.decodeIfPresent([String: AnyJSON].self, forKey: "required_linear_history")
+        self.allowDeletions = try values.decodeIfPresent(AllowDeletions.self, forKey: "allow_deletions")
+        self.allowForcePushes = try values.decodeIfPresent(AllowForcePushes.self, forKey: "allow_force_pushes")
+        self.enforceAdmins = try values.decodeIfPresent(EnforceAdmins.self, forKey: "enforce_admins")
+        self.requiredConversationResolution = try values.decodeIfPresent(RequiredConversationResolution.self, forKey: "required_conversation_resolution")
+        self.requiredLinearHistory = try values.decodeIfPresent(RequiredLinearHistory.self, forKey: "required_linear_history")
         self.requiredPullRequestReviews = try values.decodeIfPresent(RequiredPullRequestReviews.self, forKey: "required_pull_request_reviews")
         self.requiredSignatures = try values.decodeIfPresent(RequiredSignatures.self, forKey: "required_signatures")
         self.requiredStatusChecks = try values.decodeIfPresent(StatusCheckPolicy.self, forKey: "required_status_checks")

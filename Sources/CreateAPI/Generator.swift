@@ -106,16 +106,19 @@ extension Generator {
         }
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
-            // TODO: We can be smarter and combine `properties` with `additionalProperties`
-            var additional = details.additionalProperties
-            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
-                additional = additional ?? .a(true)
+            if let dictionary = try makeDictionary2(key: key, info: info, details: details, context: context) {
+                return child(name: propertyName, type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
             }
-            if let additional = additional {
-                // E.g. [String: String], [String: [String: AnyJSON]]
-                let property = try makeDictionary(info: info, key: key, additional, context: context)
-                return child(name: propertyName, type: property.type, info: info, nested: property.nested)
-            }
+//            // TODO: We can be smarter and combine `properties` with `additionalProperties`
+//            var additional = details.additionalProperties
+//            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
+//                additional = additional ?? .a(true)
+//            }
+//            if let additional = additional {
+//                // E.g. [String: String], [String: [String: AnyJSON]]
+//                let property = try makeDictionary(info: info, key: key, additional, context: context)
+//                return child(name: propertyName, type: property.type, info: info, nested: property.nested)
+//            }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
             return child(name: propertyName, type: type, info: info, nested: nested)
@@ -188,6 +191,31 @@ extension Generator {
         let type: TypeName
         let info: JSONSchemaContext
         var nested: String?
+    }
+    
+    private func makeDictionary2(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
+        var additional = details.additionalProperties
+        if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
+            additional = additional ?? .a(true)
+        }
+        guard let additional = additional else {
+            return nil
+        }
+        switch additional {
+        case .a(let allowed):
+            // TODO: Is this complete?
+            guard allowed || details.properties.isEmpty else {
+                return nil
+            }
+            return AdditionalProperties(type: TypeName("[String: AnyJSON]"), info: info)
+        case .b(let schema):
+            if let type = try getPrimitiveType(for: schema, context: context) {
+                return AdditionalProperties(type: TypeName("[String: \(type)]"), info: info)
+            }
+            let nestedTypeName = makeTypeName(key).appending("Item")
+            let nested = try makeTopDeclaration(name: nestedTypeName, schema: schema, context: context)
+            return AdditionalProperties(type: TypeName("[String: \(nestedTypeName)]"), info: info, nested: nested)
+        }
     }
     
     private func makeDictionary(info: JSONSchemaContext, key: String, _ schema: Either<Bool, JSONSchema>, context: Context) throws -> AdditionalProperties {
