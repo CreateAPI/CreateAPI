@@ -109,16 +109,6 @@ extension Generator {
             if let dictionary = try makeDictionary2(key: key, info: info, details: details, context: context) {
                 return child(name: propertyName, type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
             }
-//            // TODO: We can be smarter and combine `properties` with `additionalProperties`
-//            var additional = details.additionalProperties
-//            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
-//                additional = additional ?? .a(true)
-//            }
-//            if let additional = additional {
-//                // E.g. [String: String], [String: [String: AnyJSON]]
-//                let property = try makeDictionary(info: info, key: key, additional, context: context)
-//                return child(name: propertyName, type: property.type, info: info, nested: property.nested)
-//            }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
             return child(name: propertyName, type: type, info: info, nested: nested)
@@ -203,8 +193,10 @@ extension Generator {
         }
         switch additional {
         case .a(let allowed):
-            // TODO: Is this complete?
-            guard allowed || details.properties.isEmpty else {
+            if !allowed && details.properties.isEmpty {
+                return AdditionalProperties(type: TypeName("Void"), info: info)
+            }
+            if !details.properties.isEmpty {
                 return nil
             }
             return AdditionalProperties(type: TypeName("[String: AnyJSON]"), info: info)
@@ -419,20 +411,9 @@ extension Generator {
             default: break
             }
             return TypeName("String")
-        case .object(_, let details):
-            var additional = details.additionalProperties
-            if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
-                additional = additional ?? .a(true)
-            }
-            if details.properties.isEmpty, let additional = details.additionalProperties {
-                switch additional {
-                case .a(let allowsAdditionalProperties):
-                    return TypeName(allowsAdditionalProperties ? "[String: AnyJSON]" : "Void")
-                case .b(let schema):
-                    if let type = try getPrimitiveType(for: schema, context: context) {
-                        return TypeName("[String: \(type)]")
-                    }
-                }
+        case .object(let info, let details):
+            if let dictionary = try makeDictionary2(key: "placeholder", info: info, details: details, context: context), dictionary.nested == nil {
+                return dictionary.type
             }
             return nil
         case .array(_, let details):

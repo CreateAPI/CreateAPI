@@ -3023,16 +3023,16 @@ public struct AuditLogEvent: Codable {
     /// The username of the account being blocked.
     public var blockedUser: String?
     public var business: String?
-    public var config: [ConfigItem]?
-    public var configWas: [ConfigWasItem]?
+    public var config: [[String: AnyJSON]]?
+    public var configWas: [[String: AnyJSON]]?
     public var contentType: String?
     /// The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).
     public var createdAt: Int?
     public var data: [String: AnyJSON]?
     public var deployKeyFingerprint: String?
     public var emoji: String?
-    public var events: [Event]?
-    public var eventsWere: [EventsWereItem]?
+    public var events: [[String: AnyJSON]]?
+    public var eventsWere: [[String: AnyJSON]]?
     public var explanation: String?
     public var fingerprint: String?
     public var hookID: Int?
@@ -3079,31 +3079,7 @@ public struct AuditLogEvent: Codable {
         }
     }
 
-    public struct ConfigItem: Codable {
-
-
-        public init() {}
-    }
-
-    public struct ConfigWasItem: Codable {
-
-
-        public init() {}
-    }
-
-    public struct Event: Codable {
-
-
-        public init() {}
-    }
-
-    public struct EventsWereItem: Codable {
-
-
-        public init() {}
-    }
-
-    public init(timestamp: Int? = nil, documentID: String? = nil, action: String? = nil, isActive: Bool? = nil, activeWas: Bool? = nil, actor: String? = nil, actorID: Int? = nil, actorLocation: ActorLocation? = nil, blockedUser: String? = nil, business: String? = nil, config: [ConfigItem]? = nil, configWas: [ConfigWasItem]? = nil, contentType: String? = nil, createdAt: Int? = nil, data: [String: AnyJSON]? = nil, deployKeyFingerprint: String? = nil, emoji: String? = nil, events: [Event]? = nil, eventsWere: [EventsWereItem]? = nil, explanation: String? = nil, fingerprint: String? = nil, hookID: Int? = nil, isLimitedAvailability: Bool? = nil, message: String? = nil, name: String? = nil, oldUser: String? = nil, opensshPublicKey: String? = nil, org: String? = nil, orgID: Int? = nil, previousVisibility: String? = nil, isReadOnly: Bool? = nil, repo: String? = nil, repository: String? = nil, isRepositoryPublic: Bool? = nil, targetLogin: String? = nil, team: String? = nil, transportProtocol: Int? = nil, transportProtocolName: String? = nil, user: String? = nil, visibility: String? = nil) {
+    public init(timestamp: Int? = nil, documentID: String? = nil, action: String? = nil, isActive: Bool? = nil, activeWas: Bool? = nil, actor: String? = nil, actorID: Int? = nil, actorLocation: ActorLocation? = nil, blockedUser: String? = nil, business: String? = nil, config: [[String: AnyJSON]]? = nil, configWas: [[String: AnyJSON]]? = nil, contentType: String? = nil, createdAt: Int? = nil, data: [String: AnyJSON]? = nil, deployKeyFingerprint: String? = nil, emoji: String? = nil, events: [[String: AnyJSON]]? = nil, eventsWere: [[String: AnyJSON]]? = nil, explanation: String? = nil, fingerprint: String? = nil, hookID: Int? = nil, isLimitedAvailability: Bool? = nil, message: String? = nil, name: String? = nil, oldUser: String? = nil, opensshPublicKey: String? = nil, org: String? = nil, orgID: Int? = nil, previousVisibility: String? = nil, isReadOnly: Bool? = nil, repo: String? = nil, repository: String? = nil, isRepositoryPublic: Bool? = nil, targetLogin: String? = nil, team: String? = nil, transportProtocol: Int? = nil, transportProtocolName: String? = nil, user: String? = nil, visibility: String? = nil) {
         self.timestamp = timestamp
         self.documentID = documentID
         self.action = action
@@ -3158,15 +3134,15 @@ public struct AuditLogEvent: Codable {
         self.actorLocation = try values.decodeIfPresent(ActorLocation.self, forKey: "actor_location")
         self.blockedUser = try values.decodeIfPresent(String.self, forKey: "blocked_user")
         self.business = try values.decodeIfPresent(String.self, forKey: "business")
-        self.config = try values.decodeIfPresent([ConfigItem].self, forKey: "config")
-        self.configWas = try values.decodeIfPresent([ConfigWasItem].self, forKey: "config_was")
+        self.config = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "config")
+        self.configWas = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "config_was")
         self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
         self.createdAt = try values.decodeIfPresent(Int.self, forKey: "created_at")
         self.data = try values.decodeIfPresent([String: AnyJSON].self, forKey: "data")
         self.deployKeyFingerprint = try values.decodeIfPresent(String.self, forKey: "deploy_key_fingerprint")
         self.emoji = try values.decodeIfPresent(String.self, forKey: "emoji")
-        self.events = try values.decodeIfPresent([Event].self, forKey: "events")
-        self.eventsWere = try values.decodeIfPresent([EventsWereItem].self, forKey: "events_were")
+        self.events = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "events")
+        self.eventsWere = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "events_were")
         self.explanation = try values.decodeIfPresent(String.self, forKey: "explanation")
         self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
         self.hookID = try values.decodeIfPresent(Int.self, forKey: "hook_id")

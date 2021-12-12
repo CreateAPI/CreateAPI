@@ -12964,27 +12964,252 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
-            case object1([String: AnyJSON])
-            case object2([String: AnyJSON])
+        public struct PostRequest: Codable {
+            /// Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)."
+            public var actions: [Action]?
+            /// The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var completedAt: Date?
+            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.  
+            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+            public var conclusion: Conclusion?
+            /// The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used.
+            public var detailsURL: String?
+            /// A reference for the run on the integrator's system.
+            public var externalID: String?
+            /// The SHA of the commit.
+            public var headSha: String
+            /// The name of the check. For example, "code-coverage".
+            public var name: String
+            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description.
+            public var output: Output?
+            /// The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var startedAt: Date?
+            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
+            public var status: Status?
 
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode([String: AnyJSON].self) {
-                    self = .object1(value)
-                } else if let value = try? container.decode([String: AnyJSON].self) {
-                    self = .object2(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            public struct Action: Codable {
+                /// A short explanation of what this action would do. The maximum size is 40 characters.
+                public var description: String
+                /// A reference for the action on the integrator's system. The maximum size is 20 characters.
+                public var identifier: String
+                /// The text to be displayed on a button in the web UI. The maximum size is 20 characters.
+                public var label: String
+
+                public init(description: String, identifier: String, label: String) {
+                    self.description = description
+                    self.identifier = identifier
+                    self.label = label
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.description = try values.decode(String.self, forKey: "description")
+                    self.identifier = try values.decode(String.self, forKey: "identifier")
+                    self.label = try values.decode(String.self, forKey: "label")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(description, forKey: "description")
+                    try values.encode(identifier, forKey: "identifier")
+                    try values.encode(label, forKey: "label")
                 }
             }
 
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
-                switch self {
-                case .object1(let value): try container.encode(value)
-                case .object2(let value): try container.encode(value)
+            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.  
+            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+            public enum Conclusion: String, Codable, CaseIterable {
+                case actionRequired = "action_required"
+                case cancelled
+                case failure
+                case neutral
+                case success
+                case skipped
+                case stale
+                case timedOut = "timed_out"
+            }
+
+            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description.
+            public struct Output: Codable {
+                /// Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter.
+                public var annotations: [Annotation]?
+                /// Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details.
+                public var images: [Image]?
+                /// The summary of the check run. This parameter supports Markdown.
+                public var summary: String
+                /// The details of the check run. This parameter supports Markdown.
+                public var text: String?
+                /// The title of the check run.
+                public var title: String
+
+                public struct Annotation: Codable {
+                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+                    public var annotationLevel: AnnotationLevel
+                    /// The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+                    public var endColumn: Int?
+                    /// The end line of the annotation.
+                    public var endLine: Int
+                    /// A short description of the feedback for these lines of code. The maximum size is 64 KB.
+                    public var message: String
+                    /// The path of the file to add an annotation to. For example, `assets/css/main.css`.
+                    public var path: String
+                    /// Details about this annotation. The maximum size is 64 KB.
+                    public var rawDetails: String?
+                    /// The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+                    public var startColumn: Int?
+                    /// The start line of the annotation.
+                    public var startLine: Int
+                    /// The title that represents the annotation. The maximum size is 255 characters.
+                    public var title: String?
+
+                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+                    public enum AnnotationLevel: String, Codable, CaseIterable {
+                        case notice
+                        case warning
+                        case failure
+                    }
+
+                    public init(annotationLevel: AnnotationLevel, endColumn: Int? = nil, endLine: Int, message: String, path: String, rawDetails: String? = nil, startColumn: Int? = nil, startLine: Int, title: String? = nil) {
+                        self.annotationLevel = annotationLevel
+                        self.endColumn = endColumn
+                        self.endLine = endLine
+                        self.message = message
+                        self.path = path
+                        self.rawDetails = rawDetails
+                        self.startColumn = startColumn
+                        self.startLine = startLine
+                        self.title = title
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.annotationLevel = try values.decode(AnnotationLevel.self, forKey: "annotation_level")
+                        self.endColumn = try values.decodeIfPresent(Int.self, forKey: "end_column")
+                        self.endLine = try values.decode(Int.self, forKey: "end_line")
+                        self.message = try values.decode(String.self, forKey: "message")
+                        self.path = try values.decode(String.self, forKey: "path")
+                        self.rawDetails = try values.decodeIfPresent(String.self, forKey: "raw_details")
+                        self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
+                        self.startLine = try values.decode(Int.self, forKey: "start_line")
+                        self.title = try values.decodeIfPresent(String.self, forKey: "title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(annotationLevel, forKey: "annotation_level")
+                        try values.encodeIfPresent(endColumn, forKey: "end_column")
+                        try values.encode(endLine, forKey: "end_line")
+                        try values.encode(message, forKey: "message")
+                        try values.encode(path, forKey: "path")
+                        try values.encodeIfPresent(rawDetails, forKey: "raw_details")
+                        try values.encodeIfPresent(startColumn, forKey: "start_column")
+                        try values.encode(startLine, forKey: "start_line")
+                        try values.encodeIfPresent(title, forKey: "title")
+                    }
                 }
+
+                public struct Image: Codable {
+                    /// The alternative text for the image.
+                    public var alt: String
+                    /// A short image description.
+                    public var caption: String?
+                    /// The full URL of the image.
+                    public var imageURL: String
+
+                    public init(alt: String, caption: String? = nil, imageURL: String) {
+                        self.alt = alt
+                        self.caption = caption
+                        self.imageURL = imageURL
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.alt = try values.decode(String.self, forKey: "alt")
+                        self.caption = try values.decodeIfPresent(String.self, forKey: "caption")
+                        self.imageURL = try values.decode(String.self, forKey: "image_url")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(alt, forKey: "alt")
+                        try values.encodeIfPresent(caption, forKey: "caption")
+                        try values.encode(imageURL, forKey: "image_url")
+                    }
+                }
+
+                public init(annotations: [Annotation]? = nil, images: [Image]? = nil, summary: String, text: String? = nil, title: String) {
+                    self.annotations = annotations
+                    self.images = images
+                    self.summary = summary
+                    self.text = text
+                    self.title = title
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.annotations = try values.decodeIfPresent([Annotation].self, forKey: "annotations")
+                    self.images = try values.decodeIfPresent([Image].self, forKey: "images")
+                    self.summary = try values.decode(String.self, forKey: "summary")
+                    self.text = try values.decodeIfPresent(String.self, forKey: "text")
+                    self.title = try values.decode(String.self, forKey: "title")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(annotations, forKey: "annotations")
+                    try values.encodeIfPresent(images, forKey: "images")
+                    try values.encode(summary, forKey: "summary")
+                    try values.encodeIfPresent(text, forKey: "text")
+                    try values.encode(title, forKey: "title")
+                }
+            }
+
+            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
+            public enum Status: String, Codable, CaseIterable {
+                case queued
+                case inProgress = "in_progress"
+                case completed
+            }
+
+            public init(actions: [Action]? = nil, completedAt: Date? = nil, conclusion: Conclusion? = nil, detailsURL: String? = nil, externalID: String? = nil, headSha: String, name: String, output: Output? = nil, startedAt: Date? = nil, status: Status? = nil) {
+                self.actions = actions
+                self.completedAt = completedAt
+                self.conclusion = conclusion
+                self.detailsURL = detailsURL
+                self.externalID = externalID
+                self.headSha = headSha
+                self.name = name
+                self.output = output
+                self.startedAt = startedAt
+                self.status = status
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.actions = try values.decodeIfPresent([Action].self, forKey: "actions")
+                self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
+                self.conclusion = try values.decodeIfPresent(Conclusion.self, forKey: "conclusion")
+                self.detailsURL = try values.decodeIfPresent(String.self, forKey: "details_url")
+                self.externalID = try values.decodeIfPresent(String.self, forKey: "external_id")
+                self.headSha = try values.decode(String.self, forKey: "head_sha")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.output = try values.decodeIfPresent(Output.self, forKey: "output")
+                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
+                self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(actions, forKey: "actions")
+                try values.encodeIfPresent(completedAt, forKey: "completed_at")
+                try values.encodeIfPresent(conclusion, forKey: "conclusion")
+                try values.encodeIfPresent(detailsURL, forKey: "details_url")
+                try values.encodeIfPresent(externalID, forKey: "external_id")
+                try values.encode(headSha, forKey: "head_sha")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(output, forKey: "output")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(status, forKey: "status")
             }
         }
     }
@@ -13022,13 +13247,246 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         }
 
         public struct PatchRequest: Codable {
-            public var object1: [String: AnyJSON]?
-            public var object2: [String: AnyJSON]?
+            /// Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)."
+            public var actions: [Action]?
+            /// The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var completedAt: Date?
+            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.  
+            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+            public var conclusion: Conclusion?
+            /// The URL of the integrator's site that has the full details of the check.
+            public var detailsURL: String?
+            /// A reference for the run on the integrator's system.
+            public var externalID: String?
+            /// The name of the check. For example, "code-coverage".
+            public var name: String?
+            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description.
+            public var output: Output?
+            /// This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+            public var startedAt: Date?
+            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
+            public var status: Status?
+
+            public struct Action: Codable {
+                /// A short explanation of what this action would do. The maximum size is 40 characters.
+                public var description: String
+                /// A reference for the action on the integrator's system. The maximum size is 20 characters.
+                public var identifier: String
+                /// The text to be displayed on a button in the web UI. The maximum size is 20 characters.
+                public var label: String
+
+                public init(description: String, identifier: String, label: String) {
+                    self.description = description
+                    self.identifier = identifier
+                    self.label = label
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.description = try values.decode(String.self, forKey: "description")
+                    self.identifier = try values.decode(String.self, forKey: "identifier")
+                    self.label = try values.decode(String.self, forKey: "label")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(description, forKey: "description")
+                    try values.encode(identifier, forKey: "identifier")
+                    try values.encode(label, forKey: "label")
+                }
+            }
+
+            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.  
+            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+            public enum Conclusion: String, Codable, CaseIterable {
+                case actionRequired = "action_required"
+                case cancelled
+                case failure
+                case neutral
+                case success
+                case skipped
+                case stale
+                case timedOut = "timed_out"
+            }
+
+            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description.
+            public struct Output: Codable {
+                /// Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details.
+                public var annotations: [Annotation]?
+                /// Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details.
+                public var images: [Image]?
+                /// Can contain Markdown.
+                public var summary: String
+                /// Can contain Markdown.
+                public var text: String?
+                /// **Required**.
+                public var title: String?
+
+                public struct Annotation: Codable {
+                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+                    public var annotationLevel: AnnotationLevel
+                    /// The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+                    public var endColumn: Int?
+                    /// The end line of the annotation.
+                    public var endLine: Int
+                    /// A short description of the feedback for these lines of code. The maximum size is 64 KB.
+                    public var message: String
+                    /// The path of the file to add an annotation to. For example, `assets/css/main.css`.
+                    public var path: String
+                    /// Details about this annotation. The maximum size is 64 KB.
+                    public var rawDetails: String?
+                    /// The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+                    public var startColumn: Int?
+                    /// The start line of the annotation.
+                    public var startLine: Int
+                    /// The title that represents the annotation. The maximum size is 255 characters.
+                    public var title: String?
+
+                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+                    public enum AnnotationLevel: String, Codable, CaseIterable {
+                        case notice
+                        case warning
+                        case failure
+                    }
+
+                    public init(annotationLevel: AnnotationLevel, endColumn: Int? = nil, endLine: Int, message: String, path: String, rawDetails: String? = nil, startColumn: Int? = nil, startLine: Int, title: String? = nil) {
+                        self.annotationLevel = annotationLevel
+                        self.endColumn = endColumn
+                        self.endLine = endLine
+                        self.message = message
+                        self.path = path
+                        self.rawDetails = rawDetails
+                        self.startColumn = startColumn
+                        self.startLine = startLine
+                        self.title = title
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.annotationLevel = try values.decode(AnnotationLevel.self, forKey: "annotation_level")
+                        self.endColumn = try values.decodeIfPresent(Int.self, forKey: "end_column")
+                        self.endLine = try values.decode(Int.self, forKey: "end_line")
+                        self.message = try values.decode(String.self, forKey: "message")
+                        self.path = try values.decode(String.self, forKey: "path")
+                        self.rawDetails = try values.decodeIfPresent(String.self, forKey: "raw_details")
+                        self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
+                        self.startLine = try values.decode(Int.self, forKey: "start_line")
+                        self.title = try values.decodeIfPresent(String.self, forKey: "title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(annotationLevel, forKey: "annotation_level")
+                        try values.encodeIfPresent(endColumn, forKey: "end_column")
+                        try values.encode(endLine, forKey: "end_line")
+                        try values.encode(message, forKey: "message")
+                        try values.encode(path, forKey: "path")
+                        try values.encodeIfPresent(rawDetails, forKey: "raw_details")
+                        try values.encodeIfPresent(startColumn, forKey: "start_column")
+                        try values.encode(startLine, forKey: "start_line")
+                        try values.encodeIfPresent(title, forKey: "title")
+                    }
+                }
+
+                public struct Image: Codable {
+                    /// The alternative text for the image.
+                    public var alt: String
+                    /// A short image description.
+                    public var caption: String?
+                    /// The full URL of the image.
+                    public var imageURL: String
+
+                    public init(alt: String, caption: String? = nil, imageURL: String) {
+                        self.alt = alt
+                        self.caption = caption
+                        self.imageURL = imageURL
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let values = try decoder.container(keyedBy: StringCodingKey.self)
+                        self.alt = try values.decode(String.self, forKey: "alt")
+                        self.caption = try values.decodeIfPresent(String.self, forKey: "caption")
+                        self.imageURL = try values.decode(String.self, forKey: "image_url")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(alt, forKey: "alt")
+                        try values.encodeIfPresent(caption, forKey: "caption")
+                        try values.encode(imageURL, forKey: "image_url")
+                    }
+                }
+
+                public init(annotations: [Annotation]? = nil, images: [Image]? = nil, summary: String, text: String? = nil, title: String? = nil) {
+                    self.annotations = annotations
+                    self.images = images
+                    self.summary = summary
+                    self.text = text
+                    self.title = title
+                }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.annotations = try values.decodeIfPresent([Annotation].self, forKey: "annotations")
+                    self.images = try values.decodeIfPresent([Image].self, forKey: "images")
+                    self.summary = try values.decode(String.self, forKey: "summary")
+                    self.text = try values.decodeIfPresent(String.self, forKey: "text")
+                    self.title = try values.decodeIfPresent(String.self, forKey: "title")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(annotations, forKey: "annotations")
+                    try values.encodeIfPresent(images, forKey: "images")
+                    try values.encode(summary, forKey: "summary")
+                    try values.encodeIfPresent(text, forKey: "text")
+                    try values.encodeIfPresent(title, forKey: "title")
+                }
+            }
+
+            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
+            public enum Status: String, Codable, CaseIterable {
+                case queued
+                case inProgress = "in_progress"
+                case completed
+            }
+
+            public init(actions: [Action]? = nil, completedAt: Date? = nil, conclusion: Conclusion? = nil, detailsURL: String? = nil, externalID: String? = nil, name: String? = nil, output: Output? = nil, startedAt: Date? = nil, status: Status? = nil) {
+                self.actions = actions
+                self.completedAt = completedAt
+                self.conclusion = conclusion
+                self.detailsURL = detailsURL
+                self.externalID = externalID
+                self.name = name
+                self.output = output
+                self.startedAt = startedAt
+                self.status = status
+            }
 
             public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                self.object1 = try? container.decode([String: AnyJSON].self)
-                self.object2 = try? container.decode([String: AnyJSON].self)
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.actions = try values.decodeIfPresent([Action].self, forKey: "actions")
+                self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
+                self.conclusion = try values.decodeIfPresent(Conclusion.self, forKey: "conclusion")
+                self.detailsURL = try values.decodeIfPresent(String.self, forKey: "details_url")
+                self.externalID = try values.decodeIfPresent(String.self, forKey: "external_id")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.output = try values.decodeIfPresent(Output.self, forKey: "output")
+                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
+                self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(actions, forKey: "actions")
+                try values.encodeIfPresent(completedAt, forKey: "completed_at")
+                try values.encodeIfPresent(conclusion, forKey: "conclusion")
+                try values.encodeIfPresent(detailsURL, forKey: "details_url")
+                try values.encodeIfPresent(externalID, forKey: "external_id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(output, forKey: "output")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(status, forKey: "status")
             }
         }
     }
@@ -24133,24 +24591,18 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
 
         public struct PatchRequest: Codable {
             /// Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
-            public var operations: [Operation]
+            public var operations: [[String: AnyJSON]]
             /// The SCIM schema URIs.
             public var schemas: [String]
 
-            public struct Operation: Codable {
-
-
-                public init() {}
-            }
-
-            public init(operations: [Operation], schemas: [String]) {
+            public init(operations: [[String: AnyJSON]], schemas: [String]) {
                 self.operations = operations
                 self.schemas = schemas
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.operations = try values.decode([Operation].self, forKey: "Operations")
+                self.operations = try values.decode([[String: AnyJSON]].self, forKey: "Operations")
                 self.schemas = try values.decode([String].self, forKey: "schemas")
             }
 

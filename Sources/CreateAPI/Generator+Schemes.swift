@@ -8,7 +8,6 @@ import GrammaticalNumber
 
 // TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code
 
-// TODO: Fix empty public struct ConfigWasItem: Codable { and other init() {}
 // TODO: Fix AnyJSON and StringCodingKeys layout
 // TODO: Add option to hide AnyJSON
 // TODO: testEdgecasesRename "Status": "State" is not working
@@ -23,7 +22,6 @@ import GrammaticalNumber
 // TODO: Add UUID support (and test it!)
 // TODO: Review OpenAPI spec for -all
 // TODO: Add int32/int64 support (optional) (and a way to disable)
-// TODO: Check why public struct ConfigItem: Decodable { is empty
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Final imporvementes to OctoKit
 // TODO: anyOf should be class or struct?

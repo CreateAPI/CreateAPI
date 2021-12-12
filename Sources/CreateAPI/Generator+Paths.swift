@@ -181,7 +181,7 @@ extension Generator {
     }
     
     // TODO: Add support for header parameters
-    private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+    private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -337,6 +337,7 @@ extension Generator {
     // TODO: Add "image*" support
     // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
+    // TODO: Required?
     private func makeRequestBodyType(for operation: OpenAPI.Operation, method: String, context: Context) throws -> GeneratedType {
         guard let requestBody = operation.requestBody else {
             // TODO: Is is the correct handling?

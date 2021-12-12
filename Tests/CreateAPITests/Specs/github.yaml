@@ -16379,21 +16379,6 @@ paths:
               required:
               - name
               - head_sha
-              oneOf:
-              - properties:
-                  status:
-                    enum:
-                    - completed
-                required:
-                - status
-                - conclusion
-                additionalProperties: true
-              - properties:
-                  status:
-                    enum:
-                    - queued
-                    - in_progress
-                additionalProperties: true
             examples:
               example-of-in-progress-conclusion:
                 summary: Response for in_progress conclusion
@@ -16698,20 +16683,6 @@ paths:
                     - label
                     - description
                     - identifier
-              anyOf:
-              - properties:
-                  status:
-                    enum:
-                    - completed
-                required:
-                - conclusion
-                additionalProperties: true
-              - properties:
-                  status:
-                    enum:
-                    - queued
-                    - in_progress
-                additionalProperties: true
             example:
               name: mighty_readme
               started_at: '2018-05-04T01:14:52Z'
