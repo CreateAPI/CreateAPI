@@ -164,11 +164,7 @@ extension Generator {
             .map { $0.indented }
             .joined(separator: "\n\n")
     }
-    
-    private func hasBody(_ method: String) -> Bool {
-        ["put", "post", "patch"].contains(method)
-    }
-    
+        
     // TODO: Inject offset as a parameter
     // TODO: Add a way to disamiguate if responses have oneOf
     private func makeMethod(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) -> String? {
@@ -182,10 +178,6 @@ extension Generator {
     
     // TODO: Add support for header parameters
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
-//        guard operation.operationId == "apps/redeliver-webhook-delivery" else {
-//            throw GeneratorError("Skip")
-//        }
-        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -248,13 +240,13 @@ extension Generator {
             call.append("query: parameters.asQuery()")
         }
         
-        if hasBody(method) {
-            let request = try makeRequestBodyType(for: operation, method: method, context: context)
-            if !request.type.isVoid {
-                if let value = request.nested {
+        if let requestBody = operation.requestBody {
+            let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
+            if !requestBody.type.isVoid {
+                if let value = requestBody.nested {
                     nested.append(value)
                 }
-                parameters.append("_ body: \(request.type)")
+                parameters.append("_ body: \(requestBody.type)")
                 call.append("body: body")
             }
         }
@@ -332,6 +324,8 @@ extension Generator {
         )
     }
     
+    private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
+    
     // TODO: Generate -parameter documentation
     // TODO: Automatically pick application/json (See Paths.Pet.WithPetID.PostRequest)
     // TODO: Add application/x-www-form-urlencoded support
@@ -342,14 +336,9 @@ extension Generator {
     // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
     // TODO: Required?
-    private func makeRequestBodyType(for operation: OpenAPI.Operation, method: String, context: Context) throws -> GeneratedType {
+    private func makeRequestBodyType(for requestBody: RequestBody, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isDecodableNeeded = false
-        
-        guard let requestBody = operation.requestBody else {
-            // TODO: Is is the correct handling?
-            throw GeneratorError("ERROR: Request body is missing")
-        }
         
         // TODO: Refactor
         switch requestBody {
@@ -372,7 +361,7 @@ extension Generator {
                 case .b(let value):
                     schema = value
                 default:
-                    throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
+                    throw GeneratorError("Response not handled")
                 }
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
@@ -404,7 +393,7 @@ extension Generator {
                     setNeedsEncodable(for: type.type)
                     return GeneratedType(type: type.type, nested: type.nested)
                 default:
-                    throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
+                    throw GeneratorError("Response not handled")
                 }
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")

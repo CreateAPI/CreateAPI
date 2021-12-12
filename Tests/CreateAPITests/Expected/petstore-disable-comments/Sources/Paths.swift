@@ -41,6 +41,10 @@ extension Paths {
                 return query
             }
         }
+
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 

@@ -43,6 +43,11 @@ extension Paths {
                 return query
             }
         }
+
+        /// Create a pet
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 

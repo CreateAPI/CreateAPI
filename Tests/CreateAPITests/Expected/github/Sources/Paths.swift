@@ -377,7 +377,16 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
         /// Path: `/app/hook/deliveries/{delivery_id}/attempts`
         public let path: String
 
-
+        /// Redeliver a delivery for an app webhook
+        ///
+        /// Redeliver a delivery for the webhook configured for a GitHub App.
+        /// 
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook)
+        public func post() -> Request<[String: AnyJSON]> {
+            .post(path)
+        }
     }
 }
 
@@ -536,6 +545,17 @@ extension Paths.App.Installations.WithInstallationID {
         /// Path: `/app/installations/{installation_id}/suspended`
         public let path: String
 
+        /// Suspend an app installation
+        ///
+        /// Suspends a GitHub App on a user, organization, or business account, which blocks the app from accessing the account's resources. When a GitHub App is suspended, the app's access to the GitHub API or webhook events is blocked for that account.
+        /// 
+        /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#suspend-an-app-installation)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Unsuspend an app installation
         ///
         /// Removes a GitHub App installation suspension.
@@ -672,8 +692,22 @@ extension Paths.Applications.WithClientID {
         /// Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for the user. Once deleted, the application will have no access to the user's account and will no longer be listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
-        public func delete() -> Request<Void> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+
+        public struct DeleteRequest: Encodable {
+            /// The OAuth access token used to authenticate to the GitHub API.
+            public var accessToken: String
+
+            public init(accessToken: String) {
+                self.accessToken = accessToken
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+            }
         }
     }
 }
@@ -738,8 +772,22 @@ extension Paths.Applications.WithClientID {
         /// OAuth application owners can revoke a single token for an OAuth application. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
-        public func delete() -> Request<Void> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+
+        public struct DeleteRequest: Encodable {
+            /// The OAuth access token used to authenticate to the GitHub API.
+            public var accessToken: String
+
+            public init(accessToken: String) {
+                self.accessToken = accessToken
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+            }
         }
     }
 }
@@ -1440,6 +1488,17 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         /// Path: `/enterprises/{enterprise}/actions/permissions/organizations/{org_id}`
         public let path: String
 
+        /// Enable a selected organization for GitHub Actions in an enterprise
+        ///
+        /// Adds an organization to the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
+        /// 
+        /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Disable a selected organization for GitHub Actions in an enterprise
         ///
         /// Removes an organization from the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -1757,6 +1816,17 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}`
         public let path: String
 
+        /// Add organization access to a self-hosted runner group in an enterprise
+        ///
+        /// Adds an organization to the list of selected organizations that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an enterprise](#create-a-self-hosted-runner-group-for-an-enterprise)."
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove organization access to a self-hosted runner group in an enterprise
         ///
         /// Removes an organization from the list of selected organizations that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an enterprise](#create-a-self-hosted-runner-group-for-an-enterprise)."
@@ -1867,6 +1937,18 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// Path: `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
         public let path: String
 
+        /// Add a self-hosted runner to a group for an enterprise
+        ///
+        /// Adds a self-hosted runner to a runner group configured in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise`
+        /// scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-a-self-hosted-runner-to-a-group-for-an-enterprise)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove a self-hosted runner from a group for an enterprise
         ///
         /// Removes a self-hosted runner from a group configured in an enterprise. The runner is then returned to the default group.
@@ -1974,7 +2056,24 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Path: `/enterprises/{enterprise}/actions/runners/registration-token`
         public let path: String
 
-
+        /// Create a registration token for an enterprise
+        ///
+        /// Returns a token that you can pass to the `config` script. The token expires after one hour.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        /// 
+        /// #### Example using registration token
+        /// 
+        /// Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
+        /// 
+        /// ```
+        /// ./config.sh --url https://github.com/enterprises/octo-enterprise --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -1987,7 +2086,25 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// Path: `/enterprises/{enterprise}/actions/runners/remove-token`
         public let path: String
 
-
+        /// Create a remove token for an enterprise
+        ///
+        /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an enterprise. The token expires after one hour.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        /// 
+        /// #### Example using remove token
+        /// 
+        /// To remove your self-hosted runner from an enterprise, replace `TOKEN` with the remove token provided by this
+        /// endpoint.
+        /// 
+        /// ```
+        /// ./config.sh remove --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -2753,6 +2870,19 @@ extension Paths.Gists.WithGistID {
                 return query
             }
         }
+
+        /// Fork a gist
+        ///
+        /// **Note**: This was previously `/gists/:gist_id/fork`.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#fork-a-gist)
+        public func post() -> Request<github.BaseGist> {
+            .post(path)
+        }
+
+        public enum PostResponseHeaders {
+            public static let location = HTTPHeader<String>(field: "Location")
+        }
     }
 }
 
@@ -2770,6 +2900,15 @@ extension Paths.Gists.WithGistID {
         /// [API method documentation](https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Star a gist
+        ///
+        /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/gists#star-a-gist)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Unstar a gist
@@ -3632,6 +3771,13 @@ extension Paths.Notifications.Threads {
         public func get() -> Request<github.Thread> {
             .get(path)
         }
+
+        /// Mark a thread as read
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-a-thread-as-read)
+        public func patch() -> Request<Void> {
+            .patch(path)
+        }
     }
 }
 
@@ -4141,6 +4287,17 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         /// Path: `/orgs/{org}/actions/permissions/repositories/{repository_id}`
         public let path: String
 
+        /// Enable a selected repository for GitHub Actions in an organization
+        ///
+        /// Adds a repository to the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Disable a selected repository for GitHub Actions in an organization
         ///
         /// Removes a repository from the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -4478,6 +4635,21 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}`
         public let path: String
 
+        /// Add repository access to a self-hosted runner group in an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// 
+        /// Adds a repository to the list of selected repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an organization](#create-a-self-hosted-runner-group-for-an-organization)."
+        /// 
+        /// You must authenticate using an access token with the `admin:org`
+        /// scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#add-repository-acess-to-a-self-hosted-runner-group-in-an-organization)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove repository access to a self-hosted runner group in an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -4595,6 +4767,21 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         /// Path: `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
         public let path: String
 
+        /// Add a self-hosted runner to a group for an organization
+        ///
+        /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
+        /// 
+        /// 
+        /// Adds a self-hosted runner to a runner group configured in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org`
+        /// scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-organization)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove a self-hosted runner from a group for an organization
         ///
         /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -4705,7 +4892,24 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// Path: `/orgs/{org}/actions/runners/registration-token`
         public let path: String
 
-
+        /// Create a registration token for an organization
+        ///
+        /// Returns a token that you can pass to the `config` script. The token expires after one hour.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        /// 
+        /// #### Example using registration token
+        /// 
+        /// Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
+        /// 
+        /// ```
+        /// ./config.sh --url https://github.com/octo-org --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-registration-token-for-an-organization)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -4718,7 +4922,25 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// Path: `/orgs/{org}/actions/runners/remove-token`
         public let path: String
 
-
+        /// Create a remove token for an organization
+        ///
+        /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an organization. The token expires after one hour.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        /// 
+        /// #### Example using remove token
+        /// 
+        /// To remove your self-hosted runner from an organization, replace `TOKEN` with the remove token provided by this
+        /// endpoint.
+        /// 
+        /// ```
+        /// ./config.sh remove --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-remove-token-for-an-organization)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -5076,6 +5298,15 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
         /// Path: `/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}`
         public let path: String
 
+        /// Add selected repository to an organization secret
+        ///
+        /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#add-selected-repository-to-an-organization-secret)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove selected repository from an organization secret
         ///
         /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
@@ -5174,6 +5405,13 @@ extension Paths.Orgs.WithOrg.Blocks {
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Block a user from an organization
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#block-a-user-from-an-organization)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Unblock a user from an organization
@@ -5750,7 +5988,14 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
         /// Path: `/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
         public let path: String
 
-
+        /// Redeliver a delivery for an organization webhook
+        ///
+        /// Redeliver a delivery for a webhook configured in an organization.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook)
+        public func post() -> Request<[String: AnyJSON]> {
+            .post(path)
+        }
     }
 }
 
@@ -5763,7 +6008,14 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Path: `/orgs/{org}/hooks/{hook_id}/pings`
         public let path: String
 
-
+        /// Ping an organization webhook
+        ///
+        /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#ping-an-organization-webhook)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -6570,6 +6822,15 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         /// Path: `/orgs/{org}/outside_collaborators/{username}`
         public let path: String
 
+        /// Convert an organization member to outside collaborator
+        ///
+        /// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://help.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove outside collaborator from an organization
         ///
         /// Removing a user from this list will remove them from all the organization's repositories.
@@ -6660,7 +6921,38 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/restore`
         public let path: String
 
+        /// Restore a package for an organization
+        ///
+        /// Restores an entire package in an organization.
+        /// 
+        /// You can restore a deleted package under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must have admin permissions in the organization and authenticate using an access token with the `packages:read` and `packages:write` scopes. In addition:
+        /// - If `package_type` is not `container`, your token must also include the `repo` scope.
+        /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-an-organization)
+        public func post(parameters: PostParameters) -> Request<Void> {
+            .post(path, query: parameters.asQuery())
+        }
 
+        public struct PostParameters {
+            public var token: String?
+
+            public init(token: String? = nil) {
+                self.token = token
+            }
+
+            public func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let token = self.token {
+                    query["token"] = token.description
+                }
+                return query
+            }
+        }
     }
 }
 
@@ -6753,7 +7045,22 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions.W
         /// Path: `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
-
+        /// Restore package version for an organization
+        ///
+        /// Restores a specific package version in an organization.
+        /// 
+        /// You can restore a deleted package under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must have admin permissions in the organization and authenticate using an access token with the `packages:read` and `packages:write` scopes. In addition:
+        /// - If `package_type` is not `container`, your token must also include the `repo` scope.
+        /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -6888,6 +7195,17 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Set public organization membership for the authenticated user
+        ///
+        /// The user can publicize their own membership. (A user cannot publicize the membership for another user.)
+        /// 
+        /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Remove public organization membership for the authenticated user
@@ -9881,7 +10199,23 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// Path: `/repos/{owner}/{repo}/actions/runners/registration-token`
         public let path: String
 
-
+        /// Create a registration token for a repository
+        ///
+        /// Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
+        /// using an access token with the `repo` scope to use this endpoint.
+        /// 
+        /// #### Example using registration token
+        ///  
+        /// Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
+        /// 
+        /// ```
+        /// ./config.sh --url https://github.com/octo-org/octo-repo-artifacts --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-registration-token-for-a-repository)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -9894,7 +10228,23 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// Path: `/repos/{owner}/{repo}/actions/runners/remove-token`
         public let path: String
 
-
+        /// Create a remove token for a repository
+        ///
+        /// Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint.
+        /// 
+        /// #### Example using remove token
+        ///  
+        /// To remove your self-hosted runner from a repository, replace TOKEN with the remove token provided by this endpoint.
+        /// 
+        /// ```
+        /// ./config.sh remove --token TOKEN
+        /// ```
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-remove-token-for-a-repository)
+        public func post() -> Request<github.AuthenticationToken> {
+            .post(path)
+        }
     }
 }
 
@@ -10092,7 +10442,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/approve`
         public let path: String
 
-
+        /// Approve a workflow run for a fork pull request
+        ///
+        /// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information, see ["Approving workflow runs from public forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)."
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#approve-a-workflow-run-for-a-fork-pull-request)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -10300,7 +10659,14 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/cancel`
         public let path: String
 
-
+        /// Cancel a workflow run
+        ///
+        /// Cancels a workflow run using its `id`. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#cancel-a-workflow-run)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -10480,7 +10846,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Path: `/repos/{owner}/{repo}/actions/runs/{run_id}/rerun`
         public let path: String
 
-
+        /// Re-run a workflow
+        ///
+        /// Re-runs your workflow run using its `id`. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#re-run-a-workflow)
+        @available(*, deprecated, message: "Deprecated")
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -10807,7 +11181,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable`
         public let path: String
 
-
+        /// Disable a workflow
+        ///
+        /// Disables a workflow and sets the `state` of the workflow to `disabled_manually`. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-workflow)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
     }
 }
 
@@ -10862,7 +11245,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// Path: `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable`
         public let path: String
 
-
+        /// Enable a workflow
+        ///
+        /// Enables a workflow and sets the `state` of the workflow to `active`. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-workflow)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
     }
 }
 
@@ -11151,6 +11543,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/automated-security-fixes`
         public let path: String
 
+        /// Enable automated security fixes
+        ///
+        /// Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-automated-security-fixes)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Disable automated security fixes
         ///
         /// Disables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
@@ -11420,6 +11821,17 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             .get(path)
         }
 
+        /// Set admin branch protection
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// Adding admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#set-admin-branch-protection)
+        public func post() -> Request<github.ProtectedBranchAdminEnforced> {
+            .post(path)
+        }
+
         /// Delete admin branch protection
         ///
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -11540,6 +11952,17 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-commit-signature-protection)
         public func get() -> Request<github.ProtectedBranchAdminEnforced> {
             .get(path)
+        }
+
+        /// Create commit signature protection
+        ///
+        /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to require signed commits on a branch. You must enable branch protection to require signed commits.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#create-commit-signature-protection)
+        public func post() -> Request<github.ProtectedBranchAdminEnforced> {
+            .post(path)
         }
 
         /// Delete commit signature protection
@@ -11722,8 +12145,42 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-contexts)
-        public func delete() -> Request<[String]> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<[String]> {
+            .delete(path, body: body)
+        }
+
+        public enum DeleteRequest: Encodable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "contexts" : [
+            ///     "contexts"
+            ///   ]
+            /// }
+            public struct Object: Encodable {
+                /// Contexts parameter
+                public var contexts: [String]
+
+                public init(contexts: [String]) {
+                    self.contexts = contexts
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -11892,8 +12349,42 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// | `array` | The GitHub Apps that have push access to this branch. Use the app's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-app-access-restrictions)
-        public func delete() -> Request<[github.Integration]> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<[github.Integration]> {
+            .delete(path, body: body)
+        }
+
+        public enum DeleteRequest: Encodable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "apps" : [
+            ///     "my-app"
+            ///   ]
+            /// }
+            public struct Object: Encodable {
+                /// Apps parameter
+                public var apps: [String]
+
+                public init(apps: [String]) {
+                    self.apps = apps
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -12027,8 +12518,42 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// | `array` | Teams that should no longer have push access. Use the team's `slug`. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-team-access-restrictions)
-        public func delete() -> Request<[github.Team]> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<[github.Team]> {
+            .delete(path, body: body)
+        }
+
+        public enum DeleteRequest: Encodable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "teams" : [
+            ///     "my-team"
+            ///   ]
+            /// }
+            public struct Object: Encodable {
+                /// Teams parameter
+                public var teams: [String]
+
+                public init(teams: [String]) {
+                    self.teams = teams
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -12162,8 +12687,42 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         /// | `array` | Usernames of the people who should no longer have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-user-access-restrictions)
-        public func delete() -> Request<[github.SimpleUser]> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<[github.SimpleUser]> {
+            .delete(path, body: body)
+        }
+
+        public enum DeleteRequest: Encodable {
+            case object(Object)
+            case strings([String])
+
+            /// Example:
+            ///
+            /// {
+            ///   "users" : [
+            ///     "mona"
+            ///   ]
+            /// }
+            public struct Object: Encodable {
+                /// Users parameter
+                public var users: [String]
+
+                public init(users: [String]) {
+                    self.users = users
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -12721,7 +13280,16 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         /// Path: `/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest`
         public let path: String
 
-
+        /// Rerequest a check run
+        ///
+        /// Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
+        /// 
+        /// To rerequest a check run, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#rerequest-a-check-run)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -12912,7 +13480,16 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         /// Path: `/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest`
         public let path: String
 
-
+        /// Rerequest a check suite
+        ///
+        /// Triggers GitHub to rerequest an existing check suite, without pushing new code to a repository. This endpoint will trigger the [`check_suite` webhook](https://docs.github.com/webhooks/event-payloads/#check_suite) event with the action `rerequested`. When a check suite is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
+        /// 
+        /// To rerequest a check suite, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/checks#rerequest-a-check-suite)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -14850,8 +15427,76 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// You must provide values for both `name` and `email`, whether you choose to use `author` or `committer`. Otherwise, you'll receive a `422` status code.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
-        public func delete() -> Request<github.FileCommit> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<github.FileCommit> {
+            .delete(path, body: body)
+        }
+
+        public struct DeleteRequest: Encodable {
+            /// Object containing information about the author.
+            public var author: Author?
+            /// The branch name. Default: the repository’s default branch (usually `master`)
+            public var branch: String?
+            /// Object containing information about the committer.
+            public var committer: Committer?
+            /// The commit message.
+            public var message: String
+            /// The blob SHA of the file being replaced.
+            public var sha: String
+
+            /// Object containing information about the author.
+            public struct Author: Encodable {
+                /// The email of the author (or committer) of the commit
+                public var email: String?
+                /// The name of the author (or committer) of the commit
+                public var name: String?
+
+                public init(email: String? = nil, name: String? = nil) {
+                    self.email = email
+                    self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(email, forKey: "email")
+                    try values.encodeIfPresent(name, forKey: "name")
+                }
+            }
+
+            /// Object containing information about the committer.
+            public struct Committer: Encodable {
+                /// The email of the author (or committer) of the commit
+                public var email: String?
+                /// The name of the author (or committer) of the commit
+                public var name: String?
+
+                public init(email: String? = nil, name: String? = nil) {
+                    self.email = email
+                    self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(email, forKey: "email")
+                    try values.encodeIfPresent(name, forKey: "name")
+                }
+            }
+
+            public init(author: Author? = nil, branch: String? = nil, committer: Committer? = nil, message: String, sha: String) {
+                self.author = author
+                self.branch = branch
+                self.committer = committer
+                self.message = message
+                self.sha = sha
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(author, forKey: "author")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encode(message, forKey: "message")
+                try values.encode(sha, forKey: "sha")
+            }
         }
     }
 }
@@ -16635,7 +17280,14 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
         /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
         public let path: String
 
-
+        /// Redeliver a delivery for a repository webhook
+        ///
+        /// Redeliver a webhook delivery for a webhook configured in a repository.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook)
+        public func post() -> Request<[String: AnyJSON]> {
+            .post(path)
+        }
     }
 }
 
@@ -16648,7 +17300,14 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/pings`
         public let path: String
 
-
+        /// Ping a repository webhook
+        ///
+        /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#ping-a-repository-webhook)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -16661,7 +17320,16 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Path: `/repos/{owner}/{repo}/hooks/{hook_id}/tests`
         public let path: String
 
-
+        /// Test the push repository webhook
+        ///
+        /// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push` events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will be generated.
+        /// 
+        /// **Note**: Previously `/repos/:owner/:repo/hooks/:hook_id/test`
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#test-the-push-repository-webhook)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -17733,8 +18401,22 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Removes one or more assignees from an issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
-        public func delete() -> Request<github.Issue> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<github.Issue> {
+            .delete(path, body: body)
+        }
+
+        public struct DeleteRequest: Encodable {
+            /// Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._
+            public var assignees: [String]?
+
+            public init(assignees: [String]? = nil) {
+                self.assignees = assignees
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(assignees, forKey: "assignees")
+            }
         }
     }
 }
@@ -18556,6 +19238,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Path: `/repos/{owner}/{repo}/lfs`
         public let path: String
 
+        /// Enable Git LFS for a repository
+        ///
+        /// **Note:** The Git LFS API endpoints are currently in beta and are subject to change.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
+        public func put() -> Request<[String: AnyJSON]> {
+            .put(path)
+        }
+
         /// Disable Git LFS for a repository
         ///
         /// **Note:** The Git LFS API endpoints are currently in beta and are subject to change.
@@ -19141,6 +19832,17 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
                 }
                 return query
             }
+        }
+
+        /// Request a GitHub Pages build
+        ///
+        /// You can request that your site be built from the latest revision on the default branch. This has the same effect as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page builds can be helpful when diagnosing build warnings and failures.
+        /// 
+        /// Build requests are limited to one concurrent build per repository and one concurrent build per requester. If you request a build while another is still in progress, the second request will be queued until the first completes.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#request-a-github-pages-build)
+        public func post() -> Request<github.PageBuildStatus> {
+            .post(path)
         }
     }
 }
@@ -20127,8 +20829,26 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Remove requested reviewers from a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
-        public func delete() -> Request<github.PullRequestSimple> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<github.PullRequestSimple> {
+            .delete(path, body: body)
+        }
+
+        public struct DeleteRequest: Encodable {
+            /// An array of user `login`s that will be removed.
+            public var reviewers: [String]
+            /// An array of team `slug`s that will be removed.
+            public var teamReviewers: [String]?
+
+            public init(reviewers: [String], teamReviewers: [String]? = nil) {
+                self.reviewers = reviewers
+                self.teamReviewers = teamReviewers
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(teamReviewers, forKey: "team_reviewers")
+            }
         }
     }
 }
@@ -21850,6 +22570,15 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Enable vulnerability alerts
+        ///
+        /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-vulnerability-alerts)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Disable vulnerability alerts
@@ -24157,6 +24886,26 @@ extension Paths.Teams.WithTeamID.Members {
             .get(path)
         }
 
+        /// Add team member (Legacy)
+        ///
+        /// The "Add team member" endpoint (described below) is deprecated.
+        /// 
+        /// We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
+        /// 
+        /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        /// 
+        /// To add someone to a team, the authenticated user must be an organization owner or a team maintainer in the team they're changing. The person being added to the team must be a member of the team's organization.
+        /// 
+        /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        /// 
+        /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/teams#add-team-member-legacy)
+        @available(*, deprecated, message: "Deprecated")
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove team member (Legacy)
         ///
         /// The "Remove team member" endpoint (described below) is deprecated.
@@ -24826,6 +25575,13 @@ extension Paths.User.Blocks {
             .get(path)
         }
 
+        /// Block a user
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#block-a-user)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Unblock a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#unblock-a-user)
@@ -25286,6 +26042,16 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         /// Path: `/user/codespaces/secrets/{secret_name}/repositories/{repository_id}`
         public let path: String
 
+        /// Add a selected repository to a user secret
+        ///
+        /// Adds a repository to the selected repositories for a user's codespace secret.
+        /// You must authenticate using an access token with the `user` or `read:user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
+
         /// Remove a selected repository from a user secret
         ///
         /// Removes a repository from the selected repositories for a user's codespace secret.
@@ -25344,6 +26110,17 @@ extension Paths.User.Codespaces {
                 try values.encodeIfPresent(machine, forKey: "machine")
             }
         }
+
+        /// Delete a codespace for the authenticated user
+        ///
+        /// Deletes a user's codespace.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user)
+        public func delete() -> Request<[String: AnyJSON]> {
+            .delete(path)
+        }
     }
 }
 
@@ -25394,7 +26171,16 @@ extension Paths.User.Codespaces.WithCodespaceName {
         /// Path: `/user/codespaces/{codespace_name}/start`
         public let path: String
 
-
+        /// Start a codespace for the authenticated user
+        ///
+        /// Starts a user's codespace.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#start-a-codespace-for-the-authenticated-user)
+        public func post() -> Request<github.Codespace> {
+            .post(path)
+        }
     }
 }
 
@@ -25407,7 +26193,16 @@ extension Paths.User.Codespaces.WithCodespaceName {
         /// Path: `/user/codespaces/{codespace_name}/stop`
         public let path: String
 
-
+        /// Stop a codespace for the authenticated user
+        ///
+        /// Stops a user's codespace.
+        /// 
+        /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user)
+        public func post() -> Request<github.Codespace> {
+            .post(path)
+        }
     }
 }
 
@@ -25562,8 +26357,47 @@ extension Paths.User {
         /// This endpoint is accessible with the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user)
-        public func delete() -> Request<Void> {
-            .delete(path)
+        public func delete(_ body: DeleteRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+
+        public enum DeleteRequest: Encodable {
+            case object(Object)
+            case strings([String])
+            case string(String)
+
+            /// Deletes one or more email addresses from your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
+            ///
+            /// Example:
+            ///
+            /// {
+            ///   "emails" : [
+            ///     "octocat@github.com",
+            ///     "mona@github.com"
+            ///   ]
+            /// }
+            public struct Object: Encodable {
+                /// Email addresses associated with the GitHub user account.
+                public var emails: [String]
+
+                public init(emails: [String]) {
+                    self.emails = emails
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object(let value): try container.encode(value)
+                case .strings(let value): try container.encode(value)
+                case .string(let value): try container.encode(value)
+                }
+            }
         }
     }
 }
@@ -25672,6 +26506,17 @@ extension Paths.User.Following {
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Follow a user
+        ///
+        /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        /// 
+        /// Following a user requires the user to be logged in and authenticated with basic auth or OAuth with the `user:follow` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/users#follow-a-user)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Unfollow a user
@@ -25938,6 +26783,17 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
     public struct WithRepositoryID {
         /// Path: `/user/installations/{installation_id}/repositories/{repository_id}`
         public let path: String
+
+        /// Add a repository to an app installation
+        ///
+        /// Add a single repository to an installation. The authenticated user must have admin access to the repository.
+        /// 
+        /// You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation)
+        public func put() -> Request<Void> {
+            .put(path)
+        }
 
         /// Remove a repository from an app installation
         ///
@@ -26746,7 +27602,36 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         /// Path: `/user/packages/{package_type}/{package_name}/restore`
         public let path: String
 
+        /// Restore a package for the authenticated user
+        ///
+        /// Restores a package owned by the authenticated user.
+        /// 
+        /// You can restore a deleted package under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user)
+        public func post(parameters: PostParameters) -> Request<Void> {
+            .post(path, query: parameters.asQuery())
+        }
 
+        public struct PostParameters {
+            public var token: String?
+
+            public init(token: String? = nil) {
+                self.token = token
+            }
+
+            public func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let token = self.token {
+                    query["token"] = token.description
+                }
+                return query
+            }
+        }
     }
 }
 
@@ -26838,7 +27723,20 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions.WithPacka
         /// Path: `/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
-
+        /// Restore a package version for the authenticated user
+        ///
+        /// Restores a package version owned by the authenticated user.
+        /// 
+        /// You can restore a deleted package version under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. If `package_type` is not `container`, your token must also include the `repo` scope.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
@@ -27157,6 +28055,13 @@ extension Paths.User.RepositoryInvitations {
         /// Path: `/user/repository_invitations/{invitation_id}`
         public let path: String
 
+        /// Accept a repository invitation
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#accept-a-repository-invitation)
+        public func patch() -> Request<Void> {
+            .patch(path)
+        }
+
         /// Decline a repository invitation
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#decline-a-repository-invitation)
@@ -27238,6 +28143,15 @@ extension Paths.User.Starred.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
         public func get() -> Request<Void> {
             .get(path)
+        }
+
+        /// Star a repository for the authenticated user
+        ///
+        /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/activity#star-a-repository-for-the-authenticated-user)
+        public func put() -> Request<Void> {
+            .put(path)
         }
 
         /// Unstar a repository for the authenticated user
@@ -27994,7 +28908,38 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         /// Path: `/users/{username}/packages/{package_type}/{package_name}/restore`
         public let path: String
 
+        /// Restore a package for a user
+        ///
+        /// Restores an entire package for a user.
+        /// 
+        /// You can restore a deleted package under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. In addition:
+        /// - If `package_type` is not `container`, your token must also include the `repo` scope.
+        /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user)
+        public func post(parameters: PostParameters) -> Request<Void> {
+            .post(path, query: parameters.asQuery())
+        }
 
+        public struct PostParameters {
+            public var token: String?
+
+            public init(token: String? = nil) {
+                self.token = token
+            }
+
+            public func asQuery() -> [String: String?] {
+                var query: [String: String?] = [:]
+                if let token = self.token {
+                    query["token"] = token.description
+                }
+                return query
+            }
+        }
     }
 }
 
@@ -28066,7 +29011,22 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         /// Path: `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
         public let path: String
 
-
+        /// Restore package version for a user
+        ///
+        /// Restores a specific package version for a user.
+        /// 
+        /// You can restore a deleted package under the following conditions:
+        ///   - The package was deleted within the last 30 days.
+        ///   - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first.
+        /// 
+        /// To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. In addition:
+        /// - If `package_type` is not `container`, your token must also include the `repo` scope.
+        /// - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-a-user)
+        public func post() -> Request<Void> {
+            .post(path)
+        }
     }
 }
 
