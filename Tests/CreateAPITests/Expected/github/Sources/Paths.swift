@@ -154,7 +154,7 @@ extension Paths {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-the-authenticated-app)
-        public func get() -> Request<Integration> {
+        public func get() -> Request<github.Integration> {
             .get(path)
         }
     }
@@ -204,7 +204,7 @@ extension Paths.AppManifests.WithCode {
             /// GitHub app
             ///
             /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
-            public var integration: Integration
+            public var integration: github.Integration
             public var clientID: String
             public var clientSecret: String
             public var pem: String
@@ -212,7 +212,7 @@ extension Paths.AppManifests.WithCode {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.integration = try Integration(from: decoder)
+                self.integration = try github.Integration(from: decoder)
                 self.clientID = try values.decode(String.self, forKey: "client_id")
                 self.clientSecret = try values.decode(String.self, forKey: "client_secret")
                 self.pem = try values.decode(String.self, forKey: "pem")
@@ -249,7 +249,7 @@ extension Paths.App.Hook {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
-        public func get() -> Request<WebhookConfig> {
+        public func get() -> Request<github.WebhookConfig> {
             .get(path)
         }
 
@@ -260,7 +260,7 @@ extension Paths.App.Hook {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app)
-        public func patch(_ body: PatchRequest) -> Request<WebhookConfig> {
+        public func patch(_ body: PatchRequest) -> Request<github.WebhookConfig> {
             .patch(path, body: body)
         }
 
@@ -277,7 +277,7 @@ extension Paths.App.Hook {
             ///
             /// Example: "json"
             public var contentType: String?
-            public var insecureSSL: WebhookConfigInsecureSSL?
+            public var insecureSSL: github.WebhookConfigInsecureSSL?
             /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
             ///
             /// Example: "********"
@@ -285,7 +285,7 @@ extension Paths.App.Hook {
             /// The URL to which the payloads will be delivered.
             public var url: URL?
 
-            public init(contentType: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL? = nil) {
+            public init(contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL? = nil) {
                 self.contentType = contentType
                 self.insecureSSL = insecureSSL
                 self.secret = secret
@@ -295,7 +295,7 @@ extension Paths.App.Hook {
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
                 self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
                 self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             }
@@ -370,7 +370,7 @@ extension Paths.App.Hook.Deliveries {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook)
-        public func get() -> Request<HookDelivery> {
+        public func get() -> Request<github.HookDelivery> {
             .get(path)
         }
     }
@@ -457,7 +457,7 @@ extension Paths.App.Installations {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app)
-        public func get() -> Request<Installation> {
+        public func get() -> Request<github.Installation> {
             .get(path)
         }
 
@@ -490,7 +490,7 @@ extension Paths.App.Installations.WithInstallationID {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app)
-        public func post(_ body: PostRequest) -> Request<InstallationToken> {
+        public func post(_ body: PostRequest) -> Request<github.InstallationToken> {
             .post(path, body: body)
         }
 
@@ -507,7 +507,7 @@ extension Paths.App.Installations.WithInstallationID {
             ///   "issues" : "read",
             ///   "single_file" : "read"
             /// }
-            public var permissions: AppPermissions?
+            public var permissions: github.AppPermissions?
             /// List of repository names that the token should have access to
             public var repositories: [String]?
             /// List of repository IDs that the token should have access to
@@ -519,7 +519,7 @@ extension Paths.App.Installations.WithInstallationID {
             /// ]
             public var repositoryIDs: [Int]?
 
-            public init(permissions: AppPermissions? = nil, repositories: [String]? = nil, repositoryIDs: [Int]? = nil) {
+            public init(permissions: github.AppPermissions? = nil, repositories: [String]? = nil, repositoryIDs: [Int]? = nil) {
                 self.permissions = permissions
                 self.repositories = repositories
                 self.repositoryIDs = repositoryIDs
@@ -527,7 +527,7 @@ extension Paths.App.Installations.WithInstallationID {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permissions = try values.decodeIfPresent(AppPermissions.self, forKey: "permissions")
+                self.permissions = try values.decodeIfPresent(github.AppPermissions.self, forKey: "permissions")
                 self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
                 self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
             }
@@ -643,7 +643,7 @@ extension Paths.Applications.Grants {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<ApplicationGrant> {
+        public func get() -> Request<github.ApplicationGrant> {
             .get(path)
         }
 
@@ -707,7 +707,7 @@ extension Paths.Applications.WithClientID {
         /// OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
-        public func post(_ body: PostRequest) -> Request<Authorization> {
+        public func post(_ body: PostRequest) -> Request<github.Authorization> {
             .post(path, body: body)
         }
 
@@ -735,7 +735,7 @@ extension Paths.Applications.WithClientID {
         /// OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
-        public func patch(_ body: PatchRequest) -> Request<Authorization> {
+        public func patch(_ body: PatchRequest) -> Request<github.Authorization> {
             .patch(path, body: body)
         }
 
@@ -783,7 +783,7 @@ extension Paths.Applications.WithClientID.Token {
         /// Use a non-scoped user-to-server OAuth access token to create a repository scoped and/or permission scoped user-to-server OAuth access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-scoped-access-token)
-        public func post(_ body: PostRequest) -> Request<Authorization> {
+        public func post(_ body: PostRequest) -> Request<github.Authorization> {
             .post(path, body: body)
         }
 
@@ -804,7 +804,7 @@ extension Paths.Applications.WithClientID.Token {
             ///   "issues" : "read",
             ///   "single_file" : "read"
             /// }
-            public var permissions: AppPermissions?
+            public var permissions: github.AppPermissions?
             /// The list of repository names to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified.
             public var repositories: [String]?
             /// The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
@@ -822,7 +822,7 @@ extension Paths.Applications.WithClientID.Token {
             /// The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified.
             public var targetID: Int?
 
-            public init(accessToken: String, permissions: AppPermissions? = nil, repositories: [String]? = nil, repositoryIDs: [Int]? = nil, target: String? = nil, targetID: Int? = nil) {
+            public init(accessToken: String, permissions: github.AppPermissions? = nil, repositories: [String]? = nil, repositoryIDs: [Int]? = nil, target: String? = nil, targetID: Int? = nil) {
                 self.accessToken = accessToken
                 self.permissions = permissions
                 self.repositories = repositories
@@ -834,7 +834,7 @@ extension Paths.Applications.WithClientID.Token {
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.accessToken = try values.decode(String.self, forKey: "access_token")
-                self.permissions = try values.decodeIfPresent(AppPermissions.self, forKey: "permissions")
+                self.permissions = try values.decodeIfPresent(github.AppPermissions.self, forKey: "permissions")
                 self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
                 self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
                 self.target = try values.decodeIfPresent(String.self, forKey: "target")
@@ -881,7 +881,7 @@ extension Paths.Apps {
         /// If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#get-an-app)
-        public func get() -> Request<Integration> {
+        public func get() -> Request<github.Integration> {
             .get(path)
         }
     }
@@ -952,7 +952,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<Authorization> {
+        public func post(_ body: PostRequest) -> Request<github.Authorization> {
             .post(path, body: body)
         }
 
@@ -1049,7 +1049,7 @@ extension Paths.Authorizations.Clients {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest) -> Request<Authorization> {
+        public func put(_ body: PutRequest) -> Request<github.Authorization> {
             .put(path, body: body)
         }
 
@@ -1128,7 +1128,7 @@ extension Paths.Authorizations.Clients.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest) -> Request<Authorization> {
+        public func put(_ body: PutRequest) -> Request<github.Authorization> {
             .put(path, body: body)
         }
 
@@ -1196,7 +1196,7 @@ extension Paths.Authorizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<Authorization> {
+        public func get() -> Request<github.Authorization> {
             .get(path)
         }
 
@@ -1210,7 +1210,7 @@ extension Paths.Authorizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<Authorization> {
+        public func patch(_ body: PatchRequest) -> Request<github.Authorization> {
             .patch(path, body: body)
         }
 
@@ -1309,7 +1309,7 @@ extension Paths.CodesOfConduct {
         /// Get a code of conduct
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-a-code-of-conduct)
-        public func get() -> Request<CodeOfConduct> {
+        public func get() -> Request<github.CodeOfConduct> {
             .get(path)
         }
     }
@@ -1384,7 +1384,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise)
-        public func get() -> Request<ActionsEnterprisePermissions> {
+        public func get() -> Request<github.ActionsEnterprisePermissions> {
             .get(path)
         }
 
@@ -1401,19 +1401,19 @@ extension Paths.Enterprises.WithEnterprise.Actions {
 
         public struct PutRequest: Codable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-            public var allowedActions: AllowedActions?
+            public var allowedActions: github.AllowedActions?
             /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
-            public var enabledOrganizations: EnabledOrganizations
+            public var enabledOrganizations: github.EnabledOrganizations
 
-            public init(allowedActions: AllowedActions? = nil, enabledOrganizations: EnabledOrganizations) {
+            public init(allowedActions: github.AllowedActions? = nil, enabledOrganizations: github.EnabledOrganizations) {
                 self.allowedActions = allowedActions
                 self.enabledOrganizations = enabledOrganizations
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
-                self.enabledOrganizations = try values.decode(EnabledOrganizations.self, forKey: "enabled_organizations")
+                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
+                self.enabledOrganizations = try values.decode(github.EnabledOrganizations.self, forKey: "enabled_organizations")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1633,7 +1633,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise)
-        public func post(_ body: PostRequest) -> Request<RunnerGroupsEnterprise> {
+        public func post(_ body: PostRequest) -> Request<github.RunnerGroupsEnterprise> {
             .post(path, body: body)
         }
 
@@ -1700,7 +1700,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
-        public func get() -> Request<RunnerGroupsEnterprise> {
+        public func get() -> Request<github.RunnerGroupsEnterprise> {
             .get(path)
         }
 
@@ -1711,7 +1711,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise)
-        public func patch(_ body: PatchRequest) -> Request<RunnerGroupsEnterprise> {
+        public func patch(_ body: PatchRequest) -> Request<github.RunnerGroupsEnterprise> {
             .patch(path, body: body)
         }
 
@@ -2116,7 +2116,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise)
-        public func get() -> Request<Runner> {
+        public func get() -> Request<github.Runner> {
             .get(path)
         }
 
@@ -2229,7 +2229,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise)
-        public func get() -> Request<ActionsBillingUsage> {
+        public func get() -> Request<github.ActionsBillingUsage> {
             .get(path)
         }
     }
@@ -2250,7 +2250,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// Each distinct user login across all repositories is counted as a single Advanced Security seat, so the total_advanced_security_committers is not the sum of active_users for each repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise)
-        public func get(parameters: GetParameters) -> Request<AdvancedSecurityActiveCommitters> {
+        public func get(parameters: GetParameters) -> Request<github.AdvancedSecurityActiveCommitters> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -2295,7 +2295,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise)
-        public func get() -> Request<PackagesBillingUsage> {
+        public func get() -> Request<github.PackagesBillingUsage> {
             .get(path)
         }
     }
@@ -2319,7 +2319,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         /// The authenticated user must be an enterprise admin.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise)
-        public func get() -> Request<CombinedBillingUsage> {
+        public func get() -> Request<github.CombinedBillingUsage> {
             .get(path)
         }
     }
@@ -2390,7 +2390,7 @@ extension Paths {
         /// **Note**: Private feeds are only returned when [authenticating via Basic Auth](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) since current feed URIs use the older, non revocable auth tokens.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-feeds)
-        public func get() -> Request<Feed> {
+        public func get() -> Request<github.Feed> {
             .get(path)
         }
     }
@@ -2446,7 +2446,7 @@ extension Paths {
         /// **Note:** Don't name your files "gistfile" with a numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist)
-        public func post(_ body: PostRequest) -> Request<GistSimple> {
+        public func post(_ body: PostRequest) -> Request<github.GistSimple> {
             .post(path, body: body)
         }
 
@@ -2613,7 +2613,7 @@ extension Paths.Gists {
         /// Get a gist
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist)
-        public func get() -> Request<GistSimple> {
+        public func get() -> Request<github.GistSimple> {
             .get(path)
         }
 
@@ -2622,7 +2622,7 @@ extension Paths.Gists {
         /// Allows you to update or delete a gist file and rename gist files. Files from the previous version of the gist that aren't explicitly changed during an edit are unchanged.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists/#update-a-gist)
-        public func patch(_ body: PatchRequest) -> Request<GistSimple> {
+        public func patch(_ body: PatchRequest) -> Request<github.GistSimple> {
             .patch(path, body: body)
         }
 
@@ -2726,7 +2726,7 @@ extension Paths.Gists.WithGistID {
         /// Create a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist-comment)
-        public func post(_ body: PostRequest) -> Request<GistComment> {
+        public func post(_ body: PostRequest) -> Request<github.GistComment> {
             .post(path, body: body)
         }
 
@@ -2769,14 +2769,14 @@ extension Paths.Gists.WithGistID.Comments {
         /// Get a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-comment)
-        public func get() -> Request<GistComment> {
+        public func get() -> Request<github.GistComment> {
             .get(path)
         }
 
         /// Update a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
-        public func patch(_ body: PatchRequest) -> Request<GistComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.GistComment> {
             .patch(path, body: body)
         }
 
@@ -2933,7 +2933,7 @@ extension Paths.Gists.WithGistID {
         /// Get a gist revision
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-revision)
-        public func get() -> Request<GistSimple> {
+        public func get() -> Request<github.GistSimple> {
             .get(path)
         }
     }
@@ -2985,7 +2985,7 @@ extension Paths.Gitignore.Templates {
         /// Use the raw [media type](https://docs.github.com/rest/overview/media-types/) to get the raw contents.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template)
-        public func get() -> Request<GitignoreTemplate> {
+        public func get() -> Request<github.GitignoreTemplate> {
             .get(path)
         }
     }
@@ -3227,7 +3227,7 @@ extension Paths.Licenses {
         /// Get a license
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-a-license)
-        public func get() -> Request<License> {
+        public func get() -> Request<github.License> {
             .get(path)
         }
     }
@@ -3297,7 +3297,7 @@ extension Paths.MarketplaceListing.Accounts {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account)
-        public func get() -> Request<MarketplacePurchase> {
+        public func get() -> Request<github.MarketplacePurchase> {
             .get(path)
         }
     }
@@ -3446,7 +3446,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         /// GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed)
-        public func get() -> Request<MarketplacePurchase> {
+        public func get() -> Request<github.MarketplacePurchase> {
             .get(path)
         }
     }
@@ -3573,7 +3573,7 @@ extension Paths {
         /// **Note:** The IP addresses shown in the documentation's response are only example values. You must always query the API directly to get the latest list of IP addresses.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-github-meta-information)
-        public func get() -> Request<APIOverview> {
+        public func get() -> Request<github.APIOverview> {
             .get(path)
         }
     }
@@ -3775,7 +3775,7 @@ extension Paths.Notifications.Threads {
         /// Get a thread
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread)
-        public func get() -> Request<Thread> {
+        public func get() -> Request<github.Thread> {
             .get(path)
         }
     }
@@ -3797,7 +3797,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         /// Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user)
-        public func get() -> Request<ThreadSubscription> {
+        public func get() -> Request<github.ThreadSubscription> {
             .get(path)
         }
 
@@ -3810,7 +3810,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         /// Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
-        public func put(_ body: PutRequest) -> Request<ThreadSubscription> {
+        public func put(_ body: PutRequest) -> Request<github.ThreadSubscription> {
             .put(path, body: body)
         }
 
@@ -3982,7 +3982,7 @@ extension Paths.Orgs {
         /// GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub plan. See "[Authenticating with GitHub Apps](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub plan information' below."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization)
-        public func get() -> Request<OrganizationFull> {
+        public func get() -> Request<github.OrganizationFull> {
             .get(path)
         }
 
@@ -3993,7 +3993,7 @@ extension Paths.Orgs {
         /// Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs/#update-an-organization)
-        public func patch(_ body: PatchRequest) -> Request<OrganizationFull> {
+        public func patch(_ body: PatchRequest) -> Request<github.OrganizationFull> {
             .patch(path, body: body)
         }
 
@@ -4185,7 +4185,7 @@ extension Paths.Orgs.WithOrg.Actions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization)
-        public func get() -> Request<ActionsOrganizationPermissions> {
+        public func get() -> Request<github.ActionsOrganizationPermissions> {
             .get(path)
         }
 
@@ -4204,19 +4204,19 @@ extension Paths.Orgs.WithOrg.Actions {
 
         public struct PutRequest: Codable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-            public var allowedActions: AllowedActions?
+            public var allowedActions: github.AllowedActions?
             /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
-            public var enabledRepositories: EnabledRepositories
+            public var enabledRepositories: github.EnabledRepositories
 
-            public init(allowedActions: AllowedActions? = nil, enabledRepositories: EnabledRepositories) {
+            public init(allowedActions: github.AllowedActions? = nil, enabledRepositories: github.EnabledRepositories) {
                 self.allowedActions = allowedActions
                 self.enabledRepositories = enabledRepositories
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
-                self.enabledRepositories = try values.decode(EnabledRepositories.self, forKey: "enabled_repositories")
+                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
+                self.enabledRepositories = try values.decode(github.EnabledRepositories.self, forKey: "enabled_repositories")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4444,7 +4444,7 @@ extension Paths.Orgs.WithOrg.Actions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-self-hosted-runner-group-for-an-organization)
-        public func post(_ body: PostRequest) -> Request<RunnerGroupsOrg> {
+        public func post(_ body: PostRequest) -> Request<github.RunnerGroupsOrg> {
             .post(path, body: body)
         }
 
@@ -4514,7 +4514,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
-        public func get() -> Request<RunnerGroupsOrg> {
+        public func get() -> Request<github.RunnerGroupsOrg> {
             .get(path)
         }
 
@@ -4527,7 +4527,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization)
-        public func patch(_ body: PatchRequest) -> Request<RunnerGroupsOrg> {
+        public func patch(_ body: PatchRequest) -> Request<github.RunnerGroupsOrg> {
             .patch(path, body: body)
         }
 
@@ -4949,7 +4949,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
-        public func get() -> Request<Runner> {
+        public func get() -> Request<github.Runner> {
             .get(path)
         }
 
@@ -5041,7 +5041,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-public-key)
-        public func get() -> Request<ActionsPublicKey> {
+        public func get() -> Request<github.ActionsPublicKey> {
             .get(path)
         }
     }
@@ -5061,7 +5061,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         /// Gets a single organization secret without revealing its encrypted value. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-secret)
-        public func get() -> Request<OrganizationActionsSecret> {
+        public func get() -> Request<github.OrganizationActionsSecret> {
             .get(path)
         }
 
@@ -5668,7 +5668,7 @@ extension Paths.Orgs.WithOrg {
         /// Here's how you can create a hook that posts payloads in JSON format:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-webhook)
-        public func post(_ body: PostRequest) -> Request<OrgHook> {
+        public func post(_ body: PostRequest) -> Request<github.OrgHook> {
             .post(path, body: body)
         }
 
@@ -5692,7 +5692,7 @@ extension Paths.Orgs.WithOrg {
                 ///
                 /// Example: "json"
                 public var contentType: String?
-                public var insecureSSL: WebhookConfigInsecureSSL?
+                public var insecureSSL: github.WebhookConfigInsecureSSL?
                 /// Example: "password"
                 public var password: String?
                 /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
@@ -5704,7 +5704,7 @@ extension Paths.Orgs.WithOrg {
                 /// Example: "kdaigle"
                 public var username: String?
 
-                public init(contentType: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, password: String? = nil, secret: String? = nil, url: URL, username: String? = nil) {
+                public init(contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, password: String? = nil, secret: String? = nil, url: URL, username: String? = nil) {
                     self.contentType = contentType
                     self.insecureSSL = insecureSSL
                     self.password = password
@@ -5716,7 +5716,7 @@ extension Paths.Orgs.WithOrg {
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
                     self.password = try values.decodeIfPresent(String.self, forKey: "password")
                     self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
                     self.url = try values.decode(URL.self, forKey: "url")
@@ -5774,7 +5774,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         /// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-webhook)
-        public func get() -> Request<OrgHook> {
+        public func get() -> Request<github.OrgHook> {
             .get(path)
         }
 
@@ -5783,7 +5783,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-webhook)
-        public func patch(_ body: PatchRequest) -> Request<OrgHook> {
+        public func patch(_ body: PatchRequest) -> Request<github.OrgHook> {
             .patch(path, body: body)
         }
 
@@ -5803,7 +5803,7 @@ extension Paths.Orgs.WithOrg.Hooks {
                 ///
                 /// Example: "json"
                 public var contentType: String?
-                public var insecureSSL: WebhookConfigInsecureSSL?
+                public var insecureSSL: github.WebhookConfigInsecureSSL?
                 /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
                 ///
                 /// Example: "********"
@@ -5811,7 +5811,7 @@ extension Paths.Orgs.WithOrg.Hooks {
                 /// The URL to which the payloads will be delivered.
                 public var url: URL
 
-                public init(contentType: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL) {
+                public init(contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, secret: String? = nil, url: URL) {
                     self.contentType = contentType
                     self.insecureSSL = insecureSSL
                     self.secret = secret
@@ -5821,7 +5821,7 @@ extension Paths.Orgs.WithOrg.Hooks {
                 public init(from decoder: Decoder) throws {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
                     self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
                     self.url = try values.decode(URL.self, forKey: "url")
                 }
@@ -5884,7 +5884,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
-        public func get() -> Request<WebhookConfig> {
+        public func get() -> Request<github.WebhookConfig> {
             .get(path)
         }
 
@@ -5895,7 +5895,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         /// Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)
-        public func patch(_ body: [String: AnyJSON]) -> Request<WebhookConfig> {
+        public func patch(_ body: [String: AnyJSON]) -> Request<github.WebhookConfig> {
             .patch(path, body: body)
         }
     }
@@ -5956,7 +5956,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
         /// Returns a delivery for a webhook configured in an organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook)
-        public func get() -> Request<HookDelivery> {
+        public func get() -> Request<github.HookDelivery> {
             .get(path)
         }
     }
@@ -6093,11 +6093,11 @@ extension Paths.Orgs.WithOrg {
             /// Interaction Limits
             ///
             /// Interaction limit settings.
-            public var interactionLimitResponse: InteractionLimitResponse?
+            public var interactionLimitResponse: github.InteractionLimitResponse?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.interactionLimitResponse = try? container.decode(github.InteractionLimitResponse.self)
             }
         }
 
@@ -6106,7 +6106,7 @@ extension Paths.Orgs.WithOrg {
         /// Temporarily restricts interactions to a certain type of GitHub user in any public repository in the given organization. You must be an organization owner to set these restrictions. Setting the interaction limit at the organization level will overwrite any interaction limits that are set for individual repositories owned by the organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-an-organization)
-        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+        public func put(_ body: github.InteractionLimit) -> Request<github.InteractionLimitResponse> {
             .put(path, body: body)
         }
 
@@ -6171,7 +6171,7 @@ extension Paths.Orgs.WithOrg {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-invitation)
-        public func post(_ body: PostRequest) -> Request<OrganizationInvitation> {
+        public func post(_ body: PostRequest) -> Request<github.OrganizationInvitation> {
             .post(path, body: body)
         }
 
@@ -6445,7 +6445,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         /// In order to get a user's membership with an organization, the authenticated user must be an organization member. The `state` parameter in the response can be used to identify the user's membership status.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user)
-        public func get() -> Request<OrgMembership> {
+        public func get() -> Request<github.OrgMembership> {
             .get(path)
         }
 
@@ -6462,7 +6462,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         /// To prevent abuse, the authenticated user is limited to 50 organization invitations per 24 hour period. If the organization is more than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user)
-        public func put(_ body: PutRequest) -> Request<OrgMembership> {
+        public func put(_ body: PutRequest) -> Request<github.OrgMembership> {
             .put(path, body: body)
         }
 
@@ -6556,7 +6556,7 @@ extension Paths.Orgs.WithOrg {
         /// Initiates the generation of a migration archive.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-organization-migration)
-        public func post(_ body: PostRequest) -> Request<Migration> {
+        public func post(_ body: PostRequest) -> Request<github.Migration> {
             .post(path, body: body)
         }
 
@@ -6638,7 +6638,7 @@ extension Paths.Orgs.WithOrg.Migrations {
         /// *   `failed`, which means the migration failed.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status)
-        public func get() -> Request<Migration> {
+        public func get() -> Request<github.Migration> {
             .get(path)
         }
     }
@@ -6876,7 +6876,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization)
-        public func get() -> Request<Package> {
+        public func get() -> Request<github.Package> {
             .get(path)
         }
 
@@ -6969,7 +6969,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization)
-        public func get() -> Request<PackageVersion> {
+        public func get() -> Request<github.PackageVersion> {
             .get(path)
         }
 
@@ -7049,7 +7049,7 @@ extension Paths.Orgs.WithOrg {
         /// Creates an organization project board. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-an-organization-project)
-        public func post(_ body: PostRequest) -> Request<Project> {
+        public func post(_ body: PostRequest) -> Request<github.Project> {
             .post(path, body: body)
         }
 
@@ -7204,7 +7204,7 @@ extension Paths.Orgs.WithOrg {
         /// *   `repo` scope to create a private repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-an-organization-repository)
-        public func post(_ body: PostRequest) -> Request<Repository> {
+        public func post(_ body: PostRequest) -> Request<github.Repository> {
             .post(path, body: body)
         }
 
@@ -7434,7 +7434,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization)
-        public func get() -> Request<ActionsBillingUsage> {
+        public func get() -> Request<github.ActionsBillingUsage> {
             .get(path)
         }
     }
@@ -7456,7 +7456,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// If this organization defers to an enterprise for billing, the total_advanced_security_committers returned from the organization API may include some users that are in more than one organization, so they will only consume a single Advanced Security seat at the enterprise level.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<AdvancedSecurityActiveCommitters> {
+        public func get(parameters: GetParameters) -> Request<github.AdvancedSecurityActiveCommitters> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -7501,7 +7501,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization)
-        public func get() -> Request<PackagesBillingUsage> {
+        public func get() -> Request<github.PackagesBillingUsage> {
             .get(path)
         }
     }
@@ -7525,7 +7525,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         /// Access tokens must have the `repo` or `admin:org` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization)
-        public func get() -> Request<CombinedBillingUsage> {
+        public func get() -> Request<github.CombinedBillingUsage> {
             .get(path)
         }
     }
@@ -7558,7 +7558,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
         /// List IdP groups available in an organization. You can limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
-        public func get(parameters: GetParameters) -> Request<GroupMapping> {
+        public func get(parameters: GetParameters) -> Request<github.GroupMapping> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -7639,7 +7639,7 @@ extension Paths.Orgs.WithOrg {
         /// When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-team)
-        public func post(_ body: PostRequest) -> Request<TeamFull> {
+        public func post(_ body: PostRequest) -> Request<github.TeamFull> {
             .post(path, body: body)
         }
 
@@ -7743,7 +7743,7 @@ extension Paths.Orgs.WithOrg.Teams {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
-        public func get() -> Request<TeamFull> {
+        public func get() -> Request<github.TeamFull> {
             .get(path)
         }
 
@@ -7754,7 +7754,7 @@ extension Paths.Orgs.WithOrg.Teams {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-team)
-        public func patch(_ body: PatchRequest) -> Request<TeamFull> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamFull> {
             .patch(path, body: body)
         }
 
@@ -7900,7 +7900,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion)
-        public func post(_ body: PostRequest) -> Request<TeamDiscussion> {
+        public func post(_ body: PostRequest) -> Request<github.TeamDiscussion> {
             .post(path, body: body)
         }
 
@@ -7951,7 +7951,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
-        public func get() -> Request<TeamDiscussion> {
+        public func get() -> Request<github.TeamDiscussion> {
             .get(path)
         }
 
@@ -7962,7 +7962,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion)
-        public func patch(_ body: PatchRequest) -> Request<TeamDiscussion> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussion> {
             .patch(path, body: body)
         }
 
@@ -8057,7 +8057,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
-        public func post(_ body: PostRequest) -> Request<TeamDiscussionComment> {
+        public func post(_ body: PostRequest) -> Request<github.TeamDiscussionComment> {
             .post(path, body: body)
         }
 
@@ -8098,7 +8098,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
-        public func get() -> Request<TeamDiscussionComment> {
+        public func get() -> Request<github.TeamDiscussionComment> {
             .get(path)
         }
 
@@ -8109,7 +8109,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
-        public func patch(_ body: PatchRequest) -> Request<TeamDiscussionComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussionComment> {
             .patch(path, body: body)
         }
 
@@ -8197,7 +8197,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -8308,7 +8308,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -8383,7 +8383,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
-        public func patch(_ body: PatchRequest) -> Request<ExternalGroup> {
+        public func patch(_ body: PatchRequest) -> Request<github.ExternalGroup> {
             .patch(path, body: body)
         }
 
@@ -8547,7 +8547,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         /// The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user)
-        public func get() -> Request<TeamMembership> {
+        public func get() -> Request<github.TeamMembership> {
             .get(path)
         }
 
@@ -8566,7 +8566,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/memberships/{username}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user)
-        public func put(_ body: PutRequest) -> Request<TeamMembership> {
+        public func put(_ body: PutRequest) -> Request<github.TeamMembership> {
             .put(path, body: body)
         }
 
@@ -8679,7 +8679,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/projects/{project_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
-        public func get() -> Request<TeamProject> {
+        public func get() -> Request<github.TeamProject> {
             .get(path)
         }
 
@@ -8819,7 +8819,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
-        public func get() -> Request<TeamRepository> {
+        public func get() -> Request<github.TeamRepository> {
             .get(path)
         }
 
@@ -8922,7 +8922,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team)
-        public func get() -> Request<GroupMapping> {
+        public func get() -> Request<github.GroupMapping> {
             .get(path)
         }
 
@@ -8935,7 +8935,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
-        public func patch(_ body: [String: AnyJSON]) -> Request<GroupMapping> {
+        public func patch(_ body: [String: AnyJSON]) -> Request<github.GroupMapping> {
             .patch(path, body: body)
         }
     }
@@ -9033,14 +9033,14 @@ extension Paths.Projects.Columns.Cards {
         /// Get a project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-card)
-        public func get() -> Request<ProjectCard> {
+        public func get() -> Request<github.ProjectCard> {
             .get(path)
         }
 
         /// Update an existing project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-card)
-        public func patch(_ body: PatchRequest) -> Request<ProjectCard> {
+        public func patch(_ body: PatchRequest) -> Request<github.ProjectCard> {
             .patch(path, body: body)
         }
 
@@ -9139,14 +9139,14 @@ extension Paths.Projects.Columns {
         /// Get a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-column)
-        public func get() -> Request<ProjectColumn> {
+        public func get() -> Request<github.ProjectColumn> {
             .get(path)
         }
 
         /// Update an existing project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
-        public func patch(_ body: PatchRequest) -> Request<ProjectColumn> {
+        public func patch(_ body: PatchRequest) -> Request<github.ProjectColumn> {
             .patch(path, body: body)
         }
 
@@ -9224,7 +9224,7 @@ extension Paths.Projects.Columns.WithColumnID {
         /// Create a project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-card)
-        public func post(_ body: PostRequest) -> Request<ProjectCard> {
+        public func post(_ body: PostRequest) -> Request<github.ProjectCard> {
             .post(path, body: body)
         }
 
@@ -9356,7 +9356,7 @@ extension Paths.Projects {
         /// Gets a project by its `id`. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project)
-        public func get() -> Request<Project> {
+        public func get() -> Request<github.Project> {
             .get(path)
         }
 
@@ -9365,7 +9365,7 @@ extension Paths.Projects {
         /// Updates a project board's information. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project)
-        public func patch(_ body: PatchRequest) -> Request<Project> {
+        public func patch(_ body: PatchRequest) -> Request<github.Project> {
             .patch(path, body: body)
         }
 
@@ -9551,7 +9551,7 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
         /// Returns the collaborator's permission level for an organization project. Possible values for the `permission` key: `admin`, `write`, `read`, `none`. You must be an organization owner or a project `admin` to review a user's permission level.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user)
-        public func get() -> Request<ProjectCollaboratorPermission> {
+        public func get() -> Request<github.ProjectCollaboratorPermission> {
             .get(path)
         }
     }
@@ -9601,7 +9601,7 @@ extension Paths.Projects.WithProjectID {
         /// Create a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
-        public func post(_ body: PostRequest) -> Request<ProjectColumn> {
+        public func post(_ body: PostRequest) -> Request<github.ProjectColumn> {
             .post(path, body: body)
         }
 
@@ -9644,7 +9644,7 @@ extension Paths {
         /// **Note:** The `rate` object is deprecated. If you're writing new API client code or updating existing code, you should use the `core` object instead of the `rate` object. The `core` object contains the same information that is present in the `rate` object.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user)
-        public func get() -> Request<RateLimitOverview> {
+        public func get() -> Request<github.RateLimitOverview> {
             .get(path)
         }
 
@@ -9726,7 +9726,7 @@ extension Paths.Repos.WithOwner {
         /// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this repository was forked from, `source` is the ultimate source for the network.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository)
-        public func get() -> Request<FullRepository> {
+        public func get() -> Request<github.FullRepository> {
             .get(path)
         }
 
@@ -9735,7 +9735,7 @@ extension Paths.Repos.WithOwner {
         /// **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/reference/repos#replace-all-repository-topics) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos/#update-a-repository)
-        public func patch(_ body: PatchRequest) -> Request<FullRepository> {
+        public func patch(_ body: PatchRequest) -> Request<github.FullRepository> {
             .patch(path, body: body)
         }
 
@@ -10016,7 +10016,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         /// Gets a specific artifact for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-artifact)
-        public func get() -> Request<Artifact> {
+        public func get() -> Request<github.Artifact> {
             .get(path)
         }
 
@@ -10079,7 +10079,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
         /// Gets a specific job in a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run)
-        public func get() -> Request<Job> {
+        public func get() -> Request<github.Job> {
             .get(path)
         }
     }
@@ -10125,7 +10125,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         /// endpoint. GitHub Apps must have the `administration` repository permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository)
-        public func get() -> Request<ActionsRepositoryPermissions> {
+        public func get() -> Request<github.ActionsRepositoryPermissions> {
             .get(path)
         }
 
@@ -10144,18 +10144,18 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
         public struct PutRequest: Codable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-            public var allowedActions: AllowedActions?
+            public var allowedActions: github.AllowedActions?
             /// Whether GitHub Actions is enabled on the repository.
             public var isEnabled: Bool
 
-            public init(allowedActions: AllowedActions? = nil, isEnabled: Bool) {
+            public init(allowedActions: github.AllowedActions? = nil, isEnabled: Bool) {
                 self.allowedActions = allowedActions
                 self.isEnabled = isEnabled
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
+                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
                 self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
             }
 
@@ -10331,7 +10331,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         /// endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-a-repository)
-        public func get() -> Request<Runner> {
+        public func get() -> Request<github.Runner> {
             .get(path)
         }
 
@@ -10446,7 +10446,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run)
-        public func get(parameters: GetParameters) -> Request<WorkflowRun> {
+        public func get(parameters: GetParameters) -> Request<github.WorkflowRun> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -10601,7 +10601,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         /// use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt)
-        public func get(parameters: GetParameters) -> Request<WorkflowRun> {
+        public func get(parameters: GetParameters) -> Request<github.WorkflowRun> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -10923,7 +10923,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-run-usage)
-        public func get() -> Request<WorkflowRunUsage> {
+        public func get() -> Request<github.WorkflowRunUsage> {
             .get(path)
         }
     }
@@ -11004,7 +11004,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-public-key)
-        public func get() -> Request<ActionsPublicKey> {
+        public func get() -> Request<github.ActionsPublicKey> {
             .get(path)
         }
     }
@@ -11024,7 +11024,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         /// Gets a single repository secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-secret)
-        public func get() -> Request<ActionsSecret> {
+        public func get() -> Request<github.ActionsSecret> {
             .get(path)
         }
 
@@ -11221,7 +11221,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
         /// Gets a specific workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow)
-        public func get() -> Request<Workflow> {
+        public func get() -> Request<github.Workflow> {
             .get(path)
         }
     }
@@ -11400,7 +11400,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         /// You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-usage)
-        public func get() -> Request<WorkflowUsage> {
+        public func get() -> Request<github.WorkflowUsage> {
             .get(path)
         }
     }
@@ -11516,7 +11516,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Users with admin access to the repository can create an autolink.
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#create-an-autolink)
-        public func post(_ body: PostRequest) -> Request<Autolink> {
+        public func post(_ body: PostRequest) -> Request<github.Autolink> {
             .post(path, body: body)
         }
 
@@ -11566,7 +11566,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         /// Information about autolinks are only available to repository administrators.
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#get-autolink)
-        public func get() -> Request<Autolink> {
+        public func get() -> Request<github.Autolink> {
             .get(path)
         }
 
@@ -11663,7 +11663,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
         /// Get a branch
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-branch)
-        public func get() -> Request<BranchWithProtection> {
+        public func get() -> Request<github.BranchWithProtection> {
             .get(path)
         }
     }
@@ -11683,7 +11683,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-branch-protection)
-        public func get() -> Request<BranchProtection> {
+        public func get() -> Request<github.BranchProtection> {
             .get(path)
         }
 
@@ -11698,7 +11698,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// **Note**: The list of users, apps, and teams in total is limited to 100 items.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-branch-protection)
-        public func put(_ body: PutRequest) -> Request<ProtectedBranch> {
+        public func put(_ body: PutRequest) -> Request<github.ProtectedBranch> {
             .put(path, body: body)
         }
 
@@ -11896,7 +11896,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-admin-branch-protection)
-        public func get() -> Request<ProtectedBranchAdminEnforced> {
+        public func get() -> Request<github.ProtectedBranchAdminEnforced> {
             .get(path)
         }
 
@@ -11927,7 +11927,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-pull-request-review-protection)
-        public func get() -> Request<ProtectedBranchPullRequestReview> {
+        public func get() -> Request<github.ProtectedBranchPullRequestReview> {
             .get(path)
         }
 
@@ -11940,7 +11940,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// **Note**: Passing new arrays of `users` and `teams` replaces their previous values.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-pull-request-review-protection)
-        public func patch(_ body: PatchRequest) -> Request<ProtectedBranchPullRequestReview> {
+        public func patch(_ body: PatchRequest) -> Request<github.ProtectedBranchPullRequestReview> {
             .patch(path, body: body)
         }
 
@@ -12032,7 +12032,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// **Note**: You must enable branch protection to require signed commits.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-commit-signature-protection)
-        public func get() -> Request<ProtectedBranchAdminEnforced> {
+        public func get() -> Request<github.ProtectedBranchAdminEnforced> {
             .get(path)
         }
 
@@ -12063,7 +12063,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-status-checks-protection)
-        public func get() -> Request<StatusCheckPolicy> {
+        public func get() -> Request<github.StatusCheckPolicy> {
             .get(path)
         }
 
@@ -12074,7 +12074,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-potection)
-        public func patch(_ body: PatchRequest) -> Request<StatusCheckPolicy> {
+        public func patch(_ body: PatchRequest) -> Request<github.StatusCheckPolicy> {
             .patch(path, body: body)
         }
 
@@ -12278,7 +12278,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// **Note**: Users, apps, and teams `restrictions` are only available for organization-owned repositories.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-access-restrictions)
-        public func get() -> Request<BranchRestrictionPolicy> {
+        public func get() -> Request<github.BranchRestrictionPolicy> {
             .get(path)
         }
 
@@ -12824,7 +12824,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// * GitHub Apps must have the `administration:write` repository permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
-        public func post(_ body: PostRequest) -> Request<BranchWithProtection> {
+        public func post(_ body: PostRequest) -> Request<github.BranchWithProtection> {
             .post(path, body: body)
         }
 
@@ -12867,7 +12867,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// In a check suite, GitHub limits the number of check runs with the same name to 1000. Once these check runs exceed 1000, GitHub will start to automatically delete older check runs.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-run)
-        public func post(_ body: PostRequest) -> Request<CheckRun> {
+        public func post(_ body: PostRequest) -> Request<github.CheckRun> {
             .post(path, body: body)
         }
 
@@ -12913,7 +12913,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         /// Gets a single check run using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-run)
-        public func get() -> Request<CheckRun> {
+        public func get() -> Request<github.CheckRun> {
             .get(path)
         }
 
@@ -12924,7 +12924,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         /// Updates a check run for a specific commit in a repository. Your GitHub App must have the `checks:write` permission to edit check runs.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-a-check-run)
-        public func patch(_ body: PatchRequest) -> Request<CheckRun> {
+        public func patch(_ body: PatchRequest) -> Request<github.CheckRun> {
             .patch(path, body: body)
         }
 
@@ -13015,7 +13015,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
-        public func post(_ body: PostRequest) -> Request<CheckSuite> {
+        public func post(_ body: PostRequest) -> Request<github.CheckSuite> {
             .post(path, body: body)
         }
 
@@ -13054,7 +13054,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         /// Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)
-        public func patch(_ body: PatchRequest) -> Request<CheckSuitePreference> {
+        public func patch(_ body: PatchRequest) -> Request<github.CheckSuitePreference> {
             .patch(path, body: body)
         }
 
@@ -13119,7 +13119,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         /// Gets a single check suite using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check suites. OAuth Apps and authenticated users must have the `repo` scope to get check suites in a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-suite)
-        public func get() -> Request<CheckSuite> {
+        public func get() -> Request<github.CheckSuite> {
             .get(path)
         }
     }
@@ -13298,7 +13298,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         /// The instances field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The same information can now be retrieved via a GET request to the URL specified by `instances_url`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert)
-        public func get() -> Request<CodeScanningAlert> {
+        public func get() -> Request<github.CodeScanningAlert> {
             .get(path)
         }
 
@@ -13307,25 +13307,25 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         /// Updates the status of a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert)
-        public func patch(_ body: PatchRequest) -> Request<CodeScanningAlert> {
+        public func patch(_ body: PatchRequest) -> Request<github.CodeScanningAlert> {
             .patch(path, body: body)
         }
 
         public struct PatchRequest: Codable {
             /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
-            public var dismissedReason: CodeScanningAlertDismissedReason?
+            public var dismissedReason: github.CodeScanningAlertDismissedReason?
             /// Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
-            public var state: CodeScanningAlertSetState
+            public var state: github.CodeScanningAlertSetState
 
-            public init(dismissedReason: CodeScanningAlertDismissedReason? = nil, state: CodeScanningAlertSetState) {
+            public init(dismissedReason: github.CodeScanningAlertDismissedReason? = nil, state: github.CodeScanningAlertSetState) {
                 self.dismissedReason = dismissedReason
                 self.state = state
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.dismissedReason = try values.decodeIfPresent(CodeScanningAlertDismissedReason.self, forKey: "dismissed_reason")
-                self.state = try values.decode(CodeScanningAlertSetState.self, forKey: "state")
+                self.dismissedReason = try values.decodeIfPresent(github.CodeScanningAlertDismissedReason.self, forKey: "dismissed_reason")
+                self.state = try values.decode(github.CodeScanningAlertSetState.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -13490,7 +13490,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// [SARIF version 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)
-        public func get() -> Request<CodeScanningAnalysis> {
+        public func get() -> Request<github.CodeScanningAnalysis> {
             .get(path)
         }
 
@@ -13564,7 +13564,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// The above process assumes that you want to remove all trace of the tool's analyses from the GitHub user interface, for the specified repository, and it therefore uses the `confirm_delete_url` value. Alternatively, you could use the `next_analysis_url` value, which would leave the last analysis in each set undeleted to avoid removing a tool's analysis entirely.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
-        public func delete(parameters: DeleteParameters) -> Request<CodeScanningAnalysisDeletion> {
+        public func delete(parameters: DeleteParameters) -> Request<github.CodeScanningAnalysisDeletion> {
             .delete(path, query: parameters.asQuery())
         }
 
@@ -13616,7 +13616,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file)
-        public func post(_ body: PostRequest) -> Request<CodeScanningSarifsReceipt> {
+        public func post(_ body: PostRequest) -> Request<github.CodeScanningSarifsReceipt> {
             .post(path, body: body)
         }
 
@@ -13682,7 +13682,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
         /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository)
-        public func get() -> Request<CodeScanningSarifsStatus> {
+        public func get() -> Request<github.CodeScanningSarifsStatus> {
             .get(path)
         }
     }
@@ -13752,7 +13752,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository)
-        public func post(_ body: PostRequest) -> Request<Codespace> {
+        public func post(_ body: PostRequest) -> Request<github.Codespace> {
             .post(path, body: body)
         }
 
@@ -13930,7 +13930,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         /// You are limited to sending 50 invitations to a repository per 24 hour period. Note there is no limit if you are inviting organization members to an organization repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-a-repository-collaborator)
-        public func put(_ body: PutRequest) -> Request<RepositoryInvitation> {
+        public func put(_ body: PutRequest) -> Request<github.RepositoryInvitation> {
             .put(path, body: body)
         }
 
@@ -14002,7 +14002,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
         /// Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user)
-        public func get() -> Request<RepositoryCollaboratorPermission> {
+        public func get() -> Request<github.RepositoryCollaboratorPermission> {
             .get(path)
         }
     }
@@ -14067,14 +14067,14 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         /// Get a commit comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit-comment)
-        public func get() -> Request<CommitComment> {
+        public func get() -> Request<github.CommitComment> {
             .get(path)
         }
 
         /// Update a commit comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-commit-comment)
-        public func patch(_ body: PatchRequest) -> Request<CommitComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.CommitComment> {
             .patch(path, body: body)
         }
 
@@ -14154,7 +14154,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         /// Create a reaction to a [commit comment](https://docs.github.com/rest/reference/repos#comments). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -14383,7 +14383,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-comment)
-        public func post(_ body: PostRequest) -> Request<CommitComment> {
+        public func post(_ body: PostRequest) -> Request<github.CommitComment> {
             .post(path, body: body)
         }
 
@@ -14521,7 +14521,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit)
-        public func get(parameters: GetParameters) -> Request<Commit> {
+        public func get(parameters: GetParameters) -> Request<github.Commit> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -14715,7 +14715,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         /// *   **success** if the latest status for all contexts is `success`
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference)
-        public func get(parameters: GetParameters) -> Request<CombinedCommitStatus> {
+        public func get(parameters: GetParameters) -> Request<github.CombinedCommitStatus> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -14825,7 +14825,7 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
         /// `content_reports_enabled` is only returned for organization-owned repositories.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-community-profile-metrics)
-        public func get() -> Request<CommunityProfile> {
+        public func get() -> Request<github.CommunityProfile> {
             .get(path)
         }
     }
@@ -14895,7 +14895,7 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#compare-two-commits)
-        public func get(parameters: GetParameters) -> Request<CommitComparison> {
+        public func get(parameters: GetParameters) -> Request<github.CommitComparison> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -14962,7 +14962,7 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
         /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-content-attachment)
-        public func post(_ body: PostRequest) -> Request<ContentReferenceAttachment> {
+        public func post(_ body: PostRequest) -> Request<github.ContentReferenceAttachment> {
             .post(path, body: body)
         }
 
@@ -15057,20 +15057,20 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         }
 
         public enum GetResponse: Codable {
-            case contentDirectory(ContentDirectory)
-            case contentFile(ContentFile)
-            case contentSymlink(ContentSymlink)
-            case contentSubmodule(ContentSubmodule)
+            case contentDirectory(github.ContentDirectory)
+            case contentFile(github.ContentFile)
+            case contentSymlink(github.ContentSymlink)
+            case contentSubmodule(github.ContentSubmodule)
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(ContentDirectory.self) {
+                if let value = try? container.decode(github.ContentDirectory.self) {
                     self = .contentDirectory(value)
-                } else if let value = try? container.decode(ContentFile.self) {
+                } else if let value = try? container.decode(github.ContentFile.self) {
                     self = .contentFile(value)
-                } else if let value = try? container.decode(ContentSymlink.self) {
+                } else if let value = try? container.decode(github.ContentSymlink.self) {
                     self = .contentSymlink(value)
-                } else if let value = try? container.decode(ContentSubmodule.self) {
+                } else if let value = try? container.decode(github.ContentSubmodule.self) {
                     self = .contentSubmodule(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
@@ -15109,7 +15109,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// Creates a new file or replaces an existing file in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-file-contents)
-        public func put(_ body: PutRequest) -> Request<FileCommit> {
+        public func put(_ body: PutRequest) -> Request<github.FileCommit> {
             .put(path, body: body)
         }
 
@@ -15228,7 +15228,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         /// You must provide values for both `name` and `email`, whether you choose to use `author` or `committer`. Otherwise, you'll receive a `422` status code.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
-        public func delete() -> Request<FileCommit> {
+        public func delete() -> Request<github.FileCommit> {
             .delete(path)
         }
     }
@@ -15398,7 +15398,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment)
-        public func post(_ body: PostRequest) -> Request<Deployment> {
+        public func post(_ body: PostRequest) -> Request<github.Deployment> {
             .post(path, body: body)
         }
 
@@ -15498,7 +15498,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         /// Get a deployment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment)
-        public func get() -> Request<Deployment> {
+        public func get() -> Request<github.Deployment> {
             .get(path)
         }
 
@@ -15570,7 +15570,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         /// GitHub Apps require `read & write` access to "Deployments" and `read-only` access to "Repo contents" (for private repos). OAuth Apps require the `repo_deployment` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment-status)
-        public func post(_ body: PostRequest) -> Request<DeploymentStatus> {
+        public func post(_ body: PostRequest) -> Request<github.DeploymentStatus> {
             .post(path, body: body)
         }
 
@@ -15661,7 +15661,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
         /// Users with pull access can view a deployment status for a deployment:
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment-status)
-        public func get() -> Request<DeploymentStatus> {
+        public func get() -> Request<github.DeploymentStatus> {
             .get(path)
         }
     }
@@ -15773,7 +15773,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-an-environment)
-        public func get() -> Request<Environment> {
+        public func get() -> Request<github.Environment> {
             .get(path)
         }
 
@@ -15788,7 +15788,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         /// You must authenticate using an access token with the repo scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-an-environment)
-        public func put(_ body: [String: AnyJSON]) -> Request<Environment> {
+        public func put(_ body: [String: AnyJSON]) -> Request<github.Environment> {
             .put(path, body: body)
         }
 
@@ -15890,7 +15890,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
-        public func post(_ body: PostRequest) -> Request<FullRepository> {
+        public func post(_ body: PostRequest) -> Request<github.FullRepository> {
             .post(path, body: body)
         }
 
@@ -15938,7 +15938,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Create a blob
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-blob)
-        public func post(_ body: PostRequest) -> Request<ShortBlob> {
+        public func post(_ body: PostRequest) -> Request<github.ShortBlob> {
             .post(path, body: body)
         }
 
@@ -15988,7 +15988,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         /// _Note_: This API supports blobs up to 100 megabytes in size.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-blob)
-        public func get() -> Request<Blob> {
+        public func get() -> Request<github.Blob> {
             .get(path)
         }
     }
@@ -16037,7 +16037,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-commit)
-        public func post(_ body: PostRequest) -> Request<GitCommit> {
+        public func post(_ body: PostRequest) -> Request<github.GitCommit> {
             .post(path, body: body)
         }
 
@@ -16194,7 +16194,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-commit)
-        public func get() -> Request<GitCommit> {
+        public func get() -> Request<github.GitCommit> {
             .get(path)
         }
     }
@@ -16289,7 +16289,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         /// **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-reference)
-        public func get() -> Request<GitRef> {
+        public func get() -> Request<github.GitRef> {
             .get(path)
         }
     }
@@ -16309,7 +16309,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-reference)
-        public func post(_ body: PostRequest) -> Request<GitRef> {
+        public func post(_ body: PostRequest) -> Request<github.GitRef> {
             .post(path, body: body)
         }
 
@@ -16360,7 +16360,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         /// Update a reference
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#update-a-reference)
-        public func patch(_ body: PatchRequest) -> Request<GitRef> {
+        public func patch(_ body: PatchRequest) -> Request<github.GitRef> {
             .patch(path, body: body)
         }
 
@@ -16440,7 +16440,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tag-object)
-        public func post(_ body: PostRequest) -> Request<GitTag> {
+        public func post(_ body: PostRequest) -> Request<github.GitTag> {
             .post(path, body: body)
         }
 
@@ -16567,7 +16567,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         /// | `valid` | None of the above errors applied, so the signature is considered to be verified. |
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tag)
-        public func get() -> Request<GitTag> {
+        public func get() -> Request<github.GitTag> {
             .get(path)
         }
     }
@@ -16589,7 +16589,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         /// If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tree)
-        public func post(_ body: PostRequest) -> Request<GitTree> {
+        public func post(_ body: PostRequest) -> Request<github.GitTree> {
             .post(path, body: body)
         }
 
@@ -16700,7 +16700,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         /// If `truncated` is `true` in the response then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use the non-recursive method of fetching trees, and fetch one sub-tree at a time.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
-        public func get(parameters: GetParameters) -> Request<GitTree> {
+        public func get(parameters: GetParameters) -> Request<github.GitTree> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -16769,7 +16769,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// share the same `config` as long as those webhooks do not have any `events` that overlap.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-webhook)
-        public func post(_ body: [String: AnyJSON]) -> Request<Hook> {
+        public func post(_ body: [String: AnyJSON]) -> Request<github.Hook> {
             .post(path, body: body)
         }
 
@@ -16793,7 +16793,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         /// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "[Get a webhook configuration for a repository](/rest/reference/repos#get-a-webhook-configuration-for-a-repository)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-webhook)
-        public func get() -> Request<Hook> {
+        public func get() -> Request<github.Hook> {
             .get(path)
         }
 
@@ -16802,7 +16802,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for a repository](/rest/reference/repos#update-a-webhook-configuration-for-a-repository)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-webhook)
-        public func patch(_ body: PatchRequest) -> Request<Hook> {
+        public func patch(_ body: PatchRequest) -> Request<github.Hook> {
             .patch(path, body: body)
         }
 
@@ -16826,7 +16826,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 ///
                 /// Example: "json"
                 public var contentType: String?
-                public var insecureSSL: WebhookConfigInsecureSSL?
+                public var insecureSSL: github.WebhookConfigInsecureSSL?
                 /// Example: "The Serious Room"
                 public var room: String?
                 /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
@@ -16836,7 +16836,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 /// The URL to which the payloads will be delivered.
                 public var url: URL
 
-                public init(address: String? = nil, contentType: String? = nil, insecureSSL: WebhookConfigInsecureSSL? = nil, room: String? = nil, secret: String? = nil, url: URL) {
+                public init(address: String? = nil, contentType: String? = nil, insecureSSL: github.WebhookConfigInsecureSSL? = nil, room: String? = nil, secret: String? = nil, url: URL) {
                     self.address = address
                     self.contentType = contentType
                     self.insecureSSL = insecureSSL
@@ -16849,7 +16849,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                     let values = try decoder.container(keyedBy: StringCodingKey.self)
                     self.address = try values.decodeIfPresent(String.self, forKey: "address")
                     self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
                     self.room = try values.decodeIfPresent(String.self, forKey: "room")
                     self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
                     self.url = try values.decode(URL.self, forKey: "url")
@@ -16918,7 +16918,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Access tokens must have the `read:repo_hook` or `repo` scope, and GitHub Apps must have the `repository_hooks:read` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
-        public func get() -> Request<WebhookConfig> {
+        public func get() -> Request<github.WebhookConfig> {
             .get(path)
         }
 
@@ -16929,7 +16929,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         /// Access tokens must have the `write:repo_hook` or `repo` scope, and GitHub Apps must have the `repository_hooks:write` permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository)
-        public func patch(_ body: [String: AnyJSON]) -> Request<WebhookConfig> {
+        public func patch(_ body: [String: AnyJSON]) -> Request<github.WebhookConfig> {
             .patch(path, body: body)
         }
     }
@@ -16990,7 +16990,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries {
         /// Returns a delivery for a webhook configured in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-delivery-for-a-repository-webhook)
-        public func get() -> Request<HookDelivery> {
+        public func get() -> Request<github.HookDelivery> {
             .get(path)
         }
     }
@@ -17253,7 +17253,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
         /// Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#map-a-commit-author)
-        public func patch(_ body: [String: AnyJSON]) -> Request<PorterAuthor> {
+        public func patch(_ body: [String: AnyJSON]) -> Request<github.PorterAuthor> {
             .patch(path, body: body)
         }
     }
@@ -17368,11 +17368,11 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Interaction Limits
             ///
             /// Interaction limit settings.
-            public var interactionLimitResponse: InteractionLimitResponse?
+            public var interactionLimitResponse: github.InteractionLimitResponse?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.interactionLimitResponse = try? container.decode(github.InteractionLimitResponse.self)
             }
         }
 
@@ -17381,7 +17381,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Temporarily restricts interactions to a certain type of GitHub user within the given repository. You must have owner or admin access to set these restrictions. If an interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository)
-        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+        public func put(_ body: github.InteractionLimit) -> Request<github.InteractionLimitResponse> {
             .put(path, body: body)
         }
 
@@ -17453,7 +17453,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         /// Update a repository invitation
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-invitation)
-        public func patch(_ body: PatchRequest) -> Request<RepositoryInvitation> {
+        public func patch(_ body: PatchRequest) -> Request<github.RepositoryInvitation> {
             .patch(path, body: body)
         }
 
@@ -17574,7 +17574,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue)
-        public func post(_ body: PostRequest) -> Request<Issue> {
+        public func post(_ body: PostRequest) -> Request<github.Issue> {
             .post(path, body: body)
         }
 
@@ -17786,14 +17786,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         /// Get an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-comment)
-        public func get() -> Request<IssueComment> {
+        public func get() -> Request<github.IssueComment> {
             .get(path)
         }
 
         /// Update an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
-        public func patch(_ body: PatchRequest) -> Request<IssueComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.IssueComment> {
             .patch(path, body: body)
         }
 
@@ -17873,7 +17873,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         /// Create a reaction to an [issue comment](https://docs.github.com/rest/reference/issues#comments). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -17987,7 +17987,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
         /// Get an issue event
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-event)
-        public func get() -> Request<IssueEvent> {
+        public func get() -> Request<github.IssueEvent> {
             .get(path)
         }
     }
@@ -18017,7 +18017,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue)
-        public func get() -> Request<Issue> {
+        public func get() -> Request<github.Issue> {
             .get(path)
         }
 
@@ -18026,7 +18026,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         /// Issue owners and users with push access can edit an issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues/#update-an-issue)
-        public func patch(_ body: PatchRequest) -> Request<Issue> {
+        public func patch(_ body: PatchRequest) -> Request<github.Issue> {
             .patch(path, body: body)
         }
 
@@ -18202,7 +18202,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
-        public func post(_ body: PostRequest) -> Request<Issue> {
+        public func post(_ body: PostRequest) -> Request<github.Issue> {
             .post(path, body: body)
         }
 
@@ -18230,7 +18230,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Removes one or more assignees from an issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
-        public func delete() -> Request<Issue> {
+        public func delete() -> Request<github.Issue> {
             .delete(path)
         }
     }
@@ -18284,7 +18284,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
-        public func post(_ body: PostRequest) -> Request<IssueComment> {
+        public func post(_ body: PostRequest) -> Request<github.IssueComment> {
             .post(path, body: body)
         }
 
@@ -18774,7 +18774,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Create a reaction to an [issue](https://docs.github.com/rest/reference/issues/). A response with an HTTP `200` status means that you already added the reaction type to this issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -18922,7 +18922,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// You can create a read-only deploy key.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deploy-key)
-        public func post(_ body: PostRequest) -> Request<DeployKey> {
+        public func post(_ body: PostRequest) -> Request<github.DeployKey> {
             .post(path, body: body)
         }
 
@@ -18975,7 +18975,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         /// Get a deploy key
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deploy-key)
-        public func get() -> Request<DeployKey> {
+        public func get() -> Request<github.DeployKey> {
             .get(path)
         }
 
@@ -19034,7 +19034,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Create a label
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-label)
-        public func post(_ body: PostRequest) -> Request<Label> {
+        public func post(_ body: PostRequest) -> Request<github.Label> {
             .post(path, body: body)
         }
 
@@ -19085,14 +19085,14 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         /// Get a label
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-label)
-        public func get() -> Request<Label> {
+        public func get() -> Request<github.Label> {
             .get(path)
         }
 
         /// Update a label
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-label)
-        public func patch(_ body: PatchRequest) -> Request<Label> {
+        public func patch(_ body: PatchRequest) -> Request<github.Label> {
             .patch(path, body: body)
         }
 
@@ -19190,7 +19190,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Similar to [Get repository content](https://docs.github.com/rest/reference/repos#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository)
-        public func get() -> Request<LicenseContent> {
+        public func get() -> Request<github.LicenseContent> {
             .get(path)
         }
     }
@@ -19212,7 +19212,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
-        public func post(_ body: PostRequest) -> Request<MergedUpstream> {
+        public func post(_ body: PostRequest) -> Request<github.MergedUpstream> {
             .post(path, body: body)
         }
 
@@ -19249,7 +19249,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Merge a branch
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#merge-a-branch)
-        public func post(_ body: PostRequest) -> Request<Commit> {
+        public func post(_ body: PostRequest) -> Request<github.Commit> {
             .post(path, body: body)
         }
 
@@ -19328,7 +19328,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Create a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-milestone)
-        public func post(_ body: PostRequest) -> Request<Milestone> {
+        public func post(_ body: PostRequest) -> Request<github.Milestone> {
             .post(path, body: body)
         }
 
@@ -19390,14 +19390,14 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         /// Get a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-milestone)
-        public func get() -> Request<Milestone> {
+        public func get() -> Request<github.Milestone> {
             .get(path)
         }
 
         /// Update a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-milestone)
-        public func patch(_ body: PatchRequest) -> Request<Milestone> {
+        public func patch(_ body: PatchRequest) -> Request<github.Milestone> {
             .patch(path, body: body)
         }
 
@@ -19604,7 +19604,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get a GitHub Pages site
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-github-pages-site)
-        public func get() -> Request<Page> {
+        public func get() -> Request<github.Page> {
             .get(path)
         }
 
@@ -19613,7 +19613,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Configures a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-github-pages-site)
-        public func post(_ body: PostRequest) -> Request<Page> {
+        public func post(_ body: PostRequest) -> Request<github.Page> {
             .post(path, body: body)
         }
 
@@ -19828,7 +19828,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         /// Get latest Pages build
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-latest-pages-build)
-        public func get() -> Request<PageBuild> {
+        public func get() -> Request<github.PageBuild> {
             .get(path)
         }
     }
@@ -19846,7 +19846,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         /// Get GitHub Pages build
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-github-pages-build)
-        public func get() -> Request<PageBuild> {
+        public func get() -> Request<github.PageBuild> {
             .get(path)
         }
     }
@@ -19870,7 +19870,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         /// Users must have admin or owner permissions. GitHub Apps must have the `pages:write` and `administration:write` permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages)
-        public func get() -> Request<PagesHealthCheck> {
+        public func get() -> Request<github.PagesHealthCheck> {
             .get(path)
         }
     }
@@ -19924,7 +19924,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Creates a repository project board. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-repository-project)
-        public func post(_ body: PostRequest) -> Request<Project> {
+        public func post(_ body: PostRequest) -> Request<github.Project> {
             .post(path, body: body)
         }
 
@@ -20018,7 +20018,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<PullRequest> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequest> {
             .post(path, body: body)
         }
 
@@ -20135,7 +20135,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         /// Provides details for a review comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
-        public func get() -> Request<PullRequestReviewComment> {
+        public func get() -> Request<github.PullRequestReviewComment> {
             .get(path)
         }
 
@@ -20144,7 +20144,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         /// Enables you to edit a review comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
-        public func patch(_ body: PatchRequest) -> Request<PullRequestReviewComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.PullRequestReviewComment> {
             .patch(path, body: body)
         }
 
@@ -20226,7 +20226,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         /// Create a reaction to a [pull request review comment](https://docs.github.com/rest/reference/pulls#comments). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -20313,7 +20313,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         /// Pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-pull-request)
-        public func get() -> Request<PullRequest> {
+        public func get() -> Request<github.PullRequest> {
             .get(path)
         }
 
@@ -20324,7 +20324,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         /// To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls/#update-a-pull-request)
-        public func patch(_ body: PatchRequest) -> Request<PullRequest> {
+        public func patch(_ body: PatchRequest) -> Request<github.PullRequest> {
             .patch(path, body: body)
         }
 
@@ -20391,7 +20391,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<Codespace> {
+        public func post(_ body: PostRequest) -> Request<github.Codespace> {
             .post(path, body: body)
         }
 
@@ -20481,7 +20481,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<PullRequestReviewComment> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequestReviewComment> {
             .post(path, body: body)
         }
 
@@ -20590,7 +20590,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
-        public func post(_ body: PostRequest) -> Request<PullRequestReviewComment> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequestReviewComment> {
             .post(path, body: body)
         }
 
@@ -20730,7 +20730,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#merge-a-pull-request)
-        public func put(_ body: PutRequest) -> Request<PullRequestMergeResult> {
+        public func put(_ body: PutRequest) -> Request<github.PullRequestMergeResult> {
             .put(path, body: body)
         }
 
@@ -20789,7 +20789,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// List requested reviewers for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
-        public func get(parameters: GetParameters) -> Request<PullRequestReviewRequest> {
+        public func get(parameters: GetParameters) -> Request<github.PullRequestReviewRequest> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -20823,7 +20823,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<PullRequestSimple> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequestSimple> {
             .post(path, body: body)
         }
 
@@ -20877,7 +20877,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Remove requested reviewers from a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
-        public func delete() -> Request<PullRequestSimple> {
+        public func delete() -> Request<github.PullRequestSimple> {
             .delete(path)
         }
     }
@@ -20937,7 +20937,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<PullRequestReview> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequestReview> {
             .post(path, body: body)
         }
 
@@ -21045,7 +21045,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// Get a review for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request)
-        public func get() -> Request<PullRequestReview> {
+        public func get() -> Request<github.PullRequestReview> {
             .get(path)
         }
 
@@ -21054,7 +21054,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// Update the review summary comment with new text.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
-        public func put(_ body: PutRequest) -> Request<PullRequestReview> {
+        public func put(_ body: PutRequest) -> Request<github.PullRequestReview> {
             .put(path, body: body)
         }
 
@@ -21080,7 +21080,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// Delete a pending review for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request)
-        public func delete() -> Request<PullRequestReview> {
+        public func delete() -> Request<github.PullRequestReview> {
             .delete(path)
         }
     }
@@ -21145,7 +21145,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// **Note:** To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/reference/repos#branches), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request)
-        public func put(_ body: PutRequest) -> Request<PullRequestReview> {
+        public func put(_ body: PutRequest) -> Request<github.PullRequestReview> {
             .put(path, body: body)
         }
 
@@ -21187,7 +21187,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         /// Submit a review for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request)
-        public func post(_ body: PostRequest) -> Request<PullRequestReview> {
+        public func post(_ body: PostRequest) -> Request<github.PullRequestReview> {
             .post(path, body: body)
         }
 
@@ -21295,7 +21295,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-readme)
-        public func get(parameters: GetParameters) -> Request<ContentFile> {
+        public func get(parameters: GetParameters) -> Request<github.ContentFile> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -21333,7 +21333,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         /// READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
-        public func get(parameters: GetParameters) -> Request<ContentFile> {
+        public func get(parameters: GetParameters) -> Request<github.ContentFile> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -21407,7 +21407,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-release)
-        public func post(_ body: PostRequest) -> Request<Release> {
+        public func post(_ body: PostRequest) -> Request<github.Release> {
             .post(path, body: body)
         }
 
@@ -21496,7 +21496,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         /// To download the asset's binary content, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/rest/overview/media-types). The API will either redirect the client to the location, or stream it directly if possible. API clients should handle both a `200` or `302` response.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-asset)
-        public func get() -> Request<ReleaseAsset> {
+        public func get() -> Request<github.ReleaseAsset> {
             .get(path)
         }
 
@@ -21505,7 +21505,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         /// Users with push access to the repository can edit a release asset.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release-asset)
-        public func patch(_ body: PatchRequest) -> Request<ReleaseAsset> {
+        public func patch(_ body: PatchRequest) -> Request<github.ReleaseAsset> {
             .patch(path, body: body)
         }
 
@@ -21561,7 +21561,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// Generate a name and body describing a [release](https://docs.github.com/rest/reference/repos#releases). The body content will be markdown formatted and contain information like the changes since last release and users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and used when creating a new release.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#generate-release-notes)
-        public func post(_ body: PostRequest) -> Request<ReleaseNotesContent> {
+        public func post(_ body: PostRequest) -> Request<github.ReleaseNotesContent> {
             .post(path, body: body)
         }
 
@@ -21617,7 +21617,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-latest-release)
-        public func get() -> Request<Release> {
+        public func get() -> Request<github.Release> {
             .get(path)
         }
     }
@@ -21648,7 +21648,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
         /// Get a published release with the specified tag.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name)
-        public func get() -> Request<Release> {
+        public func get() -> Request<github.Release> {
             .get(path)
         }
     }
@@ -21668,7 +21668,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release)
-        public func get() -> Request<Release> {
+        public func get() -> Request<github.Release> {
             .get(path)
         }
 
@@ -21677,7 +21677,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         /// Users with push access to the repository can edit a release.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release)
-        public func patch(_ body: PatchRequest) -> Request<Release> {
+        public func patch(_ body: PatchRequest) -> Request<github.Release> {
             .patch(path, body: body)
         }
 
@@ -21804,7 +21804,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// *   If you upload an asset with the same filename as another uploaded asset, you'll receive an error and must delete the old file before you can re-upload the new asset.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#upload-a-release-asset)
-        public func post(parameters: PostParameters, _ body: String) -> Request<ReleaseAsset> {
+        public func post(parameters: PostParameters, _ body: String) -> Request<github.ReleaseAsset> {
             .post(path, query: parameters.asQuery(), body: body)
         }
 
@@ -21843,7 +21843,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// Create a reaction to a [release](https://docs.github.com/rest/reference/repos#releases). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release)
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -21958,7 +21958,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert)
-        public func get() -> Request<SecretScanningAlert> {
+        public func get() -> Request<github.SecretScanningAlert> {
             .get(path)
         }
 
@@ -21969,25 +21969,25 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         /// GitHub Apps must have the `secret_scanning_alerts` write permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert)
-        public func patch(_ body: PatchRequest) -> Request<SecretScanningAlert> {
+        public func patch(_ body: PatchRequest) -> Request<github.SecretScanningAlert> {
             .patch(path, body: body)
         }
 
         public struct PatchRequest: Codable {
             /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
-            public var resolution: SecretScanningAlertResolution?
+            public var resolution: github.SecretScanningAlertResolution?
             /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
-            public var state: SecretScanningAlertState
+            public var state: github.SecretScanningAlertState
 
-            public init(resolution: SecretScanningAlertResolution? = nil, state: SecretScanningAlertState) {
+            public init(resolution: github.SecretScanningAlertResolution? = nil, state: github.SecretScanningAlertState) {
                 self.resolution = resolution
                 self.state = state
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.resolution = try values.decodeIfPresent(SecretScanningAlertResolution.self, forKey: "resolution")
-                self.state = try values.decode(SecretScanningAlertState.self, forKey: "state")
+                self.resolution = try values.decodeIfPresent(github.SecretScanningAlertResolution.self, forKey: "resolution")
+                self.state = try values.decode(github.SecretScanningAlertState.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22150,7 +22150,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         /// The array order is oldest week (index 0) to most recent week.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count)
-        public func get() -> Request<ParticipationStats> {
+        public func get() -> Request<github.ParticipationStats> {
             .get(path)
         }
     }
@@ -22209,7 +22209,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
         /// Note: there is a limit of 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will result in a validation error.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-status)
-        public func post(_ body: PostRequest) -> Request<Status> {
+        public func post(_ body: PostRequest) -> Request<github.Status> {
             .post(path, body: body)
         }
 
@@ -22320,7 +22320,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get a repository subscription
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-repository-subscription)
-        public func get() -> Request<RepositorySubscription> {
+        public func get() -> Request<github.RepositorySubscription> {
             .get(path)
         }
 
@@ -22329,7 +22329,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-repository-subscription)
-        public func put(_ body: PutRequest) -> Request<RepositorySubscription> {
+        public func put(_ body: PutRequest) -> Request<github.RepositorySubscription> {
             .put(path, body: body)
         }
 
@@ -22500,7 +22500,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Get all repository topics
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
-        public func get(parameters: GetParameters) -> Request<Topic> {
+        public func get(parameters: GetParameters) -> Request<github.Topic> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -22528,7 +22528,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Replace all repository topics
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
-        public func put(_ body: PutRequest) -> Request<Topic> {
+        public func put(_ body: PutRequest) -> Request<github.Topic> {
             .put(path, body: body)
         }
 
@@ -22578,7 +22578,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-clones)
-        public func get() -> Request<CloneTraffic> {
+        public func get() -> Request<github.CloneTraffic> {
             .get(path)
         }
     }
@@ -22649,7 +22649,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         /// Get the total number of views and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-page-views)
-        public func get() -> Request<ViewTraffic> {
+        public func get() -> Request<github.ViewTraffic> {
             .get(path)
         }
     }
@@ -22669,7 +22669,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://help.github.com/articles/about-repository-transfers/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#transfer-a-repository)
-        public func post(_ body: PostRequest) -> Request<MinimalRepository> {
+        public func post(_ body: PostRequest) -> Request<github.MinimalRepository> {
             .post(path, body: body)
         }
 
@@ -22805,7 +22805,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
         /// *   `repo` scope to create a private repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template)
-        public func post(_ body: PostRequest) -> Request<Repository> {
+        public func post(_ body: PostRequest) -> Request<github.Repository> {
             .post(path, body: body)
         }
 
@@ -23006,7 +23006,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         /// Get the public key for an environment, which you need to encrypt environment secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-public-key)
-        public func get() -> Request<ActionsPublicKey> {
+        public func get() -> Request<github.ActionsPublicKey> {
             .get(path)
         }
     }
@@ -23026,7 +23026,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         /// Gets a single environment secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-secret)
-        public func get() -> Request<ActionsSecret> {
+        public func get() -> Request<github.ActionsSecret> {
             .get(path)
         }
 
@@ -23206,7 +23206,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<ScimGroupListEnterprise> {
+        public func get(parameters: GetParameters) -> Request<github.ScimGroupListEnterprise> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -23248,7 +23248,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         /// Provision an enterprise group, and invite users to the group. This sends invitation emails to the email address of the invited users to join the GitHub organization that the SCIM group corresponds to.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users)
-        public func post(_ body: PostRequest) -> Request<ScimEnterpriseGroup> {
+        public func post(_ body: PostRequest) -> Request<github.ScimEnterpriseGroup> {
             .post(path, body: body)
         }
 
@@ -23315,7 +23315,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
-        public func get(parameters: GetParameters) -> Request<ScimEnterpriseGroup> {
+        public func get(parameters: GetParameters) -> Request<github.ScimEnterpriseGroup> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -23342,7 +23342,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         /// Replaces an existing provisioned group’s information. You must provide all the information required for the group as if you were provisioning it for the first time. Any existing group information that you don't provide will be removed, including group membership. If you want to only update a specific attribute, use the [Update an attribute for a SCIM enterprise group](#update-an-attribute-for-a-scim-enterprise-group) endpoint instead.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group)
-        public func put(_ body: PutRequest) -> Request<ScimEnterpriseGroup> {
+        public func put(_ body: PutRequest) -> Request<github.ScimEnterpriseGroup> {
             .put(path, body: body)
         }
 
@@ -23400,7 +23400,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         /// Allows you to change a provisioned group’s individual attributes. To change a group’s values, you must provide a specific Operations JSON format that contains at least one of the add, remove, or replace operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group)
-        public func patch(_ body: PatchRequest) -> Request<ScimEnterpriseGroup> {
+        public func patch(_ body: PatchRequest) -> Request<github.ScimEnterpriseGroup> {
             .patch(path, body: body)
         }
 
@@ -23506,7 +23506,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///    - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub enterprise, and the external identity `null` entry remains in place.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise)
-        public func get(parameters: GetParameters) -> Request<ScimUserListEnterprise> {
+        public func get(parameters: GetParameters) -> Request<github.ScimUserListEnterprise> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -23545,7 +23545,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         /// You can optionally include the groups a user will be invited to join. If you do not provide a list of `groups`, the user is provisioned for the enterprise, but no organization invitation emails will be sent.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-and-invite-a-scim-enterprise-user)
-        public func post(_ body: PostRequest) -> Request<ScimEnterpriseUser> {
+        public func post(_ body: PostRequest) -> Request<github.ScimEnterpriseUser> {
             .post(path, body: body)
         }
 
@@ -23674,7 +23674,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user)
-        public func get() -> Request<ScimEnterpriseUser> {
+        public func get() -> Request<github.ScimEnterpriseUser> {
             .get(path)
         }
 
@@ -23689,7 +23689,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         /// **Warning:** Setting `active: false` removes the user from the enterprise, deletes the external identity, and deletes the associated `{scim_user_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user)
-        public func put(_ body: PutRequest) -> Request<ScimEnterpriseUser> {
+        public func put(_ body: PutRequest) -> Request<github.ScimEnterpriseUser> {
             .put(path, body: body)
         }
 
@@ -23824,7 +23824,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         /// ```
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user)
-        public func patch(_ body: PatchRequest) -> Request<ScimEnterpriseUser> {
+        public func patch(_ body: PatchRequest) -> Request<github.ScimEnterpriseUser> {
             .patch(path, body: body)
         }
 
@@ -24470,7 +24470,7 @@ extension Paths.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#get-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamFull> {
+        public func get() -> Request<github.TeamFull> {
             .get(path)
         }
 
@@ -24484,7 +24484,7 @@ extension Paths.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#update-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<TeamFull> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamFull> {
             .patch(path, body: body)
         }
 
@@ -24628,7 +24628,7 @@ extension Paths.Teams.WithTeamID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<TeamDiscussion> {
+        public func post(_ body: PostRequest) -> Request<github.TeamDiscussion> {
             .post(path, body: body)
         }
 
@@ -24680,7 +24680,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamDiscussion> {
+        public func get() -> Request<github.TeamDiscussion> {
             .get(path)
         }
 
@@ -24692,7 +24692,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<TeamDiscussion> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussion> {
             .patch(path, body: body)
         }
 
@@ -24790,7 +24790,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<TeamDiscussionComment> {
+        public func post(_ body: PostRequest) -> Request<github.TeamDiscussionComment> {
             .post(path, body: body)
         }
 
@@ -24832,7 +24832,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamDiscussionComment> {
+        public func get() -> Request<github.TeamDiscussionComment> {
             .get(path)
         }
 
@@ -24844,7 +24844,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<TeamDiscussionComment> {
+        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussionComment> {
             .patch(path, body: body)
         }
 
@@ -24935,7 +24935,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -25026,7 +25026,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<Reaction> {
+        public func post(_ body: PostRequest) -> Request<github.Reaction> {
             .post(path, body: body)
         }
 
@@ -25237,7 +25237,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamMembership> {
+        public func get() -> Request<github.TeamMembership> {
             .get(path)
         }
 
@@ -25257,7 +25257,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest) -> Request<TeamMembership> {
+        public func put(_ body: PutRequest) -> Request<github.TeamMembership> {
             .put(path, body: body)
         }
 
@@ -25373,7 +25373,7 @@ extension Paths.Teams.WithTeamID.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamProject> {
+        public func get() -> Request<github.TeamProject> {
             .get(path)
         }
 
@@ -25513,7 +25513,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<TeamRepository> {
+        public func get() -> Request<github.TeamRepository> {
             .get(path)
         }
 
@@ -25611,7 +25611,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func get() -> Request<GroupMapping> {
+        public func get() -> Request<github.GroupMapping> {
             .get(path)
         }
 
@@ -25625,7 +25625,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<GroupMapping> {
+        public func patch(_ body: PatchRequest) -> Request<github.GroupMapping> {
             .patch(path, body: body)
         }
 
@@ -25766,14 +25766,14 @@ extension Paths {
         }
 
         public enum GetResponse: Codable {
-            case privateUser(PrivateUser)
-            case publicUser(PublicUser)
+            case privateUser(github.PrivateUser)
+            case publicUser(github.PublicUser)
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(PrivateUser.self) {
+                if let value = try? container.decode(github.PrivateUser.self) {
                     self = .privateUser(value)
-                } else if let value = try? container.decode(PublicUser.self) {
+                } else if let value = try? container.decode(github.PublicUser.self) {
                     self = .publicUser(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
@@ -25794,7 +25794,7 @@ extension Paths {
         /// **Note:** If your email is set to private and you send an `email` parameter as part of this request to update your profile, your privacy settings are still enforced: the email address will not be displayed on your public profile or via the API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users/#update-the-authenticated-user)
-        public func patch(_ body: PatchRequest) -> Request<PrivateUser> {
+        public func patch(_ body: PatchRequest) -> Request<github.PrivateUser> {
             .patch(path, body: body)
         }
 
@@ -25982,7 +25982,7 @@ extension Paths.User {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user)
-        public func post(_ body: PostRequest) -> Request<Codespace> {
+        public func post(_ body: PostRequest) -> Request<github.Codespace> {
             .post(path, body: body)
         }
 
@@ -26187,7 +26187,7 @@ extension Paths.User.Codespaces.Secrets {
         /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with one of the 'read:user' or 'user' scopes in their personal access token. User must have Codespaces access to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user)
-        public func get() -> Request<CodespacesUserPublicKey> {
+        public func get() -> Request<github.CodespacesUserPublicKey> {
             .get(path)
         }
     }
@@ -26208,7 +26208,7 @@ extension Paths.User.Codespaces.Secrets {
         /// You must authenticate using an access token with the `user` or `read:user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user)
-        public func get() -> Request<CodespacesSecret> {
+        public func get() -> Request<github.CodespacesSecret> {
             .get(path)
         }
 
@@ -26436,7 +26436,7 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
-        public func get() -> Request<Codespace> {
+        public func get() -> Request<github.Codespace> {
             .get(path)
         }
 
@@ -26449,7 +26449,7 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
-        public func patch(_ body: PatchRequest) -> Request<Codespace> {
+        public func patch(_ body: PatchRequest) -> Request<github.Codespace> {
             .patch(path, body: body)
         }
 
@@ -26883,7 +26883,7 @@ extension Paths.User {
         /// Adds a GPG key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
-        public func post(_ body: PostRequest) -> Request<GpgKey> {
+        public func post(_ body: PostRequest) -> Request<github.GpgKey> {
             .post(path, body: body)
         }
 
@@ -26922,7 +26922,7 @@ extension Paths.User.GpgKeys {
         /// View extended details for a single GPG key. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user)
-        public func get() -> Request<GpgKey> {
+        public func get() -> Request<github.GpgKey> {
             .get(path)
         }
 
@@ -27129,11 +27129,11 @@ extension Paths.User {
             /// Interaction Limits
             ///
             /// Interaction limit settings.
-            public var interactionLimitResponse: InteractionLimitResponse?
+            public var interactionLimitResponse: github.InteractionLimitResponse?
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                self.interactionLimitResponse = try? container.decode(InteractionLimitResponse.self)
+                self.interactionLimitResponse = try? container.decode(github.InteractionLimitResponse.self)
             }
         }
 
@@ -27142,7 +27142,7 @@ extension Paths.User {
         /// Temporarily restricts which type of GitHub user can interact with your public repositories. Setting the interaction limit at the user level will overwrite any interaction limits that are set for individual repositories owned by the user.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories)
-        public func put(_ body: InteractionLimit) -> Request<InteractionLimitResponse> {
+        public func put(_ body: github.InteractionLimit) -> Request<github.InteractionLimitResponse> {
             .put(path, body: body)
         }
 
@@ -27260,7 +27260,7 @@ extension Paths.User {
         /// Adds a public SSH key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user)
-        public func post(_ body: PostRequest) -> Request<Key> {
+        public func post(_ body: PostRequest) -> Request<github.Key> {
             .post(path, body: body)
         }
 
@@ -27306,7 +27306,7 @@ extension Paths.User.Keys {
         /// View extended details for a single public SSH key. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user)
-        public func get() -> Request<Key> {
+        public func get() -> Request<github.Key> {
             .get(path)
         }
 
@@ -27477,14 +27477,14 @@ extension Paths.User.Memberships.Orgs {
         /// Get an organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
-        public func get() -> Request<OrgMembership> {
+        public func get() -> Request<github.OrgMembership> {
             .get(path)
         }
 
         /// Update an organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
-        public func patch(_ body: PatchRequest) -> Request<OrgMembership> {
+        public func patch(_ body: PatchRequest) -> Request<github.OrgMembership> {
             .patch(path, body: body)
         }
 
@@ -27562,7 +27562,7 @@ extension Paths.User {
         /// Initiates the generation of a user migration archive.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-a-user-migration)
-        public func post(_ body: PostRequest) -> Request<Migration> {
+        public func post(_ body: PostRequest) -> Request<github.Migration> {
             .post(path, body: body)
         }
 
@@ -27653,7 +27653,7 @@ extension Paths.User.Migrations {
         /// Once the migration has been `exported` you can [download the migration archive](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
-        public func get() -> Request<Migration> {
+        public func get() -> Request<github.Migration> {
             .get(path)
         }
     }
@@ -27895,7 +27895,7 @@ extension Paths.User.Packages.WithPackageType {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-the-authenticated-user)
-        public func get() -> Request<Package> {
+        public func get() -> Request<github.Package> {
             .get(path)
         }
 
@@ -27987,7 +27987,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user)
-        public func get() -> Request<PackageVersion> {
+        public func get() -> Request<github.PackageVersion> {
             .get(path)
         }
 
@@ -28030,7 +28030,7 @@ extension Paths.User {
         /// Create a user project
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-user-project)
-        public func post(_ body: PostRequest) -> Request<Project> {
+        public func post(_ body: PostRequest) -> Request<github.Project> {
             .post(path, body: body)
         }
 
@@ -28167,7 +28167,7 @@ extension Paths.User {
         /// *   `repo` scope to create a private repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user)
-        public func post(_ body: PostRequest) -> Request<Repository> {
+        public func post(_ body: PostRequest) -> Request<github.Repository> {
             .post(path, body: body)
         }
 
@@ -28615,14 +28615,14 @@ extension Paths.Users {
         }
 
         public enum GetResponse: Codable {
-            case privateUser(PrivateUser)
-            case publicUser(PublicUser)
+            case privateUser(github.PrivateUser)
+            case publicUser(github.PublicUser)
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(PrivateUser.self) {
+                if let value = try? container.decode(github.PrivateUser.self) {
                     self = .privateUser(value)
-                } else if let value = try? container.decode(PublicUser.self) {
+                } else if let value = try? container.decode(github.PublicUser.self) {
                     self = .publicUser(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
@@ -29178,7 +29178,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-a-user)
-        public func get() -> Request<Package> {
+        public func get() -> Request<github.Package> {
             .get(path)
         }
 
@@ -29250,7 +29250,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         /// If `package_type` is not `container`, your token must also include the `repo` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-a-user)
-        public func get() -> Request<PackageVersion> {
+        public func get() -> Request<github.PackageVersion> {
             .get(path)
         }
 
@@ -29490,7 +29490,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user)
-        public func get() -> Request<ActionsBillingUsage> {
+        public func get() -> Request<github.ActionsBillingUsage> {
             .get(path)
         }
     }
@@ -29514,7 +29514,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user)
-        public func get() -> Request<PackagesBillingUsage> {
+        public func get() -> Request<github.PackagesBillingUsage> {
             .get(path)
         }
     }
@@ -29538,7 +29538,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         /// Access tokens must have the `user` scope.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user)
-        public func get() -> Request<CombinedBillingUsage> {
+        public func get() -> Request<github.CombinedBillingUsage> {
             .get(path)
         }
     }

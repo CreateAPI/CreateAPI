@@ -125,10 +125,7 @@ extension Generator {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if var type = try? getPrimitiveType(for: item) {
-                if case .reference = item, !type.starts(with: "[") { // TODO: Refactor
-                   type = type.namespace(context.namespace)
-                }
+            if var type = try? getPrimitiveType(for: item, context: context) {
                 return child(name: propertyName, type: "[\(type)]", info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
@@ -142,7 +139,7 @@ extension Generator {
                 let nested = try makeEnum(name: typeName, info: info)
                 return child(name: propertyName, type: typeName.rawValue, info: schema.coreContext, nested: nested)
             }
-            let type = try getPrimitiveType(for: schema)
+            let type = try getPrimitiveType(for: schema, context: context)
             return child(name: propertyName, type: type, info: info)
         }
         
@@ -155,13 +152,13 @@ extension Generator {
         func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
             let deref = try reference.dereferenced(in: spec.components)
             let info = deref.coreContext
-            let type = try getPrimitiveType(for: schema)
+            let type = try getPrimitiveType(for: schema, context: context)
             return child(name: propertyName, type: type, info: info)
         }
         
         func makeProperty(schema: JSONSchema) throws -> Property {
             let info = schema.coreContext
-            let type = try getPrimitiveType(for: schema)
+            let type = try getPrimitiveType(for: schema, context: context)
             return child(name: propertyName, type: type, info: info)
         }
         
@@ -191,7 +188,7 @@ extension Generator {
         case .a:
             return AdditionalProperties(type: "[String: AnyJSON]", info: info)
         case .b(let schema):
-            if let type = try? getPrimitiveType(for: schema) {
+            if let type = try? getPrimitiveType(for: schema, context: context) {
                 return AdditionalProperties(type: "[String: \(type)]", info: info)
             }
             let nestedTypeName = makeTypeName(key).appending("Item")
@@ -203,7 +200,7 @@ extension Generator {
     // MARK: Object
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> String? {
-        if let type = try? getPrimitiveType(for: JSONSchema.object(info, details)), type != "Void" {
+        if let type = try? getPrimitiveType(for: JSONSchema.object(info, details), context: context), type != "Void" {
             guard !options.isInliningPrimitiveTypes else { return nil }
             return templates.typealias(name: name, type: TypeName(processedRawValue: type))
         }
@@ -311,7 +308,7 @@ extension Generator {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try? getTypeName(for: item) {
+        if let type = try? getTypeName(for: item, context: context) {
             guard !options.isInliningPrimitiveTypes else {
                 return ""
             }
@@ -344,7 +341,7 @@ extension Generator {
         return output
     }
     
-    private func isInlinable(_ schema: JSONSchema) -> Bool {
+    private func isInlinable(_ schema: JSONSchema, context: Context) -> Bool {
         switch schema {
         case .boolean: return true
         case .number: return true
@@ -354,7 +351,7 @@ extension Generator {
         case .object: return true
         case .array(_, let details):
             if let item = details.items {
-                return (try? getPrimitiveType(for: item)) != nil
+                return (try? getPrimitiveType(for: item, context: context)) != nil
             }
             return false
         case .all: return false
@@ -372,13 +369,13 @@ extension Generator {
     
     // MARK: Misc
     
-    private func getTypeName(for json: JSONSchema) throws -> TypeName {
-        TypeName(processedRawValue: try getPrimitiveType(for: json))
+    private func getTypeName(for json: JSONSchema, context: Context) throws -> TypeName {
+        TypeName(processedRawValue: try getPrimitiveType(for: json, context: context))
     }
     
     // TODO: Return `nil` when primitive types can't be found
     // Anything that's not an object or a reference.
-    private func getPrimitiveType(for json: JSONSchema) throws -> String {
+    private func getPrimitiveType(for json: JSONSchema, context: Context) throws -> String {
         switch json {
         case .boolean: return "Bool"
         case .number: return "Double"
@@ -407,7 +404,7 @@ extension Generator {
                 case .a(let allowsAdditionalProperties):
                     return allowsAdditionalProperties ? "[String: AnyJSON]" : "Void"
                 case .b(let schema):
-                    if let type = try? getPrimitiveType(for: schema) {
+                    if let type = try? getPrimitiveType(for: schema, context: context) {
                         return "[String: \(type)]"
                     }
                 }
@@ -417,7 +414,7 @@ extension Generator {
             guard let items = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return "[\(try getPrimitiveType(for: items))]"
+            return "[\(try getPrimitiveType(for: items, context: context))]"
         case .all(let of, _):
             throw GeneratorError("`allOf` is not supported: \(of)")
         case .one(let of, _):
@@ -427,37 +424,41 @@ extension Generator {
         case .not(let scheme, _):
             throw GeneratorError("`not` is not supported: \(scheme)")
         case .reference(let reference, _):
-            switch reference {
-            case .internal(let ref):
-                if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
-                    return makeTypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue
-                }
-                // Note: while dereferencing, it does it recursively.
-                // So if you have `typealias Pets = [Pet]`, it'll dereference
-                // `Pet` to an `.object`, not a `.reference`.
-                if options.isInliningPrimitiveTypes,
-                   let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
-                   let scheme = spec.components.schemas[key],
-                   let type = try? getPrimitiveType(for: scheme),
-                   isInlinable(scheme) {
-                    return type // Inline simple types
-                }
-                guard let name = ref.name else {
-                    throw GeneratorError("Internal reference name is missing: \(ref)")
-                }
-                // TODO: Remove duplication
-                if !options.schemes.mappedTypeNames.isEmpty {
-                    if let mapped = options.schemes.mappedTypeNames[name] {
-                        return mapped
-                    }
-                }
-                return makeTypeName(name).rawValue
-            case .external(let url):
-                throw GeneratorError("External references are not supported: \(url)")
-            }
+            return try getReferenceType(reference, context: context)
         case .fragment:
             setAnyJsonNeeded()
             return "AnyJSON"
+        }
+    }
+    
+    private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> String {
+        switch reference {
+        case .internal(let ref):
+            if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
+                return makeTypeName(name.replacingOccurrences(of: "nullable-", with: "")).rawValue.namespace(context.namespace)
+            }
+            // Note: while dereferencing, it does it recursively.
+            // So if you have `typealias Pets = [Pet]`, it'll dereference
+            // `Pet` to an `.object`, not a `.reference`.
+            if options.isInliningPrimitiveTypes,
+               let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
+               let scheme = spec.components.schemas[key],
+               let inlined = try? getPrimitiveType(for: scheme, context: context),
+               isInlinable(scheme, context: context) {
+                return inlined // Inline simple types
+            }
+            guard let name = ref.name else {
+                throw GeneratorError("Internal reference name is missing: \(ref)")
+            }
+            // TODO: Remove duplication
+            if !options.schemes.mappedTypeNames.isEmpty {
+                if let mapped = options.schemes.mappedTypeNames[name] {
+                    return mapped.namespace(context.namespace)
+                }
+            }
+            return makeTypeName(name).rawValue.namespace(context.namespace)
+        case .external(let url):
+            throw GeneratorError("External references are not supported: \(url)")
         }
     }
     
@@ -491,7 +492,7 @@ extension Generator {
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
-        let types = makeTypeNames(for: schemas)
+        let types = makeTypeNames(for: schemas, context: context)
         let context = context.adding(name)
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
             switch schema {
@@ -520,19 +521,19 @@ extension Generator {
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {
-        try zip(makeTypeNames(for: schemas), schemas).map { type, schema in
+        try zip(makeTypeNames(for: schemas, context: context), schemas).map { type, schema in
             try makeProperty(key: type, schema: schema, isRequired: false, in: context)
         }
     }
     
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
-    private func makeTypeNames(for schemas: [JSONSchema]) -> [String] {
+    private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
         var types = Array<String?>(repeating: nil, count: schemas.count)
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
-            types[index] = try? getPrimitiveType(for: schema)
+            types[index] = try? getPrimitiveType(for: schema, context: context)
         }
         
         // Generate names for anonymous nested objects
@@ -554,7 +555,7 @@ extension Generator {
             if type == "[String: AnyJSON]" {
                 name = "object"
             } else {
-                name = makePropertyName(type).rawValue
+                name = makePropertyName(type.components(separatedBy: ".").last ?? "").rawValue
             }
             guard options.isPluralizationEnabled else { return name }
             let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor

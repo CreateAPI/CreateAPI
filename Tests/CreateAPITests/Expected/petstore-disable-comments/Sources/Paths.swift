@@ -18,7 +18,7 @@ extension Paths {
         /// Path: `/pets`
         public let path: String
 
-        public func get(parameters: GetParameters) -> Request<[Pet]> {
+        public func get(parameters: GetParameters) -> Request<[petstore_disable_comments.Pet]> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -53,7 +53,7 @@ extension Paths.Pets {
         /// Path: `/pets/{petId}`
         public let path: String
 
-        public func get() -> Request<Pet> {
+        public func get() -> Request<petstore_disable_comments.Pet> {
             .get(path)
         }
     }

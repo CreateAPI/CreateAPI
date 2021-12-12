@@ -128,7 +128,7 @@ extension Paths.Pet.WithPetID {
         public let path: String
 
         /// uploads an image
-        public func post(_ body: PostRequest) -> Request<APIResponse> {
+        public func post(_ body: PostRequest) -> Request<edgecases_rename.APIResponse> {
             .post(path, body: body)
         }
 
@@ -256,7 +256,7 @@ extension Paths.User {
         public let path: String
 
         /// Creates list of users with given input array
-        public func post(_ body: [User]) -> Request<Void> {
+        public func post(_ body: [edgecases_rename.User]) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -272,7 +272,7 @@ extension Paths.User {
         public let path: String
 
         /// Creates list of users with given input array
-        public func post(_ body: [User]) -> Request<Void> {
+        public func post(_ body: [edgecases_rename.User]) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -499,7 +499,7 @@ extension Paths {
         /// To test "client" model
         ///
         /// To test "client" model
-        public func patch(_ body: Client) -> Request<Client> {
+        public func patch(_ body: edgecases_rename.Client) -> Request<edgecases_rename.Client> {
             .patch(path, body: body)
         }
     }

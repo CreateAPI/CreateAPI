@@ -19,7 +19,7 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(parameters: GetParameters) -> Request<[Pet]> {
+        public func get(parameters: GetParameters) -> Request<[petstore_operation_id.Pet]> {
             .get(path, query: parameters.asQuery()).id("listPets")
         }
 
@@ -56,7 +56,7 @@ extension Paths.Pets {
         public let path: String
 
         /// Info for a specific pet
-        public func get() -> Request<Pet> {
+        public func get() -> Request<petstore_operation_id.Pet> {
             .get(path).id("showPetById")
         }
     }

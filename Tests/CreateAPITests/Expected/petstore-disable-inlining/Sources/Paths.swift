@@ -56,7 +56,7 @@ extension Paths.Pets {
         public let path: String
 
         /// Info for a specific pet
-        public func get() -> Request<Pet> {
+        public func get() -> Request<petstore_disable_inlining.Pet> {
             .get(path)
         }
     }

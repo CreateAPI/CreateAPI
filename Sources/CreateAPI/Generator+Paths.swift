@@ -85,7 +85,7 @@ extension Generator {
                         \(access)let path: String\n
                 """
                 
-                let context = Context(parents: parents + [type])
+                let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
                 if isLast {
                     generatedType += """
                     \n\(makeMethods(for: path.value, context: context))\n
@@ -369,7 +369,7 @@ extension Generator {
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                 setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                return GeneratedType(type: type.type, nested: type.nested)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
             }
@@ -390,11 +390,11 @@ extension Generator {
                 case .a(let reference):
                     let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
                     setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                    return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                    return GeneratedType(type: type.type, nested: type.nested)
                 case .b(let schema):
                     let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
                     setNeedsEncodable(for: TypeName(processedRawValue: type.type))
-                    return GeneratedType(type: addNamespaceIfNeeded(for: type.type, context: context), nested: type.nested)
+                    return GeneratedType(type: type.type, nested: type.nested)
                 default:
                     throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
                 }
@@ -427,7 +427,6 @@ extension Generator {
     // TODO: Add "$ref": "#/components/responses/accepted" support (GitHub spec)
     private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
         var context = context
-        context.namespace = arguments.module?.rawValue
         context.isEncodableNeeded = false
         
         switch response {
@@ -447,7 +446,7 @@ extension Generator {
                 case .a(let reference):
                     // TODO: what about nested types?
                     let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
-                    return GeneratedType(type: addNamespaceIfNeeded(for: type, context: context))
+                    return GeneratedType(type: type)
                 case .b(let schema):
                     switch schema {
                     case .string:
@@ -469,16 +468,7 @@ extension Generator {
             }
         }
     }
-    
-    // TODO: refactor (do it on the Generator level)
-    private func addNamespaceIfNeeded(for type: String, context: Context) -> String {
-        // TODO: Add an option to disable disambiguation if it's not needed
-        if context.parents.contains(where: { $0.rawValue == type }), let module = arguments.module {
-            return "\(module).\(type)"
-        }
-        return type
-    }
-    
+        
     // TODO: Add support for schema references
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
