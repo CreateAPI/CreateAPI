@@ -188,7 +188,7 @@ extension Generator {
         // TODO: refactor
         if let response = getSuccessfulResponse(for: operation) {
             let responseValue = try makeResponse(for: response, method: method, context: context)
-            responseType = responseValue.type
+            responseType = responseValue.type.rawValue
             if let value = responseValue.nested {
                 nested.append(value)
             }
@@ -246,7 +246,7 @@ extension Generator {
         
         if hasBody(method) {
             let request = try makeRequestBodyType(for: operation, method: method, context: context)
-            if request.type != "Void" {
+            if !request.type.isVoid {
                 if let value = request.nested {
                     nested.append(value)
                 }
@@ -279,7 +279,7 @@ extension Generator {
             guard let parameter = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            guard Set(["String", "Int", "Double", "Bool"]).contains(parameter.type) else {
+            guard Set(["String", "Int", "Double", "Bool"]).contains(parameter.type.rawValue) else {
                 throw GeneratorError("Unsupported parameter type: \(parameter.type)")
             }
             return parameter
@@ -304,7 +304,7 @@ extension Generator {
         guard parameter.context.inQuery else {
             return nil
         }
-        let type: String
+        let type: TypeName
         switch parameter.schemaOrContent {
         case .a(let schemaContext):
             let schema: JSONSchema
@@ -368,7 +368,7 @@ extension Generator {
                 }
                 // TODO: This should be resused
                 let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                setNeedsEncodable(for: TypeName(processed: type.type))
+                setNeedsEncodable(for: type.type)
                 return GeneratedType(type: type.type, nested: type.nested)
             } else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
@@ -377,23 +377,23 @@ extension Generator {
             #warning("TEMP")
             switch reference {
             case .internal(let reference):
-                return GeneratedType(type: reference.name ?? "Void")
+                return GeneratedType(type: TypeName(processed: reference.name ?? "Void"))
             case .external(_):
                 throw GeneratorError("External references are not supported")
             }
         case .b(let scheme):
             if scheme.content.values.isEmpty {
-                return GeneratedType(type: "Void")
+                return GeneratedType(type: TypeName(processed: "Void"))
             } else if let content = scheme.content.values.first {
                 // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
-                    setNeedsEncodable(for: TypeName(processed: type.type))
+                    setNeedsEncodable(for: type.type)
                     return GeneratedType(type: type.type, nested: type.nested)
                 case .b(let schema):
                     let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                    setNeedsEncodable(for: TypeName(processed: type.type))
+                    setNeedsEncodable(for: type.type)
                     return GeneratedType(type: type.type, nested: type.nested)
                 default:
                     throw GeneratorError("ERROR: response not handled \(operation.description ?? "")")
@@ -416,7 +416,7 @@ extension Generator {
     
     // TODO: Refactor
     private struct GeneratedType {
-        var type: String
+        var type: TypeName
         var nested: String?
     }
 
@@ -439,7 +439,7 @@ extension Generator {
             }
         case .b(let schema):
             if schema.content.values.isEmpty {
-                return GeneratedType(type: "Void")
+                return GeneratedType(type: TypeName(processed: "Void"))
             } else if let content = schema.content[.json] {
                 // TODO: Parse example
                 switch content.schema {
@@ -450,9 +450,9 @@ extension Generator {
                 case .b(let schema):
                     switch schema {
                     case .string:
-                        return GeneratedType(type: "String")
+                        return GeneratedType(type: TypeName(processed: "String"))
                     case .integer, .boolean:
-                        return GeneratedType(type: "Data")
+                        return GeneratedType(type: TypeName(processed: "Data"))
                     default:
                         // TODO: Add a way to cutomize which namespace to use
                         let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
@@ -462,7 +462,7 @@ extension Generator {
                     throw GeneratorError("ERROR: response not handled")
                 }
             } else if schema.content[.anyText] != nil {
-                return GeneratedType(type: "String") // Assume UTF8 encoding
+                return GeneratedType(type: TypeName(processed: "String")) // Assume UTF8 encoding
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
@@ -517,6 +517,6 @@ struct QueryParameter {
     let description: String?
     let isDeprecated: Bool
     let name: String
-    let type: String
+    let type: TypeName
     let isOptional: Bool
 }

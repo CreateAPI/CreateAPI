@@ -160,8 +160,16 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
         TypeName(processed: text + rawValue)
     }
     
+    func namespace(_ namespace: String?) -> TypeName {
+        TypeName(processed: rawValue.namespace(namespace))
+    }
+    
     var asArray: TypeName {
         TypeName(processed: "[\(rawValue)]")
+    }
+    
+    var isVoid: Bool {
+        rawValue == "Void"
     }
 }
 

@@ -100,7 +100,7 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(propertyName("protocolHttpsTest"), "protocolHTTPSTest")
         
         // Keywords
-        XCTAssertEqual(propertyName("self"), "`self`")
+        XCTAssertEqual(propertyName("self"), "this")
         
         // Replacements
         XCTAssertEqual(propertyName(">="), "greaterThanOrEqualTo")
