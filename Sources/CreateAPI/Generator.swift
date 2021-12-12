@@ -471,7 +471,9 @@ extension Generator {
         contents += properties.compactMap { $0.nested }
         contents.append(templates.initFromDecoderOneOf(properties: properties))
         contents.append(templates.encodeOneOf(properties: properties))
-        return templates.enumOneOf(name: name, contents: contents)
+        let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
+        let isHashable = properties.allSatisfy { hashable.contains($0.type) }
+        return templates.enumOneOf(name: name, contents: contents, isHashable: isHashable)
     }
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {

@@ -14975,7 +14975,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public enum Milestone: Codable {
+            public enum Milestone: Codable, Hashable {
                 case string(String)
                 case int(Int)
 
@@ -14999,7 +14999,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public enum Title: Codable {
+            public enum Title: Codable, Hashable {
                 case string(String)
                 case int(Int)
 
@@ -15362,7 +15362,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 }
             }
 
-            public enum Milestone: Codable {
+            public enum Milestone: Codable, Hashable {
                 case string(String)
                 case int(Int)
 
@@ -15392,7 +15392,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 case closed
             }
 
-            public enum Title: Codable {
+            public enum Title: Codable, Hashable {
                 case string(String)
                 case int(Int)
 

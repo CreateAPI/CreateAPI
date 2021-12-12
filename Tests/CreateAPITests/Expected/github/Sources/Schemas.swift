@@ -181,7 +181,7 @@ public struct ValidationErrorSimple: Codable {
     }
 }
 
-public enum WebhookConfigInsecureSSL: Codable {
+public enum WebhookConfigInsecureSSL: Codable, Hashable {
     case string(String)
     case double(Double)
 

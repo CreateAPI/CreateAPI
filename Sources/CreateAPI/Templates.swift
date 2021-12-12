@@ -62,10 +62,11 @@ final class Templates {
     
     // MARK: Enum
     
-    func enumOneOf(name: TypeName, contents: [String]) -> String {
-        let protocols = options.schemes.adoptedProtocols.joined(separator: ", ")
+    func enumOneOf(name: TypeName, contents: [String], isHashable: Bool) -> String {
+        var protocols = options.schemes.adoptedProtocols
+        if isHashable { protocols.insert("Hashable") }
         return """
-        \(access)enum \(name): \(protocols) {
+        \(access)enum \(name): \(protocols.sorted().joined(separator: ", ")) {
         \(contents.joined(separator: "\n\n").indented)
         }
         """
