@@ -82,16 +82,16 @@ private struct QueryParameterEncoder {
         ISO8601DateFormatter().string(from: value)
     }
 
+    static func encode(_ value: Double) -> String? {
+        String(value)
+    }
+
     static func encode(_ value: Int) -> String? {
         String(value)
     }
 
     static func encode(_ value: String) -> String? {
         value
-    }
-
-    static func encode(_ value: Double) -> String? {
-        String(value)
     }
 }
 

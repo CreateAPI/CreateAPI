@@ -67,8 +67,8 @@ extension Paths.Pets {
 
 
 private struct QueryParameterEncoder {
-    static func encode(_ value: Int) -> String? {
-        String(value)
+    static func encode(_ value: Bool) -> String? {
+        value ? "true" : "false"
     }
 
     static func encode(_ value: Date) -> String? {
@@ -79,12 +79,12 @@ private struct QueryParameterEncoder {
         String(value)
     }
 
-    static func encode(_ value: String) -> String? {
-        value
+    static func encode(_ value: Int) -> String? {
+        String(value)
     }
 
-    static func encode(_ value: Bool) -> String? {
-        value ? "true" : "false"
+    static func encode(_ value: String) -> String? {
+        value
     }
 }
 

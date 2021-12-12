@@ -238,7 +238,8 @@ extension Generator {
             let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
             // TODO: create a single type describing this + add comments and stuff
             let properties = query.map {
-                Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, context: nil)
+                // TODO: pass metadata
+                Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, metadata: nil)
             }
             let props = properties.map(templates.property).joined(separator: "\n")
             let initializer = templates.initializer(properties: properties)

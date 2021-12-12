@@ -246,8 +246,8 @@ final class Templates {
     ///     public var files: [Files]?
     func property(_ property: Property) -> String {
         var output = ""
-        if let context = property.context {
-            output += comments(for: context, name: property.name.rawValue)
+        if let metadata = property.metadata {
+            output += comments(for: metadata, name: property.name.rawValue)
         }
         output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
@@ -262,15 +262,15 @@ final class Templates {
     // MARK: Comments
     
     /// Generates inline comments for a declaration containing a title, description, and examples.
-    func comments(for context: JSONSchemaContext, name: String) -> String {
+    func comments(for metadata: Metadata, name: String) -> String {
         let options = options.comments
         guard options.isEnabled else {
             return ""
         }
         var output = ""
         
-        var title = context.title ?? ""
-        var description = context.description ?? ""
+        var title = metadata.title ?? ""
+        var description = metadata.description ?? ""
         if title == description && options.addTitle && options.addDescription {
             description = ""
         }
@@ -282,7 +282,7 @@ final class Templates {
             let title = options.capitilizeTitle ? title.capitalizingFirstLetter() : title
             output += "/// \(title)\n"
         }
-        if options.addDescription, !description.isEmpty, description != context.title {
+        if options.addDescription, !description.isEmpty, description != metadata.title {
             if !output.isEmpty {
                 output += "///\n"
             }
@@ -291,7 +291,7 @@ final class Templates {
                 output += "/// \(line)\n"
             }
         }
-        if options.addExamples, let example = context.example?.value {
+        if options.addExamples, let example = metadata.example?.value {
             let value: String
             if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
@@ -378,10 +378,10 @@ final class Templates {
     }
     
     func queryParameterEncoders(_ encoders: [String: String]) -> String {
-        let methods = encoders.map { key, value in
+        let methods = encoders.keys.sorted().map { key in
             """
             static func encode(_ value: \(key)) -> String? {
-            \(value.indented)
+            \(encoders[key]!.indented)
             }
             """
         }

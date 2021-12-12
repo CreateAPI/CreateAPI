@@ -469,14 +469,6 @@ extension Paths {
 
 
 private struct QueryParameterEncoder {
-	static func encode(_ value: String) -> String? {
-		value
-	}
-
-	static func encode(_ value: Int) -> String? {
-		String(value)
-	}
-
 	static func encode(_ value: Bool) -> String? {
 		value ? "true" : "false"
 	}
@@ -487,6 +479,14 @@ private struct QueryParameterEncoder {
 
 	static func encode(_ value: Double) -> String? {
 		String(value)
+	}
+
+	static func encode(_ value: Int) -> String? {
+		String(value)
+	}
+
+	static func encode(_ value: String) -> String? {
+		value
 	}
 }
 

@@ -103,7 +103,7 @@ extension Generator {
             assert(info != nil) // context is null for references, but the caller needs to dereference first
             let nullable = info?.nullable ?? true
             let name = makeChildPropertyName(for: name, type: type)
-            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, context: info, nested: nested)
+            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, metadata: .init(info), nested: nested)
         }
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
@@ -262,7 +262,7 @@ extension Generator {
         //        }
         
         
-        var output = templates.comments(for: info, name: name.rawValue)
+        var output = templates.comments(for: .init(info), name: name.rawValue)
         output += templates.entity(name: name, contents: contents, protocols: protocols)
         return output
     }
@@ -335,7 +335,7 @@ extension Generator {
         guard !values.isEmpty else {
             throw GeneratorError("Enum \(name) has no values")
         }
-        var output = templates.comments(for: info, name: name.rawValue)
+        var output = templates.comments(for: .init(info), name: name.rawValue)
         let hasDuplicates = values.count != Set(values.map(makePropertyName).map(\.rawValue)).count
         let cases = values.map {
             let caseName = hasDuplicates ? $0 : makePropertyName($0).rawValue
@@ -627,6 +627,20 @@ struct Property {
     let key: String
     
     let schema: JSONSchema
-    let context: JSONSchemaContext?
+    let metadata: Metadata?
     var nested: String?
+}
+
+struct Metadata {
+    var title: String?
+    var description: String?
+    var example: AnyCodable?
+    var isDeprecated: Bool
+    
+    init(_ schema: JSONSchemaContext?) {
+        self.title = schema?.title
+        self.description = schema?.description
+        self.example = schema?.example
+        self.isDeprecated = schema?.deprecated ?? false
+    }
 }
