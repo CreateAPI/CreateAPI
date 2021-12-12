@@ -28,8 +28,7 @@ import GrammaticalNumber
 // TODO: Test that this enum description works enum: [user, poweruser, admin]
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
-// TODO: Group operations by tags https://swagger.io/docs/specification/2-0/grouping-operations-with-tags/?sbsearch=tags
-// TODO: Fix public func get() -> Request<HookDelivery> { not using a module name
+// TODO: Get path parameter type from the (first) operation
 
 // TODO: Apply overridden names based on spec, not output file
 // TODO: Generate phantom ID types
