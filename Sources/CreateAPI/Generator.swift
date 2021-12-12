@@ -264,15 +264,24 @@ extension Generator {
         
         
         var output = templates.comments(for: info, name: name.rawValue)
-        output += makeEntity(name: name, contents: contents, context: context)
+        output += templates.entity(name: name, contents: contents, protocols: protocols)
         return output
     }
     
     // TODO: Simplify
     private func getProtocols(for type: TypeName, context: Context) -> Set<String> {
         var protocols = options.schemes.adoptedProtocols
-        let needsEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable")) && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
-        if !needsEncodable {
+        let isDecodable = (protocols.contains("Decodable") || protocols.contains( "Codable")) && (context.isDecodableNeeded || !options.schemes.isSkippingRedundantProtocols)
+        let isEncodable = (protocols.contains("Encodable") || protocols.contains( "Codable")) && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
+        if !isDecodable {
+            if protocols.contains("Codable") {
+                protocols.remove("Codable")
+                protocols.insert("Encodable")
+            } else {
+                protocols.remove("Decodable")
+            }
+        }
+        if !isEncodable {
             if protocols.contains("Codable") {
                 protocols.remove("Codable")
                 protocols.insert("Decodable")
@@ -281,11 +290,6 @@ extension Generator {
             }
         }
         return protocols
-    }
-    
-    private func makeEntity(name: TypeName, contents: [String], context: Context) -> String {
-        let protocols = getProtocols(for: name, context: context).sorted()
-        return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
     private func makeProperties(for object: JSONSchema.ObjectContext, context: Context) -> [Property] {
@@ -457,19 +461,28 @@ extension Generator {
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
         let properties: [Property] = try makeProperties(for: schemas, context: context)
+        
+        var protocols = getProtocols(for: name, context: context)
+        let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
+        let isHashable = properties.allSatisfy { hashable.contains($0.type.rawValue) }
+        if isHashable { protocols.insert("Hashable") }
+        
         var contents: [String] = []
         contents.append(properties.map(templates.case).joined(separator: "\n"))
         contents += properties.compactMap { $0.nested }
-        contents.append(templates.initFromDecoderOneOf(properties: properties))
-        contents.append(templates.encodeOneOf(properties: properties))
-        let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
-        let isHashable = properties.allSatisfy { hashable.contains($0.type.rawValue) }
-        return templates.enumOneOf(name: name, contents: contents, isHashable: isHashable)
+        if protocols.contains("Codable") || protocols.contains("Decodable") {
+            contents.append(templates.initFromDecoderOneOf(properties: properties))
+        }
+        if protocols.contains("Codable") || protocols.contains("Encodable") {
+            contents.append(templates.encodeOneOf(properties: properties))
+        }
+        return templates.enumOneOf(name: name, contents: contents, protocols: protocols)
     }
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
+        var protocols = getProtocols(for: name, context: context)
         var contents: [String] = []
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -477,8 +490,13 @@ extension Generator {
         }
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
-        contents.append(templates.initFromDecoderAnyOf(properties: properties))
-        return makeEntity(name: name, contents: contents, context: context)
+        if protocols.contains("Codable") || protocols.contains("Decodable") {
+            contents.append(templates.initFromDecoderAnyOf(properties: properties))
+        }
+        if protocols.contains("Codable") || protocols.contains("Encodable") {
+            contents.append(templates.encode(properties: properties))
+        }
+        return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
@@ -493,6 +511,7 @@ extension Generator {
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }
         }
+        let protocols = getProtocols(for: name, context: context)
 
         var contents: [String] = []
         contents.append(templates.properties(properties))
@@ -507,7 +526,7 @@ extension Generator {
         }.joined(separator: "\n")
         contents.append(templates.initFromDecoder(contents: decoderContents))
         
-        return makeEntity(name: name, contents: contents, context: context)
+        return templates.entity(name: name, contents: contents, protocols: protocols)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {
@@ -606,10 +625,11 @@ struct GeneratorError: Error, LocalizedError {
 struct Context {
     var parents: [TypeName]
     var namespace: String?
+    var isDecodableNeeded = true
     var isEncodableNeeded = true
     
     func adding(_ parent: TypeName) -> Context {
-        Context(parents: parents + [parent], namespace: namespace, isEncodableNeeded: isEncodableNeeded)
+        Context(parents: parents + [parent], namespace: namespace, isDecodableNeeded: isDecodableNeeded, isEncodableNeeded: isEncodableNeeded)
     }
 }
 

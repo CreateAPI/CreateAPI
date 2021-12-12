@@ -45,13 +45,13 @@ final class Templates {
     ///     public struct <name>: Decodable {
     ///         <contents>
     ///     }
-    func entity(name: TypeName, contents: [String], protocols: [String]) -> String {
+    func entity(name: TypeName, contents: [String], protocols: Set<String>) -> String {
         let isStruct = (options.schemes.isGeneratingStructs && !options.schemes.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemes.entitiesGeneratedAsStructs.contains(name.rawValue))
         let type = isStruct ? "struct" : (options.schemes.isMakingClassesFinal ? "final class" : "class")
         let lhs = [options.access, type, name.rawValue]
             .compactMap { $0 }.joined(separator: " ")
         let rhs = ([isStruct ? nil : options.schemes.baseClass] + protocols)
-            .compactMap { $0 }.joined(separator: ", ")
+            .compactMap { $0 }.sorted().joined(separator: ", ")
 
         let declaration = rhs.isEmpty ? lhs : "\(lhs): \(rhs)"
         
@@ -64,9 +64,7 @@ final class Templates {
     
     // MARK: Enum
     
-    func enumOneOf(name: TypeName, contents: [String], isHashable: Bool) -> String {
-        var protocols = options.schemes.adoptedProtocols
-        if isHashable { protocols.insert("Hashable") }
+    func enumOneOf(name: TypeName, contents: [String], protocols: Set<String>) -> String {
         return """
         \(access)enum \(name): \(protocols.sorted().joined(separator: ", ")) {
         \(contents.joined(separator: "\n\n").indented)

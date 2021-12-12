@@ -1220,6 +1220,12 @@ public struct Installation: Codable {
             self.simpleUser = try? container.decode(SimpleUser.self)
             self.enterprise = try? container.decode(Enterprise.self)
         }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
+            try values.encodeIfPresent(enterprise, forKey: "enterprise")
+        }
     }
 
     /// Describe whether all repositories have been selected or there's a selection involved
@@ -10551,6 +10557,12 @@ public struct PendingDeployment: Codable {
                 self.simpleUser = try? container.decode(SimpleUser.self)
                 self.team = try? container.decode(Team.self)
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
+                try values.encodeIfPresent(team, forKey: "team")
+            }
         }
 
         public init(reviewer: Reviewer? = nil, type: DeploymentReviewerType? = nil) {
@@ -16422,6 +16434,12 @@ public struct Environment: Codable {
                         self.simpleUser = try? container.decode(SimpleUser.self)
                         self.team = try? container.decode(Team.self)
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
+                        try values.encodeIfPresent(team, forKey: "team")
+                    }
                 }
 
                 public init(reviewer: Reviewer? = nil, type: DeploymentReviewerType? = nil) {
@@ -16500,6 +16518,13 @@ public struct Environment: Codable {
             self.object1 = try? container.decode(Object1.self)
             self.object2 = try? container.decode(Object2.self)
             self.object3 = try? container.decode(Object3.self)
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(object1, forKey: "object1")
+            try values.encodeIfPresent(object2, forKey: "object2")
+            try values.encodeIfPresent(object3, forKey: "object3")
         }
     }
 
@@ -19004,6 +19029,25 @@ public struct IssueEventForIssue: Codable {
         self.removedFromProjectIssueEvent = try? container.decode(RemovedFromProjectIssueEvent.self)
         self.convertedNoteToIssueIssueEvent = try? container.decode(ConvertedNoteToIssueIssueEvent.self)
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(labeledIssueEvent, forKey: "labeledIssueEvent")
+        try values.encodeIfPresent(unlabeledIssueEvent, forKey: "unlabeledIssueEvent")
+        try values.encodeIfPresent(assignedIssueEvent, forKey: "assignedIssueEvent")
+        try values.encodeIfPresent(unassignedIssueEvent, forKey: "unassignedIssueEvent")
+        try values.encodeIfPresent(milestonedIssueEvent, forKey: "milestonedIssueEvent")
+        try values.encodeIfPresent(demilestonedIssueEvent, forKey: "demilestonedIssueEvent")
+        try values.encodeIfPresent(renamedIssueEvent, forKey: "renamedIssueEvent")
+        try values.encodeIfPresent(reviewRequestedIssueEvent, forKey: "reviewRequestedIssueEvent")
+        try values.encodeIfPresent(reviewRequestRemovedIssueEvent, forKey: "reviewRequestRemovedIssueEvent")
+        try values.encodeIfPresent(reviewDismissedIssueEvent, forKey: "reviewDismissedIssueEvent")
+        try values.encodeIfPresent(lockedIssueEvent, forKey: "lockedIssueEvent")
+        try values.encodeIfPresent(addedToProjectIssueEvent, forKey: "addedToProjectIssueEvent")
+        try values.encodeIfPresent(movedColumnInProjectIssueEvent, forKey: "movedColumnInProjectIssueEvent")
+        try values.encodeIfPresent(removedFromProjectIssueEvent, forKey: "removedFromProjectIssueEvent")
+        try values.encodeIfPresent(convertedNoteToIssueIssueEvent, forKey: "convertedNoteToIssueIssueEvent")
+    }
 }
 
 /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
@@ -20067,6 +20111,31 @@ public struct TimelineIssueEvents: Codable {
         self.timelineCommitCommentedEvent = try? container.decode(TimelineCommitCommentedEvent.self)
         self.timelineAssignedIssueEvent = try? container.decode(TimelineAssignedIssueEvent.self)
         self.timelineUnassignedIssueEvent = try? container.decode(TimelineUnassignedIssueEvent.self)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(labeledIssueEvent, forKey: "labeledIssueEvent")
+        try values.encodeIfPresent(unlabeledIssueEvent, forKey: "unlabeledIssueEvent")
+        try values.encodeIfPresent(milestonedIssueEvent, forKey: "milestonedIssueEvent")
+        try values.encodeIfPresent(demilestonedIssueEvent, forKey: "demilestonedIssueEvent")
+        try values.encodeIfPresent(renamedIssueEvent, forKey: "renamedIssueEvent")
+        try values.encodeIfPresent(reviewRequestedIssueEvent, forKey: "reviewRequestedIssueEvent")
+        try values.encodeIfPresent(reviewRequestRemovedIssueEvent, forKey: "reviewRequestRemovedIssueEvent")
+        try values.encodeIfPresent(reviewDismissedIssueEvent, forKey: "reviewDismissedIssueEvent")
+        try values.encodeIfPresent(lockedIssueEvent, forKey: "lockedIssueEvent")
+        try values.encodeIfPresent(addedToProjectIssueEvent, forKey: "addedToProjectIssueEvent")
+        try values.encodeIfPresent(movedColumnInProjectIssueEvent, forKey: "movedColumnInProjectIssueEvent")
+        try values.encodeIfPresent(removedFromProjectIssueEvent, forKey: "removedFromProjectIssueEvent")
+        try values.encodeIfPresent(convertedNoteToIssueIssueEvent, forKey: "convertedNoteToIssueIssueEvent")
+        try values.encodeIfPresent(timelineCommentEvent, forKey: "timelineCommentEvent")
+        try values.encodeIfPresent(timelineCrossReferencedEvent, forKey: "timelineCrossReferencedEvent")
+        try values.encodeIfPresent(timelineCommittedEvent, forKey: "timelineCommittedEvent")
+        try values.encodeIfPresent(timelineReviewedEvent, forKey: "timelineReviewedEvent")
+        try values.encodeIfPresent(timelineLineCommentedEvent, forKey: "timelineLineCommentedEvent")
+        try values.encodeIfPresent(timelineCommitCommentedEvent, forKey: "timelineCommitCommentedEvent")
+        try values.encodeIfPresent(timelineAssignedIssueEvent, forKey: "timelineAssignedIssueEvent")
+        try values.encodeIfPresent(timelineUnassignedIssueEvent, forKey: "timelineUnassignedIssueEvent")
     }
 }
 

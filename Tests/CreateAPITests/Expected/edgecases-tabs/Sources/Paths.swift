@@ -87,7 +87,7 @@ extension Paths.Pet {
 			.post(path, body: body)
 		}
 
-		public struct PostRequest: Codable {
+		public struct PostRequest: Encodable {
 			/// Updated name of the pet
 			public var name: String?
 			/// Updated status of the pet
@@ -96,12 +96,6 @@ extension Paths.Pet {
 			public init(name: String? = nil, status: String? = nil) {
 				self.name = name
 				self.status = status
-			}
-
-			public init(from decoder: Decoder) throws {
-				let values = try decoder.container(keyedBy: StringCodingKey.self)
-				self.name = try values.decodeIfPresent(String.self, forKey: "name")
-				self.status = try values.decodeIfPresent(String.self, forKey: "status")
 			}
 
 			public func encode(to encoder: Encoder) throws {
@@ -132,7 +126,7 @@ extension Paths.Pet.WithPetID {
 			.post(path, body: body)
 		}
 
-		public struct PostRequest: Codable {
+		public struct PostRequest: Encodable {
 			/// Additional data to pass to server
 			public var additionalMetadata: String?
 			/// File to upload
@@ -141,12 +135,6 @@ extension Paths.Pet.WithPetID {
 			public init(additionalMetadata: String? = nil, file: String? = nil) {
 				self.additionalMetadata = additionalMetadata
 				self.file = file
-			}
-
-			public init(from decoder: Decoder) throws {
-				let values = try decoder.container(keyedBy: StringCodingKey.self)
-				self.additionalMetadata = try values.decodeIfPresent(String.self, forKey: "additionalMetadata")
-				self.file = try values.decodeIfPresent(String.self, forKey: "file")
 			}
 
 			public func encode(to encoder: Encoder) throws {
@@ -412,7 +400,7 @@ extension Paths {
 			.post(path, body: body)
 		}
 
-		public struct PostRequest: Codable {
+		public struct PostRequest: Encodable {
 			/// None
 			public var binary: String?
 			/// None
@@ -457,24 +445,6 @@ extension Paths {
 				self.password = password
 				self.patternWithoutDelimiter = patternWithoutDelimiter
 				self.string = string
-			}
-
-			public init(from decoder: Decoder) throws {
-				let values = try decoder.container(keyedBy: StringCodingKey.self)
-				self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
-				self.byte = try values.decode(String.self, forKey: "byte")
-				self.callback = try values.decodeIfPresent(String.self, forKey: "callback")
-				self.date = try values.decodeIfPresent(String.self, forKey: "date")
-				self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
-				self.double = try values.decode(Double.self, forKey: "double")
-				self.float = try values.decodeIfPresent(Double.self, forKey: "float")
-				self.int32 = try values.decodeIfPresent(Int.self, forKey: "int32")
-				self.int64 = try values.decodeIfPresent(Int.self, forKey: "int64")
-				self.integer = try values.decodeIfPresent(Int.self, forKey: "integer")
-				self.number = try values.decode(Double.self, forKey: "number")
-				self.password = try values.decodeIfPresent(String.self, forKey: "password")
-				self.patternWithoutDelimiter = try values.decode(String.self, forKey: "pattern_without_delimiter")
-				self.string = try values.decodeIfPresent(String.self, forKey: "string")
 			}
 
 			public func encode(to encoder: Encoder) throws {

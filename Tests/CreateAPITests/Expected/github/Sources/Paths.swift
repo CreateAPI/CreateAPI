@@ -272,7 +272,7 @@ extension Paths.App.Hook {
         ///   "secret" : "********",
         ///   "url" : 0
         /// }
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///
             /// Example: "json"
@@ -290,14 +290,6 @@ extension Paths.App.Hook {
                 self.insecureSSL = insecureSSL
                 self.secret = secret
                 self.url = url
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -494,7 +486,7 @@ extension Paths.App.Installations.WithInstallationID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// App Permissions
             ///
             /// The permissions granted to the user-to-server access token.
@@ -523,13 +515,6 @@ extension Paths.App.Installations.WithInstallationID {
                 self.permissions = permissions
                 self.repositories = repositories
                 self.repositoryIDs = repositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permissions = try values.decodeIfPresent(github.AppPermissions.self, forKey: "permissions")
-                self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
-                self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -711,17 +696,12 @@ extension Paths.Applications.WithClientID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The access_token of the OAuth application.
             public var accessToken: String
 
             public init(accessToken: String) {
                 self.accessToken = accessToken
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.accessToken = try values.decode(String.self, forKey: "access_token")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -739,17 +719,12 @@ extension Paths.Applications.WithClientID {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The access_token of the OAuth application.
             public var accessToken: String
 
             public init(accessToken: String) {
                 self.accessToken = accessToken
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.accessToken = try values.decode(String.self, forKey: "access_token")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -787,7 +762,7 @@ extension Paths.Applications.WithClientID.Token {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The OAuth access token used to authenticate to the GitHub API.
             ///
             /// Example: e72e16c7e42f292c6912e7710c838347ae178b4a
@@ -829,16 +804,6 @@ extension Paths.Applications.WithClientID.Token {
                 self.repositoryIDs = repositoryIDs
                 self.target = target
                 self.targetID = targetID
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.accessToken = try values.decode(String.self, forKey: "access_token")
-                self.permissions = try values.decodeIfPresent(github.AppPermissions.self, forKey: "permissions")
-                self.repositories = try values.decodeIfPresent([String].self, forKey: "repositories")
-                self.repositoryIDs = try values.decodeIfPresent([Int].self, forKey: "repository_ids")
-                self.target = try values.decodeIfPresent(String.self, forKey: "target")
-                self.targetID = try values.decodeIfPresent(Int.self, forKey: "target_id")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -960,7 +925,7 @@ extension Paths {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The OAuth app client key for which to create the token.
             public var clientID: String?
             /// The OAuth app client secret for which to create the token.
@@ -990,16 +955,6 @@ extension Paths {
                 self.note = note
                 self.noteURL = noteURL
                 self.scopes = scopes
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.clientID = try values.decodeIfPresent(String.self, forKey: "client_id")
-                self.clientSecret = try values.decodeIfPresent(String.self, forKey: "client_secret")
-                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
-                self.note = try values.decodeIfPresent(String.self, forKey: "note")
-                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
-                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1057,7 +1012,7 @@ extension Paths.Authorizations.Clients {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The OAuth app client secret for which to create the token.
             public var clientSecret: String
             /// A unique string to distinguish an authorization from others created for the same client ID and user.
@@ -1084,15 +1039,6 @@ extension Paths.Authorizations.Clients {
                 self.note = note
                 self.noteURL = noteURL
                 self.scopes = scopes
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.clientSecret = try values.decode(String.self, forKey: "client_secret")
-                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
-                self.note = try values.decodeIfPresent(String.self, forKey: "note")
-                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
-                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1136,7 +1082,7 @@ extension Paths.Authorizations.Clients.WithClientID {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The OAuth app client secret for which to create the token.
             public var clientSecret: String
             /// A note to remind you what the OAuth token is for.
@@ -1160,14 +1106,6 @@ extension Paths.Authorizations.Clients.WithClientID {
                 self.note = note
                 self.noteURL = noteURL
                 self.scopes = scopes
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.clientSecret = try values.decode(String.self, forKey: "client_secret")
-                self.note = try values.decodeIfPresent(String.self, forKey: "note")
-                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
-                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1214,7 +1152,7 @@ extension Paths.Authorizations {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// A list of scopes to add to this authorization.
             public var addScopes: [String]?
             /// A unique string to distinguish an authorization from others created for the same client ID and user.
@@ -1244,16 +1182,6 @@ extension Paths.Authorizations {
                 self.noteURL = noteURL
                 self.removeScopes = removeScopes
                 self.scopes = scopes
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.addScopes = try values.decodeIfPresent([String].self, forKey: "add_scopes")
-                self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
-                self.note = try values.decodeIfPresent(String.self, forKey: "note")
-                self.noteURL = try values.decodeIfPresent(String.self, forKey: "note_url")
-                self.removeScopes = try values.decodeIfPresent([String].self, forKey: "remove_scopes")
-                self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1399,7 +1327,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
             public var allowedActions: github.AllowedActions?
             /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -1408,12 +1336,6 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             public init(allowedActions: github.AllowedActions? = nil, enabledOrganizations: github.EnabledOrganizations) {
                 self.allowedActions = allowedActions
                 self.enabledOrganizations = enabledOrganizations
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
-                self.enabledOrganizations = try values.decode(github.EnabledOrganizations.self, forKey: "enabled_organizations")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1493,17 +1415,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of organization IDs to enable for GitHub Actions.
             public var selectedOrganizationIDs: [Int]
 
             public init(selectedOrganizationIDs: [Int]) {
                 self.selectedOrganizationIDs = selectedOrganizationIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedOrganizationIDs = try values.decode([Int].self, forKey: "selected_organization_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1637,7 +1554,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Whether the runner group can be used by `public` repositories.
             public var allowsPublicRepositories: Bool?
             /// Name of the runner group.
@@ -1661,15 +1578,6 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.runners = runners
                 self.selectedOrganizationIDs = selectedOrganizationIDs
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.runners = try values.decodeIfPresent([Int].self, forKey: "runners")
-                self.selectedOrganizationIDs = try values.decodeIfPresent([Int].self, forKey: "selected_organization_ids")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1715,7 +1623,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Whether the runner group can be used by `public` repositories.
             public var allowsPublicRepositories: Bool?
             /// Name of the runner group.
@@ -1733,13 +1641,6 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
                 self.allowsPublicRepositories = allowsPublicRepositories
                 self.name = name
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1831,17 +1732,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of organization IDs that can access the runner group.
             public var selectedOrganizationIDs: [Int]
 
             public init(selectedOrganizationIDs: [Int]) {
                 self.selectedOrganizationIDs = selectedOrganizationIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedOrganizationIDs = try values.decode([Int].self, forKey: "selected_organization_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -1946,17 +1842,12 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of runner IDs to add to the runner group.
             public var runners: [Int]
 
             public init(runners: [Int]) {
                 self.runners = runners
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.runners = try values.decode([Int].self, forKey: "runners")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -2454,7 +2345,7 @@ extension Paths {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Description of the gist
             ///
             /// Example: Example Ruby script
@@ -2470,17 +2361,12 @@ extension Paths {
             /// }
             public var files: [String: FilesItem]
 
-            public struct FilesItem: Codable {
+            public struct FilesItem: Encodable {
                 /// Content of the file
                 public var content: String
 
                 public init(content: String) {
                     self.content = content
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.content = try values.decode(String.self, forKey: "content")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -2492,12 +2378,6 @@ extension Paths {
             public init(description: String? = nil, files: [String: FilesItem]) {
                 self.description = description
                 self.files = files
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.files = try values.decode([String: FilesItem].self, forKey: "files")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -2626,20 +2506,15 @@ extension Paths.Gists {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             public var object1: Object1?
             public var object2: Object2?
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 public var description: AnyJSON
 
                 public init(description: AnyJSON) {
                     self.description = description
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.description = try values.decode(AnyJSON.self, forKey: "description")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -2648,16 +2523,11 @@ extension Paths.Gists {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 public var files: AnyJSON
 
                 public init(files: AnyJSON) {
                     self.files = files
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.files = try values.decode(AnyJSON.self, forKey: "files")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -2666,10 +2536,10 @@ extension Paths.Gists {
                 }
             }
 
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                self.object1 = try? container.decode(Object1.self)
-                self.object2 = try? container.decode(Object2.self)
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(object1, forKey: "object1")
+                try values.encodeIfPresent(object2, forKey: "object2")
             }
         }
 
@@ -2734,7 +2604,7 @@ extension Paths.Gists.WithGistID {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The comment text.
             ///
             /// Example: Body of the attachment
@@ -2742,11 +2612,6 @@ extension Paths.Gists.WithGistID {
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -2780,7 +2645,7 @@ extension Paths.Gists.WithGistID.Comments {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The comment text.
             ///
             /// Example: Body of the attachment
@@ -2788,11 +2653,6 @@ extension Paths.Gists.WithGistID.Comments {
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -3726,7 +3586,7 @@ extension Paths {
             }
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Describes the last point that notifications were checked.
             public var lastReadAt: Date?
             /// Whether the notification has been read.
@@ -3735,12 +3595,6 @@ extension Paths {
             public init(lastReadAt: Date? = nil, isRead: Bool? = nil) {
                 self.lastReadAt = lastReadAt
                 self.isRead = isRead
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.lastReadAt = try values.decodeIfPresent(Date.self, forKey: "last_read_at")
-                self.isRead = try values.decodeIfPresent(Bool.self, forKey: "read")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -3814,17 +3668,12 @@ extension Paths.Notifications.Threads.WithThreadID {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Whether to block all notifications from a thread.
             public var isIgnored: Bool?
 
             public init(isIgnored: Bool? = nil) {
                 self.isIgnored = isIgnored
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isIgnored = try values.decodeIfPresent(Bool.self, forKey: "ignored")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -3997,7 +3846,7 @@ extension Paths.Orgs {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Billing email address. This address is not publicized.
             public var billingEmail: String?
             /// Example: "http://github.blog"
@@ -4109,29 +3958,6 @@ extension Paths.Orgs {
                 self.twitterUsername = twitterUsername
             }
 
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.billingEmail = try values.decodeIfPresent(String.self, forKey: "billing_email")
-                self.blog = try values.decodeIfPresent(String.self, forKey: "blog")
-                self.company = try values.decodeIfPresent(String.self, forKey: "company")
-                self.defaultRepositoryPermission = try values.decodeIfPresent(DefaultRepositoryPermission.self, forKey: "default_repository_permission")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.email = try values.decodeIfPresent(String.self, forKey: "email")
-                self.hasOrganizationProjects = try values.decodeIfPresent(Bool.self, forKey: "has_organization_projects")
-                self.hasRepositoryProjects = try values.decodeIfPresent(Bool.self, forKey: "has_repository_projects")
-                self.location = try values.decodeIfPresent(String.self, forKey: "location")
-                self.membersAllowedRepositoryCreationType = try values.decodeIfPresent(MembersAllowedRepositoryCreationType.self, forKey: "members_allowed_repository_creation_type")
-                self.membersCanCreateInternalRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_internal_repositories")
-                self.membersCanCreatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_pages")
-                self.membersCanCreatePrivatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_pages")
-                self.membersCanCreatePrivateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_repositories")
-                self.membersCanCreatePublicPages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_pages")
-                self.membersCanCreatePublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_repositories")
-                self.membersCanCreateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_repositories")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
-            }
-
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(billingEmail, forKey: "billing_email")
@@ -4202,7 +4028,7 @@ extension Paths.Orgs.WithOrg.Actions {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
             public var allowedActions: github.AllowedActions?
             /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
@@ -4211,12 +4037,6 @@ extension Paths.Orgs.WithOrg.Actions {
             public init(allowedActions: github.AllowedActions? = nil, enabledRepositories: github.EnabledRepositories) {
                 self.allowedActions = allowedActions
                 self.enabledRepositories = enabledRepositories
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
-                self.enabledRepositories = try values.decode(github.EnabledRepositories.self, forKey: "enabled_repositories")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4296,17 +4116,12 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of repository IDs to enable for GitHub Actions.
             public var selectedRepositoryIDs: [Int]
 
             public init(selectedRepositoryIDs: [Int]) {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4448,7 +4263,7 @@ extension Paths.Orgs.WithOrg.Actions {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Whether the runner group can be used by `public` repositories.
             public var allowsPublicRepositories: Bool?
             /// Name of the runner group.
@@ -4473,15 +4288,6 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.runners = runners
                 self.selectedRepositoryIDs = selectedRepositoryIDs
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.runners = try values.decodeIfPresent([Int].self, forKey: "runners")
-                self.selectedRepositoryIDs = try values.decodeIfPresent([Int].self, forKey: "selected_repository_ids")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4531,7 +4337,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Whether the runner group can be used by `public` repositories.
             public var allowsPublicRepositories: Bool?
             /// Name of the runner group.
@@ -4550,13 +4356,6 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
                 self.allowsPublicRepositories = allowsPublicRepositories
                 self.name = name
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowsPublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "allows_public_repositories")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4654,17 +4453,12 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of repository IDs that can access the runner group.
             public var selectedRepositoryIDs: [Int]
 
             public init(selectedRepositoryIDs: [Int]) {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -4776,17 +4570,12 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of runner IDs to add to the runner group.
             public var runners: [Int]
 
             public init(runners: [Int]) {
                 self.runners = runners
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.runners = try values.decode([Int].self, forKey: "runners")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -5148,7 +4937,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint.
             public var encryptedValue: String?
             /// ID of the key you used to encrypt the secret.
@@ -5176,14 +4965,6 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
                 self.keyID = keyID
                 self.selectedRepositoryIDs = selectedRepositoryIDs
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.encryptedValue = try values.decodeIfPresent(String.self, forKey: "encrypted_value")
-                self.keyID = try values.decodeIfPresent(String.self, forKey: "key_id")
-                self.selectedRepositoryIDs = try values.decodeIfPresent([String].self, forKey: "selected_repository_ids")
-                self.visibility = try values.decode(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -5270,17 +5051,12 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints.
             public var selectedRepositoryIDs: [Int]
 
             public init(selectedRepositoryIDs: [Int]) {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -5676,7 +5452,7 @@ extension Paths.Orgs.WithOrg {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
             public var isActive: Bool?
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
@@ -5687,7 +5463,7 @@ extension Paths.Orgs.WithOrg {
             public var name: String
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
-            public struct Config: Codable {
+            public struct Config: Encodable {
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
                 /// Example: "json"
@@ -5713,16 +5489,6 @@ extension Paths.Orgs.WithOrg {
                     self.username = username
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                    self.password = try values.decodeIfPresent(String.self, forKey: "password")
-                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                    self.url = try values.decode(URL.self, forKey: "url")
-                    self.username = try values.decodeIfPresent(String.self, forKey: "username")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(contentType, forKey: "content_type")
@@ -5739,14 +5505,6 @@ extension Paths.Orgs.WithOrg {
                 self.config = config
                 self.events = events
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-                self.config = try values.decode(Config.self, forKey: "config")
-                self.events = try values.decodeIfPresent([String].self, forKey: "events")
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -5787,7 +5545,7 @@ extension Paths.Orgs.WithOrg.Hooks {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
             public var isActive: Bool?
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params).
@@ -5798,7 +5556,7 @@ extension Paths.Orgs.WithOrg.Hooks {
             public var name: String?
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params).
-            public struct Config: Codable {
+            public struct Config: Encodable {
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
                 /// Example: "json"
@@ -5818,14 +5576,6 @@ extension Paths.Orgs.WithOrg.Hooks {
                     self.url = url
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                    self.url = try values.decode(URL.self, forKey: "url")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(contentType, forKey: "content_type")
@@ -5840,14 +5590,6 @@ extension Paths.Orgs.WithOrg.Hooks {
                 self.config = config
                 self.events = events
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
-                self.events = try values.decodeIfPresent([String].self, forKey: "events")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -5907,7 +5649,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///   "secret" : "********",
         ///   "url" : 0
         /// }
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///
             /// Example: "json"
@@ -5925,14 +5667,6 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
                 self.insecureSSL = insecureSSL
                 self.secret = secret
                 self.url = url
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -6220,7 +5954,7 @@ extension Paths.Orgs.WithOrg {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// **Required unless you provide `invitee_id`**. Email address of the person you are inviting, which can be an existing GitHub user.
             public var email: String?
             /// **Required unless you provide `email`**. GitHub user ID for the person you are inviting.
@@ -6248,14 +5982,6 @@ extension Paths.Orgs.WithOrg {
                 self.inviteeID = inviteeID
                 self.role = role
                 self.teamIDs = teamIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.email = try values.decodeIfPresent(String.self, forKey: "email")
-                self.inviteeID = try values.decodeIfPresent(Int.self, forKey: "invitee_id")
-                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
-                self.teamIDs = try values.decodeIfPresent([Int].self, forKey: "team_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -6511,7 +6237,7 @@ extension Paths.Orgs.WithOrg.Memberships {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The role to give the user in the organization. Can be one of:  
             /// \* `admin` - The user will become an owner of the organization.  
             /// \* `member` - The user will become a non-owner member of the organization.
@@ -6527,11 +6253,6 @@ extension Paths.Orgs.WithOrg.Memberships {
 
             public init(role: Role? = nil) {
                 self.role = role
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -6605,7 +6326,7 @@ extension Paths.Orgs.WithOrg {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             public var exclude: [ExcludeItem]?
             /// Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
             ///
@@ -6637,16 +6358,6 @@ extension Paths.Orgs.WithOrg {
                 self.excludeReleases = excludeReleases
                 self.lockRepositories = lockRepositories
                 self.repositories = repositories
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.exclude = try values.decodeIfPresent([ExcludeItem].self, forKey: "exclude")
-                self.excludeAttachments = try values.decodeIfPresent(Bool.self, forKey: "exclude_attachments")
-                self.excludeOwnerProjects = try values.decodeIfPresent(Bool.self, forKey: "exclude_owner_projects")
-                self.excludeReleases = try values.decodeIfPresent(Bool.self, forKey: "exclude_releases")
-                self.lockRepositories = try values.decodeIfPresent(Bool.self, forKey: "lock_repositories")
-                self.repositories = try values.decode([String].self, forKey: "repositories")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -7098,7 +6809,7 @@ extension Paths.Orgs.WithOrg {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The description of the project.
             public var body: String?
             /// The name of the project.
@@ -7107,12 +6818,6 @@ extension Paths.Orgs.WithOrg {
             public init(body: String? = nil, name: String) {
                 self.body = body
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -7257,7 +6962,7 @@ extension Paths.Orgs.WithOrg {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
             public var allowAutoMerge: Bool?
             /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
@@ -7321,28 +7026,6 @@ extension Paths.Orgs.WithOrg {
                 self.isPrivate = isPrivate
                 self.teamID = teamID
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
-                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
-                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
-                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
-                self.isAutoInit = try values.decodeIfPresent(Bool.self, forKey: "auto_init")
-                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.gitignoreTemplate = try values.decodeIfPresent(String.self, forKey: "gitignore_template")
-                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
-                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
-                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
-                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
-                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
-                self.licenseTemplate = try values.decodeIfPresent(String.self, forKey: "license_template")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.teamID = try values.decodeIfPresent(Int.self, forKey: "team_id")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -7688,7 +7371,7 @@ extension Paths.Orgs.WithOrg {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The description of the team.
             public var description: String?
             /// List GitHub IDs for organization members who will become team maintainers.
@@ -7747,17 +7430,6 @@ extension Paths.Orgs.WithOrg {
                 self.repoNames = repoNames
             }
 
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.maintainers = try values.decodeIfPresent([String].self, forKey: "maintainers")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
-                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
-                self.repoNames = try values.decodeIfPresent([String].self, forKey: "repo_names")
-            }
-
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(description, forKey: "description")
@@ -7803,7 +7475,7 @@ extension Paths.Orgs.WithOrg.Teams {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The description of the team.
             public var description: String?
             /// The name of the team.
@@ -7850,15 +7522,6 @@ extension Paths.Orgs.WithOrg.Teams {
                 self.parentTeamID = parentTeamID
                 self.permission = permission
                 self.privacy = privacy
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
-                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -7949,7 +7612,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The discussion post's body text.
             public var body: String
             /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
@@ -7961,13 +7624,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.body = body
                 self.isPrivate = isPrivate
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.title = try values.decode(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8011,7 +7667,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The discussion post's body text.
             public var body: String?
             /// The discussion post's title.
@@ -8020,12 +7676,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
             public init(body: String? = nil, title: String? = nil) {
                 self.body = body
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8106,17 +7756,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The discussion comment's body text.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8158,17 +7803,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The discussion comment's body text.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8246,7 +7886,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
             public var content: Content
 
@@ -8264,11 +7904,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8357,7 +7992,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
             public var content: Content
 
@@ -8375,11 +8010,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8432,17 +8062,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// External Group Id
             public var groupID: Int
 
             public init(groupID: Int) {
                 self.groupID = groupID
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.groupID = try values.decode(Int.self, forKey: "group_id")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8615,7 +8240,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The role that this user should have in the team. Can be one of:  
             /// \* `member` - a normal member of the team.  
             /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
@@ -8631,11 +8256,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
 
             public init(role: Role? = nil) {
                 self.role = role
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8739,7 +8359,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant to the team for this project. Can be one of:  
             /// \* `read` - team members can read, but not write to or administer this project.  
             /// \* `write` - team members can read and write, but not administer this project.  
@@ -8760,11 +8380,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8881,7 +8496,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant the team on this repository. Can be one of:  
             /// \* `pull` - team members can pull, but not push to or administer this repository.  
             /// \* `push` - team members can pull and push, but not administer this repository.  
@@ -8912,11 +8527,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -8984,11 +8594,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
             public var groups: [Group]?
 
-            public struct Group: Codable {
+            public struct Group: Encodable {
                 /// Description of the IdP group.
                 public var groupDescription: String
                 /// ID of the IdP group.
@@ -9002,13 +8612,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
                     self.groupName = groupName
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.groupDescription = try values.decode(String.self, forKey: "group_description")
-                    self.groupID = try values.decode(String.self, forKey: "group_id")
-                    self.groupName = try values.decode(String.self, forKey: "group_name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(groupDescription, forKey: "group_description")
@@ -9019,11 +8622,6 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
 
             public init(groups: [Group]? = nil) {
                 self.groups = groups
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9137,7 +8735,7 @@ extension Paths.Projects.Columns.Cards {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Whether or not the card is archived
             ///
             /// Example: false
@@ -9150,12 +8748,6 @@ extension Paths.Projects.Columns.Cards {
             public init(isArchived: Bool? = nil, note: String? = nil) {
                 self.isArchived = isArchived
                 self.note = note
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
-                self.note = try values.decodeIfPresent(String.self, forKey: "note")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9190,7 +8782,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The unique identifier of the column the card should be moved to
             ///
             /// Example: 42
@@ -9203,12 +8795,6 @@ extension Paths.Projects.Columns.Cards.WithCardID {
             public init(columnID: Int? = nil, position: String) {
                 self.columnID = columnID
                 self.position = position
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.columnID = try values.decodeIfPresent(Int.self, forKey: "column_id")
-                self.position = try values.decode(String.self, forKey: "position")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9243,7 +8829,7 @@ extension Paths.Projects.Columns {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Name of the project column
             ///
             /// Example: Remaining tasks
@@ -9251,11 +8837,6 @@ extension Paths.Projects.Columns {
 
             public init(name: String) {
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9321,11 +8902,11 @@ extension Paths.Projects.Columns.WithColumnID {
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object1(Object1)
             case object2(Object2)
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 /// The project card's note
                 ///
                 /// Example: Update all gems
@@ -9335,18 +8916,13 @@ extension Paths.Projects.Columns.WithColumnID {
                     self.note = note
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.note = try values.decodeIfPresent(String.self, forKey: "note")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(note, forKey: "note")
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 /// The unique identifier of the content associated with the card
                 ///
                 /// Example: 42
@@ -9361,27 +8937,10 @@ extension Paths.Projects.Columns.WithColumnID {
                     self.contentType = contentType
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contentID = try values.decode(Int.self, forKey: "content_id")
-                    self.contentType = try values.decode(String.self, forKey: "content_type")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(contentID, forKey: "content_id")
                     try values.encode(contentType, forKey: "content_type")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object1.self) {
-                    self = .object1(value)
-                } else if let value = try? container.decode(Object2.self) {
-                    self = .object2(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -9412,7 +8971,7 @@ extension Paths.Projects.Columns.WithColumnID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The position of the column in a project. Can be one of: `first`, `last`, or `after:<column_id>` to place after the specified column.
             ///
             /// Example: last
@@ -9420,11 +8979,6 @@ extension Paths.Projects.Columns.WithColumnID {
 
             public init(position: String) {
                 self.position = position
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.position = try values.decode(String.self, forKey: "position")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9462,7 +9016,7 @@ extension Paths.Projects {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Body of the project
             ///
             /// Example: This project represents the sprint of the first week in January
@@ -9494,15 +9048,6 @@ extension Paths.Projects {
                 self.organizationPermission = organizationPermission
                 self.isPrivate = isPrivate
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.organizationPermission = try values.decodeIfPresent(OrganizationPermission.self, forKey: "organization_permission")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.state = try values.decodeIfPresent(String.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9589,7 +9134,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant the collaborator.
             ///
             /// Example: write
@@ -9606,11 +9151,6 @@ extension Paths.Projects.WithProjectID.Collaborators {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9698,7 +9238,7 @@ extension Paths.Projects.WithProjectID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Name of the project column
             ///
             /// Example: Remaining tasks
@@ -9706,11 +9246,6 @@ extension Paths.Projects.WithProjectID {
 
             public init(name: String) {
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -9832,7 +9367,7 @@ extension Paths.Repos.WithOwner {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
             public var allowAutoMerge: Bool?
             /// Either `true` to allow private forks, or `false` to prevent private forks.
@@ -9872,24 +9407,19 @@ extension Paths.Repos.WithOwner {
             public var visibility: Visibility?
 
             /// Specify which security and analysis features to enable or disable. For example, to enable GitHub Advanced Security, use this data in the body of the PATCH request: `{"security_and_analysis": {"advanced_security": {"status": "enabled"}}}`. If you have admin permissions for a private repository covered by an Advanced Security license, you can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request.
-            public struct SecurityAndAnalysis: Codable {
+            public struct SecurityAndAnalysis: Encodable {
                 /// Use the `status` property to enable or disable GitHub Advanced Security for this repository. For more information, see "[About GitHub Advanced Security](/github/getting-started-with-github/learning-about-github/about-github-advanced-security)."
                 public var advancedSecurity: AdvancedSecurity?
                 /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
                 public var secretScanning: SecretScanning?
 
                 /// Use the `status` property to enable or disable GitHub Advanced Security for this repository. For more information, see "[About GitHub Advanced Security](/github/getting-started-with-github/learning-about-github/about-github-advanced-security)."
-                public struct AdvancedSecurity: Codable {
+                public struct AdvancedSecurity: Encodable {
                     /// Can be `enabled` or `disabled`.
                     public var status: String?
 
                     public init(status: String? = nil) {
                         self.status = status
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.status = try values.decodeIfPresent(String.self, forKey: "status")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -9899,17 +9429,12 @@ extension Paths.Repos.WithOwner {
                 }
 
                 /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
-                public struct SecretScanning: Codable {
+                public struct SecretScanning: Encodable {
                     /// Can be `enabled` or `disabled`.
                     public var status: String?
 
                     public init(status: String? = nil) {
                         self.status = status
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.status = try values.decodeIfPresent(String.self, forKey: "status")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -9921,12 +9446,6 @@ extension Paths.Repos.WithOwner {
                 public init(advancedSecurity: AdvancedSecurity? = nil, secretScanning: SecretScanning? = nil) {
                     self.advancedSecurity = advancedSecurity
                     self.secretScanning = secretScanning
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.advancedSecurity = try values.decodeIfPresent(AdvancedSecurity.self, forKey: "advanced_security")
-                    self.secretScanning = try values.decodeIfPresent(SecretScanning.self, forKey: "secret_scanning")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -9962,28 +9481,6 @@ extension Paths.Repos.WithOwner {
                 self.isPrivate = isPrivate
                 self.securityAndAnalysis = securityAndAnalysis
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
-                self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking")
-                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
-                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
-                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
-                self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
-                self.defaultBranch = try values.decodeIfPresent(String.self, forKey: "default_branch")
-                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
-                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
-                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
-                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
-                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.securityAndAnalysis = try values.decodeIfPresent(SecurityAndAnalysis.self, forKey: "security_and_analysis")
-                self.visibility = try values.decodeIfPresent(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -10235,7 +9732,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
             public var allowedActions: github.AllowedActions?
             /// Whether GitHub Actions is enabled on the repository.
@@ -10244,12 +9741,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             public init(allowedActions: github.AllowedActions? = nil, isEnabled: Bool) {
                 self.allowedActions = allowedActions
                 self.isEnabled = isEnabled
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowedActions = try values.decodeIfPresent(github.AllowedActions.self, forKey: "allowed_actions")
-                self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -10937,7 +10428,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// A comment to accompany the deployment review
             ///
             /// Example: Ship it!
@@ -10968,13 +10459,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.comment = comment
                 self.environmentIDs = environmentIDs
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.comment = try values.decode(String.self, forKey: "comment")
-                self.environmentIDs = try values.decode([Int].self, forKey: "environment_ids")
-                self.state = try values.decode(State.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11204,7 +10688,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint.
             public var encryptedValue: String?
             /// ID of the key you used to encrypt the secret.
@@ -11213,12 +10697,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
             public init(encryptedValue: String? = nil, keyID: String? = nil) {
                 self.encryptedValue = encryptedValue
                 self.keyID = keyID
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.encryptedValue = try values.decodeIfPresent(String.self, forKey: "encrypted_value")
-                self.keyID = try values.decodeIfPresent(String.self, forKey: "key_id")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11355,7 +10833,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted.
             public var inputs: [String: String]?
             /// The git reference for the workflow. The reference can be a branch or tag name.
@@ -11364,12 +10842,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
             public init(inputs: [String: String]? = nil, ref: String) {
                 self.inputs = inputs
                 self.ref = ref
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.inputs = try values.decodeIfPresent([String: String].self, forKey: "inputs")
-                self.ref = try values.decode(String.self, forKey: "ref")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11617,7 +11089,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The prefix appended by a number will generate a link any time it is found in an issue, pull request, or commit.
             public var keyPrefix: String
             /// The URL must contain <num> for the reference number.
@@ -11626,12 +11098,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(keyPrefix: String, urlTemplate: String) {
                 self.keyPrefix = keyPrefix
                 self.urlTemplate = urlTemplate
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.keyPrefix = try values.decode(String.self, forKey: "key_prefix")
-                self.urlTemplate = try values.decode(String.self, forKey: "url_template")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11795,7 +11261,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation.
             public var allowDeletions: Bool?
             /// Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation."
@@ -11814,7 +11280,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             public var restrictions: Restrictions?
 
             /// Require at least one approving review on a pull request, before merging. Set to `null` to disable.
-            public struct RequiredPullRequestReviews: Codable {
+            public struct RequiredPullRequestReviews: Encodable {
                 /// Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
                 public var dismissStaleReviews: Bool?
                 /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
@@ -11825,7 +11291,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 public var requiredApprovingReviewCount: Int?
 
                 /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
-                public struct DismissalRestrictions: Codable {
+                public struct DismissalRestrictions: Encodable {
                     /// The list of team `slug`s with dismissal access
                     public var teams: [String]?
                     /// The list of user `login`s with dismissal access
@@ -11834,12 +11300,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     public init(teams: [String]? = nil, users: [String]? = nil) {
                         self.teams = teams
                         self.users = users
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.teams = try values.decodeIfPresent([String].self, forKey: "teams")
-                        self.users = try values.decodeIfPresent([String].self, forKey: "users")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -11856,14 +11316,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.requiredApprovingReviewCount = requiredApprovingReviewCount
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.dismissStaleReviews = try values.decodeIfPresent(Bool.self, forKey: "dismiss_stale_reviews")
-                    self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
-                    self.requireCodeOwnerReviews = try values.decodeIfPresent(Bool.self, forKey: "require_code_owner_reviews")
-                    self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
@@ -11874,7 +11326,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             }
 
             /// Require status checks to pass before merging. Set to `null` to disable.
-            public struct RequiredStatusChecks: Codable {
+            public struct RequiredStatusChecks: Encodable {
                 /// The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
                 public var contexts: [String]
                 /// Require branches to be up to date before merging.
@@ -11885,12 +11337,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.isStrict = isStrict
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contexts = try values.decode([String].self, forKey: "contexts")
-                    self.isStrict = try values.decode(Bool.self, forKey: "strict")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(contexts, forKey: "contexts")
@@ -11899,7 +11345,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             }
 
             /// Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable.
-            public struct Restrictions: Codable {
+            public struct Restrictions: Encodable {
                 /// The list of app `slug`s with push access
                 public var apps: [String]?
                 /// The list of team `slug`s with push access
@@ -11911,13 +11357,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.apps = apps
                     self.teams = teams
                     self.users = users
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.apps = try values.decodeIfPresent([String].self, forKey: "apps")
-                    self.teams = try values.decode([String].self, forKey: "teams")
-                    self.users = try values.decode([String].self, forKey: "users")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -11937,18 +11376,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 self.requiredPullRequestReviews = requiredPullRequestReviews
                 self.requiredStatusChecks = requiredStatusChecks
                 self.restrictions = restrictions
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowDeletions = try values.decodeIfPresent(Bool.self, forKey: "allow_deletions")
-                self.allowForcePushes = try values.decodeIfPresent(Bool.self, forKey: "allow_force_pushes")
-                self.enforceAdmins = try values.decodeIfPresent(Bool.self, forKey: "enforce_admins")
-                self.isRequiredConversationResolution = try values.decodeIfPresent(Bool.self, forKey: "required_conversation_resolution")
-                self.isRequiredLinearHistory = try values.decodeIfPresent(Bool.self, forKey: "required_linear_history")
-                self.requiredPullRequestReviews = try values.decodeIfPresent(RequiredPullRequestReviews.self, forKey: "required_pull_request_reviews")
-                self.requiredStatusChecks = try values.decodeIfPresent(RequiredStatusChecks.self, forKey: "required_status_checks")
-                self.restrictions = try values.decodeIfPresent(Restrictions.self, forKey: "restrictions")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12037,7 +11464,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
             public var dismissStaleReviews: Bool?
             /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
@@ -12048,7 +11475,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             public var requiredApprovingReviewCount: Int?
 
             /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
-            public struct DismissalRestrictions: Codable {
+            public struct DismissalRestrictions: Encodable {
                 /// The list of team `slug`s with dismissal access
                 public var teams: [String]?
                 /// The list of user `login`s with dismissal access
@@ -12057,12 +11484,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                 public init(teams: [String]? = nil, users: [String]? = nil) {
                     self.teams = teams
                     self.users = users
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.teams = try values.decodeIfPresent([String].self, forKey: "teams")
-                    self.users = try values.decodeIfPresent([String].self, forKey: "users")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -12077,14 +11498,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                 self.dismissalRestrictions = dismissalRestrictions
                 self.requireCodeOwnerReviews = requireCodeOwnerReviews
                 self.requiredApprovingReviewCount = requiredApprovingReviewCount
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.dismissStaleReviews = try values.decodeIfPresent(Bool.self, forKey: "dismiss_stale_reviews")
-                self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
-                self.requireCodeOwnerReviews = try values.decodeIfPresent(Bool.self, forKey: "require_code_owner_reviews")
-                self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12171,7 +11584,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The list of status checks to require in order to merge into this branch
             public var contexts: [String]?
             /// Require branches to be up to date before merging.
@@ -12180,12 +11593,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             public init(contexts: [String]? = nil, isStrict: Bool? = nil) {
                 self.contexts = contexts
                 self.isStrict = isStrict
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.contexts = try values.decodeIfPresent([String].self, forKey: "contexts")
-                self.isStrict = try values.decodeIfPresent(Bool.self, forKey: "strict")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12233,7 +11640,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12244,7 +11651,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
             ///     "contexts"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Contexts parameter
                 public var contexts: [String]
 
@@ -12252,25 +11659,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                     self.contexts = contexts
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contexts = try values.decode([String].self, forKey: "contexts")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(contexts, forKey: "contexts")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12292,7 +11683,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
             .put(path, body: body)
         }
 
-        public enum PutRequest: Codable {
+        public enum PutRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12303,7 +11694,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
             ///     "contexts"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Contexts parameter
                 public var contexts: [String]
 
@@ -12311,25 +11702,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                     self.contexts = contexts
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contexts = try values.decode([String].self, forKey: "contexts")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(contexts, forKey: "contexts")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12423,7 +11798,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12434,7 +11809,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "my-app"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Apps parameter
                 public var apps: [String]
 
@@ -12442,25 +11817,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.apps = apps
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.apps = try values.decode([String].self, forKey: "apps")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(apps, forKey: "apps")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12488,7 +11847,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .put(path, body: body)
         }
 
-        public enum PutRequest: Codable {
+        public enum PutRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12499,7 +11858,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "my-app"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Apps parameter
                 public var apps: [String]
 
@@ -12507,25 +11866,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.apps = apps
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.apps = try values.decode([String].self, forKey: "apps")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(apps, forKey: "apps")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12590,7 +11933,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12601,7 +11944,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "my-team"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Teams parameter
                 public var teams: [String]
 
@@ -12609,25 +11952,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.teams = teams
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.teams = try values.decode([String].self, forKey: "teams")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(teams, forKey: "teams")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12655,7 +11982,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .put(path, body: body)
         }
 
-        public enum PutRequest: Codable {
+        public enum PutRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12666,7 +11993,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "my-team"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Teams parameter
                 public var teams: [String]
 
@@ -12674,25 +12001,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.teams = teams
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.teams = try values.decode([String].self, forKey: "teams")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(teams, forKey: "teams")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12757,7 +12068,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12768,7 +12079,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "mona"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Users parameter
                 public var users: [String]
 
@@ -12776,25 +12087,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.users = users
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.users = try values.decode([String].self, forKey: "users")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(users, forKey: "users")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12822,7 +12117,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             .put(path, body: body)
         }
 
-        public enum PutRequest: Codable {
+        public enum PutRequest: Encodable {
             case object(Object)
             case strings([String])
 
@@ -12833,7 +12128,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
             ///     "mona"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Users parameter
                 public var users: [String]
 
@@ -12841,25 +12136,9 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                     self.users = users
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.users = try values.decode([String].self, forKey: "users")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(users, forKey: "users")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -12921,17 +12200,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The new name of the branch.
             public var newName: String
 
             public init(newName: String) {
                 self.newName = newName
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.newName = try values.decode(String.self, forKey: "new_name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12964,7 +12238,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)."
             public var actions: [Action]?
             /// The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -12987,7 +12261,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
             public var status: Status?
 
-            public struct Action: Codable {
+            public struct Action: Encodable {
                 /// A short explanation of what this action would do. The maximum size is 40 characters.
                 public var description: String
                 /// A reference for the action on the integrator's system. The maximum size is 20 characters.
@@ -12999,13 +12273,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.description = description
                     self.identifier = identifier
                     self.label = label
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.description = try values.decode(String.self, forKey: "description")
-                    self.identifier = try values.decode(String.self, forKey: "identifier")
-                    self.label = try values.decode(String.self, forKey: "label")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -13030,7 +12297,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             }
 
             /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description.
-            public struct Output: Codable {
+            public struct Output: Encodable {
                 /// Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter.
                 public var annotations: [Annotation]?
                 /// Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details.
@@ -13042,7 +12309,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 /// The title of the check run.
                 public var title: String
 
-                public struct Annotation: Codable {
+                public struct Annotation: Encodable {
                     /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
                     public var annotationLevel: AnnotationLevel
                     /// The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
@@ -13081,19 +12348,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.title = title
                     }
 
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.annotationLevel = try values.decode(AnnotationLevel.self, forKey: "annotation_level")
-                        self.endColumn = try values.decodeIfPresent(Int.self, forKey: "end_column")
-                        self.endLine = try values.decode(Int.self, forKey: "end_line")
-                        self.message = try values.decode(String.self, forKey: "message")
-                        self.path = try values.decode(String.self, forKey: "path")
-                        self.rawDetails = try values.decodeIfPresent(String.self, forKey: "raw_details")
-                        self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
-                        self.startLine = try values.decode(Int.self, forKey: "start_line")
-                        self.title = try values.decodeIfPresent(String.self, forKey: "title")
-                    }
-
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
                         try values.encode(annotationLevel, forKey: "annotation_level")
@@ -13108,7 +12362,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                     }
                 }
 
-                public struct Image: Codable {
+                public struct Image: Encodable {
                     /// The alternative text for the image.
                     public var alt: String
                     /// A short image description.
@@ -13120,13 +12374,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.alt = alt
                         self.caption = caption
                         self.imageURL = imageURL
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.alt = try values.decode(String.self, forKey: "alt")
-                        self.caption = try values.decodeIfPresent(String.self, forKey: "caption")
-                        self.imageURL = try values.decode(String.self, forKey: "image_url")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -13143,15 +12390,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.summary = summary
                     self.text = text
                     self.title = title
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.annotations = try values.decodeIfPresent([Annotation].self, forKey: "annotations")
-                    self.images = try values.decodeIfPresent([Image].self, forKey: "images")
-                    self.summary = try values.decode(String.self, forKey: "summary")
-                    self.text = try values.decodeIfPresent(String.self, forKey: "text")
-                    self.title = try values.decode(String.self, forKey: "title")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -13182,20 +12420,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.output = output
                 self.startedAt = startedAt
                 self.status = status
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.actions = try values.decodeIfPresent([Action].self, forKey: "actions")
-                self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
-                self.conclusion = try values.decodeIfPresent(Conclusion.self, forKey: "conclusion")
-                self.detailsURL = try values.decodeIfPresent(String.self, forKey: "details_url")
-                self.externalID = try values.decodeIfPresent(String.self, forKey: "external_id")
-                self.headSha = try values.decode(String.self, forKey: "head_sha")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.output = try values.decodeIfPresent(Output.self, forKey: "output")
-                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
-                self.status = try values.decodeIfPresent(Status.self, forKey: "status")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -13246,7 +12470,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)."
             public var actions: [Action]?
             /// The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -13267,7 +12491,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
             /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
             public var status: Status?
 
-            public struct Action: Codable {
+            public struct Action: Encodable {
                 /// A short explanation of what this action would do. The maximum size is 40 characters.
                 public var description: String
                 /// A reference for the action on the integrator's system. The maximum size is 20 characters.
@@ -13279,13 +12503,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.description = description
                     self.identifier = identifier
                     self.label = label
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.description = try values.decode(String.self, forKey: "description")
-                    self.identifier = try values.decode(String.self, forKey: "identifier")
-                    self.label = try values.decode(String.self, forKey: "label")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -13310,7 +12527,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
             }
 
             /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description.
-            public struct Output: Codable {
+            public struct Output: Encodable {
                 /// Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details.
                 public var annotations: [Annotation]?
                 /// Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details.
@@ -13322,7 +12539,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                 /// **Required**.
                 public var title: String?
 
-                public struct Annotation: Codable {
+                public struct Annotation: Encodable {
                     /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
                     public var annotationLevel: AnnotationLevel
                     /// The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
@@ -13361,19 +12578,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.title = title
                     }
 
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.annotationLevel = try values.decode(AnnotationLevel.self, forKey: "annotation_level")
-                        self.endColumn = try values.decodeIfPresent(Int.self, forKey: "end_column")
-                        self.endLine = try values.decode(Int.self, forKey: "end_line")
-                        self.message = try values.decode(String.self, forKey: "message")
-                        self.path = try values.decode(String.self, forKey: "path")
-                        self.rawDetails = try values.decodeIfPresent(String.self, forKey: "raw_details")
-                        self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
-                        self.startLine = try values.decode(Int.self, forKey: "start_line")
-                        self.title = try values.decodeIfPresent(String.self, forKey: "title")
-                    }
-
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
                         try values.encode(annotationLevel, forKey: "annotation_level")
@@ -13388,7 +12592,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     }
                 }
 
-                public struct Image: Codable {
+                public struct Image: Encodable {
                     /// The alternative text for the image.
                     public var alt: String
                     /// A short image description.
@@ -13400,13 +12604,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.alt = alt
                         self.caption = caption
                         self.imageURL = imageURL
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.alt = try values.decode(String.self, forKey: "alt")
-                        self.caption = try values.decodeIfPresent(String.self, forKey: "caption")
-                        self.imageURL = try values.decode(String.self, forKey: "image_url")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -13423,15 +12620,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.summary = summary
                     self.text = text
                     self.title = title
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.annotations = try values.decodeIfPresent([Annotation].self, forKey: "annotations")
-                    self.images = try values.decodeIfPresent([Image].self, forKey: "images")
-                    self.summary = try values.decode(String.self, forKey: "summary")
-                    self.text = try values.decodeIfPresent(String.self, forKey: "text")
-                    self.title = try values.decodeIfPresent(String.self, forKey: "title")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -13461,19 +12649,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                 self.output = output
                 self.startedAt = startedAt
                 self.status = status
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.actions = try values.decodeIfPresent([Action].self, forKey: "actions")
-                self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
-                self.conclusion = try values.decodeIfPresent(Conclusion.self, forKey: "conclusion")
-                self.detailsURL = try values.decodeIfPresent(String.self, forKey: "details_url")
-                self.externalID = try values.decodeIfPresent(String.self, forKey: "external_id")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.output = try values.decodeIfPresent(Output.self, forKey: "output")
-                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
-                self.status = try values.decodeIfPresent(Status.self, forKey: "status")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -13570,17 +12745,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The sha of the head commit.
             public var headSha: String
 
             public init(headSha: String) {
                 self.headSha = headSha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.headSha = try values.decode(String.self, forKey: "head_sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -13609,11 +12779,11 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details.
             public var autoTriggerChecks: [AutoTriggerCheck]?
 
-            public struct AutoTriggerCheck: Codable {
+            public struct AutoTriggerCheck: Encodable {
                 /// The `id` of the GitHub App.
                 public var appID: Int
                 /// Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them.
@@ -13622,12 +12792,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                 public init(appID: Int, isSetting: Bool) {
                     self.appID = appID
                     self.isSetting = isSetting
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.appID = try values.decode(Int.self, forKey: "app_id")
-                    self.isSetting = try values.decode(Bool.self, forKey: "setting")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -13639,11 +12803,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
 
             public init(autoTriggerChecks: [AutoTriggerCheck]? = nil) {
                 self.autoTriggerChecks = autoTriggerChecks
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.autoTriggerChecks = try values.decodeIfPresent([AutoTriggerCheck].self, forKey: "auto_trigger_checks")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -13862,7 +13021,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
             public var dismissedReason: github.CodeScanningAlertDismissedReason?
             /// Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
@@ -13871,12 +13030,6 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
             public init(dismissedReason: github.CodeScanningAlertDismissedReason? = nil, state: github.CodeScanningAlertSetState) {
                 self.dismissedReason = dismissedReason
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.dismissedReason = try values.decodeIfPresent(github.CodeScanningAlertDismissedReason.self, forKey: "dismissed_reason")
-                self.state = try values.decode(github.CodeScanningAlertSetState.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14171,7 +13324,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The base directory used in the analysis, as it appears in the SARIF file.
             /// This property is used to convert file paths from absolute to relative, so that alerts can be mapped to their correct location in the repository.
             public var checkoutUri: URL?
@@ -14194,16 +13347,6 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.sarif = sarif
                 self.startedAt = startedAt
                 self.toolName = toolName
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.checkoutUri = try values.decodeIfPresent(URL.self, forKey: "checkout_uri")
-                self.commitSha = try values.decode(String.self, forKey: "commit_sha")
-                self.ref = try values.decode(String.self, forKey: "ref")
-                self.sarif = try values.decode(String.self, forKey: "sarif")
-                self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
-                self.toolName = try values.decodeIfPresent(String.self, forKey: "tool_name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14307,7 +13450,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Location for this codespace
             public var location: String
             /// Machine type to use for this codespace
@@ -14322,14 +13465,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.machine = machine
                 self.ref = ref
                 self.workingDirectory = workingDirectory
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.location = try values.decode(String.self, forKey: "location")
-                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
-                self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
-                self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14485,7 +13620,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:  
             /// \* `pull` - can pull, but not push to or administer this repository.  
             /// \* `push` - can pull and push, but not administer this repository.  
@@ -14515,12 +13650,6 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
             public init(permission: Permission? = nil, permissions: String? = nil) {
                 self.permission = permission
                 self.permissions = permissions
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
-                self.permissions = try values.decodeIfPresent(String.self, forKey: "permissions")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14629,17 +13758,12 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The contents of the comment
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14709,7 +13833,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment.
             public var content: Content
 
@@ -14727,11 +13851,6 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -14942,7 +14061,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The contents of the comment.
             public var body: String
             /// **Deprecated**. Use **position** parameter instead. Line number in the file to comment on.
@@ -14957,14 +14076,6 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
                 self.line = line
                 self.path = path
                 self.position = position
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
-                self.line = try values.decodeIfPresent(Int.self, forKey: "line")
-                self.path = try values.decodeIfPresent(String.self, forKey: "path")
-                self.position = try values.decodeIfPresent(Int.self, forKey: "position")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -15517,7 +14628,7 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The body of the attachment
             ///
             /// Example: Body of the attachment
@@ -15530,12 +14641,6 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
             public init(body: String, title: String) {
                 self.body = body
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
-                self.title = try values.decode(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -15607,7 +14712,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
             .get(path, query: parameters.asQuery())
         }
 
-        public enum GetResponse: Codable {
+        public enum GetResponse: Decodable {
             case contentDirectory(github.ContentDirectory)
             case contentFile(github.ContentFile)
             case contentSymlink(github.ContentSymlink)
@@ -15625,16 +14730,6 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self = .contentSubmodule(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                }
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
-                switch self {
-                case .contentDirectory(let value): try container.encode(value)
-                case .contentFile(let value): try container.encode(value)
-                case .contentSymlink(let value): try container.encode(value)
-                case .contentSubmodule(let value): try container.encode(value)
                 }
             }
         }
@@ -15664,7 +14759,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
             public var author: Author?
             /// The branch name. Default: the repository’s default branch (usually `master`)
@@ -15679,7 +14774,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
             public var sha: String?
 
             /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
-            public struct Author: Codable {
+            public struct Author: Encodable {
                 /// Example: "2013-01-15T17:13:22+05:00"
                 public var date: String?
                 /// The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
@@ -15693,13 +14788,6 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.name = name
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.date = try values.decodeIfPresent(String.self, forKey: "date")
-                    self.email = try values.decode(String.self, forKey: "email")
-                    self.name = try values.decode(String.self, forKey: "name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(date, forKey: "date")
@@ -15709,7 +14797,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
             }
 
             /// The person that committed the file. Default: the authenticated user.
-            public struct Committer: Codable {
+            public struct Committer: Encodable {
                 /// Example: "2013-01-05T13:13:22+05:00"
                 public var date: String?
                 /// The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
@@ -15721,13 +14809,6 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.date = date
                     self.email = email
                     self.name = name
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.date = try values.decodeIfPresent(String.self, forKey: "date")
-                    self.email = try values.decode(String.self, forKey: "email")
-                    self.name = try values.decode(String.self, forKey: "name")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -15745,16 +14826,6 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.content = content
                 self.message = message
                 self.sha = sha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.author = try values.decodeIfPresent(Author.self, forKey: "author")
-                self.branch = try values.decodeIfPresent(String.self, forKey: "branch")
-                self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
-                self.content = try values.decode(String.self, forKey: "content")
-                self.message = try values.decode(String.self, forKey: "message")
-                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -15953,7 +15024,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
             public var isAutoMerge: Bool?
             /// Short description of the deployment.
@@ -15972,20 +15043,9 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
             public var isTransientEnvironment: Bool?
 
-            public enum Payload: Codable {
+            public enum Payload: Encodable {
                 case object([String: AnyJSON])
                 case string(String)
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode([String: AnyJSON].self) {
-                        self = .object(value)
-                    } else if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                    }
-                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -16006,19 +15066,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.requiredContexts = requiredContexts
                 self.task = task
                 self.isTransientEnvironment = isTransientEnvironment
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "auto_merge")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
-                self.payload = try values.decodeIfPresent(Payload.self, forKey: "payload")
-                self.isProductionEnvironment = try values.decodeIfPresent(Bool.self, forKey: "production_environment")
-                self.ref = try values.decode(String.self, forKey: "ref")
-                self.requiredContexts = try values.decodeIfPresent([String].self, forKey: "required_contexts")
-                self.task = try values.decodeIfPresent(String.self, forKey: "task")
-                self.isTransientEnvironment = try values.decodeIfPresent(Bool.self, forKey: "transient_environment")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16129,7 +15176,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
             public var isAutoInactive: Bool?
             /// A short description of the status. The maximum description length is 140 characters.
@@ -16171,17 +15218,6 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
                 self.logURL = logURL
                 self.state = state
                 self.targetURL = targetURL
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isAutoInactive = try values.decodeIfPresent(Bool.self, forKey: "auto_inactive")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.environment = try values.decodeIfPresent(Environment.self, forKey: "environment")
-                self.environmentURL = try values.decodeIfPresent(String.self, forKey: "environment_url")
-                self.logURL = try values.decodeIfPresent(String.self, forKey: "log_url")
-                self.state = try values.decode(State.self, forKey: "state")
-                self.targetURL = try values.decodeIfPresent(String.self, forKey: "target_url")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16245,7 +15281,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// JSON payload with extra information about the webhook event that your action or worklow may use.
             public var clientPayload: [String: AnyJSON]?
             /// A custom webhook event name.
@@ -16254,12 +15290,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(clientPayload: [String: AnyJSON]? = nil, eventType: String) {
                 self.clientPayload = clientPayload
                 self.eventType = eventType
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.clientPayload = try values.decodeIfPresent([String: AnyJSON].self, forKey: "client_payload")
-                self.eventType = try values.decode(String.self, forKey: "event_type")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16343,7 +15373,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
             public var deploymentBranchPolicy: github.DeploymentBranchPolicy?
             /// The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
@@ -16353,7 +15383,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
             /// Example: 30
             public var waitTimer: Int?
 
-            public struct Reviewer: Codable {
+            public struct Reviewer: Encodable {
                 /// The id of the user or team who can review the deployment
                 ///
                 /// Example: 4532992
@@ -16368,12 +15398,6 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                     self.type = type
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-                    self.type = try values.decodeIfPresent(github.DeploymentReviewerType.self, forKey: "type")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(id, forKey: "id")
@@ -16385,13 +15409,6 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                 self.deploymentBranchPolicy = deploymentBranchPolicy
                 self.reviewers = reviewers
                 self.waitTimer = waitTimer
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.deploymentBranchPolicy = try values.decodeIfPresent(github.DeploymentBranchPolicy.self, forKey: "deployment_branch_policy")
-                self.reviewers = try values.decodeIfPresent([Reviewer].self, forKey: "reviewers")
-                self.waitTimer = try values.decodeIfPresent(Int.self, forKey: "wait_timer")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16504,17 +15521,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Optional parameter to specify the organization name if forking into an organization.
             public var organization: String?
 
             public init(organization: String? = nil) {
                 self.organization = organization
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.organization = try values.decodeIfPresent(String.self, forKey: "organization")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16556,7 +15568,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The new blob's content.
             public var content: String
             /// The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported.
@@ -16565,12 +15577,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public init(content: String, encoding: String? = nil) {
                 self.content = content
                 self.encoding = encoding
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(String.self, forKey: "content")
-                self.encoding = try values.decodeIfPresent(String.self, forKey: "encoding")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16655,7 +15661,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details.
             public var author: Author?
             /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
@@ -16670,7 +15676,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public var tree: String
 
             /// Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details.
-            public struct Author: Codable {
+            public struct Author: Encodable {
                 /// Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
                 public var date: Date?
                 /// The email of the author (or committer) of the commit
@@ -16684,13 +15690,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.name = name
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
-                    self.email = try values.decode(String.self, forKey: "email")
-                    self.name = try values.decode(String.self, forKey: "name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(date, forKey: "date")
@@ -16700,7 +15699,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             }
 
             /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
-            public struct Committer: Codable {
+            public struct Committer: Encodable {
                 /// Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
                 public var date: Date?
                 /// The email of the author (or committer) of the commit
@@ -16712,13 +15711,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.date = date
                     self.email = email
                     self.name = name
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
-                    self.email = try values.decodeIfPresent(String.self, forKey: "email")
-                    self.name = try values.decodeIfPresent(String.self, forKey: "name")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -16736,16 +15728,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.parents = parents
                 self.signature = signature
                 self.tree = tree
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.author = try values.decodeIfPresent(Author.self, forKey: "author")
-                self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
-                self.message = try values.decode(String.self, forKey: "message")
-                self.parents = try values.decodeIfPresent([String].self, forKey: "parents")
-                self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
-                self.tree = try values.decode(String.self, forKey: "tree")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16927,7 +15909,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Example: "refs/heads/newbranch"
             public var key: String?
             /// The name of the fully qualified reference (ie: `refs/heads/master`). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.
@@ -16939,13 +15921,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.key = key
                 self.ref = ref
                 self.sha = sha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.key = try values.decodeIfPresent(String.self, forKey: "key")
-                self.ref = try values.decode(String.self, forKey: "ref")
-                self.sha = try values.decode(String.self, forKey: "sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -16974,7 +15949,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
             public var isForce: Bool?
             /// The SHA1 value to set this reference to
@@ -16983,12 +15958,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
             public init(isForce: Bool? = nil, sha: String) {
                 self.isForce = isForce
                 self.sha = sha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isForce = try values.decodeIfPresent(Bool.self, forKey: "force")
-                self.sha = try values.decode(String.self, forKey: "sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17058,7 +16027,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The tag message.
             public var message: String
             /// The SHA of the git object this is tagging.
@@ -17071,7 +16040,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public var type: `Type`
 
             /// An object with information about the individual creating the tag.
-            public struct Tagger: Codable {
+            public struct Tagger: Encodable {
                 /// When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
                 public var date: Date?
                 /// The email of the author of the tag
@@ -17083,13 +16052,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.date = date
                     self.email = email
                     self.name = name
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.date = try values.decodeIfPresent(Date.self, forKey: "date")
-                    self.email = try values.decode(String.self, forKey: "email")
-                    self.name = try values.decode(String.self, forKey: "name")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -17113,15 +16075,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.tag = tag
                 self.tagger = tagger
                 self.type = type
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.message = try values.decode(String.self, forKey: "message")
-                self.object = try values.decode(String.self, forKey: "object")
-                self.tag = try values.decode(String.self, forKey: "tag")
-                self.tagger = try values.decodeIfPresent(Tagger.self, forKey: "tagger")
-                self.type = try values.decode(`Type`.self, forKey: "type")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17207,7 +16160,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
             /// If not provided, GitHub will create a new Git tree object from only the entries defined in the `tree` parameter. If you create a new commit pointing to such a tree, then all files which were a part of the parent commit's tree and were not defined in the `tree` parameter will be listed as deleted by the new commit.
             /// 
@@ -17215,7 +16168,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             /// Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure.
             public var tree: [TreeItem]
 
-            public struct TreeItem: Codable {
+            public struct TreeItem: Encodable {
                 /// The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.  
                 ///   
                 /// **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
@@ -17255,15 +16208,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.type = type
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.content = try values.decodeIfPresent(String.self, forKey: "content")
-                    self.mode = try values.decodeIfPresent(Mode.self, forKey: "mode")
-                    self.path = try values.decodeIfPresent(String.self, forKey: "path")
-                    self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
-                    self.type = try values.decodeIfPresent(`Type`.self, forKey: "type")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(content, forKey: "content")
@@ -17277,12 +16221,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public init(baseTree: String? = nil, tree: [TreeItem]) {
                 self.baseTree = baseTree
                 self.tree = tree
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.baseTree = try values.decodeIfPresent(String.self, forKey: "base_tree")
-                self.tree = try values.decode([TreeItem].self, forKey: "tree")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17387,7 +16325,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
             public var isActive: Bool?
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
@@ -17398,7 +16336,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var name: String?
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
-            public struct Config: Codable {
+            public struct Config: Encodable {
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
                 /// Example: "json"
@@ -17424,16 +16362,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.url = url
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.digest = try values.decodeIfPresent(String.self, forKey: "digest")
-                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                    self.token = try values.decodeIfPresent(String.self, forKey: "token")
-                    self.url = try values.decodeIfPresent(URL.self, forKey: "url")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(contentType, forKey: "content_type")
@@ -17450,14 +16378,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.config = config
                 self.events = events
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
-                self.events = try values.decodeIfPresent([String].self, forKey: "events")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17498,7 +16418,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
             public var isActive: Bool?
             /// Determines a list of events to be added to the list of events that the Hook triggers for.
@@ -17511,7 +16431,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
             public var removeEvents: [String]?
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
-            public struct Config: Codable {
+            public struct Config: Encodable {
                 /// Example: "bar@example.com"
                 public var address: String?
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
@@ -17537,16 +16457,6 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                     self.url = url
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.address = try values.decodeIfPresent(String.self, forKey: "address")
-                    self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                    self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                    self.room = try values.decodeIfPresent(String.self, forKey: "room")
-                    self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                    self.url = try values.decode(URL.self, forKey: "url")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(address, forKey: "address")
@@ -17564,15 +16474,6 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 self.config = config
                 self.events = events
                 self.removeEvents = removeEvents
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
-                self.addEvents = try values.decodeIfPresent([String].self, forKey: "add_events")
-                self.config = try values.decodeIfPresent(Config.self, forKey: "config")
-                self.events = try values.decodeIfPresent([String].self, forKey: "events")
-                self.removeEvents = try values.decodeIfPresent([String].self, forKey: "remove_events")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17633,7 +16534,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///   "secret" : "********",
         ///   "url" : 0
         /// }
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///
             /// Example: "json"
@@ -17651,14 +16552,6 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
                 self.insecureSSL = insecureSSL
                 self.secret = secret
                 self.url = url
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
-                self.insecureSSL = try values.decodeIfPresent(github.WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
-                self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
-                self.url = try values.decodeIfPresent(URL.self, forKey: "url")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17836,7 +16729,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// For a tfvc import, the name of the project that is being imported.
             public var tfvcProject: String?
             /// The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response.
@@ -17864,15 +16757,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.vcsUsername = vcsUsername
             }
 
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
-                self.vcs = try values.decodeIfPresent(Vcs.self, forKey: "vcs")
-                self.vcsPassword = try values.decodeIfPresent(String.self, forKey: "vcs_password")
-                self.vcsURL = try values.decode(String.self, forKey: "vcs_url")
-                self.vcsUsername = try values.decodeIfPresent(String.self, forKey: "vcs_username")
-            }
-
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
@@ -17893,7 +16777,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Example: "project1"
             public var tfvcProject: String?
             /// Example: "git"
@@ -17908,14 +16792,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.vcs = vcs
                 self.vcsPassword = vcsPassword
                 self.vcsUsername = vcsUsername
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
-                self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
-                self.vcsPassword = try values.decodeIfPresent(String.self, forKey: "vcs_password")
-                self.vcsUsername = try values.decodeIfPresent(String.self, forKey: "vcs_username")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -17994,7 +16870,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The new Git author email.
             public var email: String?
             /// The new Git author name.
@@ -18003,12 +16879,6 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
             public init(email: String? = nil, name: String? = nil) {
                 self.email = email
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.email = try values.decodeIfPresent(String.self, forKey: "email")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18058,7 +16928,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
             public var useLfs: UseLfs
 
@@ -18070,11 +16940,6 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
 
             public init(useLfs: UseLfs) {
                 self.useLfs = useLfs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.useLfs = try values.decode(UseLfs.self, forKey: "use_lfs")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18218,7 +17083,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
             public var permissions: Permissions?
 
@@ -18233,11 +17098,6 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
 
             public init(permissions: Permissions? = nil) {
                 self.permissions = permissions
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18343,7 +17203,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_
             public var assignee: String?
             /// Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
@@ -18356,11 +17216,11 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// The title of the issue.
             public var title: Title
 
-            public enum Label: Codable {
+            public enum Label: Encodable {
                 case string(String)
                 case object(Object)
 
-                public struct Object: Codable {
+                public struct Object: Encodable {
                     public var color: String?
                     public var description: String?
                     public var id: Int?
@@ -18373,31 +17233,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.name = name
                     }
 
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.color = try values.decodeIfPresent(String.self, forKey: "color")
-                        self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-                        self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                    }
-
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
                         try values.encodeIfPresent(color, forKey: "color")
                         try values.encodeIfPresent(description, forKey: "description")
                         try values.encodeIfPresent(id, forKey: "id")
                         try values.encodeIfPresent(name, forKey: "name")
-                    }
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Object.self) {
-                        self = .object(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                     }
                 }
 
@@ -18410,20 +17251,9 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public enum Milestone: Codable, Hashable {
+            public enum Milestone: Encodable, Hashable {
                 case string(String)
                 case int(Int)
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Int.self) {
-                        self = .int(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                    }
-                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -18434,20 +17264,9 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public enum Title: Codable, Hashable {
+            public enum Title: Encodable, Hashable {
                 case string(String)
                 case int(Int)
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Int.self) {
-                        self = .int(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                    }
-                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -18465,16 +17284,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.labels = labels
                 self.milestone = milestone
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.assignee = try values.decodeIfPresent(String.self, forKey: "assignee")
-                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
-                self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
-                self.title = try values.decode(Title.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18558,17 +17367,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The contents of the comment.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18638,7 +17442,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment.
             public var content: Content
 
@@ -18656,11 +17460,6 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18791,7 +17590,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Login for the user that this issue should be assigned to. **This field is deprecated.**
             public var assignee: String?
             /// Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
@@ -18806,11 +17605,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             /// The title of the issue.
             public var title: Title?
 
-            public enum Label: Codable {
+            public enum Label: Encodable {
                 case string(String)
                 case object(Object)
 
-                public struct Object: Codable {
+                public struct Object: Encodable {
                     public var color: String?
                     public var description: String?
                     public var id: Int?
@@ -18823,31 +17622,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                         self.name = name
                     }
 
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.color = try values.decodeIfPresent(String.self, forKey: "color")
-                        self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-                        self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                    }
-
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
                         try values.encodeIfPresent(color, forKey: "color")
                         try values.encodeIfPresent(description, forKey: "description")
                         try values.encodeIfPresent(id, forKey: "id")
                         try values.encodeIfPresent(name, forKey: "name")
-                    }
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Object.self) {
-                        self = .object(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                     }
                 }
 
@@ -18860,20 +17640,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 }
             }
 
-            public enum Milestone: Codable, Hashable {
+            public enum Milestone: Encodable, Hashable {
                 case string(String)
                 case int(Int)
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Int.self) {
-                        self = .int(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                    }
-                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -18890,20 +17659,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 case closed
             }
 
-            public enum Title: Codable, Hashable {
+            public enum Title: Encodable, Hashable {
                 case string(String)
                 case int(Int)
-
-                public init(from decoder: Decoder) throws {
-                    let container = try decoder.singleValueContainer()
-                    if let value = try? container.decode(String.self) {
-                        self = .string(value)
-                    } else if let value = try? container.decode(Int.self) {
-                        self = .int(value)
-                    } else {
-                        throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                    }
-                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -18922,17 +17680,6 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 self.milestone = milestone
                 self.state = state
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.assignee = try values.decodeIfPresent(String.self, forKey: "assignee")
-                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
-                self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
-                self.state = try values.decodeIfPresent(State.self, forKey: "state")
-                self.title = try values.decodeIfPresent(Title.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -18967,17 +17714,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._
             public var assignees: [String]?
 
             public init(assignees: [String]? = nil) {
                 self.assignees = assignees
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.assignees = try values.decodeIfPresent([String].self, forKey: "assignees")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19053,17 +17795,12 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The contents of the comment.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19165,24 +17902,19 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object1(Object1)
             case strings([String])
             case object2(Object2)
             case object3([Object3Item])
             case string(String)
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 /// The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
                 public var labels: [String]?
 
                 public init(labels: [String]? = nil) {
                     self.labels = labels
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.labels = try values.decodeIfPresent([String].self, forKey: "labels")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -19191,19 +17923,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 public var labels: [Label]?
 
-                public struct Label: Codable {
+                public struct Label: Encodable {
                     public var name: String
 
                     public init(name: String) {
                         self.name = name
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.name = try values.decode(String.self, forKey: "name")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -19216,49 +17943,22 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     self.labels = labels
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
-            public struct Object3Item: Codable {
+            public struct Object3Item: Encodable {
                 public var name: String
 
                 public init(name: String) {
                     self.name = name
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.name = try values.decode(String.self, forKey: "name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(name, forKey: "name")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object1.self) {
-                    self = .object1(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else if let value = try? container.decode(Object2.self) {
-                    self = .object2(value)
-                } else if let value = try? container.decode([Object3Item].self) {
-                    self = .object3(value)
-                } else if let value = try? container.decode(String.self) {
-                    self = .string(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -19283,24 +17983,19 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .put(path, body: body)
         }
 
-        public enum PutRequest: Codable {
+        public enum PutRequest: Encodable {
             case object1(Object1)
             case strings([String])
             case object2(Object2)
             case object3([Object3Item])
             case string(String)
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 /// The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
                 public var labels: [String]?
 
                 public init(labels: [String]? = nil) {
                     self.labels = labels
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.labels = try values.decodeIfPresent([String].self, forKey: "labels")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -19309,19 +18004,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 public var labels: [Label]?
 
-                public struct Label: Codable {
+                public struct Label: Encodable {
                     public var name: String
 
                     public init(name: String) {
                         self.name = name
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.name = try values.decode(String.self, forKey: "name")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -19334,49 +18024,22 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     self.labels = labels
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.labels = try values.decodeIfPresent([Label].self, forKey: "labels")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
-            public struct Object3Item: Codable {
+            public struct Object3Item: Encodable {
                 public var name: String
 
                 public init(name: String) {
                     self.name = name
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.name = try values.decode(String.self, forKey: "name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(name, forKey: "name")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object1.self) {
-                    self = .object1(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else if let value = try? container.decode(Object2.self) {
-                    self = .object2(value)
-                } else if let value = try? container.decode([Object3Item].self) {
-                    self = .object3(value)
-                } else if let value = try? container.decode(String.self) {
-                    self = .string(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -19441,7 +18104,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  
             /// \* `off-topic`  
             /// \* `too heated`  
@@ -19463,11 +18126,6 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public init(lockReason: LockReason? = nil) {
                 self.lockReason = lockReason
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.lockReason = try values.decodeIfPresent(LockReason.self, forKey: "lock_reason")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19539,7 +18197,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue.
             public var content: Content
 
@@ -19557,11 +18215,6 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19691,7 +18344,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The contents of the key.
             public var key: String
             /// If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.  
@@ -19705,13 +18358,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.key = key
                 self.isReadOnly = isReadOnly
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.key = try values.decode(String.self, forKey: "key")
-                self.isReadOnly = try values.decodeIfPresent(Bool.self, forKey: "read_only")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19803,7 +18449,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
             public var color: String?
             /// A short description of the label.
@@ -19815,13 +18461,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.color = color
                 self.description = description
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.color = try values.decodeIfPresent(String.self, forKey: "color")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19857,7 +18496,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
             public var color: String?
             /// A short description of the label.
@@ -19869,13 +18508,6 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
                 self.color = color
                 self.description = description
                 self.newName = newName
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.color = try values.decodeIfPresent(String.self, forKey: "color")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.newName = try values.decodeIfPresent(String.self, forKey: "new_name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -19977,17 +18609,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The name of the branch which should be updated to match upstream.
             public var branch: String
 
             public init(branch: String) {
                 self.branch = branch
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.branch = try values.decode(String.self, forKey: "branch")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20014,7 +18641,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The name of the base branch that the head will be merged into.
             public var base: String
             /// Commit message to use for the merge commit. If omitted, a default message will be used.
@@ -20026,13 +18653,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.base = base
                 self.commitMessage = commitMessage
                 self.head = head
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.base = try values.decode(String.self, forKey: "base")
-                self.commitMessage = try values.decodeIfPresent(String.self, forKey: "commit_message")
-                self.head = try values.decode(String.self, forKey: "head")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20097,7 +18717,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// A description of the milestone.
             public var description: String?
             /// The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -20118,14 +18738,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.dueOn = dueOn
                 self.state = state
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
-                self.state = try values.decodeIfPresent(State.self, forKey: "state")
-                self.title = try values.decode(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20162,7 +18774,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// A description of the milestone.
             public var description: String?
             /// The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -20183,14 +18795,6 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
                 self.dueOn = dueOn
                 self.state = state
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
-                self.state = try values.decodeIfPresent(State.self, forKey: "state")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20332,17 +18936,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             }
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
             public var lastReadAt: Date?
 
             public init(lastReadAt: Date? = nil) {
                 self.lastReadAt = lastReadAt
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.lastReadAt = try values.decodeIfPresent(Date.self, forKey: "last_read_at")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20379,12 +18978,12 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         /// The source branch and directory used to publish your Pages site.
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The source branch and directory used to publish your Pages site.
             public var source: Source
 
             /// The source branch and directory used to publish your Pages site.
-            public struct Source: Codable {
+            public struct Source: Encodable {
                 /// The repository branch used to publish your site's source files.
                 public var branch: String
                 /// The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
@@ -20401,12 +19000,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.path = path
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.branch = try values.decode(String.self, forKey: "branch")
-                    self.path = try values.decodeIfPresent(Path.self, forKey: "path")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(branch, forKey: "branch")
@@ -20416,11 +19009,6 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public init(source: Source) {
                 self.source = source
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.source = try values.decode(Source.self, forKey: "source")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20438,22 +19026,17 @@ extension Paths.Repos.WithOwner.WithRepo {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             public var object1: Object1?
             public var object2: Object2?
             public var object3: Object3?
             public var object4: Object4?
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 public var source: AnyJSON
 
                 public init(source: AnyJSON) {
                     self.source = source
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.source = try values.decode(AnyJSON.self, forKey: "source")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -20462,16 +19045,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 public var cname: AnyJSON
 
                 public init(cname: AnyJSON) {
                     self.cname = cname
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.cname = try values.decode(AnyJSON.self, forKey: "cname")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -20480,16 +19058,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public struct Object3: Codable {
+            public struct Object3: Encodable {
                 public var `public`: AnyJSON
 
                 public init(`public`: AnyJSON) {
                     self.public = `public`
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.public = try values.decode(AnyJSON.self, forKey: "public")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -20498,16 +19071,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public struct Object4: Codable {
+            public struct Object4: Encodable {
                 public var httpsEnforced: AnyJSON
 
                 public init(httpsEnforced: AnyJSON) {
                     self.httpsEnforced = httpsEnforced
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.httpsEnforced = try values.decode(AnyJSON.self, forKey: "https_enforced")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -20516,12 +19084,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                self.object1 = try? container.decode(Object1.self)
-                self.object2 = try? container.decode(Object2.self)
-                self.object3 = try? container.decode(Object3.self)
-                self.object4 = try? container.decode(Object4.self)
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(object1, forKey: "object1")
+                try values.encodeIfPresent(object2, forKey: "object2")
+                try values.encodeIfPresent(object3, forKey: "object3")
+                try values.encodeIfPresent(object4, forKey: "object4")
             }
         }
 
@@ -20689,7 +19257,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The description of the project.
             public var body: String?
             /// The name of the project.
@@ -20698,12 +19266,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(body: String? = nil, name: String) {
                 self.body = body
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20787,7 +19349,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository.
             public var base: String
             /// The contents of the pull request.
@@ -20810,17 +19372,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.issue = issue
                 self.maintainerCanModify = maintainerCanModify
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.base = try values.decode(String.self, forKey: "base")
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
-                self.head = try values.decode(String.self, forKey: "head")
-                self.issue = try values.decodeIfPresent(Int.self, forKey: "issue")
-                self.maintainerCanModify = try values.decodeIfPresent(Bool.self, forKey: "maintainer_can_modify")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20909,17 +19460,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The text of the reply to the review comment.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -20991,7 +19537,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment.
             public var content: Content
 
@@ -21009,11 +19555,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21089,7 +19630,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository.
             public var base: String?
             /// The contents of the pull request.
@@ -21113,15 +19654,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
                 self.maintainerCanModify = maintainerCanModify
                 self.state = state
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.base = try values.decodeIfPresent(String.self, forKey: "base")
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.maintainerCanModify = try values.decodeIfPresent(Bool.self, forKey: "maintainer_can_modify")
-                self.state = try values.decodeIfPresent(State.self, forKey: "state")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21156,7 +19688,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Location for this codespace
             public var location: String
             /// Machine type to use for this codespace
@@ -21168,13 +19700,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.location = location
                 self.machine = machine
                 self.workingDirectory = workingDirectory
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.location = try values.decode(String.self, forKey: "location")
-                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
-                self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21250,7 +19775,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The text of the review comment.
             public var body: String
             /// The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`.
@@ -21293,19 +19818,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.side = side
                 self.startLine = startLine
                 self.startSide = startSide
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
-                self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
-                self.inReplyTo = try values.decodeIfPresent(Int.self, forKey: "in_reply_to")
-                self.line = try values.decodeIfPresent(Int.self, forKey: "line")
-                self.path = try values.decodeIfPresent(String.self, forKey: "path")
-                self.position = try values.decodeIfPresent(Int.self, forKey: "position")
-                self.side = try values.decodeIfPresent(Side.self, forKey: "side")
-                self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
-                self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21359,17 +19871,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The text of the review comment.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21495,7 +20002,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Extra detail to append to automatic commit message.
             public var commitMessage: String?
             /// Title for the automatic commit message.
@@ -21517,14 +20024,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.commitTitle = commitTitle
                 self.mergeMethod = mergeMethod
                 self.sha = sha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.commitMessage = try values.decodeIfPresent(String.self, forKey: "commit_message")
-                self.commitTitle = try values.decodeIfPresent(String.self, forKey: "commit_title")
-                self.mergeMethod = try values.decodeIfPresent(MergeMethod.self, forKey: "merge_method")
-                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21588,20 +20087,15 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             public var object1: Object1?
             public var object2: Object2?
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 public var reviewers: AnyJSON
 
                 public init(reviewers: AnyJSON) {
                     self.reviewers = reviewers
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.reviewers = try values.decode(AnyJSON.self, forKey: "reviewers")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -21610,16 +20104,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 public var teamReviewers: AnyJSON
 
                 public init(teamReviewers: AnyJSON) {
                     self.teamReviewers = teamReviewers
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.teamReviewers = try values.decode(AnyJSON.self, forKey: "team_reviewers")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -21628,10 +20117,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 }
             }
 
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                self.object1 = try? container.decode(Object1.self)
-                self.object2 = try? container.decode(Object2.self)
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(object1, forKey: "object1")
+                try values.encodeIfPresent(object2, forKey: "object2")
             }
         }
 
@@ -21702,7 +20191,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review.
             public var body: String?
             /// Use the following table to specify the location, destination, and contents of the draft review comment.
@@ -21712,7 +20201,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready.
             public var event: Event?
 
-            public struct Commants: Codable {
+            public struct Commants: Encodable {
                 /// Text of the review comment.
                 public var body: String
                 /// Example: 28
@@ -21736,17 +20225,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                     self.side = side
                     self.startLine = startLine
                     self.startSide = startSide
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.body = try values.decode(String.self, forKey: "body")
-                    self.line = try values.decodeIfPresent(Int.self, forKey: "line")
-                    self.path = try values.decode(String.self, forKey: "path")
-                    self.position = try values.decodeIfPresent(Int.self, forKey: "position")
-                    self.side = try values.decodeIfPresent(String.self, forKey: "side")
-                    self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
-                    self.startSide = try values.decodeIfPresent(String.self, forKey: "start_side")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -21773,14 +20251,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.comments = comments
                 self.commitID = commitID
                 self.event = event
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.comments = try values.decodeIfPresent([Commants].self, forKey: "comments")
-                self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
-                self.event = try values.decodeIfPresent(Event.self, forKey: "event")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21819,17 +20289,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The body text of the pull request review.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21910,7 +20375,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Example: "APPROVE"
             public var event: String?
             /// The message for the pull request review dismissal
@@ -21919,12 +20384,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
             public init(event: String? = nil, message: String) {
                 self.event = event
                 self.message = message
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.event = try values.decodeIfPresent(String.self, forKey: "event")
-                self.message = try values.decode(String.self, forKey: "message")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -21952,7 +20411,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The body text of the pull request review
             public var body: String?
             /// The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action.
@@ -21968,12 +20427,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
             public init(body: String? = nil, event: Event) {
                 self.body = body
                 self.event = event
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.event = try values.decode(Event.self, forKey: "event")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22019,17 +20472,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             }
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
             public var expectedHeadSha: String?
 
             public init(expectedHeadSha: String? = nil) {
                 self.expectedHeadSha = expectedHeadSha
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.expectedHeadSha = try values.decodeIfPresent(String.self, forKey: "expected_head_sha")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22176,7 +20624,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Text describing the contents of the tag.
             public var body: String?
             /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
@@ -22203,18 +20651,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isPrerelease = isPrerelease
                 self.tagName = tagName
                 self.targetCommitish = targetCommitish
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.discussionCategoryName = try values.decodeIfPresent(String.self, forKey: "discussion_category_name")
-                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
-                self.isGenerateReleaseNotes = try values.decodeIfPresent(Bool.self, forKey: "generate_release_notes")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.isPrerelease = try values.decodeIfPresent(Bool.self, forKey: "prerelease")
-                self.tagName = try values.decode(String.self, forKey: "tag_name")
-                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22270,7 +20706,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// An alternate short description of the asset. Used in place of the filename.
             public var label: String?
             /// The file name of the asset.
@@ -22282,13 +20718,6 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
                 self.label = label
                 self.name = name
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.label = try values.decodeIfPresent(String.self, forKey: "label")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.state = try values.decodeIfPresent(String.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22326,7 +20755,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Specifies a path to a file in the repository containing configuration settings used for generating the release notes. If unspecified, the configuration file located in the repository at '.github/release.yml' or '.github/release.yaml' will be used. If that is not present, the default configuration will be used.
             public var configurationFilePath: String?
             /// The name of the previous tag to use as the starting point for the release notes. Use to manually specify the range for the set of changes considered as part this release.
@@ -22341,14 +20770,6 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.previousTagName = previousTagName
                 self.tagName = tagName
                 self.targetCommitish = targetCommitish
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.configurationFilePath = try values.decodeIfPresent(String.self, forKey: "configuration_file_path")
-                self.previousTagName = try values.decodeIfPresent(String.self, forKey: "previous_tag_name")
-                self.tagName = try values.decode(String.self, forKey: "tag_name")
-                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22442,7 +20863,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Text describing the contents of the tag.
             public var body: String?
             /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. If there is already a discussion linked to the release, this parameter is ignored. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
@@ -22466,17 +20887,6 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.isPrerelease = isPrerelease
                 self.tagName = tagName
                 self.targetCommitish = targetCommitish
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.discussionCategoryName = try values.decodeIfPresent(String.self, forKey: "discussion_category_name")
-                self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.isPrerelease = try values.decodeIfPresent(Bool.self, forKey: "prerelease")
-                self.tagName = try values.decodeIfPresent(String.self, forKey: "tag_name")
-                self.targetCommitish = try values.decodeIfPresent(String.self, forKey: "target_commitish")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22608,7 +21018,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the release.
             public var content: Content
 
@@ -22624,11 +21034,6 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22734,7 +21139,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
             public var resolution: github.SecretScanningAlertResolution?
             /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
@@ -22743,12 +21148,6 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
             public init(resolution: github.SecretScanningAlertResolution? = nil, state: github.SecretScanningAlertState) {
                 self.resolution = resolution
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.resolution = try values.decodeIfPresent(github.SecretScanningAlertResolution.self, forKey: "resolution")
-                self.state = try values.decode(github.SecretScanningAlertState.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -22978,7 +21377,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// A string label to differentiate this status from the status of other systems. This field is case-insensitive.
             public var context: String?
             /// A short description of the status.
@@ -23003,14 +21402,6 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
                 self.description = description
                 self.state = state
                 self.targetURL = targetURL
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.context = try values.decodeIfPresent(String.self, forKey: "context")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.state = try values.decode(State.self, forKey: "state")
-                self.targetURL = try values.decodeIfPresent(String.self, forKey: "target_url")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -23094,7 +21485,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Determines if all notifications should be blocked from this repository.
             public var isIgnored: Bool?
             /// Determines if notifications should be received from this repository.
@@ -23103,12 +21494,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(isIgnored: Bool? = nil, isSubscribed: Bool? = nil) {
                 self.isIgnored = isIgnored
                 self.isSubscribed = isSubscribed
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.isIgnored = try values.decodeIfPresent(Bool.self, forKey: "ignored")
-                self.isSubscribed = try values.decodeIfPresent(Bool.self, forKey: "subscribed")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -23293,17 +21678,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters.
             public var names: [String]
 
             public init(names: [String]) {
                 self.names = names
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.names = try values.decode([String].self, forKey: "names")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -23434,7 +21814,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The username or organization name the repository will be transferred to.
             public var newOwner: String
             /// ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories.
@@ -23443,12 +21823,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(newOwner: String, teamIDs: [Int]? = nil) {
                 self.newOwner = newOwner
                 self.teamIDs = teamIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.newOwner = try values.decode(String.self, forKey: "new_owner")
-                self.teamIDs = try values.decodeIfPresent([Int].self, forKey: "team_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -23574,7 +21948,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// A short description of the new repository.
             public var description: String?
             /// Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`.
@@ -23592,15 +21966,6 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
                 self.name = name
                 self.owner = owner
                 self.isPrivate = isPrivate
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.isIncludeAllBranches = try values.decodeIfPresent(Bool.self, forKey: "include_all_branches")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.owner = try values.decodeIfPresent(String.self, forKey: "owner")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -23874,7 +22239,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint.
             public var encryptedValue: String
             /// ID of the key you used to encrypt the secret.
@@ -23883,12 +22248,6 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
             public init(encryptedValue: String, keyID: String) {
                 self.encryptedValue = encryptedValue
                 self.keyID = keyID
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.encryptedValue = try values.decode(String.self, forKey: "encrypted_value")
-                self.keyID = try values.decode(String.self, forKey: "key_id")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24013,24 +22372,19 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The name of the SCIM group. This must match the GitHub organization that the group maps to.
             public var displayName: String
             public var members: [Member]?
             /// The SCIM schema URIs.
             public var schemas: [String]
 
-            public struct Member: Codable {
+            public struct Member: Encodable {
                 /// The SCIM user ID for a user.
                 public var value: String
 
                 public init(value: String) {
                     self.value = value
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.value = try values.decode(String.self, forKey: "value")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24043,13 +22397,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.displayName = displayName
                 self.members = members
                 self.schemas = schemas
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.displayName = try values.decode(String.self, forKey: "displayName")
-                self.members = try values.decodeIfPresent([Member].self, forKey: "members")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24107,24 +22454,19 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The name of the SCIM group. This must match the GitHub organization that the group maps to.
             public var displayName: String
             public var members: [Member]?
             /// The SCIM schema URIs.
             public var schemas: [String]
 
-            public struct Member: Codable {
+            public struct Member: Encodable {
                 /// The SCIM user ID for a user.
                 public var value: String
 
                 public init(value: String) {
                     self.value = value
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.value = try values.decode(String.self, forKey: "value")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24137,13 +22479,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                 self.displayName = displayName
                 self.members = members
                 self.schemas = schemas
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.displayName = try values.decode(String.self, forKey: "displayName")
-                self.members = try values.decodeIfPresent([Member].self, forKey: "members")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24165,13 +22500,13 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
             public var operations: [Operation]
             /// The SCIM schema URIs.
             public var schemas: [String]
 
-            public struct Operation: Codable {
+            public struct Operation: Encodable {
                 public var op: Op
                 public var path: String?
                 /// Can be any value - string, number, array or object.
@@ -24192,13 +22527,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                     self.value = value
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.op = try values.decode(Op.self, forKey: "op")
-                    self.path = try values.decodeIfPresent(String.self, forKey: "path")
-                    self.value = try values.decodeIfPresent(AnyJSON.self, forKey: "value")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(op, forKey: "op")
@@ -24210,12 +22538,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
             public init(operations: [Operation], schemas: [String]) {
                 self.operations = operations
                 self.schemas = schemas
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.operations = try values.decode([Operation].self, forKey: "Operations")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24310,7 +22632,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// List of user emails.
             public var emails: [Email]
             /// List of SCIM group IDs the user is a member of.
@@ -24321,7 +22643,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
             /// The username for the user.
             public var userName: String
 
-            public struct Email: Codable {
+            public struct Email: Encodable {
                 /// Whether this email address is the primary address.
                 public var isPrimary: Bool
                 /// The type of email address.
@@ -24335,13 +22657,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                     self.value = value
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.isPrimary = try values.decode(Bool.self, forKey: "primary")
-                    self.type = try values.decode(String.self, forKey: "type")
-                    self.value = try values.decode(String.self, forKey: "value")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(isPrimary, forKey: "primary")
@@ -24350,16 +22665,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 }
             }
 
-            public struct Group: Codable {
+            public struct Group: Encodable {
                 public var value: String?
 
                 public init(value: String? = nil) {
                     self.value = value
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.value = try values.decodeIfPresent(String.self, forKey: "value")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24368,7 +22678,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 }
             }
 
-            public struct Name: Codable {
+            public struct Name: Encodable {
                 /// The last name of the user.
                 public var familyName: String
                 /// The first name of the user.
@@ -24377,12 +22687,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 public init(familyName: String, givenName: String) {
                     self.familyName = familyName
                     self.givenName = givenName
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.familyName = try values.decode(String.self, forKey: "familyName")
-                    self.givenName = try values.decode(String.self, forKey: "givenName")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24398,15 +22702,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.name = name
                 self.schemas = schemas
                 self.userName = userName
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.emails = try values.decode([Email].self, forKey: "emails")
-                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
-                self.name = try values.decode(Name.self, forKey: "name")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
-                self.userName = try values.decode(String.self, forKey: "userName")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24454,7 +22749,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// List of user emails.
             public var emails: [Email]
             /// List of SCIM group IDs the user is a member of.
@@ -24465,7 +22760,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
             /// The username for the user.
             public var userName: String
 
-            public struct Email: Codable {
+            public struct Email: Encodable {
                 /// Whether this email address is the primary address.
                 public var isPrimary: Bool
                 /// The type of email address.
@@ -24479,13 +22774,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                     self.value = value
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.isPrimary = try values.decode(Bool.self, forKey: "primary")
-                    self.type = try values.decode(String.self, forKey: "type")
-                    self.value = try values.decode(String.self, forKey: "value")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(isPrimary, forKey: "primary")
@@ -24494,16 +22782,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 }
             }
 
-            public struct Group: Codable {
+            public struct Group: Encodable {
                 public var value: String?
 
                 public init(value: String? = nil) {
                     self.value = value
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.value = try values.decodeIfPresent(String.self, forKey: "value")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24512,7 +22795,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 }
             }
 
-            public struct Name: Codable {
+            public struct Name: Encodable {
                 /// The last name of the user.
                 public var familyName: String
                 /// The first name of the user.
@@ -24521,12 +22804,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 public init(familyName: String, givenName: String) {
                     self.familyName = familyName
                     self.givenName = givenName
-                }
-
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.familyName = try values.decode(String.self, forKey: "familyName")
-                    self.givenName = try values.decode(String.self, forKey: "givenName")
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -24542,15 +22819,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 self.name = name
                 self.schemas = schemas
                 self.userName = userName
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.emails = try values.decode([Email].self, forKey: "emails")
-                self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
-                self.name = try values.decode(Name.self, forKey: "name")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
-                self.userName = try values.decode(String.self, forKey: "userName")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24589,7 +22857,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
             public var operations: [[String: AnyJSON]]
             /// The SCIM schema URIs.
@@ -24598,12 +22866,6 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
             public init(operations: [[String: AnyJSON]], schemas: [String]) {
                 self.operations = operations
                 self.schemas = schemas
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.operations = try values.decode([[String: AnyJSON]].self, forKey: "Operations")
-                self.schemas = try values.decode([String].self, forKey: "schemas")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25243,7 +23505,7 @@ extension Paths.Teams {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The description of the team.
             public var description: String?
             /// The name of the team.
@@ -25290,15 +23552,6 @@ extension Paths.Teams {
                 self.parentTeamID = parentTeamID
                 self.permission = permission
                 self.privacy = privacy
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.parentTeamID = try values.decodeIfPresent(Int.self, forKey: "parent_team_id")
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
-                self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25387,7 +23640,7 @@ extension Paths.Teams.WithTeamID {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The discussion post's body text.
             public var body: String
             /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
@@ -25399,13 +23652,6 @@ extension Paths.Teams.WithTeamID {
                 self.body = body
                 self.isPrivate = isPrivate
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.title = try values.decode(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25451,7 +23697,7 @@ extension Paths.Teams.WithTeamID.Discussions {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The discussion post's body text.
             public var body: String?
             /// The discussion post's title.
@@ -25460,12 +23706,6 @@ extension Paths.Teams.WithTeamID.Discussions {
             public init(body: String? = nil, title: String? = nil) {
                 self.body = body
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25549,17 +23789,12 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The discussion comment's body text.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25603,17 +23838,12 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The discussion comment's body text.
             public var body: String
 
             public init(body: String) {
                 self.body = body
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decode(String.self, forKey: "body")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25694,7 +23924,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
             public var content: Content
 
@@ -25712,11 +23942,6 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -25785,7 +24010,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
             public var content: Content
 
@@ -25803,11 +24028,6 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public init(content: Content) {
                 self.content = content
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.content = try values.decode(Content.self, forKey: "content")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26016,7 +24236,7 @@ extension Paths.Teams.WithTeamID.Memberships {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The role that this user should have in the team. Can be one of:  
             /// \* `member` - a normal member of the team.  
             /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
@@ -26032,11 +24252,6 @@ extension Paths.Teams.WithTeamID.Memberships {
 
             public init(role: Role? = nil) {
                 self.role = role
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.role = try values.decodeIfPresent(Role.self, forKey: "role")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26144,7 +24359,7 @@ extension Paths.Teams.WithTeamID.Projects {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant to the team for this project. Can be one of:  
             /// \* `read` - team members can read, but not write to or administer this project.  
             /// \* `write` - team members can read and write, but not administer this project.  
@@ -26165,11 +24380,6 @@ extension Paths.Teams.WithTeamID.Projects {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26286,7 +24496,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// The permission to grant the team on this repository. Can be one of:  
             /// \* `pull` - team members can pull, but not push to or administer this repository.  
             /// \* `push` - team members can pull and push, but not administer this repository.  
@@ -26309,11 +24519,6 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.permission = try values.decodeIfPresent(Permission.self, forKey: "permission")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26384,13 +24589,13 @@ extension Paths.Teams.WithTeamID.TeamSync {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
             public var groups: [Group]
             /// Example: "I am not a timestamp"
             public var syncedAt: String?
 
-            public struct Group: Codable {
+            public struct Group: Encodable {
                 /// Example: "moar cheese pleese"
                 public var description: String?
                 /// Description of the IdP group.
@@ -26413,16 +24618,6 @@ extension Paths.Teams.WithTeamID.TeamSync {
                     self.name = name
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                    self.groupDescription = try values.decode(String.self, forKey: "group_description")
-                    self.groupID = try values.decode(String.self, forKey: "group_id")
-                    self.groupName = try values.decode(String.self, forKey: "group_name")
-                    self.id = try values.decodeIfPresent(String.self, forKey: "id")
-                    self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encodeIfPresent(description, forKey: "description")
@@ -26437,12 +24632,6 @@ extension Paths.Teams.WithTeamID.TeamSync {
             public init(groups: [Group], syncedAt: String? = nil) {
                 self.groups = groups
                 self.syncedAt = syncedAt
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.groups = try values.decode([Group].self, forKey: "groups")
-                self.syncedAt = try values.decodeIfPresent(String.self, forKey: "synced_at")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26520,7 +24709,7 @@ extension Paths {
             .get(path)
         }
 
-        public enum GetResponse: Codable {
+        public enum GetResponse: Decodable {
             case privateUser(github.PrivateUser)
             case publicUser(github.PublicUser)
 
@@ -26534,14 +24723,6 @@ extension Paths {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
-                switch self {
-                case .privateUser(let value): try container.encode(value)
-                case .publicUser(let value): try container.encode(value)
-                }
-            }
         }
 
         /// Update the authenticated user
@@ -26553,7 +24734,7 @@ extension Paths {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The new short biography of the user.
             public var bio: String?
             /// The new blog URL of the user.
@@ -26592,18 +24773,6 @@ extension Paths {
                 self.location = location
                 self.name = name
                 self.twitterUsername = twitterUsername
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.bio = try values.decodeIfPresent(String.self, forKey: "bio")
-                self.blog = try values.decodeIfPresent(String.self, forKey: "blog")
-                self.company = try values.decodeIfPresent(String.self, forKey: "company")
-                self.email = try values.decodeIfPresent(String.self, forKey: "email")
-                self.isHireable = try values.decodeIfPresent(Bool.self, forKey: "hireable")
-                self.location = try values.decodeIfPresent(String.self, forKey: "location")
-                self.name = try values.decodeIfPresent(String.self, forKey: "name")
-                self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -26741,11 +24910,11 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object1(Object1)
             case object2(Object2)
 
-            public struct Object1: Codable {
+            public struct Object1: Encodable {
                 /// Location for this codespace
                 public var location: String
                 /// Machine type to use for this codespace
@@ -26765,15 +24934,6 @@ extension Paths.User {
                     self.workingDirectory = workingDirectory
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.location = try values.decode(String.self, forKey: "location")
-                    self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
-                    self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
-                    self.repositoryID = try values.decode(Int.self, forKey: "repository_id")
-                    self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(location, forKey: "location")
@@ -26784,7 +24944,7 @@ extension Paths.User {
                 }
             }
 
-            public struct Object2: Codable {
+            public struct Object2: Encodable {
                 /// Location for this codespace
                 public var location: String
                 /// Machine type to use for this codespace
@@ -26795,7 +24955,7 @@ extension Paths.User {
                 public var workingDirectory: String?
 
                 /// Pull request number for this codespace
-                public struct PullRequest: Codable {
+                public struct PullRequest: Encodable {
                     /// Pull request number
                     public var pullRequestNumber: Int
                     /// Repository id for this codespace
@@ -26804,12 +24964,6 @@ extension Paths.User {
                     public init(pullRequestNumber: Int, repositoryID: Int) {
                         self.pullRequestNumber = pullRequestNumber
                         self.repositoryID = repositoryID
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let values = try decoder.container(keyedBy: StringCodingKey.self)
-                        self.pullRequestNumber = try values.decode(Int.self, forKey: "pull_request_number")
-                        self.repositoryID = try values.decode(Int.self, forKey: "repository_id")
                     }
 
                     public func encode(to encoder: Encoder) throws {
@@ -26826,31 +24980,12 @@ extension Paths.User {
                     self.workingDirectory = workingDirectory
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.location = try values.decode(String.self, forKey: "location")
-                    self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
-                    self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
-                    self.workingDirectory = try values.decodeIfPresent(String.self, forKey: "working_directory")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(location, forKey: "location")
                     try values.encodeIfPresent(machine, forKey: "machine")
                     try values.encode(pullRequest, forKey: "pull_request")
                     try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object1.self) {
-                    self = .object1(value)
-                } else if let value = try? container.decode(Object2.self) {
-                    self = .object2(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -27048,7 +25183,7 @@ extension Paths.User.Codespaces.Secrets {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get the public key for the authenticated user](https://docs.github.com/rest/reference/codespaces#get-the-public-key-for-the-authenticated-user) endpoint.
             public var encryptedValue: String
             /// ID of the key you used to encrypt the secret.
@@ -27060,13 +25195,6 @@ extension Paths.User.Codespaces.Secrets {
                 self.encryptedValue = encryptedValue
                 self.keyID = keyID
                 self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.encryptedValue = try values.decode(String.self, forKey: "encrypted_value")
-                self.keyID = try values.decode(String.self, forKey: "key_id")
-                self.selectedRepositoryIDs = try values.decodeIfPresent([String].self, forKey: "selected_repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -27133,17 +25261,12 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
             .put(path, body: body)
         }
 
-        public struct PutRequest: Codable {
+        public struct PutRequest: Encodable {
             /// An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints.
             public var selectedRepositoryIDs: [Int]
 
             public init(selectedRepositoryIDs: [Int]) {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.selectedRepositoryIDs = try values.decode([Int].self, forKey: "selected_repository_ids")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -27208,17 +25331,12 @@ extension Paths.User.Codespaces {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// A valid machine to transition this codespace to.
             public var machine: String?
 
             public init(machine: String? = nil) {
                 self.machine = machine
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.machine = try values.decodeIfPresent(String.self, forKey: "machine")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -27322,7 +25440,7 @@ extension Paths.User.Email {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// Denotes whether an email is publicly visible.
             public var visibility: Visibility
 
@@ -27334,11 +25452,6 @@ extension Paths.User.Email {
 
             public init(visibility: Visibility) {
                 self.visibility = visibility
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.visibility = try values.decode(Visibility.self, forKey: "visibility")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -27401,7 +25514,7 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public enum PostRequest: Codable {
+        public enum PostRequest: Encodable {
             case object(Object)
             case strings([String])
             case string(String)
@@ -27414,7 +25527,7 @@ extension Paths.User {
             ///     "mona@github.com"
             ///   ]
             /// }
-            public struct Object: Codable {
+            public struct Object: Encodable {
                 /// Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
                 ///
                 /// Example:
@@ -27428,27 +25541,9 @@ extension Paths.User {
                     self.emails = emails
                 }
 
-                public init(from decoder: Decoder) throws {
-                    let values = try decoder.container(keyedBy: StringCodingKey.self)
-                    self.emails = try values.decode([String].self, forKey: "emails")
-                }
-
                 public func encode(to encoder: Encoder) throws {
                     var values = encoder.container(keyedBy: StringCodingKey.self)
                     try values.encode(emails, forKey: "emails")
-                }
-            }
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(Object.self) {
-                    self = .object(value)
-                } else if let value = try? container.decode([String].self) {
-                    self = .strings(value)
-                } else if let value = try? container.decode(String.self) {
-                    self = .string(value)
-                } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
                 }
             }
 
@@ -27642,17 +25737,12 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// A GPG key in ASCII-armored format.
             public var armoredPublicKey: String
 
             public init(armoredPublicKey: String) {
                 self.armoredPublicKey = armoredPublicKey
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.armoredPublicKey = try values.decode(String.self, forKey: "armored_public_key")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -28019,7 +26109,7 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// The public SSH key to add to your GitHub account.
             public var key: String
             /// A descriptive name for the new key.
@@ -28030,12 +26120,6 @@ extension Paths.User {
             public init(key: String, title: String? = nil) {
                 self.key = key
                 self.title = title
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.key = try values.decode(String.self, forKey: "key")
-                self.title = try values.decodeIfPresent(String.self, forKey: "title")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -28243,7 +26327,7 @@ extension Paths.User.Memberships.Orgs {
             .patch(path, body: body)
         }
 
-        public struct PatchRequest: Codable {
+        public struct PatchRequest: Encodable {
             /// The state that the membership should be in. Only `"active"` will be accepted.
             public var state: State
 
@@ -28254,11 +26338,6 @@ extension Paths.User.Memberships.Orgs {
 
             public init(state: State) {
                 self.state = state
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.state = try values.decode(State.self, forKey: "state")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -28321,7 +26400,7 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Exclude attributes from the API response to improve performance
             ///
             /// Example:
@@ -28362,16 +26441,6 @@ extension Paths.User {
                 self.excludeReleases = excludeReleases
                 self.lockRepositories = lockRepositories
                 self.repositories = repositories
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.exclude = try values.decodeIfPresent([ExcludeItem].self, forKey: "exclude")
-                self.excludeAttachments = try values.decodeIfPresent(Bool.self, forKey: "exclude_attachments")
-                self.excludeOwnerProjects = try values.decodeIfPresent(Bool.self, forKey: "exclude_owner_projects")
-                self.excludeReleases = try values.decodeIfPresent(Bool.self, forKey: "exclude_releases")
-                self.lockRepositories = try values.decodeIfPresent(Bool.self, forKey: "lock_repositories")
-                self.repositories = try values.decode([String].self, forKey: "repositories")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -28789,7 +26858,7 @@ extension Paths.User {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Body of the project
             ///
             /// Example: This project represents the sprint of the first week in January
@@ -28802,12 +26871,6 @@ extension Paths.User {
             public init(body: String? = nil, name: String) {
                 self.body = body
                 self.name = name
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.body = try values.decodeIfPresent(String.self, forKey: "body")
-                self.name = try values.decode(String.self, forKey: "name")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -28930,7 +26993,7 @@ extension Paths.User {
             public static let location = HTTPHeader<String>(field: "Location")
         }
 
-        public struct PostRequest: Codable {
+        public struct PostRequest: Encodable {
             /// Whether to allow Auto-merge to be used on pull requests.
             ///
             /// Example: false
@@ -29013,28 +27076,6 @@ extension Paths.User {
                 self.name = name
                 self.isPrivate = isPrivate
                 self.teamID = teamID
-            }
-
-            public init(from decoder: Decoder) throws {
-                let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
-                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
-                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
-                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
-                self.isAutoInit = try values.decodeIfPresent(Bool.self, forKey: "auto_init")
-                self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
-                self.description = try values.decodeIfPresent(String.self, forKey: "description")
-                self.gitignoreTemplate = try values.decodeIfPresent(String.self, forKey: "gitignore_template")
-                self.hasDownloads = try values.decodeIfPresent(Bool.self, forKey: "has_downloads")
-                self.hasIssues = try values.decodeIfPresent(Bool.self, forKey: "has_issues")
-                self.hasProjects = try values.decodeIfPresent(Bool.self, forKey: "has_projects")
-                self.hasWiki = try values.decodeIfPresent(Bool.self, forKey: "has_wiki")
-                self.homepage = try values.decodeIfPresent(String.self, forKey: "homepage")
-                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
-                self.licenseTemplate = try values.decodeIfPresent(String.self, forKey: "license_template")
-                self.name = try values.decode(String.self, forKey: "name")
-                self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
-                self.teamID = try values.decodeIfPresent(Int.self, forKey: "team_id")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -29369,7 +27410,7 @@ extension Paths.Users {
             .get(path)
         }
 
-        public enum GetResponse: Codable {
+        public enum GetResponse: Decodable {
             case privateUser(github.PrivateUser)
             case publicUser(github.PublicUser)
 
@@ -29381,14 +27422,6 @@ extension Paths.Users {
                     self = .publicUser(value)
                 } else {
                     throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-                }
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
-                switch self {
-                case .privateUser(let value): try container.encode(value)
-                case .publicUser(let value): try container.encode(value)
                 }
             }
         }

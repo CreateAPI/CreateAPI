@@ -181,7 +181,7 @@ extension Generator {
     }
     
     // TODO: Add support for header parameters
-    private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {        
+    private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -339,6 +339,9 @@ extension Generator {
     // TODO: Add uploads support
     // TODO: Required?
     private func makeRequestBodyType(for operation: OpenAPI.Operation, method: String, context: Context) throws -> GeneratedType {
+        var context = context
+        context.isDecodableNeeded = false
+        
         guard let requestBody = operation.requestBody else {
             // TODO: Is is the correct handling?
             throw GeneratorError("ERROR: Request body is missing")
