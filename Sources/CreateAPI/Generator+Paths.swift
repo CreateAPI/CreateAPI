@@ -314,6 +314,8 @@ extension Generator {
         var context = context
         context.isDecodableNeeded = false
         
+        let schema: JSONSchema
+        
         // TODO: Refactor
         switch requestBody {
         case .a(let reference):
@@ -323,12 +325,25 @@ extension Generator {
             guard let key = OpenAPI.ComponentKey(rawValue: name), let request = spec.components.requestBodies[key] else {
                 throw GeneratorError("Failed to find a requesty body named \(name)")
             }
-        
-            if let content = request.content[.json] {
-                // TODO: Add description
+            guard let content = request.content[.json] else {
+                throw GeneratorError("No supported content types: \(request.content.keys)")
+            }
+                
+            // TODO: Add description
+            // TODO: Parse example
+            switch content.schema {
+            case .a(let reference):
+                schema = JSONSchema.reference(reference)
+            case .b(let value):
+                schema = value
+            default:
+                throw GeneratorError("Response not handled")
+            }
+        case .b(let request):
+            if request.content.values.isEmpty {
+                return GeneratedType(type: TypeName("Void"))
+            } else if let content = request.content.values.first {
                 // TODO: Parse example
-                // TODO: Make sure this is correct
-                let schema: JSONSchema
                 switch content.schema {
                 case .a(let reference):
                     schema = JSONSchema.reference(reference)
@@ -337,42 +352,14 @@ extension Generator {
                 default:
                     throw GeneratorError("Response not handled")
                 }
-                // TODO: This should be resused
-                let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                setNeedsEncodable(for: type.type)
-                return GeneratedType(type: type.type, nested: type.nested, isOptional: schema.isOptional)
-            } else {
-                throw GeneratorError("No supported content types: \(request.content.keys)")
-            }
-            
-            #warning("TEMP")
-            switch reference {
-            case .internal(let reference):
-                return GeneratedType(type: TypeName(reference.name ?? "Void"))
-            case .external(_):
-                throw GeneratorError("External references are not supported")
-            }
-        case .b(let scheme):
-            if scheme.content.values.isEmpty {
-                return GeneratedType(type: TypeName("Void"))
-            } else if let content = scheme.content.values.first {
-                // TODO: Parse example
-                switch content.schema {
-                case .a(let reference):
-                    let type = try makeProperty(key: "\(method)Request", schema: JSONSchema.reference(reference), isRequired: true, in: context)
-                    setNeedsEncodable(for: type.type)
-                    return GeneratedType(type: type.type, nested: type.nested, isOptional: !scheme.required)
-                case .b(let schema):
-                    let type = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-                    setNeedsEncodable(for: type.type)
-                    return GeneratedType(type: type.type, nested: type.nested, isOptional: !scheme.required)
-                default:
-                    throw GeneratorError("Response not handled")
-                }
             } else {
                 throw GeneratorError("More than one schema in content which is not currently supported")
             }
         }
+        
+        let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
+        setNeedsEncodable(for: property.type)
+        return GeneratedType(type: property.type, nested: property.nested, isOptional: !(requestBody.requestValue?.required ?? true))
     }
     
     // MARK: - Response Body
