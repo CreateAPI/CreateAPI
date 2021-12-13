@@ -372,7 +372,7 @@ extension Generator {
             }
         }
     }
-    
+        
     private typealias Response = Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
 
     // Only generate successfull responses.
@@ -383,7 +383,8 @@ extension Generator {
         return operation.responses.first { $0.key.isSuccess }?.value
     }
     
-    // TODO: Refactor
+    // MARK: Response
+    
     private struct GeneratedType {
         var type: TypeName
         var nested: String?
@@ -391,9 +392,6 @@ extension Generator {
     }
 
     // TODO: application/pdf and other binary files
-    // TODO: 204 (empty response body)
-    // TODO: Add response headers (TODO: where??), e.g. `X-RateLimit-Limit`
-    // TODO: Add "descripton" to "- returns" comments
     private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isEncodableNeeded = false
@@ -413,7 +411,7 @@ extension Generator {
                     throw GeneratorError("Failed to find a response body")
                 }
                 schema = value
-            case .external(_):
+            case .external:
                 throw GeneratorError("External references are not supported")
             }
         case .b(let value):
@@ -436,7 +434,6 @@ extension Generator {
                 case .integer, .boolean:
                     return GeneratedType(type: TypeName("Data"))
                 default:
-                    // TODO: Add a way to cutomize which namespace to use
                     let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
                     return GeneratedType(type: property.type, nested: property.nested)
                 }
