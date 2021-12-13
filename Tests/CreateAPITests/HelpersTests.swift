@@ -64,7 +64,7 @@ final class HelpersTests: XCTestCase {
         let options = GenerateOptions()
 
         func propertyName(_ rawString: String) -> String {
-            PropertyName(rawString, options: options).rawValue
+            PropertyName(processing: rawString, options: options).rawValue
         }
         
         XCTAssertEqual(propertyName("CamelCase"), "camelCase")
@@ -110,7 +110,7 @@ final class HelpersTests: XCTestCase {
         let options = GenerateOptions()
         
         func asBoolean(_ name: String) -> String {
-            PropertyName(name, options: options).asBoolean.rawValue
+            PropertyName(processing: name, options: options).asBoolean.rawValue
         }
         
         // Simple

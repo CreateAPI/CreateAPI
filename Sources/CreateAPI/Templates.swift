@@ -375,7 +375,7 @@ final class Templates {
     func header(for property: Property, header: OpenAPI.Header) -> String {
         var name = property.name.rawValue
         if (property.key.hasPrefix("x-") || property.key.hasPrefix("X-")) {
-            name = PropertyName(String(property.key.dropFirst(2)), options: options).rawValue
+            name = PropertyName(processing: String(property.key.dropFirst(2)), options: options).rawValue
         }
         var output = ""
         if options.comments.isEnabled, options.comments.isAddingDescription,

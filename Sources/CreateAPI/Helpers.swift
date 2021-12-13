@@ -179,12 +179,12 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
 struct PropertyName: CustomStringConvertible, DeclarationName {
     let rawValue: String
     
-    init(_ rawValue: String, options: GenerateOptions) {
+    init(processing rawValue: String, options: GenerateOptions) {
         self.rawValue = rawValue.process(isProperty: true, options: options)
     }
     
-    init(processedRawValue: String) {
-        self.rawValue = processedRawValue
+    init(_ rawValue: String) {
+        self.rawValue = rawValue
     }
     
     var description: String { rawValue }
@@ -204,7 +204,7 @@ struct PropertyName: CustomStringConvertible, DeclarationName {
             string.removeFirst(first.count)
             string = first.uppercased() + string
         }
-        return PropertyName(processedRawValue: "is" + string.capitalizingFirstLetter())
+        return PropertyName("is" + string.capitalizingFirstLetter())
     }
     
     // TODO: Adopt this everywhere when it's needed
@@ -225,7 +225,7 @@ struct PropertyName: CustomStringConvertible, DeclarationName {
 struct ModuleName: CustomStringConvertible {
     let rawValue: String
         
-    init(_ rawValue: String, options: GenerateOptions) {
+    init(processing rawValue: String, options: GenerateOptions) {
         self.rawValue = rawValue.replacingOccurrences(of: "-", with: "_")
     }
     

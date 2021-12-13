@@ -89,7 +89,7 @@ extension Generator {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
                     if let name = options.schemes.mappedPropertyNames[names[i...].joined(separator: ".")] {
-                        return PropertyName(processedRawValue: name)
+                        return PropertyName(name)
                     }
                 }
             }
@@ -564,7 +564,7 @@ extension Generator {
     // MARK: Names
     
     func makePropertyName(_ rawValue: String) -> PropertyName {
-        PropertyName(rawValue, options: options)
+        PropertyName(processing: rawValue, options: options)
     }
     
     func makeTypeName(_ rawValue: String) -> TypeName {

@@ -83,7 +83,7 @@ struct Generate: ParsableCommand {
         // TODO: Add a way to select what to generate (e.g. only schemas
     
         let options = try makeOptions(at: config)
-        let module = (package ?? module).map { ModuleName($0, options: options) }
+        let module = (package ?? module).map { ModuleName(processing: $0, options: options) }
         let arguments = GenerateArguments(isVerbose: verbose, isParallel: parallel, vendor: vendor, module: module)
         
         let generator = Generator(spec: spec, options: options, arguments: arguments)

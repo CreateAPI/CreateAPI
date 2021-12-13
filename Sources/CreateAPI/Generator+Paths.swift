@@ -84,7 +84,7 @@ extension Generator {
                 """
                 
                 if isParameter {
-                    let parameter = PropertyName(component, options: options)
+                    let parameter = PropertyName(processing: component, options: options)
                     output += """
                     extension \(extensionOf) {
                         \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
@@ -97,7 +97,7 @@ extension Generator {
                 } else {
                     output += """
                     extension \(extensionOf) {
-                        \(access)\(stat)var \(PropertyName(type.rawValue, options: options)): \(type) {
+                        \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
                             \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                         }
                     
