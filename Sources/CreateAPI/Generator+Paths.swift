@@ -449,39 +449,43 @@ extension Generator {
             throw GeneratorError("More than one schema in content which is not currently supported")
         }
     }
+    
+    // MARK: Headers
 
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
         }
-        
-        let contents: [String] = try headers.map { key, value in
-            let header: OpenAPI.Header
-            switch value {
-            case .a(let reference):
-                header = try reference.dereferenced(in: spec.components).underlyingHeader
-            case .b(let value):
-                header = value
-            }
-            switch header.schemaOrContent {
-            case .a(let schema):
-                switch schema.schema {
-                case .a:
-                    throw GeneratorError("HTTP header schema references not supported")
-                case .b(let schema):
-                    let property = try makeProperty(key: key, schema: schema, isRequired: true, in: Context(parents: []))
-                    return templates.header(for: property, header: header)
-                }
-            case .b:
-                throw GeneratorError("HTTP headers with content map are not supported")
-            }
-        }
-
+        let contents: [String] = try headers.map { try makeHeader(key: $0, header: $1) }
         guard !contents.isEmpty else {
             return nil
         }
-
-        return templates.headers(name: method.capitalizingFirstLetter() + "ResponseHeaders", contents: contents.joined(separator: "\n"))
+        let name = method.capitalizingFirstLetter() + "ResponseHeaders"
+        return templates.headers(name: name, contents: contents.joined(separator: "\n"))
+    }
+    
+    private func makeHeader(key: String, header input: Either<JSONReference<OpenAPI.Header>, OpenAPI.Header>) throws -> String {
+        let header: OpenAPI.Header
+        switch input {
+        case .a(let reference):
+            header = try reference.dereferenced(in: spec.components).underlyingHeader
+        case .b(let value):
+            header = value
+        }
+        switch header.schemaOrContent {
+        case .a(let value):
+            let schema: JSONSchema
+            switch value.schema {
+            case .a(let reference):
+                schema = try reference.dereferenced(in: spec.components).jsonSchema
+            case .b(let value):
+                schema = value
+            }
+            let property = try makeProperty(key: key, schema: schema, isRequired: schema.required, in: Context(parents: []))
+            return templates.header(for: property, header: header)
+        case .b:
+            throw GeneratorError("HTTP headers with content map are not supported")
+        }
     }
 
     private func makeType(_ string: String) -> TypeName {
