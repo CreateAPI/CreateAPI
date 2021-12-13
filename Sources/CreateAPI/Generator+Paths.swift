@@ -299,17 +299,13 @@ extension Generator {
     // MARK: - Request Body
     
     private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
-    
-    // TODO: Generate -parameter documentation
-    // TODO: Automatically pick application/json (See Paths.Pet.WithPetID.PostRequest)
+
     // TODO: Add application/x-www-form-urlencoded support
     // TODO: Add text/plain support
     // TODO: Add binary support
-    // TODO: Add "optional" support
     // TODO: Add "image*" support
     // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
-    // TODO: Required?
     private func makeRequestBodyType(for requestBody: RequestBody, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isDecodableNeeded = false
@@ -328,9 +324,6 @@ extension Generator {
             guard let content = request.content[.json] else {
                 throw GeneratorError("No supported content types: \(request.content.keys)")
             }
-                
-            // TODO: Add description
-            // TODO: Parse example
             switch content.schema {
             case .a(let reference):
                 schema = JSONSchema.reference(reference)
@@ -343,7 +336,6 @@ extension Generator {
             if request.content.values.isEmpty {
                 return GeneratedType(type: TypeName("Void"))
             } else if let content = request.content.values.first {
-                // TODO: Parse example
                 switch content.schema {
                 case .a(let reference):
                     schema = JSONSchema.reference(reference)
