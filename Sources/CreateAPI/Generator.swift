@@ -626,8 +626,8 @@ struct Property {
     // Key in the JSON
     let key: String
     
-    let schema: JSONSchema
-    let metadata: Metadata?
+    var schema: JSONSchema
+    var metadata: Metadata?
     var nested: String?
 }
 

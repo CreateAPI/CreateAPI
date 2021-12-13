@@ -43,67 +43,19 @@ extension Generator {
             let allComponents = path.key.components.isEmpty ? [""] : path.key.components
             for (index, component) in allComponents.enumerated() {
                 components.append(component)
+
                 let subpath = OpenAPI.Path(components)
                 guard !generated.contains(subpath) else { continue }
                 generated.insert(subpath)
                 
-                let component = components.last!
                 let isLast = index == allComponents.endIndex - 1
-                let isTopLevel = components.count == 1
-                let type = component.isEmpty ? TypeName("Root") : makeType(component)
-                let isParameter = component.starts(with: "{")
-                let stat = isTopLevel ? "static " : ""
                 
-                let parents = Array(components.dropLast().map(makeType))
-                let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
-
-                // TODO: percent-encode path?
-                
-                // TODO: Reuse type generation code
-                
-                if !isLast && spec.paths.contains(key: subpath) {
-                    continue // Will be generated when the path is encountered
-                }
-                
-                // TODO: refactor and add remaining niceness
-                var generatedType = """
-                    \(access)struct \(type) {
-                        /// Path: `\(subpath.rawValue)`
-                        \(access)let path: String\n
-                """
-                
-                let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
-                if isLast {
-                    generatedType += """
-                    \n\(makeMethods(for: path.value, context: context))\n
-                    """
-                }
-                
-                generatedType += """
+                do {
+                    if let value = try makeOperation(path: path.value, components: components, isLast: isLast) {
+                        output += value
                     }
-                """
-                
-                if isParameter {
-                    let parameter = PropertyName(processing: component, options: options)
-                    output += """
-                    extension \(extensionOf) {
-                        \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
-                            \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
-                        }
-                    
-                    \(generatedType)
-                    }\n\n
-                    """
-                } else {
-                    output += """
-                    extension \(extensionOf) {
-                        \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
-                            \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
-                        }
-                    
-                    \(generatedType)
-                    }\n\n
-                    """
+                } catch {
+                    print("ERROR: Failed to generate code for operation at path: \(components.joined(separator: "/"))")
                 }
             }
         }
@@ -143,6 +95,71 @@ extension Generator {
         }
         return imports.sorted()
     }
+    
+    // MARK: - Operation
+    
+    private func makeOperation(path: OpenAPI.PathItem, components: [String], isLast: Bool) throws -> String? {
+        let subpath = OpenAPI.Path(components)
+        let component = components.last!
+        let isTopLevel = components.count == 1
+        let type = component.isEmpty ? TypeName("Root") : makeType(component)
+        let isParameter = component.starts(with: "{")
+        let stat = isTopLevel ? "static " : ""
+        
+        let parents = Array(components.dropLast().map(makeType))
+        let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
+
+        // TODO: percent-encode path?
+        
+        // TODO: Reuse type generation code
+        
+        if !isLast && spec.paths.contains(key: subpath) {
+            return nil // Will be generated when the path is encountered
+        }
+        
+        // TODO: refactor and add remaining niceness
+        var generatedType = """
+            \(access)struct \(type) {
+                /// Path: `\(subpath.rawValue)`
+                \(access)let path: String\n
+        """
+        
+        let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
+        if isLast {
+            generatedType += """
+            \n\(makeMethods(for: path, context: context))\n
+            """
+        }
+        
+        generatedType += """
+            }
+        """
+        
+        if isParameter {
+            let parameter = PropertyName(processing: component, options: options)
+            return """
+            extension \(extensionOf) {
+                \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
+                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
+                }
+            
+            \(generatedType)
+            }\n\n
+            """
+        } else {
+            return """
+            extension \(extensionOf) {
+                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
+                    \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
+                }
+            
+            \(generatedType)
+            }\n\n
+            """
+        }
+    }
+    
+    // MARK: - Methods
     
     // TODO: Add remaining methods
     private func makeMethods(for item: OpenAPI.PathItem, context: Context) -> String {
@@ -197,14 +214,9 @@ extension Generator {
         let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
         if !query.isEmpty {
             let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
-            // TODO: create a single type describing this + add comments and stuff
-            let properties = query.map {
-                // TODO: pass metadata
-                Property(name: makePropertyName($0.name), type: $0.type, isOptional: $0.isOptional, key: $0.name, schema: JSONSchema.string, metadata: nil)
-            }
-            let props = properties.map(templates.property).joined(separator: "\n")
-            let initializer = templates.initializer(properties: properties)
-            let toQuery = templates.toQueryParameters(properties: properties)
+            let props = query.map(templates.property).joined(separator: "\n")
+            let initializer = templates.initializer(properties: query)
+            let toQuery = templates.toQueryParameters(properties: query)
             nested.append(templates.entity(name: type, contents: [props, initializer, toQuery], protocols: []))
             let isOptional = query.allSatisfy { $0.isOptional }
             parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
@@ -241,16 +253,19 @@ extension Generator {
         return output.indented
     }
     
-    private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> QueryParameter? {
+    // MARK: - Query Parameters
+    
+    // TODO: use propertyCountThreshold
+    private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
         do {
-            guard let parameter = try _makeQueryParameter(for: input, context: context) else {
+            guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            guard options.paths.queryParameterEncoders.keys.contains(parameter.type.rawValue) else {
-                throw GeneratorError("Unsupported parameter type: \(parameter.type)")
+            guard options.paths.queryParameterEncoders.keys.contains(property.type.rawValue) else {
+                throw GeneratorError("Unsupported parameter type: \(property.type)")
             }
             setNeedsQueryParameterEncoder()
-            return parameter
+            return property
         } catch {
             // TODO: Change to non-failing version
             print("ERROR: Fail to generate query parameter \(input.description)")
@@ -258,10 +273,8 @@ extension Generator {
         }
     }
     
-    // TODO: Add support for other types (arrays, etc); currrently only basic built-in structs will works (see `Order`)
-    // TODO: Why are all parameters optional?
-    // TODO: Conveniecne args with a threshold
-    private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> QueryParameter? {
+    // TODO: Add support for other types (arrays, etc); currently only basic built-in structs will works (see `Order`)
+    private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter: OpenAPI.Parameter
         switch input {
         case .a(let reference):
@@ -272,28 +285,19 @@ extension Generator {
         guard parameter.context.inQuery else {
             return nil
         }
-        let type: TypeName
+        let schema: JSONSchema
         switch parameter.schemaOrContent {
         case .a(let schemaContext):
-            let schema: JSONSchema
             switch schemaContext.schema {
             case .a(let reference):
                 schema = JSONSchema.reference(reference)
             case .b(let value):
                 schema = value
             }
-            type = try makeProperty(key: parameter.name, schema: schema, isRequired: true, in: context).type
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
         }
-        // TODO: use propertyCountThreshold
-        return QueryParameter(
-            description: parameter.description,
-            isDeprecated: parameter.deprecated,
-            name: parameter.name,
-            type: type,
-            isOptional: !parameter.required
-        )
+        return try makeProperty(key: parameter.name, schema: schema, isRequired: parameter.required, in: context)
     }
     
     // MARK: - Request Body
@@ -477,12 +481,4 @@ extension Generator {
         }
         return name
     }
-}
-
-struct QueryParameter {
-    let description: String?
-    let isDeprecated: Bool
-    let name: String
-    let type: TypeName
-    let isOptional: Bool
 }

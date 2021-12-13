@@ -3049,20 +3049,20 @@ extension Paths {
         public struct GetParameters {
             public var labels: String?
             public var since: Date?
-            public var collab: Bool?
-            public var orgs: Bool?
-            public var owned: Bool?
-            public var pulls: Bool?
+            public var isCollab: Bool?
+            public var isOrgs: Bool?
+            public var isOwned: Bool?
+            public var isPulls: Bool?
             public var perPage: Int?
             public var page: Int?
 
-            public init(labels: String? = nil, since: Date? = nil, collab: Bool? = nil, orgs: Bool? = nil, owned: Bool? = nil, pulls: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+            public init(labels: String? = nil, since: Date? = nil, isCollab: Bool? = nil, isOrgs: Bool? = nil, isOwned: Bool? = nil, isPulls: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
                 self.labels = labels
                 self.since = since
-                self.collab = collab
-                self.orgs = orgs
-                self.owned = owned
-                self.pulls = pulls
+                self.isCollab = isCollab
+                self.isOrgs = isOrgs
+                self.isOwned = isOwned
+                self.isPulls = isPulls
                 self.perPage = perPage
                 self.page = page
             }
@@ -3071,10 +3071,10 @@ extension Paths {
                 var query: [String: String?] = [:]
                 query["labels"] = labels.map(QueryParameterEncoder.encode)
                 query["since"] = since.map(QueryParameterEncoder.encode)
-                query["collab"] = collab.map(QueryParameterEncoder.encode)
-                query["orgs"] = orgs.map(QueryParameterEncoder.encode)
-                query["owned"] = owned.map(QueryParameterEncoder.encode)
-                query["pulls"] = pulls.map(QueryParameterEncoder.encode)
+                query["collab"] = isCollab.map(QueryParameterEncoder.encode)
+                query["orgs"] = isOrgs.map(QueryParameterEncoder.encode)
+                query["owned"] = isOwned.map(QueryParameterEncoder.encode)
+                query["pulls"] = isPulls.map(QueryParameterEncoder.encode)
                 query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
@@ -3100,19 +3100,19 @@ extension Paths {
         }
 
         public struct GetParameters {
-            public var featured: Bool?
+            public var isFeatured: Bool?
             public var perPage: Int?
             public var page: Int?
 
-            public init(featured: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
-                self.featured = featured
+            public init(isFeatured: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.isFeatured = isFeatured
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["featured"] = featured.map(QueryParameterEncoder.encode)
+                query["featured"] = isFeatured.map(QueryParameterEncoder.encode)
                 query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
@@ -3560,16 +3560,16 @@ extension Paths {
         }
 
         public struct GetParameters {
-            public var all: Bool?
-            public var participating: Bool?
+            public var isAll: Bool?
+            public var isParticipating: Bool?
             public var since: Date?
             public var before: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(all: Bool? = nil, participating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
-                self.all = all
-                self.participating = participating
+            public init(isAll: Bool? = nil, isParticipating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.isAll = isAll
+                self.isParticipating = isParticipating
                 self.since = since
                 self.before = before
                 self.perPage = perPage
@@ -3578,8 +3578,8 @@ extension Paths {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["all"] = all.map(QueryParameterEncoder.encode)
-                query["participating"] = participating.map(QueryParameterEncoder.encode)
+                query["all"] = isAll.map(QueryParameterEncoder.encode)
+                query["participating"] = isParticipating.map(QueryParameterEncoder.encode)
                 query["since"] = since.map(QueryParameterEncoder.encode)
                 query["before"] = before.map(QueryParameterEncoder.encode)
                 query["per_page"] = perPage.map(QueryParameterEncoder.encode)
@@ -11232,19 +11232,19 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         public struct GetParameters {
-            public var protected: Bool?
+            public var isProtected: Bool?
             public var perPage: Int?
             public var page: Int?
 
-            public init(protected: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
-                self.protected = protected
+            public init(isProtected: Bool? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.isProtected = isProtected
                 self.perPage = perPage
                 self.page = page
             }
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["protected"] = protected.map(QueryParameterEncoder.encode)
+                query["protected"] = isProtected.map(QueryParameterEncoder.encode)
                 query["per_page"] = perPage.map(QueryParameterEncoder.encode)
                 query["page"] = page.map(QueryParameterEncoder.encode)
                 return query
@@ -13163,10 +13163,14 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         }
 
         public struct GetParameters {
+            /// The name of the tool used to generate the code scanning analysis.
             public var toolName: String?
+            /// The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data.
             public var toolGuid: String?
             public var page: Int?
             public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
             public var ref: String?
 
             public init(toolName: String? = nil, toolGuid: String? = nil, page: Int? = nil, perPage: Int? = nil, ref: String? = nil) {
@@ -13261,6 +13265,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         public struct GetParameters {
             public var page: Int?
             public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
             public var ref: String?
 
             public init(page: Int? = nil, perPage: Int? = nil, ref: String? = nil) {
@@ -13314,11 +13320,18 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         }
 
         public struct GetParameters {
+            /// The name of the tool used to generate the code scanning analysis.
             public var toolName: String?
+            /// The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data.
             public var toolGuid: String?
             public var page: Int?
             public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
             public var ref: String?
+            /// An identifier for the upload.
+            ///
+            /// Example: 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
             public var sarifID: String?
 
             public init(toolName: String? = nil, toolGuid: String? = nil, page: Int? = nil, perPage: Int? = nil, ref: String? = nil, sarifID: String? = nil) {
@@ -13692,6 +13705,7 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         }
 
         public struct GetParameters {
+            /// Example: WestUs2
             public var location: String
 
             public init(location: String) {
@@ -19009,16 +19023,16 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         public struct GetParameters {
-            public var all: Bool?
-            public var participating: Bool?
+            public var isAll: Bool?
+            public var isParticipating: Bool?
             public var since: Date?
             public var before: Date?
             public var perPage: Int?
             public var page: Int?
 
-            public init(all: Bool? = nil, participating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
-                self.all = all
-                self.participating = participating
+            public init(isAll: Bool? = nil, isParticipating: Bool? = nil, since: Date? = nil, before: Date? = nil, perPage: Int? = nil, page: Int? = nil) {
+                self.isAll = isAll
+                self.isParticipating = isParticipating
                 self.since = since
                 self.before = before
                 self.perPage = perPage
@@ -19027,8 +19041,8 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [String: String?] {
                 var query: [String: String?] = [:]
-                query["all"] = all.map(QueryParameterEncoder.encode)
-                query["participating"] = participating.map(QueryParameterEncoder.encode)
+                query["all"] = isAll.map(QueryParameterEncoder.encode)
+                query["participating"] = isParticipating.map(QueryParameterEncoder.encode)
                 query["since"] = since.map(QueryParameterEncoder.encode)
                 query["before"] = before.map(QueryParameterEncoder.encode)
                 query["per_page"] = perPage.map(QueryParameterEncoder.encode)
