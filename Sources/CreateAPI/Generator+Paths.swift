@@ -296,6 +296,8 @@ extension Generator {
         )
     }
     
+    // MARK: - Request Body
+    
     private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
     
     // TODO: Generate -parameter documentation
@@ -372,6 +374,8 @@ extension Generator {
             }
         }
     }
+    
+    // MARK: - Response Body
         
     private typealias Response = Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
 
@@ -382,9 +386,7 @@ extension Generator {
         }
         return operation.responses.first { $0.key.isSuccess }?.value
     }
-    
-    // MARK: Response
-    
+
     private struct GeneratedType {
         var type: TypeName
         var nested: String?
@@ -418,9 +420,13 @@ extension Generator {
             schema = value
         }
         
-        if schema.content.values.isEmpty {
+        return try makeResponse(for: schema, method: method, context: context)
+    }
+    
+    private func makeResponse(for response: OpenAPI.Response, method: String, context: Context) throws -> GeneratedType {
+        if response.content.values.isEmpty {
             return GeneratedType(type: TypeName("Void"))
-        } else if let content = schema.content[.json] {
+        } else if let content = response.content[.json] {
             // TODO: Parse example
             switch content.schema {
             case .a(let reference):
@@ -440,14 +446,14 @@ extension Generator {
             default:
                 throw GeneratorError("ERROR: response not handled")
             }
-        } else if schema.content[.anyText] != nil {
+        } else if response.content[.anyText] != nil {
             return GeneratedType(type: TypeName("String")) // Assume UTF8 encoding
         } else {
             throw GeneratorError("More than one schema in content which is not currently supported")
         }
     }
     
-    // MARK: Headers
+    // MARK: - Response Headers
 
     private func makeHeaders(for response: Response, method: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
