@@ -28531,7 +28531,6 @@ extension Paths {
     }
 }
 
-
 private struct QueryParameterEncoder {
     static func encode(_ value: Bool) -> String? {
         value ? "true" : "false"

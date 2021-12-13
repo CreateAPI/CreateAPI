@@ -65,7 +65,6 @@ extension Paths.Pets {
     }
 }
 
-
 private struct QueryParameterEncoder {
     static func encode(_ value: Bool) -> String? {
         value ? "true" : "false"

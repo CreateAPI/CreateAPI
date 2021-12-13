@@ -65,7 +65,6 @@ extension Paths.Pets {
     }
 }
 
-
 extension Request {
     private func id(_ id: String) -> Request {
         var copy = self
@@ -73,6 +72,7 @@ extension Request {
         return copy
     }
 }
+
 private struct QueryParameterEncoder {
     static func encode(_ value: Bool) -> String? {
         value ? "true" : "false"

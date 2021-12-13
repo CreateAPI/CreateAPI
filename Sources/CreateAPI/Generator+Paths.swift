@@ -33,11 +33,8 @@ extension Generator {
     func paths() -> String {
         startMeasuring("generating paths (\(spec.paths.count))")
                 
-        // TODO: Only generate for one path
-        var output = ""
-
+        var declarations: [String] = []
         var generated = Set<OpenAPI.Path>()
-                
         for path in spec.paths {
             var components: [String] = []
             let allComponents = path.key.components.isEmpty ? [""] : path.key.components
@@ -52,7 +49,7 @@ extension Generator {
                 
                 do {
                     if let value = try makeOperation(path: path.value, components: components, isLast: isLast) {
-                        output += value
+                        declarations.append(value)
                     }
                 } catch {
                     print("ERROR: Failed to generate code for operation at path: \(components.joined(separator: "/"))")
@@ -60,32 +57,24 @@ extension Generator {
             }
         }
 
-        var extensions: [String] = []
+        let header = makeHeader()
+        let extensions = makeExtensions()
         
-        if isRequestOperationIdExtensionNeeded {
-            extensions.append(templates.requestOperationIdExtension)
-        }
+        let output = ([header] + declarations + extensions).joined(separator: "\n\n") + "\n\n"
         
-        if isQueryParameterEncoderNeeded {
-            extensions.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders))
-        }
-        
-        for value in extensions {
-            output += "\n"
-            output += value
-        }
-        
+        stopMeasuring("generating paths (\(spec.paths.count))")
+
+        return output.indent(using: options)
+    }
+    
+    private func makeHeader() -> String {
         var header = templates.fileHeader
         for value in makeImports() {
             header += "\nimport \(value)"
         }
-        
         header += "\n\n"
         header += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
-        
-        stopMeasuring("generating paths (\(spec.paths.count))")
-        
-        return (header + "\n\n" + output + "\n\n").indent(using: options)
+        return header
     }
     
     private func makeImports() -> [String] {
@@ -94,6 +83,17 @@ extension Generator {
             imports.remove("APIClient")
         }
         return imports.sorted()
+    }
+    
+    private func makeExtensions() -> [String] {
+        var extensions: [String] = []
+        if isRequestOperationIdExtensionNeeded {
+            extensions.append(templates.requestOperationIdExtension)
+        }
+        if isQueryParameterEncoderNeeded {
+            extensions.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders))
+        }
+        return extensions
     }
     
     // MARK: - Operation
@@ -144,7 +144,7 @@ extension Generator {
                 }
             
             \(generatedType)
-            }\n\n
+            }
             """
         } else {
             return """
@@ -154,7 +154,7 @@ extension Generator {
                 }
             
             \(generatedType)
-            }\n\n
+            }
             """
         }
     }
