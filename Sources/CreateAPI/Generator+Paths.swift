@@ -6,19 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: (+Get) How to access response headers, e.g. `x-next` in Petstore/pets.get
-    // maybe add Response<T> that provides URLResponse and use it only if headers: are specified
-    // + add headers in comments (or add keys?)
-// TODO: Add support for query parametrs (separate struct?) https://swagger.io/docs/specification/describing-parameters/
-//    - allowReserved
-//    - components.parameters
-//    - inline parameters
-//    - constant parameters
-//    - style
-//    - explode
-//    - deprecated
-//    - path-level parameters
-//    - common parameters in components (inline?)
+// TODO: Add support for exploding query parameters (and disabling it); see edgecases
 // TODO: Improve how Patch parameters are generated
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
