@@ -424,6 +424,31 @@ final class Templates {
         """
     }
     
+    func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, parameter: PropertyName?, contents: String) -> String {
+        let stat = isTopLevel ? "static " : ""
+        if let parameter = parameter {
+            return """
+            extension \(extensionOf) {
+                \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
+                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
+                }
+            
+            \(contents.indented)
+            }
+            """
+        } else {
+            return """
+            extension \(extensionOf) {
+                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
+                    \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(component)\"")))
+                }
+            
+            \(contents.indented)
+            }
+            """
+        }
+    }
+    
     // MARK: Misc
     
     func namespace(_ name: String) -> String {

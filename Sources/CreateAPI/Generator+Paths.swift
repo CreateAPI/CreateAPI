@@ -27,10 +27,7 @@ import GrammaticalNumber
 
 // TODO: Run everything throught SwiftLint again
 extension Generator {
-    
-    #warning("refactor")
-    var access: String { options.access.isEmpty ? "" :  options.access + " " }
-    
+        
     func paths() -> String {
         startMeasuring("generating paths (\(spec.paths.count))")
                 
@@ -105,8 +102,7 @@ extension Generator {
         let isTopLevel = components.count == 1
         let type = component.isEmpty ? TypeName("Root") : makeType(component)
         let isParameter = component.starts(with: "{")
-        let stat = isTopLevel ? "static " : ""
-        
+
         let parents = Array(components.dropLast().map(makeType))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
@@ -122,28 +118,8 @@ extension Generator {
         let methods = isLast ? makeMethods(for: path, context: context) : []
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: subpath.rawValue, methods: methods)
         
-        if isParameter {
-            let parameter = PropertyName(processing: component, options: options)
-            return """
-            extension \(extensionOf) {
-                \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
-                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
-                }
-            
-            \(generatedType.indented)
-            }
-            """
-        } else {
-            return """
-            extension \(extensionOf) {
-                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
-                    \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
-                }
-            
-            \(generatedType.indented)
-            }
-            """
-        }
+        let parameter = isParameter ? makePropertyName(component) : nil
+        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: isTopLevel, parameter: parameter, contents: generatedType)
     }
     
     // MARK: - Methods
