@@ -256,12 +256,19 @@ extension Generator {
     // MARK: - Query Parameters
     
     // TODO: use propertyCountThreshold
+    // TODO: Add support for enums
     private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
         do {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            guard options.paths.queryParameterEncoders.keys.contains(property.type.rawValue) else {
+            func unpack(_ type: TypeName) -> String {
+                if type.rawValue.hasPrefix("[") && type.rawValue.hasSuffix("]") {
+                    return String(type.rawValue.dropFirst().dropLast())
+                }
+                return type.rawValue
+            }
+            guard options.paths.queryParameterEncoders.keys.contains(unpack(property.type)) else {
                 throw GeneratorError("Unsupported parameter type: \(property.type)")
             }
             setNeedsQueryParameterEncoder()
@@ -286,8 +293,10 @@ extension Generator {
             return nil
         }
         let schema: JSONSchema
+        var explode = true
         switch parameter.schemaOrContent {
         case .a(let schemaContext):
+            explode = schemaContext.explode
             switch schemaContext.schema {
             case .a(let reference):
                 schema = JSONSchema.reference(reference)
@@ -297,7 +306,9 @@ extension Generator {
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
         }
-        return try makeProperty(key: parameter.name, schema: schema, isRequired: parameter.required, in: context)
+        var property = try makeProperty(key: parameter.name, schema: schema, isRequired: parameter.required, in: context)
+        property.explode = explode
+        return property
     }
     
     // MARK: - Request Body

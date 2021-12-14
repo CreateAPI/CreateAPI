@@ -97,17 +97,22 @@ final class Templates {
     func toQueryParameters(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
-            if $0.isOptional {
-                return """
-                query["\($0.key)"] = \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)
-                """
+            if $0.type.rawValue.hasPrefix("[") { // TODO: Refactor
+                let accessor = $0.isOptional ? "(\($0.name.accessor) ?? [])" : "\($0.name.accessor)"
+                if $0.explode {
+                    return "query += \(accessor).map { (\"\($0.key)\", QueryParameterEncoder.encode($0)) }"
+                } else {
+                    return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\"))"
+                }
+            } else if $0.isOptional {
+                return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)))"
             } else {
-                return "query[\"\($0.key)\"] = QueryParameterEncoder.encode(\(prefix)\($0.name.accessor))"
+                return "query.append((\"\($0.key)\", QueryParameterEncoder.encode(\(prefix)\($0.name.accessor))))"
             }
         }
         return """
-        \(access)func asQuery() -> [String: String?] {
-            var query: [String: String?] = [:]
+        \(access)func asQuery() -> [(String, String?)] {
+            var query: [(String, String?)] = []
         \(statements.joined(separator: "\n").indented)
             return query
         }
@@ -120,7 +125,7 @@ final class Templates {
         guard !properties.isEmpty else {
             return "public init() {}"
         }
-        let statemenets = properties.map {
+        let statements = properties.map {
             "self.\($0.name.accessor) = \($0.name)"
         }.joined(separator: "\n")
         let arguments = properties.map {
@@ -128,7 +133,7 @@ final class Templates {
         }.joined(separator: ", ")
         return """
         \(access)init(\(arguments)) {
-        \(statemenets.indented)
+        \(statements.indented)
         }
         """
     }
@@ -415,7 +420,7 @@ final class Templates {
     func queryParameterEncoders(_ encoders: [String: String]) -> String {
         let methods = encoders.keys.sorted().map { key in
             """
-            static func encode(_ value: \(key)) -> String? {
+            static func encode(_ value: \(key)) -> String {
             \(encoders[key]!.indented)
             }
             """

@@ -33,9 +33,9 @@ extension Paths {
                 self.limit = limit
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["limit"] = limit.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("limit", limit.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -62,23 +62,23 @@ extension Paths.Pets {
 }
 
 private struct QueryParameterEncoder {
-    static func encode(_ value: Bool) -> String? {
+    static func encode(_ value: Bool) -> String {
         value ? "true" : "false"
     }
 
-    static func encode(_ value: Date) -> String? {
+    static func encode(_ value: Date) -> String {
         ISO8601DateFormatter().string(from: value)
     }
 
-    static func encode(_ value: Double) -> String? {
+    static func encode(_ value: Double) -> String {
         String(value)
     }
 
-    static func encode(_ value: Int) -> String? {
+    static func encode(_ value: Int) -> String {
         String(value)
     }
 
-    static func encode(_ value: String) -> String? {
+    static func encode(_ value: String) -> String {
         value
     }
 }

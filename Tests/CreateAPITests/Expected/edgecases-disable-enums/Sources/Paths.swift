@@ -42,8 +42,54 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        public var get: Request<[edgecases_disable_enums.Pet]> {
-            .get(path)
+        public func get(parameters: GetParameters) -> Request<[edgecases_disable_enums.Pet]> {
+            .get(path, query: parameters.asQuery())
+        }
+
+        public struct GetParameters {
+            public var status: [String]
+
+            public init(status: [String]) {
+                self.status = status
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Pet {
+    public var findByStatus2: FindByStatus2 {
+        FindByStatus2(path: path + "/findByStatus2")
+    }
+
+    public struct FindByStatus2 {
+        /// Path: `/pet/findByStatus2`
+        public let path: String
+
+        /// Finds Pets by status
+        ///
+        /// Multiple status values can be provided with comma separated strings
+        public func get(parameters: GetParameters? = nil) -> Request<[edgecases_disable_enums.Pet]> {
+            .get(path, query: parameters?.asQuery())
+        }
+
+        public struct GetParameters {
+            public var status: [String]?
+
+            public init(status: [String]? = nil) {
+                self.status = status
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query += (status ?? []).map { ("status", QueryParameterEncoder.encode($0)) }
+                return query
+            }
         }
     }
 }
@@ -60,8 +106,22 @@ extension Paths.Pet {
         /// Finds Pets by tags
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-        public var get: Request<[edgecases_disable_enums.Pet]> {
-            .get(path)
+        public func get(parameters: GetParameters) -> Request<[edgecases_disable_enums.Pet]> {
+            .get(path, query: parameters.asQuery())
+        }
+
+        public struct GetParameters {
+            public var tags: [String]
+
+            public init(tags: [String]) {
+                self.tags = tags
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ","))
+                return query
+            }
         }
     }
 }
@@ -297,10 +357,10 @@ extension Paths.User {
                 self.password = password
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["username"] = QueryParameterEncoder.encode(username)
-                query["password"] = QueryParameterEncoder.encode(password)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("username", QueryParameterEncoder.encode(username)))
+                query.append(("password", QueryParameterEncoder.encode(password)))
                 return query
             }
         }
@@ -368,18 +428,21 @@ extension Paths {
         }
 
         public struct GetParameters {
+            public var enumQueryStringArray: [String]?
             public var enumQueryString: String?
             public var enumQueryInteger: Int?
 
-            public init(enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+            public init(enumQueryStringArray: [String]? = nil, enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+                self.enumQueryStringArray = enumQueryStringArray
                 self.enumQueryString = enumQueryString
                 self.enumQueryInteger = enumQueryInteger
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["enum_query_string"] = enumQueryString.map(QueryParameterEncoder.encode)
-                query["enum_query_integer"] = enumQueryInteger.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", QueryParameterEncoder.encode($0)) }
+                query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
+                query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -464,23 +527,23 @@ extension Paths {
 }
 
 private struct QueryParameterEncoder {
-    static func encode(_ value: Bool) -> String? {
+    static func encode(_ value: Bool) -> String {
         value ? "true" : "false"
     }
 
-    static func encode(_ value: Date) -> String? {
+    static func encode(_ value: Date) -> String {
         ISO8601DateFormatter().string(from: value)
     }
 
-    static func encode(_ value: Double) -> String? {
+    static func encode(_ value: Double) -> String {
         String(value)
     }
 
-    static func encode(_ value: Int) -> String? {
+    static func encode(_ value: Int) -> String {
         String(value)
     }
 
-    static func encode(_ value: String) -> String? {
+    static func encode(_ value: String) -> String {
         value
     }
 }

@@ -625,7 +625,8 @@ struct Property {
     let isOptional: Bool
     // Key in the JSON
     let key: String
-    
+
+    var explode = true
     var schema: JSONSchema
     var metadata: Metadata?
     var nested: String?

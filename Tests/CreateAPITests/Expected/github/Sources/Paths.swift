@@ -332,10 +332,10 @@ extension Paths.App.Hook {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("cursor", cursor.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -423,12 +423,12 @@ extension Paths.App {
                 self.outdated = outdated
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["outdated"] = outdated.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("outdated", outdated.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -609,11 +609,11 @@ extension Paths.Applications {
                 self.clientID = clientID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["client_id"] = clientID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("client_id", clientID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -921,11 +921,11 @@ extension Paths {
                 self.clientID = clientID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["client_id"] = clientID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("client_id", clientID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -1421,10 +1421,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -1567,10 +1567,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -1741,10 +1741,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -1858,10 +1858,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -1976,10 +1976,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2135,13 +2135,13 @@ extension Paths.Enterprises.WithEnterprise {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["phrase"] = phrase.map(QueryParameterEncoder.encode)
-                query["after"] = after.map(QueryParameterEncoder.encode)
-                query["before"] = before.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("phrase", phrase.map(QueryParameterEncoder.encode)))
+                query.append(("after", after.map(QueryParameterEncoder.encode)))
+                query.append(("before", before.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2222,10 +2222,10 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2307,10 +2307,10 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2380,11 +2380,11 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2483,11 +2483,11 @@ extension Paths.Gists {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2527,11 +2527,11 @@ extension Paths.Gists {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2638,10 +2638,10 @@ extension Paths.Gists.WithGistID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2752,10 +2752,10 @@ extension Paths.Gists.WithGistID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2791,10 +2791,10 @@ extension Paths.Gists.WithGistID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -2982,10 +2982,10 @@ extension Paths.Installation {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3067,16 +3067,16 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["labels"] = labels.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["collab"] = isCollab.map(QueryParameterEncoder.encode)
-                query["orgs"] = isOrgs.map(QueryParameterEncoder.encode)
-                query["owned"] = isOwned.map(QueryParameterEncoder.encode)
-                query["pulls"] = isPulls.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("labels", labels.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("collab", isCollab.map(QueryParameterEncoder.encode)))
+                query.append(("orgs", isOrgs.map(QueryParameterEncoder.encode)))
+                query.append(("owned", isOwned.map(QueryParameterEncoder.encode)))
+                query.append(("pulls", isPulls.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3110,11 +3110,11 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["featured"] = isFeatured.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("featured", isFeatured.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3242,10 +3242,10 @@ extension Paths.MarketplaceListing {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3296,10 +3296,10 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3383,10 +3383,10 @@ extension Paths.MarketplaceListing.Stubbed {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3437,10 +3437,10 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3527,10 +3527,10 @@ extension Paths.Networks.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3576,14 +3576,14 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["all"] = isAll.map(QueryParameterEncoder.encode)
-                query["participating"] = isParticipating.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["before"] = before.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("all", isAll.map(QueryParameterEncoder.encode)))
+                query.append(("participating", isParticipating.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("before", before.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -3770,10 +3770,10 @@ extension Paths {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4120,10 +4120,10 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4272,10 +4272,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4458,10 +4458,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4586,10 +4586,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4712,10 +4712,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -4885,10 +4885,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5109,10 +5109,10 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5204,12 +5204,12 @@ extension Paths.Orgs.WithOrg {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["phrase"] = phrase.map(QueryParameterEncoder.encode)
-                query["after"] = after.map(QueryParameterEncoder.encode)
-                query["before"] = before.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("phrase", phrase.map(QueryParameterEncoder.encode)))
+                query.append(("after", after.map(QueryParameterEncoder.encode)))
+                query.append(("before", before.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5337,10 +5337,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5415,11 +5415,11 @@ extension Paths.Orgs.WithOrg {
                 self.displayName = displayName
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["display_name"] = displayName.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("display_name", displayName.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5457,10 +5457,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5496,10 +5496,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5772,10 +5772,10 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("cursor", cursor.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -5911,10 +5911,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6002,10 +6002,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6115,10 +6115,10 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6165,12 +6165,12 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["labels"] = labels.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("labels", labels.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6208,10 +6208,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6361,10 +6361,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6554,10 +6554,10 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6595,10 +6595,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6737,9 +6737,9 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
                 self.token = token
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["token"] = token.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("token", token.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6776,10 +6776,10 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6881,10 +6881,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -6949,10 +6949,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7026,10 +7026,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7194,12 +7194,12 @@ extension Paths.Orgs.WithOrg.SecretScanning {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["secret_type"] = secretType.map(QueryParameterEncoder.encode)
-                query["resolution"] = resolution.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("secret_type", secretType.map(QueryParameterEncoder.encode)))
+                query.append(("resolution", resolution.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7281,10 +7281,10 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7383,10 +7383,10 @@ extension Paths.Orgs.WithOrg.TeamSync {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7424,10 +7424,10 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7656,11 +7656,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.pinned = pinned
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["pinned"] = pinned.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("pinned", pinned.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7797,10 +7797,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -7925,10 +7925,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8027,10 +8027,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8176,10 +8176,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8219,10 +8219,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8360,10 +8360,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8476,10 +8476,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8703,10 +8703,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -8917,10 +8917,10 @@ extension Paths.Projects.Columns.WithColumnID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -9132,10 +9132,10 @@ extension Paths.Projects.WithProjectID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -9245,10 +9245,10 @@ extension Paths.Projects.WithProjectID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -9600,10 +9600,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -9854,10 +9854,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10038,15 +10038,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["actor"] = actor.map(QueryParameterEncoder.encode)
-                query["branch"] = branch.map(QueryParameterEncoder.encode)
-                query["event"] = event.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["created"] = created.map(QueryParameterEncoder.encode)
-                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("actor", actor.map(QueryParameterEncoder.encode)))
+                query.append(("branch", branch.map(QueryParameterEncoder.encode)))
+                query.append(("event", event.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("created", created.map(QueryParameterEncoder.encode)))
+                query.append(("exclude_pull_requests", excludePullRequests.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10078,9 +10078,9 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("exclude_pull_requests", excludePullRequests.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10187,10 +10187,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10236,9 +10236,9 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("exclude_pull_requests", excludePullRequests.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10292,10 +10292,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10392,10 +10392,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10598,10 +10598,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10805,10 +10805,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -10980,15 +10980,15 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["actor"] = actor.map(QueryParameterEncoder.encode)
-                query["branch"] = branch.map(QueryParameterEncoder.encode)
-                query["event"] = event.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["created"] = created.map(QueryParameterEncoder.encode)
-                query["exclude_pull_requests"] = excludePullRequests.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("actor", actor.map(QueryParameterEncoder.encode)))
+                query.append(("branch", branch.map(QueryParameterEncoder.encode)))
+                query.append(("event", event.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("created", created.map(QueryParameterEncoder.encode)))
+                query.append(("exclude_pull_requests", excludePullRequests.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -11048,10 +11048,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -11109,9 +11109,9 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -11242,11 +11242,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["protected"] = isProtected.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("protected", isProtected.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -12899,10 +12899,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13092,11 +13092,11 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("check_name", checkName.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13181,13 +13181,13 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.ref = ref
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["tool_name"] = toolName.map(QueryParameterEncoder.encode)
-                query["tool_guid"] = toolGuid.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("tool_name", toolName.map(QueryParameterEncoder.encode)))
+                query.append(("tool_guid", toolGuid.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13275,11 +13275,11 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
                 self.ref = ref
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13343,14 +13343,14 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.sarifID = sarifID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["tool_name"] = toolName.map(QueryParameterEncoder.encode)
-                query["tool_guid"] = toolGuid.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
-                query["sarif_id"] = sarifID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("tool_name", toolName.map(QueryParameterEncoder.encode)))
+                query.append(("tool_guid", toolGuid.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
+                query.append(("sarif_id", sarifID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13473,9 +13473,9 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
                 self.confirmDelete = confirmDelete
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["confirm_delete"] = confirmDelete.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("confirm_delete", confirmDelete.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13619,10 +13619,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13712,9 +13712,9 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
                 self.location = location
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["location"] = QueryParameterEncoder.encode(location)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("location", QueryParameterEncoder.encode(location)))
                 return query
             }
         }
@@ -13756,10 +13756,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13906,10 +13906,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -13993,10 +13993,10 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14128,15 +14128,15 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["sha"] = sha.map(QueryParameterEncoder.encode)
-                query["path"] = path.map(QueryParameterEncoder.encode)
-                query["author"] = author.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["until"] = until.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("sha", sha.map(QueryParameterEncoder.encode)))
+                query.append(("path", path.map(QueryParameterEncoder.encode)))
+                query.append(("author", author.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("until", until.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14207,10 +14207,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14289,10 +14289,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14361,10 +14361,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14424,12 +14424,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.appID = appID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["app_id"] = appID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("check_name", checkName.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("app_id", appID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14489,12 +14489,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["app_id"] = appID.map(QueryParameterEncoder.encode)
-                query["check_name"] = checkName.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("app_id", appID.map(QueryParameterEncoder.encode)))
+                query.append(("check_name", checkName.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14535,10 +14535,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14578,10 +14578,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14707,10 +14707,10 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -14874,9 +14874,9 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.ref = ref
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -15090,11 +15090,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["anon"] = anon.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("anon", anon.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -15140,14 +15140,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["sha"] = sha.map(QueryParameterEncoder.encode)
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
-                query["task"] = task.map(QueryParameterEncoder.encode)
-                query["environment"] = environment.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("sha", sha.map(QueryParameterEncoder.encode)))
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
+                query.append(("task", task.map(QueryParameterEncoder.encode)))
+                query.append(("environment", environment.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -15330,10 +15330,10 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -15632,10 +15632,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -15671,10 +15671,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -16009,10 +16009,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -16424,9 +16424,9 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
                 self.recursive = recursive
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["recursive"] = recursive.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("recursive", recursive.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -16462,10 +16462,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -16751,10 +16751,10 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["cursor"] = cursor.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("cursor", cursor.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17019,9 +17019,9 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
                 self.since = since
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17229,10 +17229,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17335,16 +17335,16 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["milestone"] = milestone.map(QueryParameterEncoder.encode)
-                query["assignee"] = assignee.map(QueryParameterEncoder.encode)
-                query["creator"] = creator.map(QueryParameterEncoder.encode)
-                query["mentioned"] = mentioned.map(QueryParameterEncoder.encode)
-                query["labels"] = labels.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("milestone", milestone.map(QueryParameterEncoder.encode)))
+                query.append(("assignee", assignee.map(QueryParameterEncoder.encode)))
+                query.append(("creator", creator.map(QueryParameterEncoder.encode)))
+                query.append(("mentioned", mentioned.map(QueryParameterEncoder.encode)))
+                query.append(("labels", labels.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17493,11 +17493,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17581,10 +17581,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17677,10 +17677,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -17938,11 +17938,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18005,10 +18005,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18044,10 +18044,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18333,10 +18333,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18429,10 +18429,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18468,10 +18468,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18571,10 +18571,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18844,10 +18844,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -18990,10 +18990,10 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19039,14 +19039,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["all"] = isAll.map(QueryParameterEncoder.encode)
-                query["participating"] = isParticipating.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["before"] = before.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("all", isAll.map(QueryParameterEncoder.encode)))
+                query.append(("participating", isParticipating.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("before", before.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19271,10 +19271,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19383,10 +19383,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19455,12 +19455,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["head"] = head.map(QueryParameterEncoder.encode)
-                query["base"] = base.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("head", head.map(QueryParameterEncoder.encode)))
+                query.append(("base", base.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19556,11 +19556,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19650,10 +19650,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -19875,11 +19875,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20047,10 +20047,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20088,10 +20088,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20187,10 +20187,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20299,10 +20299,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20474,10 +20474,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20642,9 +20642,9 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.ref = ref
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20678,9 +20678,9 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
                 self.ref = ref
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["ref"] = ref.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("ref", ref.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -20720,10 +20720,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21060,10 +21060,10 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21103,10 +21103,10 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
                 self.label = label
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["name"] = QueryParameterEncoder.encode(name)
-                query["label"] = label.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("name", QueryParameterEncoder.encode(name)))
+                query.append(("label", label.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21201,12 +21201,12 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["secret_type"] = secretType.map(QueryParameterEncoder.encode)
-                query["resolution"] = resolution.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("secret_type", secretType.map(QueryParameterEncoder.encode)))
+                query.append(("resolution", resolution.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21308,10 +21308,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21547,10 +21547,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21640,10 +21640,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21713,10 +21713,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -21748,10 +21748,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -22107,9 +22107,9 @@ extension Paths {
                 self.since = since
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -22196,10 +22196,10 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -22431,12 +22431,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.excludedAttributes = excludedAttributes
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["startIndex"] = startIndex.map(QueryParameterEncoder.encode)
-                query["count"] = count.map(QueryParameterEncoder.encode)
-                query["filter"] = filter.map(QueryParameterEncoder.encode)
-                query["excludedAttributes"] = excludedAttributes.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("startIndex", startIndex.map(QueryParameterEncoder.encode)))
+                query.append(("count", count.map(QueryParameterEncoder.encode)))
+                query.append(("filter", filter.map(QueryParameterEncoder.encode)))
+                query.append(("excludedAttributes", excludedAttributes.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -22514,9 +22514,9 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                 self.excludedAttributes = excludedAttributes
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["excludedAttributes"] = excludedAttributes.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("excludedAttributes", excludedAttributes.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -22682,11 +22682,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.filter = filter
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["startIndex"] = startIndex.map(QueryParameterEncoder.encode)
-                query["count"] = count.map(QueryParameterEncoder.encode)
-                query["filter"] = filter.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("startIndex", startIndex.map(QueryParameterEncoder.encode)))
+                query.append(("count", count.map(QueryParameterEncoder.encode)))
+                query.append(("filter", filter.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23087,11 +23087,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23153,11 +23153,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23223,11 +23223,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23292,12 +23292,12 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["repository_id"] = QueryParameterEncoder.encode(repositoryID)
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("repository_id", QueryParameterEncoder.encode(repositoryID)))
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23360,11 +23360,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23427,11 +23427,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23494,11 +23494,11 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["q"] = QueryParameterEncoder.encode(q)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("q", QueryParameterEncoder.encode(q)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23658,10 +23658,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23803,10 +23803,10 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -23936,10 +23936,10 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24018,10 +24018,10 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24100,10 +24100,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24144,10 +24144,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24352,10 +24352,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24470,10 +24470,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24707,10 +24707,10 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -24917,11 +24917,11 @@ extension Paths.User {
                 self.repositoryID = repositoryID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["repository_id"] = repositoryID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("repository_id", repositoryID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25078,10 +25078,10 @@ extension Paths.User.Codespaces {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25557,10 +25557,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25698,10 +25698,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25739,10 +25739,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25818,10 +25818,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -25933,10 +25933,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26010,10 +26010,10 @@ extension Paths.User.Installations.WithInstallationID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26143,12 +26143,12 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["labels"] = labels.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("labels", labels.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26186,10 +26186,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26285,10 +26285,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26326,10 +26326,10 @@ extension Paths.User.MarketplacePurchases {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26376,10 +26376,10 @@ extension Paths.User.Memberships {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26461,10 +26461,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26555,8 +26555,22 @@ extension Paths.User.Migrations {
         /// Once the migration has been `exported` you can [download the migration archive](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
-        public var get: Request<github.Migration> {
-            .get(path)
+        public func get(parameters: GetParameters? = nil) -> Request<github.Migration> {
+            .get(path, query: parameters?.asQuery())
+        }
+
+        public struct GetParameters {
+            public var exclude: [String]?
+
+            public init(exclude: [String]? = nil) {
+                self.exclude = exclude
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query += (exclude ?? []).map { ("exclude", QueryParameterEncoder.encode($0)) }
+                return query
+            }
         }
     }
 }
@@ -26683,10 +26697,10 @@ extension Paths.User.Migrations.WithMigrationID {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26728,10 +26742,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26838,9 +26852,9 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
                 self.token = token
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["token"] = token.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("token", token.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -26877,10 +26891,10 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27019,10 +27033,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27064,13 +27078,13 @@ extension Paths.User {
                 self.before = before
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["affiliation"] = affiliation.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["before"] = before.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("affiliation", affiliation.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("before", before.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27236,10 +27250,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27304,10 +27318,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27390,10 +27404,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27431,10 +27445,10 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27474,10 +27488,10 @@ extension Paths {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27553,10 +27567,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27601,10 +27615,10 @@ extension Paths.Users.WithUsername.Events.Orgs {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27636,10 +27650,10 @@ extension Paths.Users.WithUsername.Events {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27677,10 +27691,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27718,10 +27732,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27779,11 +27793,11 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["since"] = since.map(QueryParameterEncoder.encode)
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("since", since.map(QueryParameterEncoder.encode)))
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27821,10 +27835,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27863,9 +27877,9 @@ extension Paths.Users.WithUsername {
                 self.subjectID = subjectID
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["subject_id"] = subjectID.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("subject_id", subjectID.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27925,10 +27939,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -27968,10 +27982,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28081,9 +28095,9 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
                 self.token = token
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["token"] = token.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("token", token.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28206,10 +28220,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28243,10 +28257,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28278,10 +28292,10 @@ extension Paths.Users.WithUsername.ReceivedEvents {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28319,10 +28333,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28467,10 +28481,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28508,10 +28522,10 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [String: String?] {
-                var query: [String: String?] = [:]
-                query["per_page"] = perPage.map(QueryParameterEncoder.encode)
-                query["page"] = page.map(QueryParameterEncoder.encode)
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
+                query.append(("page", page.map(QueryParameterEncoder.encode)))
                 return query
             }
         }
@@ -28532,23 +28546,23 @@ extension Paths {
 }
 
 private struct QueryParameterEncoder {
-    static func encode(_ value: Bool) -> String? {
+    static func encode(_ value: Bool) -> String {
         value ? "true" : "false"
     }
 
-    static func encode(_ value: Date) -> String? {
+    static func encode(_ value: Date) -> String {
         ISO8601DateFormatter().string(from: value)
     }
 
-    static func encode(_ value: Double) -> String? {
+    static func encode(_ value: Double) -> String {
         String(value)
     }
 
-    static func encode(_ value: Int) -> String? {
+    static func encode(_ value: Int) -> String {
         String(value)
     }
 
-    static func encode(_ value: String) -> String? {
+    static func encode(_ value: String) -> String {
         value
     }
 }
