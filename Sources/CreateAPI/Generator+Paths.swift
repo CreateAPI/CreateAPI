@@ -12,7 +12,7 @@ import GrammaticalNumber
 // TODO: Support path parameters like this: GET /report.{format}
 // TODO: Generate phantom ID types
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
-// TODO: Run everything throught SwiftLint again
+// TODO: Add a way to extend supported content types
 extension Generator {
         
     func paths() -> String {

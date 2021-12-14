@@ -3873,6 +3873,29 @@ extension Paths {
     public struct Octocat {
         /// Path: `/octocat`
         public let path: String
+
+        /// Get Octocat
+        ///
+        /// Get the octocat as ASCII art
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/meta#get-octocat)
+        public func get(parameters: GetParameters? = nil) -> Request<String> {
+            .get(path, query: parameters?.asQuery())
+        }
+
+        public struct GetParameters {
+            public var s: String?
+
+            public init(s: String? = nil) {
+                self.s = s
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("s", s))
+                return query
+            }
+        }
     }
 }
 
@@ -30055,6 +30078,13 @@ extension Paths {
     public struct Zen {
         /// Path: `/zen`
         public let path: String
+
+        /// Get the Zen of GitHub
+        ///
+        /// Get a random sentence from the Zen of GitHub
+        public var get: Request<String> {
+            .get(path)
+        }
     }
 }
 
