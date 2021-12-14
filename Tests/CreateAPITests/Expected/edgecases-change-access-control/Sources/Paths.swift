@@ -7,7 +7,7 @@ import Foundation
 import APIClient
 import HTTPHeaders
 
- enum Paths {}
+enum Paths {}
 
 extension Paths {
     static var pet: Pet {

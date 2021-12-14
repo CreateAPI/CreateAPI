@@ -73,7 +73,7 @@ extension Generator {
             header += "\nimport \(value)"
         }
         header += "\n\n"
-        header += [options.access, "enum", options.paths.namespace, "{}"].compactMap { $0 }.joined(separator: " ")
+        header += templates.namespace(options.paths.namespace)
         return header
     }
     

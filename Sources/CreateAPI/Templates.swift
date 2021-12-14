@@ -412,6 +412,10 @@ final class Templates {
     
     // MARK: Misc
     
+    func namespace(_ name: String) -> String {
+        "\(access)enum \(name) {}"
+    }
+    
     var deprecated: String {
         #"@available(*, deprecated, message: "Deprecated")"# + "\n"
     }
