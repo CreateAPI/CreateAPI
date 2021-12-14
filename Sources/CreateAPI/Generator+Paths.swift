@@ -10,7 +10,6 @@ import GrammaticalNumber
 // TODO: Add path parameter types support (e.g. Int)
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Support path parameters like this: GET /report.{format}
-// TODO: Fix empty Markdown and Raw paths
 // TODO: Generate phantom ID types
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
 // TODO: Run everything throught SwiftLint again
@@ -439,7 +438,7 @@ extension Generator {
     private func makeResponse(for response: OpenAPI.Response, method: String, context: Context) throws -> GeneratedType {
         if response.content.values.isEmpty {
             return GeneratedType(type: TypeName("Void"))
-        } else if let content = response.content[.json] {
+        } else if let content = (response.content[.json] ?? response.content[.other("application/scim+json")]) {
             switch content.schema {
             case .a(let reference):
                 let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
