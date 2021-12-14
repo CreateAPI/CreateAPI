@@ -191,6 +191,10 @@ extension Generator {
     
     // TODO: Add support for header parameters
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+        guard operation.operationId == "findPetsByStatus2" else {
+            throw GeneratorError("Skip")
+        }
+        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -280,7 +284,7 @@ extension Generator {
         }
     }
     
-    // TODO: Add support for other types (arrays, etc); currently only basic built-in structs will works (see `Order`)
+    // TODO: Add support for enums and arrays of enums represtened by primitive types
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter: OpenAPI.Parameter
         switch input {
