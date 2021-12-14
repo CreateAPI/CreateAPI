@@ -13,6 +13,8 @@ import GrammaticalNumber
 // TODO: Generate phantom ID types
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
 // TODO: Add a way to extend supported content types
+// TODO: When the request body has only one parameter, inline it (required knowledge about nested types)
+// TODO: When there is only one parameter, inline it (required knowledge about nested types)
 extension Generator {
         
     func paths() -> String {
@@ -209,7 +211,6 @@ extension Generator {
     
     // MARK: - Query Parameters
     
-    // TODO: use propertyCountThreshold
     private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
         do {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
