@@ -105,10 +105,6 @@ extension Generator {
 
         let parents = Array(components.dropLast().map(makeType))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
-
-        // TODO: percent-encode path?
-        
-        // TODO: Reuse type generation code
         
         if !isLast && spec.paths.contains(key: subpath) {
             return nil // Will be generated when the path is encountered
@@ -123,8 +119,7 @@ extension Generator {
     }
     
     // MARK: - Methods
-    
-    // TODO: Add remaining methods
+
     private func makeMethods(for item: OpenAPI.PathItem, context: Context) -> [String] {
         [
             item.get.flatMap { makeMethod($0, "get", context) },
@@ -137,9 +132,7 @@ extension Generator {
             item.trace.flatMap { makeMethod($0, "trace", context) },
         ].compactMap { $0 }
     }
-        
-    // TODO: Inject offset as a parameter
-    // TODO: Add a way to disamiguate if responses have oneOf
+
     private func makeMethod(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) -> String? {
         do {
             return try _makeMethod(for: operation, method: method, context: context)
@@ -195,13 +188,11 @@ extension Generator {
                 call.append("body: body")
             }
         }
-        // TODO: Align this and contents based on the line count (and add option)
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
         if options.paths.isAddingOperationIds, let operationId = operation.operationId, !operationId.isEmpty {
             setNeedsRequestOperationIdExtension()
             contents += ".id(\"\(operationId)\")"
         }
-        // TODO: use properties instead of function when there are not arguments? (and add an option)
         output += templates.methodOrProperty(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
         if let headers = responseHeaders {
             output += "\n\n"
@@ -227,7 +218,6 @@ extension Generator {
             setNeedsQueryParameterEncoder()
             return property
         } catch {
-            // TODO: Change to non-failing version
             print("ERROR: Fail to generate query parameter \(input.description)")
             return nil
         }
