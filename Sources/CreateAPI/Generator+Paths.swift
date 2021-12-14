@@ -17,6 +17,7 @@ import GrammaticalNumber
 // TODO: Support path parameters like this GET /report.{format}
 // TODO: Get path parameter type from the (first) operation
 // TODO: Fix double newline at the end
+// TODO: Fix empty Markdown and Raw paths
 
 // TODO: Apply overridden names based on spec, not output file
 // TODO: Generate phantom ID types
@@ -117,23 +118,9 @@ extension Generator {
             return nil // Will be generated when the path is encountered
         }
         
-        // TODO: refactor and add remaining niceness
-        var generatedType = """
-            \(access)struct \(type) {
-                /// Path: `\(subpath.rawValue)`
-                \(access)let path: String\n
-        """
-        
         let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
-        if isLast {
-            generatedType += """
-            \n\(makeMethods(for: path, context: context))\n
-            """
-        }
-        
-        generatedType += """
-            }
-        """
+        let methods = isLast ? makeMethods(for: path, context: context) : []
+        let generatedType = templates.pathEntity(name: type.rawValue, subpath: subpath.rawValue, methods: methods)
         
         if isParameter {
             let parameter = PropertyName(processing: component, options: options)
@@ -143,7 +130,7 @@ extension Generator {
                     \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
                 }
             
-            \(generatedType)
+            \(generatedType.indented)
             }
             """
         } else {
@@ -153,7 +140,7 @@ extension Generator {
                     \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(components.last!)\"")))
                 }
             
-            \(generatedType)
+            \(generatedType.indented)
             }
             """
         }
@@ -162,7 +149,7 @@ extension Generator {
     // MARK: - Methods
     
     // TODO: Add remaining methods
-    private func makeMethods(for item: OpenAPI.PathItem, context: Context) -> String {
+    private func makeMethods(for item: OpenAPI.PathItem, context: Context) -> [String] {
         [
             item.get.flatMap { makeMethod($0, "get", context) },
             item.post.flatMap { makeMethod($0, "post", context) },
@@ -172,10 +159,7 @@ extension Generator {
             item.options.flatMap { makeMethod($0, "options", context) },
             item.head.flatMap { makeMethod($0, "head", context) },
             item.trace.flatMap { makeMethod($0, "trace", context) },
-        ]
-            .compactMap { $0 }
-            .map { $0.indented }
-            .joined(separator: "\n\n")
+        ].compactMap { $0 }
     }
         
     // TODO: Inject offset as a parameter
@@ -252,7 +236,7 @@ extension Generator {
             output += "\n\n"
             output += value
         }
-        return output.indented
+        return output
     }
     
     // MARK: - Query Parameters

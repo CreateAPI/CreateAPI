@@ -410,12 +410,26 @@ final class Templates {
         return output
     }
     
+    // MARK: Paths
+    
+    func pathEntity(name: String, subpath: String, methods: [String]) -> String {
+        let contents = ["""
+        /// Path: `\(subpath)`
+        \(access)let path: String
+        """] + methods
+        return """
+        \(access)struct \(name) {
+        \(contents.joined(separator: "\n\n").indented)
+        }
+        """
+    }
+    
     // MARK: Misc
     
     func namespace(_ name: String) -> String {
         "\(access)enum \(name) {}"
     }
-    
+        
     var deprecated: String {
         #"@available(*, deprecated, message: "Deprecated")"# + "\n"
     }

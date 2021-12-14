@@ -3202,8 +3202,6 @@ extension Paths {
     public struct Markdown {
         /// Path: `/markdown`
         public let path: String
-
-
     }
 }
 
@@ -3215,8 +3213,6 @@ extension Paths.Markdown {
     public struct Raw {
         /// Path: `/markdown/raw`
         public let path: String
-
-
     }
 }
 
@@ -3819,8 +3815,6 @@ extension Paths {
     public struct Octocat {
         /// Path: `/octocat`
         public let path: String
-
-
     }
 }
 
@@ -23645,8 +23639,6 @@ extension Paths.Scim.V2.Organizations.WithOrg {
     public struct Users {
         /// Path: `/scim/v2/organizations/{org}/Users`
         public let path: String
-
-
     }
 }
 
@@ -29591,8 +29583,6 @@ extension Paths {
     public struct Zen {
         /// Path: `/zen`
         public let path: String
-
-
     }
 }
 
