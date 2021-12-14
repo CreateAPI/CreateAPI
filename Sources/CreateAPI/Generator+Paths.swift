@@ -6,7 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add support for exploding query parameters (and disabling it); see edgecases
 // TODO: Improve how Patch parameters are generated
 // TODO: Add summary and description
 // TODO: Figure out what to do with operationId
@@ -17,6 +16,7 @@ import GrammaticalNumber
 // TODO: Add support for deprecated methods
 // TODO: Support path parameters like this GET /report.{format}
 // TODO: Get path parameter type from the (first) operation
+// TODO: Fix double newline at the end
 
 // TODO: Apply overridden names based on spec, not output file
 // TODO: Generate phantom ID types
@@ -214,10 +214,12 @@ extension Generator {
         let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
         if !query.isEmpty {
             let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
-            let props = query.map(templates.property).joined(separator: "\n")
-            let initializer = templates.initializer(properties: query)
-            let toQuery = templates.toQueryParameters(properties: query)
-            nested.append(templates.entity(name: type, contents: [props, initializer, toQuery], protocols: []))
+            var contents: [String] = []
+            contents += [query.map(templates.property).joined(separator: "\n")]
+            contents += query.compactMap(\.nested)
+            contents += [templates.initializer(properties: query)]
+            contents += [templates.toQueryParameters(properties: query)]
+            nested.append(templates.entity(name: type, contents: contents, protocols: []))
             let isOptional = query.allSatisfy { $0.isOptional }
             parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
             call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
@@ -271,8 +273,6 @@ extension Generator {
         }
     }
     
-    // TODO: Add support for enums and arrays of enums represtened by primitive types
-    // TODO: Add support for enum and primitive type references
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter: OpenAPI.Parameter
         switch input {
@@ -306,16 +306,21 @@ extension Generator {
             return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested)
         }
         
-//        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
-        
         struct QueryItemType {
             var type: TypeName
             var nested: String?
+            
+            init(type: TypeName, nested: String? = nil) {
+                self.type = type
+                self.nested = nested
+            }
             
             init(_ name: String) {
                 self.type = TypeName(name)
             }
         }
+        
+        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
         
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
             switch schema {
@@ -328,6 +333,11 @@ extension Generator {
                 case .other(let other): if other == "uri" { return QueryItemType("URL") }
                 default: break
                 }
+                if info.allowedValues != nil {
+                    let enumTypeName = makeTypeName(parameter.name)
+                    let nested = try makeEnum(name: enumTypeName, info: info)
+                    return QueryItemType(type: enumTypeName, nested: nested)
+                }
                 return QueryItemType("String")
             case .object: return nil
             case .array(_, let details):
@@ -338,11 +348,15 @@ extension Generator {
                     throw GeneratorError("Missing array item type")
                 }
                 if let type = try getQueryItemType(for: item, isTopLevel: false) {
-                    return QueryItemType(type.type.asArray.rawValue)
+                    return QueryItemType(type: type.type.asArray, nested: type.nested)
                 }
                 return nil
             case .all, .one, .any, .not: return nil
-            case .reference: return nil
+            case .reference(let ref, _):
+                guard let name = ref.name.map(makeTypeName), supportedTypes.contains(name.rawValue) else {
+                    return nil
+                }
+                return QueryItemType(type: name)
             case .fragment: return nil
             }
         }

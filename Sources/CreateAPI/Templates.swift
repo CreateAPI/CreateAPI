@@ -429,13 +429,19 @@ final class Templates {
     }
     
     func queryParameterEncoders(_ encoders: [String: String]) -> String {
-        let methods = encoders.keys.sorted().map { key in
+        var methods = encoders.keys.sorted().map { key in
             """
             static func encode(_ value: \(key)) -> String {
             \(encoders[key]!.indented)
             }
             """
         }
+        // Encoding RawRepresentable
+        methods.append("""
+        static func encode<T: RawRepresentable>(_ value: T) -> String where T.RawValue == String {
+            value.rawValue
+        }
+        """)
         return """
         private struct QueryParameterEncoder {
         \(methods.joined(separator: "\n\n").indented)

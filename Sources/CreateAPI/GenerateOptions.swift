@@ -45,9 +45,11 @@ final class GenerateOptions {
         
     struct Rename {
         var parameters: [String: String]
+        var enumCaseNames: [String: String]
         
         init(_ paths: GenerateOptionsScheme.Rename?) {
             self.parameters = paths?.parameters ?? [:]
+            self.enumCaseNames = paths?.enumCaseNames ?? [:]
         }
     }
     
@@ -178,6 +180,7 @@ final class GenerateOptionsScheme: Decodable {
     
     struct Rename: Decodable {
         var parameters: [String: String]?
+        var enumCaseNames: [String: String]?
     }
     
     struct Comments: Decodable {

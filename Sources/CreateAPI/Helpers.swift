@@ -313,7 +313,6 @@ extension String {
         if let replacement = replacements[self] {
             return replacement
         }
-        
         if first == "+" {
             return "plus\(dropFirst())"
         }
@@ -428,7 +427,7 @@ private let replacements: [String: String] = [
     "#": "hash",
     "@": "alpha",
     "&": "and",
-    "-": "munus",
+    "-": "munis",
     "+": "plus",
     "\"": "backslash",
     "/": "slash"

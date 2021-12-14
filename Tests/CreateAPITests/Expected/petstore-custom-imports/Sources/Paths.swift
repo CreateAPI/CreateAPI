@@ -90,5 +90,9 @@ private struct QueryParameterEncoder {
     static func encode(_ value: URL) -> String {
         value.absoluteString
     }
+
+    static func encode<T: RawRepresentable>(_ value: T) -> String where T.RawValue == String {
+        value.rawValue
+    }
 }
 

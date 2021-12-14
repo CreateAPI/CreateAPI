@@ -47,15 +47,21 @@ extension Paths.Pet {
         }
 
          struct GetParameters {
-            var status: [String]
+            var status: [Status]
 
-            init(status: [String]) {
+            enum Status: String, Codable, CaseIterable {
+                case available
+                case pending
+                case sold
+            }
+
+            init(status: [Status]) {
                 self.status = status
             }
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("status", status.joined(separator: ",")))
+                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ",")))
                 return query
             }
         }
@@ -79,15 +85,21 @@ extension Paths.Pet {
         }
 
          struct GetParameters {
-            var status: [String]?
+            var status: [Status]?
 
-            init(status: [String]? = nil) {
+            enum Status: String, Codable, CaseIterable {
+                case available
+                case pending
+                case sold
+            }
+
+            init(status: [Status]? = nil) {
                 self.status = status
             }
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (status ?? []).map { ("status", $0) }
+                query += (status ?? []).map { ("status", QueryParameterEncoder.encode($0)) }
                 return query
             }
         }
@@ -428,11 +440,22 @@ extension Paths {
         }
 
          struct GetParameters {
-            var enumQueryStringArray: [String]?
-            var enumQueryString: String?
+            var enumQueryStringArray: [EnumQueryStringArray]?
+            var enumQueryString: EnumQueryString?
             var enumQueryInteger: Int?
 
-            init(enumQueryStringArray: [String]? = nil, enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+            enum EnumQueryStringArray: String, Codable, CaseIterable {
+                case greaterThan = ">"
+                case dollar = "$"
+            }
+
+            enum EnumQueryString: String, Codable, CaseIterable {
+                case abc = "_abc"
+                case minusefg = "-efg"
+                case xyz = "(xyz)"
+            }
+
+            init(enumQueryStringArray: [EnumQueryStringArray]? = nil, enumQueryString: EnumQueryString? = nil, enumQueryInteger: Int? = nil) {
                 self.enumQueryStringArray = enumQueryStringArray
                 self.enumQueryString = enumQueryString
                 self.enumQueryInteger = enumQueryInteger
@@ -440,8 +463,8 @@ extension Paths {
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", $0) }
-                query.append(("enum_query_string", enumQueryString))
+                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", QueryParameterEncoder.encode($0)) }
+                query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
                 query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
                 return query
             }
@@ -549,6 +572,10 @@ private struct QueryParameterEncoder {
 
     static func encode(_ value: URL) -> String {
         value.absoluteString
+    }
+
+    static func encode<T: RawRepresentable>(_ value: T) -> String where T.RawValue == String {
+        value.rawValue
     }
 }
 

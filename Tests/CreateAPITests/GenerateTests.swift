@@ -433,6 +433,12 @@ final class GenerateTests: XCTestCase {
                     "overrideResponses": {
                         "accepted": "Void"
                     }
+                },
+                "rename": {
+                    "enumCaseNames": {
+                        "reactions-+1": "reactionsPlusOne",
+                        "reactions--1": "reactionsMinusOne",
+                    }
                 }
             }
             """)
