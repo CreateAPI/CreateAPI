@@ -61,7 +61,7 @@ extension Generator {
             return nil // Always inline
         case .string(let info, _):
             guard isEnum(info) else { return nil } // Always inline
-            return try makeEnum(name: name, info: info)
+            return try makeStringEnum(name: name, info: info)
         case .object(let info, let details):
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
@@ -130,7 +130,7 @@ extension Generator {
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
                 let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: TypeName("CreateAPIEnumPlaceholderName")).rawValue)
-                let nested = try makeEnum(name: typeName, info: info)
+                let nested = try makeStringEnum(name: typeName, info: info)
                 return property(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
             }
             guard let type = try getPrimitiveType(for: schema, context: context) else {
@@ -329,9 +329,18 @@ extension Generator {
     
     // MARK: Enums
     
-    func makeEnum(name: TypeName, info: JSONSchemaContext) throws -> String {
-        let values = (info.allowedValues ?? [])
-            .compactMap { $0.value as? String }
+    func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> String {
+        func getValue(_ value: Any) -> String? {
+            if let string = value as? String {
+                return string
+            }
+            if let bool = value as? Bool {
+                return bool ? "true" : "false"
+            }
+            return nil
+        }
+        
+        let values = (info.allowedValues ?? []).map(\.value).compactMap(getValue)
         guard !values.isEmpty else {
             throw GeneratorError("Enum \"\(name)\" has no values")
         }
@@ -411,7 +420,6 @@ extension Generator {
                 throw GeneratorError("Missing array item type")
             }
             return try getPrimitiveType(for: items, context: context)?.asArray
-        // TODO: Can't one of these be a primitive type too?
         case .all, .one, .any, .not:
             return nil
         case .reference(let reference, _):
@@ -458,7 +466,15 @@ extension Generator {
     
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
         let context = context.adding(name)
-        let properties: [Property] = try makeProperties(for: schemas, context: context)
+        let properties: [Property] = try makeProperties(for: schemas, context: context).map {
+            // TODO: Generalize this and add better naming for nested types.
+            // E.g. enum of strings should become "StringValue", not "Object"
+            var property = $0
+            if property.name.rawValue == "isBool" {
+                property.name = PropertyName("bool")
+            }
+            return property
+        }
         
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
@@ -625,18 +641,24 @@ struct Context {
     var isEncodableNeeded = true
     
     func adding(_ parent: TypeName) -> Context {
-        Context(parents: parents + [parent], namespace: namespace, isDecodableNeeded: isDecodableNeeded, isEncodableNeeded: isEncodableNeeded)
+        map { $0.parents = $0.parents + [parent] }
+    }
+    
+    private func map(_ closure: (inout Context) -> Void) -> Context {
+        var copy = self
+        closure(&copy)
+        return copy
     }
 }
 
 struct Property {
     // Example: "files"
-    let name: PropertyName
+    var name: PropertyName
     // Example: "[File]"
-    let type: TypeName
-    let isOptional: Bool
+    var type: TypeName
+    var isOptional: Bool
     // Key in the JSON
-    let key: String
+    var key: String
 
     var explode = true
     var schema: JSONSchema

@@ -2436,6 +2436,7 @@ extension Paths {
             ///   }
             /// }
             public var files: [String: FilesItem]
+            public var `public`: Public?
 
             public struct FilesItem: Encodable {
                 /// Content of the file
@@ -2451,15 +2452,36 @@ extension Paths {
                 }
             }
 
-            public init(description: String? = nil, files: [String: FilesItem]) {
+            public enum Public: Encodable {
+                case bool(Bool)
+                case object(Object)
+
+                /// Example: true
+                public enum Object: String, Codable, CaseIterable {
+                    case `true`
+                    case `false`
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                    case .bool(let value): try container.encode(value)
+                    case .object(let value): try container.encode(value)
+                    }
+                }
+            }
+
+            public init(description: String? = nil, files: [String: FilesItem], `public`: Public? = nil) {
                 self.description = description
                 self.files = files
+                self.public = `public`
             }
 
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encodeIfPresent(description, forKey: "description")
                 try values.encode(files, forKey: "files")
+                try values.encodeIfPresent(`public`, forKey: "public")
             }
         }
     }
