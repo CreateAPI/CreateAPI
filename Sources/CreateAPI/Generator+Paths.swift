@@ -31,38 +31,58 @@ extension Generator {
     func paths() -> String {
         startMeasuring("generating paths (\(spec.paths.count))")
                 
-        var declarations: [String] = []
-        var generated = Set<OpenAPI.Path>()
-        for path in spec.paths {
-            var components: [String] = []
-            let allComponents = path.key.components.isEmpty ? [""] : path.key.components
-            for (index, component) in allComponents.enumerated() {
-                components.append(component)
-
-                let subpath = OpenAPI.Path(components)
-                guard !generated.contains(subpath) else { continue }
-                generated.insert(subpath)
-                
-                let isLast = index == allComponents.endIndex - 1
-                
-                do {
-                    if let value = try makeOperation(path: path.value, components: components, isLast: isLast) {
-                        declarations.append(value)
-                    }
-                } catch {
-                    print("ERROR: Failed to generate code for operation at path: \(components.joined(separator: "/"))")
-                }
-            }
+        let jobs = makeJobs()
+        var generated = Array<String?>(repeating: nil, count: jobs.count)
+        let lock = NSLock()
+        concurrentPerform(on: jobs, parallel: arguments.isVerbose) { index, job in
+            let code = makeOperation(job: job)
+            lock.lock()
+            generated[index] = code
+            lock.unlock()
         }
 
-        let header = makeHeader()
-        let extensions = makeExtensions()
-        
-        let output = ([header] + declarations + extensions).joined(separator: "\n\n") + "\n\n"
+        let output = ([makeHeader()] + generated.compactMap { $0 } + makeExtensions())
+            .joined(separator: "\n\n") + "\n\n"
         
         stopMeasuring("generating paths (\(spec.paths.count))")
 
         return output.indent(using: options)
+    }
+    
+    // Generate code for the given (sub)path.
+    private struct Job {
+        let lastComponent: String
+        let path: OpenAPI.Path // Can be sub-path too
+        let components: [String]
+        var isSubpath: Bool
+        let item: OpenAPI.PathItem
+        
+        var isTopLevel: Bool { components.count == 1 }
+    }
+    
+    // Make all jobs upfront so we could then parallelize code generation
+    private func makeJobs() -> [Job] {
+        var jobs: [Job] = []
+        var generated = Set<OpenAPI.Path>()
+        for path in spec.paths {
+            let components = path.key.components.isEmpty ? [""] : path.key.components
+            for index in components.indices {
+                let subComponents = Array(components[...index])
+                let subpath = OpenAPI.Path(Array(components[...index]))
+                let isSubpath = index < components.endIndex - 1
+                
+                if isSubpath && spec.paths.contains(key: subpath) {
+                    continue // Will be generated when the full path is encountered
+                }
+                
+                guard !generated.contains(subpath) else { continue }
+                generated.insert(subpath)
+
+                let job = Job(lastComponent: components[index], path: subpath, components: subComponents, isSubpath: isSubpath, item: path.value)
+                jobs.append(job)
+            }
+        }
+        return jobs
     }
     
     private func makeHeader() -> String {
@@ -96,26 +116,20 @@ extension Generator {
     
     // MARK: - Operation
     
-    private func makeOperation(path: OpenAPI.PathItem, components: [String], isLast: Bool) throws -> String? {
-        let subpath = OpenAPI.Path(components)
-        let component = components.last!
-        let isTopLevel = components.count == 1
+    private func makeOperation(job: Job) -> String {
+        let component = job.lastComponent
         let type = component.isEmpty ? TypeName("Root") : makeType(component)
         let isParameter = component.starts(with: "{")
 
-        let parents = Array(components.dropLast().map(makeType))
+        let parents = Array(job.components.dropLast().map(makeType))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
-        
-        if !isLast && spec.paths.contains(key: subpath) {
-            return nil // Will be generated when the path is encountered
-        }
-        
+
         let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
-        let methods = isLast ? makeMethods(for: path, context: context) : []
-        let generatedType = templates.pathEntity(name: type.rawValue, subpath: subpath.rawValue, methods: methods)
+        let methods = job.isSubpath ? [] : makeMethods(for: job.item, context: context)
+        let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, methods: methods)
         
         let parameter = isParameter ? makePropertyName(component) : nil
-        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: isTopLevel, parameter: parameter, contents: generatedType)
+        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, parameter: parameter, contents: generatedType)
     }
     
     // MARK: - Methods
