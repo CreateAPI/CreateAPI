@@ -223,7 +223,7 @@ extension Generator {
         
         var contents: [String] = []
         let context = context.adding(name)
-        let properties = makeProperties(for: details, context: context)
+        let properties = makeProperties(for: name, object: details, context: context)
         
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }
@@ -277,14 +277,14 @@ extension Generator {
         return protocols
     }
     
-    private func makeProperties(for object: JSONSchema.ObjectContext, context: Context) -> [Property] {
+    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) -> [Property] {
         object.properties.keys.sorted().compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
                 return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
             } catch {
-                print("ERROR: Failed to generate property \(error)")
+                print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
                 return nil
             }
         }
@@ -333,7 +333,7 @@ extension Generator {
         let values = (info.allowedValues ?? [])
             .compactMap { $0.value as? String }
         guard !values.isEmpty else {
-            throw GeneratorError("Enum \(name) has no values")
+            throw GeneratorError("Enum \"\(name)\" has no values")
         }
         var output = templates.comments(for: .init(info), name: name.rawValue)
         let caseNames: [PropertyName] = values.map {
@@ -504,7 +504,7 @@ extension Generator {
             switch schema {
             case .object(_, let details):
                 // Inline properties for nested objects (differnt from other OpenAPI constructs)
-                return makeProperties(for: details, context: context)
+                return makeProperties(for: name, object: details, context: context)
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }
@@ -607,16 +607,15 @@ extension Generator {
     }
 }
 
-struct GeneratorError: Error, LocalizedError {
+struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
     let message: String
     
     init(_ message: String) {
         self.message = message
     }
     
-    var errorDescription: String? {
-        message
-    }
+    var description: String { message }
+    var errorDescription: String? { message }
 }
 
 struct Context {
