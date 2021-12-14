@@ -81,7 +81,7 @@ extension Generator {
     private func makeImports() -> [String] {
         var imports = options.paths.imports
         if options.isRemovingUnneededImports && !isHTTPHeadersDependencyNeeded {
-            imports.remove("APIClient")
+            imports.remove("HTTPHeaders")
         }
         return imports.sorted()
     }
