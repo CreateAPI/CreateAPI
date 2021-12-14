@@ -405,7 +405,6 @@ extension Generator {
         var isOptional = false
     }
 
-    // TODO: application/pdf and other binary files
     private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isEncodableNeeded = false
@@ -436,14 +435,24 @@ extension Generator {
     }
     
     private func makeResponse(for response: OpenAPI.Response, method: String, context: Context) throws -> GeneratedType {
-        if response.content.values.isEmpty {
+        func firstContent(for keys: Set<OpenAPI.ContentType>) -> OpenAPI.Content? {
+            for key in keys {
+                if let content = response.content[key] {
+                    return content
+                }
+            }
+            return nil
+        }
+        if response.content.isEmpty {
             return GeneratedType(type: TypeName("Void"))
-        } else if let content = (response.content[.json] ?? response.content[.other("application/scim+json")]) {
+        }
+        if let content = firstContent(for: [.json, .jsonapi, .other("application/scim+json")]) {
             switch content.schema {
             case .a(let reference):
                 let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
                 return GeneratedType(type: type)
             case .b(let schema):
+                // TODO: Revisit this
                 switch schema {
                 case .string:
                     return GeneratedType(type: TypeName("String"))
@@ -456,15 +465,16 @@ extension Generator {
             default:
                 throw GeneratorError("ERROR: response not handled")
             }
-        } else if response.content[.anyText] != nil {
-            return GeneratedType(type: TypeName("String"))
-        } else if response.content[.html] != nil {
-            return GeneratedType(type: TypeName("String"))
-        } else {
-            throw GeneratorError("Unsupported response content: \(response.content)")
         }
+        if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
+            return GeneratedType(type: TypeName("String"))
+        }
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText]) != nil {
+            return GeneratedType(type: TypeName("String"))
+        }
+        return GeneratedType(type: TypeName("Data"))
     }
-    
+        
     // MARK: - Response Headers
 
     private func makeHeaders(for response: Response, method: String) throws -> String? {
