@@ -299,6 +299,57 @@ extension Generator {
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
         }
+                
+        func property(type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
+            assert(info != nil) // context is null for references, but the caller needs to dereference first
+            let name = getPropertyName(for: makePropertyName(parameter.name), type: type)
+            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested)
+        }
+        
+//        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
+        
+        struct QueryItemType {
+            var type: TypeName
+            var nested: String?
+            
+            init(_ name: String) {
+                self.type = TypeName(name)
+            }
+        }
+        
+        func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
+            switch schema {
+            case .boolean: return QueryItemType("Bool")
+            case .number: return QueryItemType("Double")
+            case .integer: return QueryItemType("Int")
+            case .string(let info, _):
+                switch info.format {
+                case .dateTime: return QueryItemType("Date")
+                case .other(let other): if other == "uri" { return QueryItemType("URL") }
+                default: break
+                }
+                return QueryItemType("String")
+            case .object: return nil
+            case .array(_, let details):
+                guard isTopLevel else {
+                    return nil
+                }
+                guard let item = details.items else {
+                    throw GeneratorError("Missing array item type")
+                }
+                if let type = try getQueryItemType(for: item, isTopLevel: false) {
+                    return QueryItemType(type.type.asArray.rawValue)
+                }
+                return nil
+            case .all, .one, .any, .not: return nil
+            case .reference: return nil
+            case .fragment: return nil
+            }
+        }
+        
+        guard let type = try getQueryItemType(for: schema, isTopLevel: true) else {
+            return nil
+        }
         
         func getPropertyName(for name: PropertyName, type: TypeName) -> PropertyName {
             if let name = options.rename.parameters[name.rawValue] {
@@ -309,41 +360,11 @@ extension Generator {
             }
             return name
         }
-        
-        func property(type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
-            assert(info != nil) // context is null for references, but the caller needs to dereference first
-            let name = getPropertyName(for: makePropertyName(parameter.name), type: type)
-            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested)
-        }
 
-        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
-        switch schema {
-        case .boolean(let info): return property(type: TypeName("Bool"), info: info, nested: nil)
-        case .number(let info, _): return property(type: TypeName("Double"), info: info, nested: nil)
-        case .integer(let info, _): return property(type: TypeName("Int"), info: info, nested: nil)
-        case .string(let info, _):
-            switch info.format {
-            case .dateTime: return property(type: TypeName("Date"), info: info, nested: nil)
-            case .other(let other): if other == "uri" { return property(type: TypeName("URL"), info: info, nested: nil)}
-            default: break
-            }
-            return property(type: TypeName("String"), info: info, nested: nil)
-        case .object: return nil
-        case .array(let info, let details):
-            guard let item = details.items else {
-                throw GeneratorError("Missing array item type")
-            }
-            // TODO: Recursively (?) find items
-            if let type = try getPrimitiveType(for: item, context: context), supportedTypes.contains(type.rawValue) {
-                return property(type: type.asArray, info: info, nested: nil)
-            }
-            return nil
-        case .all, .one, .any, .not: return nil
-        case .reference: return nil
-        case .fragment: return nil
-        }
+        let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
+        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(schema.coreContext), nested: type.nested)
     }
-    
+        
     // MARK: - Request Body
     
     private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>

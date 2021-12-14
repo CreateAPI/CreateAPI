@@ -6409,16 +6409,19 @@ extension Paths.Orgs.WithOrg {
         public struct GetParameters {
             public var perPage: Int?
             public var page: Int?
+            public var exclude: [String]?
 
-            public init(perPage: Int? = nil, page: Int? = nil) {
+            public init(perPage: Int? = nil, page: Int? = nil, exclude: [String]? = nil) {
                 self.perPage = perPage
                 self.page = page
+                self.exclude = exclude
             }
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.append(("per_page", perPage.map(QueryParameterEncoder.encode)))
                 query.append(("page", page.map(QueryParameterEncoder.encode)))
+                query += (exclude ?? []).map { ("exclude", QueryParameterEncoder.encode($0)) }
                 return query
             }
         }
@@ -6500,8 +6503,22 @@ extension Paths.Orgs.WithOrg.Migrations {
         /// *   `failed`, which means the migration failed.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status)
-        public var get: Request<github.Migration> {
-            .get(path)
+        public func get(parameters: GetParameters? = nil) -> Request<github.Migration> {
+            .get(path, query: parameters?.asQuery())
+        }
+
+        public struct GetParameters {
+            public var exclude: [String]?
+
+            public init(exclude: [String]? = nil) {
+                self.exclude = exclude
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query += (exclude ?? []).map { ("exclude", QueryParameterEncoder.encode($0)) }
+                return query
+            }
         }
     }
 }

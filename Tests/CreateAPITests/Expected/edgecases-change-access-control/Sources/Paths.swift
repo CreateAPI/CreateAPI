@@ -42,8 +42,22 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        var get: Request<[edgecases_change_access_control.Pet]> {
-            .get(path)
+        func get(parameters: GetParameters) -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path, query: parameters.asQuery())
+        }
+
+         struct GetParameters {
+            var status: [String]
+
+            init(status: [String]) {
+                self.status = status
+            }
+
+            func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ",")))
+                return query
+            }
         }
     }
 }
@@ -60,8 +74,22 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        var get: Request<[edgecases_change_access_control.Pet]> {
-            .get(path)
+        func get(parameters: GetParameters? = nil) -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path, query: parameters?.asQuery())
+        }
+
+         struct GetParameters {
+            var status: [String]?
+
+            init(status: [String]? = nil) {
+                self.status = status
+            }
+
+            func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query += (status ?? []).map { ("status", QueryParameterEncoder.encode($0)) }
+                return query
+            }
         }
     }
 }
@@ -91,7 +119,7 @@ extension Paths.Pet {
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ","))
+                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ",")))
                 return query
             }
         }
@@ -400,16 +428,19 @@ extension Paths {
         }
 
          struct GetParameters {
+            var enumQueryStringArray: [String]?
             var enumQueryString: String?
             var enumQueryInteger: Int?
 
-            init(enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+            init(enumQueryStringArray: [String]? = nil, enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+                self.enumQueryStringArray = enumQueryStringArray
                 self.enumQueryString = enumQueryString
                 self.enumQueryInteger = enumQueryInteger
             }
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
+                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", QueryParameterEncoder.encode($0)) }
                 query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
                 query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
                 return query

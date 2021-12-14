@@ -102,7 +102,7 @@ final class Templates {
                 if $0.explode {
                     return "query += \(accessor).map { (\"\($0.key)\", QueryParameterEncoder.encode($0)) }"
                 } else {
-                    return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\"))"
+                    return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\")))"
                 }
             } else if $0.isOptional {
                 return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)))"

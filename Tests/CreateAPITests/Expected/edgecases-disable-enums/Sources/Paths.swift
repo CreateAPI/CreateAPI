@@ -55,7 +55,7 @@ extension Paths.Pet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ","))
+                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ",")))
                 return query
             }
         }
@@ -119,7 +119,7 @@ extension Paths.Pet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ","))
+                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ",")))
                 return query
             }
         }
