@@ -99,7 +99,7 @@ extension Generator {
             return name
         }
         
-        func child(name: PropertyName, type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
+        func property(name: PropertyName, type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(info != nil) // context is null for references, but the caller needs to dereference first
             let nullable = info?.nullable ?? true
             let name = makeChildPropertyName(for: name, type: type)
@@ -108,11 +108,11 @@ extension Generator {
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
             if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
-                return child(name: propertyName, type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
+                return property(name: propertyName, type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
             }
             let type = makeTypeName(key)
             let nested = try makeTopDeclaration(name: type, schema: schema, context: context)
-            return child(name: propertyName, type: type, info: info, nested: nested)
+            return property(name: propertyName, type: type, info: info, nested: nested)
         }
         
         func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
@@ -120,29 +120,29 @@ extension Generator {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try getPrimitiveType(for: item, context: context) {
-                return child(name: propertyName, type: type.asArray, info: info)
+                return property(name: propertyName, type: type.asArray, info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
             let nested = try makeTopDeclaration(name: name, schema: item, context: context)
-            return child(name: propertyName, type: name.asArray, info: info, nested: nested)
+            return property(name: propertyName, type: name.asArray, info: info, nested: nested)
         }
         
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
                 let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: TypeName("CreateAPIEnumPlaceholderName")).rawValue)
                 let nested = try makeEnum(name: typeName, info: info)
-                return child(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
+                return property(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
             }
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
-            return child(name: propertyName, type: type, info: info)
+            return property(name: propertyName, type: type, info: info)
         }
         
         func makeSomeOf() throws -> Property {
             let name = makeTypeName(key)
             let nested = try makeTopDeclaration(name: name, schema: schema, context: context)
-            return child(name: propertyName, type: name, info: schema.coreContext, nested: nested)
+            return property(name: propertyName, type: name, info: schema.coreContext, nested: nested)
         }
         
         func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
@@ -151,7 +151,7 @@ extension Generator {
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
-            return child(name: propertyName, type: type, info: info)
+            return property(name: propertyName, type: type, info: info)
         }
         
         func makeProperty(schema: JSONSchema) throws -> Property {
@@ -159,7 +159,7 @@ extension Generator {
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
-            return child(name: propertyName, type: type, info: info)
+            return property(name: propertyName, type: type, info: info)
         }
         
         switch schema {
@@ -373,9 +373,8 @@ extension Generator {
     
     // MARK: Misc
     
-    // TODO: Return `nil` when primitive types can't be found
     // Anything that's not an object or a reference.
-    private func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName? {
+    func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName? {
         switch json {
         case .boolean: return TypeName("Bool")
         case .number: return TypeName("Double")

@@ -44,7 +44,10 @@ final class GenerateOptions {
     }
         
     struct Rename {
+        var parameters: [String: String]
+        
         init(_ paths: GenerateOptionsScheme.Rename?) {
+            self.parameters = paths?.parameters ?? [:]
         }
     }
     
@@ -174,6 +177,7 @@ final class GenerateOptionsScheme: Decodable {
     }
     
     struct Rename: Decodable {
+        var parameters: [String: String]?
     }
     
     struct Comments: Decodable {
@@ -224,6 +228,7 @@ private func makeDefaultParameterEncoders() -> [String: String] {
         "Int": "String(value)",
         "Double": "String(value)",
         "Bool": #"value ? "true" : "false""#,
-        "Date": "ISO8601DateFormatter().string(from: value)"
+        "Date": "ISO8601DateFormatter().string(from: value)",
+        "URL": "value.absoluteString"
     ]
 }

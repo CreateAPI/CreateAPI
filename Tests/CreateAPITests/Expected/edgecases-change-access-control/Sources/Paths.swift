@@ -400,14 +400,17 @@ extension Paths {
         }
 
          struct GetParameters {
+            var enumQueryString: String?
             var enumQueryInteger: Int?
 
-            init(enumQueryInteger: Int? = nil) {
+            init(enumQueryString: String? = nil, enumQueryInteger: Int? = nil) {
+                self.enumQueryString = enumQueryString
                 self.enumQueryInteger = enumQueryInteger
             }
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
+                query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
                 query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
                 return query
             }
@@ -511,6 +514,10 @@ private struct QueryParameterEncoder {
 
     static func encode(_ value: String) -> String {
         value
+    }
+
+    static func encode(_ value: URL) -> String {
+        value.absoluteString
     }
 }
 

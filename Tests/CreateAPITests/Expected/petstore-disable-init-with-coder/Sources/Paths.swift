@@ -85,5 +85,9 @@ private struct QueryParameterEncoder {
     static func encode(_ value: String) -> String {
         value
     }
+
+    static func encode(_ value: URL) -> String {
+        value.absoluteString
+    }
 }
 

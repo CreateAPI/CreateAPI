@@ -191,10 +191,6 @@ extension Generator {
     
     // TODO: Add support for header parameters
     private func _makeMethod(for operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
-        guard operation.operationId == "findPetsByStatus2" else {
-            throw GeneratorError("Skip")
-        }
-        
         let responseType: String
         var responseHeaders: String?
         var nested: [String] = []
@@ -266,15 +262,6 @@ extension Generator {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            func unpack(_ type: TypeName) -> String {
-                if type.rawValue.hasPrefix("[") && type.rawValue.hasSuffix("]") {
-                    return String(type.rawValue.dropFirst().dropLast())
-                }
-                return type.rawValue
-            }
-            guard options.paths.queryParameterEncoders.keys.contains(unpack(property.type)) else {
-                throw GeneratorError("Unsupported parameter type: \(property.type)")
-            }
             setNeedsQueryParameterEncoder()
             return property
         } catch {
@@ -285,6 +272,7 @@ extension Generator {
     }
     
     // TODO: Add support for enums and arrays of enums represtened by primitive types
+    // TODO: Add support for enum and primitive type references
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter: OpenAPI.Parameter
         switch input {
@@ -296,6 +284,7 @@ extension Generator {
         guard parameter.context.inQuery else {
             return nil
         }
+
         let schema: JSONSchema
         var explode = true
         switch parameter.schemaOrContent {
@@ -310,9 +299,49 @@ extension Generator {
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
         }
-        var property = try makeProperty(key: parameter.name, schema: schema, isRequired: parameter.required, in: context)
-        property.explode = explode
-        return property
+        
+        func getPropertyName(for name: PropertyName, type: TypeName) -> PropertyName {
+            if let name = options.rename.parameters[name.rawValue] {
+                return PropertyName(name)
+            }
+            if options.isGeneratingSwiftyBooleanPropertyNames && type.rawValue == "Bool" {
+                return name.asBoolean
+            }
+            return name
+        }
+        
+        func property(type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
+            assert(info != nil) // context is null for references, but the caller needs to dereference first
+            let name = getPropertyName(for: makePropertyName(parameter.name), type: type)
+            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested)
+        }
+
+        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
+        switch schema {
+        case .boolean(let info): return property(type: TypeName("Bool"), info: info, nested: nil)
+        case .number(let info, _): return property(type: TypeName("Double"), info: info, nested: nil)
+        case .integer(let info, _): return property(type: TypeName("Int"), info: info, nested: nil)
+        case .string(let info, _):
+            switch info.format {
+            case .dateTime: return property(type: TypeName("Date"), info: info, nested: nil)
+            case .other(let other): if other == "uri" { return property(type: TypeName("URL"), info: info, nested: nil)}
+            default: break
+            }
+            return property(type: TypeName("String"), info: info, nested: nil)
+        case .object: return nil
+        case .array(let info, let details):
+            guard let item = details.items else {
+                throw GeneratorError("Missing array item type")
+            }
+            // TODO: Recursively (?) find items
+            if let type = try getPrimitiveType(for: item, context: context), supportedTypes.contains(type.rawValue) {
+                return property(type: type.asArray, info: info, nested: nil)
+            }
+            return nil
+        case .all, .one, .any, .not: return nil
+        case .reference: return nil
+        case .fragment: return nil
+        }
     }
     
     // MARK: - Request Body
