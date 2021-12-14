@@ -98,12 +98,23 @@ final class Templates {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
             if $0.type.rawValue.hasPrefix("[") { // TODO: Refactor
+                let innerType = String($0.type.rawValue.dropFirst().dropLast())
                 let accessor = $0.isOptional ? "(\($0.name.accessor) ?? [])" : "\($0.name.accessor)"
-                if $0.explode {
-                    return "query += \(accessor).map { (\"\($0.key)\", QueryParameterEncoder.encode($0)) }"
+                if innerType == "String" {
+                    if $0.explode {
+                        return "query += \(accessor).map { (\"\($0.key)\", $0) }"
+                    } else {
+                        return "query.append((\"\($0.key)\", \(accessor).joined(separator: \",\")))"
+                    }
                 } else {
-                    return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\")))"
+                    if $0.explode {
+                        return "query += \(accessor).map { (\"\($0.key)\", QueryParameterEncoder.encode($0)) }"
+                    } else {
+                        return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\")))"
+                    }
                 }
+            } else if $0.type.rawValue == "String" {
+                return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor)))"
             } else if $0.isOptional {
                 return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)))"
             } else {

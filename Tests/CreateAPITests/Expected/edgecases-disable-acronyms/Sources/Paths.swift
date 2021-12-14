@@ -55,7 +55,7 @@ extension Paths.Pet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ",")))
+                query.append(("status", status.joined(separator: ",")))
                 return query
             }
         }
@@ -87,7 +87,7 @@ extension Paths.Pet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (status ?? []).map { ("status", QueryParameterEncoder.encode($0)) }
+                query += (status ?? []).map { ("status", $0) }
                 return query
             }
         }
@@ -119,7 +119,7 @@ extension Paths.Pet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("tags", tags.map(QueryParameterEncoder.encode).joined(separator: ",")))
+                query.append(("tags", tags.joined(separator: ",")))
                 return query
             }
         }
@@ -359,8 +359,8 @@ extension Paths.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("username", QueryParameterEncoder.encode(username)))
-                query.append(("password", QueryParameterEncoder.encode(password)))
+                query.append(("username", username))
+                query.append(("password", password))
                 return query
             }
         }
@@ -440,8 +440,8 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", QueryParameterEncoder.encode($0)) }
-                query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
+                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", $0) }
+                query.append(("enum_query_string", enumQueryString))
                 query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
                 return query
             }
