@@ -578,4 +578,3 @@ private struct QueryParameterEncoder {
 		value.rawValue
 	}
 }
-

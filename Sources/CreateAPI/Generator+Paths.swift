@@ -10,13 +10,9 @@ import GrammaticalNumber
 // TODO: Add path parameter types support (e.g. Int)
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Support path parameters like this: GET /report.{format}
-// TODO: Fix double newline at the end
 // TODO: Fix empty Markdown and Raw paths
-
-// TODO: Apply overridden names based on spec, not output file
 // TODO: Generate phantom ID types
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
-
 // TODO: Run everything throught SwiftLint again
 extension Generator {
         
@@ -34,7 +30,7 @@ extension Generator {
         }
 
         let output = ([makeHeader()] + generated.compactMap { $0 } + makeExtensions())
-            .joined(separator: "\n\n") + "\n\n"
+            .joined(separator: "\n\n") + "\n"
         
         stopMeasuring("generating paths (\(spec.paths.count))")
 
