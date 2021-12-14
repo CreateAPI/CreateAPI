@@ -7,23 +7,15 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Improve how Patch parameters are generated
-// TODO: Add summary and description
-// TODO: Figure out what to do with operationId
-// TODO: Parse in: path parameters and support types other than just String
-// TODO: Remove Markdown from description (or keep if it it looks OK - test)
-// TODO: Add an option to generate a plain list of APIs instead of using namespaces
-// TODO: Test that this enum description works enum: [user, poweruser, admin]
-// TODO: Add support for deprecated methods
-// TODO: Support path parameters like this GET /report.{format}
-// TODO: Get path parameter type from the (first) operation
+// TODO: Add path parameter types support (e.g. Int)
+// TODO: Add an option to generate a plain list of APIs instead of REST namespaces
+// TODO: Support path parameters like this: GET /report.{format}
 // TODO: Fix double newline at the end
 // TODO: Fix empty Markdown and Raw paths
 
 // TODO: Apply overridden names based on spec, not output file
 // TODO: Generate phantom ID types
-// TODO: Allow to override types for specific properties
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
-// TODO: Automatically apply more specific rename rules first
 
 // TODO: Run everything throught SwiftLint again
 extension Generator {
