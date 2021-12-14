@@ -211,7 +211,6 @@ extension Generator {
     // MARK: - Query Parameters
     
     // TODO: use propertyCountThreshold
-    // TODO: Add support for enums
     private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
         do {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
@@ -441,10 +440,8 @@ extension Generator {
         if response.content.values.isEmpty {
             return GeneratedType(type: TypeName("Void"))
         } else if let content = response.content[.json] {
-            // TODO: Parse example
             switch content.schema {
             case .a(let reference):
-                // TODO: what about nested types?
                 let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
                 return GeneratedType(type: type)
             case .b(let schema):
@@ -461,9 +458,11 @@ extension Generator {
                 throw GeneratorError("ERROR: response not handled")
             }
         } else if response.content[.anyText] != nil {
-            return GeneratedType(type: TypeName("String")) // Assume UTF8 encoding
+            return GeneratedType(type: TypeName("String"))
+        } else if response.content[.html] != nil {
+            return GeneratedType(type: TypeName("String"))
         } else {
-            throw GeneratorError("More than one schema in content which is not currently supported")
+            throw GeneratorError("Unsupported response content: \(response.content)")
         }
     }
     

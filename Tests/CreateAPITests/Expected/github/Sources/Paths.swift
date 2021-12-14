@@ -3202,6 +3202,51 @@ extension Paths {
     public struct Markdown {
         /// Path: `/markdown`
         public let path: String
+
+        /// Render a Markdown document
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document)
+        public func post(_ body: PostRequest) -> Request<String> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let contentType = HTTPHeader<String>(field: "Content-Type")
+            public static let contentLength = HTTPHeader<String>(field: "Content-Length")
+            public static let commonMarkerVersion = HTTPHeader<String>(field: "X-CommonMarker-Version")
+        }
+
+        public struct PostRequest: Encodable {
+            /// The repository context to use when creating references in `gfm` mode.
+            public var context: String?
+            /// The rendering mode.
+            ///
+            /// Example: markdown
+            public var mode: Mode?
+            /// The Markdown text to render in HTML.
+            public var text: String
+
+            /// The rendering mode.
+            ///
+            /// Example: markdown
+            public enum Mode: String, Codable, CaseIterable {
+                case markdown
+                case gfm
+            }
+
+            public init(context: String? = nil, mode: Mode? = nil, text: String) {
+                self.context = context
+                self.mode = mode
+                self.text = text
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(context, forKey: "context")
+                try values.encodeIfPresent(mode, forKey: "mode")
+                try values.encode(text, forKey: "text")
+            }
+        }
     }
 }
 
@@ -3213,6 +3258,19 @@ extension Paths.Markdown {
     public struct Raw {
         /// Path: `/markdown/raw`
         public let path: String
+
+        /// Render a Markdown document in raw mode
+        ///
+        /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a README.md file. Markdown content must be 400 KB or less.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document-in-raw-mode)
+        public func post(_ body: String? = nil) -> Request<String> {
+            .post(path, body: body)
+        }
+
+        public enum PostResponseHeaders {
+            public static let commonMarkerVersion = HTTPHeader<String>(field: "X-CommonMarker-Version")
+        }
     }
 }
 
