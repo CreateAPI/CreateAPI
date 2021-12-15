@@ -155,7 +155,7 @@ extension Generator {
             let responseValue = try makeResponse(for: response, method: method, context: context)
             responseType = responseValue.type.rawValue
             if let value = responseValue.nested {
-                nested.append(value)
+                nested.append(render(value))
             }
             responseHeaders = try? makeHeaders(for: response, method: method)
         } else {
@@ -172,7 +172,7 @@ extension Generator {
             let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
             var contents: [String] = []
             contents += [query.map(templates.property).joined(separator: "\n")]
-            contents += query.compactMap(\.nested)
+            contents += query.compactMap(\.nested).map(render)
             contents += [templates.initializer(properties: query)]
             contents += [templates.toQueryParameters(properties: query)]
             nested.append(templates.entity(name: type, contents: contents, protocols: []))
@@ -185,10 +185,18 @@ extension Generator {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
             if !requestBody.type.isVoid {
                 if let value = requestBody.nested {
-                    nested.append(value)
+                    nested.append(render(value))
                 }
-                parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
-                call.append("body: body")
+                // TODO: Relax type requirement
+                if let nested = (requestBody.nested as? EntityDeclaration), nested.properties.count == 1,
+                   Set(["String", "Bool", "Int", "Double"]).contains(nested.properties[0].type.rawValue) {
+                    let property = nested.properties[0]
+                    parameters.append("\(property.name): \(property.type)\(requestBody.isOptional ? "? = nil" : "")")
+                    call.append("body: \(nested.name)(\(property.name): \(property.name))")
+                } else {
+                    parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
+                    call.append("body: body")
+                }
             }
         }
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
@@ -254,14 +262,14 @@ extension Generator {
         func property(type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
             assert(info != nil) // context is null for references, but the caller needs to dereference first
             let name = getPropertyName(for: makePropertyName(parameter.name), type: type)
-            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested)
+            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested.map(AnyDeclaration.init))
         }
         
         struct QueryItemType {
             var type: TypeName
-            var nested: String?
+            var nested: Declaration?
             
-            init(type: TypeName, nested: String? = nil) {
+            init(type: TypeName, nested: Declaration? = nil) {
                 self.type = type
                 self.nested = nested
             }
@@ -399,10 +407,11 @@ extension Generator {
         }
         return operation.responses.first { $0.key.isSuccess }?.value
     }
-
+    
+    #warning("TODO: Remove")
     private struct GeneratedType {
         var type: TypeName
-        var nested: String?
+        var nested: Declaration?
         var isOptional = false
     }
 

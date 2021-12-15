@@ -679,8 +679,8 @@ extension Paths.Applications.WithClientID {
         /// Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for the user. Once deleted, the application will have no access to the user's account and will no longer be listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
-        public func delete(_ body: DeleteRequest) -> Request<Void> {
-            .delete(path, body: body)
+        public func delete(accessToken: String) -> Request<Void> {
+            .delete(path, body: DeleteRequest(accessToken: accessToken))
         }
 
         public struct DeleteRequest: Encodable {
@@ -713,8 +713,8 @@ extension Paths.Applications.WithClientID {
         /// OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
-        public func post(_ body: PostRequest) -> Request<github.Authorization> {
-            .post(path, body: body)
+        public func post(accessToken: String) -> Request<github.Authorization> {
+            .post(path, body: PostRequest(accessToken: accessToken))
         }
 
         public struct PostRequest: Encodable {
@@ -736,8 +736,8 @@ extension Paths.Applications.WithClientID {
         /// OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
-        public func patch(_ body: PatchRequest) -> Request<github.Authorization> {
-            .patch(path, body: body)
+        public func patch(accessToken: String) -> Request<github.Authorization> {
+            .patch(path, body: PatchRequest(accessToken: accessToken))
         }
 
         public struct PatchRequest: Encodable {
@@ -759,8 +759,8 @@ extension Paths.Applications.WithClientID {
         /// OAuth application owners can revoke a single token for an OAuth application. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
-        public func delete(_ body: DeleteRequest) -> Request<Void> {
-            .delete(path, body: body)
+        public func delete(accessToken: String) -> Request<Void> {
+            .delete(path, body: DeleteRequest(accessToken: accessToken))
         }
 
         public struct DeleteRequest: Encodable {
@@ -2688,8 +2688,8 @@ extension Paths.Gists.WithGistID {
         /// Create a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist-comment)
-        public func post(_ body: PostRequest) -> Request<github.GistComment> {
-            .post(path, body: body)
+        public func post(body: String) -> Request<github.GistComment> {
+            .post(path, body: PostRequest(body: body))
         }
 
         public enum PostResponseHeaders {
@@ -2733,8 +2733,8 @@ extension Paths.Gists.WithGistID.Comments {
         /// Update a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
-        public func patch(_ body: PatchRequest) -> Request<github.GistComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.GistComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -3858,8 +3858,8 @@ extension Paths.Notifications.Threads.WithThreadID {
         /// Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
-        public func put(_ body: PutRequest? = nil) -> Request<github.ThreadSubscription> {
-            .put(path, body: body)
+        public func put(isIgnored: Bool? = nil) -> Request<github.ThreadSubscription> {
+            .put(path, body: PutRequest(isIgnored: isIgnored))
         }
 
         public struct PutRequest: Encodable {
@@ -8213,8 +8213,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
-        public func post(_ body: PostRequest) -> Request<github.TeamDiscussionComment> {
-            .post(path, body: body)
+        public func post(body: String) -> Request<github.TeamDiscussionComment> {
+            .post(path, body: PostRequest(body: body))
         }
 
         public struct PostRequest: Encodable {
@@ -8260,8 +8260,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
-        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussionComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.TeamDiscussionComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -8539,8 +8539,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
-        public func patch(_ body: PatchRequest) -> Request<github.ExternalGroup> {
-            .patch(path, body: body)
+        public func patch(groupID: Int) -> Request<github.ExternalGroup> {
+            .patch(path, body: PatchRequest(groupID: groupID))
         }
 
         public struct PatchRequest: Encodable {
@@ -9295,8 +9295,8 @@ extension Paths.Projects.Columns {
         /// Update an existing project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
-        public func patch(_ body: PatchRequest) -> Request<github.ProjectColumn> {
-            .patch(path, body: body)
+        public func patch(name: String) -> Request<github.ProjectColumn> {
+            .patch(path, body: PatchRequest(name: name))
         }
 
         public struct PatchRequest: Encodable {
@@ -9442,8 +9442,8 @@ extension Paths.Projects.Columns.WithColumnID {
         /// Move a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
-        public func post(_ body: PostRequest) -> Request<Void> {
-            .post(path, body: body)
+        public func post(position: String) -> Request<Void> {
+            .post(path, body: PostRequest(position: position))
         }
 
         public struct PostRequest: Encodable {
@@ -9710,8 +9710,8 @@ extension Paths.Projects.WithProjectID {
         /// Create a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
-        public func post(_ body: PostRequest) -> Request<github.ProjectColumn> {
-            .post(path, body: body)
+        public func post(name: String) -> Request<github.ProjectColumn> {
+            .post(path, body: PostRequest(name: name))
         }
 
         public struct PostRequest: Encodable {
@@ -12897,8 +12897,8 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         /// * GitHub Apps must have the `administration:write` repository permission.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
-        public func post(_ body: PostRequest) -> Request<github.BranchWithProtection> {
-            .post(path, body: body)
+        public func post(newName: String) -> Request<github.BranchWithProtection> {
+            .post(path, body: PostRequest(newName: newName))
         }
 
         public struct PostRequest: Encodable {
@@ -13447,8 +13447,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
-        public func post(_ body: PostRequest) -> Request<github.CheckSuite> {
-            .post(path, body: body)
+        public func post(headSha: String) -> Request<github.CheckSuite> {
+            .post(path, body: PostRequest(headSha: headSha))
         }
 
         public struct PostRequest: Encodable {
@@ -14424,8 +14424,8 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         /// Update a commit comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-commit-comment)
-        public func patch(_ body: PatchRequest) -> Request<github.CommitComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.CommitComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -16216,8 +16216,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
-        public func post(_ body: PostRequest? = nil) -> Request<github.FullRepository> {
-            .post(path, body: body)
+        public func post(organization: String? = nil) -> Request<github.FullRepository> {
+            .post(path, body: PostRequest(organization: organization))
         }
 
         public struct PostRequest: Encodable {
@@ -18095,8 +18095,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         /// Update an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
-        public func patch(_ body: PatchRequest) -> Request<github.IssueComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.IssueComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -18538,8 +18538,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
-        public func post(_ body: PostRequest) -> Request<github.IssueComment> {
-            .post(path, body: body)
+        public func post(body: String) -> Request<github.IssueComment> {
+            .post(path, body: PostRequest(body: body))
         }
 
         public enum PostResponseHeaders {
@@ -19355,8 +19355,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
-        public func post(_ body: PostRequest) -> Request<github.MergedUpstream> {
-            .post(path, body: body)
+        public func post(branch: String) -> Request<github.MergedUpstream> {
+            .post(path, body: PostRequest(branch: branch))
         }
 
         public struct PostRequest: Encodable {
@@ -20268,8 +20268,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         /// Enables you to edit a review comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
-        public func patch(_ body: PatchRequest) -> Request<github.PullRequestReviewComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.PullRequestReviewComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -20700,8 +20700,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
-        public func post(_ body: PostRequest) -> Request<github.PullRequestReviewComment> {
-            .post(path, body: body)
+        public func post(body: String) -> Request<github.PullRequestReviewComment> {
+            .post(path, body: PostRequest(body: body))
         }
 
         public enum PostResponseHeaders {
@@ -21124,8 +21124,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         /// Update the review summary comment with new text.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
-        public func put(_ body: PutRequest) -> Request<github.PullRequestReview> {
-            .put(path, body: body)
+        public func put(body: String) -> Request<github.PullRequestReview> {
+            .put(path, body: PutRequest(body: body))
         }
 
         public struct PutRequest: Encodable {
@@ -21287,8 +21287,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch)
-        public func put(_ body: PutRequest? = nil) -> Request<PutResponse> {
-            .put(path, body: body)
+        public func put(expectedHeadSha: String? = nil) -> Request<PutResponse> {
+            .put(path, body: PutRequest(expectedHeadSha: expectedHeadSha))
         }
 
         public struct PutResponse: Decodable {
@@ -25110,8 +25110,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<github.TeamDiscussionComment> {
-            .post(path, body: body)
+        public func post(body: String) -> Request<github.TeamDiscussionComment> {
+            .post(path, body: PostRequest(body: body))
         }
 
         public struct PostRequest: Encodable {
@@ -25159,8 +25159,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func patch(_ body: PatchRequest) -> Request<github.TeamDiscussionComment> {
-            .patch(path, body: body)
+        public func patch(body: String) -> Request<github.TeamDiscussionComment> {
+            .patch(path, body: PatchRequest(body: body))
         }
 
         public struct PatchRequest: Encodable {
@@ -26688,8 +26688,8 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
-        public func patch(_ body: PatchRequest? = nil) -> Request<github.Codespace> {
-            .patch(path, body: body)
+        public func patch(machine: String? = nil) -> Request<github.Codespace> {
+            .patch(path, body: PatchRequest(machine: machine))
         }
 
         public struct PatchRequest: Encodable {
@@ -27157,8 +27157,8 @@ extension Paths.User {
         /// Adds a GPG key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
-        public func post(_ body: PostRequest) -> Request<github.GpgKey> {
-            .post(path, body: body)
+        public func post(armoredPublicKey: String) -> Request<github.GpgKey> {
+            .post(path, body: PostRequest(armoredPublicKey: armoredPublicKey))
         }
 
         public struct PostRequest: Encodable {

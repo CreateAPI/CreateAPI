@@ -278,7 +278,7 @@ final class Templates {
     // MARK: Comments
     
     /// Generates inline comments for a declaration containing a title, description, and examples.
-    func comments(for metadata: Metadata, name: String) -> String {
+    func comments(for metadata: DeclarationMetadata, name: String) -> String {
         let options = options.comments
         guard options.isEnabled else {
             return ""
