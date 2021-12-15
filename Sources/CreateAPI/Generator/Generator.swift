@@ -19,7 +19,7 @@ final class Generator {
     var isHTTPHeadersDependencyNeeded = false
     var isRequestOperationIdExtensionNeeded = false
     var isEmptyObjectNeeded = false
-    var isQueryParameterEncoderNeeded = false
+    var isQueryNeeded = false
     var needsEncodable = Set<TypeName>()
     let lock = NSLock()
     
@@ -80,8 +80,8 @@ final class Generator {
         lock.sync { isRequestOperationIdExtensionNeeded = true }
     }
     
-    func setNeedsQueryParameterEncoder() {
-        lock.sync { isQueryParameterEncoderNeeded = true }
+    func setNeedsQuery() {
+        lock.sync { isQueryNeeded = true }
     }
 }
 

@@ -80,6 +80,8 @@ final class GenerateOptions {
         var queryParameterEncoders: [String: String]
         var isUsingPropertiesForMethodsWithNoArguments: Bool
         var isInliningSimpleRequestType: Bool
+        var isInliningSimpleQueryParameters: Bool
+        var simpleQueryParametersThreshold: Int
         
         init(_ paths: GenerateOptionsScheme.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
@@ -94,6 +96,8 @@ final class GenerateOptions {
             self.queryParameterEncoders = queryParameterEncoders
             self.isUsingPropertiesForMethodsWithNoArguments = paths?.isUsingPropertiesForMethodsWithNoArguments ?? true
             self.isInliningSimpleRequestType = paths?.isInliningSimpleRequestType ?? true
+            self.isInliningSimpleQueryParameters = paths?.isInliningSimpleQueryParameters ?? true
+            self.simpleQueryParametersThreshold = paths?.simpleQueryParametersThreshold ?? 2
         }
     }
         
@@ -202,6 +206,8 @@ final class GenerateOptionsScheme: Decodable {
         var queryParameterEncoders: [String: String]?
         var isUsingPropertiesForMethodsWithNoArguments: Bool?
         var isInliningSimpleRequestType: Bool?
+        var isInliningSimpleQueryParameters: Bool?
+        var simpleQueryParametersThreshold: Int?
     }
     
     struct SchemesOptions: Decodable {

@@ -97,7 +97,7 @@ extension Generator {
         if isRequestOperationIdExtensionNeeded {
             extensions.append(templates.requestOperationIdExtension)
         }
-        if isQueryParameterEncoderNeeded {
+        if isQueryNeeded {
             extensions.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders))
         }
         return extensions
@@ -169,16 +169,27 @@ extension Generator {
 
         let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
         if !query.isEmpty {
-            let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
             var contents: [String] = []
             contents += [query.map(templates.property).joined(separator: "\n")]
             contents += query.compactMap(\.nested).map(render)
             contents += [templates.initializer(properties: query)]
-            contents += [templates.toQueryParameters(properties: query)]
-            nested.append(templates.entity(name: type, contents: contents, protocols: []))
-            let isOptional = query.allSatisfy { $0.isOptional }
-            parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
-            call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
+            contents += [templates.asQuery(properties: query)]
+            let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
+            if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold {
+                for item in query {
+                    parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
+                }
+                let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
+                let initalizer = "make\(method.capitalizingFirstLetter())Query(\(initArgs))"
+                call.append("query: \(initalizer)")
+                nested.append(templates.asQueryInline(method: method, properties: query))
+                nested += query.compactMap { $0.nested }.map(render)
+            } else {
+                let isOptional = query.allSatisfy { $0.isOptional }
+                parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
+                call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
+                nested.append(templates.entity(name: type, contents: contents, protocols: []))
+            }
         }
         
         if let requestBody = operation.requestBody, method != "get" {
@@ -236,7 +247,7 @@ extension Generator {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            setNeedsQueryParameterEncoder()
+            setNeedsQuery()
             return property
         } catch {
             print("ERROR: Fail to generate query parameter \(input.description)")

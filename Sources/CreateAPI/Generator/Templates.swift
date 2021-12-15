@@ -94,7 +94,15 @@ final class Templates {
     
     // MARK: Query Parameters
     
-    func toQueryParameters(properties: [Property]) -> String {
+    func asQuery(properties: [Property]) -> String {
+        """
+        \(access)func asQuery() -> [(String, String?)] {
+        \(asQueryContents(properties: properties).indented)
+        }
+        """
+    }
+        
+    func asQueryContents(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
             if case .array(let element) = $0.type {
@@ -107,28 +115,35 @@ final class Templates {
                     }
                 } else {
                     if $0.explode {
-                        return "query += \(accessor).map { (\"\($0.key)\", QueryParameterEncoder.encode($0)) }"
+                        return "query += \(accessor).map { (\"\($0.key)\", Query.encode($0)) }"
                     } else {
-                        return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\")))"
+                        return "query.append((\"\($0.key)\", \(accessor).map(Query.encode).joined(separator: \",\")))"
                     }
                 }
             } else if $0.type.isString {
                 return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor)))"
             } else if $0.isOptional {
-                return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)))"
+                return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(Query.encode)))"
             } else {
-                return "query.append((\"\($0.key)\", QueryParameterEncoder.encode(\(prefix)\($0.name.accessor))))"
+                return "query.append((\"\($0.key)\", Query.encode(\(prefix)\($0.name.accessor))))"
             }
         }
         return """
-        \(access)func asQuery() -> [(String, String?)] {
-            var query: [(String, String?)] = []
-        \(statements.joined(separator: "\n").indented)
-            return query
-        }
+        var query: [(String, String?)] = []
+        \(statements.joined(separator: "\n"))
+        return query
         """
     }
     
+    func asQueryInline(method: String, properties: [Property]) -> String {
+        let arguments = properties.map { "_ \($0.name): \($0.type)\($0.isOptional ? "?" : "")" }.joined(separator: ", ")
+        return """
+        private func make\(method.capitalizingFirstLetter())Query(\(arguments)) -> [(String, String?)] {
+        \(asQueryContentsInline(properties: properties).indented)
+        }
+        """
+    }
+
     // MARK: Init
     
     func initializer(properties: [Property]) -> String {
@@ -485,7 +500,7 @@ final class Templates {
         }
         """)
         return """
-        private struct QueryParameterEncoder {
+        private struct Query {
         \(methods.joined(separator: "\n\n").indented)
         }
         """
