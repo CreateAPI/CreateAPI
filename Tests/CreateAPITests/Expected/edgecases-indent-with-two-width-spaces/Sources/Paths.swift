@@ -48,7 +48,7 @@ extension Paths.Pet {
 
     private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
       var query: [(String, String?)] = []
-      query.append(("status", status.map(Query.encode).joined(separator: ",")))
+      query.append(("status", status.map(\.asQueryValue).joined(separator: ",")))
       return query
     }
 
@@ -78,7 +78,7 @@ extension Paths.Pet {
 
     private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
       var query: [(String, String?)] = []
-      query += (status ?? []).map { ("status", Query.encode($0)) }
+      query += (status ?? []).map { ("status", $0.asQueryValue) }
       return query
     }
 
@@ -426,9 +426,9 @@ extension Paths {
 
       public func asQuery() -> [(String, String?)] {
         var query: [(String, String?)] = []
-        query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", Query.encode($0)) }
-        query.append(("enum_query_string", enumQueryString.map(Query.encode)))
-        query.append(("enum_query_integer", enumQueryInteger.map(Query.encode)))
+        query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", $0.asQueryValue) }
+        query.append(("enum_query_string", enumQueryString?.asQueryValue))
+        query.append(("enum_query_integer", enumQueryInteger?.asQueryValue))
         return query
       }
     }
@@ -512,32 +512,38 @@ extension Paths {
   }
 }
 
-private struct Query {
-  static func encode(_ value: Bool) -> String {
-    value ? "true" : "false"
+private extension Bool {
+  var asQueryValue: String {
+    self ? "true" : "false"
   }
+}
 
-  static func encode(_ value: Date) -> String {
-    ISO8601DateFormatter().string(from: value)
+private extension Date {
+  var asQueryValue: String {
+    ISO8601DateFormatter().string(from: self)
   }
+}
 
-  static func encode(_ value: Double) -> String {
-    String(value)
+private extension Double {
+  var asQueryValue: String {
+    String(self)
   }
+}
 
-  static func encode(_ value: Int) -> String {
-    String(value)
+private extension Int {
+  var asQueryValue: String {
+    String(self)
   }
+}
 
-  static func encode(_ value: String) -> String {
-    value
+private extension URL {
+  var asQueryValue: String {
+    absoluteString
   }
+}
 
-  static func encode(_ value: URL) -> String {
-    value.absoluteString
-  }
-
-  static func encode<T: RawRepresentable>(_ value: T) -> String where T.RawValue == String {
-    value.rawValue
+private extension RawRepresentable where RawValue == String {
+  var asQueryValue: String {
+    rawValue
   }
 }

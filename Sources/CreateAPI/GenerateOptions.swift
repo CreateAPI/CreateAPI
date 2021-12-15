@@ -235,11 +235,10 @@ struct GenerateArguments {
 
 private func makeDefaultParameterEncoders() -> [String: String] {
     return [
-        "String": "value",
-        "Int": "String(value)",
-        "Double": "String(value)",
-        "Bool": #"value ? "true" : "false""#,
-        "Date": "ISO8601DateFormatter().string(from: value)",
-        "URL": "value.absoluteString"
+        "Int": "String(self)",
+        "Double": "String(self)",
+        "Bool": #"self ? "true" : "false""#,
+        "Date": "ISO8601DateFormatter().string(from: self)",
+        "URL": "absoluteString"
     ]
 }

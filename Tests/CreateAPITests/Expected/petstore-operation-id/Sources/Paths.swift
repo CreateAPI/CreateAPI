@@ -29,7 +29,7 @@ extension Paths {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            [("limit", limit.map(Query.encode))]
+            [("limit", limit?.asQueryValue)]
         }
 
         /// Create a pet
@@ -63,32 +63,38 @@ extension Request {
     }
 }
 
-private struct Query {
-    static func encode(_ value: Bool) -> String {
-        value ? "true" : "false"
+private extension Bool {
+    var asQueryValue: String {
+        self ? "true" : "false"
     }
+}
 
-    static func encode(_ value: Date) -> String {
-        ISO8601DateFormatter().string(from: value)
+private extension Date {
+    var asQueryValue: String {
+        ISO8601DateFormatter().string(from: self)
     }
+}
 
-    static func encode(_ value: Double) -> String {
-        String(value)
+private extension Double {
+    var asQueryValue: String {
+        String(self)
     }
+}
 
-    static func encode(_ value: Int) -> String {
-        String(value)
+private extension Int {
+    var asQueryValue: String {
+        String(self)
     }
+}
 
-    static func encode(_ value: String) -> String {
-        value
+private extension URL {
+    var asQueryValue: String {
+        absoluteString
     }
+}
 
-    static func encode(_ value: URL) -> String {
-        value.absoluteString
-    }
-
-    static func encode<T: RawRepresentable>(_ value: T) -> String where T.RawValue == String {
-        value.rawValue
+private extension RawRepresentable where RawValue == String {
+    var asQueryValue: String {
+        rawValue
     }
 }
