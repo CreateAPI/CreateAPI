@@ -25,7 +25,9 @@ struct Property {
     var nested: Declaration?
 }
 
-protocol Declaration {}
+protocol Declaration {
+    var name: TypeName { get }
+}
 
 struct EnumOfStringsDeclaration: Declaration {
     let name: TypeName
@@ -38,14 +40,25 @@ struct EnumOfStringsDeclaration: Declaration {
     }
 }
 
+// Gets rendered as either a struct or a class depending on the options.
 struct EntityDeclaration: Declaration {
     let name: TypeName
     let properties: [Property]
     let protocols: Protocols
     let metadata: DeclarationMetadata
+    
+    var nested: [Declaration] {
+        properties.compactMap { $0.nested }
+    }
+    
+    // Returns `true` if the type is nested inside the entity declaration.
+    func isNested(_ type: TypeName) -> Bool {
+        nested.contains { $0.name == type }
+    }
 }
 
 struct AnyDeclaration: Declaration {
+    let name: TypeName
     let contents: String
 }
 

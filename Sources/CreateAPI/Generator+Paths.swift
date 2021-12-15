@@ -187,11 +187,25 @@ extension Generator {
                 if let value = requestBody.nested {
                     nested.append(render(value))
                 }
-                // TODO: Relax type requirement
-                if let nested = (requestBody.nested as? EntityDeclaration), nested.properties.count == 1,
-                   Set(["String", "Bool", "Int", "Double"]).contains(nested.properties[0].type.rawValue) {
+                #warning("TODO: Relax Array requirement")
+                if options.paths.isInliningSimpleRequestType,
+                   let nested = (requestBody.nested as? EntityDeclaration),
+                   nested.properties.count == 1,
+                   !nested.properties[0].type.rawValue.hasPrefix("[") {
+                    // Inline simple request types (types that only have N properties):
+                    //
+                    // public func post(body: PostRequest) -> Request<github.Reaction>
+                    //   .post(path, body)
+                    //
+                    //   becomes
+                    //
+                    // public func post(accessToken: String) -> Request<github.Reaction>
+                    //   .post(path, PostRequest(accessToken: accessToken)
+                    //
+                    // If the property is using a type nested inside the request type, add a "namespace".
                     let property = nested.properties[0]
-                    parameters.append("\(property.name): \(property.type)\(requestBody.isOptional ? "? = nil" : "")")
+                    let namespace = nested.isNested(property.type) ? "\(nested.name)." : ""
+                    parameters.append("\(property.name): \(namespace)\(property.type)\(requestBody.isOptional ? "? = nil" : "")")
                     call.append("body: \(nested.name)(\(property.name): \(property.name))")
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
@@ -257,12 +271,6 @@ extension Generator {
             }
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
-        }
-                
-        func property(type: TypeName, info: JSONSchemaContext?, nested: String? = nil) -> Property {
-            assert(info != nil) // context is null for references, but the caller needs to dereference first
-            let name = getPropertyName(for: makePropertyName(parameter.name), type: type)
-            return Property(name: name, type: type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(info), nested: nested.map(AnyDeclaration.init))
         }
         
         struct QueryItemType {

@@ -154,11 +154,11 @@ extension Generator {
         case .array(let info, let details):
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
         case .all(let schemas, _):
-            return AnyDeclaration(contents: try makeAllOf(name: name, schemas: schemas, context: context))
+            return try makeAllOf(name: name, schemas: schemas, context: context)
         case .one(let schemas, _):
-            return AnyDeclaration(contents: try makeOneOf(name: name, schemas: schemas, context: context))
+            return try makeOneOf(name: name, schemas: schemas, context: context)
         case .any(let schemas, _):
-            return AnyDeclaration(contents: try makeAnyOf(name: name, schemas: schemas, context: context))
+            return try makeAnyOf(name: name, schemas: schemas, context: context)
         case .not:
             throw GeneratorError("`not` is not supported: \(name)")
         case .reference:
@@ -362,7 +362,8 @@ extension Generator {
             guard !options.isInliningPrimitiveTypes else {
                 return nil
             }
-            return AnyDeclaration(contents: templates.typealias(name: name, type: type.asArray))
+            // TODO: This shouldn't be here and shouldn't have a declaration?
+            return AnyDeclaration(name: type.asArray, contents: templates.typealias(name: name, type: type.asArray))
         }
         // Requres generation of a separate type
         var output = ""
@@ -370,7 +371,7 @@ extension Generator {
         output += templates.typealias(name: name, type: itemName.asArray)
         output += "\n\n"
         output += (try makeDeclaration(name: itemName, schema: item, context: context)).map(render) ?? ""
-        return AnyDeclaration(contents: output)
+        return AnyDeclaration(name: name, contents: output)
     }
     
     // MARK: - Enums
@@ -509,7 +510,7 @@ extension Generator {
     
     // MARK: - oneOf/anyOf/allOf
     
-    private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
+    private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
         let context = context.adding(name)
         let properties: [Property] = try makeProperties(for: schemas, context: context).map {
             // TODO: Generalize this and add better naming for nested types.
@@ -535,10 +536,11 @@ extension Generator {
         if protocols.isEncodable {
             contents.append(templates.encodeOneOf(properties: properties))
         }
-        return templates.enumOneOf(name: name, contents: contents, protocols: protocols)
+        let output = templates.enumOneOf(name: name, contents: contents, protocols: protocols)
+        return AnyDeclaration(name: name, contents: output)
     }
     
-    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
+    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
         let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
         var contents: [String] = []
@@ -555,10 +557,11 @@ extension Generator {
         if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))
         }
-        return templates.entity(name: name, contents: contents, protocols: protocols)
+        let output = templates.entity(name: name, contents: contents, protocols: protocols)
+        return AnyDeclaration(name: name, contents: output)
     }
     
-    private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> String {
+    private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
         let types = makeTypeNames(for: schemas, context: context)
         let context = context.adding(name)
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
@@ -588,7 +591,8 @@ extension Generator {
         if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))
         }
-        return templates.entity(name: name, contents: contents, protocols: protocols)
+        let output = templates.entity(name: name, contents: contents, protocols: protocols)
+        return AnyDeclaration(name: name, contents: output)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {

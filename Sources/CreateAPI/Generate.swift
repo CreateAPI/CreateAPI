@@ -7,9 +7,14 @@ import OpenAPIKit30
 import Foundation
 import Yams
 
+// TODO: Add a way to customize what to generate (skip paths/schemes)
+// TODO: Add a way to put declaration into separate files
 // TODO: Add a mechanism ot pass generator option directly (--options)
-// TODO: Add a way to observe changes to file
 // TODO: Add a single package for all test packages?
+// TODO: Add a `--strict` mode
+// TODO: Make sure config doesn't have mispelled named
+// TODO: Add `--watch` mode
+
 struct Generate: ParsableCommand {
 
     @Option(help: "The OpenAPI spec input file in either JSON or YAML format")

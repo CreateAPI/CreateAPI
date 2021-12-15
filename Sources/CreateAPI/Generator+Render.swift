@@ -28,7 +28,7 @@ extension Generator {
         
         var contents: [String] = []
         contents.append(templates.properties(properties))
-        contents += properties.compactMap { $0.nested }.map(render)
+        contents += decl.nested.map(render)
         if options.schemes.isGeneratingInitializers {
             contents.append(templates.initializer(properties: properties))
         }
