@@ -42,28 +42,20 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        func get(parameters: GetParameters) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: parameters.asQuery())
+        func get(status: [Status]) -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path, query: makeGetQuery(status))
         }
 
-         struct GetParameters {
-            var status: [Status]
+        private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.append(("status", status.map(Query.encode).joined(separator: ",")))
+            return query
+        }
 
-            enum Status: String, Codable, CaseIterable {
-                case available
-                case pending
-                case sold
-            }
-
-            init(status: [Status]) {
-                self.status = status
-            }
-
-            func asQuery() -> [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.append(("status", status.map(QueryParameterEncoder.encode).joined(separator: ",")))
-                return query
-            }
+        enum Status: String, Codable, CaseIterable {
+            case available
+            case pending
+            case sold
         }
     }
 }
@@ -80,28 +72,20 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        func get(parameters: GetParameters? = nil) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: parameters?.asQuery())
+        func get(status: [Status]? = nil) -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path, query: makeGetQuery(status))
         }
 
-         struct GetParameters {
-            var status: [Status]?
+        private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query += (status ?? []).map { ("status", Query.encode($0)) }
+            return query
+        }
 
-            enum Status: String, Codable, CaseIterable {
-                case available
-                case pending
-                case sold
-            }
-
-            init(status: [Status]? = nil) {
-                self.status = status
-            }
-
-            func asQuery() -> [(String, String?)] {
-                var query: [(String, String?)] = []
-                query += (status ?? []).map { ("status", QueryParameterEncoder.encode($0)) }
-                return query
-            }
+        enum Status: String, Codable, CaseIterable {
+            case available
+            case pending
+            case sold
         }
     }
 }
@@ -118,22 +102,14 @@ extension Paths.Pet {
         /// Finds Pets by tags
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-        func get(parameters: GetParameters) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: parameters.asQuery())
+        func get(tags: [String]) -> Request<[edgecases_change_access_control.Pet]> {
+            .get(path, query: makeGetQuery(tags))
         }
 
-         struct GetParameters {
-            var tags: [String]
-
-            init(tags: [String]) {
-                self.tags = tags
-            }
-
-            func asQuery() -> [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.append(("tags", tags.joined(separator: ",")))
-                return query
-            }
+        private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.append(("tags", tags.joined(separator: ",")))
+            return query
         }
     }
 }
@@ -348,8 +324,8 @@ extension Paths.User {
         let path: String
 
         /// Logs user into the system
-        func get(parameters: GetParameters) -> Request<String> {
-            .get(path, query: parameters.asQuery())
+        func get(username: String, password: String) -> Request<String> {
+            .get(path, query: makeGetQuery(username, password))
         }
 
         enum GetResponseHeaders {
@@ -360,21 +336,8 @@ extension Paths.User {
             static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
         }
 
-         struct GetParameters {
-            var username: String
-            var password: String
-
-            init(username: String, password: String) {
-                self.username = username
-                self.password = password
-            }
-
-            func asQuery() -> [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.append(("username", username))
-                query.append(("password", password))
-                return query
-            }
+        private func makeGetQuery(_ username: String, _ password: String) -> [(String, String?)] {
+            [("username", username), ("password", password)]
         }
     }
 }
@@ -463,9 +426,9 @@ extension Paths {
 
             func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", QueryParameterEncoder.encode($0)) }
-                query.append(("enum_query_string", enumQueryString.map(QueryParameterEncoder.encode)))
-                query.append(("enum_query_integer", enumQueryInteger.map(QueryParameterEncoder.encode)))
+                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", Query.encode($0)) }
+                query.append(("enum_query_string", enumQueryString.map(Query.encode)))
+                query.append(("enum_query_integer", enumQueryInteger.map(Query.encode)))
                 return query
             }
         }
@@ -549,7 +512,7 @@ extension Paths {
     }
 }
 
-private struct QueryParameterEncoder {
+private struct Query {
     static func encode(_ value: Bool) -> String {
         value ? "true" : "false"
     }

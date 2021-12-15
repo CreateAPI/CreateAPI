@@ -19,8 +19,8 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(parameters: GetParameters? = nil) -> Request<[petstore_some_entities_as_classes.Pet]> {
-            .get(path, query: parameters?.asQuery())
+        public func get(limit: Int? = nil) -> Request<[petstore_some_entities_as_classes.Pet]> {
+            .get(path, query: makeGetQuery(limit))
         }
 
         public enum GetResponseHeaders {
@@ -28,18 +28,8 @@ extension Paths {
             public static let next = HTTPHeader<String>(field: "x-next")
         }
 
-        public struct GetParameters {
-            public var limit: Int?
-
-            public init(limit: Int? = nil) {
-                self.limit = limit
-            }
-
-            public func asQuery() -> [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.append(("limit", limit.map(QueryParameterEncoder.encode)))
-                return query
-            }
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            [("limit", limit.map(Query.encode))]
         }
 
         /// Create a pet
@@ -65,7 +55,7 @@ extension Paths.Pets {
     }
 }
 
-private struct QueryParameterEncoder {
+private struct Query {
     static func encode(_ value: Bool) -> String {
         value ? "true" : "false"
     }

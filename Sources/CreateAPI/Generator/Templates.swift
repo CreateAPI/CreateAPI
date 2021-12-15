@@ -144,6 +144,28 @@ final class Templates {
         """
     }
 
+    /// A concise query instantiation. Only available for basic types (not arrays).
+    ///
+    /// Example:
+    ///
+    ///     [("per_page", perPage.map(QueryEncoder.encode)), ("cursor", cursor)]
+    func asQueryContentsInline(properties: [Property]) -> String {
+        guard !properties.contains(where: { $0.type.isArray }) else {
+            return asQueryContents(properties: properties)
+        }
+        let items: [String] = properties.map {
+            if $0.type.isString {
+                return "(\"\($0.key)\", \($0.name.accessor))"
+            } else if $0.isOptional {
+                return "(\"\($0.key)\", \($0.name.accessor).map(Query.encode))"
+            } else {
+                return "(\"\($0.key)\", Query.encode(\($0.name.accessor)))"
+            }
+        }
+        return "[\(items.joined(separator: ", "))]"
+    }
+    
+    
     // MARK: Init
     
     func initializer(properties: [Property]) -> String {
