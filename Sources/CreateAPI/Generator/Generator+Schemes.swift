@@ -173,7 +173,7 @@ extension Generator {
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
         let propertyName = makePropertyName(key)
         
-        func makeChildPropertyName(for name: PropertyName, type: TypeName) -> PropertyName {
+        func makeChildPropertyName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
             if !options.schemes.mappedPropertyNames.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
@@ -182,17 +182,17 @@ extension Generator {
                     }
                 }
             }
-            if options.isGeneratingSwiftyBooleanPropertyNames && type.rawValue == "Bool" {
+            if let type = type, options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
                 return name.asBoolean
             }
             return name
         }
         
-        func property(name: PropertyName, type: TypeName, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
+        func property(name: PropertyName, type: MyType, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             assert(info != nil) // context is null for references, but the caller needs to dereference first
             let nullable = info?.nullable ?? true
             let name = makeChildPropertyName(for: name, type: type)
-            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, schema: schema, metadata: .init(info), nested: nested)
+            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, metadata: .init(info), nested: nested)
         }
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
@@ -201,7 +201,7 @@ extension Generator {
             }
             let type = makeTypeName(key)
             let nested = try makeDeclaration(name: type, schema: schema, context: context)
-            return property(name: propertyName, type: type, info: info, nested: nested)
+            return property(name: propertyName, type: .userDefined(name: type), info: info, nested: nested)
         }
         
         func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
@@ -209,18 +209,18 @@ extension Generator {
                 throw GeneratorError("Missing array item type")
             }
             if let type = try getPrimitiveType(for: item, context: context) {
-                return property(name: propertyName, type: type.asArray, info: info)
+                return property(name: propertyName, type: type.asArray(), info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
             let nested = try makeDeclaration(name: name, schema: item, context: context)
-            return property(name: propertyName, type: name.asArray, info: info, nested: nested)
+            return property(name: propertyName, type: .userDefined(name: name).asArray(), info: info, nested: nested)
         }
         
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
-                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: TypeName("CreateAPIEnumPlaceholderName")).rawValue)
+                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: nil).rawValue)
                 let nested = try makeStringEnum(name: typeName, info: info)
-                return property(name: propertyName, type: typeName, info: schema.coreContext, nested: nested)
+                return property(name: propertyName, type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
             }
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
@@ -231,7 +231,7 @@ extension Generator {
         func makeSomeOf() throws -> Property {
             let name = makeTypeName(key)
             let nested = try makeDeclaration(name: name, schema: schema, context: context)
-            return property(name: propertyName, type: name, info: schema.coreContext, nested: nested)
+            return property(name: propertyName, type: .userDefined(name: name), info: schema.coreContext, nested: nested)
         }
         
         func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
@@ -270,7 +270,7 @@ extension Generator {
     // MARK: - Dictionary
     
     private struct AdditionalProperties {
-        let type: TypeName
+        let type: MyType
         let info: JSONSchemaContext
         var nested: Declaration?
     }
@@ -288,19 +288,19 @@ extension Generator {
         switch additional {
         case .a(let allowed):
             if !allowed && details.properties.isEmpty {
-                return AdditionalProperties(type: TypeName("Void"), info: info)
+                return AdditionalProperties(type: .builtin("Void"), info: info)
             }
             if !details.properties.isEmpty {
                 return nil
             }
-            return AdditionalProperties(type: TypeName("[String: AnyJSON]"), info: info)
+            return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
         case .b(let schema):
             if let type = try getPrimitiveType(for: schema, context: context) {
-                return AdditionalProperties(type: TypeName("[String: \(type)]"), info: info)
+                return AdditionalProperties(type: .dictionary(value: type), info: info)
             }
             let nestedTypeName = makeTypeName(key).appending("Item")
             let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
-            return AdditionalProperties(type: TypeName("[String: \(nestedTypeName)]"), info: info, nested: nested)
+            return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
         }
     }
     
@@ -362,8 +362,8 @@ extension Generator {
             guard !options.isInliningPrimitiveTypes else {
                 return nil
             }
-            // TODO: This shouldn't be here and shouldn't have a declaration?
-            return AnyDeclaration(name: type.asArray, contents: templates.typealias(name: name, type: type.asArray))
+            let type = type.asArray().name
+            return AnyDeclaration(name: type, contents: templates.typealias(name: name, type: type))
         }
         // Requres generation of a separate type
         var output = ""
@@ -443,19 +443,19 @@ extension Generator {
     // MARK: - Misc
     
     // Anything that's not an object or a reference.
-    func getPrimitiveType(for json: JSONSchema, context: Context) throws -> TypeName? {
+    func getPrimitiveType(for json: JSONSchema, context: Context) throws -> MyType? {
         switch json {
-        case .boolean: return TypeName("Bool")
-        case .number: return TypeName("Double")
-        case .integer: return TypeName("Int")
+        case .boolean: return .builtin("Bool")
+        case .number: return .builtin("Double")
+        case .integer: return .builtin("Int")
         case .string(let info, _):
             guard !isEnum(info) else { return nil }
             switch info.format {
-            case .dateTime: return TypeName("Date")
-            case .other(let other): if other == "uri" { return TypeName("URL") }
+            case .dateTime: return .builtin("Date")
+            case .other(let other): if other == "uri" { return .builtin("URL") }
             default: break
             }
-            return TypeName("String")
+            return .builtin("String")
         case .object(let info, let details):
             if let dictionary = try makeDictionary(key: "placeholder", info: info, details: details, context: context), dictionary.nested == nil {
                 return dictionary.type
@@ -465,23 +465,23 @@ extension Generator {
             guard let items = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return try getPrimitiveType(for: items, context: context)?.asArray
+            return try getPrimitiveType(for: items, context: context)?.asArray()
         case .all, .one, .any, .not:
             return nil
         case .reference(let reference, _):
             return try getReferenceType(reference, context: context)
         case .fragment:
             setNeedsAnyJson()
-            return TypeName("AnyJSON")
+            return .anyJSON
         }
     }
     
-    private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeName {
+    private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> MyType {
         switch reference {
         case .internal(let ref):
             if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
                 let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
-                return replacement.namespace(context.namespace)
+                return .userDefined(name: replacement.namespace(context.namespace))
             }
             // Note: while dereferencing, it does it recursively.
             // So if you have `typealias Pets = [Pet]`, it'll dereference
@@ -499,10 +499,10 @@ extension Generator {
             // TODO: Remove duplication
             if !options.schemes.mappedTypeNames.isEmpty {
                 if let mapped = options.schemes.mappedTypeNames[name] {
-                    return TypeName(mapped.namespace(context.namespace))
+                    return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
                 }
             }
-            return makeTypeName(name).namespace(context.namespace)
+            return .userDefined(name: makeTypeName(name).namespace(context.namespace))
         case .external(let url):
             throw GeneratorError("External references are not supported: \(url)")
         }
@@ -524,7 +524,7 @@ extension Generator {
         
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
-        let isHashable = properties.allSatisfy { hashable.contains($0.type.rawValue) }
+        let isHashable = properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
         if isHashable { protocols.insert("Hashable") }
         
         var contents: [String] = []
@@ -577,10 +577,9 @@ extension Generator {
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }.map(render)
         let decoderContents = properties.map {
-            switch $0.schema {
-            case .reference:
+            if case .userDefined = $0.type {
                 return templates.decodeFromDecoder(property: $0)
-            default:
+            } else {
                 return templates.decode(property: $0)
             }
         }.joined(separator: "\n")
@@ -604,7 +603,7 @@ extension Generator {
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
-        var types = Array<TypeName?>(repeating: nil, count: schemas.count)
+        var types = Array<MyType?>(repeating: nil, count: schemas.count)
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
@@ -620,7 +619,7 @@ extension Generator {
         }
         for (index, _) in schemas.enumerated() {
             if types[index] == nil {
-                types[index] = makeNextGenericName()
+                types[index] = .userDefined(name: makeNextGenericName())
             }
         }
         
@@ -636,7 +635,7 @@ extension Generator {
             let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor
             return isArray ? name.pluralized() : name
         }
-        return types.map { parameter(for: $0!.rawValue) }
+        return types.map { parameter(for: $0!.description) }
     }
     
 }

@@ -97,10 +97,9 @@ final class Templates {
     func toQueryParameters(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
-            if $0.type.rawValue.hasPrefix("[") { // TODO: Refactor
-                let innerType = String($0.type.rawValue.dropFirst().dropLast())
+            if case .array(let element) = $0.type {
                 let accessor = $0.isOptional ? "(\($0.name.accessor) ?? [])" : "\($0.name.accessor)"
-                if innerType == "String" {
+                if element.isString {
                     if $0.explode {
                         return "query += \(accessor).map { (\"\($0.key)\", $0) }"
                     } else {
@@ -113,7 +112,7 @@ final class Templates {
                         return "query.append((\"\($0.key)\", \(accessor).map(QueryParameterEncoder.encode).joined(separator: \",\")))"
                     }
                 }
-            } else if $0.type.rawValue == "String" {
+            } else if $0.type.isString {
                 return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor)))"
             } else if $0.isOptional {
                 return "query.append((\"\($0.key)\", \(prefix)\($0.name.accessor).map(QueryParameterEncoder.encode)))"
@@ -263,7 +262,7 @@ final class Templates {
     func property(_ property: Property) -> String {
         var output = ""
         if let metadata = property.metadata {
-            output += comments(for: metadata, name: property.name.rawValue)
+            output += comments(for: metadata, name: property.name.rawValue, isProperty: true)
         }
         output += "\(access)var \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
@@ -278,7 +277,7 @@ final class Templates {
     // MARK: Comments
     
     /// Generates inline comments for a declaration containing a title, description, and examples.
-    func comments(for metadata: DeclarationMetadata, name: String) -> String {
+    func comments(for metadata: DeclarationMetadata, name: String, isProperty: Bool = false) -> String {
         let options = options.comments
         guard options.isEnabled else {
             return ""
@@ -340,7 +339,7 @@ final class Templates {
         if self.options.isAddingDeprecations, metadata.isDeprecated {
             // We can't mark properties deprecated because then initialier and
             // encoder will start throwing warnings.
-            if metadata.isProperty {
+            if isProperty {
                 if !output.isEmpty {
                     output += "///\n"
                 }
@@ -518,3 +517,109 @@ extension String {
         return lines
     }
 }
+
+let anyJSON = """
+public enum AnyJSON: Equatable {
+    case string(String)
+    case number(Double)
+    case object([String: AnyJSON])
+    case array([AnyJSON])
+    case bool(Bool)
+
+    var value: Any {
+        switch self {
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
+        }
+    }
+}
+
+extension AnyJSON: Codable {
+    public func encode(to encoder: Encoder) throws {
+
+        var container = encoder.singleValueContainer()
+
+        switch self {
+        case let .array(array):
+            try container.encode(array)
+        case let .object(object):
+            try container.encode(object)
+        case let .string(string):
+            try container.encode(string)
+        case let .number(number):
+            try container.encode(number)
+        case let .bool(bool):
+            try container.encode(bool)
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let object = try? container.decode([String: AnyJSON].self) {
+            self = .object(object)
+        } else if let array = try? container.decode([AnyJSON].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let bool = try? container.decode(Bool.self) {
+            self = .bool(bool)
+        } else if let number = try? container.decode(Double.self) {
+            self = .number(number)
+        } else {
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+            )
+        }
+    }
+}
+
+extension AnyJSON: CustomDebugStringConvertible {
+
+    public var debugDescription: String {
+        switch self {
+        case .string(let str):
+            return str.debugDescription
+        case .number(let num):
+            return num.debugDescription
+        case .bool(let bool):
+            return bool.description
+        default:
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.prettyPrinted]
+            return try! String(data: encoder.encode(self), encoding: .utf8)!
+        }
+    }
+}
+"""
+
+let stringCodingKey = """
+struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
+    private let string: String
+    private var int: Int?
+
+    var stringValue: String { return string }
+
+    init(string: String) {
+        self.string = string
+    }
+
+    init?(stringValue: String) {
+        self.string = stringValue
+    }
+
+    var intValue: Int? { return int }
+
+    init?(intValue: Int) {
+        self.string = String(describing: intValue)
+        self.int = intValue
+    }
+
+    init(stringLiteral value: String) {
+        self.string = value
+    }
+}
+"""

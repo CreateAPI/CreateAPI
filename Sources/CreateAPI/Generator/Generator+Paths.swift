@@ -37,7 +37,7 @@ extension Generator {
 
         return output.indent(using: options)
     }
-    
+
     // Generate code for the given (sub)path.
     private struct Job {
         let lastComponent: String
@@ -183,15 +183,13 @@ extension Generator {
         
         if let requestBody = operation.requestBody, method != "get" {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
-            if !requestBody.type.isVoid {
+            if requestBody.type.rawValue != "Void" {
                 if let value = requestBody.nested {
                     nested.append(render(value))
                 }
-                #warning("TODO: Relax Array requirement")
                 if options.paths.isInliningSimpleRequestType,
                    let nested = (requestBody.nested as? EntityDeclaration),
-                   nested.properties.count == 1,
-                   !nested.properties[0].type.rawValue.hasPrefix("[") {
+                   nested.properties.count == 1 {
                     // Inline simple request types (types that only have N properties):
                     //
                     // public func post(body: PostRequest) -> Request<github.Reaction>
@@ -204,8 +202,8 @@ extension Generator {
                     //
                     // If the property is using a type nested inside the request type, add a "namespace".
                     let property = nested.properties[0]
-                    let namespace = nested.isNested(property.type) ? "\(nested.name)." : ""
-                    parameters.append("\(property.name): \(namespace)\(property.type)\(requestBody.isOptional ? "? = nil" : "")")
+                    let namespace = nested.isNested(property.type.elementType) ? nested.name.rawValue : ""
+                    parameters.append("\(property.name): \(property.type.identifier(namespace: namespace))\(property.isOptional ? "? = nil" : "")")
                     call.append("body: \(nested.name)(\(property.name): \(property.name))")
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
@@ -274,16 +272,16 @@ extension Generator {
         }
         
         struct QueryItemType {
-            var type: TypeName
+            var type: MyType
             var nested: Declaration?
             
-            init(type: TypeName, nested: Declaration? = nil) {
+            init(type: MyType, nested: Declaration? = nil) {
                 self.type = type
                 self.nested = nested
             }
             
             init(_ name: String) {
-                self.type = TypeName(name)
+                self.type = .builtin(name)
             }
         }
         
@@ -303,7 +301,7 @@ extension Generator {
                 if info.allowedValues != nil {
                     let enumTypeName = makeTypeName(parameter.name)
                     let nested = try makeStringEnum(name: enumTypeName, info: info)
-                    return QueryItemType(type: enumTypeName, nested: nested)
+                    return QueryItemType(type: .userDefined(name: enumTypeName), nested: nested)
                 }
                 return QueryItemType("String")
             case .object: return nil
@@ -315,7 +313,7 @@ extension Generator {
                     throw GeneratorError("Missing array item type")
                 }
                 if let type = try getQueryItemType(for: item, isTopLevel: false) {
-                    return QueryItemType(type: type.type.asArray, nested: type.nested)
+                    return QueryItemType(type: type.type.asArray(), nested: type.nested)
                 }
                 return nil
             case .all, .one, .any, .not: return nil
@@ -323,7 +321,7 @@ extension Generator {
                 guard let name = ref.name.map(makeTypeName), supportedTypes.contains(name.rawValue) else {
                     return nil
                 }
-                return QueryItemType(type: name)
+                return QueryItemType(type: .userDefined(name: name))
             case .fragment: return nil
             }
         }
@@ -332,18 +330,18 @@ extension Generator {
             return nil
         }
         
-        func getPropertyName(for name: PropertyName, type: TypeName) -> PropertyName {
+        func getPropertyName(for name: PropertyName, type: MyType) -> PropertyName {
             if let name = options.rename.parameters[name.rawValue] {
                 return PropertyName(name)
             }
-            if options.isGeneratingSwiftyBooleanPropertyNames && type.rawValue == "Bool" {
+            if options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
                 return name.asBoolean
             }
             return name
         }
 
         let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
-        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, schema: schema, metadata: .init(schema.coreContext), nested: type.nested)
+        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, metadata: .init(schema.coreContext), nested: type.nested)
     }
         
     // MARK: - Request Body
@@ -401,7 +399,7 @@ extension Generator {
         
         let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
         setNeedsEncodable(for: property.type)
-        return GeneratedType(type: property.type, nested: property.nested, isOptional: !(requestBody.requestValue?.required ?? true))
+        return GeneratedType(type: property.type.name, nested: property.nested, isOptional: !(requestBody.requestValue?.required ?? true))
     }
     
     // MARK: - Response Body
@@ -416,7 +414,6 @@ extension Generator {
         return operation.responses.first { $0.key.isSuccess }?.value
     }
     
-    #warning("TODO: Remove")
     private struct GeneratedType {
         var type: TypeName
         var nested: Declaration?
@@ -468,7 +465,7 @@ extension Generator {
             switch content.schema {
             case .a(let reference):
                 let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
-                return GeneratedType(type: type)
+                return GeneratedType(type: type.name)
             case .b(let schema):
                 // TODO: Revisit this
                 switch schema {
@@ -478,7 +475,7 @@ extension Generator {
                     return GeneratedType(type: TypeName("Data"))
                 default:
                     let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
-                    return GeneratedType(type: property.type, nested: property.nested)
+                    return GeneratedType(type: property.type.name, nested: property.nested)
                 }
             default:
                 throw GeneratorError("ERROR: response not handled")

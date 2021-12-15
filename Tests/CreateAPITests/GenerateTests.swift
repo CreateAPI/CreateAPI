@@ -6,9 +6,6 @@ import XCTest
 import OpenAPIKit30
 @testable import CreateAPI
 
-#warning("TODO: make sure Package.swift and .switfpm are ignored")
-#warning("TODO: test that when build fails, test-generated fails")
-
 final class GenerateTests: XCTestCase {
     var temp: TemporaryDirectory!
     

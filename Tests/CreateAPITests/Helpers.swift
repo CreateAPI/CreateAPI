@@ -7,8 +7,6 @@ import XCTest
 import OpenAPIKit30
 import Yams
 
-#warning("TODO: remove unused files")
-
 func file(named name: String, ext: String) -> Data {
     let url = Bundle.module.url(forResource: name, withExtension: ext)
     return try! Data(contentsOf: url!)

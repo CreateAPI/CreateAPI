@@ -71,8 +71,9 @@ final class Generator {
         lock.sync { isHTTPHeadersDependencyNeeded = true }
     }
     
-    func setNeedsEncodable(for type: TypeName) {
-        lock.sync { needsEncodable.insert(type) }
+    func setNeedsEncodable(for type: MyType) {
+        guard case .userDefined(let name) = type else { return }
+        lock.sync { needsEncodable.insert(name) }
     }
     
     func setNeedsRequestOperationIdExtension() {
@@ -95,10 +96,9 @@ struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
     var errorDescription: String? { message }
 }
 
-#warning("TODO: See if we can simplify this")
 struct Context {
     var parents: [TypeName]
-    var namespace: String?
+    var namespace: String? // TODO: Refactor how namespaces are added
     var isDecodableNeeded = true
     var isEncodableNeeded = true
     

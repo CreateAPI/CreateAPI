@@ -1436,8 +1436,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         /// You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedOrganizationIDs: selectedOrganizationIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -1756,8 +1756,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedOrganizationIDs: selectedOrganizationIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -1873,8 +1873,8 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(runners: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(runners: runners))
         }
 
         public struct PutRequest: Encodable {
@@ -4319,8 +4319,8 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -4659,8 +4659,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -4787,8 +4787,8 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(runners: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(runners: runners))
         }
 
         public struct PutRequest: Encodable {
@@ -5306,8 +5306,8 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -6545,8 +6545,8 @@ extension Paths.Orgs.WithOrg.Memberships {
         /// To prevent abuse, the authenticated user is limited to 50 organization invitations per 24 hour period. If the organization is more than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user)
-        public func put(_ body: PutRequest? = nil) -> Request<github.OrgMembership> {
-            .put(path, body: body)
+        public func put(role: PutRequest.Role? = nil) -> Request<github.OrgMembership> {
+            .put(path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -8353,8 +8353,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -8469,8 +8469,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -8718,8 +8718,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/memberships/{username}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user)
-        public func put(_ body: PutRequest? = nil) -> Request<github.TeamMembership> {
-            .put(path, body: body)
+        public func put(role: PutRequest.Role? = nil) -> Request<github.TeamMembership> {
+            .put(path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -8833,8 +8833,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/projects/{project_id}`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions)
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -8966,8 +8966,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         /// For more information about the permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions)
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -9064,8 +9064,8 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
-        public func patch(_ body: PatchRequest) -> Request<github.GroupMapping> {
-            .patch(path, body: body)
+        public func patch(groups: [PatchRequest.Group]? = nil) -> Request<github.GroupMapping> {
+            .patch(path, body: PatchRequest(groups: groups))
         }
 
         public struct PatchRequest: Encodable {
@@ -9610,8 +9610,8 @@ extension Paths.Projects.WithProjectID.Collaborators {
         /// Adds a collaborator to an organization project and sets their permission level. You must be an organization owner or a project `admin` to add a collaborator.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#add-project-collaborator)
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -13481,8 +13481,8 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         /// Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)
-        public func patch(_ body: PatchRequest) -> Request<github.CheckSuitePreference> {
-            .patch(path, body: body)
+        public func patch(autoTriggerChecks: [PatchRequest.AutoTriggerCheck]? = nil) -> Request<github.CheckSuitePreference> {
+            .patch(path, body: PatchRequest(autoTriggerChecks: autoTriggerChecks))
         }
 
         public struct PatchRequest: Encodable {
@@ -14509,8 +14509,8 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         /// Create a reaction to a [commit comment](https://docs.github.com/rest/reference/repos#comments). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -17630,8 +17630,8 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.github.com). You can learn more about our LFS feature and working with large files [on our help site](https://help.github.com/articles/versioning-large-files/).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-git-lfs-preference)
-        public func patch(_ body: PatchRequest) -> Request<github.Import> {
-            .patch(path, body: body)
+        public func patch(useLfs: PatchRequest.UseLfs) -> Request<github.Import> {
+            .patch(path, body: PatchRequest(useLfs: useLfs))
         }
 
         public struct PatchRequest: Encodable {
@@ -17781,8 +17781,8 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         /// Update a repository invitation
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-invitation)
-        public func patch(_ body: PatchRequest? = nil) -> Request<github.RepositoryInvitation> {
-            .patch(path, body: body)
+        public func patch(permissions: PatchRequest.Permissions? = nil) -> Request<github.RepositoryInvitation> {
+            .patch(path, body: PatchRequest(permissions: permissions))
         }
 
         public struct PatchRequest: Encodable {
@@ -18180,8 +18180,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         /// Create a reaction to an [issue comment](https://docs.github.com/rest/reference/issues#comments). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -18448,8 +18448,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
-        public func post(_ body: PostRequest? = nil) -> Request<github.Issue> {
-            .post(path, body: body)
+        public func post(assignees: [String]? = nil) -> Request<github.Issue> {
+            .post(path, body: PostRequest(assignees: assignees))
         }
 
         public struct PostRequest: Encodable {
@@ -18471,8 +18471,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Removes one or more assignees from an issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
-        public func delete(_ body: DeleteRequest? = nil) -> Request<github.Issue> {
-            .delete(path, body: body)
+        public func delete(assignees: [String]? = nil) -> Request<github.Issue> {
+            .delete(path, body: DeleteRequest(assignees: assignees))
         }
 
         public struct DeleteRequest: Encodable {
@@ -18843,8 +18843,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#lock-an-issue)
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(lockReason: PutRequest.LockReason? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(lockReason: lockReason))
         }
 
         public struct PutRequest: Encodable {
@@ -18946,8 +18946,8 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         /// Create a reaction to an [issue](https://docs.github.com/rest/reference/issues/). A response with an HTTP `200` status means that you already added the reaction type to this issue.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -19681,8 +19681,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Marks all notifications in a repository as "read" removes them from the [default view on GitHub](https://github.com/notifications). If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read)
-        public func put(_ body: PutRequest? = nil) -> Request<PutResponse> {
-            .put(path, body: body)
+        public func put(lastReadAt: Date? = nil) -> Request<PutResponse> {
+            .put(path, body: PutRequest(lastReadAt: lastReadAt))
         }
 
         public struct PutResponse: Decodable {
@@ -19738,8 +19738,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Configures a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages)."
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-github-pages-site)
-        public func post(_ body: PostRequest) -> Request<github.Page> {
-            .post(path, body: body)
+        public func post(source: PostRequest.Source) -> Request<github.Page> {
+            .post(path, body: PostRequest(source: source))
         }
 
         /// The source branch and directory used to publish your Pages site.
@@ -20355,8 +20355,8 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         /// Create a reaction to a [pull request review comment](https://docs.github.com/rest/reference/pulls#comments). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -21835,8 +21835,8 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         /// Create a reaction to a [release](https://docs.github.com/rest/reference/repos#releases). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release)
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -22475,8 +22475,8 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Replace all repository topics
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
-        public func put(_ body: PutRequest) -> Request<github.Topic> {
-            .put(path, body: body)
+        public func put(names: [String]) -> Request<github.Topic> {
+            .put(path, body: PutRequest(names: names))
         }
 
         public struct PutRequest: Encodable {
@@ -25255,8 +25255,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -25351,8 +25351,8 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func post(_ body: PostRequest) -> Request<github.Reaction> {
-            .post(path, body: body)
+        public func post(content: PostRequest.Content) -> Request<github.Reaction> {
+            .post(path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -25598,8 +25598,8 @@ extension Paths.Teams.WithTeamID.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest? = nil) -> Request<github.TeamMembership> {
-            .put(path, body: body)
+        public func put(role: PutRequest.Role? = nil) -> Request<github.TeamMembership> {
+            .put(path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -25717,8 +25717,8 @@ extension Paths.Teams.WithTeamID.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -25850,8 +25850,8 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
-        public func put(_ body: PutRequest? = nil) -> Request<Void> {
-            .put(path, body: body)
+        public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
+            .put(path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -26608,8 +26608,8 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         /// You must authenticate using an access token with the `user` or `read:user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret)
-        public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+        public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
+            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
         }
 
         public struct PutRequest: Encodable {
@@ -26826,8 +26826,8 @@ extension Paths.User.Email {
         /// Sets the visibility for your primary email addresses.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user)
-        public func patch(_ body: PatchRequest) -> Request<[github.Email]> {
-            .patch(path, body: body)
+        public func patch(visibility: PatchRequest.Visibility) -> Request<[github.Email]> {
+            .patch(path, body: PatchRequest(visibility: visibility))
         }
 
         public struct PatchRequest: Encodable {
@@ -27777,8 +27777,8 @@ extension Paths.User.Memberships.Orgs {
         /// Update an organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
-        public func patch(_ body: PatchRequest) -> Request<github.OrgMembership> {
-            .patch(path, body: body)
+        public func patch(state: PatchRequest.State) -> Request<github.OrgMembership> {
+            .patch(path, body: PatchRequest(state: state))
         }
 
         public struct PatchRequest: Encodable {
