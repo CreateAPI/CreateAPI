@@ -235,6 +235,7 @@ struct GenerateArguments {
 
 private func makeDefaultParameterEncoders() -> [String: String] {
     return [
+        "String": "self",
         "Int": "String(self)",
         "Double": "String(self)",
         "Bool": #"self ? "true" : "false""#,

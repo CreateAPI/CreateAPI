@@ -48,7 +48,7 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.append(("status", status.map(\.asQueryValue).joined(separator: ",")))
+            query.addQueryItem("status", status.map(\.asQueryValue).joined(separator: ","))
             return query
         }
 
@@ -78,7 +78,9 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query += (status ?? []).map { ("status", $0.asQueryValue) }
+            for value in status ?? [] {
+                query.addQueryItem("status", value.asQueryValue)
+            }
             return query
         }
 
@@ -108,7 +110,7 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.append(("tags", tags.joined(separator: ",")))
+            query.addQueryItem("tags", tags.map(\.asQueryValue).joined(separator: ","))
             return query
         }
     }
@@ -337,7 +339,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ username: String, _ password: String) -> [(String, String?)] {
-            [("username", username), ("password", password)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("username", username.asQueryValue)
+            query.addQueryItem("password", password.asQueryValue)
+            return query
         }
     }
 }
@@ -426,9 +431,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query += (enumQueryStringArray ?? []).map { ("enum_query_string_array", $0.asQueryValue) }
-                query.append(("enum_query_string", enumQueryString?.asQueryValue))
-                query.append(("enum_query_integer", enumQueryInteger?.asQueryValue))
+                for value in enumQueryStringArray ?? [] {
+                    query.addQueryItem("enum_query_string_array", value.asQueryValue)
+                }
+                query.addQueryItem("enum_query_string", enumQueryString?.asQueryValue)
+                query.addQueryItem("enum_query_integer", enumQueryInteger?.asQueryValue)
                 return query
             }
         }
@@ -512,38 +519,51 @@ extension Paths {
     }
 }
 
-private extension Bool {
+extension Bool {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-private extension Date {
+extension Date {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-private extension Double {
+extension Double {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension Int {
+extension Int {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension URL {
+extension String {
+    var asQueryValue: String {
+        self
+    }
+}
+
+extension URL {
     var asQueryValue: String {
         absoluteString
     }
 }
 
-private extension RawRepresentable where RawValue == String {
+extension RawRepresentable where RawValue == String {
     var asQueryValue: String {
         rawValue
+    }
+}
+
+extension Array where Element == (String, String?) {
+    mutating func addQueryItem(_ name: String, _ value: String?) {
+        guard let value = value, !value.isEmpty else { return }
+        append((name, value))
     }
 }

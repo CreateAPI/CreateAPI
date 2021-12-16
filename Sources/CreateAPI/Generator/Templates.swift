@@ -104,23 +104,19 @@ final class Templates {
         
     func asQueryContents(properties: [Property]) -> String {
         let statements: [String] = properties.map {
-            if case .array(let element) = $0.type {
-                let accessor = $0.isOptional ? "(\($0.name.accessor) ?? [])" : "\($0.name.accessor)"
-                if element.isString {
-                    if $0.explode {
-                        return "query += \(accessor).map { (\"\($0.key)\", $0) }"
-                    } else {
-                        return "query.append((\"\($0.key)\", \(accessor).joined(separator: \",\")))"
+            let prefix = $0.name.rawValue == "query" ? "self." : ""
+            if case .array = $0.type {
+                if $0.explode {
+                    return """
+                    for value in \(prefix)\($0.name)\($0.isOptional ? " ?? []" : "") {
+                        query.addQueryItem(\"\($0.key)\", value.asQueryValue)
                     }
+                    """
                 } else {
-                    if $0.explode {
-                        return "query += \(accessor).map { (\"\($0.key)\", $0.asQueryValue) }"
-                    } else {
-                        return "query.append((\"\($0.key)\", \(accessor).map(\\.asQueryValue).joined(separator: \",\")))"
-                    }
+                    return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name)\($0.isOptional ? "?" : "").map(\\.asQueryValue).joined(separator: \",\"))"
                 }
             } else {
-                return "query.append(\(queryItem(property: $0)))"
+                return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name)\($0.isOptional ? "?" : "").asQueryValue)"
             }
         }
         return """
@@ -139,36 +135,11 @@ final class Templates {
         let arguments = properties.map { "_ \($0.name): \($0.type)\($0.isOptional ? "?" : "")" }.joined(separator: ", ")
         return """
         private func make\(method.capitalizingFirstLetter())Query(\(arguments)) -> [(String, String?)] {
-        \(asQueryContentsInline(properties: properties).indented)
+        \(asQueryContents(properties: properties).indented)
         }
         """
     }
-    
-    /// A concise query instantiation. Only available for basic types (not arrays).
-    ///
-    /// Example:
-    ///
-    ///     [("per_page", perPage?.asQueryValue, ("cursor", cursor)]
-    func asQueryContentsInline(properties: [Property]) -> String {
-        guard !properties.contains(where: { $0.type.isArray }) else {
-            return asQueryContents(properties: properties)
-        }
-        let items = properties.map { queryItem(property: $0, isInline: true) }
-        return "[\(items.joined(separator: ", "))]"
-    }
-    
-    /// Example:
-    ///
-    ///     ("per_page", perPage?.asQueryValue)
-    private func queryItem(property: Property, isInline: Bool = false) -> String {
-        let prefix = (!isInline && property.name.rawValue == "query") ? "self." : ""
-        if property.type.isString {
-            return "(\"\(property.key)\", \(prefix)\(property.name.accessor))"
-        } else {
-            return "(\"\(property.key)\", \(prefix)\(property.name.accessor)\(property.isOptional ? "?" : "").asQueryValue)"
-        }
-    }
-    
+
     // MARK: Init
     
     func initializer(properties: [Property]) -> String {
@@ -511,9 +482,9 @@ final class Templates {
     }
     
     func queryParameterEncoders(_ encoders: [String: String]) -> String {
-        var methods = encoders.keys.sorted().map { key in
+        var declarations = encoders.keys.sorted().map { key in
             """
-            private extension \(key) {
+            extension \(key) {
                 var asQueryValue: String {
             \(encoders[key]!.indented(count: 2))
                 }
@@ -521,14 +492,22 @@ final class Templates {
             """
         }
         // Encoding RawRepresentable
-        methods.append("""
-        private extension RawRepresentable where RawValue == String {
+        declarations.append("""
+        extension RawRepresentable where RawValue == String {
             var asQueryValue: String {
                 rawValue
             }
         }
         """)
-        return methods.joined(separator: "\n\n")
+        declarations.append("""
+        extension Array where Element == (String, String?) {
+            mutating func addQueryItem(_ name: String, _ value: String?) {
+                guard let value = value, !value.isEmpty else { return }
+                append((name, value))
+            }
+        }
+        """)
+        return declarations.joined(separator: "\n\n")
     }
 }
 

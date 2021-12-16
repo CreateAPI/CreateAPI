@@ -27,7 +27,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            [("limit", limit?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit?.asQueryValue)
+            return query
         }
 
         public var post: Request<Void> {
@@ -51,38 +53,51 @@ extension Paths.Pets {
     }
 }
 
-private extension Bool {
+extension Bool {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-private extension Date {
+extension Date {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-private extension Double {
+extension Double {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension Int {
+extension Int {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension URL {
+extension String {
+    var asQueryValue: String {
+        self
+    }
+}
+
+extension URL {
     var asQueryValue: String {
         absoluteString
     }
 }
 
-private extension RawRepresentable where RawValue == String {
+extension RawRepresentable where RawValue == String {
     var asQueryValue: String {
         rawValue
+    }
+}
+
+extension Array where Element == (String, String?) {
+    mutating func addQueryItem(_ name: String, _ value: String?) {
+        guard let value = value, !value.isEmpty else { return }
+        append((name, value))
     }
 }

@@ -324,7 +324,10 @@ extension Paths.App.Hook {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("cursor", cursor)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("cursor", cursor?.asQueryValue)
+            return query
         }
     }
 }
@@ -412,10 +415,10 @@ extension Paths.App {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("outdated", outdated))
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("outdated", outdated?.asQueryValue)
                 return query
             }
         }
@@ -598,9 +601,9 @@ extension Paths.Applications {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("client_id", clientID))
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("client_id", clientID?.asQueryValue)
                 return query
             }
         }
@@ -910,9 +913,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("client_id", clientID))
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("client_id", clientID?.asQueryValue)
                 return query
             }
         }
@@ -1400,7 +1403,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Set selected organizations enabled for GitHub Actions in an enterprise
@@ -1533,7 +1539,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a self-hosted runner group for an enterprise
@@ -1694,7 +1703,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Set organization access for a self-hosted runner group in an enterprise
@@ -1798,7 +1810,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Set self-hosted runners in a group for an enterprise
@@ -1903,7 +1918,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -2074,13 +2092,13 @@ extension Paths.Enterprises.WithEnterprise {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("phrase", phrase))
-                query.append(("include", include?.asQueryValue))
-                query.append(("after", after))
-                query.append(("before", before))
-                query.append(("order", order?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
+                query.addQueryItem("phrase", phrase?.asQueryValue)
+                query.addQueryItem("include", include?.asQueryValue)
+                query.addQueryItem("after", after?.asQueryValue)
+                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
                 return query
             }
         }
@@ -2153,7 +2171,10 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -2225,7 +2246,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -2295,9 +2319,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -2420,9 +2444,9 @@ extension Paths.Gists {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -2464,9 +2488,9 @@ extension Paths.Gists {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -2565,7 +2589,10 @@ extension Paths.Gists.WithGistID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a gist comment
@@ -2666,7 +2693,10 @@ extension Paths.Gists.WithGistID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -2692,7 +2722,10 @@ extension Paths.Gists.WithGistID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Fork a gist
@@ -2870,7 +2903,10 @@ extension Paths.Installation {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -2986,18 +3022,18 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("state", state?.asQueryValue))
-                query.append(("labels", labels))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("collab", isCollab?.asQueryValue))
-                query.append(("orgs", isOrgs?.asQueryValue))
-                query.append(("owned", isOwned?.asQueryValue))
-                query.append(("pulls", isPulls?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("labels", labels?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("collab", isCollab?.asQueryValue)
+                query.addQueryItem("orgs", isOrgs?.asQueryValue)
+                query.addQueryItem("owned", isOwned?.asQueryValue)
+                query.addQueryItem("pulls", isPulls?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -3033,9 +3069,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("featured", isFeatured?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("featured", isFeatured?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -3209,7 +3245,10 @@ extension Paths.MarketplaceListing {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -3274,10 +3313,10 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -3353,7 +3392,10 @@ extension Paths.MarketplaceListing.Stubbed {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -3418,10 +3460,10 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -3500,7 +3542,10 @@ extension Paths.Networks.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -3546,12 +3591,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("all", isAll?.asQueryValue))
-                query.append(("participating", isParticipating?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("before", before?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("all", isAll?.asQueryValue)
+                query.addQueryItem("participating", isParticipating?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -3711,7 +3756,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ s: String?) -> [(String, String?)] {
-            [("s", s)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("s", s?.asQueryValue)
+            return query
         }
     }
 }
@@ -3741,7 +3788,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ since: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("since", since?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("since", since?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -4078,7 +4128,10 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Set selected repositories enabled for GitHub Actions in an organization
@@ -4217,7 +4270,10 @@ extension Paths.Orgs.WithOrg.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a self-hosted runner group for an organization
@@ -4390,7 +4446,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
 
         /// Set repository access for a self-hosted runner group in an organization
@@ -4505,7 +4564,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Set self-hosted runners in a group for an organization
@@ -4618,7 +4680,10 @@ extension Paths.Orgs.WithOrg.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -4778,7 +4843,10 @@ extension Paths.Orgs.WithOrg.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -4989,7 +5057,10 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
 
         /// Set selected repositories for an organization secret
@@ -5096,12 +5167,12 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("phrase", phrase))
-                query.append(("include", include?.asQueryValue))
-                query.append(("after", after))
-                query.append(("before", before))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
+                query.addQueryItem("phrase", phrase?.asQueryValue)
+                query.addQueryItem("include", include?.asQueryValue)
+                query.addQueryItem("after", after?.asQueryValue)
+                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
                 return query
             }
         }
@@ -5221,7 +5292,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -5296,9 +5370,9 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("display_name", displayName))
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("display_name", displayName?.asQueryValue)
                 return query
             }
         }
@@ -5328,7 +5402,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -5354,7 +5431,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create an organization webhook
@@ -5617,7 +5697,10 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("cursor", cursor)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("cursor", cursor?.asQueryValue)
+            return query
         }
     }
 }
@@ -5743,7 +5826,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -5821,7 +5907,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create an organization invitation
@@ -5921,7 +6010,10 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -6002,14 +6094,14 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("state", state?.asQueryValue))
-                query.append(("labels", labels))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("labels", labels?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -6064,10 +6156,10 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("role", role?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("role", role?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -6228,9 +6320,11 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query += (exclude ?? []).map { ("exclude", $0.asQueryValue) }
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                for value in exclude ?? [] {
+                    query.addQueryItem("exclude", value.asQueryValue)
+                }
                 return query
             }
         }
@@ -6318,7 +6412,9 @@ extension Paths.Orgs.WithOrg.Migrations {
 
         private func makeGetQuery(_ exclude: [Exclude]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query += (exclude ?? []).map { ("exclude", $0.asQueryValue) }
+            for value in exclude ?? [] {
+                query.addQueryItem("exclude", value.asQueryValue)
+            }
             return query
         }
 
@@ -6425,7 +6521,10 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -6470,9 +6569,9 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -6530,7 +6629,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
-            [("package_type", packageType.asQueryValue), ("visibility", visibility?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("package_type", packageType.asQueryValue)
+            query.addQueryItem("visibility", visibility?.asQueryValue)
+            return query
         }
 
         public enum PackageType: String, Codable, CaseIterable {
@@ -6624,7 +6726,9 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
-            [("token", token)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("token", token?.asQueryValue)
+            return query
         }
     }
 }
@@ -6668,9 +6772,9 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("page", page?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("state", state?.asQueryValue))
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
                 return query
             }
         }
@@ -6782,9 +6886,9 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -6841,7 +6945,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -6943,11 +7050,11 @@ extension Paths.Orgs.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("type", type?.asQueryValue))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("type", type?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -7121,11 +7228,11 @@ extension Paths.Orgs.WithOrg.SecretScanning {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("secret_type", secretType))
-                query.append(("resolution", resolution))
-                query.append(("page", page?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("secret_type", secretType?.asQueryValue)
+                query.addQueryItem("resolution", resolution?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
                 return query
             }
         }
@@ -7199,7 +7306,10 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -7288,7 +7398,10 @@ extension Paths.Orgs.WithOrg.TeamSync {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: String?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -7316,7 +7429,10 @@ extension Paths.Orgs.WithOrg {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a team
@@ -7552,10 +7668,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("pinned", pinned))
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("pinned", pinned?.asQueryValue)
                 return query
             }
         }
@@ -7701,9 +7817,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -7843,9 +7959,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -7959,9 +8075,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -8099,7 +8215,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -8147,9 +8266,9 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("role", role?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("role", role?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -8279,7 +8398,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -8382,7 +8504,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -8596,7 +8721,10 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -8815,9 +8943,9 @@ extension Paths.Projects.Columns.WithColumnID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("archived_state", archivedState?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("archived_state", archivedState?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -9039,9 +9167,9 @@ extension Paths.Projects.WithProjectID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("affiliation", affiliation?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("affiliation", affiliation?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -9143,7 +9271,10 @@ extension Paths.Projects.WithProjectID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a project column
@@ -9485,7 +9616,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -9726,7 +9860,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -9925,14 +10062,14 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("actor", actor))
-                query.append(("branch", branch))
-                query.append(("event", event))
-                query.append(("status", status?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("created", created?.asQueryValue))
-                query.append(("exclude_pull_requests", excludePullRequests?.asQueryValue))
+                query.addQueryItem("actor", actor?.asQueryValue)
+                query.addQueryItem("branch", branch?.asQueryValue)
+                query.addQueryItem("event", event?.asQueryValue)
+                query.addQueryItem("status", status?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("created", created?.asQueryValue)
+                query.addQueryItem("exclude_pull_requests", excludePullRequests?.asQueryValue)
                 return query
             }
         }
@@ -9958,7 +10095,9 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {
-            [("exclude_pull_requests", excludePullRequests?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("exclude_pull_requests", excludePullRequests?.asQueryValue)
+            return query
         }
 
         /// Delete a workflow run
@@ -10055,7 +10194,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -10093,7 +10235,9 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {
-            [("exclude_pull_requests", excludePullRequests?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("exclude_pull_requests", excludePullRequests?.asQueryValue)
+            return query
         }
     }
 }
@@ -10137,7 +10281,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -10241,9 +10388,9 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -10438,7 +10585,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -10632,7 +10782,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -10822,14 +10975,14 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("actor", actor))
-                query.append(("branch", branch))
-                query.append(("event", event))
-                query.append(("status", status?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("created", created?.asQueryValue))
-                query.append(("exclude_pull_requests", excludePullRequests?.asQueryValue))
+                query.addQueryItem("actor", actor?.asQueryValue)
+                query.addQueryItem("branch", branch?.asQueryValue)
+                query.addQueryItem("event", event?.asQueryValue)
+                query.addQueryItem("status", status?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("created", created?.asQueryValue)
+                query.addQueryItem("exclude_pull_requests", excludePullRequests?.asQueryValue)
                 return query
             }
         }
@@ -10881,7 +11034,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -10931,7 +11087,9 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ page: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create an autolink reference for a repository
@@ -11062,9 +11220,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("protected", isProtected?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("protected", isProtected?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -12709,7 +12867,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -12914,11 +13075,11 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("check_name", checkName))
-                query.append(("status", status?.asQueryValue))
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("check_name", checkName?.asQueryValue)
+                query.addQueryItem("status", status?.asQueryValue)
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -12985,7 +13146,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -13059,7 +13223,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -13098,7 +13265,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -13213,7 +13383,9 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         }
 
         private func makeDeleteQuery(_ confirmDelete: String?) -> [(String, String?)] {
-            [("confirm_delete", confirmDelete)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("confirm_delete", confirmDelete?.asQueryValue)
+            return query
         }
     }
 }
@@ -13347,7 +13519,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a codespace in a repository
@@ -13428,7 +13603,9 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         }
 
         private func makeGetQuery(_ location: String) -> [(String, String?)] {
-            [("location", location)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("location", location.asQueryValue)
+            return query
         }
     }
 }
@@ -13478,9 +13655,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("affiliation", affiliation?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("affiliation", affiliation?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -13619,7 +13796,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -13716,9 +13896,9 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -13852,13 +14032,13 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sha", sha))
-                query.append(("path", path))
-                query.append(("author", author))
-                query.append(("since", since?.asQueryValue))
-                query.append(("until", until?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sha", sha?.asQueryValue)
+                query.addQueryItem("path", path?.asQueryValue)
+                query.addQueryItem("author", author?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("until", until?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -13921,7 +14101,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a commit comment
@@ -13990,7 +14173,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -14049,7 +14235,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -14124,12 +14313,12 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("check_name", checkName))
-                query.append(("status", status?.asQueryValue))
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("app_id", appID?.asQueryValue))
+                query.addQueryItem("check_name", checkName?.asQueryValue)
+                query.addQueryItem("status", status?.asQueryValue)
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("app_id", appID?.asQueryValue)
                 return query
             }
         }
@@ -14191,10 +14380,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("app_id", appID?.asQueryValue))
-                query.append(("check_name", checkName))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("app_id", appID?.asQueryValue)
+                query.addQueryItem("check_name", checkName?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -14227,7 +14416,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -14257,7 +14449,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -14373,7 +14568,10 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -14529,7 +14727,9 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {
-            [("ref", ref)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("ref", ref?.asQueryValue)
+            return query
         }
 
         /// Create or update file contents
@@ -14743,9 +14943,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("anon", anon))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("anon", anon?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -14793,12 +14993,12 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sha", sha))
-                query.append(("ref", ref))
-                query.append(("task", task))
-                query.append(("environment", environment))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sha", sha?.asQueryValue)
+                query.addQueryItem("ref", ref?.asQueryValue)
+                query.addQueryItem("task", task?.asQueryValue)
+                query.addQueryItem("environment", environment?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -14973,7 +15173,10 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a deployment status
@@ -15262,7 +15465,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -15307,9 +15513,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -15636,7 +15842,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -16040,7 +16249,9 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         }
 
         private func makeGetQuery(_ recursive: String?) -> [(String, String?)] {
-            [("recursive", recursive)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("recursive", recursive?.asQueryValue)
+            return query
         }
     }
 }
@@ -16066,7 +16277,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a repository webhook
@@ -16342,7 +16556,10 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("cursor", cursor)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("cursor", cursor?.asQueryValue)
+            return query
         }
     }
 }
@@ -16599,7 +16816,9 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         }
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {
-            [("since", since?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("since", since?.asQueryValue)
+            return query
         }
     }
 }
@@ -16797,7 +17016,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -16923,17 +17145,17 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("milestone", milestone))
-                query.append(("state", state?.asQueryValue))
-                query.append(("assignee", assignee))
-                query.append(("creator", creator))
-                query.append(("mentioned", mentioned))
-                query.append(("labels", labels))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("milestone", milestone?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("assignee", assignee?.asQueryValue)
+                query.addQueryItem("creator", creator?.asQueryValue)
+                query.addQueryItem("mentioned", mentioned?.asQueryValue)
+                query.addQueryItem("labels", labels?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -17098,11 +17320,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -17201,9 +17423,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -17288,7 +17510,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -17546,9 +17771,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -17603,7 +17828,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -17629,7 +17857,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Add labels to an issue
@@ -17928,9 +18159,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -18015,7 +18246,10 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -18041,7 +18275,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a deploy key
@@ -18131,7 +18368,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a label
@@ -18423,11 +18663,11 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -18562,7 +18802,10 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -18608,12 +18851,12 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("all", isAll?.asQueryValue))
-                query.append(("participating", isParticipating?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("before", before?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("all", isAll?.asQueryValue)
+                query.addQueryItem("participating", isParticipating?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -18830,7 +19073,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Request a GitHub Pages build
@@ -18947,9 +19193,9 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -19044,13 +19290,13 @@ extension Paths.Repos.WithOwner.WithRepo {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("head", head))
-                query.append(("base", base))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("head", head?.asQueryValue)
+                query.addQueryItem("base", base?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -19163,11 +19409,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -19272,9 +19518,9 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -19512,11 +19758,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -19676,7 +19922,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -19704,7 +19953,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -19790,7 +20042,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Request reviewers for a pull request
@@ -19889,7 +20144,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a review for a pull request
@@ -20051,7 +20309,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -20208,7 +20469,9 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {
-            [("ref", ref)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("ref", ref?.asQueryValue)
+            return query
         }
     }
 }
@@ -20234,7 +20497,9 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {
-            [("ref", ref)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("ref", ref?.asQueryValue)
+            return query
         }
     }
 }
@@ -20264,7 +20529,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a release
@@ -20591,7 +20859,10 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Upload a release asset
@@ -20621,7 +20892,10 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         }
 
         private func makePostQuery(_ name: String, _ label: String?) -> [(String, String?)] {
-            [("name", name), ("label", label)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("name", name.asQueryValue)
+            query.addQueryItem("label", label?.asQueryValue)
+            return query
         }
     }
 }
@@ -20723,11 +20997,11 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("secret_type", secretType))
-                query.append(("resolution", resolution))
-                query.append(("page", page?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("secret_type", secretType?.asQueryValue)
+                query.addQueryItem("resolution", resolution?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
                 return query
             }
         }
@@ -20821,7 +21095,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -21047,7 +21324,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -21127,7 +21407,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -21187,7 +21470,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -21209,7 +21495,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("page", page?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
 
         /// Replace all repository topics
@@ -21265,7 +21554,9 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {
-            [("per", per?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per", per?.asQueryValue)
+            return query
         }
 
         public enum Per: String, Codable, CaseIterable {
@@ -21345,7 +21636,9 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {
-            [("per", per?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per", per?.asQueryValue)
+            return query
         }
 
         public enum Per: String, Codable, CaseIterable {
@@ -21575,7 +21868,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {
-            [("since", since?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("since", since?.asQueryValue)
+            return query
         }
     }
 }
@@ -21652,7 +21947,10 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -21884,10 +22182,10 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("startIndex", startIndex?.asQueryValue))
-                query.append(("count", count?.asQueryValue))
-                query.append(("filter", filter))
-                query.append(("excludedAttributes", excludedAttributes))
+                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("count", count?.asQueryValue)
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("excludedAttributes", excludedAttributes?.asQueryValue)
                 return query
             }
         }
@@ -21959,7 +22257,9 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         }
 
         private func makeGetQuery(_ excludedAttributes: String?) -> [(String, String?)] {
-            [("excludedAttributes", excludedAttributes)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("excludedAttributes", excludedAttributes?.asQueryValue)
+            return query
         }
 
         /// Set SCIM information for a provisioned enterprise group
@@ -22125,9 +22425,9 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("startIndex", startIndex?.asQueryValue))
-                query.append(("count", count?.asQueryValue))
-                query.append(("filter", filter))
+                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("count", count?.asQueryValue)
+                query.addQueryItem("filter", filter?.asQueryValue)
                 return query
             }
         }
@@ -22467,9 +22767,9 @@ extension Paths.Scim.V2.Organizations.WithOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("startIndex", startIndex?.asQueryValue))
-                query.append(("count", count?.asQueryValue))
-                query.append(("filter", filter))
+                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("count", count?.asQueryValue)
+                query.addQueryItem("filter", filter?.asQueryValue)
                 return query
             }
         }
@@ -22955,11 +23255,11 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23037,11 +23337,11 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23132,11 +23432,11 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23217,12 +23517,12 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("repository_id", repositoryID.asQueryValue))
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("repository_id", repositoryID.asQueryValue)
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23303,11 +23603,11 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23372,9 +23672,9 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23454,11 +23754,11 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("q", q))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("order", order?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("q", q.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("order", order?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23627,9 +23927,9 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23780,9 +24080,9 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -23927,9 +24227,9 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -24023,9 +24323,9 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("content", content?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("content", content?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -24096,7 +24396,10 @@ extension Paths.Teams.WithTeamID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -24145,9 +24448,9 @@ extension Paths.Teams.WithTeamID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("role", role?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("role", role?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -24344,7 +24647,10 @@ extension Paths.Teams.WithTeamID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -24449,7 +24755,10 @@ extension Paths.Teams.WithTeamID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -24673,7 +24982,10 @@ extension Paths.Teams.WithTeamID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -24880,9 +25192,9 @@ extension Paths.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("repository_id", repositoryID?.asQueryValue))
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("repository_id", repositoryID?.asQueryValue)
                 return query
             }
         }
@@ -25031,7 +25343,10 @@ extension Paths.User.Codespaces {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -25497,7 +25812,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Add an email address for the authenticated user
@@ -25625,7 +25943,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -25653,7 +25974,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -25719,7 +26043,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a GPG key for the authenticated user
@@ -25821,7 +26148,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -25885,7 +26215,10 @@ extension Paths.User.Installations.WithInstallationID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26049,14 +26382,14 @@ extension Paths.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("filter", filter?.asQueryValue))
-                query.append(("state", state?.asQueryValue))
-                query.append(("labels", labels))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("labels", labels?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -26086,7 +26419,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Create a public SSH key for the authenticated user
@@ -26172,7 +26508,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26200,7 +26539,10 @@ extension Paths.User.MarketplacePurchases {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26254,9 +26596,9 @@ extension Paths.User.Memberships {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -26330,7 +26672,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
 
         /// Start a user migration
@@ -26425,7 +26770,9 @@ extension Paths.User.Migrations {
 
         private func makeGetQuery(_ exclude: [String]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query += (exclude ?? []).map { ("exclude", $0) }
+            for value in exclude ?? [] {
+                query.addQueryItem("exclude", value.asQueryValue)
+            }
             return query
         }
     }
@@ -26545,7 +26892,10 @@ extension Paths.User.Migrations.WithMigrationID {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26577,7 +26927,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26604,7 +26957,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
-            [("package_type", packageType.asQueryValue), ("visibility", visibility?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("package_type", packageType.asQueryValue)
+            query.addQueryItem("visibility", visibility?.asQueryValue)
+            return query
         }
 
         public enum PackageType: String, Codable, CaseIterable {
@@ -26695,7 +27051,9 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
-            [("token", token)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("token", token?.asQueryValue)
+            return query
         }
     }
 }
@@ -26739,9 +27097,9 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("page", page?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("state", state?.asQueryValue))
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("state", state?.asQueryValue)
                 return query
             }
         }
@@ -26872,7 +27230,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -26948,15 +27309,15 @@ extension Paths.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("visibility", visibility?.asQueryValue))
-                query.append(("affiliation", affiliation))
-                query.append(("type", type?.asQueryValue))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
-                query.append(("since", since?.asQueryValue))
-                query.append(("before", before?.asQueryValue))
+                query.addQueryItem("visibility", visibility?.asQueryValue)
+                query.addQueryItem("affiliation", affiliation?.asQueryValue)
+                query.addQueryItem("type", type?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("before", before?.asQueryValue)
                 return query
             }
         }
@@ -27114,7 +27475,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27193,10 +27557,10 @@ extension Paths.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -27271,7 +27635,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27299,7 +27666,10 @@ extension Paths.User {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27329,7 +27699,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ since: Int?, _ perPage: Int?) -> [(String, String?)] {
-            [("since", since?.asQueryValue), ("per_page", perPage?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("since", since?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -27395,7 +27768,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27430,7 +27806,10 @@ extension Paths.Users.WithUsername.Events.Orgs {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27452,7 +27831,10 @@ extension Paths.Users.WithUsername.Events {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27480,7 +27862,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27508,7 +27893,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27566,9 +27954,9 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("since", since?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -27598,7 +27986,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27629,7 +28020,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ subjectType: SubjectType?, _ subjectID: String?) -> [(String, String?)] {
-            [("subject_type", subjectType?.asQueryValue), ("subject_id", subjectID)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("subject_type", subjectType?.asQueryValue)
+            query.addQueryItem("subject_id", subjectID?.asQueryValue)
+            return query
         }
 
         public enum SubjectType: String, Codable, CaseIterable {
@@ -27686,7 +28080,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27716,7 +28113,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -27743,7 +28143,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
-            [("package_type", packageType.asQueryValue), ("visibility", visibility?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("package_type", packageType.asQueryValue)
+            query.addQueryItem("visibility", visibility?.asQueryValue)
+            return query
         }
 
         public enum PackageType: String, Codable, CaseIterable {
@@ -27837,7 +28240,9 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
-            [("token", token)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("token", token?.asQueryValue)
+            return query
         }
     }
 }
@@ -27968,9 +28373,9 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("state", state?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -27996,7 +28401,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -28018,7 +28426,10 @@ extension Paths.Users.WithUsername.ReceivedEvents {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -28080,11 +28491,11 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("type", type?.asQueryValue))
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("type", type?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -28245,10 +28656,10 @@ extension Paths.Users.WithUsername {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.append(("sort", sort?.asQueryValue))
-                query.append(("direction", direction?.asQueryValue))
-                query.append(("per_page", perPage?.asQueryValue))
-                query.append(("page", page?.asQueryValue))
+                query.addQueryItem("sort", sort?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("page", page?.asQueryValue)
                 return query
             }
         }
@@ -28278,7 +28689,10 @@ extension Paths.Users.WithUsername {
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
-            [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
+            var query: [(String, String?)] = []
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            query.addQueryItem("page", page?.asQueryValue)
+            return query
         }
     }
 }
@@ -28301,38 +28715,51 @@ extension Paths {
     }
 }
 
-private extension Bool {
+extension Bool {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-private extension Date {
+extension Date {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-private extension Double {
+extension Double {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension Int {
+extension Int {
     var asQueryValue: String {
         String(self)
     }
 }
 
-private extension URL {
+extension String {
+    var asQueryValue: String {
+        self
+    }
+}
+
+extension URL {
     var asQueryValue: String {
         absoluteString
     }
 }
 
-private extension RawRepresentable where RawValue == String {
+extension RawRepresentable where RawValue == String {
     var asQueryValue: String {
         rawValue
+    }
+}
+
+extension Array where Element == (String, String?) {
+    mutating func addQueryItem(_ name: String, _ value: String?) {
+        guard let value = value, !value.isEmpty else { return }
+        append((name, value))
     }
 }
