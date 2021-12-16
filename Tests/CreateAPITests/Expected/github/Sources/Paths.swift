@@ -7,8 +7,6 @@ import Foundation
 import APIClient
 import HTTPHeaders
 
-public enum Paths {}
-
 extension Paths {
     public static var root: Root {
         Root(path: "/")
@@ -28144,6 +28142,8 @@ extension Paths {
         }
     }
 }
+
+public enum Paths {}
 
 extension Bool {
     var asQueryValue: String {

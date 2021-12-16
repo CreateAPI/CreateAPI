@@ -32,25 +32,6 @@ final class Generator {
         self.templates = Templates(options: options)
     }
     
-    // MARK: Performance Measurement
-    
-    func startMeasuring(_ operation: String) {
-        startTime = CFAbsoluteTimeGetCurrent()
-        if arguments.isVerbose {
-            print("Started \(operation)")
-        }
-    }
-    
-    func stopMeasuring(_ operation: String) {
-        guard let startTime = startTime else {
-            return
-        }
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        if arguments.isVerbose {
-            print("Finished \(operation) in \(timeElapsed) s.")
-        }
-    }
-
     // MARK: Misc
     
     func makePropertyName(_ rawValue: String) -> PropertyName {
@@ -111,4 +92,15 @@ struct Context {
         closure(&copy)
         return copy
     }
+}
+
+struct GeneratorOutput {
+    let header: String
+    let files: [GeneratedFile]
+    let extensions: GeneratedFile?
+}
+
+struct GeneratedFile {
+    let name: String
+    let contents: String
 }

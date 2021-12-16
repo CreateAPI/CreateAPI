@@ -93,7 +93,7 @@ struct PropertyName: CustomStringConvertible, DeclarationName {
 struct ModuleName: CustomStringConvertible {
     let rawValue: String
         
-    init(processing rawValue: String, options: GenerateOptions) {
+    init(processing rawValue: String) {
         self.rawValue = rawValue.replacingOccurrences(of: "-", with: "_")
     }
     

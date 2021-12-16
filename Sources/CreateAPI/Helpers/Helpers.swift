@@ -65,3 +65,15 @@ extension NSLock {
         unlock()
     }
 }
+
+struct Benchmark {
+    let name: String
+    let startTime = CFAbsoluteTimeGetCurrent()
+    static var isEnabled = false
+    
+    func stop() {
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        guard Benchmark.isEnabled else { return }
+        print("\(name) completed (\(String(format: "%.3f", timeElapsed)) s)")
+    }
+}

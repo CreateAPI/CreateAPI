@@ -4,13 +4,12 @@
 
 import Foundation
 
-// TODO: Add an option to add spacing between properties with comments
 // TODO: Add an option to generate parametes as `let` and a list of exceptions
 final class GenerateOptions {
     var access: String
     var isRemovingUnneededImports: Bool
     var paths: Paths
-    var schemes: SchemesOptions
+    var schemas: SchemasOptions
     var isAddingDeprecations: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
@@ -36,7 +35,7 @@ final class GenerateOptions {
         var addGetImport: Bool
         var header: String?
         
-        init(_ fileHeader: GenerateOptionsScheme.FileHeader?) {
+        init(_ fileHeader: GenerateOptionsSchema.FileHeader?) {
             self.addSwiftLintDisabled = fileHeader?.addSwiftLintDisabled ?? true
             self.addGetImport = fileHeader?.addGetImport ?? true
             self.header = fileHeader?.header
@@ -47,7 +46,7 @@ final class GenerateOptions {
         var parameters: [String: String]
         var enumCaseNames: [String: String]
         
-        init(_ paths: GenerateOptionsScheme.Rename?) {
+        init(_ paths: GenerateOptionsSchema.Rename?) {
             self.parameters = paths?.parameters ?? [:]
             self.enumCaseNames = paths?.enumCaseNames ?? [:]
         }
@@ -61,7 +60,7 @@ final class GenerateOptions {
         var isAddingExternalDocumentation: Bool
         var isCapitalizationEnabled: Bool
         
-        init(_ comments: GenerateOptionsScheme.Comments?) {
+        init(_ comments: GenerateOptionsSchema.Comments?) {
             self.isEnabled = comments?.isEnabled ?? true
             self.isAddingTitles = comments?.isAddingTitles ?? true
             self.isAddingDescription = comments?.isAddingDescription ?? true
@@ -83,7 +82,7 @@ final class GenerateOptions {
         var isInliningSimpleQueryParameters: Bool
         var simpleQueryParametersThreshold: Int
         
-        init(_ paths: GenerateOptionsScheme.Paths?) {
+        init(_ paths: GenerateOptionsSchema.Paths?) {
             self.namespace = paths?.namespace ?? "Paths"
             self.isAddingResponseHeaders = paths?.isAddingResponseHeaders ?? true
             self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
@@ -102,7 +101,7 @@ final class GenerateOptions {
     }
         
     // TODO: Inline this?
-    struct SchemesOptions {
+    struct SchemasOptions {
         var isGeneratingStructs: Bool
         var entitiesGeneratedAsClasses: Set<String>
         var entitiesGeneratedAsStructs: Set<String>
@@ -118,23 +117,23 @@ final class GenerateOptions {
         var mappedPropertyNames: [String: String]
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
         
-        init(_ schemes: GenerateOptionsScheme.SchemesOptions?) {
-            self.isGeneratingStructs = schemes?.isGeneratingStructs ?? true
-            self.entitiesGeneratedAsClasses = Set(schemes?.entitiesGeneratedAsClasses ?? [])
-            self.entitiesGeneratedAsStructs = Set(schemes?.entitiesGeneratedAsStructs ?? [])
-            self.isMakingClassesFinal = schemes?.isMakingClassesFinal ?? true
-            self.baseClass = schemes?.baseClass
-            self.adoptedProtocols = Set(schemes?.adoptedProtocols ?? ["Codable"])
-            self.isSkippingRedundantProtocols = schemes?.isSkippingRedundantProtocols ?? true
-            self.isGeneratingInitializers = schemes?.isGeneratingInitializers ?? true
-            self.isGeneratingInitWithCoder = schemes?.isGeneratingInitWithCoder ?? true
-            self.isGeneratingDecode = schemes?.isGeneratingDecode ?? true
-            self.mappedPropertyNames = schemes?.mappedPropertyNames ?? [:]
-            self.mappedTypeNames = schemes?.mappedTypeNames ?? [:]
+        init(_ schemas: GenerateOptionsSchema.SchemasOptions?) {
+            self.isGeneratingStructs = schemas?.isGeneratingStructs ?? true
+            self.entitiesGeneratedAsClasses = Set(schemas?.entitiesGeneratedAsClasses ?? [])
+            self.entitiesGeneratedAsStructs = Set(schemas?.entitiesGeneratedAsStructs ?? [])
+            self.isMakingClassesFinal = schemas?.isMakingClassesFinal ?? true
+            self.baseClass = schemas?.baseClass
+            self.adoptedProtocols = Set(schemas?.adoptedProtocols ?? ["Codable"])
+            self.isSkippingRedundantProtocols = schemas?.isSkippingRedundantProtocols ?? true
+            self.isGeneratingInitializers = schemas?.isGeneratingInitializers ?? true
+            self.isGeneratingInitWithCoder = schemas?.isGeneratingInitWithCoder ?? true
+            self.isGeneratingDecode = schemas?.isGeneratingDecode ?? true
+            self.mappedPropertyNames = schemas?.mappedPropertyNames ?? [:]
+            self.mappedTypeNames = schemas?.mappedTypeNames ?? [:]
         }
     }
 
-    init(_ options: GenerateOptionsScheme = .init()) {
+    init(_ options: GenerateOptionsSchema = .init()) {
         self.access = options.access ?? "public"
 #warning("TODO: replace with Get")
         self.isRemovingUnneededImports = options.isRemovingUnneededImports ?? true
@@ -145,7 +144,7 @@ final class GenerateOptions {
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.isReplacingCommonAcronyms = options.isReplacingCommonAcronyms ?? true
         self.additionalAcronyms = (options.additionalAcronyms ?? []).map { $0.lowercased() }
-        self.schemes = SchemesOptions(options.schemes)
+        self.schemas = SchemasOptions(options.schemas)
         self.fileHeader = FileHeader(options.fileHeader)
         self.rename = Rename(options.rename)
         self.comments = Comments(options.comments)
@@ -157,7 +156,7 @@ final class GenerateOptions {
     }
 }
 
-final class GenerateOptionsScheme: Decodable {
+final class GenerateOptionsSchema: Decodable {
     var access: String?
     var isRemovingUnneededImports: Bool?
     var paths: Paths?
@@ -167,7 +166,7 @@ final class GenerateOptionsScheme: Decodable {
     var isInliningPrimitiveTypes: Bool?
     var isReplacingCommonAcronyms: Bool?
     var additionalAcronyms: [String]?
-    var schemes: SchemesOptions?
+    var schemas: SchemasOptions?
     var fileHeader: FileHeader?
     var rename: Rename?
     var comments: Comments?
@@ -210,7 +209,7 @@ final class GenerateOptionsScheme: Decodable {
         var simpleQueryParametersThreshold: Int?
     }
     
-    struct SchemesOptions: Decodable {
+    struct SchemasOptions: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
@@ -229,6 +228,7 @@ final class GenerateOptionsScheme: Decodable {
 struct GenerateArguments {
     let isVerbose: Bool
     let isParallel: Bool
+    let isStrict: Bool
     let vendor: String?
     let module: ModuleName?
 }

@@ -17,8 +17,8 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(limit: Int? = nil) -> Request<[petstore_operation_id.Pet]> {
-            .get(path, query: makeGetQuery(limit)).id("listPets")
+        public func get(limit: Int? = nil) -> Request<[petstore_single_threaded.Pet]> {
+            .get(path, query: makeGetQuery(limit))
         }
 
         public enum GetResponseHeaders {
@@ -34,7 +34,7 @@ extension Paths {
 
         /// Create a pet
         public var post: Request<Void> {
-            .post(path).id("createPets")
+            .post(path)
         }
     }
 }
@@ -49,21 +49,13 @@ extension Paths.Pets {
         public let path: String
 
         /// Info for a specific pet
-        public var get: Request<petstore_operation_id.Pet> {
-            .get(path).id("showPetById")
+        public var get: Request<petstore_single_threaded.Pet> {
+            .get(path)
         }
     }
 }
 
 public enum Paths {}
-
-extension Request {
-    private func id(_ id: String) -> Request {
-        var copy = self
-        copy.id = id
-        return copy
-    }
-}
 
 extension Bool {
     var asQueryValue: String {

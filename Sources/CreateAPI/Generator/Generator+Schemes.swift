@@ -7,6 +7,7 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code
+// TODO: mappedTypeNames to support nesting + rename
 
 // TODO: Fix AnyJSON and StringCodingKeys layout
 // TODO: Add option to hide AnyJSON
@@ -54,23 +55,21 @@ import GrammaticalNumber
 // TODO: entitiesGeneratedAsClasses - add support for nesting
 // TODO: Add an option how allOf is generated (inline properties, create protocols)
 // TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
+// TODO: Add an option to skip certain files
 
 extension Generator {
 
-    func schemes() -> String {
-        startMeasuring("generating schemes (\(spec.components.schemas.count))")
-        
-        var output = templates.fileHeader
-        output += "\n\n"
-        
+    func schemas() throws -> GeneratorOutput {
+        let benchmark = Benchmark(name: "Generating entities")
+
         let schemas = Array(spec.components.schemas)
-        var generated = Array<String?>(repeating: nil, count: schemas.count)
+        var generated = Array<Result<GeneratedFile, Error>?>(repeating: nil, count: schemas.count)
         let context = Context(parents: [])
         let lock = NSLock()
         concurrentPerform(on: schemas, parallel: arguments.isParallel) { index, item in
             let (key, schema) = schemas[index]
             
-            guard let name = makeTypeNameFor(key: key, schema: schema) else {
+            guard let name = makeTypeNameFor(key: key) else {
                 if arguments.isVerbose {
                     print("Skipping generation for \(key.rawValue)")
                 }
@@ -79,38 +78,43 @@ extension Generator {
                         
             do {
                 if let entry = try makeDeclaration(name: name, schema: schema, context: context) {
-                    lock.lock()
-                    generated[index] = render(entry)
-                    lock.unlock()
+                    let file = GeneratedFile(name: name.rawValue, contents: render(entry))
+                    lock.sync { generated[index] = .success(file) }
                 }
             } catch {
-                print("ERROR: Failed to generate entity for \(key.rawValue): \(error)")
+                if arguments.isStrict {
+                    lock.sync { generated[index] = .failure(error) }
+                } else {
+                    print("ERROR: Failed to generate entity for \(key.rawValue): \(error)")
+                }
             }
         }
-
-        var generatedCount = 0
-        for entry in generated where entry != nil {
-            generatedCount += 1
-            output += entry!
-            output += "\n\n"
-        }
+            
+        let output = GeneratorOutput(
+            header: templates.fileHeader,
+            files: try generated.compactMap { $0 }.map { try $0.get() },
+            extensions: makeExtensions()
+        )
         
-        stopMeasuring("generating schemes (\(generatedCount))")
+        benchmark.stop()
         
-        if isAnyJSONUsed {
-            output += "\n"
-            output += anyJSON
-            output += "\n"
-        }
-
-        output += stringCodingKey
-        output += "\n"
+        return output
+    }
     
-        return output.indent(using: options)
+    private func makeExtensions() -> GeneratedFile? {
+        var contents: [String] = []
+        if isAnyJSONUsed {
+            contents.append(anyJSON)
+        }
+        contents.append(stringCodingKey)
+        guard !contents.isEmpty else {
+            return nil
+        }
+        return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
     }
     
     /// Return `nil` to skip generation.
-    private func makeTypeNameFor(key: OpenAPI.ComponentKey, schema: JSONSchema) -> TypeName? {
+    private func makeTypeNameFor(key: OpenAPI.ComponentKey) -> TypeName? {
         if arguments.vendor == "github" {
             // This makes sense only for the GitHub API spec where types like
             // `simple-user` and `nullable-simple-user` exist which are duplicate
@@ -126,9 +130,9 @@ extension Generator {
                 }
             }
         }
-        let name = makeTypeName(key.rawValue)
-        if !options.schemes.mappedTypeNames.isEmpty {
-            if let mapped = options.schemes.mappedTypeNames[name.rawValue] {
+        if !options.schemas.mappedTypeNames.isEmpty {
+            let name = makeTypeName(key.rawValue)
+            if let mapped = options.schemas.mappedTypeNames[name.rawValue] {
                 return TypeName(mapped)
             }
         }
@@ -174,10 +178,10 @@ extension Generator {
         let propertyName = makePropertyName(key)
         
         func makeChildPropertyName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
-            if !options.schemes.mappedPropertyNames.isEmpty {
+            if !options.schemas.mappedPropertyNames.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
-                    if let name = options.schemes.mappedPropertyNames[names[i...].joined(separator: ".")] {
+                    if let name = options.schemas.mappedPropertyNames[names[i...].joined(separator: ".")] {
                         return PropertyName(name)
                     }
                 }
@@ -308,30 +312,34 @@ extension Generator {
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
         let context = context.adding(name)
-        let properties = makeProperties(for: name, object: details, context: context)
+        let properties = try makeProperties(for: name, object: details, context: context)
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info))
     }
     
     // TODO: Simplify
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {
-        var protocols = Protocols(options.schemes.adoptedProtocols)
-        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.schemes.isSkippingRedundantProtocols)
-        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.schemes.isSkippingRedundantProtocols)
+        var protocols = Protocols(options.schemas.adoptedProtocols)
+        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.schemas.isSkippingRedundantProtocols)
+        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.schemas.isSkippingRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
         return protocols
     }
     
-    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) -> [Property] {
-        object.properties.keys.sorted().compactMap { key in
+    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
+        try object.properties.keys.sorted().compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
                 return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
             } catch {
-                print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
-                return nil
+                if arguments.isStrict {
+                    throw error
+                } else {
+                    print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
+                    return nil
+                }
             }
         }
     }
@@ -488,17 +496,17 @@ extension Generator {
             // `Pet` to an `.object`, not a `.reference`.
             if options.isInliningPrimitiveTypes,
                let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
-               let scheme = spec.components.schemas[key],
-               let inlined = try getPrimitiveType(for: scheme, context: context),
-               isInlinable(scheme, context: context) {
+               let schema = spec.components.schemas[key],
+               let inlined = try getPrimitiveType(for: schema, context: context),
+               isInlinable(schema, context: context) {
                 return inlined // Inline simple types
             }
             guard let name = ref.name else {
                 throw GeneratorError("Internal reference name is missing: \(ref)")
             }
             // TODO: Remove duplication
-            if !options.schemes.mappedTypeNames.isEmpty {
-                if let mapped = options.schemes.mappedTypeNames[name] {
+            if !options.schemas.mappedTypeNames.isEmpty {
+                if let mapped = options.schemas.mappedTypeNames[name] {
                     return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
                 }
             }
@@ -568,7 +576,7 @@ extension Generator {
             switch schema {
             case .object(_, let details):
                 // Inline properties for nested objects (differnt from other OpenAPI constructs)
-                return makeProperties(for: name, object: details, context: context)
+                return try makeProperties(for: name, object: details, context: context)
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }

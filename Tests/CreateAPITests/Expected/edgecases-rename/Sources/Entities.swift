@@ -12,9 +12,16 @@ public struct Order: Codable {
     public var quantity: Int?
     public var shipDate: Date?
     /// Order Status
-    public var status: String?
+    public var status: Status?
 
-    public init(isComplete: Bool? = nil, id: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: String? = nil) {
+    /// Order Status
+    public enum Status: String, Codable, CaseIterable {
+        case placed
+        case approved
+        case delivered
+    }
+
+    public init(isComplete: Bool? = nil, id: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil) {
         self.isComplete = isComplete
         self.id = id
         self.petID = petID
@@ -30,7 +37,7 @@ public struct Order: Codable {
         self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
         self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
-        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -142,10 +149,17 @@ public struct Pet: Codable {
     public var name: String
     public var photoURLs: [String]
     /// Pet status in the store
-    public var status: String?
+    public var status: Status?
     public var tags: [Tag]?
 
-    public init(category: Category? = nil, id: Int? = nil, name: String, photoURLs: [String], status: String? = nil, tags: [Tag]? = nil) {
+    /// Pet status in the store
+    public enum Status: String, Codable, CaseIterable {
+        case available
+        case pending
+        case sold
+    }
+
+    public init(category: Category? = nil, id: Int? = nil, name: String, photoURLs: [String], status: Status? = nil, tags: [Tag]? = nil) {
         self.category = category
         self.id = id
         self.name = name
@@ -160,7 +174,7 @@ public struct Pet: Codable {
         self.id = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
         self.photoURLs = try values.decode([String].self, forKey: "photoUrls")
-        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
         self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
     }
 
@@ -415,13 +429,24 @@ public struct FormatTest: Codable {
     }
 }
 
+public enum EnumClass: String, Codable, CaseIterable {
+    case abc = "_abc"
+    case minusefg = "-efg"
+    case xyz = "(xyz)"
+}
+
 public struct EnumTest: Codable {
     public var enumInteger: Int?
     public var enumNumber: Double?
-    public var enumString: String?
-    public var outerEnum: String?
+    public var enumString: EnumString?
+    public var outerEnum: OuterEnum?
 
-    public init(enumInteger: Int? = nil, enumNumber: Double? = nil, enumString: String? = nil, outerEnum: String? = nil) {
+    public enum EnumString: String, Codable, CaseIterable {
+        case upper = "UPPER"
+        case lower
+    }
+
+    public init(enumInteger: Int? = nil, enumNumber: Double? = nil, enumString: EnumString? = nil, outerEnum: OuterEnum? = nil) {
         self.enumInteger = enumInteger
         self.enumNumber = enumNumber
         self.enumString = enumString
@@ -432,8 +457,8 @@ public struct EnumTest: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.enumInteger = try values.decodeIfPresent(Int.self, forKey: "enum_integer")
         self.enumNumber = try values.decodeIfPresent(Double.self, forKey: "enum_number")
-        self.enumString = try values.decodeIfPresent(String.self, forKey: "enum_string")
-        self.outerEnum = try values.decodeIfPresent(String.self, forKey: "outerEnum")
+        self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
+        self.outerEnum = try values.decodeIfPresent(OuterEnum.self, forKey: "outerEnum")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -615,9 +640,14 @@ public struct Capitalization: Codable {
 
 public struct MapTest: Codable {
     public var mapMapOfString: [String: [String: String]]?
-    public var mapOfEnumString: [String: String]?
+    public var mapOfEnumString: [String: MapOfEnumStringItem]?
 
-    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: String]? = nil) {
+    public enum MapOfEnumStringItem: String, Codable, CaseIterable {
+        case upper = "UPPER"
+        case lower
+    }
+
+    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
         self.mapMapOfString = mapMapOfString
         self.mapOfEnumString = mapOfEnumString
     }
@@ -625,7 +655,7 @@ public struct MapTest: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.mapMapOfString = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_map_of_string")
-        self.mapOfEnumString = try values.decodeIfPresent([String: String].self, forKey: "map_of_enum_string")
+        self.mapOfEnumString = try values.decodeIfPresent([String: MapOfEnumStringItem].self, forKey: "map_of_enum_string")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -716,18 +746,28 @@ public struct ArrayOfArrayOfNumberOnly: Codable {
 }
 
 public struct EnumArrays: Codable {
-    public var arrayEnum: [String]?
-    public var justSymbol: String?
+    public var arrayEnum: [ArrayEnumItem]?
+    public var justSymbol: JustSymbol?
 
-    public init(arrayEnum: [String]? = nil, justSymbol: String? = nil) {
+    public enum ArrayEnumItem: String, Codable, CaseIterable {
+        case fish
+        case crab
+    }
+
+    public enum JustSymbol: String, Codable, CaseIterable {
+        case greaterThanOrEqualTo = ">="
+        case dollar = "$"
+    }
+
+    public init(arrayEnum: [ArrayEnumItem]? = nil, justSymbol: JustSymbol? = nil) {
         self.arrayEnum = arrayEnum
         self.justSymbol = justSymbol
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.arrayEnum = try values.decodeIfPresent([String].self, forKey: "array_enum")
-        self.justSymbol = try values.decodeIfPresent(String.self, forKey: "just_symbol")
+        self.arrayEnum = try values.decodeIfPresent([ArrayEnumItem].self, forKey: "array_enum")
+        self.justSymbol = try values.decodeIfPresent(JustSymbol.self, forKey: "just_symbol")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -737,38 +777,54 @@ public struct EnumArrays: Codable {
     }
 }
 
+public enum OuterEnum: String, Codable, CaseIterable {
+    case placed
+    case approved
+    case delivered
+}
+
 public struct ContainerA: Codable {
     public var child: Child?
     public var refChild: AnyJSON
 
     public struct Child: Codable {
         public var child: Child
-        public var `enum`: String
+        public var `enum`: Enum
         public var renameMe: String
 
         public struct Child: Codable {
-            public var `enum`: String
-            public var renameMe: String
+            public var `enum`: Enum
+            public var onlyItRenamed: String
 
-            public init(`enum`: String, renameMe: String) {
+            public enum Enum: String, Codable, CaseIterable {
+                case a
+                case b
+            }
+
+            public init(`enum`: Enum, onlyItRenamed: String) {
                 self.enum = `enum`
-                self.renameMe = renameMe
+                self.onlyItRenamed = onlyItRenamed
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.enum = try values.decode(String.self, forKey: "enum")
-                self.renameMe = try values.decode(String.self, forKey: "rename-me")
+                self.enum = try values.decode(Enum.self, forKey: "enum")
+                self.onlyItRenamed = try values.decode(String.self, forKey: "rename-me")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encode(`enum`, forKey: "enum")
-                try values.encode(renameMe, forKey: "rename-me")
+                try values.encode(onlyItRenamed, forKey: "rename-me")
             }
         }
 
-        public init(child: Child, `enum`: String, renameMe: String) {
+        public enum Enum: String, Codable, CaseIterable {
+            case a
+            case b
+        }
+
+        public init(child: Child, `enum`: Enum, renameMe: String) {
             self.child = child
             self.enum = `enum`
             self.renameMe = renameMe
@@ -777,7 +833,7 @@ public struct ContainerA: Codable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.child = try values.decode(Child.self, forKey: "child")
-            self.enum = try values.decode(String.self, forKey: "enum")
+            self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
         }
 
@@ -812,21 +868,26 @@ public struct ContainerB: Codable {
 
     public struct Child: Codable {
         public var child: Child
-        public var `enum`: String
+        public var `enum`: Enum
         public var renameMe: String
 
         public struct Child: Codable {
-            public var `enum`: String
+            public var `enum`: Enum
             public var renameMe: String
 
-            public init(`enum`: String, renameMe: String) {
+            public enum Enum: String, Codable, CaseIterable {
+                case a
+                case b
+            }
+
+            public init(`enum`: Enum, renameMe: String) {
                 self.enum = `enum`
                 self.renameMe = renameMe
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.enum = try values.decode(String.self, forKey: "enum")
+                self.enum = try values.decode(Enum.self, forKey: "enum")
                 self.renameMe = try values.decode(String.self, forKey: "rename-me")
             }
 
@@ -837,7 +898,12 @@ public struct ContainerB: Codable {
             }
         }
 
-        public init(child: Child, `enum`: String, renameMe: String) {
+        public enum Enum: String, Codable, CaseIterable {
+            case a
+            case b
+        }
+
+        public init(child: Child, `enum`: Enum, renameMe: String) {
             self.child = child
             self.enum = `enum`
             self.renameMe = renameMe
@@ -846,7 +912,7 @@ public struct ContainerB: Codable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
             self.child = try values.decode(Child.self, forKey: "child")
-            self.enum = try values.decode(String.self, forKey: "enum")
+            self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
         }
 
@@ -877,17 +943,22 @@ public struct ContainerC: Codable {
     public var child: Child
 
     public struct Child: Codable {
-        public var `enum`: String
+        public var `enum`: Enum
         public var renameMe: String
 
-        public init(`enum`: String, renameMe: String) {
+        public enum Enum: String, Codable, CaseIterable {
+            case a
+            case b
+        }
+
+        public init(`enum`: Enum, renameMe: String) {
             self.enum = `enum`
             self.renameMe = renameMe
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.enum = try values.decode(String.self, forKey: "enum")
+            self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
         }
 
@@ -912,7 +983,6 @@ public struct ContainerC: Codable {
         try values.encode(child, forKey: "child")
     }
 }
-
 
 public enum AnyJSON: Equatable {
     case string(String)
@@ -989,6 +1059,7 @@ extension AnyJSON: CustomDebugStringConvertible {
         }
     }
 }
+
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?

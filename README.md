@@ -2,7 +2,15 @@
 
 A description of this package.
 
-## Not Supported
+## Arguments
+
+## Configuration
+
+You can use either YAML or JSON as configuration files.
+
+## OpenAPI Support
+
+Create API supports 
 
 - External References
 - `allowReserved` and `allowEmptyValue` option in query parameters

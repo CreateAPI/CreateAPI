@@ -26674,7 +26674,6 @@ public struct KeySimple: Codable {
     }
 }
 
-
 public enum AnyJSON: Equatable {
     case string(String)
     case number(Double)
@@ -26750,6 +26749,7 @@ extension AnyJSON: CustomDebugStringConvertible {
         }
     }
 }
+
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?

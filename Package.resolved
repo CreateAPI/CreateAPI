@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "FileWatcher",
+        "repositoryURL": "https://github.com/eonist/FileWatcher",
+        "state": {
+          "branch": null,
+          "revision": "e67c2a99502eade343fecabeca8c57e749a55b59",
+          "version": "0.2.3"
+        }
+      },
+      {
         "package": "GrammaticalNumber",
         "repositoryURL": "https://github.com/Cosmo/GrammaticalNumber",
         "state": {

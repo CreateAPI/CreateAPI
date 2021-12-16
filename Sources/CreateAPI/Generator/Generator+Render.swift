@@ -29,13 +29,13 @@ extension Generator {
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += decl.nested.map(render)
-        if options.schemes.isGeneratingInitializers {
+        if options.schemas.isGeneratingInitializers {
             contents.append(templates.initializer(properties: properties))
         }
-        if decl.protocols.isDecodable, !properties.isEmpty, options.schemes.isGeneratingInitWithCoder {
+        if decl.protocols.isDecodable, !properties.isEmpty, options.schemas.isGeneratingInitWithCoder {
             contents.append(templates.initFromDecoder(properties: properties))
         }
-        if decl.protocols.isEncodable, !properties.isEmpty, options.schemes.isGeneratingDecode {
+        if decl.protocols.isEncodable, !properties.isEmpty, options.schemas.isGeneratingDecode {
             contents.append(templates.encode(properties: properties))
         }
         

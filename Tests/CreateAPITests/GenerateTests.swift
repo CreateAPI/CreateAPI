@@ -24,7 +24,7 @@ final class GenerateTests: XCTestCase {
     func testPestoreDetault() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-default"
         ])
@@ -36,10 +36,89 @@ final class GenerateTests: XCTestCase {
         try compare(package: "petstore-default")
     }
     
+    func testPestoreOnlySchemas() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-only-schemas",
+            "--generate", "entities"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-only-schemas")
+    }
+    
+    func testPestoreChangeFilename() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-change-filename",
+            "--filename-template", "%0.generated.swift"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-change-filename")
+    }
+    
+    func testPestoreSingleThreaded() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-single-threaded",
+            "--single-threaded"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-single-threaded")
+    }
+    
+    func testPetstoreDisablePackages() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path.appending("/petstore-no-package"),
+            "--module", "Petstore"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-no-package")
+    }
+    
+    func testPetstoreSplit() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-split",
+            "--split"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-split")
+    }
+    
     func testPestoreAddCustomImport() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-custom-imports",
             "--config", config("""
@@ -61,7 +140,7 @@ final class GenerateTests: XCTestCase {
     func testPestoreAddOperationId() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-operation-id",
             "--config", config("""
@@ -83,12 +162,12 @@ final class GenerateTests: XCTestCase {
     func testPestoreGenerateClasses() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-generate-classes",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "isGeneratingStructs": false
                 }
             }
@@ -105,12 +184,12 @@ final class GenerateTests: XCTestCase {
     func testPestoreSomeEntitiesAsClasses() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-classes",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "entitiesGeneratedAsClasses": ["Store"]
                 }
             }
@@ -127,12 +206,12 @@ final class GenerateTests: XCTestCase {
     func testPetstoreOverrideGenerateAsStructs() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-structs",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "isGeneratingStructs": false,
                     "entitiesGeneratedAsStructs": ["Error"]
                 }
@@ -150,12 +229,12 @@ final class GenerateTests: XCTestCase {
     func testPetstoreBaseClass() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-base-class",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "isGeneratingStructs": false,
                     "baseClass": "NSObject"
                 }
@@ -173,7 +252,7 @@ final class GenerateTests: XCTestCase {
     func testPetstoreDisableCommentsGeneration() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-disable-comments",
             "--config", config("""
@@ -195,12 +274,12 @@ final class GenerateTests: XCTestCase {
     func testPetstoreDisableInitWithCoder() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-disable-init-with-coder",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "isGeneratingInitWithCoder": false
                 }
             }
@@ -217,7 +296,7 @@ final class GenerateTests: XCTestCase {
     func testPetstoreDisableInlining() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore"),
             "--output", temp.url.path,
             "--package", "petstore-disable-inlining",
             "--config", config("""
@@ -237,7 +316,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesDefault() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-default"
         ])
@@ -252,12 +331,12 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesRenamePrperties() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-rename-properties",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "mappedPropertyNames": {
                         "id": "identifier",
                         "Category.name": "title",
@@ -286,10 +365,34 @@ final class GenerateTests: XCTestCase {
         try compare(package: "edgecases-rename-properties")
     }
     
+    
+    func testEdgecasesPassYAMLConfiguration() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-yaml-config",
+            "--config", config("""
+            schemas:
+                mappedPropertyNames:
+                    id: identifier
+                    Category.name: title
+                    Pet.status: state
+                    complete: isDone
+            """, ext: "yml")
+            ])
+            
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "edgecases-yaml-config")
+    }
+    
     func testEdgecasesChangeAccessControl() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-change-access-control",
             "--config", config("""
@@ -309,7 +412,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesDisableAcronyms() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-disable-acronyms",
             "--config", config("""
@@ -329,7 +432,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesDisableEnumGeneration() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-disable-enums",
             "--config", config("""
@@ -349,12 +452,12 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesRename() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-rename",
             "--config", config("""
             {
-                "schemes": {
+                "schemas": {
                     "mappedTypeNames": {
                         "ApiResponse": "APIResponse",
                         "Status": "State"
@@ -378,7 +481,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesIndentWithTabs() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-tabs",
             "--config", config("""
@@ -398,7 +501,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecasesIndentWithTwoWidthSpaces() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases"),
             "--output", temp.url.path,
             "--package", "edgecases-indent-with-two-width-spaces",
             "--config", config("""
@@ -418,7 +521,7 @@ final class GenerateTests: XCTestCase {
     func testGenerateGitHub() throws {
         // GIVEN
         let command = try Generate.parse([
-            "--input", pathForSpec(named: "github"),
+            pathForSpec(named: "github"),
             "--output", temp.url.path,
             "--package", "github",
             "--vendor", "github",
@@ -454,8 +557,8 @@ extension GenerateTests {
         try CreateAPITests.compare(expected: package, actual: temp.path(for: package), file: file, line: line)
     }
     
-    func config(_ contents: String) -> String {
-        let url = URL(fileURLWithPath: temp.path(for: "config"))
+    func config(_ contents: String, ext: String = "json") -> String {
+        let url = URL(fileURLWithPath: temp.path(for: "config.\(ext)"))
         try! contents.data(using: .utf8)!.write(to: url)
         return url.path
     }

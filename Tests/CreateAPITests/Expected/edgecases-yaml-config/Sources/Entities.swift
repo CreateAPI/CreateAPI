@@ -6,8 +6,8 @@
 import Foundation
 
 public struct Order: Codable {
-    public var isComplete: Bool?
-    public var id: Int?
+    public var isDone: Bool?
+    public var identifier: Int?
     public var petID: Int?
     public var quantity: Int?
     public var shipDate: Date?
@@ -21,9 +21,9 @@ public struct Order: Codable {
         case delivered
     }
 
-    public init(isComplete: Bool? = nil, id: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil) {
-        self.isComplete = isComplete
-        self.id = id
+    public init(isDone: Bool? = nil, identifier: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil) {
+        self.isDone = isDone
+        self.identifier = identifier
         self.petID = petID
         self.quantity = quantity
         self.shipDate = shipDate
@@ -32,8 +32,8 @@ public struct Order: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete")
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete")
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
         self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
         self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
@@ -42,8 +42,8 @@ public struct Order: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isComplete, forKey: "complete")
-        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(isDone, forKey: "complete")
+        try values.encodeIfPresent(identifier, forKey: "id")
         try values.encodeIfPresent(petID, forKey: "petId")
         try values.encodeIfPresent(quantity, forKey: "quantity")
         try values.encodeIfPresent(shipDate, forKey: "shipDate")
@@ -52,31 +52,31 @@ public struct Order: Codable {
 }
 
 public struct Category: Codable {
-    public var id: Int?
-    public var name: String?
+    public var identifier: Int?
+    public var title: String?
 
-    public init(id: Int? = nil, name: String? = nil) {
-        self.id = id
-        self.name = name
+    public init(identifier: Int? = nil, title: String? = nil) {
+        self.identifier = identifier
+        self.title = title
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.title = try values.decodeIfPresent(String.self, forKey: "name")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(id, forKey: "id")
-        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(title, forKey: "name")
     }
 }
 
 public struct User: Codable {
     public var email: String?
     public var firstName: String?
-    public var id: Int?
+    public var identifier: Int?
     public var lastName: String?
     public var password: String?
     public var phone: String?
@@ -84,10 +84,10 @@ public struct User: Codable {
     public var userStatus: Int?
     public var username: String?
 
-    public init(email: String? = nil, firstName: String? = nil, id: Int? = nil, lastName: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil, username: String? = nil) {
+    public init(email: String? = nil, firstName: String? = nil, identifier: Int? = nil, lastName: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil, username: String? = nil) {
         self.email = email
         self.firstName = firstName
-        self.id = id
+        self.identifier = identifier
         self.lastName = lastName
         self.password = password
         self.phone = phone
@@ -99,7 +99,7 @@ public struct User: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.email = try values.decodeIfPresent(String.self, forKey: "email")
         self.firstName = try values.decodeIfPresent(String.self, forKey: "firstName")
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
         self.lastName = try values.decodeIfPresent(String.self, forKey: "lastName")
         self.password = try values.decodeIfPresent(String.self, forKey: "password")
         self.phone = try values.decodeIfPresent(String.self, forKey: "phone")
@@ -111,7 +111,7 @@ public struct User: Codable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(email, forKey: "email")
         try values.encodeIfPresent(firstName, forKey: "firstName")
-        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(identifier, forKey: "id")
         try values.encodeIfPresent(lastName, forKey: "lastName")
         try values.encodeIfPresent(password, forKey: "password")
         try values.encodeIfPresent(phone, forKey: "phone")
@@ -121,70 +121,70 @@ public struct User: Codable {
 }
 
 public struct Tag: Codable {
-    public var id: Int?
+    public var identifier: Int?
     public var name: String?
 
-    public init(id: Int? = nil, name: String? = nil) {
-        self.id = id
+    public init(identifier: Int? = nil, name: String? = nil) {
+        self.identifier = identifier
         self.name = name
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(identifier, forKey: "id")
         try values.encodeIfPresent(name, forKey: "name")
     }
 }
 
 public struct Pet: Codable {
     public var category: Category?
-    public var id: Int?
+    public var identifier: Int?
     /// Example: doggie
     public var name: String
     public var photoURLs: [String]
     /// Pet status in the store
-    public var status: Status?
+    public var state: State?
     public var tags: [Tag]?
 
     /// Pet status in the store
-    public enum Status: String, Codable, CaseIterable {
+    public enum State: String, Codable, CaseIterable {
         case available
         case pending
         case sold
     }
 
-    public init(category: Category? = nil, id: Int? = nil, name: String, photoURLs: [String], status: Status? = nil, tags: [Tag]? = nil) {
+    public init(category: Category? = nil, identifier: Int? = nil, name: String, photoURLs: [String], state: State? = nil, tags: [Tag]? = nil) {
         self.category = category
-        self.id = id
+        self.identifier = identifier
         self.name = name
         self.photoURLs = photoURLs
-        self.status = status
+        self.state = state
         self.tags = tags
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.category = try values.decodeIfPresent(Category.self, forKey: "category")
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
         self.photoURLs = try values.decode([String].self, forKey: "photoUrls")
-        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+        self.state = try values.decodeIfPresent(State.self, forKey: "status")
         self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(category, forKey: "category")
-        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(identifier, forKey: "id")
         try values.encode(name, forKey: "name")
         try values.encode(photoURLs, forKey: "photoUrls")
-        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(state, forKey: "status")
         try values.encodeIfPresent(tags, forKey: "tags")
     }
 }
@@ -794,28 +794,28 @@ public struct ContainerA: Codable {
 
         public struct Child: Codable {
             public var `enum`: Enum
-            public var onlyItRenamed: String
+            public var renameMe: String
 
             public enum Enum: String, Codable, CaseIterable {
                 case a
                 case b
             }
 
-            public init(`enum`: Enum, onlyItRenamed: String) {
+            public init(`enum`: Enum, renameMe: String) {
                 self.enum = `enum`
-                self.onlyItRenamed = onlyItRenamed
+                self.renameMe = renameMe
             }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.enum = try values.decode(Enum.self, forKey: "enum")
-                self.onlyItRenamed = try values.decode(String.self, forKey: "rename-me")
+                self.renameMe = try values.decode(String.self, forKey: "rename-me")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var values = encoder.container(keyedBy: StringCodingKey.self)
                 try values.encode(`enum`, forKey: "enum")
-                try values.encode(onlyItRenamed, forKey: "rename-me")
+                try values.encode(renameMe, forKey: "rename-me")
             }
         }
 
@@ -984,7 +984,6 @@ public struct ContainerC: Codable {
     }
 }
 
-
 public enum AnyJSON: Equatable {
     case string(String)
     case number(Double)
@@ -1060,6 +1059,7 @@ extension AnyJSON: CustomDebugStringConvertible {
         }
     }
 }
+
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?

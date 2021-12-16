@@ -7,8 +7,6 @@ import Foundation
 import APIClient
 import HTTPHeaders
 
-public enum Paths {}
-
 extension Paths {
   public static var pet: Pet {
     Pet(path: "/pet")
@@ -518,6 +516,8 @@ extension Paths {
     }
   }
 }
+
+public enum Paths {}
 
 extension Bool {
   var asQueryValue: String {

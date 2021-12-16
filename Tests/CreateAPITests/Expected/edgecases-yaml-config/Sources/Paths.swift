@@ -17,12 +17,12 @@ extension Paths {
         public let path: String
 
         /// Add a new pet to the store
-        public func post(_ body: edgecases_disable_acronyms.Pet) -> Request<Void> {
+        public func post(_ body: edgecases_yaml_config.Pet) -> Request<Void> {
             .post(path, body: body)
         }
 
         /// Update an existing pet
-        public func put(_ body: edgecases_disable_acronyms.Pet) -> Request<Void> {
+        public func put(_ body: edgecases_yaml_config.Pet) -> Request<Void> {
             .put(path, body: body)
         }
     }
@@ -40,7 +40,7 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        public func get(status: [Status]) -> Request<[edgecases_disable_acronyms.Pet]> {
+        public func get(status: [Status]) -> Request<[edgecases_yaml_config.Pet]> {
             .get(path, query: makeGetQuery(status))
         }
 
@@ -70,7 +70,7 @@ extension Paths.Pet {
         /// Finds Pets by status
         ///
         /// Multiple status values can be provided with comma separated strings
-        public func get(status: [Status]? = nil) -> Request<[edgecases_disable_acronyms.Pet]> {
+        public func get(status: [Status]? = nil) -> Request<[edgecases_yaml_config.Pet]> {
             .get(path, query: makeGetQuery(status))
         }
 
@@ -102,7 +102,7 @@ extension Paths.Pet {
         /// Finds Pets by tags
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-        public func get(tags: [String]) -> Request<[edgecases_disable_acronyms.Pet]> {
+        public func get(tags: [String]) -> Request<[edgecases_yaml_config.Pet]> {
             .get(path, query: makeGetQuery(tags))
         }
 
@@ -115,18 +115,18 @@ extension Paths.Pet {
 }
 
 extension Paths.Pet {
-    public func petId(_ petId: String) -> WithPetId {
-        WithPetId(path: path + "/" + petId)
+    public func petID(_ petID: String) -> WithPetID {
+        WithPetID(path: path + "/" + petID)
     }
 
-    public struct WithPetId {
+    public struct WithPetID {
         /// Path: `/pet/{petId}`
         public let path: String
 
         /// Find pet by ID
         ///
         /// Returns a single pet
-        public var get: Request<edgecases_disable_acronyms.Pet> {
+        public var get: Request<edgecases_yaml_config.Pet> {
             .get(path)
         }
 
@@ -160,7 +160,7 @@ extension Paths.Pet {
     }
 }
 
-extension Paths.Pet.WithPetId {
+extension Paths.Pet.WithPetID {
     public var uploadImage: UploadImage {
         UploadImage(path: path + "/uploadImage")
     }
@@ -170,7 +170,7 @@ extension Paths.Pet.WithPetId {
         public let path: String
 
         /// Uploads an image
-        public func post(_ body: PostRequest? = nil) -> Request<edgecases_disable_acronyms.ApiResponse> {
+        public func post(_ body: PostRequest? = nil) -> Request<edgecases_yaml_config.APIResponse> {
             .post(path, body: body)
         }
 
@@ -233,25 +233,25 @@ extension Paths.Store {
         public let path: String
 
         /// Place an order for a pet
-        public func post(_ body: edgecases_disable_acronyms.Order) -> Request<edgecases_disable_acronyms.Order> {
+        public func post(_ body: edgecases_yaml_config.Order) -> Request<edgecases_yaml_config.Order> {
             .post(path, body: body)
         }
     }
 }
 
 extension Paths.Store.Order {
-    public func orderId(_ orderId: String) -> WithOrderId {
-        WithOrderId(path: path + "/" + orderId)
+    public func orderID(_ orderID: String) -> WithOrderID {
+        WithOrderID(path: path + "/" + orderID)
     }
 
-    public struct WithOrderId {
+    public struct WithOrderID {
         /// Path: `/store/order/{order_id}`
         public let path: String
 
         /// Find purchase order by ID
         ///
         /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-        public var get: Request<edgecases_disable_acronyms.Order> {
+        public var get: Request<edgecases_yaml_config.Order> {
             .get(path)
         }
 
@@ -276,7 +276,7 @@ extension Paths {
         /// Create user
         ///
         /// This can only be done by the logged in user.
-        public func post(_ body: edgecases_disable_acronyms.User) -> Request<Void> {
+        public func post(_ body: edgecases_yaml_config.User) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -292,7 +292,7 @@ extension Paths.User {
         public let path: String
 
         /// Creates list of users with given input array
-        public func post(_ body: [edgecases_disable_acronyms.User]) -> Request<Void> {
+        public func post(_ body: [edgecases_yaml_config.User]) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -308,7 +308,7 @@ extension Paths.User {
         public let path: String
 
         /// Creates list of users with given input array
-        public func post(_ body: [edgecases_disable_acronyms.User]) -> Request<Void> {
+        public func post(_ body: [edgecases_yaml_config.User]) -> Request<Void> {
             .post(path, body: body)
         }
     }
@@ -371,14 +371,14 @@ extension Paths.User {
         public let path: String
 
         /// Get user by user name
-        public var get: Request<edgecases_disable_acronyms.User> {
+        public var get: Request<edgecases_yaml_config.User> {
             .get(path)
         }
 
         /// Updated user
         ///
         /// This can only be done by the logged in user.
-        public func put(_ body: edgecases_disable_acronyms.User) -> Request<Void> {
+        public func put(_ body: edgecases_yaml_config.User) -> Request<Void> {
             .put(path, body: body)
         }
 
@@ -511,7 +511,7 @@ extension Paths {
         }
 
         /// To test "client" model
-        public func patch(_ body: edgecases_disable_acronyms.Client) -> Request<edgecases_disable_acronyms.Client> {
+        public func patch(_ body: edgecases_yaml_config.Client) -> Request<edgecases_yaml_config.Client> {
             .patch(path, body: body)
         }
     }
