@@ -670,21 +670,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
         public func delete(accessToken: String) -> Request<Void> {
-            .delete(path, body: DeleteRequest(accessToken: accessToken))
-        }
-
-        public struct DeleteRequest: Encodable {
-            /// The OAuth access token used to authenticate to the GitHub API.
-            public var accessToken: String
-
-            public init(accessToken: String) {
-                self.accessToken = accessToken
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(accessToken, forKey: "access_token")
-            }
+            .delete(path, body: ["access_token": accessToken])
         }
     }
 }
@@ -704,21 +690,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
         public func post(accessToken: String) -> Request<github.Authorization> {
-            .post(path, body: PostRequest(accessToken: accessToken))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The access_token of the OAuth application.
-            public var accessToken: String
-
-            public init(accessToken: String) {
-                self.accessToken = accessToken
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(accessToken, forKey: "access_token")
-            }
+            .post(path, body: ["access_token": accessToken])
         }
 
         /// Reset a token
@@ -727,21 +699,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
         public func patch(accessToken: String) -> Request<github.Authorization> {
-            .patch(path, body: PatchRequest(accessToken: accessToken))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The access_token of the OAuth application.
-            public var accessToken: String
-
-            public init(accessToken: String) {
-                self.accessToken = accessToken
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(accessToken, forKey: "access_token")
-            }
+            .patch(path, body: ["access_token": accessToken])
         }
 
         /// Delete an app token
@@ -750,21 +708,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
         public func delete(accessToken: String) -> Request<Void> {
-            .delete(path, body: DeleteRequest(accessToken: accessToken))
-        }
-
-        public struct DeleteRequest: Encodable {
-            /// The OAuth access token used to authenticate to the GitHub API.
-            public var accessToken: String
-
-            public init(accessToken: String) {
-                self.accessToken = accessToken
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(accessToken, forKey: "access_token")
-            }
+            .delete(path, body: ["access_token": accessToken])
         }
     }
 }
@@ -1417,21 +1361,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedOrganizationIDs: selectedOrganizationIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of organization IDs to enable for GitHub Actions.
-            public var selectedOrganizationIDs: [Int]
-
-            public init(selectedOrganizationIDs: [Int]) {
-                self.selectedOrganizationIDs = selectedOrganizationIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedOrganizationIDs, forKey: "selected_organization_ids")
-            }
+            .put(path, body: ["selected_organization_ids": selectedOrganizationIDs])
         }
     }
 }
@@ -1717,21 +1647,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedOrganizationIDs: selectedOrganizationIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of organization IDs that can access the runner group.
-            public var selectedOrganizationIDs: [Int]
-
-            public init(selectedOrganizationIDs: [Int]) {
-                self.selectedOrganizationIDs = selectedOrganizationIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedOrganizationIDs, forKey: "selected_organization_ids")
-            }
+            .put(path, body: ["selected_organization_ids": selectedOrganizationIDs])
         }
     }
 }
@@ -1824,21 +1740,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise)
         public func put(runners: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(runners: runners))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of runner IDs to add to the runner group.
-            public var runners: [Int]
-
-            public init(runners: [Int]) {
-                self.runners = runners
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(runners, forKey: "runners")
-            }
+            .put(path, body: ["runners": runners])
         }
     }
 }
@@ -2599,27 +2501,11 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist-comment)
         public func post(body: String) -> Request<github.GistComment> {
-            .post(path, body: PostRequest(body: body))
+            .post(path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
             public static let location = HTTPHeader<String>(field: "Location")
-        }
-
-        public struct PostRequest: Encodable {
-            /// The comment text.
-            ///
-            /// Example: Body of the attachment
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
         }
     }
 }
@@ -2644,23 +2530,7 @@ extension Paths.Gists.WithGistID.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
         public func patch(body: String) -> Request<github.GistComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The comment text.
-            ///
-            /// Example: Body of the attachment
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete a gist comment
@@ -3709,21 +3579,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
         public func put(isIgnored: Bool? = nil) -> Request<github.ThreadSubscription> {
-            .put(path, body: PutRequest(isIgnored: isIgnored))
-        }
-
-        public struct PutRequest: Encodable {
-            /// Whether to block all notifications from a thread.
-            public var isIgnored: Bool?
-
-            public init(isIgnored: Bool? = nil) {
-                self.isIgnored = isIgnored
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(isIgnored, forKey: "ignored")
-            }
+            .put(path, body: ["ignored": isIgnored])
         }
 
         /// Delete a thread subscription
@@ -4142,21 +3998,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of repository IDs to enable for GitHub Actions.
-            public var selectedRepositoryIDs: [Int]
-
-            public init(selectedRepositoryIDs: [Int]) {
-                self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
-            }
+            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -4462,21 +4304,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of repository IDs that can access the runner group.
-            public var selectedRepositoryIDs: [Int]
-
-            public init(selectedRepositoryIDs: [Int]) {
-                self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
-            }
+            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -4580,21 +4408,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization)
         public func put(runners: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(runners: runners))
-        }
-
-        public struct PutRequest: Encodable {
-            /// List of runner IDs to add to the runner group.
-            public var runners: [Int]
-
-            public init(runners: [Int]) {
-                self.runners = runners
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(runners, forKey: "runners")
-            }
+            .put(path, body: ["runners": runners])
         }
     }
 }
@@ -5069,21 +4883,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints.
-            public var selectedRepositoryIDs: [Int]
-
-            public init(selectedRepositoryIDs: [Int]) {
-                self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
-            }
+            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -7834,21 +7634,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
         public func post(body: String) -> Request<github.TeamDiscussionComment> {
-            .post(path, body: PostRequest(body: body))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The discussion comment's body text.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .post(path, body: ["body": body])
         }
     }
 }
@@ -7881,21 +7667,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
         public func patch(body: String) -> Request<github.TeamDiscussionComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The discussion comment's body text.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete a discussion comment
@@ -8160,21 +7932,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
         public func patch(groupID: Int) -> Request<github.ExternalGroup> {
-            .patch(path, body: PatchRequest(groupID: groupID))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// External Group Id
-            public var groupID: Int
-
-            public init(groupID: Int) {
-                self.groupID = groupID
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(groupID, forKey: "group_id")
-            }
+            .patch(path, body: ["group_id": groupID])
         }
 
         /// Remove the connection between an external group and a team
@@ -8876,23 +8634,7 @@ extension Paths.Projects.Columns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
         public func patch(name: String) -> Request<github.ProjectColumn> {
-            .patch(path, body: PatchRequest(name: name))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// Name of the project column
-            ///
-            /// Example: Remaining tasks
-            public var name: String
-
-            public init(name: String) {
-                self.name = name
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(name, forKey: "name")
-            }
+            .patch(path, body: ["name": name])
         }
 
         /// Delete a project column
@@ -9023,23 +8765,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
         public func post(position: String) -> Request<Void> {
-            .post(path, body: PostRequest(position: position))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The position of the column in a project. Can be one of: `first`, `last`, or `after:<column_id>` to place after the specified column.
-            ///
-            /// Example: last
-            public var position: String
-
-            public init(position: String) {
-                self.position = position
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(position, forKey: "position")
-            }
+            .post(path, body: ["position": position])
         }
     }
 }
@@ -9281,23 +9007,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
         public func post(name: String) -> Request<github.ProjectColumn> {
-            .post(path, body: PostRequest(name: name))
-        }
-
-        public struct PostRequest: Encodable {
-            /// Name of the project column
-            ///
-            /// Example: Remaining tasks
-            public var name: String
-
-            public init(name: String) {
-                self.name = name
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(name, forKey: "name")
-            }
+            .post(path, body: ["name": name])
         }
     }
 }
@@ -12374,21 +12084,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
         public func post(newName: String) -> Request<github.BranchWithProtection> {
-            .post(path, body: PostRequest(newName: newName))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The new name of the branch.
-            public var newName: String
-
-            public init(newName: String) {
-                self.newName = newName
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(newName, forKey: "new_name")
-            }
+            .post(path, body: ["new_name": newName])
         }
     }
 }
@@ -12914,21 +12610,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
         public func post(headSha: String) -> Request<github.CheckSuite> {
-            .post(path, body: PostRequest(headSha: headSha))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The sha of the head commit.
-            public var headSha: String
-
-            public init(headSha: String) {
-                self.headSha = headSha
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(headSha, forKey: "head_sha")
-            }
+            .post(path, body: ["head_sha": headSha])
         }
     }
 }
@@ -13824,21 +13506,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-commit-comment)
         public func patch(body: String) -> Request<github.CommitComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The contents of the comment
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete a commit comment
@@ -15528,21 +15196,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
         public func post(organization: String? = nil) -> Request<github.FullRepository> {
-            .post(path, body: PostRequest(organization: organization))
-        }
-
-        public struct PostRequest: Encodable {
-            /// Optional parameter to specify the organization name if forking into an organization.
-            public var organization: String?
-
-            public init(organization: String? = nil) {
-                self.organization = organization
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(organization, forKey: "organization")
-            }
+            .post(path, body: ["organization": organization])
         }
     }
 }
@@ -17351,21 +17005,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
         public func patch(body: String) -> Request<github.IssueComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The contents of the comment.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete an issue comment
@@ -17694,21 +17334,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
         public func post(assignees: [String]? = nil) -> Request<github.Issue> {
-            .post(path, body: PostRequest(assignees: assignees))
-        }
-
-        public struct PostRequest: Encodable {
-            /// Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._
-            public var assignees: [String]?
-
-            public init(assignees: [String]? = nil) {
-                self.assignees = assignees
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(assignees, forKey: "assignees")
-            }
+            .post(path, body: ["assignees": assignees])
         }
 
         /// Remove assignees from an issue
@@ -17717,21 +17343,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
         public func delete(assignees: [String]? = nil) -> Request<github.Issue> {
-            .delete(path, body: DeleteRequest(assignees: assignees))
-        }
-
-        public struct DeleteRequest: Encodable {
-            /// Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._
-            public var assignees: [String]?
-
-            public init(assignees: [String]? = nil) {
-                self.assignees = assignees
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(assignees, forKey: "assignees")
-            }
+            .delete(path, body: ["assignees": assignees])
         }
     }
 }
@@ -17784,25 +17396,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
         public func post(body: String) -> Request<github.IssueComment> {
-            .post(path, body: PostRequest(body: body))
+            .post(path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
             public static let location = HTTPHeader<String>(field: "Location")
-        }
-
-        public struct PostRequest: Encodable {
-            /// The contents of the comment.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
         }
     }
 }
@@ -18551,21 +18149,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
         public func post(branch: String) -> Request<github.MergedUpstream> {
-            .post(path, body: PostRequest(branch: branch))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The name of the branch which should be updated to match upstream.
-            public var branch: String
-
-            public init(branch: String) {
-                self.branch = branch
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(branch, forKey: "branch")
-            }
+            .post(path, body: ["branch": branch])
         }
     }
 }
@@ -18867,7 +18451,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read)
         public func put(lastReadAt: Date? = nil) -> Request<PutResponse> {
-            .put(path, body: PutRequest(lastReadAt: lastReadAt))
+            .put(path, body: ["last_read_at": lastReadAt])
         }
 
         public struct PutResponse: Decodable {
@@ -18883,20 +18467,6 @@ extension Paths.Repos.WithOwner.WithRepo {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.message = try values.decodeIfPresent(String.self, forKey: "message")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
-            }
-        }
-
-        public struct PutRequest: Encodable {
-            /// Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
-            public var lastReadAt: Date?
-
-            public init(lastReadAt: Date? = nil) {
-                self.lastReadAt = lastReadAt
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
             }
         }
     }
@@ -19444,21 +19014,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
         public func patch(body: String) -> Request<github.PullRequestReviewComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The text of the reply to the review comment.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete a review comment for a pull request
@@ -19876,25 +19432,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
         public func post(body: String) -> Request<github.PullRequestReviewComment> {
-            .post(path, body: PostRequest(body: body))
+            .post(path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
             public static let location = HTTPHeader<String>(field: "Location")
-        }
-
-        public struct PostRequest: Encodable {
-            /// The text of the review comment.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
         }
     }
 }
@@ -20260,21 +19802,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
         public func put(body: String) -> Request<github.PullRequestReview> {
-            .put(path, body: PutRequest(body: body))
-        }
-
-        public struct PutRequest: Encodable {
-            /// The body text of the pull request review.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .put(path, body: ["body": body])
         }
 
         /// Delete a pending review for a pull request
@@ -20413,7 +19941,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch)
         public func put(expectedHeadSha: String? = nil) -> Request<PutResponse> {
-            .put(path, body: PutRequest(expectedHeadSha: expectedHeadSha))
+            .put(path, body: ["expected_head_sha": expectedHeadSha])
         }
 
         public struct PutResponse: Decodable {
@@ -20429,20 +19957,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.message = try values.decodeIfPresent(String.self, forKey: "message")
                 self.url = try values.decodeIfPresent(String.self, forKey: "url")
-            }
-        }
-
-        public struct PutRequest: Encodable {
-            /// The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
-            public var expectedHeadSha: String?
-
-            public init(expectedHeadSha: String? = nil) {
-                self.expectedHeadSha = expectedHeadSha
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(expectedHeadSha, forKey: "expected_head_sha")
             }
         }
     }
@@ -21505,21 +21019,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
         public func put(names: [String]) -> Request<github.Topic> {
-            .put(path, body: PutRequest(names: names))
-        }
-
-        public struct PutRequest: Encodable {
-            /// An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters.
-            public var names: [String]
-
-            public init(names: [String]) {
-                self.names = names
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(names, forKey: "names")
-            }
+            .put(path, body: ["names": names])
         }
     }
 }
@@ -24098,21 +23598,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(body: String) -> Request<github.TeamDiscussionComment> {
-            .post(path, body: PostRequest(body: body))
-        }
-
-        public struct PostRequest: Encodable {
-            /// The discussion comment's body text.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .post(path, body: ["body": body])
         }
     }
 }
@@ -24147,21 +23633,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(body: String) -> Request<github.TeamDiscussionComment> {
-            .patch(path, body: PatchRequest(body: body))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// The discussion comment's body text.
-            public var body: String
-
-            public init(body: String) {
-                self.body = body
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(body, forKey: "body")
-            }
+            .patch(path, body: ["body": body])
         }
 
         /// Delete a discussion comment (Legacy)
@@ -25546,21 +25018,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: PutRequest(selectedRepositoryIDs: selectedRepositoryIDs))
-        }
-
-        public struct PutRequest: Encodable {
-            /// An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints.
-            public var selectedRepositoryIDs: [Int]
-
-            public init(selectedRepositoryIDs: [Int]) {
-                self.selectedRepositoryIDs = selectedRepositoryIDs
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(selectedRepositoryIDs, forKey: "selected_repository_ids")
-            }
+            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -25626,21 +25084,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
         public func patch(machine: String? = nil) -> Request<github.Codespace> {
-            .patch(path, body: PatchRequest(machine: machine))
-        }
-
-        public struct PatchRequest: Encodable {
-            /// A valid machine to transition this codespace to.
-            public var machine: String?
-
-            public init(machine: String? = nil) {
-                self.machine = machine
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(machine, forKey: "machine")
-            }
+            .patch(path, body: ["machine": machine])
         }
 
         /// Delete a codespace for the authenticated user
@@ -26055,21 +25499,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
         public func post(armoredPublicKey: String) -> Request<github.GpgKey> {
-            .post(path, body: PostRequest(armoredPublicKey: armoredPublicKey))
-        }
-
-        public struct PostRequest: Encodable {
-            /// A GPG key in ASCII-armored format.
-            public var armoredPublicKey: String
-
-            public init(armoredPublicKey: String) {
-                self.armoredPublicKey = armoredPublicKey
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encode(armoredPublicKey, forKey: "armored_public_key")
-            }
+            .post(path, body: ["armored_public_key": armoredPublicKey])
         }
     }
 }

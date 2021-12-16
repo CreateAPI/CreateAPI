@@ -192,15 +192,14 @@ extension Generator {
             }
         }
         
+        // TODO: Add a threshold for how many parametes to inline
+        // TODO: Inline nested types too
         if let requestBody = operation.requestBody, method != "get" {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
             if requestBody.type.rawValue != "Void" {
-                if let value = requestBody.nested {
-                    nested.append(render(value))
-                }
                 if options.paths.isInliningSimpleRequestType,
-                   let nested = (requestBody.nested as? EntityDeclaration),
-                   nested.properties.count == 1 {
+                   let entity = (requestBody.nested as? EntityDeclaration),
+                   entity.properties.count == 1 {
                     // Inline simple request types (types that only have N properties):
                     //
                     // public func post(body: PostRequest) -> Request<github.Reaction>
@@ -212,13 +211,24 @@ extension Generator {
                     //   .post(path, PostRequest(accessToken: accessToken)
                     //
                     // If the property is using a type nested inside the request type, add a "namespace".
-                    let property = nested.properties[0]
-                    let namespace = nested.isNested(property.type.elementType) ? nested.name.rawValue : ""
-                    parameters.append("\(property.name): \(property.type.identifier(namespace: namespace))\(property.isOptional ? "? = nil" : "")")
-                    call.append("body: \(nested.name)(\(property.name): \(property.name))")
+                    let property = entity.properties[0]
+                    if entity.isNested(property.type.elementType) {
+                        parameters.append("\(property.name): \(property.type.identifier(namespace: entity.name.rawValue))\(property.isOptional ? "? = nil" : "")")
+                        call.append("body: \(entity.name)(\(property.name): \(property.name))")
+                        if let value = requestBody.nested {
+                            nested.append(render(value))
+                        }
+                    } else {
+                        parameters.append("\(property.name): \(property.type)\(property.isOptional ? "? = nil" : "")")
+                        call.append("body: [\"\(property.key)\": \(property.name)]")
+                        // Don't need to add a nested type
+                    }
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
                     call.append("body: body")
+                    if let value = requestBody.nested {
+                        nested.append(render(value))
+                    }
                 }
             }
         }
