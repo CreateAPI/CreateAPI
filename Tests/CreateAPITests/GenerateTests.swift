@@ -562,7 +562,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "github"),
             "--output", temp.url.path,
-            "--package", "github",
+            "--package", "OctoKit",
             "--vendor", "github",
             "--config", config("""
             isInterpretingEmptyObjectsAsDictionaries: true
@@ -581,7 +581,7 @@ final class GenerateTests: XCTestCase {
         try command.run()
         
         // THEN
-        try compare(package: "github")
+        try compare(package: "OctoKit")
     }
     
     func testGenerateGoogleBooks() throws {
@@ -589,14 +589,29 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "googlebooks"),
             "--output", temp.url.path,
-            "--package", "google-books"
+            "--package", "GoogleBooksAPI"
         ])
         
         // WHEN
         try command.run()
         
         // THEN
-        try compare(package: "google-books")
+        try compare(package: "GoogleBooksAPI")
+    }
+    
+    func _testGenerateTomTom() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "tomtom"),
+            "--output", temp.url.path,
+            "--package", "TomTomAPI"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "TomTomAPI")
     }
 }
 

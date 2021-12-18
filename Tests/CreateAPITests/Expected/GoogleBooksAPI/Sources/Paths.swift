@@ -49,7 +49,7 @@ extension Paths.Books.V1.Cloudloading {
         public let path: String
 
         /// Add a user-upload volume and triggers processing.
-        public func post(parameters: PostParameters? = nil) -> Request<google_books.BooksCloudloadingResource> {
+        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.BooksCloudloadingResource> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -88,7 +88,7 @@ extension Paths.Books.V1.Cloudloading {
         public let path: String
 
         /// Remove the book and its contents
-        public func post(volumeID: String) -> Request<google_books.Empty> {
+        public func post(volumeID: String) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: makePostQuery(volumeID))
         }
 
@@ -110,7 +110,7 @@ extension Paths.Books.V1.Cloudloading {
         public let path: String
 
         /// Updates a user-upload volume.
-        public func post(_ body: google_books.BooksCloudloadingResource? = nil) -> Request<google_books.BooksCloudloadingResource> {
+        public func post(_ body: GoogleBooksAPI.BooksCloudloadingResource? = nil) -> Request<GoogleBooksAPI.BooksCloudloadingResource> {
             .post(path, body: body)
         }
     }
@@ -137,7 +137,7 @@ extension Paths.Books.V1.Dictionary {
         public let path: String
 
         /// Returns a list of offline dictionary metadata available
-        public func get(cpksver: String) -> Request<google_books.Metadata> {
+        public func get(cpksver: String) -> Request<GoogleBooksAPI.Metadata> {
             .get(path, query: makeGetQuery(cpksver))
         }
 
@@ -170,7 +170,7 @@ extension Paths.Books.V1.Familysharing {
         public let path: String
 
         /// Gets information regarding the family that the user is part of.
-        public func get(source: String? = nil) -> Request<google_books.FamilyInfo> {
+        public func get(source: String? = nil) -> Request<GoogleBooksAPI.FamilyInfo> {
             .get(path, query: makeGetQuery(source))
         }
 
@@ -192,7 +192,7 @@ extension Paths.Books.V1.Familysharing {
         public let path: String
 
         /// Initiates sharing of the content with the user's family. Empty response indicates success.
-        public func post(parameters: PostParameters? = nil) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -228,7 +228,7 @@ extension Paths.Books.V1.Familysharing {
         public let path: String
 
         /// Initiates revoking content that has already been shared with the user's family. Empty response indicates success.
-        public func post(parameters: PostParameters? = nil) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -275,7 +275,7 @@ extension Paths.Books.V1.Myconfig {
         public let path: String
 
         /// Gets the current settings for the user.
-        public func get(country: String? = nil) -> Request<google_books.Usersettings> {
+        public func get(country: String? = nil) -> Request<GoogleBooksAPI.Usersettings> {
             .get(path, query: makeGetQuery(country))
         }
 
@@ -297,7 +297,7 @@ extension Paths.Books.V1.Myconfig {
         public let path: String
 
         /// Release downloaded content access restriction.
-        public func post(parameters: PostParameters) -> Request<google_books.DownloadAccesses> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.DownloadAccesses> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -338,7 +338,7 @@ extension Paths.Books.V1.Myconfig {
         public let path: String
 
         /// Request concurrent and download access restrictions.
-        public func post(parameters: PostParameters) -> Request<google_books.RequestAccessData> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.RequestAccessData> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -390,7 +390,7 @@ extension Paths.Books.V1.Myconfig {
         public let path: String
 
         /// Request downloaded content access for specified volumes on the My eBooks shelf.
-        public func post(parameters: PostParameters) -> Request<google_books.Volumes> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Volumes> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -450,7 +450,7 @@ extension Paths.Books.V1.Myconfig {
         public let path: String
 
         /// Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects will retain the existing value.
-        public func post(_ body: google_books.Usersettings? = nil) -> Request<google_books.Usersettings> {
+        public func post(_ body: GoogleBooksAPI.Usersettings? = nil) -> Request<GoogleBooksAPI.Usersettings> {
             .post(path, body: body)
         }
     }
@@ -477,7 +477,7 @@ extension Paths.Books.V1.Mylibrary {
         public let path: String
 
         /// Retrieves a list of annotations, possibly filtered.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Annotations> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Annotations> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -525,7 +525,7 @@ extension Paths.Books.V1.Mylibrary {
         }
 
         /// Inserts a new annotation.
-        public func post(parameters: PostParameters? = nil, _ body: google_books.Annotation? = nil) -> Request<google_books.Annotation> {
+        public func post(parameters: PostParameters? = nil, _ body: GoogleBooksAPI.Annotation? = nil) -> Request<GoogleBooksAPI.Annotation> {
             .post(path, query: parameters?.asQuery(), body: body)
         }
 
@@ -564,7 +564,7 @@ extension Paths.Books.V1.Mylibrary.Annotations {
         public let path: String
 
         /// Gets the summary of specified layers.
-        public func post(layerIDs: [String], volumeID: String) -> Request<google_books.AnnotationsSummary> {
+        public func post(layerIDs: [String], volumeID: String) -> Request<GoogleBooksAPI.AnnotationsSummary> {
             .post(path, query: makePostQuery(layerIDs, volumeID))
         }
 
@@ -589,7 +589,7 @@ extension Paths.Books.V1.Mylibrary.Annotations {
         public let path: String
 
         /// Updates an existing annotation.
-        public func put(source: String? = nil, _ body: google_books.Annotation? = nil) -> Request<google_books.Annotation> {
+        public func put(source: String? = nil, _ body: GoogleBooksAPI.Annotation? = nil) -> Request<GoogleBooksAPI.Annotation> {
             .put(path, query: makePutQuery(source), body: body)
         }
 
@@ -600,7 +600,7 @@ extension Paths.Books.V1.Mylibrary.Annotations {
         }
 
         /// Deletes an annotation.
-        public func delete(source: String? = nil) -> Request<google_books.Empty> {
+        public func delete(source: String? = nil) -> Request<GoogleBooksAPI.Empty> {
             .delete(path, query: makeDeleteQuery(source))
         }
 
@@ -622,7 +622,7 @@ extension Paths.Books.V1.Mylibrary {
         public let path: String
 
         /// Retrieves a list of bookshelves belonging to the authenticated user.
-        public func get(source: String? = nil) -> Request<google_books.Bookshelves> {
+        public func get(source: String? = nil) -> Request<GoogleBooksAPI.Bookshelves> {
             .get(path, query: makeGetQuery(source))
         }
 
@@ -644,7 +644,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves {
         public let path: String
 
         /// Retrieves metadata for a specific bookshelf belonging to the authenticated user.
-        public func get(source: String? = nil) -> Request<google_books.Bookshelf> {
+        public func get(source: String? = nil) -> Request<GoogleBooksAPI.Bookshelf> {
             .get(path, query: makeGetQuery(source))
         }
 
@@ -666,7 +666,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Adds a volume to a bookshelf.
-        public func post(parameters: PostParameters) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -709,7 +709,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Clears all volumes from a bookshelf.
-        public func post(source: String? = nil) -> Request<google_books.Empty> {
+        public func post(source: String? = nil) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: makePostQuery(source))
         }
 
@@ -731,7 +731,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Moves a volume within a bookshelf.
-        public func post(parameters: PostParameters) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -767,7 +767,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Removes a volume from a bookshelf.
-        public func post(parameters: PostParameters) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -808,7 +808,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Gets volume information for volumes on a bookshelf.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -873,7 +873,7 @@ extension Paths.Books.V1.Mylibrary.Readingpositions {
         public let path: String
 
         /// Retrieves my reading position information for a volume.
-        public func get(contentVersion: String? = nil, source: String? = nil) -> Request<google_books.ReadingPosition> {
+        public func get(contentVersion: String? = nil, source: String? = nil) -> Request<GoogleBooksAPI.ReadingPosition> {
             .get(path, query: makeGetQuery(contentVersion, source))
         }
 
@@ -896,7 +896,7 @@ extension Paths.Books.V1.Mylibrary.Readingpositions.WithVolumeID {
         public let path: String
 
         /// Sets my reading position information for a volume.
-        public func post(parameters: PostParameters) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -962,7 +962,7 @@ extension Paths.Books.V1.Notification {
         public let path: String
 
         /// Returns notification details for a given notification id.
-        public func get(parameters: GetParameters) -> Request<google_books.Notification> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Notification> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -1009,7 +1009,7 @@ extension Paths.Books.V1.Onboarding {
         public let path: String
 
         /// List categories for onboarding experience.
-        public func get(locale: String? = nil) -> Request<google_books.Category> {
+        public func get(locale: String? = nil) -> Request<GoogleBooksAPI.Category> {
             .get(path, query: makeGetQuery(locale))
         }
 
@@ -1031,7 +1031,7 @@ extension Paths.Books.V1.Onboarding {
         public let path: String
 
         /// List available volumes under categories for onboarding experience.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volume2> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volume2> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1092,7 +1092,7 @@ extension Paths.Books.V1.Personalizedstream {
         public let path: String
 
         /// Returns a stream of personalized book clusters
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Discoveryclusters> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Discoveryclusters> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1145,7 +1145,7 @@ extension Paths.Books.V1.Promooffer {
         public let path: String
 
         /// Accepts the promo offer.
-        public func post(parameters: PostParameters? = nil) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -1196,7 +1196,7 @@ extension Paths.Books.V1.Promooffer {
         public let path: String
 
         /// Marks the promo offer as dismissed.
-        public func post(parameters: PostParameters? = nil) -> Request<google_books.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -1244,7 +1244,7 @@ extension Paths.Books.V1.Promooffer {
         public let path: String
 
         /// Returns a list of promo offers available to the user
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Offers> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Offers> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1300,7 +1300,7 @@ extension Paths.Books.V1.Series {
         public let path: String
 
         /// Returns Series metadata for the given series ids.
-        public func get(seriesID: [String]) -> Request<google_books.Series> {
+        public func get(seriesID: [String]) -> Request<GoogleBooksAPI.Series> {
             .get(path, query: makeGetQuery(seriesID))
         }
 
@@ -1335,7 +1335,7 @@ extension Paths.Books.V1.Series.Membership {
         public let path: String
 
         /// Returns Series membership data given the series id.
-        public func get(parameters: GetParameters) -> Request<google_books.Seriesmembership> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Seriesmembership> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -1393,7 +1393,7 @@ extension Paths.Books.V1.Users.WithUserID {
         public let path: String
 
         /// Retrieves a list of public bookshelves for the specified user.
-        public func get(source: String? = nil) -> Request<google_books.Bookshelves> {
+        public func get(source: String? = nil) -> Request<GoogleBooksAPI.Bookshelves> {
             .get(path, query: makeGetQuery(source))
         }
 
@@ -1415,7 +1415,7 @@ extension Paths.Books.V1.Users.WithUserID.Bookshelves {
         public let path: String
 
         /// Retrieves metadata for a specific bookshelf for the specified user.
-        public func get(source: String? = nil) -> Request<google_books.Bookshelf> {
+        public func get(source: String? = nil) -> Request<GoogleBooksAPI.Bookshelf> {
             .get(path, query: makeGetQuery(source))
         }
 
@@ -1437,7 +1437,7 @@ extension Paths.Books.V1.Users.WithUserID.Bookshelves.WithShelf {
         public let path: String
 
         /// Retrieves volumes in a specific bookshelf for the specified user.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1476,7 +1476,7 @@ extension Paths.Books.V1 {
         public let path: String
 
         /// Performs a book search.
-        public func get(parameters: GetParameters) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -1590,7 +1590,7 @@ extension Paths.Books.V1.Volumes {
         public let path: String
 
         /// Return a list of books in My Library.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1661,7 +1661,7 @@ extension Paths.Books.V1.Volumes {
         public let path: String
 
         /// Return a list of recommended books for the current user.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1703,7 +1703,7 @@ extension Paths.Books.V1.Volumes.Recommended {
         public let path: String
 
         /// Rate a recommended book for the current user.
-        public func post(parameters: PostParameters) -> Request<google_books.BooksVolumesRecommendedRateResponse> {
+        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.BooksVolumesRecommendedRateResponse> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -1748,7 +1748,7 @@ extension Paths.Books.V1.Volumes {
         public let path: String
 
         /// Return a list of books uploaded by the current user.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1804,7 +1804,7 @@ extension Paths.Books.V1.Volumes {
         public let path: String
 
         /// Gets volume information for a single volume.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volume> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volume> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1855,7 +1855,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID {
         public let path: String
 
         /// Return a list of associated books.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Volumes> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -1918,7 +1918,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers {
         public let path: String
 
         /// Gets the volume annotations for a volume and layer.
-        public func get(parameters: GetParameters) -> Request<google_books.Volumeannotations> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Volumeannotations> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -1995,7 +1995,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
         public let path: String
 
         /// Gets the volume annotation.
-        public func get(locale: String? = nil, source: String? = nil) -> Request<google_books.Volumeannotation> {
+        public func get(locale: String? = nil, source: String? = nil) -> Request<GoogleBooksAPI.Volumeannotation> {
             .get(path, query: makeGetQuery(locale, source))
         }
 
@@ -2018,7 +2018,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID {
         public let path: String
 
         /// Gets the annotation data for a volume and layer.
-        public func get(parameters: GetParameters) -> Request<google_books.Annotationsdata> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Annotationsdata> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -2080,7 +2080,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Data {
         public let path: String
 
         /// Gets the annotation data.
-        public func get(parameters: GetParameters) -> Request<google_books.DictionaryAnnotationdata> {
+        public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.DictionaryAnnotationdata> {
             .get(path, query: parameters.asQuery())
         }
 
@@ -2128,7 +2128,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID {
         public let path: String
 
         /// List the layer summaries for a volume.
-        public func get(parameters: GetParameters? = nil) -> Request<google_books.Layersummaries> {
+        public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Layersummaries> {
             .get(path, query: parameters?.asQuery())
         }
 
@@ -2167,7 +2167,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layersummary {
         public let path: String
 
         /// Gets the layer summary for a volume.
-        public func get(contentVersion: String? = nil, source: String? = nil) -> Request<google_books.Layersummary> {
+        public func get(contentVersion: String? = nil, source: String? = nil) -> Request<GoogleBooksAPI.Layersummary> {
             .get(path, query: makeGetQuery(contentVersion, source))
         }
 
