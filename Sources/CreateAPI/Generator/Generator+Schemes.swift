@@ -55,6 +55,8 @@ import GrammaticalNumber
 // TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
 // TODO: Add an option to skip certain files
 
+// TODO: Add an option to convert optional arrays to empty arrays
+
 extension Generator {
 
     func schemas() throws -> GeneratorOutput {

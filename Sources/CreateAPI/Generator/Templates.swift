@@ -322,6 +322,8 @@ final class Templates {
             if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
                 value = String(data: data ?? Data(), encoding: .utf8) ?? ""
+            } else if let example = example as? String, !example.hasPrefix("\"") {
+                value = "\"\(example)\""
             } else {
                 value = "\(example)"
             }

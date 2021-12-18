@@ -145,7 +145,7 @@ import Foundation
  struct Pet: Codable {
     var id: Int?
     var category: Category?
-    /// Example: doggie
+    /// Example: "doggie"
     var name: String
     var photoURLs: [String]
     var tags: [Tag]?

@@ -138,7 +138,7 @@ public struct Tag: Codable {
 public struct Pet: Codable {
     public var id: Int?
     public var category: Category?
-    /// Example: doggie
+    /// Example: "doggie"
     public var name: String
     public var photoURLs: [String]
     public var tags: [Tag]?

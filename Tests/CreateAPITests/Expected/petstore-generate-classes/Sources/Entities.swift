@@ -10,7 +10,7 @@ import Foundation
 /// A pet description
 public final class Pet: Codable {
     public var id: Int
-    /// Example: Buddy
+    /// Example: "Buddy"
     public var name: String
     public var tag: String?
 

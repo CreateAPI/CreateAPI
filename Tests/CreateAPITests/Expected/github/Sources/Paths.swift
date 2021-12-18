@@ -732,11 +732,11 @@ extension Paths.Applications.WithClientID.Token {
         public struct PostRequest: Encodable {
             /// The OAuth access token used to authenticate to the GitHub API.
             ///
-            /// Example: e72e16c7e42f292c6912e7710c838347ae178b4a
+            /// Example: "e72e16c7e42f292c6912e7710c838347ae178b4a"
             public var accessToken: String
             /// The name of the user or organization to scope the user-to-server access token to. **Required** unless `target_id` is specified.
             ///
-            /// Example: octocat
+            /// Example: "octocat"
             public var target: String?
             /// The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified.
             public var targetID: Int?
@@ -898,7 +898,7 @@ extension Paths {
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
-            /// Example: Update all gems
+            /// Example: "Update all gems"
             public var note: String?
             /// A URL to remind you what app the OAuth token is for.
             public var noteURL: String?
@@ -987,7 +987,7 @@ extension Paths.Authorizations.Clients {
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
-            /// Example: Update all gems
+            /// Example: "Update all gems"
             public var note: String?
             /// A URL to remind you what app the OAuth token is for.
             public var noteURL: String?
@@ -1057,7 +1057,7 @@ extension Paths.Authorizations.Clients.WithClientID {
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
-            /// Example: Update all gems
+            /// Example: "Update all gems"
             public var note: String?
             /// A URL to remind you what app the OAuth token is for.
             public var noteURL: String?
@@ -1129,7 +1129,7 @@ extension Paths.Authorizations {
             public var removeScopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
-            /// Example: Update all gems
+            /// Example: "Update all gems"
             public var note: String?
             /// A URL to remind you what app the OAuth token is for.
             public var noteURL: String?
@@ -2244,7 +2244,7 @@ extension Paths {
         public struct PostRequest: Encodable {
             /// Description of the gist
             ///
-            /// Example: Example Ruby script
+            /// Example: "Example Ruby script"
             public var description: String?
             /// Names and content for the files that make up the gist
             ///
@@ -2753,7 +2753,7 @@ extension Paths.Installation {
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var repositories: [github.Repository]
-            /// Example: selected
+            /// Example: "selected"
             public var repositorySelection: String?
 
             public init(totalCount: Int, repositories: [github.Repository], repositorySelection: String? = nil) {
@@ -2991,14 +2991,14 @@ extension Paths {
             public var text: String
             /// The rendering mode.
             ///
-            /// Example: markdown
+            /// Example: "markdown"
             public var mode: Mode?
             /// The repository context to use when creating references in `gfm` mode.
             public var context: String?
 
             /// The rendering mode.
             ///
-            /// Example: markdown
+            /// Example: "markdown"
             public enum Mode: String, Codable, CaseIterable {
                 case markdown
                 case gfm
@@ -6105,7 +6105,7 @@ extension Paths.Orgs.WithOrg {
 
             /// Allowed values that can be passed to the exclude param.
             ///
-            /// Example: repositories
+            /// Example: "repositories"
             public enum Exclude: String, Codable, CaseIterable {
                 case repositories
             }
@@ -6218,7 +6218,7 @@ extension Paths.Orgs.WithOrg.Migrations {
 
         /// Allowed values that can be passed to the exclude param.
         ///
-        /// Example: repositories
+        /// Example: "repositories"
         public enum Exclude: String, Codable, CaseIterable {
             case repositories
         }
@@ -8544,7 +8544,7 @@ extension Paths.Projects.Columns.Cards {
         public struct PatchRequest: Encodable {
             /// The project card's note
             ///
-            /// Example: Update all gems
+            /// Example: "Update all gems"
             public var note: String?
             /// Whether or not the card is archived
             ///
@@ -8591,7 +8591,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
         public struct PostRequest: Encodable {
             /// The position of the card in a column. Can be one of: `top`, `bottom`, or `after:<card_id>` to place after the specified card.
             ///
-            /// Example: bottom
+            /// Example: "bottom"
             public var position: String
             /// The unique identifier of the column the card should be moved to
             ///
@@ -8704,7 +8704,7 @@ extension Paths.Projects.Columns.WithColumnID {
             public struct Object1: Encodable {
                 /// The project card's note
                 ///
-                /// Example: Update all gems
+                /// Example: "Update all gems"
                 public var note: String?
 
                 public init(note: String? = nil) {
@@ -8724,7 +8724,7 @@ extension Paths.Projects.Columns.WithColumnID {
                 public var contentID: Int
                 /// The piece of content associated with the card
                 ///
-                /// Example: PullRequest
+                /// Example: "PullRequest"
                 public var contentType: String
 
                 public init(contentID: Int, contentType: String) {
@@ -8798,15 +8798,15 @@ extension Paths.Projects {
         public struct PatchRequest: Encodable {
             /// Name of the project
             ///
-            /// Example: Week One Sprint
+            /// Example: "Week One Sprint"
             public var name: String?
             /// Body of the project
             ///
-            /// Example: This project represents the sprint of the first week in January
+            /// Example: "This project represents the sprint of the first week in January"
             public var body: String?
             /// State of the project; either 'open' or 'closed'
             ///
-            /// Example: open
+            /// Example: "open"
             public var state: String?
             /// The baseline permission that all organization members have on this project
             public var organizationPermission: OrganizationPermission?
@@ -8921,12 +8921,12 @@ extension Paths.Projects.WithProjectID.Collaborators {
         public struct PutRequest: Encodable {
             /// The permission to grant the collaborator.
             ///
-            /// Example: write
+            /// Example: "write"
             public var permission: Permission?
 
             /// The permission to grant the collaborator.
             ///
-            /// Example: write
+            /// Example: "write"
             public enum Permission: String, Codable, CaseIterable {
                 case read
                 case write
@@ -10180,16 +10180,16 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             public var environmentIDs: [Int]
             /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
             ///
-            /// Example: approved
+            /// Example: "approved"
             public var state: State
             /// A comment to accompany the deployment review
             ///
-            /// Example: Ship it!
+            /// Example: "Ship it!"
             public var comment: String
 
             /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
             ///
-            /// Example: approved
+            /// Example: "approved"
             public enum State: String, Codable, CaseIterable {
                 case approved
                 case rejected
@@ -14289,11 +14289,11 @@ extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceI
         public struct PostRequest: Encodable {
             /// The title of the attachment
             ///
-            /// Example: Title of the attachment
+            /// Example: "Title of the attachment"
             public var title: String
             /// The body of the attachment
             ///
-            /// Example: Body of the attachment
+            /// Example: "Body of the attachment"
             public var body: String
 
             public init(title: String, body: String) {
@@ -15070,7 +15070,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
             public struct Reviewer: Encodable {
                 /// The type of reviewer. Must be one of: `User` or `Team`
                 ///
-                /// Example: User
+                /// Example: "User"
                 public var type: github.DeploymentReviewerType?
                 /// The id of the user or team who can review the deployment
                 ///
@@ -19731,11 +19731,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 public var body: String
                 /// Example: 28
                 public var line: Int?
-                /// Example: RIGHT
+                /// Example: "RIGHT"
                 public var side: String?
                 /// Example: 26
                 public var startLine: Int?
-                /// Example: LEFT
+                /// Example: "LEFT"
                 public var startSide: String?
 
                 public init(path: String, position: Int? = nil, body: String, line: Int? = nil, side: String? = nil, startLine: Int? = nil, startSide: String? = nil) {
@@ -22284,11 +22284,11 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         public struct PostRequest: Encodable {
             /// Configured by the admin. Could be an email, login, or username
             ///
-            /// Example: someone@example.com
+            /// Example: "someone@example.com"
             public var userName: String
             /// The name of the user, suitable for display to end-users
             ///
-            /// Example: Jon Doe
+            /// Example: "Jon Doe"
             public var displayName: String?
             /// Example:
             ///
@@ -22420,14 +22420,14 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
             public var schemas: [String]?
             /// The name of the user, suitable for display to end-users
             ///
-            /// Example: Jon Doe
+            /// Example: "Jon Doe"
             public var displayName: String?
             public var externalID: String?
             public var groups: [String]?
             public var isActive: Bool?
             /// Configured by the admin. Could be an email, login, or username
             ///
-            /// Example: someone@example.com
+            /// Example: "someone@example.com"
             public var userName: String
             /// Example:
             ///
@@ -24508,27 +24508,27 @@ extension Paths {
         public struct PatchRequest: Encodable {
             /// The new name of the user.
             ///
-            /// Example: Omar Jahandar
+            /// Example: "Omar Jahandar"
             public var name: String?
             /// The publicly visible email address of the user.
             ///
-            /// Example: omar@example.com
+            /// Example: "omar@example.com"
             public var email: String?
             /// The new blog URL of the user.
             ///
-            /// Example: blog.example.com
+            /// Example: "blog.example.com"
             public var blog: String?
             /// The new Twitter username of the user.
             ///
-            /// Example: therealomarj
+            /// Example: "therealomarj"
             public var twitterUsername: String?
             /// The new company of the user.
             ///
-            /// Example: Acme corporation
+            /// Example: "Acme corporation"
             public var company: String?
             /// The new location of the user.
             ///
-            /// Example: Berlin, Germany
+            /// Example: "Berlin, Germany"
             public var location: String?
             /// The new hiring availability of the user.
             public var isHireable: Bool?
@@ -25865,7 +25865,7 @@ extension Paths.User {
         public struct PostRequest: Encodable {
             /// A descriptive name for the new key.
             ///
-            /// Example: Personal MacBook Air
+            /// Example: "Personal MacBook Air"
             public var title: String?
             /// The public SSH key to add to your GitHub account.
             public var key: String
@@ -26144,7 +26144,7 @@ extension Paths.User {
 
             /// Allowed values that can be passed to the exclude param.
             ///
-            /// Example: repositories
+            /// Example: "repositories"
             public enum ExcludeItem: String, Codable, CaseIterable {
                 case repositories
             }
@@ -26614,11 +26614,11 @@ extension Paths.User {
         public struct PostRequest: Encodable {
             /// Name of the project
             ///
-            /// Example: Week One Sprint
+            /// Example: "Week One Sprint"
             public var name: String
             /// Body of the project
             ///
-            /// Example: This project represents the sprint of the first week in January
+            /// Example: "This project represents the sprint of the first week in January"
             public var body: String?
 
             public init(name: String, body: String? = nil) {
@@ -26773,7 +26773,7 @@ extension Paths.User {
         public struct PostRequest: Encodable {
             /// The name of the repository.
             ///
-            /// Example: Team Environment
+            /// Example: "Team Environment"
             public var name: String
             /// A short description of the repository.
             public var description: String?
@@ -26799,11 +26799,11 @@ extension Paths.User {
             public var isAutoInit: Bool?
             /// The desired language or platform to apply to the .gitignore.
             ///
-            /// Example: Haskell
+            /// Example: "Haskell"
             public var gitignoreTemplate: String?
             /// The license keyword of the open source license for this repository.
             ///
-            /// Example: mit
+            /// Example: "mit"
             public var licenseTemplate: String?
             /// Whether to allow squash merges for pull requests.
             ///

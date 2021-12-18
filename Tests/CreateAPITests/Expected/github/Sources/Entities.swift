@@ -15,23 +15,23 @@ public struct Integration: Codable {
     public var id: Int
     /// The slug name of the GitHub app
     ///
-    /// Example: probot-owners
+    /// Example: "probot-owners"
     public var slug: String?
-    /// Example: MDExOkludGVncmF0aW9uMQ==
+    /// Example: "MDExOkludGVncmF0aW9uMQ=="
     public var nodeID: String
     /// Simple User
     public var owner: SimpleUser?
     /// The name of the GitHub app
     ///
-    /// Example: Probot Owners
+    /// Example: "Probot Owners"
     public var name: String
-    /// Example: The description of the app.
+    /// Example: "The description of the app."
     public var description: String?
     public var externalURL: URL
     public var htmlURL: URL
-    /// Example: 2017-07-08T16:18:44-04:00
+    /// Example: "2017-07-08T16:18:44-04:00"
     public var createdAt: Date
-    /// Example: 2017-07-08T16:18:44-04:00
+    /// Example: "2017-07-08T16:18:44-04:00"
     public var updatedAt: Date
     /// The set of permissions for the GitHub app
     ///
@@ -255,11 +255,11 @@ public struct HookDeliveryItem: Codable {
     public var id: Int
     /// Unique identifier for the event (shared with all deliveries for all webhooks that subscribe to this event).
     ///
-    /// Example: 58474f00-b361-11eb-836d-0e4f3503ccbe
+    /// Example: "58474f00-b361-11eb-836d-0e4f3503ccbe"
     public var guid: String
     /// Time when the webhook delivery occurred.
     ///
-    /// Example: 2021-05-12T20:33:44Z
+    /// Example: "2021-05-12T20:33:44Z"
     public var deliveredAt: Date
     /// Whether the webhook delivery is a redelivery.
     ///
@@ -271,7 +271,7 @@ public struct HookDeliveryItem: Codable {
     public var duration: Double
     /// Describes the response returned after attempting the delivery.
     ///
-    /// Example: failed to connect
+    /// Example: "failed to connect"
     public var status: String
     /// Status code received when delivery was made.
     ///
@@ -279,11 +279,11 @@ public struct HookDeliveryItem: Codable {
     public var statusCode: Int
     /// The event that triggered the delivery.
     ///
-    /// Example: issues
+    /// Example: "issues"
     public var event: String
     /// The type of activity for the event that triggered the delivery.
     ///
-    /// Example: opened
+    /// Example: "opened"
     public var action: String?
     /// The id of the GitHub App installation associated with this event.
     ///
@@ -479,11 +479,11 @@ public struct HookDelivery: Codable {
     public var id: Int
     /// Unique identifier for the event (shared with all deliveries for all webhooks that subscribe to this event).
     ///
-    /// Example: 58474f00-b361-11eb-836d-0e4f3503ccbe
+    /// Example: "58474f00-b361-11eb-836d-0e4f3503ccbe"
     public var guid: String
     /// Time when the delivery was delivered.
     ///
-    /// Example: 2021-05-12T20:33:44Z
+    /// Example: "2021-05-12T20:33:44Z"
     public var deliveredAt: Date
     /// Whether the delivery is a redelivery.
     ///
@@ -495,7 +495,7 @@ public struct HookDelivery: Codable {
     public var duration: Double
     /// Description of the status of the attempted delivery
     ///
-    /// Example: failed to connect
+    /// Example: "failed to connect"
     public var status: String
     /// Status code received when delivery was made.
     ///
@@ -503,11 +503,11 @@ public struct HookDelivery: Codable {
     public var statusCode: Int
     /// The event that triggered the delivery.
     ///
-    /// Example: issues
+    /// Example: "issues"
     public var event: String
     /// The type of activity for the event that triggered the delivery.
     ///
-    /// Example: opened
+    /// Example: "opened"
     public var action: String?
     /// The id of the GitHub App installation associated with this event.
     ///
@@ -627,13 +627,13 @@ public struct HookDelivery: Codable {
 public struct SimpleUser: Codable {
     public var name: String?
     public var email: String?
-    /// Example: octocat
+    /// Example: "octocat"
     public var login: String
     public var id: Int
-    /// Example: MDQ6VXNlcjE=
+    /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
     public var avatarURL: URL
-    /// Example: 41d064eb2195891e12d0413f63227ea7
+    /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
     public var url: URL
     public var htmlURL: URL
@@ -646,7 +646,7 @@ public struct SimpleUser: Codable {
     public var reposURL: URL
     public var eventsURL: String
     public var receivedEventsURL: URL
-    /// Example: User
+    /// Example: "User"
     public var type: String
     public var isSiteAdmin: Bool
     /// Example: "2020-07-09T00:17:55Z"
@@ -738,19 +738,19 @@ public struct Enterprise: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+    /// Example: "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
     public var nodeID: String
     /// The name of the enterprise.
     ///
-    /// Example: Octo Business
+    /// Example: "Octo Business"
     public var name: String
     /// The slug url identifier for the enterprise.
     ///
-    /// Example: octo-business
+    /// Example: "octo-business"
     public var slug: String
-    /// Example: 2019-01-26T19:01:12Z
+    /// Example: "2019-01-26T19:01:12Z"
     public var createdAt: Date?
-    /// Example: 2019-01-26T19:14:43Z
+    /// Example: "2019-01-26T19:14:43Z"
     public var updatedAt: Date?
     public var avatarURL: URL
 
@@ -1173,7 +1173,7 @@ public struct Installation: Codable {
     public var appID: Int
     /// The ID of the user or organization this token is being scoped to.
     public var targetID: Int
-    /// Example: Organization
+    /// Example: "Organization"
     public var targetType: String
     /// App Permissions
     ///
@@ -1191,7 +1191,7 @@ public struct Installation: Codable {
     public var events: [String]
     public var createdAt: Date
     public var updatedAt: Date
-    /// Example: config.yaml
+    /// Example: "config.yaml"
     public var singleFileName: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
@@ -1202,7 +1202,7 @@ public struct Installation: Codable {
     ///   ".github\/issue_TEMPLATE.md"
     /// ]
     public var singleFilePaths: [String]?
-    /// Example: github-actions
+    /// Example: "github-actions"
     public var appSlug: String
     /// Simple User
     public var suspendedBy: SimpleUser?
@@ -1312,13 +1312,13 @@ public struct Repository: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+    /// Example: "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
     public var nodeID: String
     /// The name of the repository.
     ///
-    /// Example: Team Environment
+    /// Example: "Team Environment"
     public var name: String
-    /// Example: octocat/Hello-World
+    /// Example: "octocat/Hello-World"
     public var fullName: String
     /// License Simple
     public var license: LicenseSimple?
@@ -1331,7 +1331,7 @@ public struct Repository: Codable {
     /// Whether the repository is private or public.
     public var isPrivate: Bool
     public var htmlURL: URL
-    /// Example: This your first repo!
+    /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
     public var url: URL
@@ -1387,7 +1387,7 @@ public struct Repository: Codable {
     public var size: Int
     /// The default branch of the repository.
     ///
-    /// Example: master
+    /// Example: "master"
     public var defaultBranch: String
     public var openIssuesCount: Int
     /// Whether this repository acts as a template that can be used to generate new repositories.
@@ -1418,11 +1418,11 @@ public struct Repository: Codable {
     public var isDisabled: Bool
     /// The repository visibility: public, private, or internal.
     public var visibility: String?
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var pushedAt: Date?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date?
-    /// Example: 2011-01-26T19:14:43Z
+    /// Example: "2011-01-26T19:14:43Z"
     public var updatedAt: Date?
     /// Whether to allow rebase merges for pull requests.
     ///
@@ -2253,7 +2253,7 @@ public struct InstallationToken: Codable {
     public var permissions: AppPermissions?
     public var repositorySelection: RepositorySelection?
     public var repositories: [Repository]?
-    /// Example: README.md
+    /// Example: "README.md"
     public var singleFile: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
@@ -2311,9 +2311,9 @@ public struct ApplicationGrant: Codable {
     public var id: Int
     public var url: URL
     public var app: App
-    /// Example: 2011-09-06T17:26:27Z
+    /// Example: "2011-09-06T17:26:27Z"
     public var createdAt: Date
-    /// Example: 2011-09-06T20:39:23Z
+    /// Example: "2011-09-06T20:39:23Z"
     public var updatedAt: Date
     /// Example:
     ///
@@ -2399,7 +2399,7 @@ public struct ScopedInstallation: Codable {
     public var permissions: AppPermissions
     /// Describe whether all repositories have been selected or there's a selection involved
     public var repositorySelection: RepositorySelection
-    /// Example: config.yaml
+    /// Example: "config.yaml"
     public var singleFileName: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
@@ -2558,14 +2558,14 @@ public struct Authorization: Codable {
 }
 
 public struct CodeOfConduct: Codable {
-    /// Example: contributor_covenant
+    /// Example: "contributor_covenant"
     public var key: String
-    /// Example: Contributor Covenant
+    /// Example: "Contributor Covenant"
     public var name: String
     public var url: URL
     /// Example:
     ///
-    /// # Contributor Covenant Code of Conduct
+    /// "# Contributor Covenant Code of Conduct
     /// 
     /// ## Our Pledge
     /// 
@@ -2613,7 +2613,7 @@ public struct CodeOfConduct: Codable {
     /// 
     /// [homepage]: http://contributor-covenant.org
     /// [version]: http://contributor-covenant.org/version/1/4/
-    /// 
+    /// "
     public var body: String?
     public var htmlURL: URL?
 
@@ -2693,10 +2693,10 @@ public struct ActionsEnterprisePermissions: Codable {
 }
 
 public struct OrganizationSimple: Codable {
-    /// Example: github
+    /// Example: "github"
     public var login: String
     public var id: Int
-    /// Example: MDEyOk9yZ2FuaXphdGlvbjE=
+    /// Example: "MDEyOk9yZ2FuaXphdGlvbjE="
     public var nodeID: String
     public var url: URL
     public var reposURL: URL
@@ -2706,7 +2706,7 @@ public struct OrganizationSimple: Codable {
     public var membersURL: String
     public var publicMembersURL: String
     public var avatarURL: String
-    /// Example: A great organization
+    /// Example: "A great organization"
     public var description: String?
 
     public init(login: String, id: Int, nodeID: String, url: URL, reposURL: URL, eventsURL: URL, hooksURL: String, issuesURL: String, membersURL: String, publicMembersURL: String, avatarURL: String, description: String? = nil) {
@@ -2836,15 +2836,15 @@ public struct Runner: Codable {
     public var id: Int
     /// The name of the runner.
     ///
-    /// Example: iMac
+    /// Example: "iMac"
     public var name: String
     /// The Operating System of the runner.
     ///
-    /// Example: macos
+    /// Example: "macos"
     public var os: String
     /// The status of the runner.
     ///
-    /// Example: online
+    /// Example: "online"
     public var status: String
     public var isBusy: Bool
     public var labels: [Label]
@@ -2956,11 +2956,11 @@ public struct RunnerApplication: Codable {
 public struct AuthenticationToken: Codable {
     /// The token used for authentication
     ///
-    /// Example: v1.1f699f1069f60xxx
+    /// Example: "v1.1f699f1069f60xxx"
     public var token: String
     /// The time this token expires
     ///
-    /// Example: 2016-07-11T22:14:10Z
+    /// Example: "2016-07-11T22:14:10Z"
     public var expiresAt: Date
     /// Example:
     ///
@@ -2971,7 +2971,7 @@ public struct AuthenticationToken: Codable {
     public var permissions: [String: AnyJSON]?
     /// The repositories this token has access to
     public var repositories: [Repository]?
-    /// Example: config.yaml
+    /// Example: "config.yaml"
     public var singleFile: String?
     /// Describe whether all repositories have been selected or there's a selection involved
     public var repositorySelection: RepositorySelection?
@@ -3281,7 +3281,7 @@ public struct ActionsBillingUsage: Codable {
 
 public struct AdvancedSecurityActiveCommittersUser: Codable {
     public var userLogin: String
-    /// Example: 2021-11-03
+    /// Example: "2021-11-03"
     public var lastPushedDate: String
 
     public init(userLogin: String, lastPushedDate: String) {
@@ -3303,7 +3303,7 @@ public struct AdvancedSecurityActiveCommittersUser: Codable {
 }
 
 public struct AdvancedSecurityActiveCommittersRepository: Codable {
-    /// Example: octocat/Hello-World
+    /// Example: "octocat/Hello-World"
     public var name: String
     /// Example: 25
     public var advancedSecurityCommitters: Int
@@ -3453,7 +3453,7 @@ public struct Actor: Codable {
 ///
 /// How the author is associated with the repository.
 ///
-/// Example: OWNER
+/// Example: "OWNER"
 public enum AuthorAssociation: String, Codable, CaseIterable {
     case collaborator = "COLLABORATOR"
     case contributor = "CONTRIBUTOR"
@@ -3536,15 +3536,15 @@ public struct Issue: Codable {
     public var number: Int
     /// State of the issue; either 'open' or 'closed'
     ///
-    /// Example: open
+    /// Example: "open"
     public var state: String
     /// Title of the issue
     ///
-    /// Example: Widget creation fails in Safari on OS X 10.8
+    /// Example: "Widget creation fails in Safari on OS X 10.8"
     public var title: String
     /// Contents of the issue
     ///
-    /// Example: It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
+    /// Example: "It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?"
     public var body: String?
     /// Simple User
     public var user: SimpleUser?
@@ -3585,7 +3585,7 @@ public struct Issue: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// Reaction Rollup
     public var reactions: ReactionRollup?
@@ -3812,23 +3812,23 @@ public struct IssueComment: Codable {
     public var url: URL
     /// Contents of the issue comment
     ///
-    /// Example: What version of Safari were you using when you observed this bug?
+    /// Example: "What version of Safari were you using when you observed this bug?"
     public var body: String?
     public var bodyText: String?
     public var bodyHTML: String?
     public var htmlURL: URL
     /// Simple User
     public var user: SimpleUser?
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
     public var issueURL: URL
     /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// GitHub app
     ///
@@ -4885,24 +4885,24 @@ public struct GistSimple: Codable {
 /// A comment made to a gist.
 public struct GistComment: Codable {
     public var id: Int
-    /// Example: MDExOkdpc3RDb21tZW50MQ==
+    /// Example: "MDExOkdpc3RDb21tZW50MQ=="
     public var nodeID: String
     public var url: URL
     /// The comment text.
     ///
-    /// Example: Body of the attachment
+    /// Example: "Body of the attachment"
     public var body: String
     /// Simple User
     public var user: SimpleUser?
-    /// Example: 2011-04-18T23:23:56Z
+    /// Example: "2011-04-18T23:23:56Z"
     public var createdAt: Date
-    /// Example: 2011-04-18T23:23:56Z
+    /// Example: "2011-04-18T23:23:56Z"
     public var updatedAt: Date
     /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
 
     public init(id: Int, nodeID: String, url: URL, body: String, user: SimpleUser? = nil, createdAt: Date, updatedAt: Date, authorAssociation: AuthorAssociation) {
@@ -4943,12 +4943,12 @@ public struct GistComment: Codable {
 
 public struct GistCommit: Codable {
     public var url: URL
-    /// Example: 57a7f021a713b1c5a6a199b54cc514735d2d462f
+    /// Example: "57a7f021a713b1c5a6a199b54cc514735d2d462f"
     public var version: String
     /// Simple User
     public var user: SimpleUser?
     public var changeStatus: ChangeStatus
-    /// Example: 2010-04-14T02:15:15Z
+    /// Example: "2010-04-14T02:15:15Z"
     public var committedAt: Date
 
     public struct ChangeStatus: Codable {
@@ -5005,10 +5005,11 @@ public struct GistCommit: Codable {
 }
 
 public struct GitignoreTemplate: Codable {
+    /// Example: "C"
     public var name: String
     /// Example:
     ///
-    /// # Object files
+    /// "# Object files
     /// *.o
     /// 
     /// # Libraries
@@ -5025,7 +5026,7 @@ public struct GitignoreTemplate: Codable {
     /// *.exe
     /// *.out
     /// *.app
-    /// 
+    /// "
     public var source: String
 
     public init(name: String, source: String) {
@@ -5047,14 +5048,14 @@ public struct GitignoreTemplate: Codable {
 }
 
 public struct LicenseSimple: Codable {
-    /// Example: mit
+    /// Example: "mit"
     public var key: String
-    /// Example: MIT License
+    /// Example: "MIT License"
     public var name: String
     public var url: URL?
-    /// Example: MIT
+    /// Example: "MIT"
     public var spdxID: String?
-    /// Example: MDc6TGljZW5zZW1pdA==
+    /// Example: "MDc6TGljZW5zZW1pdA=="
     public var nodeID: String
     public var htmlURL: URL?
 
@@ -5089,19 +5090,19 @@ public struct LicenseSimple: Codable {
 }
 
 public struct License: Codable {
-    /// Example: mit
+    /// Example: "mit"
     public var key: String
-    /// Example: MIT License
+    /// Example: "MIT License"
     public var name: String
-    /// Example: MIT
+    /// Example: "MIT"
     public var spdxID: String?
     public var url: URL?
-    /// Example: MDc6TGljZW5zZW1pdA==
+    /// Example: "MDc6TGljZW5zZW1pdA=="
     public var nodeID: String
     public var htmlURL: URL
-    /// Example: A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty.
+    /// Example: "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
     public var description: String
-    /// Example: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.
+    /// Example: "Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders."
     public var implementation: String
     /// Example:
     ///
@@ -5127,7 +5128,7 @@ public struct License: Codable {
     public var limitations: [String]
     /// Example:
     ///
-    /// 
+    /// "
     /// 
     /// The MIT License (MIT)
     /// 
@@ -5150,7 +5151,7 @@ public struct License: Codable {
     /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     /// SOFTWARE.
-    /// 
+    /// "
     public var body: String
     /// Example: true
     public var isFeatured: Bool
@@ -5212,20 +5213,20 @@ public struct MarketplaceListingPlan: Codable {
     /// Example: 1313
     public var id: Int
     public var number: Int
-    /// Example: Pro
+    /// Example: "Pro"
     public var name: String
-    /// Example: A professional-grade CI solution
+    /// Example: "A professional-grade CI solution"
     public var description: String
     /// Example: 1099
     public var monthlyPriceInCents: Int
     /// Example: 11870
     public var yearlyPriceInCents: Int
-    /// Example: flat-rate
+    /// Example: "flat-rate"
     public var priceModel: String
     /// Example: true
     public var hasFreeTrial: Bool
     public var unitName: String?
-    /// Example: published
+    /// Example: "published"
     public var state: String
     /// Example:
     ///
@@ -5557,17 +5558,17 @@ public struct APIOverview: Codable {
 public struct MinimalRepository: Codable {
     /// Example: 1296269
     public var id: Int
-    /// Example: MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+    /// Example: "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
     public var nodeID: String
-    /// Example: Hello-World
+    /// Example: "Hello-World"
     public var name: String
-    /// Example: octocat/Hello-World
+    /// Example: "octocat/Hello-World"
     public var fullName: String
     /// Simple User
     public var owner: SimpleUser
     public var isPrivate: Bool
     public var htmlURL: URL
-    /// Example: This your first repo!
+    /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
     public var url: URL
@@ -5630,14 +5631,14 @@ public struct MinimalRepository: Codable {
     public var isArchived: Bool?
     public var isDisabled: Bool?
     public var visibility: String?
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var pushedAt: Date?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date?
-    /// Example: 2011-01-26T19:14:43Z
+    /// Example: "2011-01-26T19:14:43Z"
     public var updatedAt: Date?
     public var permissions: Permissions?
-    /// Example: admin
+    /// Example: "admin"
     public var roleName: String?
     /// Repository
     ///
@@ -6075,7 +6076,7 @@ public struct ThreadSubscription: Codable {
     public var isSubscribed: Bool
     public var isIgnored: Bool
     public var reason: String?
-    /// Example: 2012-10-06T21:34:12Z
+    /// Example: "2012-10-06T21:34:12Z"
     public var createdAt: Date?
     public var url: URL
     public var threadURL: URL?
@@ -6138,10 +6139,10 @@ public struct OrganizationCustomRepositoryRole: Codable {
 }
 
 public struct OrganizationFull: Codable {
-    /// Example: github
+    /// Example: "github"
     public var login: String
     public var id: Int
-    /// Example: MDEyOk9yZ2FuaXphdGlvbjE=
+    /// Example: "MDEyOk9yZ2FuaXphdGlvbjE="
     public var nodeID: String
     public var url: URL
     public var reposURL: URL
@@ -6151,18 +6152,18 @@ public struct OrganizationFull: Codable {
     public var membersURL: String
     public var publicMembersURL: String
     public var avatarURL: String
-    /// Example: A great organization
+    /// Example: "A great organization"
     public var description: String?
-    /// Example: github
+    /// Example: "github"
     public var name: String?
-    /// Example: GitHub
+    /// Example: "GitHub"
     public var company: String?
     public var blog: URL?
-    /// Example: San Francisco
+    /// Example: "San Francisco"
     public var location: String?
-    /// Example: octocat@github.com
+    /// Example: "octocat@github.com"
     public var email: String?
-    /// Example: github
+    /// Example: "github"
     public var twitterUsername: String?
     /// Example: true
     public var isVerified: Bool?
@@ -6176,9 +6177,9 @@ public struct OrganizationFull: Codable {
     public var followers: Int
     public var following: Int
     public var htmlURL: URL
-    /// Example: 2008-01-14T04:33:35Z
+    /// Example: "2008-01-14T04:33:35Z"
     public var createdAt: Date
-    /// Example: Organization
+    /// Example: "Organization"
     public var type: String
     /// Example: 100
     public var totalPrivateRepos: Int?
@@ -6189,7 +6190,7 @@ public struct OrganizationFull: Codable {
     /// Example: 10000
     public var diskUsage: Int?
     public var collaborators: Int?
-    /// Example: org@example.com
+    /// Example: "org@example.com"
     public var billingEmail: String?
     public var plan: Plan?
     public var defaultRepositoryPermission: String?
@@ -6197,7 +6198,7 @@ public struct OrganizationFull: Codable {
     public var membersCanCreateRepositories: Bool?
     /// Example: true
     public var isTwoFactorRequirementEnabled: Bool?
-    /// Example: all
+    /// Example: "all"
     public var membersAllowedRepositoryCreationType: String?
     /// Example: true
     public var membersCanCreatePublicRepositories: Bool?
@@ -6495,7 +6496,7 @@ public struct RunnerGroupsOrg: Codable {
 public struct OrganizationActionsSecret: Codable {
     /// The name of the secret.
     ///
-    /// Example: SECRET_TOKEN
+    /// Example: "SECRET_TOKEN"
     public var name: String
     public var createdAt: Date
     public var updatedAt: Date
@@ -6541,17 +6542,17 @@ public struct OrganizationActionsSecret: Codable {
 public struct ActionsPublicKey: Codable {
     /// The identifier for the key.
     ///
-    /// Example: 1234567
+    /// Example: "1234567"
     public var keyID: String
     /// The Base64 encoded public key.
     ///
-    /// Example: hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
+    /// Example: "hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs="
     public var key: String
     public var id: Int?
     public var url: String?
-    /// Example: ssh-rsa AAAAB3NzaC1yc2EAAA
+    /// Example: "ssh-rsa AAAAB3NzaC1yc2EAAA"
     public var title: String?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: String?
 
     public init(keyID: String, key: String, id: Int? = nil, url: String? = nil, title: String? = nil, createdAt: String? = nil) {
@@ -6594,21 +6595,21 @@ public struct EmptyObject: Codable {
 public struct CredentialAuthorization: Codable {
     /// User login that owns the underlying credential.
     ///
-    /// Example: monalisa
+    /// Example: "monalisa"
     public var login: String
     /// Unique identifier for the credential.
     public var credentialID: Int
     /// Human-readable description of the credential type.
     ///
-    /// Example: SSH Key
+    /// Example: "SSH Key"
     public var credentialType: String
     /// Last eight characters of the credential. Only included in responses with credential_type of personal access token.
     ///
-    /// Example: 12345678
+    /// Example: "12345678"
     public var tokenLastEight: String?
     /// Date when the credential was authorized for use.
     ///
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var credentialAuthorizedAt: Date
     /// List of oauth scopes the token has been granted.
     ///
@@ -6621,21 +6622,21 @@ public struct CredentialAuthorization: Codable {
     public var scopes: [String]?
     /// Unique string to distinguish the credential. Only included in responses with credential_type of SSH Key.
     ///
-    /// Example: jklmnop12345678
+    /// Example: "jklmnop12345678"
     public var fingerprint: String?
     /// Date when the credential was last accessed. May be null if it was never accessed
     ///
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var credentialAccessedAt: Date?
     /// Example: 12345678
     public var authorizedCredentialID: Int?
     /// The title given to the ssh key. This will only be present when the credential is an ssh key.
     ///
-    /// Example: my ssh key
+    /// Example: "my ssh key"
     public var authorizedCredentialTitle: String?
     /// The note given to the token. This will only be present when the credential is a token.
     ///
-    /// Example: my token
+    /// Example: "my token"
     public var authorizedCredentialNote: String?
     /// The expiry for the token. This will only be present when the credential is a token.
     public var authorizedCredentialExpiresAt: Date?
@@ -6694,7 +6695,7 @@ public struct ExternalGroup: Codable {
     public var groupID: Int
     /// The display name for the group
     ///
-    /// Example: group-azuread-test
+    /// Example: "group-azuread-test"
     public var groupName: String
     /// The date when the group was last updated_at
     ///
@@ -6740,7 +6741,7 @@ public struct ExternalGroup: Codable {
         public var teamID: Int
         /// The name of the team
         ///
-        /// Example: team-test
+        /// Example: "team-test"
         public var teamName: String
 
         public init(teamID: Int, teamName: String) {
@@ -6766,15 +6767,15 @@ public struct ExternalGroup: Codable {
         public var memberID: Int
         /// The handle/login for the user
         ///
-        /// Example: mona-lisa_eocsaxrs
+        /// Example: "mona-lisa_eocsaxrs"
         public var memberLogin: String
         /// The user display name/profile name
         ///
-        /// Example: Mona Lisa
+        /// Example: "Mona Lisa"
         public var memberName: String
         /// An email attached to a user
         ///
-        /// Example: mona_lisa@github.com
+        /// Example: "mona_lisa@github.com"
         public var memberEmail: String
 
         public init(memberID: Int, memberLogin: String, memberName: String, memberEmail: String) {
@@ -6853,7 +6854,7 @@ public struct ExternalGroups: Codable {
         public var groupID: Int
         /// The display name of the group
         ///
-        /// Example: group-azuread-test
+        /// Example: "group-azuread-test"
         public var groupName: String
         /// The time of the last update for this group
         ///
@@ -6962,7 +6963,7 @@ public struct OrgHook: Codable {
     public var url: URL
     public var pingURL: URL
     public var deliveriesURL: URL?
-    /// Example: web
+    /// Example: "web"
     public var name: String
     /// Example:
     ///
@@ -6974,9 +6975,9 @@ public struct OrgHook: Codable {
     /// Example: true
     public var isActive: Bool
     public var config: Config
-    /// Example: 2011-09-06T20:39:23Z
+    /// Example: "2011-09-06T20:39:23Z"
     public var updatedAt: Date
-    /// Example: 2011-09-06T17:26:27Z
+    /// Example: "2011-09-06T17:26:27Z"
     public var createdAt: Date
     public var type: String
 
@@ -7061,7 +7062,7 @@ public struct OrgHook: Codable {
 
 /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
 ///
-/// Example: collaborators_only
+/// Example: "collaborators_only"
 public enum InteractionGroup: String, Codable, CaseIterable {
     case existingUsers = "existing_users"
     case contributorsOnly = "contributors_only"
@@ -7074,11 +7075,11 @@ public enum InteractionGroup: String, Codable, CaseIterable {
 public struct InteractionLimitResponse: Codable {
     /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
     ///
-    /// Example: collaborators_only
+    /// Example: "collaborators_only"
     public var limit: InteractionGroup
-    /// Example: repository
+    /// Example: "repository"
     public var origin: String
-    /// Example: 2018-08-17T04:18:39Z
+    /// Example: "2018-08-17T04:18:39Z"
     public var expiresAt: Date
 
     public init(limit: InteractionGroup, origin: String, expiresAt: Date) {
@@ -7104,7 +7105,7 @@ public struct InteractionLimitResponse: Codable {
 
 /// The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`.
 ///
-/// Example: one_month
+/// Example: "one_month"
 public enum InteractionExpiry: String, Codable, CaseIterable {
     case oneDay = "one_day"
     case threeDays = "three_days"
@@ -7119,11 +7120,11 @@ public enum InteractionExpiry: String, Codable, CaseIterable {
 public struct InteractionLimit: Codable {
     /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
     ///
-    /// Example: collaborators_only
+    /// Example: "collaborators_only"
     public var limit: InteractionGroup
     /// The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`.
     ///
-    /// Example: one_month
+    /// Example: "one_month"
     public var expiry: InteractionExpiry?
 
     public init(limit: InteractionGroup, expiry: InteractionExpiry? = nil) {
@@ -7252,11 +7253,11 @@ public struct OrgMembership: Codable {
     public var url: URL
     /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
     ///
-    /// Example: active
+    /// Example: "active"
     public var state: State
     /// The user's membership type in the organization.
     ///
-    /// Example: admin
+    /// Example: "admin"
     public var role: Role
     public var organizationURL: URL
     /// Organization Simple
@@ -7267,7 +7268,7 @@ public struct OrgMembership: Codable {
 
     /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
     ///
-    /// Example: active
+    /// Example: "active"
     public enum State: String, Codable, CaseIterable {
         case active
         case pending
@@ -7275,7 +7276,7 @@ public struct OrgMembership: Codable {
 
     /// The user's membership type in the organization.
     ///
-    /// Example: admin
+    /// Example: "admin"
     public enum Role: String, Codable, CaseIterable {
         case admin
         case member
@@ -7339,9 +7340,9 @@ public struct Migration: Codable {
     public var id: Int
     /// Simple User
     public var owner: SimpleUser?
-    /// Example: 0b989ba4-242f-11e5-81e1-c7b6966d2516
+    /// Example: "0b989ba4-242f-11e5-81e1-c7b6966d2516"
     public var guid: String
-    /// Example: pending
+    /// Example: "pending"
     public var state: String
     /// Example: true
     public var lockRepositories: Bool
@@ -7352,9 +7353,9 @@ public struct Migration: Codable {
     public var excludeOwnerProjects: Bool
     public var repositories: [Repository]
     public var url: URL
-    /// Example: 2015-07-06T15:33:38-07:00
+    /// Example: "2015-07-06T15:33:38-07:00"
     public var createdAt: Date
-    /// Example: 2015-07-06T15:33:38-07:00
+    /// Example: "2015-07-06T15:33:38-07:00"
     public var updatedAt: Date
     public var nodeID: String
     public var archiveURL: URL?
@@ -7429,15 +7430,15 @@ public struct Package: Codable {
     public var id: Int
     /// The name of the package.
     ///
-    /// Example: super-linter
+    /// Example: "super-linter"
     public var name: String
-    /// Example: docker
+    /// Example: "docker"
     public var packageType: PackageType
     public var url: String
     public var htmlURL: String
     /// The number of versions of the package.
     public var versionCount: Int
-    /// Example: private
+    /// Example: "private"
     public var visibility: Visibility
     /// Simple User
     public var owner: SimpleUser?
@@ -7446,7 +7447,7 @@ public struct Package: Codable {
     public var createdAt: Date
     public var updatedAt: Date
 
-    /// Example: docker
+    /// Example: "docker"
     public enum PackageType: String, Codable, CaseIterable {
         case npm
         case maven
@@ -7456,7 +7457,7 @@ public struct Package: Codable {
         case container
     }
 
-    /// Example: private
+    /// Example: "private"
     public enum Visibility: String, Codable, CaseIterable {
         case `private`
         case `public`
@@ -7513,33 +7514,33 @@ public struct PackageVersion: Codable {
     public var id: Int
     /// The name of the package version.
     ///
-    /// Example: latest
+    /// Example: "latest"
     public var name: String
     public var url: String
     public var packageHTMLURL: String
     public var htmlURL: String?
-    /// Example: MIT
+    /// Example: "MIT"
     public var license: String?
     public var description: String?
-    /// Example: 2011-04-10T20:09:31Z
+    /// Example: "2011-04-10T20:09:31Z"
     public var createdAt: Date
-    /// Example: 2014-03-03T18:58:10Z
+    /// Example: "2014-03-03T18:58:10Z"
     public var updatedAt: Date
-    /// Example: 2014-03-03T18:58:10Z
+    /// Example: "2014-03-03T18:58:10Z"
     public var deletedAt: Date?
     /// Package Version Metadata
     public var metadata: Metadata?
 
     /// Package Version Metadata
     public struct Metadata: Codable {
-        /// Example: docker
+        /// Example: "docker"
         public var packageType: PackageType
         /// Container Metadata
         public var container: Container?
         /// Docker Metadata
         public var docker: Docker?
 
-        /// Example: docker
+        /// Example: "docker"
         public enum PackageType: String, Codable, CaseIterable {
             case npm
             case maven
@@ -7665,26 +7666,26 @@ public struct Project: Codable {
     public var columnsURL: URL
     /// Example: 1002604
     public var id: Int
-    /// Example: MDc6UHJvamVjdDEwMDI2MDQ=
+    /// Example: "MDc6UHJvamVjdDEwMDI2MDQ="
     public var nodeID: String
     /// Name of the project
     ///
-    /// Example: Week One Sprint
+    /// Example: "Week One Sprint"
     public var name: String
     /// Body of the project
     ///
-    /// Example: This project represents the sprint of the first week in January
+    /// Example: "This project represents the sprint of the first week in January"
     public var body: String?
     public var number: Int
     /// State of the project; either 'open' or 'closed'
     ///
-    /// Example: open
+    /// Example: "open"
     public var state: String
     /// Simple User
     public var creator: SimpleUser?
-    /// Example: 2011-04-10T20:09:31Z
+    /// Example: "2011-04-10T20:09:31Z"
     public var createdAt: Date
-    /// Example: 2014-03-03T18:58:10Z
+    /// Example: "2014-03-03T18:58:10Z"
     public var updatedAt: Date
     /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
     public var organizationPermission: OrganizationPermission?
@@ -7867,19 +7868,19 @@ public struct GroupMapping: Codable {
     public struct Group: Codable {
         /// The ID of the group
         ///
-        /// Example: 111a1a11-aaa1-1aaa-11a1-a1a1a1a1a1aa
+        /// Example: "111a1a11-aaa1-1aaa-11a1-a1a1a1a1a1aa"
         public var groupID: String
         /// The name of the group
         ///
-        /// Example: saml-azuread-test
+        /// Example: "saml-azuread-test"
         public var groupName: String
         /// A description of the group
         ///
-        /// Example: A group of Developers working on AzureAD SAML SSO
+        /// Example: "A group of Developers working on AzureAD SAML SSO"
         public var groupDescription: String
         /// Synchronization status for this group mapping
         ///
-        /// Example: unsynced
+        /// Example: "unsynced"
         public var status: String?
         /// The time of the last sync for this group-mapping
         ///
@@ -7936,26 +7937,26 @@ public struct TeamFull: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDQ6VGVhbTE=
+    /// Example: "MDQ6VGVhbTE="
     public var nodeID: String
     /// URL for the team
     public var url: URL
     public var htmlURL: URL
     /// Name of the team
     ///
-    /// Example: Developers
+    /// Example: "Developers"
     public var name: String
-    /// Example: justice-league
+    /// Example: "justice-league"
     public var slug: String
-    /// Example: A great team.
+    /// Example: "A great team."
     public var description: String?
     /// The level of privacy this team should have
     ///
-    /// Example: closed
+    /// Example: "closed"
     public var privacy: Privacy?
     /// Permission that the team will have for its repositories
     ///
-    /// Example: push
+    /// Example: "push"
     public var permission: String
     public var membersURL: String
     public var repositoriesURL: URL
@@ -7966,20 +7967,20 @@ public struct TeamFull: Codable {
     public var membersCount: Int
     /// Example: 10
     public var reposCount: Int
-    /// Example: 2017-07-14T16:53:42Z
+    /// Example: "2017-07-14T16:53:42Z"
     public var createdAt: Date
-    /// Example: 2017-08-17T12:37:15Z
+    /// Example: "2017-08-17T12:37:15Z"
     public var updatedAt: Date
     /// Organization Full
     public var organization: OrganizationFull
     /// Distinguished Name (DN) that team maps to within LDAP environment
     ///
-    /// Example: uid=example,ou=users,dc=github,dc=com
+    /// Example: "uid=example,ou=users,dc=github,dc=com"
     public var ldapDn: String?
 
     /// The level of privacy this team should have
     ///
-    /// Example: closed
+    /// Example: "closed"
     public enum Privacy: String, Codable, CaseIterable {
         case closed
         case secret
@@ -8057,21 +8058,21 @@ public struct TeamDiscussion: Codable {
     public var author: SimpleUser?
     /// The main text of the discussion.
     ///
-    /// Example: Please suggest improvements to our workflow in comments.
+    /// Example: "Please suggest improvements to our workflow in comments."
     public var body: String
-    /// Example: <p>Hi! This is an area for us to collaborate as a team</p>
+    /// Example: "<p>Hi! This is an area for us to collaborate as a team</p>"
     public var bodyHTML: String
     /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
     ///
-    /// Example: 0307116bbf7ced493b8d8a346c650b71
+    /// Example: "0307116bbf7ced493b8d8a346c650b71"
     public var bodyVersion: String
     public var commentsCount: Int
     public var commentsURL: URL
-    /// Example: 2018-01-25T18:56:31Z
+    /// Example: "2018-01-25T18:56:31Z"
     public var createdAt: Date
     public var lastEditedAt: Date?
     public var htmlURL: URL
-    /// Example: MDE0OlRlYW1EaXNjdXNzaW9uMQ==
+    /// Example: "MDE0OlRlYW1EaXNjdXNzaW9uMQ=="
     public var nodeID: String
     /// The unique sequence number of a team discussion.
     ///
@@ -8088,9 +8089,9 @@ public struct TeamDiscussion: Codable {
     public var teamURL: URL
     /// The title of the discussion.
     ///
-    /// Example: How can we improve our workflow?
+    /// Example: "How can we improve our workflow?"
     public var title: String
-    /// Example: 2018-01-25T18:56:31Z
+    /// Example: "2018-01-25T18:56:31Z"
     public var updatedAt: Date
     public var url: URL
     /// Reaction Rollup
@@ -8168,26 +8169,26 @@ public struct TeamDiscussionComment: Codable {
     public var author: SimpleUser?
     /// The main text of the comment.
     ///
-    /// Example: I agree with this suggestion.
+    /// Example: "I agree with this suggestion."
     public var body: String
-    /// Example: <p>Do you like apples?</p>
+    /// Example: "<p>Do you like apples?</p>"
     public var bodyHTML: String
     /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
     ///
-    /// Example: 0307116bbf7ced493b8d8a346c650b71
+    /// Example: "0307116bbf7ced493b8d8a346c650b71"
     public var bodyVersion: String
-    /// Example: 2018-01-15T23:53:58Z
+    /// Example: "2018-01-15T23:53:58Z"
     public var createdAt: Date
     public var lastEditedAt: Date?
     public var discussionURL: URL
     public var htmlURL: URL
-    /// Example: MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE=
+    /// Example: "MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE="
     public var nodeID: String
     /// The unique sequence number of a team discussion comment.
     ///
     /// Example: 42
     public var number: Int
-    /// Example: 2018-01-15T23:53:58Z
+    /// Example: "2018-01-15T23:53:58Z"
     public var updatedAt: Date
     public var url: URL
     /// Reaction Rollup
@@ -8247,20 +8248,20 @@ public struct TeamDiscussionComment: Codable {
 /// Reactions to conversations provide a way to help people express their feelings more simply and effectively.
 public struct Reaction: Codable {
     public var id: Int
-    /// Example: MDg6UmVhY3Rpb24x
+    /// Example: "MDg6UmVhY3Rpb24x"
     public var nodeID: String
     /// Simple User
     public var user: SimpleUser?
     /// The reaction to use
     ///
-    /// Example: heart
+    /// Example: "heart"
     public var content: Content
-    /// Example: 2016-05-20T20:09:31Z
+    /// Example: "2016-05-20T20:09:31Z"
     public var createdAt: Date
 
     /// The reaction to use
     ///
-    /// Example: heart
+    /// Example: "heart"
     public enum Content: String, Codable, CaseIterable {
         case plus1 = "+1"
         case minus1 = "-1"
@@ -8303,14 +8304,14 @@ public struct TeamMembership: Codable {
     public var url: URL
     /// The role of the user in the team.
     ///
-    /// Example: member
+    /// Example: "member"
     public var role: Role
     /// The state of the user's membership in the team.
     public var state: State
 
     /// The role of the user in the team.
     ///
-    /// Example: member
+    /// Example: "member"
     public enum Role: String, Codable, CaseIterable {
         case member
         case maintainer
@@ -8457,26 +8458,26 @@ public struct TeamRepository: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+    /// Example: "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
     public var nodeID: String
     /// The name of the repository.
     ///
-    /// Example: Team Environment
+    /// Example: "Team Environment"
     public var name: String
-    /// Example: octocat/Hello-World
+    /// Example: "octocat/Hello-World"
     public var fullName: String
     /// License Simple
     public var license: LicenseSimple?
     public var forks: Int
     public var permissions: Permissions?
-    /// Example: admin
+    /// Example: "admin"
     public var roleName: String?
     /// Simple User
     public var owner: SimpleUser?
     /// Whether the repository is private or public.
     public var isPrivate: Bool
     public var htmlURL: URL
-    /// Example: This your first repo!
+    /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
     public var url: URL
@@ -8532,7 +8533,7 @@ public struct TeamRepository: Codable {
     public var size: Int
     /// The default branch of the repository.
     ///
-    /// Example: master
+    /// Example: "master"
     public var defaultBranch: String
     public var openIssuesCount: Int
     /// Whether this repository acts as a template that can be used to generate new repositories.
@@ -8563,11 +8564,11 @@ public struct TeamRepository: Codable {
     public var isDisabled: Bool
     /// The repository visibility: public, private, or internal.
     public var visibility: String?
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var pushedAt: Date?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date?
-    /// Example: 2011-01-26T19:14:43Z
+    /// Example: "2011-01-26T19:14:43Z"
     public var updatedAt: Date?
     /// Whether to allow rebase merges for pull requests.
     ///
@@ -8924,15 +8925,15 @@ public struct ProjectCard: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDExOlByb2plY3RDYXJkMTQ3OA==
+    /// Example: "MDExOlByb2plY3RDYXJkMTQ3OA=="
     public var nodeID: String
-    /// Example: Add payload for delete Project column
+    /// Example: "Add payload for delete Project column"
     public var note: String?
     /// Simple User
     public var creator: SimpleUser?
-    /// Example: 2016-09-05T14:21:06Z
+    /// Example: "2016-09-05T14:21:06Z"
     public var createdAt: Date
-    /// Example: 2016-09-05T14:20:22Z
+    /// Example: "2016-09-05T14:20:22Z"
     public var updatedAt: Date
     /// Whether or not the card is archived
     ///
@@ -9004,15 +9005,15 @@ public struct ProjectColumn: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEzOlByb2plY3RDb2x1bW4zNjc=
+    /// Example: "MDEzOlByb2plY3RDb2x1bW4zNjc="
     public var nodeID: String
     /// Name of the project column
     ///
-    /// Example: Remaining tasks
+    /// Example: "Remaining tasks"
     public var name: String
-    /// Example: 2016-09-05T14:18:44Z
+    /// Example: "2016-09-05T14:18:44Z"
     public var createdAt: Date
-    /// Example: 2016-09-05T14:22:28Z
+    /// Example: "2016-09-05T14:22:28Z"
     public var updatedAt: Date
 
     public init(url: URL, projectURL: URL, cardsURL: URL, id: Int, nodeID: String, name: String, createdAt: Date, updatedAt: Date) {
@@ -9184,9 +9185,9 @@ public struct RateLimitOverview: Codable {
 /// Code of Conduct Simple
 public struct CodeOfConductSimple: Codable {
     public var url: URL
-    /// Example: citizen_code_of_conduct
+    /// Example: "citizen_code_of_conduct"
     public var key: String
-    /// Example: Citizen Code of Conduct
+    /// Example: "Citizen Code of Conduct"
     public var name: String
     public var htmlURL: URL?
 
@@ -9217,17 +9218,17 @@ public struct CodeOfConductSimple: Codable {
 public struct FullRepository: Codable {
     /// Example: 1296269
     public var id: Int
-    /// Example: MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+    /// Example: "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
     public var nodeID: String
-    /// Example: Hello-World
+    /// Example: "Hello-World"
     public var name: String
-    /// Example: octocat/Hello-World
+    /// Example: "octocat/Hello-World"
     public var fullName: String
     /// Simple User
     public var owner: SimpleUser
     public var isPrivate: Bool
     public var htmlURL: URL
-    /// Example: This your first repo!
+    /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
     public var url: URL
@@ -9281,7 +9282,7 @@ public struct FullRepository: Codable {
     public var watchersCount: Int
     /// Example: 108
     public var size: Int
-    /// Example: master
+    /// Example: "master"
     public var defaultBranch: String
     public var openIssuesCount: Int
     /// Example: true
@@ -9309,13 +9310,13 @@ public struct FullRepository: Codable {
     public var isDisabled: Bool
     /// The repository visibility: public, private, or internal.
     ///
-    /// Example: public
+    /// Example: "public"
     public var visibility: String?
-    /// Example: 2011-01-26T19:06:43Z
+    /// Example: "2011-01-26T19:06:43Z"
     public var pushedAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date
-    /// Example: 2011-01-26T19:14:43Z
+    /// Example: "2011-01-26T19:14:43Z"
     public var updatedAt: Date
     public var permissions: Permissions?
     /// Example: true
@@ -9761,11 +9762,11 @@ public struct FullRepository: Codable {
 /// An artifact
 public struct Artifact: Codable {
     public var id: Int
-    /// Example: MDEwOkNoZWNrU3VpdGU1
+    /// Example: "MDEwOkNoZWNrU3VpdGU1"
     public var nodeID: String
     /// The name of the artifact.
     ///
-    /// Example: AdventureWorks.Framework
+    /// Example: "AdventureWorks.Framework"
     public var name: String
     /// The size in bytes of the artifact.
     ///
@@ -9832,33 +9833,33 @@ public struct Job: Codable {
     public var runURL: String
     /// Attempt number of the associated workflow run, 1 for first attempt and higher if the workflow was re-run.
     public var runAttempt: Int?
-    /// Example: MDg6Q2hlY2tSdW40
+    /// Example: "MDg6Q2hlY2tSdW40"
     public var nodeID: String
     /// The SHA of the commit that is being run.
     ///
-    /// Example: 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+    /// Example: "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
     public var headSha: String
     public var url: String
     public var htmlURL: String?
     /// The phase of the lifecycle that the job is currently in.
     ///
-    /// Example: queued
+    /// Example: "queued"
     public var status: Status
     /// The outcome of the job.
     ///
-    /// Example: success
+    /// Example: "success"
     public var conclusion: String?
     /// The time that the job started, in ISO 8601 format.
     ///
-    /// Example: 2019-08-08T08:00:00-07:00
+    /// Example: "2019-08-08T08:00:00-07:00"
     public var startedAt: Date
     /// The time that the job finished, in ISO 8601 format.
     ///
-    /// Example: 2019-08-08T08:00:00-07:00
+    /// Example: "2019-08-08T08:00:00-07:00"
     public var completedAt: Date?
     /// The name of the job.
     ///
-    /// Example: test-coverage
+    /// Example: "test-coverage"
     public var name: String
     /// Steps in this job.
     public var steps: [Step]?
@@ -9877,18 +9878,18 @@ public struct Job: Codable {
     public var runnerID: Int?
     /// The name of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
     ///
-    /// Example: my runner
+    /// Example: "my runner"
     public var runnerName: String?
     /// The ID of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
     public var runnerGroupID: Int?
     /// The name of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
     ///
-    /// Example: my runner group
+    /// Example: "my runner group"
     public var runnerGroupName: String?
 
     /// The phase of the lifecycle that the job is currently in.
     ///
-    /// Example: queued
+    /// Example: "queued"
     public enum Status: String, Codable, CaseIterable {
         case queued
         case inProgress = "in_progress"
@@ -9898,29 +9899,29 @@ public struct Job: Codable {
     public struct Step: Codable {
         /// The phase of the lifecycle that the job is currently in.
         ///
-        /// Example: queued
+        /// Example: "queued"
         public var status: Status
         /// The outcome of the job.
         ///
-        /// Example: success
+        /// Example: "success"
         public var conclusion: String?
         /// The name of the job.
         ///
-        /// Example: test-coverage
+        /// Example: "test-coverage"
         public var name: String
         public var number: Int
         /// The time that the step started, in ISO 8601 format.
         ///
-        /// Example: 2019-08-08T08:00:00-07:00
+        /// Example: "2019-08-08T08:00:00-07:00"
         public var startedAt: Date?
         /// The time that the job finished, in ISO 8601 format.
         ///
-        /// Example: 2019-08-08T08:00:00-07:00
+        /// Example: "2019-08-08T08:00:00-07:00"
         public var completedAt: Date?
 
         /// The phase of the lifecycle that the job is currently in.
         ///
-        /// Example: queued
+        /// Example: "queued"
         public enum Status: String, Codable, CaseIterable {
             case queued
             case inProgress = "in_progress"
@@ -10202,9 +10203,9 @@ public struct WorkflowRun: Codable {
     public var id: Int
     /// The name of the workflow run.
     ///
-    /// Example: Build
+    /// Example: "Build"
     public var name: String?
-    /// Example: MDEwOkNoZWNrU3VpdGU1
+    /// Example: "MDEwOkNoZWNrU3VpdGU1"
     public var nodeID: String
     /// The ID of the associated check suite.
     ///
@@ -10212,13 +10213,13 @@ public struct WorkflowRun: Codable {
     public var checkSuiteID: Int?
     /// The node ID of the associated check suite.
     ///
-    /// Example: MDEwOkNoZWNrU3VpdGU0Mg==
+    /// Example: "MDEwOkNoZWNrU3VpdGU0Mg=="
     public var checkSuiteNodeID: String?
-    /// Example: master
+    /// Example: "master"
     public var headBranch: String?
     /// The SHA of the head commit that points to the version of the worflow being run.
     ///
-    /// Example: 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+    /// Example: "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
     public var headSha: String
     /// The auto incrementing run number for the workflow run.
     ///
@@ -10226,11 +10227,11 @@ public struct WorkflowRun: Codable {
     public var runNumber: Int
     /// Attempt number of the run, 1 for first attempt and higher if the workflow was re-run.
     public var runAttempt: Int?
-    /// Example: push
+    /// Example: "push"
     public var event: String
-    /// Example: completed
+    /// Example: "completed"
     public var status: String?
-    /// Example: neutral
+    /// Example: "neutral"
     public var conclusion: String?
     /// The ID of the parent workflow.
     public var workflowID: Int
@@ -10379,13 +10380,13 @@ public struct EnvironmentApprovals: Codable {
     public var environments: [Environment]
     /// Whether deployment to the environment(s) was approved or rejected
     ///
-    /// Example: approved
+    /// Example: "approved"
     public var state: State
     /// Simple User
     public var user: SimpleUser
     /// The comment submitted with the deployment review
     ///
-    /// Example: Ship it!
+    /// Example: "Ship it!"
     public var comment: String
 
     public struct Environment: Codable {
@@ -10393,21 +10394,21 @@ public struct EnvironmentApprovals: Codable {
         ///
         /// Example: 56780428
         public var id: Int?
-        /// Example: MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
+        /// Example: "MDExOkVudmlyb25tZW50NTY3ODA0Mjg="
         public var nodeID: String?
         /// The name of the environment.
         ///
-        /// Example: staging
+        /// Example: "staging"
         public var name: String?
         public var url: String?
         public var htmlURL: String?
         /// The time that the environment was created, in ISO 8601 format.
         ///
-        /// Example: 2020-11-23T22:00:40Z
+        /// Example: "2020-11-23T22:00:40Z"
         public var createdAt: Date?
         /// The time that the environment was last updated, in ISO 8601 format.
         ///
-        /// Example: 2020-11-23T22:00:40Z
+        /// Example: "2020-11-23T22:00:40Z"
         public var updatedAt: Date?
 
         public init(id: Int? = nil, nodeID: String? = nil, name: String? = nil, url: String? = nil, htmlURL: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil) {
@@ -10445,7 +10446,7 @@ public struct EnvironmentApprovals: Codable {
 
     /// Whether deployment to the environment(s) was approved or rejected
     ///
-    /// Example: approved
+    /// Example: "approved"
     public enum State: String, Codable, CaseIterable {
         case approved
         case rejected
@@ -10477,7 +10478,7 @@ public struct EnvironmentApprovals: Codable {
 
 /// The type of reviewer. Must be one of: `User` or `Team`
 ///
-/// Example: User
+/// Example: "User"
 public enum DeploymentReviewerType: String, Codable, CaseIterable {
     case user = "User"
     case team = "Team"
@@ -10492,7 +10493,7 @@ public struct PendingDeployment: Codable {
     public var waitTimer: Int
     /// The time that the wait timer began.
     ///
-    /// Example: 2020-11-23T22:00:40Z
+    /// Example: "2020-11-23T22:00:40Z"
     public var waitTimerStartedAt: Date?
     /// Whether the currently authenticated user can approve the deployment
     ///
@@ -10506,11 +10507,11 @@ public struct PendingDeployment: Codable {
         ///
         /// Example: 56780428
         public var id: Int?
-        /// Example: MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
+        /// Example: "MDExOkVudmlyb25tZW50NTY3ODA0Mjg="
         public var nodeID: String?
         /// The name of the environment.
         ///
-        /// Example: staging
+        /// Example: "staging"
         public var name: String?
         public var url: String?
         public var htmlURL: String?
@@ -10545,7 +10546,7 @@ public struct PendingDeployment: Codable {
     public struct Reviewer: Codable {
         /// The type of reviewer. Must be one of: `User` or `Team`
         ///
-        /// Example: User
+        /// Example: "User"
         public var type: DeploymentReviewerType?
         public var reviewer: Reviewer?
 
@@ -10619,32 +10620,32 @@ public struct Deployment: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEwOkRlcGxveW1lbnQx
+    /// Example: "MDEwOkRlcGxveW1lbnQx"
     public var nodeID: String
-    /// Example: a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d
+    /// Example: "a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d"
     public var sha: String
     /// The ref to deploy. This can be a branch, tag, or sha.
     ///
-    /// Example: topic-branch
+    /// Example: "topic-branch"
     public var ref: String
     /// Parameter to specify a task to execute
     ///
-    /// Example: deploy
+    /// Example: "deploy"
     public var task: String
     public var payload: Payload
-    /// Example: staging
+    /// Example: "staging"
     public var originalEnvironment: String?
     /// Name for the target deployment environment.
     ///
-    /// Example: production
+    /// Example: "production"
     public var environment: String
-    /// Example: Deploy request from hubot
+    /// Example: "Deploy request from hubot"
     public var description: String?
     /// Simple User
     public var creator: SimpleUser?
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var createdAt: Date
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
     public var statusesURL: URL
     public var repositoryURL: URL
@@ -10947,7 +10948,7 @@ public struct WorkflowRunUsage: Codable {
 public struct ActionsSecret: Codable {
     /// The name of the secret.
     ///
-    /// Example: SECRET_TOKEN
+    /// Example: "SECRET_TOKEN"
     public var name: String
     public var createdAt: Date
     public var updatedAt: Date
@@ -10976,25 +10977,25 @@ public struct ActionsSecret: Codable {
 /// A GitHub Actions workflow
 public struct Workflow: Codable {
     public var id: Int
-    /// Example: MDg6V29ya2Zsb3cxMg==
+    /// Example: "MDg6V29ya2Zsb3cxMg=="
     public var nodeID: String
-    /// Example: CI
+    /// Example: "CI"
     public var name: String
-    /// Example: ruby.yaml
+    /// Example: "ruby.yaml"
     public var path: String
-    /// Example: active
+    /// Example: "active"
     public var state: State
-    /// Example: 2019-12-06T14:20:20.000Z
+    /// Example: "2019-12-06T14:20:20.000Z"
     public var createdAt: Date
-    /// Example: 2019-12-06T14:20:20.000Z
+    /// Example: "2019-12-06T14:20:20.000Z"
     public var updatedAt: Date
     public var url: String
     public var htmlURL: String
     public var badgeURL: String
-    /// Example: 2019-12-06T14:20:20.000Z
+    /// Example: "2019-12-06T14:20:20.000Z"
     public var deletedAt: Date?
 
-    /// Example: active
+    /// Example: "active"
     public enum State: String, Codable, CaseIterable {
         case active
         case deleted
@@ -11153,7 +11154,7 @@ public struct Autolink: Codable {
     public var id: Int
     /// The prefix of a key that is linkified.
     ///
-    /// Example: TICKET-
+    /// Example: "TICKET-"
     public var keyPrefix: String
     /// A template for the target URL that is generated if a key was found.
     public var urlTemplate: String
@@ -11994,11 +11995,11 @@ public struct Verification: Codable {
 }
 
 public struct DiffEntry: Codable {
-    /// Example: bbcd538c8e72b8c175046e27cc8f907076331401
+    /// Example: "bbcd538c8e72b8c175046e27cc8f907076331401"
     public var sha: String
-    /// Example: file1.txt
+    /// Example: "file1.txt"
     public var filename: String
-    /// Example: added
+    /// Example: "added"
     public var status: Status
     /// Example: 103
     public var additions: Int
@@ -12009,12 +12010,12 @@ public struct DiffEntry: Codable {
     public var blobURL: URL
     public var rawURL: URL
     public var contentsURL: URL
-    /// Example: @@ -132,7 +132,7 @@ module Test @@ -1000,7 +1000,7 @@ module Test
+    /// Example: "@@ -132,7 +132,7 @@ module Test @@ -1000,7 +1000,7 @@ module Test"
     public var patch: String?
-    /// Example: file.txt
+    /// Example: "file.txt"
     public var previousFilename: String?
 
-    /// Example: added
+    /// Example: "added"
     public enum Status: String, Codable, CaseIterable {
         case added
         case removed
@@ -12072,9 +12073,9 @@ public struct DiffEntry: Codable {
 
 public struct Commit: Codable {
     public var url: URL
-    /// Example: 6dcb09b5b57875f334f61aebed695e2e4193db5e
+    /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var sha: String
-    /// Example: MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ==
+    /// Example: "MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ=="
     public var nodeID: String
     public var htmlURL: URL
     public var commentsURL: URL
@@ -12097,14 +12098,14 @@ public struct Commit: Codable {
         ///
         /// Metaproperties for Git author/committer information.
         public var committer: GitUser?
-        /// Example: Fix all the bugs
+        /// Example: "Fix all the bugs"
         public var message: String
         public var commentCount: Int
         public var tree: Tree
         public var verification: Verification?
 
         public struct Tree: Codable {
-            /// Example: 827efc6d56897b048c772eb4087f854f46256132
+            /// Example: "827efc6d56897b048c772eb4087f854f46256132"
             public var sha: String
             public var url: URL
 
@@ -12160,7 +12161,7 @@ public struct Commit: Codable {
     }
 
     public struct Parent: Codable {
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
         public var htmlURL: URL?
@@ -12614,23 +12615,23 @@ public struct DeploymentSimple: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDEwOkRlcGxveW1lbnQx
+    /// Example: "MDEwOkRlcGxveW1lbnQx"
     public var nodeID: String
     /// Parameter to specify a task to execute
     ///
-    /// Example: deploy
+    /// Example: "deploy"
     public var task: String
-    /// Example: staging
+    /// Example: "staging"
     public var originalEnvironment: String?
     /// Name for the target deployment environment.
     ///
-    /// Example: production
+    /// Example: "production"
     public var environment: String
-    /// Example: Deploy request from hubot
+    /// Example: "Deploy request from hubot"
     public var description: String?
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var createdAt: Date
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
     public var statusesURL: URL
     public var repositoryURL: URL
@@ -12709,29 +12710,29 @@ public struct CheckRun: Codable {
     public var id: Int
     /// The SHA of the commit that is being checked.
     ///
-    /// Example: 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+    /// Example: "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
     public var headSha: String
-    /// Example: MDg6Q2hlY2tSdW40
+    /// Example: "MDg6Q2hlY2tSdW40"
     public var nodeID: String
-    /// Example: 42
+    /// Example: "42"
     public var externalID: String?
     public var url: String
     public var htmlURL: String?
     public var detailsURL: String?
     /// The phase of the lifecycle that the check is currently in.
     ///
-    /// Example: queued
+    /// Example: "queued"
     public var status: Status
-    /// Example: neutral
+    /// Example: "neutral"
     public var conclusion: Conclusion?
-    /// Example: 2018-05-04T01:14:52Z
+    /// Example: "2018-05-04T01:14:52Z"
     public var startedAt: Date?
-    /// Example: 2018-05-04T01:14:52Z
+    /// Example: "2018-05-04T01:14:52Z"
     public var completedAt: Date?
     public var output: Output
     /// The name of the check.
     ///
-    /// Example: test-coverage
+    /// Example: "test-coverage"
     public var name: String
     public var checkSuite: CheckSuite?
     /// GitHub app
@@ -12744,14 +12745,14 @@ public struct CheckRun: Codable {
 
     /// The phase of the lifecycle that the check is currently in.
     ///
-    /// Example: queued
+    /// Example: "queued"
     public enum Status: String, Codable, CaseIterable {
         case queued
         case inProgress = "in_progress"
         case completed
     }
 
-    /// Example: neutral
+    /// Example: "neutral"
     public enum Conclusion: String, Codable, CaseIterable {
         case success
         case failure
@@ -12878,20 +12879,20 @@ public struct CheckRun: Codable {
 }
 
 public struct CheckAnnotation: Codable {
-    /// Example: README.md
+    /// Example: "README.md"
     public var path: String
     public var startLine: Int
     public var endLine: Int
     public var startColumn: Int?
     /// Example: 10
     public var endColumn: Int?
-    /// Example: warning
+    /// Example: "warning"
     public var annotationLevel: String?
-    /// Example: Spell Checker
+    /// Example: "Spell Checker"
     public var title: String?
-    /// Example: Check your spelling for 'banaas'.
+    /// Example: "Check your spelling for 'banaas'."
     public var message: String?
-    /// Example: Do you mean 'bananas' or 'banana'?
+    /// Example: "Do you mean 'bananas' or 'banana'?"
     public var rawDetails: String?
     public var blobHref: String
 
@@ -13022,22 +13023,22 @@ public struct SimpleCommit: Codable {
 /// A suite of checks performed on the code of a given code change
 public struct CheckSuite: Codable {
     public var id: Int
-    /// Example: MDEwOkNoZWNrU3VpdGU1
+    /// Example: "MDEwOkNoZWNrU3VpdGU1"
     public var nodeID: String
-    /// Example: master
+    /// Example: "master"
     public var headBranch: String?
     /// The SHA of the head commit that is being checked.
     ///
-    /// Example: 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+    /// Example: "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
     public var headSha: String
-    /// Example: completed
+    /// Example: "completed"
     public var status: Status?
-    /// Example: neutral
+    /// Example: "neutral"
     public var conclusion: Conclusion?
     public var url: String?
-    /// Example: 146e867f55c26428e5f9fade55a9bbf5e95a7912
+    /// Example: "146e867f55c26428e5f9fade55a9bbf5e95a7912"
     public var before: String?
-    /// Example: d6fde92930d4715a2b49857d24b940956b26d2d3
+    /// Example: "d6fde92930d4715a2b49857d24b940956b26d2d3"
     public var after: String?
     public var pullRequests: [PullRequestMinimal]?
     /// GitHub app
@@ -13053,14 +13054,14 @@ public struct CheckSuite: Codable {
     public var latestCheckRunsCount: Int
     public var checkRunsURL: String
 
-    /// Example: completed
+    /// Example: "completed"
     public enum Status: String, Codable, CaseIterable {
         case queued
         case inProgress = "in_progress"
         case completed
     }
 
-    /// Example: neutral
+    /// Example: "neutral"
     public enum Conclusion: String, Codable, CaseIterable {
         case success
         case failure
@@ -13638,7 +13639,7 @@ public struct CodeScanningAnalysis: Codable {
     public var environment: String
     /// Identifies the configuration under which the analysis was executed. Used to distinguish between multiple analyses for the same tool and commit, but performed on different languages or different parts of the code.
     public var category: String?
-    /// Example: error reading field xyz
+    /// Example: "error reading field xyz"
     public var error: String
     /// The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date
@@ -13652,13 +13653,13 @@ public struct CodeScanningAnalysis: Codable {
     public var url: URL
     /// An identifier for the upload.
     ///
-    /// Example: 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
+    /// Example: "6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53"
     public var sarifID: String
     public var tool: CodeScanningAnalysisTool
     public var isDeletable: Bool
     /// Warning generated when processing the analysis
     ///
-    /// Example: 123 results were ignored
+    /// Example: "123 results were ignored"
     public var warning: String
 
     public init(ref: String, commitSha: String, analysisKey: String, environment: String, category: String? = nil, error: String, createdAt: Date, resultsCount: Int, rulesCount: Int, id: Int, url: URL, sarifID: String, tool: CodeScanningAnalysisTool, isDeletable: Bool, warning: String) {
@@ -13748,7 +13749,7 @@ public struct CodeScanningAnalysisDeletion: Codable {
 public struct CodeScanningSarifsReceipt: Codable {
     /// An identifier for the upload.
     ///
-    /// Example: 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
+    /// Example: "6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53"
     public var id: String?
     /// The REST API URL for checking the status of the upload.
     public var url: URL?
@@ -13812,11 +13813,11 @@ public struct Codespace: Codable {
     public var id: Int
     /// Automatically generated name of this codespace.
     ///
-    /// Example: monalisa-octocat-hello-world-g4wpq6h95q
+    /// Example: "monalisa-octocat-hello-world-g4wpq6h95q"
     public var name: String
     /// UUID identifying this codespace's environment.
     ///
-    /// Example: 26a7c758-7299-4a73-b978-5a92a7ae98a0
+    /// Example: "26a7c758-7299-4a73-b978-5a92a7ae98a0"
     public var environmentID: String?
     /// Simple User
     public var owner: SimpleUser
@@ -13832,17 +13833,17 @@ public struct Codespace: Codable {
     ///
     /// Example: false
     public var isPrebuild: Bool?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var updatedAt: Date
     /// Last known time this codespace was started.
     ///
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var lastUsedAt: Date
     /// State of this codespace.
     ///
-    /// Example: Available
+    /// Example: "Available"
     public var state: State
     /// API URL for this codespace.
     public var url: URL
@@ -13850,7 +13851,7 @@ public struct Codespace: Codable {
     public var gitStatus: GitStatus
     /// The Azure region where this codespace is located.
     ///
-    /// Example: WestUs2
+    /// Example: "WestUs2"
     public var location: Location
     /// The number of minutes of inactivity after which this codespace will be automatically stopped.
     ///
@@ -13870,7 +13871,7 @@ public struct Codespace: Codable {
 
     /// State of this codespace.
     ///
-    /// Example: Available
+    /// Example: "Available"
     public enum State: String, Codable, CaseIterable {
         case `none` = "None"
         case created = "Created"
@@ -13903,7 +13904,7 @@ public struct Codespace: Codable {
         public var hasUncommittedChanges: Bool?
         /// The current branch (or SHA if in detached HEAD state) of the local repository.
         ///
-        /// Example: main
+        /// Example: "main"
         public var ref: String?
 
         public init(ahead: Int? = nil, behind: Int? = nil, hasUnpushedChanges: Bool? = nil, hasUncommittedChanges: Bool? = nil, ref: String? = nil) {
@@ -13935,7 +13936,7 @@ public struct Codespace: Codable {
 
     /// The Azure region where this codespace is located.
     ///
-    /// Example: WestUs2
+    /// Example: "WestUs2"
     public enum Location: String, Codable, CaseIterable {
         case eastUs = "EastUs"
         case southEastAsia = "SouthEastAsia"
@@ -14025,15 +14026,15 @@ public struct Codespace: Codable {
 public struct CodespaceMachine: Codable {
     /// The name of the machine.
     ///
-    /// Example: standardLinux
+    /// Example: "standardLinux"
     public var name: String
     /// The display name of the machine includes cores, memory, and storage.
     ///
-    /// Example: 4 cores, 8 GB RAM, 64 GB storage
+    /// Example: "4 cores, 8 GB RAM, 64 GB storage"
     public var displayName: String
     /// The operating system of the machine.
     ///
-    /// Example: linux
+    /// Example: "linux"
     public var operatingSystem: String
     /// How much storage is available to the codespace.
     ///
@@ -14047,12 +14048,12 @@ public struct CodespaceMachine: Codable {
     public var cpus: Int
     /// Whether a prebuild is currently available when creating a codespace for this machine and repository. If a branch was not specified as a ref, the default branch will be assumed. Value will be "null" if prebuilds are not supported or prebuild availability could not be determined. Value is the type of prebuild available, or "none" if none are available.
     ///
-    /// Example: blob
+    /// Example: "blob"
     public var prebuildAvailability: PrebuildAvailability?
 
     /// Whether a prebuild is currently available when creating a codespace for this machine and repository. If a branch was not specified as a ref, the default branch will be assumed. Value will be "null" if prebuilds are not supported or prebuild availability could not be determined. Value is the type of prebuild available, or "none" if none are available.
     ///
-    /// Example: blob
+    /// Example: "blob"
     public enum PrebuildAvailability: String, Codable, CaseIterable {
         case `none`
         case blob
@@ -14093,15 +14094,15 @@ public struct CodespaceMachine: Codable {
 }
 
 public struct Collaborator: Codable {
-    /// Example: octocat
+    /// Example: "octocat"
     public var login: String
     public var id: Int
     public var email: String?
     public var name: String?
-    /// Example: MDQ6VXNlcjE=
+    /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
     public var avatarURL: URL
-    /// Example: 41d064eb2195891e12d0413f63227ea7
+    /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
     public var url: URL
     public var htmlURL: URL
@@ -14114,11 +14115,11 @@ public struct Collaborator: Codable {
     public var reposURL: URL
     public var eventsURL: String
     public var receivedEventsURL: URL
-    /// Example: User
+    /// Example: "User"
     public var type: String
     public var isSiteAdmin: Bool
     public var permissions: Permissions?
-    /// Example: admin
+    /// Example: "admin"
     public var roleName: String
 
     public struct Permissions: Codable {
@@ -14247,9 +14248,9 @@ public struct RepositoryInvitation: Codable {
     public var inviter: SimpleUser?
     /// The permission associated with the invitation.
     ///
-    /// Example: read
+    /// Example: "read"
     public var permissions: Permissions
-    /// Example: 2016-06-13T14:52:50-05:00
+    /// Example: "2016-06-13T14:52:50-05:00"
     public var createdAt: Date
     /// Whether or not the invitation has expired
     public var isExpired: Bool?
@@ -14260,7 +14261,7 @@ public struct RepositoryInvitation: Codable {
 
     /// The permission associated with the invitation.
     ///
-    /// Example: read
+    /// Example: "read"
     public enum Permissions: String, Codable, CaseIterable {
         case read
         case write
@@ -14313,7 +14314,7 @@ public struct RepositoryInvitation: Codable {
 
 public struct RepositoryCollaboratorPermission: Codable {
     public var permission: String
-    /// Example: admin
+    /// Example: "admin"
     public var roleName: String
     /// Collaborator
     public var user: Collaborator?
@@ -14357,7 +14358,7 @@ public struct CommitComment: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// Reaction Rollup
     public var reactions: ReactionRollup?
@@ -14528,7 +14529,7 @@ public struct AutoMerge: Codable {
 public struct PullRequestSimple: Codable {
     public var url: URL
     public var id: Int
-    /// Example: MDExOlB1bGxSZXF1ZXN0MQ==
+    /// Example: "MDExOlB1bGxSZXF1ZXN0MQ=="
     public var nodeID: String
     public var htmlURL: URL
     public var diffURL: URL
@@ -14541,30 +14542,30 @@ public struct PullRequestSimple: Codable {
     public var statusesURL: URL
     /// Example: 1347
     public var number: Int
-    /// Example: open
+    /// Example: "open"
     public var state: String
     /// Example: true
     public var isLocked: Bool
-    /// Example: new-feature
+    /// Example: "new-feature"
     public var title: String
     /// Simple User
     public var user: SimpleUser?
-    /// Example: Please pull these awesome changes
+    /// Example: "Please pull these awesome changes"
     public var body: String?
     public var labels: [Label]
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
-    /// Example: too heated
+    /// Example: "too heated"
     public var activeLockReason: String?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var updatedAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var closedAt: Date?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var mergedAt: Date?
-    /// Example: e5bd3914e2e596debea16f433f57875b5b90bcd6
+    /// Example: "e5bd3914e2e596debea16f433f57875b5b90bcd6"
     public var mergeCommitSha: String?
     /// Simple User
     public var assignee: SimpleUser?
@@ -14578,7 +14579,7 @@ public struct PullRequestSimple: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// The status of auto merging a pull request.
     public var autoMerge: AutoMerge?
@@ -15081,12 +15082,12 @@ public struct CommunityHealthFile: Codable {
 public struct CommunityProfile: Codable {
     /// Example: 100
     public var healthPercentage: Int
-    /// Example: My first repository on GitHub!
+    /// Example: "My first repository on GitHub!"
     public var description: String?
-    /// Example: example.com
+    /// Example: "example.com"
     public var documentation: String?
     public var files: Files
-    /// Example: 2017-02-28T19:09:29Z
+    /// Example: "2017-02-28T19:09:29Z"
     public var updatedAt: Date?
     /// Example: true
     public var isContentReportsEnabled: Bool?
@@ -15182,7 +15183,7 @@ public struct CommitComparison: Codable {
     public var baseCommit: Commit
     /// Commit
     public var mergeBaseCommit: Commit
-    /// Example: ahead
+    /// Example: "ahead"
     public var status: Status
     public var aheadBy: Int
     public var behindBy: Int
@@ -15190,7 +15191,7 @@ public struct CommitComparison: Codable {
     public var commits: [Commit]
     public var files: [DiffEntry]?
 
-    /// Example: ahead
+    /// Example: "ahead"
     public enum Status: String, Codable, CaseIterable {
         case diverged
         case ahead
@@ -15257,15 +15258,15 @@ public struct ContentReferenceAttachment: Codable {
     public var id: Int
     /// The title of the attachment
     ///
-    /// Example: Title of the attachment
+    /// Example: "Title of the attachment"
     public var title: String
     /// The body of the attachment
     ///
-    /// Example: Body of the attachment
+    /// Example: "Body of the attachment"
     public var body: String
     /// The node_id of the content attachment
     ///
-    /// Example: MDE3OkNvbnRlbnRBdHRhY2htZW50MjE=
+    /// Example: "MDE3OkNvbnRlbnRBdHRhY2htZW50MjE="
     public var nodeID: String?
 
     public init(id: Int, title: String, body: String, nodeID: String? = nil) {
@@ -16214,27 +16215,27 @@ public struct Contributor: Codable {
 public struct DeploymentStatus: Codable {
     public var url: URL
     public var id: Int
-    /// Example: MDE2OkRlcGxveW1lbnRTdGF0dXMx
+    /// Example: "MDE2OkRlcGxveW1lbnRTdGF0dXMx"
     public var nodeID: String
     /// The state of the status.
     ///
-    /// Example: success
+    /// Example: "success"
     public var state: State
     /// Simple User
     public var creator: SimpleUser?
     /// A short description of the status.
     ///
-    /// Example: Deployment finished successfully.
+    /// Example: "Deployment finished successfully."
     public var description: String
     /// The environment of the deployment that the status is for.
     ///
-    /// Example: production
+    /// Example: "production"
     public var environment: String?
     /// Deprecated: the URL to associate with this status.
     public var targetURL: URL
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var createdAt: Date
-    /// Example: 2012-07-20T01:19:13Z
+    /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
     public var deploymentURL: URL
     public var repositoryURL: URL
@@ -16249,7 +16250,7 @@ public struct DeploymentStatus: Codable {
 
     /// The state of the status.
     ///
-    /// Example: success
+    /// Example: "success"
     public enum State: String, Codable, CaseIterable {
         case error
         case failure
@@ -16348,21 +16349,21 @@ public struct Environment: Codable {
     ///
     /// Example: 56780428
     public var id: Int
-    /// Example: MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
+    /// Example: "MDExOkVudmlyb25tZW50NTY3ODA0Mjg="
     public var nodeID: String
     /// The name of the environment.
     ///
-    /// Example: staging
+    /// Example: "staging"
     public var name: String
     public var url: String
     public var htmlURL: String
     /// The time that the environment was created, in ISO 8601 format.
     ///
-    /// Example: 2020-11-23T22:00:40Z
+    /// Example: "2020-11-23T22:00:40Z"
     public var createdAt: Date
     /// The time that the environment was last updated, in ISO 8601 format.
     ///
-    /// Example: 2020-11-23T22:00:40Z
+    /// Example: "2020-11-23T22:00:40Z"
     public var updatedAt: Date
     public var protectionRules: [ProtectionRule]?
     /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
@@ -16376,9 +16377,9 @@ public struct Environment: Codable {
         public struct Object1: Codable {
             /// Example: 3515
             public var id: Int
-            /// Example: MDQ6R2F0ZTM1MTU=
+            /// Example: "MDQ6R2F0ZTM1MTU="
             public var nodeID: String
-            /// Example: wait_timer
+            /// Example: "wait_timer"
             public var type: String
             /// The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days).
             ///
@@ -16412,9 +16413,9 @@ public struct Environment: Codable {
         public struct Object2: Codable {
             /// Example: 3755
             public var id: Int
-            /// Example: MDQ6R2F0ZTM3NTU=
+            /// Example: "MDQ6R2F0ZTM3NTU="
             public var nodeID: String
-            /// Example: required_reviewers
+            /// Example: "required_reviewers"
             public var type: String
             /// The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
             public var reviewers: [Reviewer]?
@@ -16422,7 +16423,7 @@ public struct Environment: Codable {
             public struct Reviewer: Codable {
                 /// The type of reviewer. Must be one of: `User` or `Team`
                 ///
-                /// Example: User
+                /// Example: "User"
                 public var type: DeploymentReviewerType?
                 public var reviewer: Reviewer?
 
@@ -16489,9 +16490,9 @@ public struct Environment: Codable {
         public struct Object3: Codable {
             /// Example: 3515
             public var id: Int
-            /// Example: MDQ6R2F0ZTM1MTU=
+            /// Example: "MDQ6R2F0ZTM1MTU="
             public var nodeID: String
-            /// Example: branch_policy
+            /// Example: "branch_policy"
             public var type: String
 
             public init(id: Int, nodeID: String, type: String) {
@@ -16637,7 +16638,7 @@ public struct Blob: Codable {
 public struct GitCommit: Codable {
     /// SHA for the commit
     ///
-    /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+    /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
     public var sha: String
     public var nodeID: String
     public var url: URL
@@ -16647,7 +16648,7 @@ public struct GitCommit: Codable {
     public var committer: Committer
     /// Message describing the purpose of the commit
     ///
-    /// Example: Fix #42
+    /// Example: "Fix #42"
     public var message: String
     public var tree: Tree
     public var parents: [Parent]
@@ -16658,15 +16659,15 @@ public struct GitCommit: Codable {
     public struct Author: Codable {
         /// Timestamp of the commit
         ///
-        /// Example: 2014-08-09T08:02:04+12:00
+        /// Example: "2014-08-09T08:02:04+12:00"
         public var date: Date
         /// Git email address of the user
         ///
-        /// Example: monalisa.octocat@example.com
+        /// Example: "monalisa.octocat@example.com"
         public var email: String
         /// Name of the git user
         ///
-        /// Example: Monalisa Octocat
+        /// Example: "Monalisa Octocat"
         public var name: String
 
         public init(date: Date, email: String, name: String) {
@@ -16694,15 +16695,15 @@ public struct GitCommit: Codable {
     public struct Committer: Codable {
         /// Timestamp of the commit
         ///
-        /// Example: 2014-08-09T08:02:04+12:00
+        /// Example: "2014-08-09T08:02:04+12:00"
         public var date: Date
         /// Git email address of the user
         ///
-        /// Example: monalisa.octocat@example.com
+        /// Example: "monalisa.octocat@example.com"
         public var email: String
         /// Name of the git user
         ///
-        /// Example: Monalisa Octocat
+        /// Example: "Monalisa Octocat"
         public var name: String
 
         public init(date: Date, email: String, name: String) {
@@ -16729,7 +16730,7 @@ public struct GitCommit: Codable {
     public struct Tree: Codable {
         /// SHA for the commit
         ///
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
 
@@ -16754,7 +16755,7 @@ public struct GitCommit: Codable {
     public struct Parent: Codable {
         /// SHA for the commit
         ///
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
         public var htmlURL: URL
@@ -16865,7 +16866,7 @@ public struct GitRef: Codable {
         public var type: String
         /// SHA for the reference
         ///
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
 
@@ -16916,19 +16917,19 @@ public struct GitRef: Codable {
 
 /// Metadata for a Git tag
 public struct GitTag: Codable {
-    /// Example: MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw==
+    /// Example: "MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw=="
     public var nodeID: String
     /// Name of the tag
     ///
-    /// Example: v0.0.1
+    /// Example: "v0.0.1"
     public var tag: String
-    /// Example: 940bd336248efae0f9ee5bc7b2d5c985887b16ac
+    /// Example: "940bd336248efae0f9ee5bc7b2d5c985887b16ac"
     public var sha: String
     /// URL for the tag
     public var url: URL
     /// Message describing the purpose of the tag
     ///
-    /// Example: Initial public release
+    /// Example: "Initial public release"
     public var message: String
     public var tagger: Tagger
     public var object: Object
@@ -17072,13 +17073,13 @@ public struct GitTree: Codable {
     public var tree: [TreeItem]
 
     public struct TreeItem: Codable {
-        /// Example: test/file.rb
+        /// Example: "test/file.rb"
         public var path: String?
-        /// Example: 040000
+        /// Example: "040000"
         public var mode: String?
-        /// Example: tree
+        /// Example: "tree"
         public var type: String?
-        /// Example: 23f6827669e43831def8a7ad935069c8bd418261
+        /// Example: "23f6827669e43831def8a7ad935069c8bd418261"
         public var sha: String?
         /// Example: 12
         public var size: Int?
@@ -17175,7 +17176,7 @@ public struct Hook: Codable {
     public var id: Int
     /// The name of a valid service, use 'web' for a webhook.
     ///
-    /// Example: web
+    /// Example: "web"
     public var name: String
     /// Determines whether the hook is actually triggered on pushes.
     ///
@@ -17191,9 +17192,9 @@ public struct Hook: Codable {
     /// ]
     public var events: [String]
     public var config: Config
-    /// Example: 2011-09-06T20:39:23Z
+    /// Example: "2011-09-06T20:39:23Z"
     public var updatedAt: Date
-    /// Example: 2011-09-06T17:26:27Z
+    /// Example: "2011-09-06T17:26:27Z"
     public var createdAt: Date
     public var url: URL
     public var testURL: URL
@@ -17677,17 +17678,17 @@ public struct IssueEventRename: Codable {
 
 public struct IssueEvent: Codable {
     public var id: Int
-    /// Example: MDEwOklzc3VlRXZlbnQx
+    /// Example: "MDEwOklzc3VlRXZlbnQx"
     public var nodeID: String
     public var url: URL
     /// Simple User
     public var actor: SimpleUser?
-    /// Example: closed
+    /// Example: "closed"
     public var event: String
-    /// Example: 6dcb09b5b57875f334f61aebed695e2e4193db5e
+    /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var commitID: String?
     public var commitURL: String?
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
     /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
     public var issue: Issue?
@@ -17717,7 +17718,7 @@ public struct IssueEvent: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation?
     public var lockReason: String?
     /// GitHub app
@@ -19056,19 +19057,19 @@ public struct IssueEventForIssue: Codable {
 public struct Label: Codable {
     /// Example: 208045946
     public var id: Int
-    /// Example: MDU6TGFiZWwyMDgwNDU5NDY=
+    /// Example: "MDU6TGFiZWwyMDgwNDU5NDY="
     public var nodeID: String
     /// URL for the label
     public var url: URL
     /// The name of the label.
     ///
-    /// Example: bug
+    /// Example: "bug"
     public var name: String
-    /// Example: Something isn't working
+    /// Example: "Something isn't working"
     public var description: String?
     /// 6-character hex code, without the leading #, identifying the color
     ///
-    /// Example: FFFFFF
+    /// Example: "FFFFFF"
     public var color: String
     /// Example: true
     public var isDefault: Bool
@@ -19119,23 +19120,23 @@ public struct TimelineCommentEvent: Codable {
     public var url: URL
     /// Contents of the issue comment
     ///
-    /// Example: What version of Safari were you using when you observed this bug?
+    /// Example: "What version of Safari were you using when you observed this bug?"
     public var body: String?
     public var bodyText: String?
     public var bodyHTML: String?
     public var htmlURL: URL
     /// Simple User
     public var user: SimpleUser
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
     public var issueURL: URL
     /// Author_association
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// GitHub app
     ///
@@ -19266,7 +19267,7 @@ public struct TimelineCommittedEvent: Codable {
     public var event: String?
     /// SHA for the commit
     ///
-    /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+    /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
     public var sha: String
     public var nodeID: String
     public var url: URL
@@ -19276,7 +19277,7 @@ public struct TimelineCommittedEvent: Codable {
     public var committer: Committer
     /// Message describing the purpose of the commit
     ///
-    /// Example: Fix #42
+    /// Example: "Fix #42"
     public var message: String
     public var tree: Tree
     public var parents: [Parent]
@@ -19287,15 +19288,15 @@ public struct TimelineCommittedEvent: Codable {
     public struct Author: Codable {
         /// Timestamp of the commit
         ///
-        /// Example: 2014-08-09T08:02:04+12:00
+        /// Example: "2014-08-09T08:02:04+12:00"
         public var date: Date
         /// Git email address of the user
         ///
-        /// Example: monalisa.octocat@example.com
+        /// Example: "monalisa.octocat@example.com"
         public var email: String
         /// Name of the git user
         ///
-        /// Example: Monalisa Octocat
+        /// Example: "Monalisa Octocat"
         public var name: String
 
         public init(date: Date, email: String, name: String) {
@@ -19323,15 +19324,15 @@ public struct TimelineCommittedEvent: Codable {
     public struct Committer: Codable {
         /// Timestamp of the commit
         ///
-        /// Example: 2014-08-09T08:02:04+12:00
+        /// Example: "2014-08-09T08:02:04+12:00"
         public var date: Date
         /// Git email address of the user
         ///
-        /// Example: monalisa.octocat@example.com
+        /// Example: "monalisa.octocat@example.com"
         public var email: String
         /// Name of the git user
         ///
-        /// Example: Monalisa Octocat
+        /// Example: "Monalisa Octocat"
         public var name: String
 
         public init(date: Date, email: String, name: String) {
@@ -19358,7 +19359,7 @@ public struct TimelineCommittedEvent: Codable {
     public struct Tree: Codable {
         /// SHA for the commit
         ///
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
 
@@ -19383,7 +19384,7 @@ public struct TimelineCommittedEvent: Codable {
     public struct Parent: Codable {
         /// SHA for the commit
         ///
-        /// Example: 7638417db6d59f3c431d3e1f261cc637155684cd
+        /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
         public var url: URL
         public var htmlURL: URL
@@ -19490,15 +19491,15 @@ public struct TimelineReviewedEvent: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
+    /// Example: "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA="
     public var nodeID: String
     /// Simple User
     public var user: SimpleUser
     /// The text of the review.
     ///
-    /// Example: This looks great.
+    /// Example: "This looks great."
     public var body: String?
-    /// Example: CHANGES_REQUESTED
+    /// Example: "CHANGES_REQUESTED"
     public var state: String
     public var htmlURL: URL
     public var pullRequestURL: URL
@@ -19506,7 +19507,7 @@ public struct TimelineReviewedEvent: Codable {
     public var submittedAt: Date?
     /// A commit SHA for the review.
     ///
-    /// Example: 54bb654c9e6025347f57900a4a5c2313a96b8035
+    /// Example: "54bb654c9e6025347f57900a4a5c2313a96b8035"
     public var commitID: String
     public var bodyHTML: String?
     public var bodyText: String?
@@ -19514,7 +19515,7 @@ public struct TimelineReviewedEvent: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
 
     public struct Links: Codable {
@@ -19641,15 +19642,15 @@ public struct PullRequestReviewComment: Codable {
     public var id: Int
     /// The node ID of the pull request review comment.
     ///
-    /// Example: MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
+    /// Example: "MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw"
     public var nodeID: String
     /// The diff of the line that the comment refers to.
     ///
-    /// Example: @@ -16,33 +16,40 @@ public class Connection : IConnection...
+    /// Example: "@@ -16,33 +16,40 @@ public class Connection : IConnection..."
     public var diffHunk: String
     /// The relative path of the file to which the comment applies.
     ///
-    /// Example: config/database.yaml
+    /// Example: "config/database.yaml"
     public var path: String
     /// The line index in the diff to which the comment applies.
     public var position: Int
@@ -19657,11 +19658,11 @@ public struct PullRequestReviewComment: Codable {
     public var originalPosition: Int
     /// The SHA of the commit to which the comment applies.
     ///
-    /// Example: 6dcb09b5b57875f334f61aebed695e2e4193db5e
+    /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var commitID: String
     /// The SHA of the original commit to which the comment applies.
     ///
-    /// Example: 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
+    /// Example: "9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840"
     public var originalCommitID: String
     /// The comment ID to reply to.
     public var inReplyToID: Int?
@@ -19669,11 +19670,11 @@ public struct PullRequestReviewComment: Codable {
     public var user: SimpleUser
     /// The text of the comment.
     ///
-    /// Example: We should probably include a check for null values here.
+    /// Example: "We should probably include a check for null values here."
     public var body: String
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
     /// HTML URL for the pull request review comment.
     public var htmlURL: URL
@@ -19683,7 +19684,7 @@ public struct PullRequestReviewComment: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     public var links: Links
     /// The first line of the range for a multi-line comment.
@@ -20317,7 +20318,7 @@ public struct Milestone: Codable {
     public var labelsURL: URL
     /// Example: 1002604
     public var id: Int
-    /// Example: MDk6TWlsZXN0b25lMTAwMjYwNA==
+    /// Example: "MDk6TWlsZXN0b25lMTAwMjYwNA=="
     public var nodeID: String
     /// The number of the milestone.
     ///
@@ -20325,30 +20326,30 @@ public struct Milestone: Codable {
     public var number: Int
     /// The state of the milestone.
     ///
-    /// Example: open
+    /// Example: "open"
     public var state: State
     /// The title of the milestone.
     ///
-    /// Example: v1.0
+    /// Example: "v1.0"
     public var title: String
-    /// Example: Tracking milestone for version 1.0
+    /// Example: "Tracking milestone for version 1.0"
     public var description: String?
     /// Simple User
     public var creator: SimpleUser?
     public var openIssues: Int
     public var closedIssues: Int
-    /// Example: 2011-04-10T20:09:31Z
+    /// Example: "2011-04-10T20:09:31Z"
     public var createdAt: Date
-    /// Example: 2014-03-03T18:58:10Z
+    /// Example: "2014-03-03T18:58:10Z"
     public var updatedAt: Date
-    /// Example: 2013-02-12T13:22:01Z
+    /// Example: "2013-02-12T13:22:01Z"
     public var closedAt: Date?
-    /// Example: 2012-10-09T23:39:01Z
+    /// Example: "2012-10-09T23:39:01Z"
     public var dueOn: Date?
 
     /// The state of the milestone.
     ///
-    /// Example: open
+    /// Example: "open"
     public enum State: String, Codable, CaseIterable {
         case `open`
         case closed
@@ -20437,9 +20438,9 @@ public struct PagesSourceHash: Codable {
 }
 
 public struct PagesHTTPSCertificate: Codable {
-    /// Example: approved
+    /// Example: "approved"
     public var state: State
-    /// Example: Certificate is approved
+    /// Example: "Certificate is approved"
     public var description: String
     /// Array of the domain set and its alternate name (if it is configured)
     ///
@@ -20452,7 +20453,7 @@ public struct PagesHTTPSCertificate: Codable {
     public var domains: [String]
     public var expiresAt: String?
 
-    /// Example: approved
+    /// Example: "approved"
     public enum State: String, Codable, CaseIterable {
         case new
         case authorizationCreated = "authorization_created"
@@ -20500,15 +20501,15 @@ public struct Page: Codable {
     public var url: URL
     /// The status of the most recent build of the Page.
     ///
-    /// Example: built
+    /// Example: "built"
     public var status: Status?
     /// The Pages site's custom domain
     ///
-    /// Example: example.com
+    /// Example: "example.com"
     public var cname: String?
     /// The state if the domain is verified
     ///
-    /// Example: pending
+    /// Example: "pending"
     public var protectedDomainState: ProtectedDomainState?
     /// The timestamp when a pending domain becomes unverified.
     public var pendingDomainUnverifiedAt: Date?
@@ -20533,7 +20534,7 @@ public struct Page: Codable {
 
     /// The status of the most recent build of the Page.
     ///
-    /// Example: built
+    /// Example: "built"
     public enum Status: String, Codable, CaseIterable {
         case built
         case building
@@ -20542,7 +20543,7 @@ public struct Page: Codable {
 
     /// The state if the domain is verified
     ///
-    /// Example: pending
+    /// Example: "pending"
     public enum ProtectedDomainState: String, Codable, CaseIterable {
         case pending
         case verified
@@ -20661,7 +20662,7 @@ public struct PageBuild: Codable {
 
 public struct PageBuildStatus: Codable {
     public var url: URL
-    /// Example: queued
+    /// Example: "queued"
     public var status: String
 
     public init(url: URL, status: String) {
@@ -20961,34 +20962,34 @@ public struct PagesHealthCheck: Codable {
 public struct TeamSimple: Codable {
     /// Unique identifier of the team
     public var id: Int
-    /// Example: MDQ6VGVhbTE=
+    /// Example: "MDQ6VGVhbTE="
     public var nodeID: String
     /// URL for the team
     public var url: URL
     public var membersURL: String
     /// Name of the team
     ///
-    /// Example: Justice League
+    /// Example: "Justice League"
     public var name: String
     /// Description of the team
     ///
-    /// Example: A great team.
+    /// Example: "A great team."
     public var description: String?
     /// Permission that the team will have for its repositories
     ///
-    /// Example: admin
+    /// Example: "admin"
     public var permission: String
     /// The level of privacy this team should have
     ///
-    /// Example: closed
+    /// Example: "closed"
     public var privacy: String?
     public var htmlURL: URL
     public var repositoriesURL: URL
-    /// Example: justice-league
+    /// Example: "justice-league"
     public var slug: String
     /// Distinguished Name (DN) that team maps to within LDAP environment
     ///
-    /// Example: uid=example,ou=users,dc=github,dc=com
+    /// Example: "uid=example,ou=users,dc=github,dc=com"
     public var ldapDn: String?
 
     public init(id: Int, nodeID: String, url: URL, membersURL: String, name: String, description: String? = nil, permission: String, privacy: String? = nil, htmlURL: URL, repositoriesURL: URL, slug: String, ldapDn: String? = nil) {
@@ -21043,7 +21044,7 @@ public struct TeamSimple: Codable {
 public struct PullRequest: Codable {
     public var url: URL
     public var id: Int
-    /// Example: MDExOlB1bGxSZXF1ZXN0MQ==
+    /// Example: "MDExOlB1bGxSZXF1ZXN0MQ=="
     public var nodeID: String
     public var htmlURL: URL
     public var diffURL: URL
@@ -21060,32 +21061,32 @@ public struct PullRequest: Codable {
     public var number: Int
     /// State of this Pull Request. Either `open` or `closed`.
     ///
-    /// Example: open
+    /// Example: "open"
     public var state: State
     /// Example: true
     public var isLocked: Bool
     /// The title of the pull request.
     ///
-    /// Example: Amazing new feature
+    /// Example: "Amazing new feature"
     public var title: String
     /// Simple User
     public var user: SimpleUser?
-    /// Example: Please pull these awesome changes
+    /// Example: "Please pull these awesome changes"
     public var body: String?
     public var labels: [Label]
     /// A collection of related issues and pull requests.
     public var milestone: Milestone?
-    /// Example: too heated
+    /// Example: "too heated"
     public var activeLockReason: String?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var createdAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var updatedAt: Date
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var closedAt: Date?
-    /// Example: 2011-01-26T19:01:12Z
+    /// Example: "2011-01-26T19:01:12Z"
     public var mergedAt: Date?
-    /// Example: e5bd3914e2e596debea16f433f57875b5b90bcd6
+    /// Example: "e5bd3914e2e596debea16f433f57875b5b90bcd6"
     public var mergeCommitSha: String?
     /// Simple User
     public var assignee: SimpleUser?
@@ -21099,7 +21100,7 @@ public struct PullRequest: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     /// The status of auto merging a pull request.
     public var autoMerge: AutoMerge?
@@ -21112,7 +21113,7 @@ public struct PullRequest: Codable {
     public var isMergeable: Bool?
     /// Example: true
     public var isRebaseable: Bool?
-    /// Example: clean
+    /// Example: "clean"
     public var mergeableState: String
     /// Simple User
     public var mergedBy: SimpleUser?
@@ -21131,7 +21132,7 @@ public struct PullRequest: Codable {
 
     /// State of this Pull Request. Either `open` or `closed`.
     ///
-    /// Example: open
+    /// Example: "open"
     public enum State: String, Codable, CaseIterable {
         case `open`
         case closed
@@ -22668,15 +22669,15 @@ public struct PullRequestReview: Codable {
     ///
     /// Example: 42
     public var id: Int
-    /// Example: MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
+    /// Example: "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA="
     public var nodeID: String
     /// Simple User
     public var user: SimpleUser?
     /// The text of the review.
     ///
-    /// Example: This looks great.
+    /// Example: "This looks great."
     public var body: String
-    /// Example: CHANGES_REQUESTED
+    /// Example: "CHANGES_REQUESTED"
     public var state: String
     public var htmlURL: URL
     public var pullRequestURL: URL
@@ -22684,7 +22685,7 @@ public struct PullRequestReview: Codable {
     public var submittedAt: Date?
     /// A commit SHA for the review.
     ///
-    /// Example: 54bb654c9e6025347f57900a4a5c2313a96b8035
+    /// Example: "54bb654c9e6025347f57900a4a5c2313a96b8035"
     public var commitID: String
     public var bodyHTML: String?
     public var bodyText: String?
@@ -22692,7 +22693,7 @@ public struct PullRequestReview: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
 
     public struct Links: Codable {
@@ -22811,26 +22812,26 @@ public struct ReviewComment: Codable {
     public var pullRequestReviewID: Int?
     /// Example: 10
     public var id: Int
-    /// Example: MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
+    /// Example: "MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw"
     public var nodeID: String
-    /// Example: @@ -16,33 +16,40 @@ public class Connection : IConnection...
+    /// Example: "@@ -16,33 +16,40 @@ public class Connection : IConnection..."
     public var diffHunk: String
-    /// Example: file1.txt
+    /// Example: "file1.txt"
     public var path: String
     public var position: Int?
     public var originalPosition: Int
-    /// Example: 6dcb09b5b57875f334f61aebed695e2e4193db5e
+    /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var commitID: String
-    /// Example: 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
+    /// Example: "9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840"
     public var originalCommitID: String
     public var inReplyToID: Int?
     /// Simple User
     public var user: SimpleUser?
-    /// Example: Great stuff
+    /// Example: "Great stuff"
     public var body: String
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
-    /// Example: 2011-04-14T16:00:49Z
+    /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
     public var htmlURL: URL
     public var pullRequestURL: URL
@@ -22838,7 +22839,7 @@ public struct ReviewComment: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     public var links: Links
     public var bodyText: String?
@@ -23009,7 +23010,7 @@ public struct ReleaseAsset: Codable {
     public var nodeID: String
     /// The file name of the asset.
     ///
-    /// Example: Team Environment
+    /// Example: "Team Environment"
     public var name: String
     public var label: String?
     /// State of the release asset.
@@ -23091,11 +23092,11 @@ public struct Release: Codable {
     public var nodeID: String
     /// The name of the tag.
     ///
-    /// Example: v1.0.0
+    /// Example: "v1.0.0"
     public var tagName: String
     /// Specifies the commitish value that determines where the Git tag is created from.
     ///
-    /// Example: master
+    /// Example: "master"
     public var targetCommitish: String
     public var name: String?
     public var body: String?
@@ -23207,7 +23208,7 @@ public struct Release: Codable {
 public struct ReleaseNotesContent: Codable {
     /// The generated name of the release
     ///
-    /// Example: Release v1.0.0 is now available!
+    /// Example: "Release v1.0.0 is now available!"
     public var name: String
     /// The generated body describing the contents of the release supporting markdown formatting
     public var body: String
@@ -23462,7 +23463,7 @@ public struct RepositorySubscription: Codable {
     /// Determines if all notifications should be blocked from this repository.
     public var isIgnored: Bool
     public var reason: String?
-    /// Example: 2012-10-06T21:34:12Z
+    /// Example: "2012-10-06T21:34:12Z"
     public var createdAt: Date
     public var url: URL
     public var repositoryURL: URL
@@ -23498,7 +23499,7 @@ public struct RepositorySubscription: Codable {
 }
 
 public struct Tag: Codable {
-    /// Example: v0.1
+    /// Example: "v0.1"
     public var name: String
     public var commit: Commit
     public var zipballURL: URL
@@ -23628,9 +23629,9 @@ public struct CloneTraffic: Codable {
 }
 
 public struct ContentTraffic: Codable {
-    /// Example: /github/hubot
+    /// Example: "/github/hubot"
     public var path: String
-    /// Example: github/hubot: A customizable life embetterment robot.
+    /// Example: "github/hubot: A customizable life embetterment robot."
     public var title: String
     /// Example: 3542
     public var count: Int
@@ -23662,7 +23663,7 @@ public struct ContentTraffic: Codable {
 }
 
 public struct ReferrerTraffic: Codable {
-    /// Example: Google
+    /// Example: "Google"
     public var referrer: String
     public var count: Int
     public var uniques: Int
@@ -24272,19 +24273,19 @@ public struct ScimUser: Codable {
     public var schemas: [String]
     /// Unique identifier of an external identity
     ///
-    /// Example: 1b78eada-9baa-11e6-9eb6-a431576d590e
+    /// Example: "1b78eada-9baa-11e6-9eb6-a431576d590e"
     public var id: String
     /// The ID of the User.
     ///
-    /// Example: a7b0f98395
+    /// Example: "a7b0f98395"
     public var externalID: String?
     /// Configured by the admin. Could be an email, login, or username
     ///
-    /// Example: someone@example.com
+    /// Example: "someone@example.com"
     public var userName: String?
     /// The name of the user, suitable for display to end-users
     ///
-    /// Example: Jon Doe
+    /// Example: "Jon Doe"
     public var displayName: String?
     /// Example:
     ///
@@ -24386,11 +24387,11 @@ public struct ScimUser: Codable {
     }
 
     public struct Meta: Codable {
-        /// Example: User
+        /// Example: "User"
         public var resourceType: String?
-        /// Example: 2019-01-24T22:45:36.000Z
+        /// Example: "2019-01-24T22:45:36.000Z"
         public var created: Date?
-        /// Example: 2019-01-24T22:45:36.000Z
+        /// Example: "2019-01-24T22:45:36.000Z"
         public var lastModified: Date?
         public var location: URL?
 
@@ -24938,7 +24939,7 @@ public struct IssueSearchResultItem: Codable {
     ///
     /// How the author is associated with the repository.
     ///
-    /// Example: OWNER
+    /// Example: "OWNER"
     public var authorAssociation: AuthorAssociation
     public var isDraft: Bool?
     /// A git repository
@@ -25922,13 +25923,13 @@ public struct UserSearchResultItem: Codable {
 }
 
 public struct PrivateUser: Codable {
-    /// Example: octocat
+    /// Example: "octocat"
     public var login: String
     public var id: Int
-    /// Example: MDQ6VXNlcjE=
+    /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
     public var avatarURL: URL
-    /// Example: 41d064eb2195891e12d0413f63227ea7
+    /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
     public var url: URL
     public var htmlURL: URL
@@ -25941,31 +25942,31 @@ public struct PrivateUser: Codable {
     public var reposURL: URL
     public var eventsURL: String
     public var receivedEventsURL: URL
-    /// Example: User
+    /// Example: "User"
     public var type: String
     public var isSiteAdmin: Bool
-    /// Example: monalisa octocat
+    /// Example: "monalisa octocat"
     public var name: String?
-    /// Example: GitHub
+    /// Example: "GitHub"
     public var company: String?
     public var blog: String?
-    /// Example: San Francisco
+    /// Example: "San Francisco"
     public var location: String?
-    /// Example: octocat@github.com
+    /// Example: "octocat@github.com"
     public var email: String?
     public var isHireable: Bool?
-    /// Example: There once was...
+    /// Example: "There once was..."
     public var bio: String?
-    /// Example: monalisa
+    /// Example: "monalisa"
     public var twitterUsername: String?
     public var publicRepos: Int
     public var publicGists: Int
     /// Example: 20
     public var followers: Int
     public var following: Int
-    /// Example: 2008-01-14T04:33:35Z
+    /// Example: "2008-01-14T04:33:35Z"
     public var createdAt: Date
-    /// Example: 2008-01-14T04:33:35Z
+    /// Example: "2008-01-14T04:33:35Z"
     public var updatedAt: Date
     /// Example: 81
     public var privateGists: Int
@@ -26155,7 +26156,7 @@ public struct PrivateUser: Codable {
 public struct CodespacesSecret: Codable {
     /// The name of the secret.
     ///
-    /// Example: SECRET_NAME
+    /// Example: "SECRET_NAME"
     public var name: String
     public var createdAt: Date
     public var updatedAt: Date
@@ -26201,11 +26202,11 @@ public struct CodespacesSecret: Codable {
 public struct CodespacesUserPublicKey: Codable {
     /// The identifier for the key.
     ///
-    /// Example: 1234567
+    /// Example: "1234567"
     public var keyID: String
     /// The Base64 encoded public key.
     ///
-    /// Example: hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
+    /// Example: "hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs="
     public var key: String
 
     public init(keyID: String, key: String) {
@@ -26227,13 +26228,13 @@ public struct CodespacesUserPublicKey: Codable {
 }
 
 public struct Email: Codable {
-    /// Example: octocat@github.com
+    /// Example: "octocat@github.com"
     public var email: String
     /// Example: true
     public var isPrimary: Bool
     /// Example: true
     public var isVerified: Bool
-    /// Example: public
+    /// Example: "public"
     public var visibility: String?
 
     public init(email: String, isPrimary: Bool, isVerified: Bool, visibility: String? = nil) {
@@ -26264,9 +26265,9 @@ public struct Email: Codable {
 public struct GpgKey: Codable {
     public var id: Int
     public var primaryKeyID: Int?
-    /// Example: 3262EFF25BA0D270
+    /// Example: "3262EFF25BA0D270"
     public var keyID: String
-    /// Example: xsBNBFayYZ...
+    /// Example: "xsBNBFayYZ..."
     public var publicKey: String
     /// Example:
     ///
@@ -26306,7 +26307,7 @@ public struct GpgKey: Codable {
     public var canEncryptStorage: Bool
     /// Example: true
     public var canCertify: Bool
-    /// Example: 2016-03-24T11:31:04-06:00
+    /// Example: "2016-03-24T11:31:04-06:00"
     public var createdAt: Date
     public var expiresAt: Date?
     public var rawKey: String?
@@ -26535,16 +26536,16 @@ public struct MarketplaceAccount: Codable {
 }
 
 public struct UserMarketplacePurchase: Codable {
-    /// Example: monthly
+    /// Example: "monthly"
     public var billingCycle: String
-    /// Example: 2017-11-11T00:00:00Z
+    /// Example: "2017-11-11T00:00:00Z"
     public var nextBillingDate: Date?
     public var unitCount: Int?
     /// Example: true
     public var isOnFreeTrial: Bool
-    /// Example: 2017-11-11T00:00:00Z
+    /// Example: "2017-11-11T00:00:00Z"
     public var freeTrialEndsOn: Date?
-    /// Example: 2017-11-02T01:12:12Z
+    /// Example: "2017-11-02T01:12:12Z"
     public var updatedAt: Date?
     /// Marketplace Account
     public var account: MarketplaceAccount
