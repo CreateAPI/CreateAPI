@@ -44,12 +44,7 @@ public struct Integration: Codable {
     public var permissions: [String: String]
     /// The list of events for the GitHub app
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "label",
-    ///   "deployment"
-    /// ]
+    /// Example: ["label", "deployment"]
     public var events: [String]
     /// The number of installations associated with the GitHub app
     public var installationsCount: Int?
@@ -1195,12 +1190,7 @@ public struct Installation: Codable {
     public var singleFileName: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
-    /// Example:
-    ///
-    /// [
-    ///   "config.yml",
-    ///   ".github\/issue_TEMPLATE.md"
-    /// ]
+    /// Example: ["config.yml", ".github/issue_TEMPLATE.md"]
     public var singleFilePaths: [String]?
     /// Example: "github-actions"
     public var appSlug: String
@@ -2257,12 +2247,7 @@ public struct InstallationToken: Codable {
     public var singleFile: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
-    /// Example:
-    ///
-    /// [
-    ///   "config.yml",
-    ///   ".github\/issue_TEMPLATE.md"
-    /// ]
+    /// Example: ["config.yml", ".github/issue_TEMPLATE.md"]
     public var singleFilePaths: [String]?
 
     public enum RepositorySelection: String, Codable, CaseIterable {
@@ -2315,11 +2300,7 @@ public struct ApplicationGrant: Codable {
     public var createdAt: Date
     /// Example: "2011-09-06T20:39:23Z"
     public var updatedAt: Date
-    /// Example:
-    ///
-    /// [
-    ///   "public_repo"
-    /// ]
+    /// Example: ["public_repo"]
     public var scopes: [String]
     /// Simple User
     public var user: SimpleUser?
@@ -2403,12 +2384,7 @@ public struct ScopedInstallation: Codable {
     public var singleFileName: String?
     /// Example: true
     public var hasMultipleSingleFiles: Bool?
-    /// Example:
-    ///
-    /// [
-    ///   "config.yml",
-    ///   ".github\/issue_TEMPLATE.md"
-    /// ]
+    /// Example: ["config.yml", ".github/issue_TEMPLATE.md"]
     public var singleFilePaths: [String]?
     public var repositoriesURL: URL
     /// Simple User
@@ -3550,12 +3526,7 @@ public struct Issue: Codable {
     public var user: SimpleUser?
     /// Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "bug",
-    ///   "registration"
-    /// ]
+    /// Example: ["bug", "registration"]
     public var labels: [Label]
     /// Simple User
     public var assignee: SimpleUser?
@@ -4066,11 +4037,7 @@ public struct Feed: Codable {
     public var currentUserURL: String?
     public var currentUserActorURL: String?
     public var currentUserOrganizationURL: String?
-    /// Example:
-    ///
-    /// [
-    ///   0
-    /// ]
+    /// Example: [0]
     public var currentUserOrganizationURLs: [URL]?
     public var securityAdvisoriesURL: String?
     public var links: Links
@@ -5104,27 +5071,11 @@ public struct License: Codable {
     public var description: String
     /// Example: "Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders."
     public var implementation: String
-    /// Example:
-    ///
-    /// [
-    ///   "commercial-use",
-    ///   "modifications",
-    ///   "distribution",
-    ///   "sublicense",
-    ///   "private-use"
-    /// ]
+    /// Example: ["commercial-use", "modifications", "distribution", "sublicense", "private-use"]
     public var permissions: [String]
-    /// Example:
-    ///
-    /// [
-    ///   "include-copyright"
-    /// ]
+    /// Example: ["include-copyright"]
     public var conditions: [String]
-    /// Example:
-    ///
-    /// [
-    ///   "no-liability"
-    /// ]
+    /// Example: ["no-liability"]
     public var limitations: [String]
     /// Example:
     ///
@@ -5228,12 +5179,7 @@ public struct MarketplaceListingPlan: Codable {
     public var unitName: String?
     /// Example: "published"
     public var state: String
-    /// Example:
-    ///
-    /// [
-    ///   "Up to 25 private repositories",
-    ///   "11 concurrent builds"
-    /// ]
+    /// Example: ["Up to 25 private repositories", "11 concurrent builds"]
     public var bullets: [String]
 
     public init(url: URL, accountsURL: URL, id: Int, number: Int, name: String, description: String, monthlyPriceInCents: Int, yearlyPriceInCents: Int, priceModel: String, hasFreeTrial: Bool, unitName: String? = nil, state: String, bullets: [String]) {
@@ -5419,29 +5365,13 @@ public struct APIOverview: Codable {
     /// Example: true
     public var isVerifiablePasswordAuthentication: Bool
     public var sshKeyFingerprints: SshKeyFingerprints?
-    /// Example:
-    ///
-    /// [
-    ///   "127.0.0.1\/32"
-    /// ]
+    /// Example: ["127.0.0.1/32"]
     public var hooks: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "127.0.0.1\/32"
-    /// ]
+    /// Example: ["127.0.0.1/32"]
     public var web: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "127.0.0.1\/32"
-    /// ]
+    /// Example: ["127.0.0.1/32"]
     public var api: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "127.0.0.1\/32"
-    /// ]
+    /// Example: ["127.0.0.1/32"]
     public var git: [String]?
     /// Example:
     ///
@@ -5451,33 +5381,13 @@ public struct APIOverview: Codable {
     ///   111
     /// ]
     public var packages: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "192.30.252.153\/32",
-    ///   "192.30.252.154\/32"
-    /// ]
+    /// Example: ["192.30.252.153/32", "192.30.252.154/32"]
     public var pages: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "54.158.161.132",
-    ///   "54.226.70.38"
-    /// ]
+    /// Example: ["54.158.161.132", "54.226.70.38"]
     public var importer: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "13.64.0.0\/16",
-    ///   "13.65.0.0\/16"
-    /// ]
+    /// Example: ["13.64.0.0/16", "13.65.0.0/16"]
     public var actions: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "192.168.7.15\/32",
-    ///   "192.168.7.16\/32"
-    /// ]
+    /// Example: ["192.168.7.15/32", "192.168.7.16/32"]
     public var dependabot: [String]?
 
     public struct SshKeyFingerprints: Codable {
@@ -6613,12 +6523,7 @@ public struct CredentialAuthorization: Codable {
     public var credentialAuthorizedAt: Date
     /// List of oauth scopes the token has been granted.
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "user",
-    ///   "repo"
-    /// ]
+    /// Example: ["user", "repo"]
     public var scopes: [String]?
     /// Unique string to distinguish the credential. Only included in responses with credential_type of SSH Key.
     ///
@@ -6965,12 +6870,7 @@ public struct OrgHook: Codable {
     public var deliveriesURL: URL?
     /// Example: "web"
     public var name: String
-    /// Example:
-    ///
-    /// [
-    ///   "push",
-    ///   "pull_request"
-    /// ]
+    /// Example: ["push", "pull_request"]
     public var events: [String]
     /// Example: true
     public var isActive: Bool
@@ -9287,14 +9187,7 @@ public struct FullRepository: Codable {
     public var openIssuesCount: Int
     /// Example: true
     public var isTemplate: Bool?
-    /// Example:
-    ///
-    /// [
-    ///   "octocat",
-    ///   "atom",
-    ///   "electron",
-    ///   "API"
-    /// ]
+    /// Example: ["octocat", "atom", "electron", "API"]
     public var topics: [String]?
     /// Example: true
     public var hasIssues: Bool
@@ -9866,13 +9759,7 @@ public struct Job: Codable {
     public var checkRunURL: String
     /// Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "self-hosted",
-    ///   "foo",
-    ///   "bar"
-    /// ]
+    /// Example: ["self-hosted", "foo", "bar"]
     public var labels: [String]
     /// The ID of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
     public var runnerID: Int?
@@ -12332,11 +12219,7 @@ public struct StatusCheckPolicy: Codable {
     public var url: URL
     /// Example: true
     public var isStrict: Bool
-    /// Example:
-    ///
-    /// [
-    ///   "continuous-integration\/travis-ci"
-    /// ]
+    /// Example: ["continuous-integration/travis-ci"]
     public var contexts: [String]
     public var contextsURL: URL
 
@@ -17184,12 +17067,7 @@ public struct Hook: Codable {
     public var isActive: Bool
     /// Determines what events the hook is triggered for. Default: ['push'].
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "push",
-    ///   "pull_request"
-    /// ]
+    /// Example: ["push", "pull_request"]
     public var events: [String]
     public var config: Config
     /// Example: "2011-09-06T20:39:23Z"
@@ -20444,12 +20322,7 @@ public struct PagesHTTPSCertificate: Codable {
     public var description: String
     /// Array of the domain set and its alternate name (if it is configured)
     ///
-    /// Example:
-    ///
-    /// [
-    ///   "example.com",
-    ///   "www.example.com"
-    /// ]
+    /// Example: ["example.com", "www.example.com"]
     public var domains: [String]
     public var expiresAt: String?
 
@@ -23324,17 +23197,7 @@ public struct Stargazer: Codable {
 }
 
 public struct CommitActivity: Codable {
-    /// Example:
-    ///
-    /// [
-    ///   0,
-    ///   3,
-    ///   26,
-    ///   20,
-    ///   39,
-    ///   1,
-    ///   0
-    /// ]
+    /// Example: [0, 3, 26, 20, 39, 1, 0]
     public var days: [Int]
     /// Example: 89
     public var total: Int
@@ -24656,12 +24519,7 @@ public struct CodeSearchResultItem: Codable {
     public var fileSize: Int?
     public var language: String?
     public var lastModifiedAt: Date?
-    /// Example:
-    ///
-    /// [
-    ///   "73..77",
-    ///   "77..78"
-    /// ]
+    /// Example: ["73..77", "77..78"]
     public var lineNumbers: [String]?
     /// Search Result Text Matches
     public var textMatches: SearchResultTextMatches?

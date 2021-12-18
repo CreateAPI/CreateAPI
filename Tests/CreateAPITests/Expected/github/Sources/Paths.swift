@@ -481,11 +481,7 @@ extension Paths.App.Installations.WithInstallationID {
             public var repositories: [String]?
             /// List of repository IDs that the token should have access to
             ///
-            /// Example:
-            ///
-            /// [
-            ///   1
-            /// ]
+            /// Example: [1]
             public var repositoryIDs: [Int]?
             /// App Permissions
             ///
@@ -744,11 +740,7 @@ extension Paths.Applications.WithClientID.Token {
             public var repositories: [String]?
             /// The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
             ///
-            /// Example:
-            ///
-            /// [
-            ///   1
-            /// ]
+            /// Example: [1]
             public var repositoryIDs: [Int]?
             /// App Permissions
             ///
@@ -889,12 +881,7 @@ extension Paths {
         public struct PostRequest: Encodable {
             /// A list of scopes that this authorization is in.
             ///
-            /// Example:
-            ///
-            /// [
-            ///   "public_repo",
-            ///   "user"
-            /// ]
+            /// Example: ["public_repo", "user"]
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
@@ -978,12 +965,7 @@ extension Paths.Authorizations.Clients {
             public var clientSecret: String
             /// A list of scopes that this authorization is in.
             ///
-            /// Example:
-            ///
-            /// [
-            ///   "public_repo",
-            ///   "user"
-            /// ]
+            /// Example: ["public_repo", "user"]
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
@@ -1048,12 +1030,7 @@ extension Paths.Authorizations.Clients.WithClientID {
             public var clientSecret: String
             /// A list of scopes that this authorization is in.
             ///
-            /// Example:
-            ///
-            /// [
-            ///   "public_repo",
-            ///   "user"
-            /// ]
+            /// Example: ["public_repo", "user"]
             public var scopes: [String]?
             /// A note to remind you what the OAuth token is for.
             ///
@@ -1116,12 +1093,7 @@ extension Paths.Authorizations {
         public struct PatchRequest: Encodable {
             /// A list of scopes that this authorization is in.
             ///
-            /// Example:
-            ///
-            /// [
-            ///   "public_repo",
-            ///   "user"
-            /// ]
+            /// Example: ["public_repo", "user"]
             public var scopes: [String]?
             /// A list of scopes to add to this authorization.
             public var addScopes: [String]?
@@ -10171,12 +10143,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         public struct PostRequest: Encodable {
             /// The list of environment ids to approve or reject
             ///
-            /// Example:
-            ///
-            /// [
-            ///   161171787,
-            ///   161171795
-            /// ]
+            /// Example: [161171787, 161171795]
             public var environmentIDs: [Int]
             /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
             ///
@@ -25285,11 +25252,7 @@ extension Paths.User {
             public struct Object: Encodable {
                 /// Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
                 ///
-                /// Example:
-                ///
-                /// [
-                /// 
-                /// ]
+                /// Example: []
                 public var emails: [String]
 
                 public init(emails: [String]) {
@@ -26134,11 +26097,7 @@ extension Paths.User {
             public var excludeOwnerProjects: Bool?
             /// Exclude attributes from the API response to improve performance
             ///
-            /// Example:
-            ///
-            /// [
-            ///   "repositories"
-            /// ]
+            /// Example: ["repositories"]
             public var exclude: [ExcludeItem]?
             public var repositories: [String]
 

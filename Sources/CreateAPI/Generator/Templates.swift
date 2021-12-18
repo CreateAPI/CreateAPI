@@ -319,11 +319,18 @@ final class Templates {
         }
         if options.isAddingExamples, let example = metadata.example?.value {
             let value: String
-            if JSONSerialization.isValidJSONObject(example) {
+        
+            if let example = example as? String, !example.hasPrefix("\"") {
+                value = "\"\(example)\""
+            } else if let example = example as? Array<String> {
+                value = "\(example)"
+            } else if let example = example as? Array<Int> {
+                value = "\(example)"
+            } else if let example = example as? Array<Bool> {
+                value = "\(example)"
+            } else if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
                 value = String(data: data ?? Data(), encoding: .utf8) ?? ""
-            } else if let example = example as? String, !example.hasPrefix("\"") {
-                value = "\"\(example)\""
             } else {
                 value = "\(example)"
             }
