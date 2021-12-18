@@ -3,13 +3,6 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
-import OpenAPIKit30
-
-extension JSONSchema {
-    var isOptional: Bool {
-        !self.required || self.nullable
-    }
-}
 
 extension String {
     func capitalizingFirstLetter() -> String {
@@ -75,5 +68,22 @@ struct Benchmark {
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         guard Benchmark.isEnabled else { return }
         print("\(name) completed (\(String(format: "%.3f", timeElapsed)) s)")
+    }
+}
+
+// Supports simple templates like "Get%0".
+struct Template {
+    let rawValue: String
+
+    init(_ rawValue: String) {
+        self.rawValue = rawValue
+    }
+    
+    func substitute(_ parameter: String...) -> String {
+        var output = rawValue
+        for index in parameter.indices {
+            output = output.replacingOccurrences(of: "%\(index)", with: parameter[index])
+        }
+        return output
     }
 }

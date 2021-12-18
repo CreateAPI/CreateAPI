@@ -207,3 +207,9 @@ struct DeclarationMetadata {
         self.isDeprecated = operation.deprecated
     }
 }
+
+struct PathParameter {
+    let name: PropertyName
+    let type: TypeName
+    let convert: Template
+}

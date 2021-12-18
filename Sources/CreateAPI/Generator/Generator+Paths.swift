@@ -39,13 +39,12 @@ extension Generator {
                 }
             }
         }
-
         let output = GeneratorOutput(
             header: makeHeader(),
             files: try generated.compactMap { $0 }.map { try $0.get() },
             extensions: makeExtensions()
         )
-        
+
         benchmark.stop()
         return output
     }
@@ -128,24 +127,33 @@ extension Generator {
         let methods = job.isSubpath ? [] : try makeMethods(for: job.item, context: context)
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, methods: methods)
         
-        let parameter = isParameter ? makePropertyName(component) : nil
+        let parameter = isParameter ? try getParameterType(item: job.item, component: component) : nil
         return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, parameter: parameter, contents: generatedType)
+    }
+    
+    private func getParameterType(item: OpenAPI.PathItem, component: String) throws -> PathParameter {
+        let name = String(component.dropFirst().dropLast())
+        let parameters = item.parameters.isEmpty ? (item.allOperations.first?.1.parameters ?? []) : item.parameters
+        let parameter = parameters
+            .compactMap { try? $0.unwrapped(in: spec) }
+            .first { $0.context.inPath && $0.name == name }
+        func makeParamter(type: String, template: String) -> PathParameter {
+            return PathParameter(name: makePropertyName(component), type: TypeName(type), convert: Template(template))
+        }
+        guard let parameter = parameter else {
+            return makeParamter(type: "String", template: "%0")
+        }
+        let (schema, _ ) = try parameter.unwrapped(in: spec)
+        switch schema {
+        case .integer:  return makeParamter(type: "Int", template: "String(%0)")
+        default: return makeParamter(type: "String", template: "%0")
+        }
     }
     
     // MARK: - Methods
 
     private func makeMethods(for item: OpenAPI.PathItem, context: Context) throws -> [String] {
-        let methods = [
-            item.get.map { ($0, "get") },
-            item.post.map { ($0, "post") },
-            item.put.map { ($0, "put") },
-            item.patch.map { ($0, "patch") },
-            item.delete.map { ($0, "delete") },
-            item.options.map { ($0, "options") },
-            item.head.map { ($0, "head") },
-            item.trace.map { ($0, "trace") },
-        ].compactMap { $0 }
-        return try methods.map { operation, method in
+        try item.allOperations.map { method, operation in
             try makeMethod(operation, method, context)
         }.compactMap { $0 }
     }
@@ -283,31 +291,11 @@ extension Generator {
     }
     
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
-        let parameter: OpenAPI.Parameter
-        switch input {
-        case .a(let reference):
-            parameter = try reference.dereferenced(in: spec.components).underlyingParameter
-        case .b(let value):
-            parameter = value
-        }
+        let parameter = try input.unwrapped(in: spec)
         guard parameter.context.inQuery else {
             return nil
         }
-
-        let schema: JSONSchema
-        var explode = true
-        switch parameter.schemaOrContent {
-        case .a(let schemaContext):
-            explode = schemaContext.explode
-            switch schemaContext.schema {
-            case .a(let reference):
-                schema = JSONSchema.reference(reference)
-            case .b(let value):
-                schema = value
-            }
-        case .b:
-            throw GeneratorError("Parameter content map not supported for parameter: \(parameter.name)")
-        }
+        let (schema, explode) = try parameter.unwrapped(in: spec)
         
         struct QueryItemType {
             var type: MyType

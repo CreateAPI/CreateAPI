@@ -183,7 +183,7 @@ struct Generate: ParsableCommand {
     }
     
     private func makeFilename(for name: String) -> String {
-        filenameTemplate.replacingOccurrences(of: "%0", with: name)
+        Template(filenameTemplate).substitute(name)
     }
     
     private var arguments: GenerateArguments {

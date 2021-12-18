@@ -443,13 +443,13 @@ final class Templates {
         """
     }
     
-    func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, parameter: PropertyName?, contents: String) -> String {
+    func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, parameter: PathParameter?, contents: String) -> String {
         let stat = isTopLevel ? "static " : ""
         if let parameter = parameter {
             return """
             extension \(extensionOf) {
-                \(access)\(stat)func \(parameter)(_ \(parameter): String) -> \(type) {
-                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter))
+                \(access)\(stat)func \(parameter.name)(_ \(parameter.name): \(parameter.type)) -> \(type) {
+                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter.convert.substitute(parameter.name.rawValue)))
                 }
             
             \(contents.indented)
