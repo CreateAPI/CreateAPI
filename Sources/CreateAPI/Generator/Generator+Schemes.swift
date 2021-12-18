@@ -39,6 +39,7 @@ import GrammaticalNumber
 // TODO: Generate IDs with phantom types
 // TODO: Add `byte` and `binary` string formats support
 // TODO: Add an option to generate CodingKeys instead of using Strings
+// TODO: Clarify intentions behind `properties` mixed with `anyOf` https://github.com/github/rest-api-description/discussions/805
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
@@ -289,7 +290,7 @@ extension Generator {
             if let type = try getPrimitiveType(for: schema, context: context) {
                 return AdditionalProperties(type: .dictionary(value: type), info: info)
             }
-            let nestedTypeName = makeTypeName(key).appending("Item")
+            let nestedTypeName = makeNestedArrayTypeName(for: key)
             let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
             return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
         }
@@ -304,7 +305,6 @@ extension Generator {
         return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info))
     }
     
-    // TODO: Simplify
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {
         var protocols = Protocols(options.entities.adoptedProtocols)
         let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)

@@ -96,7 +96,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "generate ~/Downloads/rest-api-description-main/descriptions/api.github.com/api.github.com.yaml --output ~/Developer/OctoKit/Sources/OctoKit --verbose --vendor &quot;github&quot; --module &quot;OctoKit&quot; --config ~/Developer/OctoKit/.create-api.yml --measure"
+            argument = "generate ~/Developer/CreateAPI/Tests/CreateAPITests/Specs/github.yaml --output ~/Developer/OctoKit/Sources/OctoKit --verbose --vendor &quot;github&quot; --module &quot;OctoKit&quot; --config ~/Developer/OctoKit/.create-api.yml --measure"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

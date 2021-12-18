@@ -2369,10 +2369,10 @@ extension Paths {
             ///     "content" : "puts \"Hello, World!\""
             ///   }
             /// }
-            public var files: [String: FilesItem]
+            public var files: [String: File]
             public var `public`: Public?
 
-            public struct FilesItem: Encodable {
+            public struct File: Encodable {
                 /// Content of the file
                 public var content: String
 
@@ -2400,7 +2400,7 @@ extension Paths {
                 }
             }
 
-            public init(description: String? = nil, files: [String: FilesItem], `public`: Public? = nil) {
+            public init(description: String? = nil, files: [String: File], `public`: Public? = nil) {
                 self.description = description
                 self.files = files
                 self.public = `public`
@@ -2545,9 +2545,9 @@ extension Paths.Gists {
             ///     "filename" : "goodbye.rb"
             ///   }
             /// }
-            public var files: [String: FilesItem]?
+            public var files: [String: File]?
 
-            public struct FilesItem: Encodable {
+            public struct File: Encodable {
                 /// The new content of the file
                 public var content: String
                 /// The new filename for the file
@@ -2559,7 +2559,7 @@ extension Paths.Gists {
                 }
             }
 
-            public init(description: String? = nil, files: [String: FilesItem]? = nil) {
+            public init(description: String? = nil, files: [String: File]? = nil) {
                 self.description = description
                 self.files = files
             }
