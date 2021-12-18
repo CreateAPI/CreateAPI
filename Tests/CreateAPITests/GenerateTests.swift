@@ -167,7 +167,7 @@ final class GenerateTests: XCTestCase {
             "--package", "petstore-generate-classes",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "isGeneratingStructs": false
                 }
             }
@@ -189,7 +189,7 @@ final class GenerateTests: XCTestCase {
             "--package", "petstore-some-entities-as-classes",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "entitiesGeneratedAsClasses": ["Store"]
                 }
             }
@@ -211,7 +211,7 @@ final class GenerateTests: XCTestCase {
             "--package", "petstore-some-entities-as-structs",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "isGeneratingStructs": false,
                     "entitiesGeneratedAsStructs": ["Error"]
                 }
@@ -234,7 +234,7 @@ final class GenerateTests: XCTestCase {
             "--package", "petstore-base-class",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "isGeneratingStructs": false,
                     "baseClass": "NSObject"
                 }
@@ -279,7 +279,7 @@ final class GenerateTests: XCTestCase {
             "--package", "petstore-disable-init-with-coder",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "isGeneratingInitWithCoder": false
                 }
             }
@@ -336,7 +336,7 @@ final class GenerateTests: XCTestCase {
             "--package", "edgecases-rename-properties",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "mappedPropertyNames": {
                         "id": "identifier",
                         "Category.name": "title",
@@ -373,7 +373,7 @@ final class GenerateTests: XCTestCase {
             "--output", temp.url.path,
             "--package", "edgecases-yaml-config",
             "--config", config("""
-            schemas:
+            entities:
                 mappedPropertyNames:
                     id: identifier
                     Category.name: title
@@ -457,7 +457,7 @@ final class GenerateTests: XCTestCase {
             "--package", "edgecases-rename",
             "--config", config("""
             {
-                "schemas": {
+                "entities": {
                     "mappedTypeNames": {
                         "ApiResponse": "APIResponse",
                         "Status": "State"

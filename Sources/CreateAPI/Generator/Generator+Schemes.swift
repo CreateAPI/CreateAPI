@@ -130,9 +130,9 @@ extension Generator {
                 }
             }
         }
-        if !options.schemas.mappedTypeNames.isEmpty {
+        if !options.entities.mappedTypeNames.isEmpty {
             let name = makeTypeName(key.rawValue)
-            if let mapped = options.schemas.mappedTypeNames[name.rawValue] {
+            if let mapped = options.entities.mappedTypeNames[name.rawValue] {
                 return TypeName(mapped)
             }
         }
@@ -178,10 +178,10 @@ extension Generator {
         let propertyName = makePropertyName(key)
         
         func makeChildPropertyName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
-            if !options.schemas.mappedPropertyNames.isEmpty {
+            if !options.entities.mappedPropertyNames.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
-                    if let name = options.schemas.mappedPropertyNames[names[i...].joined(separator: ".")] {
+                    if let name = options.entities.mappedPropertyNames[names[i...].joined(separator: ".")] {
                         return PropertyName(name)
                     }
                 }
@@ -319,9 +319,9 @@ extension Generator {
     
     // TODO: Simplify
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {
-        var protocols = Protocols(options.schemas.adoptedProtocols)
-        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.schemas.isSkippingRedundantProtocols)
-        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.schemas.isSkippingRedundantProtocols)
+        var protocols = Protocols(options.entities.adoptedProtocols)
+        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
+        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
         return protocols
@@ -329,7 +329,7 @@ extension Generator {
     
     private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
         var keys = object.properties.keys
-        if options.schemas.isSortingPropertiesAlphabetically { keys.sort() }
+        if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
         return try keys.compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
@@ -507,8 +507,8 @@ extension Generator {
                 throw GeneratorError("Internal reference name is missing: \(ref)")
             }
             // TODO: Remove duplication
-            if !options.schemas.mappedTypeNames.isEmpty {
-                if let mapped = options.schemas.mappedTypeNames[name] {
+            if !options.entities.mappedTypeNames.isEmpty {
+                if let mapped = options.entities.mappedTypeNames[name] {
                     return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
                 }
             }

@@ -9,7 +9,7 @@ final class GenerateOptions {
     var access: String
     var isRemovingUnneededImports: Bool
     var paths: Paths
-    var schemas: SchemasOptions
+    var entities: Entities
     var isAddingDeprecations: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
@@ -101,7 +101,7 @@ final class GenerateOptions {
     }
         
     // TODO: Inline this?
-    struct SchemasOptions {
+    struct Entities {
         var isGeneratingStructs: Bool
         var entitiesGeneratedAsClasses: Set<String>
         var entitiesGeneratedAsStructs: Set<String>
@@ -118,7 +118,7 @@ final class GenerateOptions {
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
         var isSortingPropertiesAlphabetically: Bool
         
-        init(_ schemas: GenerateOptionsSchema.SchemasOptions?) {
+        init(_ schemas: GenerateOptionsSchema.Schemas?) {
             self.isGeneratingStructs = schemas?.isGeneratingStructs ?? true
             self.entitiesGeneratedAsClasses = Set(schemas?.entitiesGeneratedAsClasses ?? [])
             self.entitiesGeneratedAsStructs = Set(schemas?.entitiesGeneratedAsStructs ?? [])
@@ -146,7 +146,7 @@ final class GenerateOptions {
         self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
         self.isReplacingCommonAcronyms = options.isReplacingCommonAcronyms ?? true
         self.additionalAcronyms = (options.additionalAcronyms ?? []).map { $0.lowercased() }
-        self.schemas = SchemasOptions(options.schemas)
+        self.entities = Entities(options.entities)
         self.fileHeader = FileHeader(options.fileHeader)
         self.rename = Rename(options.rename)
         self.comments = Comments(options.comments)
@@ -168,7 +168,7 @@ final class GenerateOptionsSchema: Decodable {
     var isInliningPrimitiveTypes: Bool?
     var isReplacingCommonAcronyms: Bool?
     var additionalAcronyms: [String]?
-    var schemas: SchemasOptions?
+    var entities: Schemas?
     var fileHeader: FileHeader?
     var rename: Rename?
     var comments: Comments?
@@ -211,7 +211,7 @@ final class GenerateOptionsSchema: Decodable {
         var simpleQueryParametersThreshold: Int?
     }
     
-    struct SchemasOptions: Decodable {
+    struct Schemas: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?

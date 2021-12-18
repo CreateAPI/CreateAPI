@@ -46,11 +46,11 @@ final class Templates {
     ///         <contents>
     ///     }
     func entity(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let isStruct = (options.schemas.isGeneratingStructs && !options.schemas.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.schemas.entitiesGeneratedAsStructs.contains(name.rawValue))
-        let type = isStruct ? "struct" : (options.schemas.isMakingClassesFinal ? "final class" : "class")
+        let isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
+        let type = isStruct ? "struct" : (options.entities.isMakingClassesFinal ? "final class" : "class")
         let lhs = [options.access, type, name.rawValue]
             .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.schemas.baseClass] + protocols.sorted())
+        let rhs = ([isStruct ? nil : options.entities.baseClass] + protocols.sorted())
             .compactMap { $0 }.joined(separator: ", ")
 
         let declaration = rhs.isEmpty ? lhs : "\(lhs): \(rhs)"
