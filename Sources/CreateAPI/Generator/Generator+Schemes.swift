@@ -6,13 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add File (Data) support (see FormatTest.date)
-// TODO: Add UUID support (and test it!)
-// TODO: Review OpenAPI spec for -all
 // TODO: Add int32/int64 support (optional) (and a way to disable)
-// TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
-// TODO: Final imporvementes to OctoKit
-// TODO: anyOf should be class or struct?
 
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
 // TODO: More concise examples if it's just array of plain types
@@ -49,6 +43,7 @@ import GrammaticalNumber
 // TODO: Add `Rename.enums`
 // TODO: Add an option to hide `anyJSON`
 // TODO: Generate IDs with phantom types
+// TODO: Add `byte` and `binary` string formats support
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
