@@ -7,9 +7,10 @@ import OpenAPIKit30
 import Foundation
 import Yams
 
-// TODO: Add an option to replace output / only individual files
 // TODO: Generate `README.md` for package
 // TODO: Disable sandbox
+// TODO: Add Linux support
+// TODO: Add OpenAPI 3.1 support
 
 struct Generate: ParsableCommand {
 

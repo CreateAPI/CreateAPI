@@ -6,31 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: See what needs to be fixed in petstore-all
-// TODO: Add support for default values
-// TODO: Option to disable custom key generation
-// TODO: Add support for deprecated fields
-// TODO: Better naming for inline/nested objects
-// TODO: Print more in verbose mode
-// TODO: Add warnings for unsupported features
-// TODO: Add Linux support
-// TODO: Add SwiftLint disable all
-// TODO: Remove remainig dereferencing
-// TODO: Add JSON tests
-// TODO: Add OpenAPI 3.1 support
-// TODO: Autocapitilize description/title
-// TODO: Add an option to ignore errors in arrays
-// TODO: Rename to GenerateEntities
-// TODO: Add an option to set a custom header
-
-// TODO: Add an obeserver for a file (and keep tool running)
-
-// TODO: Separate mapped* dictionary for enums
-// TODO: entitiesGeneratedAsClasses - add support for nesting
-// TODO: Add an option how allOf is generated (inline properties, create protocols)
-// TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
-// TODO: Add an option to skip certain files
-
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
 // TODO: `Rename.entities` to support nested types
@@ -40,6 +15,8 @@ import GrammaticalNumber
 // TODO: Add `byte` and `binary` string formats support
 // TODO: Add an option to generate CodingKeys instead of using Strings
 // TODO: Clarify intentions behind `properties` mixed with `anyOf` https://github.com/github/rest-api-description/discussions/805
+// TODO: Improve `anyOf` support
+// TODO: `entitiesGeneratedAsClasses` - add support for nesting
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
