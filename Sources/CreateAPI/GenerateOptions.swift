@@ -122,8 +122,9 @@ final class GenerateOptions {
         var isGeneratingInitWithCoder: Bool
         var isGeneratingDecode: Bool
         var isSortingPropertiesAlphabetically: Bool
+        var skip: Set<String>
         
-        init(_ schemas: GenerateOptionsSchema.Schemas?) {
+        init(_ schemas: GenerateOptionsSchema.Entities?) {
             self.isGeneratingStructs = schemas?.isGeneratingStructs ?? true
             self.entitiesGeneratedAsClasses = Set(schemas?.entitiesGeneratedAsClasses ?? [])
             self.entitiesGeneratedAsStructs = Set(schemas?.entitiesGeneratedAsStructs ?? [])
@@ -135,6 +136,7 @@ final class GenerateOptions {
             self.isGeneratingInitWithCoder = schemas?.isGeneratingInitWithCoder ?? true
             self.isGeneratingDecode = schemas?.isGeneratingDecode ?? true
             self.isSortingPropertiesAlphabetically = schemas?.isSortingPropertiesAlphabetically ?? false
+            self.skip = Set(schemas?.skip ?? [])
         }
     }
 
@@ -171,7 +173,7 @@ final class GenerateOptionsSchema: Decodable {
     var isInliningPrimitiveTypes: Bool?
     var isReplacingCommonAcronyms: Bool?
     var additionalAcronyms: [String]?
-    var entities: Schemas?
+    var entities: Entities?
     var fileHeader: FileHeader?
     var rename: Rename?
     var comments: Comments?
@@ -218,7 +220,7 @@ final class GenerateOptionsSchema: Decodable {
         var skip: [String]?
     }
     
-    struct Schemas: Decodable {
+    struct Entities: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
@@ -230,6 +232,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingInitWithCoder: Bool?
         var isGeneratingDecode: Bool?
         var isSortingPropertiesAlphabetically: Bool?
+        var skip: [String]?
     }
 }
 

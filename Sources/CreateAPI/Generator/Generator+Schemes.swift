@@ -18,7 +18,6 @@ import GrammaticalNumber
 // TODO: Get rid of typealiases where a custom type is generated public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 // TODO: Final imporvementes to OctoKit
 // TODO: anyOf should be class or struct?
-// TODO: Add an option to skip types
 
 // TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
 // TODO: More concise examples if it's just array of plain types
@@ -70,7 +69,7 @@ extension Generator {
         concurrentPerform(on: schemas, parallel: arguments.isParallel) { index, item in
             let (key, schema) = schemas[index]
             
-            guard let name = makeTypeNameFor(key: key) else {
+            guard let name = makeTypeNameFor(key: key), !options.entities.skip.contains(name.rawValue) else {
                 if arguments.isVerbose {
                     print("Skipping generation for \(key.rawValue)")
                 }
