@@ -7,11 +7,8 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
-// TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
+// TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
 // TODO: Add a way to extend supported content types
-// TODO: When the request body has only one parameter, inline it (required knowledge about nested types)
-// TODO: When there is only one parameter, inline it (required knowledge about nested types)
-// TODO: Add an option to skip certain paths / entire operations
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -61,6 +58,9 @@ extension Generator {
         var jobs: [Job] = []
         var encountered = Set<OpenAPI.Path>()
         for path in spec.paths {
+            guard !options.paths.skip.contains(path.key.rawValue) else {
+                continue
+            }
             let components = path.key.components.isEmpty ? [""] : path.key.components
             for index in components.indices {
                 let subComponents = Array(components[...index])
