@@ -980,9 +980,9 @@ public struct Installation: Codable {
         }
 
         public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
-            try values.encodeIfPresent(enterprise, forKey: "enterprise")
+            var container = encoder.singleValueContainer()
+            if let value = simpleUser { try container.encode(value) }
+            if let value = enterprise { try container.encode(value) }
         }
     }
 
@@ -7914,9 +7914,9 @@ public struct PendingDeployment: Codable {
             }
 
             public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
-                try values.encodeIfPresent(team, forKey: "team")
+                var container = encoder.singleValueContainer()
+                if let value = simpleUser { try container.encode(value) }
+                if let value = team { try container.encode(value) }
             }
         }
 
@@ -12234,9 +12234,9 @@ public struct Environment: Codable {
                     }
 
                     public func encode(to encoder: Encoder) throws {
-                        var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encodeIfPresent(simpleUser, forKey: "simpleUser")
-                        try values.encodeIfPresent(team, forKey: "team")
+                        var container = encoder.singleValueContainer()
+                        if let value = simpleUser { try container.encode(value) }
+                        if let value = team { try container.encode(value) }
                     }
                 }
 
@@ -12290,10 +12290,10 @@ public struct Environment: Codable {
         }
 
         public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encodeIfPresent(a, forKey: "a")
-            try values.encodeIfPresent(b, forKey: "b")
-            try values.encodeIfPresent(c, forKey: "c")
+            var container = encoder.singleValueContainer()
+            if let value = a { try container.encode(value) }
+            if let value = b { try container.encode(value) }
+            if let value = c { try container.encode(value) }
         }
     }
 
@@ -14067,22 +14067,22 @@ public struct IssueEventForIssue: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(labeledIssueEvent, forKey: "labeledIssueEvent")
-        try values.encodeIfPresent(unlabeledIssueEvent, forKey: "unlabeledIssueEvent")
-        try values.encodeIfPresent(assignedIssueEvent, forKey: "assignedIssueEvent")
-        try values.encodeIfPresent(unassignedIssueEvent, forKey: "unassignedIssueEvent")
-        try values.encodeIfPresent(milestonedIssueEvent, forKey: "milestonedIssueEvent")
-        try values.encodeIfPresent(demilestonedIssueEvent, forKey: "demilestonedIssueEvent")
-        try values.encodeIfPresent(renamedIssueEvent, forKey: "renamedIssueEvent")
-        try values.encodeIfPresent(reviewRequestedIssueEvent, forKey: "reviewRequestedIssueEvent")
-        try values.encodeIfPresent(reviewRequestRemovedIssueEvent, forKey: "reviewRequestRemovedIssueEvent")
-        try values.encodeIfPresent(reviewDismissedIssueEvent, forKey: "reviewDismissedIssueEvent")
-        try values.encodeIfPresent(lockedIssueEvent, forKey: "lockedIssueEvent")
-        try values.encodeIfPresent(addedToProjectIssueEvent, forKey: "addedToProjectIssueEvent")
-        try values.encodeIfPresent(movedColumnInProjectIssueEvent, forKey: "movedColumnInProjectIssueEvent")
-        try values.encodeIfPresent(removedFromProjectIssueEvent, forKey: "removedFromProjectIssueEvent")
-        try values.encodeIfPresent(convertedNoteToIssueIssueEvent, forKey: "convertedNoteToIssueIssueEvent")
+        var container = encoder.singleValueContainer()
+        if let value = labeledIssueEvent { try container.encode(value) }
+        if let value = unlabeledIssueEvent { try container.encode(value) }
+        if let value = assignedIssueEvent { try container.encode(value) }
+        if let value = unassignedIssueEvent { try container.encode(value) }
+        if let value = milestonedIssueEvent { try container.encode(value) }
+        if let value = demilestonedIssueEvent { try container.encode(value) }
+        if let value = renamedIssueEvent { try container.encode(value) }
+        if let value = reviewRequestedIssueEvent { try container.encode(value) }
+        if let value = reviewRequestRemovedIssueEvent { try container.encode(value) }
+        if let value = reviewDismissedIssueEvent { try container.encode(value) }
+        if let value = lockedIssueEvent { try container.encode(value) }
+        if let value = addedToProjectIssueEvent { try container.encode(value) }
+        if let value = movedColumnInProjectIssueEvent { try container.encode(value) }
+        if let value = removedFromProjectIssueEvent { try container.encode(value) }
+        if let value = convertedNoteToIssueIssueEvent { try container.encode(value) }
     }
 }
 
@@ -14858,28 +14858,28 @@ public struct TimelineIssueEvents: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(labeledIssueEvent, forKey: "labeledIssueEvent")
-        try values.encodeIfPresent(unlabeledIssueEvent, forKey: "unlabeledIssueEvent")
-        try values.encodeIfPresent(milestonedIssueEvent, forKey: "milestonedIssueEvent")
-        try values.encodeIfPresent(demilestonedIssueEvent, forKey: "demilestonedIssueEvent")
-        try values.encodeIfPresent(renamedIssueEvent, forKey: "renamedIssueEvent")
-        try values.encodeIfPresent(reviewRequestedIssueEvent, forKey: "reviewRequestedIssueEvent")
-        try values.encodeIfPresent(reviewRequestRemovedIssueEvent, forKey: "reviewRequestRemovedIssueEvent")
-        try values.encodeIfPresent(reviewDismissedIssueEvent, forKey: "reviewDismissedIssueEvent")
-        try values.encodeIfPresent(lockedIssueEvent, forKey: "lockedIssueEvent")
-        try values.encodeIfPresent(addedToProjectIssueEvent, forKey: "addedToProjectIssueEvent")
-        try values.encodeIfPresent(movedColumnInProjectIssueEvent, forKey: "movedColumnInProjectIssueEvent")
-        try values.encodeIfPresent(removedFromProjectIssueEvent, forKey: "removedFromProjectIssueEvent")
-        try values.encodeIfPresent(convertedNoteToIssueIssueEvent, forKey: "convertedNoteToIssueIssueEvent")
-        try values.encodeIfPresent(timelineCommentEvent, forKey: "timelineCommentEvent")
-        try values.encodeIfPresent(timelineCrossReferencedEvent, forKey: "timelineCrossReferencedEvent")
-        try values.encodeIfPresent(timelineCommittedEvent, forKey: "timelineCommittedEvent")
-        try values.encodeIfPresent(timelineReviewedEvent, forKey: "timelineReviewedEvent")
-        try values.encodeIfPresent(timelineLineCommentedEvent, forKey: "timelineLineCommentedEvent")
-        try values.encodeIfPresent(timelineCommitCommentedEvent, forKey: "timelineCommitCommentedEvent")
-        try values.encodeIfPresent(timelineAssignedIssueEvent, forKey: "timelineAssignedIssueEvent")
-        try values.encodeIfPresent(timelineUnassignedIssueEvent, forKey: "timelineUnassignedIssueEvent")
+        var container = encoder.singleValueContainer()
+        if let value = labeledIssueEvent { try container.encode(value) }
+        if let value = unlabeledIssueEvent { try container.encode(value) }
+        if let value = milestonedIssueEvent { try container.encode(value) }
+        if let value = demilestonedIssueEvent { try container.encode(value) }
+        if let value = renamedIssueEvent { try container.encode(value) }
+        if let value = reviewRequestedIssueEvent { try container.encode(value) }
+        if let value = reviewRequestRemovedIssueEvent { try container.encode(value) }
+        if let value = reviewDismissedIssueEvent { try container.encode(value) }
+        if let value = lockedIssueEvent { try container.encode(value) }
+        if let value = addedToProjectIssueEvent { try container.encode(value) }
+        if let value = movedColumnInProjectIssueEvent { try container.encode(value) }
+        if let value = removedFromProjectIssueEvent { try container.encode(value) }
+        if let value = convertedNoteToIssueIssueEvent { try container.encode(value) }
+        if let value = timelineCommentEvent { try container.encode(value) }
+        if let value = timelineCrossReferencedEvent { try container.encode(value) }
+        if let value = timelineCommittedEvent { try container.encode(value) }
+        if let value = timelineReviewedEvent { try container.encode(value) }
+        if let value = timelineLineCommentedEvent { try container.encode(value) }
+        if let value = timelineCommitCommentedEvent { try container.encode(value) }
+        if let value = timelineAssignedIssueEvent { try container.encode(value) }
+        if let value = timelineUnassignedIssueEvent { try container.encode(value) }
     }
 }
 

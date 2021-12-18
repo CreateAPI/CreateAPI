@@ -564,7 +564,7 @@ extension Generator {
             contents.append(templates.initFromDecoderAnyOf(properties: properties))
         }
         if protocols.isEncodable {
-            contents.append(templates.encode(properties: properties))
+            contents.append(templates.encodeAnyOf(properties: properties))
         }
         let output = templates.entity(name: name, contents: contents, protocols: protocols)
         return AnyDeclaration(name: name, contents: output)

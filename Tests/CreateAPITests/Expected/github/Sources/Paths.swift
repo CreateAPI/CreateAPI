@@ -18343,9 +18343,9 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
 
                 public func encode(to encoder: Encoder) throws {
-                    var values = encoder.container(keyedBy: StringCodingKey.self)
-                    try values.encodeIfPresent(a, forKey: "a")
-                    try values.encodeIfPresent(b, forKey: "b")
+                    var container = encoder.singleValueContainer()
+                    if let value = a { try container.encode(value) }
+                    if let value = b { try container.encode(value) }
                 }
             }
 

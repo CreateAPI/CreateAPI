@@ -239,6 +239,18 @@ final class Templates {
         """
     }
     
+    func encodeAnyOf(properties: [Property]) -> String {
+        let statements = properties.map {
+            "if let value = \($0.name) { try container.encode(value) }"
+        }
+        return """
+        \(access)func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+        \(statements.joined(separator: "\n").indented)
+        }
+        """
+    }
+    
     // MARK: Encodable
     
     func encode(properties: [Property]) -> String {
