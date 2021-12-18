@@ -622,8 +622,6 @@ public struct AppPermissions: Codable {
     public var administration: Administration?
     /// The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`.
     public var checks: Checks?
-    /// The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`.
-    public var contentReferences: ContentReferences?
     /// The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`.
     public var contents: Contents?
     /// The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`.
@@ -693,12 +691,6 @@ public struct AppPermissions: Codable {
 
     /// The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`.
     public enum Checks: String, Codable, CaseIterable {
-        case read
-        case write
-    }
-
-    /// The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`.
-    public enum ContentReferences: String, Codable, CaseIterable {
         case read
         case write
     }
@@ -865,11 +857,10 @@ public struct AppPermissions: Codable {
         case write
     }
 
-    public init(actions: Actions? = nil, administration: Administration? = nil, checks: Checks? = nil, contentReferences: ContentReferences? = nil, contents: Contents? = nil, deployments: Deployments? = nil, environments: Environments? = nil, issues: Issues? = nil, metadata: Metadata? = nil, packages: Packages? = nil, pages: Pages? = nil, pullRequests: PullRequests? = nil, repositoryHooks: RepositoryHooks? = nil, repositoryProjects: RepositoryProjects? = nil, secretScanningAlerts: SecretScanningAlerts? = nil, secrets: Secrets? = nil, securityEvents: SecurityEvents? = nil, singleFile: SingleFile? = nil, statuses: Statuses? = nil, vulnerabilityAlerts: VulnerabilityAlerts? = nil, workflows: Workflows? = nil, members: Members? = nil, organizationAdministration: OrganizationAdministration? = nil, organizationHooks: OrganizationHooks? = nil, organizationPlan: OrganizationPlan? = nil, organizationProjects: OrganizationProjects? = nil, organizationPackages: OrganizationPackages? = nil, organizationSecrets: OrganizationSecrets? = nil, organizationSelfHostedRunners: OrganizationSelfHostedRunners? = nil, organizationUserBlocking: OrganizationUserBlocking? = nil, teamDiscussions: TeamDiscussions? = nil) {
+    public init(actions: Actions? = nil, administration: Administration? = nil, checks: Checks? = nil, contents: Contents? = nil, deployments: Deployments? = nil, environments: Environments? = nil, issues: Issues? = nil, metadata: Metadata? = nil, packages: Packages? = nil, pages: Pages? = nil, pullRequests: PullRequests? = nil, repositoryHooks: RepositoryHooks? = nil, repositoryProjects: RepositoryProjects? = nil, secretScanningAlerts: SecretScanningAlerts? = nil, secrets: Secrets? = nil, securityEvents: SecurityEvents? = nil, singleFile: SingleFile? = nil, statuses: Statuses? = nil, vulnerabilityAlerts: VulnerabilityAlerts? = nil, workflows: Workflows? = nil, members: Members? = nil, organizationAdministration: OrganizationAdministration? = nil, organizationHooks: OrganizationHooks? = nil, organizationPlan: OrganizationPlan? = nil, organizationProjects: OrganizationProjects? = nil, organizationPackages: OrganizationPackages? = nil, organizationSecrets: OrganizationSecrets? = nil, organizationSelfHostedRunners: OrganizationSelfHostedRunners? = nil, organizationUserBlocking: OrganizationUserBlocking? = nil, teamDiscussions: TeamDiscussions? = nil) {
         self.actions = actions
         self.administration = administration
         self.checks = checks
-        self.contentReferences = contentReferences
         self.contents = contents
         self.deployments = deployments
         self.environments = environments
@@ -903,7 +894,6 @@ public struct AppPermissions: Codable {
         case actions
         case administration
         case checks
-        case contentReferences = "content_references"
         case contents
         case deployments
         case environments
@@ -2203,6 +2193,30 @@ public struct RunnerGroupsEnterprise: Codable {
     }
 }
 
+/// Self hosted runner label
+///
+/// A label for a self hosted runner
+public struct RunnerLabel: Codable {
+    /// Unique identifier of the label.
+    public var id: Int?
+    /// Name of the label.
+    public var name: String
+    /// The type of label. Read-only labels are applied automatically when the runner is configured.
+    public var type: `Type`?
+
+    /// The type of label. Read-only labels are applied automatically when the runner is configured.
+    public enum `Type`: String, Codable, CaseIterable {
+        case readOnly = "read-only"
+        case custom
+    }
+
+    public init(id: Int? = nil, name: String, type: `Type`? = nil) {
+        self.id = id
+        self.name = name
+        self.type = type
+    }
+}
+
 /// Self hosted runners
 ///
 /// A self hosted runner
@@ -2222,30 +2236,9 @@ public struct Runner: Codable {
     /// Example: "online"
     public var status: String
     public var isBusy: Bool
-    public var labels: [Label]
+    public var labels: [RunnerLabel]
 
-    public struct Label: Codable {
-        /// Unique identifier of the label.
-        public var id: Int?
-        /// Name of the label.
-        public var name: String?
-        /// The type of label. Read-only labels are applied automatically when the runner is configured.
-        public var type: `Type`?
-
-        /// The type of label. Read-only labels are applied automatically when the runner is configured.
-        public enum `Type`: String, Codable, CaseIterable {
-            case readOnly = "read-only"
-            case custom
-        }
-
-        public init(id: Int? = nil, name: String? = nil, type: `Type`? = nil) {
-            self.id = id
-            self.name = name
-            self.type = type
-        }
-    }
-
-    public init(id: Int, name: String, os: String, status: String, isBusy: Bool, labels: [Label]) {
+    public init(id: Int, name: String, os: String, status: String, isBusy: Bool, labels: [RunnerLabel]) {
         self.id = id
         self.name = name
         self.os = os
@@ -4661,6 +4654,8 @@ public struct OrganizationFull: Codable {
     public var membersCanCreatePublicPages: Bool?
     /// Example: true
     public var membersCanCreatePrivatePages: Bool?
+    /// Example: false
+    public var membersCanForkPrivateRepositories: Bool?
     public var updatedAt: Date
 
     public struct Plan: Codable {
@@ -4687,7 +4682,7 @@ public struct OrganizationFull: Codable {
         }
     }
 
-    public init(login: String, id: Int, nodeID: String, url: URL, reposURL: URL, eventsURL: URL, hooksURL: String, issuesURL: String, membersURL: String, publicMembersURL: String, avatarURL: String, description: String? = nil, name: String? = nil, company: String? = nil, blog: URL? = nil, location: String? = nil, email: String? = nil, twitterUsername: String? = nil, isVerified: Bool? = nil, hasOrganizationProjects: Bool, hasRepositoryProjects: Bool, publicRepos: Int, publicGists: Int, followers: Int, following: Int, htmlURL: URL, createdAt: Date, type: String, totalPrivateRepos: Int? = nil, ownedPrivateRepos: Int? = nil, privateGists: Int? = nil, diskUsage: Int? = nil, collaborators: Int? = nil, billingEmail: String? = nil, plan: Plan? = nil, defaultRepositoryPermission: String? = nil, membersCanCreateRepositories: Bool? = nil, isTwoFactorRequirementEnabled: Bool? = nil, membersAllowedRepositoryCreationType: String? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, updatedAt: Date) {
+    public init(login: String, id: Int, nodeID: String, url: URL, reposURL: URL, eventsURL: URL, hooksURL: String, issuesURL: String, membersURL: String, publicMembersURL: String, avatarURL: String, description: String? = nil, name: String? = nil, company: String? = nil, blog: URL? = nil, location: String? = nil, email: String? = nil, twitterUsername: String? = nil, isVerified: Bool? = nil, hasOrganizationProjects: Bool, hasRepositoryProjects: Bool, publicRepos: Int, publicGists: Int, followers: Int, following: Int, htmlURL: URL, createdAt: Date, type: String, totalPrivateRepos: Int? = nil, ownedPrivateRepos: Int? = nil, privateGists: Int? = nil, diskUsage: Int? = nil, collaborators: Int? = nil, billingEmail: String? = nil, plan: Plan? = nil, defaultRepositoryPermission: String? = nil, membersCanCreateRepositories: Bool? = nil, isTwoFactorRequirementEnabled: Bool? = nil, membersAllowedRepositoryCreationType: String? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanForkPrivateRepositories: Bool? = nil, updatedAt: Date) {
         self.login = login
         self.id = id
         self.nodeID = nodeID
@@ -4733,6 +4728,7 @@ public struct OrganizationFull: Codable {
         self.membersCanCreatePages = membersCanCreatePages
         self.membersCanCreatePublicPages = membersCanCreatePublicPages
         self.membersCanCreatePrivatePages = membersCanCreatePrivatePages
+        self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories
         self.updatedAt = updatedAt
     }
 
@@ -4782,6 +4778,7 @@ public struct OrganizationFull: Codable {
         case membersCanCreatePages = "members_can_create_pages"
         case membersCanCreatePublicPages = "members_can_create_public_pages"
         case membersCanCreatePrivatePages = "members_can_create_private_pages"
+        case membersCanForkPrivateRepositories = "members_can_fork_private_repositories"
         case updatedAt = "updated_at"
     }
 }
@@ -8362,6 +8359,48 @@ public struct Autolink: Codable {
     }
 }
 
+public struct ProtectedBranchRequiredStatusCheck: Codable {
+    public var url: String?
+    public var enforcementLevel: String?
+    public var contexts: [String]
+    public var checks: [Check]
+    public var contextsURL: String?
+    public var isStrict: Bool?
+
+    public struct Check: Codable {
+        public var context: String
+        public var appID: Int?
+
+        public init(context: String, appID: Int? = nil) {
+            self.context = context
+            self.appID = appID
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case context
+            case appID = "app_id"
+        }
+    }
+
+    public init(url: String? = nil, enforcementLevel: String? = nil, contexts: [String], checks: [Check], contextsURL: String? = nil, isStrict: Bool? = nil) {
+        self.url = url
+        self.enforcementLevel = enforcementLevel
+        self.contexts = contexts
+        self.checks = checks
+        self.contextsURL = contextsURL
+        self.isStrict = isStrict
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case url
+        case enforcementLevel = "enforcement_level"
+        case contexts
+        case checks
+        case contextsURL = "contexts_url"
+        case isStrict = "strict"
+    }
+}
+
 public struct ProtectedBranchAdminEnforced: Codable {
     public var url: URL
     /// Example: true
@@ -8729,7 +8768,8 @@ public struct BranchRestrictionPolicy: Codable {
 public struct BranchProtection: Codable {
     public var url: String?
     public var isEnabled: Bool?
-    public var requiredStatusChecks: RequiredStatusChecks?
+    /// Protected Branch Required Status Check
+    public var requiredStatusChecks: ProtectedBranchRequiredStatusCheck?
     /// Protected Branch Admin Enforced
     public var enforceAdmins: ProtectedBranchAdminEnforced?
     /// Protected Branch Pull Request Review
@@ -8745,30 +8785,6 @@ public struct BranchProtection: Codable {
     /// Example: "https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection"
     public var protectionURL: String?
     public var requiredSignatures: RequiredSignatures?
-
-    public struct RequiredStatusChecks: Codable {
-        public var url: String?
-        public var enforcementLevel: String?
-        public var contexts: [String]
-        public var contextsURL: String?
-        public var isStrict: Bool?
-
-        public init(url: String? = nil, enforcementLevel: String? = nil, contexts: [String], contextsURL: String? = nil, isStrict: Bool? = nil) {
-            self.url = url
-            self.enforcementLevel = enforcementLevel
-            self.contexts = contexts
-            self.contextsURL = contextsURL
-            self.isStrict = isStrict
-        }
-
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case enforcementLevel = "enforcement_level"
-            case contexts
-            case contextsURL = "contexts_url"
-            case isStrict = "strict"
-        }
-    }
 
     public struct RequiredLinearHistory: Codable {
         public var isEnabled: Bool?
@@ -8834,7 +8850,7 @@ public struct BranchProtection: Codable {
         }
     }
 
-    public init(url: String? = nil, isEnabled: Bool? = nil, requiredStatusChecks: RequiredStatusChecks? = nil, enforceAdmins: ProtectedBranchAdminEnforced? = nil, requiredPullRequestReviews: ProtectedBranchPullRequestReview? = nil, restrictions: BranchRestrictionPolicy? = nil, requiredLinearHistory: RequiredLinearHistory? = nil, allowForcePushes: AllowForcePushes? = nil, allowDeletions: AllowDeletions? = nil, requiredConversationResolution: RequiredConversationResolution? = nil, name: String? = nil, protectionURL: String? = nil, requiredSignatures: RequiredSignatures? = nil) {
+    public init(url: String? = nil, isEnabled: Bool? = nil, requiredStatusChecks: ProtectedBranchRequiredStatusCheck? = nil, enforceAdmins: ProtectedBranchAdminEnforced? = nil, requiredPullRequestReviews: ProtectedBranchPullRequestReview? = nil, restrictions: BranchRestrictionPolicy? = nil, requiredLinearHistory: RequiredLinearHistory? = nil, allowForcePushes: AllowForcePushes? = nil, allowDeletions: AllowDeletions? = nil, requiredConversationResolution: RequiredConversationResolution? = nil, name: String? = nil, protectionURL: String? = nil, requiredSignatures: RequiredSignatures? = nil) {
         self.url = url
         self.isEnabled = isEnabled
         self.requiredStatusChecks = requiredStatusChecks
@@ -9181,12 +9197,30 @@ public struct StatusCheckPolicy: Codable {
     public var isStrict: Bool
     /// Example: ["continuous-integration/travis-ci"]
     public var contexts: [String]
+    public var checks: [Check]
     public var contextsURL: URL
 
-    public init(url: URL, isStrict: Bool, contexts: [String], contextsURL: URL) {
+    public struct Check: Codable {
+        /// Example: "continuous-integration/travis-ci"
+        public var context: String
+        public var appID: Int?
+
+        public init(context: String, appID: Int? = nil) {
+            self.context = context
+            self.appID = appID
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case context
+            case appID = "app_id"
+        }
+    }
+
+    public init(url: URL, isStrict: Bool, contexts: [String], checks: [Check], contextsURL: URL) {
         self.url = url
         self.isStrict = isStrict
         self.contexts = contexts
+        self.checks = checks
         self.contextsURL = contextsURL
     }
 
@@ -9194,6 +9228,7 @@ public struct StatusCheckPolicy: Codable {
         case url
         case isStrict = "strict"
         case contexts
+        case checks
         case contextsURL = "contexts_url"
     }
 }
@@ -9703,6 +9738,8 @@ public struct CheckSuite: Codable {
     public var headCommit: SimpleCommit
     public var latestCheckRunsCount: Int
     public var checkRunsURL: String
+    public var isRerequestable: Bool?
+    public var isRunsRerequestable: Bool?
 
     /// Example: "completed"
     public enum Status: String, Codable, CaseIterable {
@@ -9722,7 +9759,7 @@ public struct CheckSuite: Codable {
         case actionRequired = "action_required"
     }
 
-    public init(id: Int, nodeID: String, headBranch: String? = nil, headSha: String, status: Status? = nil, conclusion: Conclusion? = nil, url: String? = nil, before: String? = nil, after: String? = nil, pullRequests: [PullRequestMinimal]? = nil, app: Integration? = nil, repository: MinimalRepository, createdAt: Date? = nil, updatedAt: Date? = nil, headCommit: SimpleCommit, latestCheckRunsCount: Int, checkRunsURL: String) {
+    public init(id: Int, nodeID: String, headBranch: String? = nil, headSha: String, status: Status? = nil, conclusion: Conclusion? = nil, url: String? = nil, before: String? = nil, after: String? = nil, pullRequests: [PullRequestMinimal]? = nil, app: Integration? = nil, repository: MinimalRepository, createdAt: Date? = nil, updatedAt: Date? = nil, headCommit: SimpleCommit, latestCheckRunsCount: Int, checkRunsURL: String, isRerequestable: Bool? = nil, isRunsRerequestable: Bool? = nil) {
         self.id = id
         self.nodeID = nodeID
         self.headBranch = headBranch
@@ -9740,6 +9777,8 @@ public struct CheckSuite: Codable {
         self.headCommit = headCommit
         self.latestCheckRunsCount = latestCheckRunsCount
         self.checkRunsURL = checkRunsURL
+        self.isRerequestable = isRerequestable
+        self.isRunsRerequestable = isRunsRerequestable
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -9760,6 +9799,8 @@ public struct CheckSuite: Codable {
         case headCommit = "head_commit"
         case latestCheckRunsCount = "latest_check_runs_count"
         case checkRunsURL = "check_runs_url"
+        case isRerequestable = "rerequestable"
+        case isRunsRerequestable = "runs_rerequestable"
     }
 }
 
@@ -9952,6 +9993,8 @@ public struct CodeScanningAlertItems: Codable {
     public var number: Int
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date
+    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+    public var updatedAt: Date?
     /// The REST API URL of the alert resource.
     public var url: URL
     /// The GitHub URL of the alert resource.
@@ -9960,6 +10003,8 @@ public struct CodeScanningAlertItems: Codable {
     public var instancesURL: URL
     /// State of a code scanning alert.
     public var state: CodeScanningAlertState
+    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+    public var fixedAt: Date?
     /// Simple User
     public var dismissedBy: SimpleUser?
     /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -9970,13 +10015,15 @@ public struct CodeScanningAlertItems: Codable {
     public var tool: CodeScanningAnalysisTool
     public var mostRecentInstance: CodeScanningAlertInstance
 
-    public init(number: Int, createdAt: Date, url: URL, htmlURL: URL, instancesURL: URL, state: CodeScanningAlertState, dismissedBy: SimpleUser? = nil, dismissedAt: Date? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, rule: CodeScanningAlertRuleSummary, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance) {
+    public init(number: Int, createdAt: Date, updatedAt: Date? = nil, url: URL, htmlURL: URL, instancesURL: URL, state: CodeScanningAlertState, fixedAt: Date? = nil, dismissedBy: SimpleUser? = nil, dismissedAt: Date? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, rule: CodeScanningAlertRuleSummary, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance) {
         self.number = number
         self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.url = url
         self.htmlURL = htmlURL
         self.instancesURL = instancesURL
         self.state = state
+        self.fixedAt = fixedAt
         self.dismissedBy = dismissedBy
         self.dismissedAt = dismissedAt
         self.dismissedReason = dismissedReason
@@ -9988,10 +10035,12 @@ public struct CodeScanningAlertItems: Codable {
     private enum CodingKeys: String, CodingKey {
         case number
         case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case url
         case htmlURL = "html_url"
         case instancesURL = "instances_url"
         case state
+        case fixedAt = "fixed_at"
         case dismissedBy = "dismissed_by"
         case dismissedAt = "dismissed_at"
         case dismissedReason = "dismissed_reason"
@@ -10063,6 +10112,8 @@ public struct CodeScanningAlert: Codable {
     public var number: Int
     /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     public var createdAt: Date
+    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+    public var updatedAt: Date?
     /// The REST API URL of the alert resource.
     public var url: URL
     /// The GitHub URL of the alert resource.
@@ -10071,6 +10122,8 @@ public struct CodeScanningAlert: Codable {
     public var instancesURL: URL
     /// State of a code scanning alert.
     public var state: CodeScanningAlertState
+    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+    public var fixedAt: Date?
     /// Simple User
     public var dismissedBy: SimpleUser?
     /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
@@ -10081,13 +10134,15 @@ public struct CodeScanningAlert: Codable {
     public var tool: CodeScanningAnalysisTool
     public var mostRecentInstance: CodeScanningAlertInstance
 
-    public init(number: Int, createdAt: Date, url: URL, htmlURL: URL, instancesURL: URL, state: CodeScanningAlertState, dismissedBy: SimpleUser? = nil, dismissedAt: Date? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, rule: CodeScanningAlertRule, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance) {
+    public init(number: Int, createdAt: Date, updatedAt: Date? = nil, url: URL, htmlURL: URL, instancesURL: URL, state: CodeScanningAlertState, fixedAt: Date? = nil, dismissedBy: SimpleUser? = nil, dismissedAt: Date? = nil, dismissedReason: CodeScanningAlertDismissedReason? = nil, rule: CodeScanningAlertRule, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance) {
         self.number = number
         self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.url = url
         self.htmlURL = htmlURL
         self.instancesURL = instancesURL
         self.state = state
+        self.fixedAt = fixedAt
         self.dismissedBy = dismissedBy
         self.dismissedAt = dismissedAt
         self.dismissedReason = dismissedReason
@@ -10099,10 +10154,12 @@ public struct CodeScanningAlert: Codable {
     private enum CodingKeys: String, CodingKey {
         case number
         case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case url
         case htmlURL = "html_url"
         case instancesURL = "instances_url"
         case state
+        case fixedAt = "fixed_at"
         case dismissedBy = "dismissed_by"
         case dismissedAt = "dismissed_at"
         case dismissedReason = "dismissed_reason"
@@ -10312,6 +10369,7 @@ public struct Codespace: Codable {
     /// API URL for the Pull Request associated with this codespace, if any.
     public var pullsURL: URL?
     public var recentFolders: [String]
+    public var runtimeConstraints: RuntimeConstraints?
 
     /// State of this codespace.
     ///
@@ -10378,7 +10436,20 @@ public struct Codespace: Codable {
         case westUs2 = "WestUs2"
     }
 
-    public init(id: Int, name: String, environmentID: String? = nil, owner: SimpleUser, billableOwner: SimpleUser, repository: MinimalRepository, machine: CodespaceMachine? = nil, isPrebuild: Bool? = nil, createdAt: Date, updatedAt: Date, lastUsedAt: Date, state: State, url: URL, gitStatus: GitStatus, location: Location, idleTimeoutMinutes: Int? = nil, webURL: URL, machinesURL: URL, startURL: URL, stopURL: URL, pullsURL: URL? = nil, recentFolders: [String]) {
+    public struct RuntimeConstraints: Codable {
+        /// The privacy settings a user can select from when forwarding a port.
+        public var allowedPortPrivacySettings: [String]?
+
+        public init(allowedPortPrivacySettings: [String]? = nil) {
+            self.allowedPortPrivacySettings = allowedPortPrivacySettings
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case allowedPortPrivacySettings = "allowed_port_privacy_settings"
+        }
+    }
+
+    public init(id: Int, name: String, environmentID: String? = nil, owner: SimpleUser, billableOwner: SimpleUser, repository: MinimalRepository, machine: CodespaceMachine? = nil, isPrebuild: Bool? = nil, createdAt: Date, updatedAt: Date, lastUsedAt: Date, state: State, url: URL, gitStatus: GitStatus, location: Location, idleTimeoutMinutes: Int? = nil, webURL: URL, machinesURL: URL, startURL: URL, stopURL: URL, pullsURL: URL? = nil, recentFolders: [String], runtimeConstraints: RuntimeConstraints? = nil) {
         self.id = id
         self.name = name
         self.environmentID = environmentID
@@ -10401,6 +10472,7 @@ public struct Codespace: Codable {
         self.stopURL = stopURL
         self.pullsURL = pullsURL
         self.recentFolders = recentFolders
+        self.runtimeConstraints = runtimeConstraints
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -10426,6 +10498,7 @@ public struct Codespace: Codable {
         case stopURL = "stop_url"
         case pullsURL = "pulls_url"
         case recentFolders = "recent_folders"
+        case runtimeConstraints = "runtime_constraints"
     }
 }
 
@@ -11330,40 +11403,6 @@ public struct CommitComparison: Codable {
         case totalCommits = "total_commits"
         case commits
         case files
-    }
-}
-
-/// Content Reference attachments allow you to provide context around URLs posted in comments
-public struct ContentReferenceAttachment: Codable {
-    /// The ID of the attachment
-    ///
-    /// Example: 21
-    public var id: Int
-    /// The title of the attachment
-    ///
-    /// Example: "Title of the attachment"
-    public var title: String
-    /// The body of the attachment
-    ///
-    /// Example: "Body of the attachment"
-    public var body: String
-    /// The node_id of the content attachment
-    ///
-    /// Example: "MDE3OkNvbnRlbnRBdHRhY2htZW50MjE="
-    public var nodeID: String?
-
-    public init(id: Int, title: String, body: String, nodeID: String? = nil) {
-        self.id = id
-        self.title = title
-        self.body = body
-        self.nodeID = nodeID
-    }
-
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case body
-        case nodeID = "node_id"
     }
 }
 
@@ -17173,6 +17212,98 @@ public struct SecretScanningAlert: Codable {
         case resolvedBy = "resolved_by"
         case secretType = "secret_type"
         case secret
+    }
+}
+
+/// Represents a 'commit' secret scanning location type. This location type shows that a secret was detected inside a commit to a repository.
+public struct SecretScanningLocationCommit: Codable {
+    /// The file path in the repository
+    ///
+    /// Example: "/example/secrets.txt"
+    public var path: String
+    /// Line number at which the secret starts in the file
+    public var startLine: Double
+    /// Line number at which the secret ends in the file
+    public var endLine: Double
+    /// The column at which the secret starts within the start line when the file is interpreted as 8BIT ASCII
+    public var startColumn: Double
+    /// The column at which the secret ends within the end line when the file is interpreted as 8BIT ASCII
+    public var endColumn: Double
+    /// SHA-1 hash ID of the associated blob
+    ///
+    /// Example: "af5626b4a114abcb82d63db7c8082c3c4756e51b"
+    public var blobSha: String
+    /// The API URL to get the associated blob resource
+    public var blobURL: String
+    /// SHA-1 hash ID of the associated commit
+    ///
+    /// Example: "af5626b4a114abcb82d63db7c8082c3c4756e51b"
+    public var commitSha: String
+    /// The API URL to get the associated commit resource
+    public var commitURL: String
+
+    public init(path: String, startLine: Double, endLine: Double, startColumn: Double, endColumn: Double, blobSha: String, blobURL: String, commitSha: String, commitURL: String) {
+        self.path = path
+        self.startLine = startLine
+        self.endLine = endLine
+        self.startColumn = startColumn
+        self.endColumn = endColumn
+        self.blobSha = blobSha
+        self.blobURL = blobURL
+        self.commitSha = commitSha
+        self.commitURL = commitURL
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case path
+        case startLine = "start_line"
+        case endLine = "end_line"
+        case startColumn = "start_column"
+        case endColumn = "end_column"
+        case blobSha = "blob_sha"
+        case blobURL = "blob_url"
+        case commitSha = "commit_sha"
+        case commitURL = "commit_url"
+    }
+}
+
+public struct SecretScanningLocation: Codable {
+    /// The location type. Because secrets may be found in different types of resources (ie. code, comments, issues), this field identifies the type of resource where the secret was found.
+    ///
+    /// Example: "commit"
+    public var type: `Type`
+    public var details: Details
+
+    /// The location type. Because secrets may be found in different types of resources (ie. code, comments, issues), this field identifies the type of resource where the secret was found.
+    ///
+    /// Example: "commit"
+    public enum `Type`: String, Codable, CaseIterable {
+        case commit
+    }
+
+    public enum Details: Codable {
+        case secretScanningLocationCommit(SecretScanningLocationCommit)
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let value = try? container.decode(SecretScanningLocationCommit.self) {
+                self = .secretScanningLocationCommit(value)
+            } else {
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            }
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .secretScanningLocationCommit(let value): try container.encode(value)
+            }
+        }
+    }
+
+    public init(type: `Type`, details: Details) {
+        self.type = type
+        self.details = details
     }
 }
 

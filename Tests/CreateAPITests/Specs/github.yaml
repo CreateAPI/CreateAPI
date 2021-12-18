@@ -2685,6 +2685,189 @@ paths:
         githubCloudOnly: false
         category: enterprise-admin
         subcategory: actions
+  "/enterprises/{enterprise}/actions/runners/{runner_id}/labels":
+    get:
+      summary: List labels for a self-hosted runner for an enterprise
+      description: |-
+        Lists all labels for a self-hosted runner configured in an enterprise.
+
+        You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+      tags:
+      - enterprise-admin
+      operationId: enterprise-admin/list-labels-for-self-hosted-runner-for-enterprise
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/enterprise-admin#list-labels-for-a-self-hosted-runner-for-an-enterprise
+      parameters:
+      - "$ref": "#/components/parameters/enterprise"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+      x-github:
+        enabledForGitHubApps: false
+        githubCloudOnly: false
+        category: enterprise-admin
+        subcategory: actions
+    post:
+      summary: Add custom labels to a self-hosted runner for an enterprise
+      description: |-
+        Add custom labels to a self-hosted runner configured in an enterprise.
+
+        You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+      tags:
+      - enterprise-admin
+      operationId: enterprise-admin/add-custom-labels-to-self-hosted-runner-for-enterprise
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/enterprise-admin#add-custom-labels-to-a-self-hosted-runner-for-an-enterprise
+      parameters:
+      - "$ref": "#/components/parameters/enterprise"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: The names of the custom labels to add to the runner.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: false
+        category: enterprise-admin
+        subcategory: actions
+    put:
+      summary: Set custom labels for a self-hosted runner for an enterprise
+      description: |-
+        Remove all previous custom labels and set the new custom labels for a specific
+        self-hosted runner configured in an enterprise.
+
+        You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+      tags:
+      - enterprise-admin
+      operationId: enterprise-admin/set-custom-labels-for-self-hosted-runner-for-enterprise
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/enterprise-admin#set-custom-labels-for-a-self-hosted-runner-for-an-enterprise
+      parameters:
+      - "$ref": "#/components/parameters/enterprise"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 0
+                  maxItems: 100
+                  description: The names of the custom labels to set for the runner.
+                    You can pass an empty array to remove all custom labels.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: false
+        category: enterprise-admin
+        subcategory: actions
+    delete:
+      summary: Remove all custom labels from a self-hosted runner for an enterprise
+      description: |-
+        Remove all custom labels from a self-hosted runner configured in an
+        enterprise. Returns the remaining read-only labels from the runner.
+
+        You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+      tags:
+      - enterprise-admin
+      operationId: enterprise-admin/remove-all-custom-labels-from-self-hosted-runner-for-enterprise
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/enterprise-admin#remove-all-custom-labels-from-a-self-hosted-runner-for-an-enterprise
+      parameters:
+      - "$ref": "#/components/parameters/enterprise"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels_readonly"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: false
+        category: enterprise-admin
+        subcategory: actions
+  "/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}":
+    delete:
+      summary: Remove a custom label from a self-hosted runner for an enterprise
+      description: |-
+        Remove a custom label from a self-hosted runner configured
+        in an enterprise. Returns the remaining labels from the runner.
+
+        This endpoint returns a `404 Not Found` status if the custom label is not
+        present on the runner.
+
+        You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+      tags:
+      - enterprise-admin
+      operationId: enterprise-admin/remove-custom-label-from-self-hosted-runner-for-enterprise
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise
+      parameters:
+      - "$ref": "#/components/parameters/enterprise"
+      - "$ref": "#/components/parameters/runner-id"
+      - "$ref": "#/components/parameters/runner-label-name"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: false
+        category: actions
+        subcategory: self-hosted-runners
   "/enterprises/{enterprise}/audit-log":
     get:
       summary: Get the audit log for an enterprise
@@ -2785,7 +2968,7 @@ paths:
           "$ref": "#/components/responses/code_scanning_forbidden_read"
       x-github:
         githubCloudOnly: false
-        enabledForGitHubApps: true
+        enabledForGitHubApps: false
         previews: []
         category: enterprise-admin
         subcategory: billing
@@ -3184,6 +3367,7 @@ paths:
                   description: Description of the gist
                   example: Example Ruby script
                   type: string
+                  nullable: true
                 files:
                   description: Names of files to be updated
                   example:
@@ -3191,9 +3375,9 @@ paths:
                       content: blah
                       filename: goodbye.rb
                   type: object
+                  nullable: true
                   additionalProperties:
                     type: object
-                    nullable: true
                     properties:
                       content:
                         description: The new content of the file
@@ -3201,21 +3385,8 @@ paths:
                       filename:
                         description: The new filename for the file
                         type: string
-                        nullable: true
-                    anyOf:
-                    - required:
+                    required:
                       - content
-                    - required:
-                      - filename
-                    - type: object
-                      maxProperties: 0
-              anyOf:
-              - required:
-                - description
-              - required:
-                - files
-              type: object
-              nullable: true
       responses:
         '200':
           description: Response
@@ -4052,7 +4223,7 @@ paths:
                   description: The Markdown text to render in HTML.
                   type: string
                 mode:
-                  description: The rendering mode.
+                  description: The rendering mode. Can be either `markdown` or `gfm`.
                   enum:
                   - markdown
                   - gfm
@@ -4061,7 +4232,9 @@ paths:
                   type: string
                 context:
                   description: The repository context to use when creating references
-                    in `gfm` mode.
+                    in `gfm` mode.  For example, setting `context` to `octo-org/octo-repo`
+                    will change the text `#42` into an HTML link to issue 42 in the
+                    `octo-org/octo-repo` repository.
                   type: string
               required:
               - text
@@ -5009,6 +5182,14 @@ paths:
                     - no organization members can create private GitHub Pages sites.
                     Existing published sites will not be impacted."
                   default: true
+                members_can_fork_private_repositories:
+                  type: boolean
+                  description: "Toggles whether organization members can fork private
+                    organization repositories. Can be one of:  \n\\* `true` - all
+                    organization members can fork private repositories within the
+                    organization.  \n\\* `false` - no organization members can fork
+                    private repositories within the organization."
+                  default: false
                 blog:
                   type: string
                   example: '"http://github.blog"'
@@ -6049,6 +6230,187 @@ paths:
       responses:
         '204':
           description: Response
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+  "/orgs/{org}/actions/runners/{runner_id}/labels":
+    get:
+      summary: List labels for a self-hosted runner for an organization
+      description: |-
+        Lists all labels for a self-hosted runner configured in an organization.
+
+        You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+      tags:
+      - actions
+      operationId: actions/list-labels-for-self-hosted-runner-for-org
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization
+      parameters:
+      - "$ref": "#/components/parameters/org"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    post:
+      summary: Add custom labels to a self-hosted runner for an organization
+      description: |-
+        Add custom labels to a self-hosted runner configured in an organization.
+
+        You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+      tags:
+      - actions
+      operationId: actions/add-custom-labels-to-self-hosted-runner-for-org
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization
+      parameters:
+      - "$ref": "#/components/parameters/org"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: The names of the custom labels to add to the runner.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    put:
+      summary: Set custom labels for a self-hosted runner for an organization
+      description: |-
+        Remove all previous custom labels and set the new custom labels for a specific
+        self-hosted runner configured in an organization.
+
+        You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+      tags:
+      - actions
+      operationId: actions/set-custom-labels-for-self-hosted-runner-for-org
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization
+      parameters:
+      - "$ref": "#/components/parameters/org"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 0
+                  maxItems: 100
+                  description: The names of the custom labels to set for the runner.
+                    You can pass an empty array to remove all custom labels.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    delete:
+      summary: Remove all custom labels from a self-hosted runner for an organization
+      description: |-
+        Remove all custom labels from a self-hosted runner configured in an
+        organization. Returns the remaining read-only labels from the runner.
+
+        You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+      tags:
+      - actions
+      operationId: actions/remove-all-custom-labels-from-self-hosted-runner-for-org
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization
+      parameters:
+      - "$ref": "#/components/parameters/org"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels_readonly"
+        '404':
+          "$ref": "#/components/responses/not_found"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+  "/orgs/{org}/actions/runners/{runner_id}/labels/{name}":
+    delete:
+      summary: Remove a custom label from a self-hosted runner for an organization
+      description: |-
+        Remove a custom label from a self-hosted runner configured
+        in an organization. Returns the remaining labels from the runner.
+
+        This endpoint returns a `404 Not Found` status if the custom label is not
+        present on the runner.
+
+        You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+      tags:
+      - actions
+      operationId: actions/remove-custom-label-from-self-hosted-runner-for-org
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization
+      parameters:
+      - "$ref": "#/components/parameters/org"
+      - "$ref": "#/components/parameters/runner-id"
+      - "$ref": "#/components/parameters/runner-label-name"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
       x-github:
         githubCloudOnly: false
         enabledForGitHubApps: true
@@ -9150,9 +9512,9 @@ paths:
         subcategory: 
   "/orgs/{org}/secret-scanning/alerts":
     get:
-      summary: List secret scanning alerts by organization
+      summary: List secret scanning alerts for an organization
       description: |-
-        Lists all secret scanning alerts for all eligible repositories in an organization, from newest to oldest.
+        Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest.
         To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
 
         GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
@@ -9161,34 +9523,12 @@ paths:
       operationId: secret-scanning/list-alerts-for-org
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-by-organization
+        url: https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization
       parameters:
       - "$ref": "#/components/parameters/org"
-      - name: state
-        in: query
-        description: Set to `open` or `resolved` to only list secret scanning alerts
-          in a specific state.
-        required: false
-        schema:
-          type: string
-          enum:
-          - open
-          - resolved
-      - name: secret_type
-        in: query
-        description: A comma-separated list of secret types to return. By default
-          all secret types are returned.
-        required: false
-        schema:
-          type: string
-      - name: resolution
-        in: query
-        description: A comma-separated list of resolutions. Only secret scanning alerts
-          with one of these resolutions are listed. Valid resolutions are `false_positive`,
-          `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`.
-        required: false
-        schema:
-          type: string
+      - "$ref": "#/components/parameters/secret-scanning-alert-state"
+      - "$ref": "#/components/parameters/secret-scanning-alert-secret-type"
+      - "$ref": "#/components/parameters/secret-scanning-alert-resolution"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per-page"
       responses:
@@ -12935,6 +13275,197 @@ paths:
         enabledForGitHubApps: true
         category: actions
         subcategory: self-hosted-runners
+  "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels":
+    get:
+      summary: List labels for a self-hosted runner for a repository
+      description: |-
+        Lists all labels for a self-hosted runner configured in a repository.
+
+        You must authenticate using an access token with the `repo` scope to use this
+        endpoint.
+      tags:
+      - actions
+      operationId: actions/list-labels-for-self-hosted-runner-for-repo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    post:
+      summary: Add custom labels to a self-hosted runner for a repository
+      description: |-
+        Add custom labels to a self-hosted runner configured in a repository.
+
+        You must authenticate using an access token with the `repo` scope to use this
+        endpoint.
+      tags:
+      - actions
+      operationId: actions/add-custom-labels-to-self-hosted-runner-for-repo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: The names of the custom labels to add to the runner.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    put:
+      summary: Set custom labels for a self-hosted runner for a repository
+      description: |-
+        Remove all previous custom labels and set the new custom labels for a specific
+        self-hosted runner configured in a repository.
+
+        You must authenticate using an access token with the `repo` scope to use this
+        endpoint.
+      tags:
+      - actions
+      operationId: actions/set-custom-labels-for-self-hosted-runner-for-repo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/runner-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - labels
+              properties:
+                labels:
+                  type: array
+                  minItems: 0
+                  maxItems: 100
+                  description: The names of the custom labels to set for the runner.
+                    You can pass an empty array to remove all custom labels.
+                  items:
+                    type: string
+            example:
+              labels:
+              - gpu
+              - accelerated
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+    delete:
+      summary: Remove all custom labels from a self-hosted runner for a repository
+      description: |-
+        Remove all custom labels from a self-hosted runner configured in a
+        repository. Returns the remaining read-only labels from the runner.
+
+        You must authenticate using an access token with the `repo` scope to use this
+        endpoint.
+      tags:
+      - actions
+      operationId: actions/remove-all-custom-labels-from-self-hosted-runner-for-repo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/runner-id"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels_readonly"
+        '404':
+          "$ref": "#/components/responses/not_found"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
+  "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}":
+    delete:
+      summary: Remove a custom label from a self-hosted runner for a repository
+      description: |-
+        Remove a custom label from a self-hosted runner configured
+        in a repository. Returns the remaining labels from the runner.
+
+        This endpoint returns a `404 Not Found` status if the custom label is not
+        present on the runner.
+
+        You must authenticate using an access token with the `repo` scope to use this
+        endpoint.
+      tags:
+      - actions
+      operationId: actions/remove-custom-label-from-self-hosted-runner-for-repo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-a-repository
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/runner-id"
+      - "$ref": "#/components/parameters/runner-label-name"
+      responses:
+        '200':
+          "$ref": "#/components/responses/actions_runner_labels"
+        '404':
+          "$ref": "#/components/responses/not_found"
+        '422':
+          "$ref": "#/components/responses/validation_failed_simple"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: actions
+        subcategory: self-hosted-runners
   "/repos/{owner}/{repo}/actions/runs":
     get:
       summary: List workflow runs for a repository
@@ -14528,13 +15059,34 @@ paths:
                       description: Require branches to be up to date before merging.
                     contexts:
                       type: array
-                      description: The list of status checks to require in order to
-                        merge into this branch. If any of these checks have recently
-                        been set by a particular GitHub App, they will be required
-                        to come from that app in future for the branch to merge. Use
-                        `checks` instead of `contexts` for more fine-grained control.
+                      deprecated: true
+                      description: "**Deprecated**: The list of status checks to require
+                        in order to merge into this branch. If any of these checks
+                        have recently been set by a particular GitHub App, they will
+                        be required to come from that app in future for the branch
+                        to merge. Use `checks` instead of `contexts` for more fine-grained
+                        control.\n"
                       items:
                         type: string
+                    checks:
+                      type: array
+                      description: The list of status checks to require in order to
+                        merge into this branch.
+                      items:
+                        type: object
+                        required:
+                        - context
+                        properties:
+                          context:
+                            type: string
+                            description: The name of the required check
+                          app_id:
+                            type: integer
+                            description: The ID of the GitHub App that must provide
+                              this check. Omit this field to automatically select
+                              the GitHub App that has recently provided this check,
+                              or any app if it was not set by a GitHub App. Pass -1
+                              to explicitly allow any app to set the status.
                   required:
                   - strict
                   - contexts
@@ -14579,7 +15131,8 @@ paths:
                     required_approving_review_count:
                       type: integer
                       description: Specify the number of reviewers required to approve
-                        pull requests. Use a number between 1 and 6.
+                        pull requests. Use a number between 1 and 6 or 0 to not require
+                        reviewers.
                 restrictions:
                   type: object
                   description: Restrict who can push to the protected branch. User,
@@ -14889,7 +15442,8 @@ paths:
                 required_approving_review_count:
                   type: integer
                   description: Specifies the number of reviewers required to approve
-                    pull requests. Use a number between 1 and 6.
+                    pull requests. Use a number between 1 and 6 or 0 to not require
+                    reviewers.
             example:
               dismissal_restrictions:
                 users:
@@ -15084,7 +15638,7 @@ paths:
       operationId: repos/update-status-check-protection
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/rest/reference/repos#update-status-check-potection
+        url: https://docs.github.com/rest/reference/repos#update-status-check-protection
       parameters:
       - "$ref": "#/components/parameters/owner"
       - "$ref": "#/components/parameters/repo"
@@ -15101,10 +15655,33 @@ paths:
                   description: Require branches to be up to date before merging.
                 contexts:
                   type: array
-                  description: The list of status checks to require in order to merge
-                    into this branch
+                  deprecated: true
+                  description: "**Deprecated**: The list of status checks to require
+                    in order to merge into this branch. If any of these checks have
+                    recently been set by a particular GitHub App, they will be required
+                    to come from that app in future for the branch to merge. Use `checks`
+                    instead of `contexts` for more fine-grained control.\n"
                   items:
                     type: string
+                checks:
+                  type: array
+                  description: The list of status checks to require in order to merge
+                    into this branch.
+                  items:
+                    type: object
+                    required:
+                    - context
+                    properties:
+                      context:
+                        type: string
+                        description: The name of the required check
+                      app_id:
+                        type: integer
+                        description: The ID of the GitHub App that must provide this
+                          check. Omit this field to automatically select the GitHub
+                          App that has recently provided this check, or any app if
+                          it was not set by a GitHub App. Pass -1 to explicitly allow
+                          any app to set the status.
             example:
               strict: true
               contexts:
@@ -16379,6 +16956,21 @@ paths:
               required:
               - name
               - head_sha
+              oneOf:
+              - properties:
+                  status:
+                    enum:
+                    - completed
+                required:
+                - status
+                - conclusion
+                additionalProperties: true
+              - properties:
+                  status:
+                    enum:
+                    - queued
+                    - in_progress
+                additionalProperties: true
             examples:
               example-of-in-progress-conclusion:
                 summary: Response for in_progress conclusion
@@ -16682,7 +17274,7 @@ paths:
                     required:
                     - label
                     - description
-                    - identifier
+                    - identifie
             example:
               name: mighty_readme
               started_at: '2018-05-04T01:14:52Z'
@@ -17062,8 +17654,9 @@ paths:
       description: |-
         Lists all open code scanning alerts for the default branch (usually `main`
         or `master`). You must use an access token with the `security_events` scope to use
-        this endpoint. GitHub Apps must have the `security_events` read permission to use
-        this endpoint.
+        this endpoint with private repos, the `public_repo` scope also grants permission to read
+        security events on public repos only. GitHub Apps must have the `security_events` read
+        permission to use this endpoint.
 
         The response includes a `most_recent_instance` object.
         This provides details of the most recent instance of this alert
@@ -17083,6 +17676,18 @@ paths:
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per-page"
       - "$ref": "#/components/parameters/git-ref"
+      - "$ref": "#/components/parameters/direction"
+      - name: sort
+        description: Can be one of `created`, `updated`, `number`.
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - created
+          - updated
+          - number
+          default: number
       - name: state
         description: Set to `open`, `fixed`, or `dismissed` to list code scanning
           alerts in a specific state.
@@ -17102,6 +17707,8 @@ paths:
               examples:
                 default:
                   "$ref": "#/components/examples/code-scanning-alert-items"
+        '304':
+          "$ref": "#/components/responses/not_modified"
         '403':
           "$ref": "#/components/responses/code_scanning_forbidden_read"
         '404':
@@ -17117,7 +17724,7 @@ paths:
     get:
       summary: Get a code scanning alert
       description: |-
-        Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
 
         **Deprecation notice**:
         The instances field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The same information can now be retrieved via a GET request to the URL specified by `instances_url`.
@@ -17141,6 +17748,8 @@ paths:
               examples:
                 default:
                   "$ref": "#/components/examples/code-scanning-alert"
+        '304':
+          "$ref": "#/components/responses/not_modified"
         '403':
           "$ref": "#/components/responses/code_scanning_forbidden_read"
         '404':
@@ -17155,8 +17764,10 @@ paths:
     patch:
       summary: Update a code scanning alert
       description: Updates the status of a single code scanning alert. You must use
-        an access token with the `security_events` scope to use this endpoint. GitHub
-        Apps must have the `security_events` write permission to use this endpoint.
+        an access token with the `security_events` scope to use this endpoint with
+        private repositories. You can also use tokens with the `public_repo` scope
+        for public repositories only. GitHub Apps must have the `security_events`
+        write permission to use this endpoint.
       operationId: code-scanning/update-alert
       tags:
       - code-scanning
@@ -17206,8 +17817,10 @@ paths:
   "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances":
     get:
       summary: List instances of a code scanning alert
-      description: Lists all instances of the specified code scanning alert. You must
-        use an access token with the `security_events` scope to use this endpoint.
+      description: |-
+        Lists all instances of the specified code scanning alert.
+        You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        the `public_repo` scope also grants permission to read security events on public repos only.
         GitHub Apps must have the `security_events` read permission to use this endpoint.
       tags:
       - code-scanning
@@ -17260,7 +17873,8 @@ paths:
         For very old analyses this data is not available,
         and `0` is returned in this field.
 
-        You must use an access token with the `security_events` scope to use this endpoint.
+        You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        the `public_repo` scope also grants permission to read security events on public repos only.
         GitHub Apps must have the `security_events` read permission to use this endpoint.
 
         **Deprecation notice**:
@@ -17319,7 +17933,8 @@ paths:
       summary: Get a code scanning analysis for a repository
       description: |-
         Gets a specified code scanning analysis for a repository.
-        You must use an access token with the `security_events` scope to use this endpoint.
+        You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        the `public_repo` scope also grants permission to read security events on public repos only.
         GitHub Apps must have the `security_events` read permission to use this endpoint.
 
         The default JSON response contains fields that describe the analysis.
@@ -17380,7 +17995,7 @@ paths:
       description: |-
         Deletes a specified code scanning analysis from a repository. For
         private repositories, you must use an access token with the `repo` scope. For public repositories,
-        you must use an access token with `public_repo` and `repo:security_events` scopes.
+        you must use an access token with `public_repo` scope.
         GitHub Apps must have the `security_events` write permission to use this endpoint.
 
         You can delete one analysis at a time.
@@ -17497,7 +18112,7 @@ paths:
     post:
       summary: Upload an analysis as SARIF data
       description: |-
-        Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
+        Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint for private repositories. You can also use tokens with the `public_repo` scope for public repositories only. GitHub Apps must have the `security_events` write permission to use this endpoint.
 
         There are two places where you can upload code scanning results.
          - If you upload to a pull request, for example `--ref refs/pull/42/merge` or `--ref refs/pull/42/head`, then the results appear as alerts in a pull request check. For more information, see "[Triaging code scanning alerts in pull requests](/code-security/secure-coding/triaging-code-scanning-alerts-in-pull-requests)."
@@ -17592,8 +18207,9 @@ paths:
         of the analysis. For more information, see "[Get a code scanning analysis
         for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)."
         You must use an access token with the `security_events` scope to use this
-        endpoint. GitHub Apps must have the `security_events` read permission to use
-        this endpoint.
+        endpoint with private repos, the `public_repo` scope also grants permission
+        to read security events on public repos only. GitHub Apps must have the `security_events`
+        read permission to use this endpoint.
       operationId: code-scanning/get-sarif
       tags:
       - code-scanning
@@ -17716,6 +18332,9 @@ paths:
                 working_directory:
                   description: Working directory for this codespace
                   type: string
+                idle_timeout_minutes:
+                  description: Time in minutes before codespace stops from inactivity
+                  type: integer
             example:
               repository_id: 1
               ref: main
@@ -17899,7 +18518,11 @@ paths:
       description: |-
         This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
 
-        For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the permission being given must be equal to or higher than the org base permission. Otherwise, the request will fail with:
+
+        ```
+        Cannot assign {member} permission of {role name}
+        ```
 
         Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
 
@@ -19015,97 +19638,6 @@ paths:
         enabledForGitHubApps: true
         category: repos
         subcategory: commits
-  "/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments":
-    post:
-      summary: Create a content attachment
-      description: |-
-        Creates an attachment under a content reference URL in the body or comment of an issue or pull request. Use the `id` and `repository` `full_name` of the content reference from the [`content_reference` event](https://docs.github.com/webhooks/event-payloads/#content_reference) to create an attachment.
-
-        The app must create a content attachment within six hours of the content reference URL being posted. See "[Using content attachments](https://docs.github.com/apps/using-content-attachments/)" for details about content attachments.
-
-        You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
-      tags:
-      - apps
-      operationId: apps/create-content-attachment
-      externalDocs:
-        description: API method documentation
-        url: https://docs.github.com/rest/reference/apps#create-a-content-attachment
-      parameters:
-      - name: owner
-        description: The owner of the repository. Determined from the `repository`
-          `full_name` of the `content_reference` event.
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: repo
-        description: The name of the repository. Determined from the `repository`
-          `full_name` of the `content_reference` event.
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: content_reference_id
-        description: The `id` of the `content_reference` event.
-        in: path
-        required: true
-        schema:
-          type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              properties:
-                title:
-                  description: The title of the attachment
-                  example: Title of the attachment
-                  type: string
-                  maxLength: 1024
-                body:
-                  description: The body of the attachment
-                  example: Body of the attachment
-                  type: string
-                  maxLength: 262144
-              required:
-              - title
-              - body
-              type: object
-      responses:
-        '200':
-          description: Response
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/content-reference-attachment"
-              examples:
-                default:
-                  "$ref": "#/components/examples/content-reference-attachment"
-        '422':
-          "$ref": "#/components/responses/validation_failed"
-        '404':
-          "$ref": "#/components/responses/not_found"
-        '410':
-          "$ref": "#/components/responses/gone"
-        '415':
-          "$ref": "#/components/responses/preview_header_missing"
-        '304':
-          "$ref": "#/components/responses/not_modified"
-        '403':
-          "$ref": "#/components/responses/forbidden"
-      x-github:
-        githubCloudOnly: false
-        enabledForGitHubApps: true
-        previews:
-        - required: true
-          name: corsair
-          note: |-
-            To access the Content Attachments API during the preview period, you must provide a custom [media type](https://docs.github.com/rest/overview/media-types) in the `Accept` header:
-            ```shell
-            application/vnd.github.corsair-preview+json
-            ```
-        category: apps
-        subcategory: installations
   "/repos/{owner}/{repo}/contents/{path}":
     get:
       summary: Get repository content
@@ -19828,9 +20360,9 @@ paths:
                 state:
                   type: string
                   description: The state of the status. Can be one of `error`, `failure`,
-                    `inactive`, `in_progress`, `queued` `pending`, or `success`. When
-                    you set a transient deployment to `inactive`, the deployment will
-                    be shown as `destroyed` in GitHub.
+                    `inactive`, `in_progress`, `queued`, `pending`, or `success`.
+                    When you set a transient deployment to `inactive`, the deployment
+                    will be shown as `destroyed` in GitHub.
                   enum:
                   - error
                   - failure
@@ -24085,7 +24617,8 @@ paths:
                     for the label, without the leading `#`.
                 description:
                   type: string
-                  description: A short description of the label.
+                  description: A short description of the label. Must be 100 characters
+                    or fewer.
               required:
               - name
             example:
@@ -24188,7 +24721,8 @@ paths:
                     for the label, without the leading `#`.
                 description:
                   type: string
-                  description: A short description of the label.
+                  description: A short description of the label. Must be 100 characters
+                    or fewer.
             example:
               new_name: 'bug :bug:'
               description: Small bug fix required
@@ -24265,8 +24799,7 @@ paths:
   "/repos/{owner}/{repo}/lfs":
     put:
       summary: Enable Git LFS for a repository
-      description: "**Note:** The Git LFS API endpoints are currently in beta and
-        are subject to change."
+      description: ''
       operationId: repos/enable-lfs-for-repo
       tags:
       - repos
@@ -24293,8 +24826,7 @@ paths:
         subcategory: lfs
     delete:
       summary: Disable Git LFS for a repository
-      description: "**Note:** The Git LFS API endpoints are currently in beta and
-        are subject to change."
+      description: ''
       operationId: repos/disable-lfs-for-repo
       tags:
       - repos
@@ -24346,10 +24878,8 @@ paths:
   "/repos/{owner}/{repo}/merge-upstream":
     post:
       summary: Sync a fork branch with the upstream repository
-      description: |-
-        **Note:** This endpoint is currently in beta and subject to change.
-
-        Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
+      description: Sync a branch of a forked repository to keep it up-to-date with
+        the upstream repository.
       tags:
       - repos
       operationId: repos/merge-upstream
@@ -25969,6 +26499,9 @@ paths:
                 working_directory:
                   description: Working directory for this codespace
                   type: string
+                idle_timeout_minutes:
+                  description: Time in minutes before codespace stops from inactivity
+                  type: integer
             example:
               repository_id: 1
               ref: main
@@ -27860,7 +28393,7 @@ paths:
     get:
       summary: List secret scanning alerts for a repository
       description: |-
-        Lists all secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        Lists secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
 
         GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
       tags:
@@ -27872,32 +28405,9 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/owner"
       - "$ref": "#/components/parameters/repo"
-      - name: state
-        in: query
-        description: Set to `open` or `resolved` to only list secret scanning alerts
-          in a specific state.
-        required: false
-        schema:
-          type: string
-          enum:
-          - open
-          - resolved
-      - name: secret_type
-        in: query
-        description: A comma-separated list of secret types to return. By default
-          all secret types are returned. See "[About secret scanning for private repositories](https://docs.github.com/code-security/secret-security/about-secret-scanning#about-secret-scanning-for-private-repositories)"
-          for a complete list of secret types (API slug).
-        required: false
-        schema:
-          type: string
-      - name: resolution
-        in: query
-        description: A comma-separated list of resolutions. Only secret scanning alerts
-          with one of these resolutions are listed. Valid resolutions are `false_positive`,
-          `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`.
-        required: false
-        schema:
-          type: string
+      - "$ref": "#/components/parameters/secret-scanning-alert-state"
+      - "$ref": "#/components/parameters/secret-scanning-alert-secret-type"
+      - "$ref": "#/components/parameters/secret-scanning-alert-resolution"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per-page"
       responses:
@@ -28014,6 +28524,51 @@ paths:
         enabledForGitHubApps: true
         githubCloudOnly: false
         category: secret-scanning
+  "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations":
+    get:
+      summary: List locations for a secret scanning alert
+      description: |-
+        Lists all locations for a given secret scanning alert for a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+
+        GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
+      tags:
+      - secret-scanning
+      operationId: secret-scanning/list-locations-for-alert
+      externalDocs:
+        description: API method documentation
+        url: https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert
+      parameters:
+      - "$ref": "#/components/parameters/owner"
+      - "$ref": "#/components/parameters/repo"
+      - "$ref": "#/components/parameters/alert-number"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per-page"
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of locations where the secret was detected
+                items:
+                  "$ref": "#/components/schemas/secret-scanning-location"
+              examples:
+                default:
+                  "$ref": "#/components/examples/secret-scanning-location-list"
+          headers:
+            Link:
+              "$ref": "#/components/headers/link"
+        '404':
+          description: Repository is public, or secret scanning is disabled for the
+            repository, or the resource is not found
+        '503':
+          "$ref": "#/components/responses/service_unavailable"
+      x-github:
+        githubCloudOnly: false
+        enabledForGitHubApps: true
+        category: secret-scanning
+        subcategory: 
   "/repos/{owner}/{repo}/stargazers":
     get:
       summary: List stargazers
@@ -33054,6 +33609,9 @@ paths:
                   working_directory:
                     description: Working directory for this codespace
                     type: string
+                  idle_timeout_minutes:
+                    description: Time in minutes before codespace stops from inactivity
+                    type: integer
               - type: object
                 required:
                 - pull_request
@@ -33081,6 +33639,9 @@ paths:
                   working_directory:
                     description: Working directory for this codespace
                     type: string
+                  idle_timeout_minutes:
+                    description: Time in minutes before codespace stops from inactivity
+                    type: integer
             example:
               repository_id: 1
               ref: main
@@ -38264,14 +38825,6 @@ components:
           enum:
           - read
           - write
-        content_references:
-          type: string
-          description: 'The level of permission to grant the access token for notification
-            of content references and creation content attachments. Can be one of:
-            `read` or `write`.'
-          enum:
-          - read
-          - write
         contents:
           type: string
           description: 'The level of permission to grant the access token for repository
@@ -39644,6 +40197,26 @@ components:
       - allows_public_repositories
       - default
       - runners_url
+    runner-label:
+      title: Self hosted runner label
+      description: A label for a self hosted runner
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the label.
+        name:
+          type: string
+          description: Name of the label.
+        type:
+          type: string
+          description: The type of label. Read-only labels are applied automatically
+            when the runner is configured.
+          enum:
+          - read-only
+          - custom
+      required:
+      - name
     runner:
       title: Self hosted runners
       description: A self hosted runner
@@ -39670,21 +40243,7 @@ components:
         labels:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: Unique identifier of the label.
-              name:
-                type: string
-                description: Name of the label.
-              type:
-                type: string
-                description: The type of label. Read-only labels are applied automatically
-                  when the runner is configured.
-                enum:
-                - read-only
-                - custom
+            "$ref": "#/components/schemas/runner-label"
       required:
       - id
       - name
@@ -42708,6 +43267,10 @@ components:
         members_can_create_private_pages:
           type: boolean
           example: true
+        members_can_fork_private_repositories:
+          type: boolean
+          example: false
+          nullable: true
         updated_at:
           type: string
           format: date-time
@@ -46396,6 +46959,39 @@ components:
       - id
       - key_prefix
       - url_template
+    protected-branch-required-status-check:
+      title: Protected Branch Required Status Check
+      description: Protected Branch Required Status Check
+      type: object
+      properties:
+        url:
+          type: string
+        enforcement_level:
+          type: string
+        contexts:
+          type: array
+          items:
+            type: string
+        checks:
+          type: array
+          items:
+            type: object
+            properties:
+              context:
+                type: string
+              app_id:
+                type: integer
+                nullable: true
+            required:
+            - context
+            - app_id
+        contexts_url:
+          type: string
+        strict:
+          type: boolean
+      required:
+      - contexts
+      - checks
     protected-branch-admin-enforced:
       title: Protected Branch Admin Enforced
       description: Protected Branch Admin Enforced
@@ -46450,7 +47046,7 @@ components:
           example: true
         required_approving_review_count:
           type: integer
-          minimum: 1
+          minimum: 0
           maximum: 6
           example: 2
       required:
@@ -46661,22 +47257,7 @@ components:
         enabled:
           type: boolean
         required_status_checks:
-          type: object
-          properties:
-            url:
-              type: string
-            enforcement_level:
-              type: string
-            contexts:
-              type: array
-              items:
-                type: string
-            contexts_url:
-              type: string
-            strict:
-              type: boolean
-          required:
-          - contexts
+          "$ref": "#/components/schemas/protected-branch-required-status-check"
         enforce_admins:
           "$ref": "#/components/schemas/protected-branch-admin-enforced"
         required_pull_request_reviews:
@@ -47010,6 +47591,20 @@ components:
           - continuous-integration/travis-ci
           items:
             type: string
+        checks:
+          type: array
+          items:
+            type: object
+            properties:
+              context:
+                type: string
+                example: continuous-integration/travis-ci
+              app_id:
+                type: integer
+                nullable: true
+            required:
+            - context
+            - app_id
         contexts_url:
           type: string
           format: uri
@@ -47019,6 +47614,7 @@ components:
       - contexts_url
       - strict
       - contexts
+      - checks
     protected-branch:
       title: Protected Branch
       description: Branch protections protect branches
@@ -47488,6 +48084,10 @@ components:
           type: integer
         check_runs_url:
           type: string
+        rerequestable:
+          type: boolean
+        runs_rerequestable:
+          type: boolean
       required:
       - id
       - node_id
@@ -47552,11 +48152,23 @@ components:
       - closed
       - dismissed
       - fixed
+    alert-updated-at:
+      type: string
+      description: 'The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.'
+      format: date-time
+      readOnly: true
     alert-instances-url:
       type: string
       description: The REST API URL for fetching the list of instances for an alert.
       format: uri
       readOnly: true
+    code-scanning-alert-fixed-at:
+      type: string
+      description: 'The time that the alert was no longer detected and was considered
+        fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.'
+      format: date-time
+      readOnly: true
+      nullable: true
     code-scanning-alert-dismissed-at:
       type: string
       description: 'The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.'
@@ -47685,6 +48297,8 @@ components:
           "$ref": "#/components/schemas/alert-number"
         created_at:
           "$ref": "#/components/schemas/alert-created-at"
+        updated_at:
+          "$ref": "#/components/schemas/alert-updated-at"
         url:
           "$ref": "#/components/schemas/alert-url"
         html_url:
@@ -47693,6 +48307,8 @@ components:
           "$ref": "#/components/schemas/alert-instances-url"
         state:
           "$ref": "#/components/schemas/code-scanning-alert-state"
+        fixed_at:
+          "$ref": "#/components/schemas/code-scanning-alert-fixed-at"
         dismissed_by:
           "$ref": "#/components/schemas/nullable-simple-user"
         dismissed_at:
@@ -47769,6 +48385,8 @@ components:
           "$ref": "#/components/schemas/alert-number"
         created_at:
           "$ref": "#/components/schemas/alert-created-at"
+        updated_at:
+          "$ref": "#/components/schemas/alert-updated-at"
         url:
           "$ref": "#/components/schemas/alert-url"
         html_url:
@@ -47777,6 +48395,8 @@ components:
           "$ref": "#/components/schemas/alert-instances-url"
         state:
           "$ref": "#/components/schemas/code-scanning-alert-state"
+        fixed_at:
+          "$ref": "#/components/schemas/code-scanning-alert-fixed-at"
         dismissed_by:
           "$ref": "#/components/schemas/nullable-simple-user"
         dismissed_at:
@@ -48140,6 +48760,16 @@ components:
           type: array
           items:
             type: string
+        runtime_constraints:
+          type: object
+          properties:
+            allowed_port_privacy_settings:
+              description: The privacy settings a user can select from when forwarding
+                a port.
+              type: array
+              items:
+                type: string
+              nullable: true
       required:
       - id
       - name
@@ -49145,34 +49775,6 @@ components:
       - behind_by
       - total_commits
       - commits
-    content-reference-attachment:
-      title: ContentReferenceAttachment
-      description: Content Reference attachments allow you to provide context around
-        URLs posted in comments
-      type: object
-      properties:
-        id:
-          description: The ID of the attachment
-          example: 21
-          type: integer
-        title:
-          description: The title of the attachment
-          example: Title of the attachment
-          type: string
-          maxLength: 1024
-        body:
-          description: The body of the attachment
-          example: Body of the attachment
-          type: string
-          maxLength: 262144
-        node_id:
-          description: The node_id of the content attachment
-          example: MDE3OkNvbnRlbnRBdHRhY2htZW50MjE=
-          type: string
-      required:
-      - id
-      - title
-      - body
     content-tree:
       title: Content Tree
       description: Content Tree
@@ -54415,6 +55017,70 @@ components:
         secret:
           type: string
           description: The secret that was detected.
+    secret-scanning-location-commit:
+      description: Represents a 'commit' secret scanning location type. This location
+        type shows that a secret was detected inside a commit to a repository.
+      type: object
+      properties:
+        path:
+          type: string
+          description: The file path in the repository
+          example: "/example/secrets.txt"
+        start_line:
+          type: number
+          description: Line number at which the secret starts in the file
+        end_line:
+          type: number
+          description: Line number at which the secret ends in the file
+        start_column:
+          type: number
+          description: The column at which the secret starts within the start line
+            when the file is interpreted as 8BIT ASCII
+        end_column:
+          type: number
+          description: The column at which the secret ends within the end line when
+            the file is interpreted as 8BIT ASCII
+        blob_sha:
+          type: string
+          description: SHA-1 hash ID of the associated blob
+          example: af5626b4a114abcb82d63db7c8082c3c4756e51b
+        blob_url:
+          type: string
+          description: The API URL to get the associated blob resource
+        commit_sha:
+          type: string
+          description: SHA-1 hash ID of the associated commit
+          example: af5626b4a114abcb82d63db7c8082c3c4756e51b
+        commit_url:
+          type: string
+          description: The API URL to get the associated commit resource
+      required:
+      - path
+      - start_line
+      - end_line
+      - start_column
+      - end_column
+      - blob_sha
+      - blob_url
+      - commit_sha
+      - commit_url
+    secret-scanning-location:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - commit
+          description: The location type. Because secrets may be found in different
+            types of resources (ie. code, comments, issues), this field identifies
+            the type of resource where the secret was found.
+          example: commit
+        details:
+          oneOf:
+          - "$ref": "#/components/schemas/secret-scanning-location-commit"
+      required:
+      - type
+      - details
     stargazer:
       title: Stargazer
       description: Stargazer
@@ -55024,8 +55690,6 @@ components:
                 oneOf:
                 - type: string
                 - type: object
-                
-                
                 - type: array
                   items: {}
             required:
@@ -57324,6 +57988,35 @@ components:
         - id: 21
           name: no-gpu
           type: custom
+    runner-labels:
+      value:
+        total_count: 4
+        labels:
+        - id: 5
+          name: self-hosted
+          type: read-only
+        - id: 7
+          name: X64
+          type: read-only
+        - id: 20
+          name: macOS
+          type: read-only
+        - id: 21
+          name: no-gpu
+          type: custom
+    runner-labels-readonly:
+      value:
+        total_count: 3
+        labels:
+        - id: 5
+          name: self-hosted
+          type: read-only
+        - id: 7
+          name: X64
+          type: read-only
+        - id: 20
+          name: macOS
+          type: read-only
     audit-log:
       value:
       - "@timestamp": 1606929874512
@@ -58510,6 +59203,7 @@ components:
         members_can_create_private_repositories: false
         members_can_create_internal_repositories: false
         members_can_create_pages: true
+        members_can_fork_private_repositories: false
     organization-full:
       value:
         login: github
@@ -58560,6 +59254,7 @@ components:
         members_can_create_pages: true
         members_can_create_public_pages: true
         members_can_create_private_pages: true
+        members_can_fork_private_repositories: false
         updated_at: '2014-03-03T18:58:10Z'
     actions-organization-permissions:
       value:
@@ -60260,6 +60955,7 @@ components:
         created_at: '2020-11-06T18:48:51Z'
         url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/2
         html_url: https://github.com/owner/private-repo/security/secret-scanning/2
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/2/locations
         state: resolved
         resolution: false_positive
         resolved_at: '2020-11-07T02:47:13Z'
@@ -60504,6 +61200,7 @@ components:
         created_at: '2020-11-06T18:18:30Z'
         url: https://api.github.com/repos/owner/repo/secret-scanning/alerts/1
         html_url: https://github.com/owner/repo/security/secret-scanning/1
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/1/locations
         state: open
         resolution: 
         resolved_at: 
@@ -61405,9 +62102,11 @@ components:
           created_at: '2011-01-26T19:01:12Z'
           updated_at: '2011-01-26T19:14:43Z'
           permissions:
-            admin: false
-            push: false
             pull: true
+            triage: false
+            push: false
+            maintain: false
+            admin: false
           allow_rebase_merge: true
           temp_clone_token: ABTLWHOULUVAXGTRYU7OC2876QJ2O
           allow_squash_merge: true
@@ -64537,6 +65236,7 @@ components:
         url: https://api.github.com/repos/octocat/hello-world/code-scanning/alerts/4
         html_url: https://github.com/octocat/hello-world/code-scanning/4
         state: open
+        fixed_at: 
         dismissed_by: 
         dismissed_at: 
         dismissed_reason: 
@@ -64571,6 +65271,7 @@ components:
         url: https://api.github.com/repos/octocat/hello-world/code-scanning/alerts/3
         html_url: https://github.com/octocat/hello-world/code-scanning/3
         state: dismissed
+        fixed_at: 
         dismissed_by:
           login: octocat
           id: 1
@@ -64624,6 +65325,7 @@ components:
         url: https://api.github.com/repos/octocat/hello-world/code-scanning/alerts/42
         html_url: https://github.com/octocat/hello-world/code-scanning/42
         state: dismissed
+        fixed_at: 
         dismissed_by:
           login: octocat
           id: 54933897
@@ -64689,6 +65391,7 @@ components:
         url: https://api.github.com/repos/octocat/hello-world/code-scanning/alerts/42
         html_url: https://github.com/octocat/hello-world/code-scanning/42
         state: dismissed
+        fixed_at: 
         dismissed_by:
           login: octocat
           id: 1
@@ -64753,6 +65456,7 @@ components:
         analysis_key: ".github/workflows/codeql-analysis.yml:CodeQL-Build"
         environment: ''
         state: open
+        fixed_at: 
         commit_sha: 39406e42cb832f683daa691dd652a8dc36ee8930
         message:
           text: This path depends on a user-provided value.
@@ -64769,6 +65473,7 @@ components:
         environment: ''
         category: ".github/workflows/codeql-analysis.yml:CodeQL-Build"
         state: fixed
+        fixed_at: '2020-02-14T12:29:18Z'
         commit_sha: b09da05606e27f463a2b49287684b4ae777092f2
         message:
           text: This suffix check is missing a length comparison to correctly handle
@@ -65302,7 +66007,9 @@ components:
         site_admin: false
         permissions:
           pull: true
+          triage: true
           push: true
+          maintain: false
           admin: false
         role_name: write
     repository-invitation-response-when-a-new-invitation-is-created:
@@ -66731,19 +67438,6 @@ components:
           raw_url: https://github.com/octocat/Hello-World/raw/6dcb09b5b57875f334f61aebed695e2e4193db5e/file1.txt
           contents_url: https://api.github.com/repos/octocat/Hello-World/contents/file1.txt?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e
           patch: "@@ -132,7 +132,7 @@ module Test @@ -1000,7 +1000,7 @@ module Test"
-    content-reference-attachment:
-      value:
-        id: 101
-        title: "[A-1234] Error found in core/models.py file'"
-        body: |-
-          You have used an email that already exists for the user_email_uniq field.
-           ## DETAILS:
-
-          The (email)=(Octocat@github.com) already exists.
-
-           The error was found in core/models.py in get_or_create_user at line 62.
-
-           self.save()
     content-file-response-if-content-is-a-file:
       summary: Response if content is a file
       value:
@@ -70722,6 +71416,7 @@ components:
         created_at: '2020-11-06T18:48:51Z'
         url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/2
         html_url: https://github.com/owner/private-repo/security/secret-scanning/2
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/2/locations
         state: resolved
         resolution: false_positive
         resolved_at: '2020-11-07T02:47:13Z'
@@ -70750,6 +71445,7 @@ components:
         created_at: '2020-11-06T18:18:30Z'
         url: https://api.github.com/repos/owner/repo/secret-scanning/alerts/1
         html_url: https://github.com/owner/repo/security/secret-scanning/1
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/1/locations
         state: open
         resolution: 
         resolved_at: 
@@ -70762,6 +71458,7 @@ components:
         created_at: '2020-11-06T18:18:30Z'
         url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/42
         html_url: https://github.com/owner/private-repo/security/secret-scanning/42
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/42/locations
         state: open
         resolution: 
         resolved_at: 
@@ -70774,6 +71471,7 @@ components:
         created_at: '2020-11-06T18:18:30Z'
         url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/42
         html_url: https://github.com/owner/private-repo/security/secret-scanning/42
+        locations_url: https://api.github.com/repos/owner/private-repo/secret-scanning/alerts/42/locations
         state: resolved
         resolution: used_in_tests
         resolved_at: '2020-11-16T22:42:07Z'
@@ -70798,6 +71496,41 @@ components:
           site_admin: true
         secret_type: mailchimp_api_key
         secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-us2
+    secret-scanning-location-list:
+      value:
+      - type: commit
+        details:
+          path: "/example/secrets.txt"
+          start_line: 1
+          end_line: 1
+          start_column: 1
+          end_column: 64
+          blob_sha: af5626b4a114abcb82d63db7c8082c3c4756e51b
+          blob_url: https://api.github.com/repos/octocat/hello-world/git/blobs/af5626b4a114abcb82d63db7c8082c3c4756e51b
+          commit_sha: f14d7debf9775f957cf4f1e8176da0786431f72b
+          commit_url: https://api.github.com/repos/octocat/hello-world/git/commits/f14d7debf9775f957cf4f1e8176da0786431f72b
+      - type: commit
+        details:
+          path: "/example/secrets.txt"
+          start_line: 5
+          end_line: 5
+          start_column: 1
+          end_column: 64
+          blob_sha: 9def38117ab2d8355b982429aa924e268b4b0065
+          blob_url: https://api.github.com/repos/octocat/hello-world/git/blobs/9def38117ab2d8355b982429aa924e268b4b0065
+          commit_sha: 588483b99a46342501d99e3f10630cfc1219ea32
+          commit_url: https://api.github.com/repos/octocat/hello-world/git/commits/588483b99a46342501d99e3f10630cfc1219ea32
+      - type: commit
+        details:
+          path: "/example/secrets.txt"
+          start_line: 12
+          end_line: 12
+          start_column: 1
+          end_column: 64
+          blob_sha: 0b33e9c66e19f7fb15137a82ff1c04c10cba6caf
+          blob_url: https://api.github.com/repos/octocat/hello-world/git/blobs/0b33e9c66e19f7fb15137a82ff1c04c10cba6caf
+          commit_sha: 9def38117ab2d8355b982429aa924e268b4b0065
+          commit_url: https://api.github.com/repos/octocat/hello-world/git/commits/9def38117ab2d8355b982429aa924e268b4b0065
     simple-user-items-default-response:
       summary: Default response
       value:
@@ -72616,9 +73349,11 @@ components:
           created_at: '2011-01-26T19:01:12Z'
           updated_at: '2011-01-26T19:14:43Z'
           permissions:
-            admin: false
-            push: false
             pull: true
+            triage: false
+            push: false
+            maintain: false
+            admin: false
           allow_rebase_merge: true
           temp_clone_token: ABTLWHOULUVAXGTRYU7OC2876QJ2O
           allow_squash_merge: true
@@ -74778,6 +75513,44 @@ components:
         application/json:
           schema:
             "$ref": "#/components/schemas/basic-error"
+    actions_runner_labels:
+      description: Response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - total_count
+            - labels
+            properties:
+              total_count:
+                type: integer
+              labels:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/runner-label"
+          examples:
+            default:
+              "$ref": "#/components/examples/runner-labels"
+    actions_runner_labels_readonly:
+      description: Response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - total_count
+            - labels
+            properties:
+              total_count:
+                type: integer
+              labels:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/runner-label"
+          examples:
+            default:
+              "$ref": "#/components/examples/runner-labels-readonly"
     code_scanning_forbidden_read:
       description: Response if GitHub Advanced Security is not enabled for this repository
       content:
@@ -75001,6 +75774,13 @@ components:
       required: true
       schema:
         type: integer
+    runner-label-name:
+      name: name
+      description: The name of a self-hosted runner's custom label.
+      in: path
+      required: true
+      schema:
+        type: string
     audit-log-phrase:
       name: phrase
       description: A search phrase. For more information, see [Searching the audit
@@ -75275,6 +76055,36 @@ components:
       required: true
       schema:
         type: integer
+    secret-scanning-alert-state:
+      name: state
+      in: query
+      description: Set to `open` or `resolved` to only list secret scanning alerts
+        in a specific state.
+      required: false
+      schema:
+        type: string
+        enum:
+        - open
+        - resolved
+    secret-scanning-alert-secret-type:
+      name: secret_type
+      in: query
+      description: |-
+        A comma-separated list of secret types to return. By default all secret types are returned.
+        See "[About secret scanning for private repositories](https://docs.github.com/code-security/secret-security/about-secret-scanning#about-secret-scanning-for-private-repositories)"
+        for a complete list of secret types (API slug).
+      required: false
+      schema:
+        type: string
+    secret-scanning-alert-resolution:
+      name: resolution
+      in: query
+      description: A comma-separated list of resolutions. Only secret scanning alerts
+        with one of these resolutions are listed. Valid resolutions are `false_positive`,
+        `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`.
+      required: false
+      schema:
+        type: string
     team-slug:
       name: team_slug
       description: team_slug parameter

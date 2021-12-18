@@ -1898,6 +1898,164 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
     }
 }
 
+extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
+    public var labels: Labels {
+        Labels(path: path + "/labels")
+    }
+
+    public struct Labels {
+        /// Path: `/enterprises/{enterprise}/actions/runners/{runner_id}/labels`
+        public let path: String
+
+        /// List labels for a self-hosted runner for an enterprise
+        ///
+        /// Lists all labels for a self-hosted runner configured in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-labels-for-a-self-hosted-runner-for-an-enterprise)
+        public var get: Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Add custom labels to a self-hosted runner for an enterprise
+        ///
+        /// Add custom labels to a self-hosted runner configured in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-custom-labels-to-a-self-hosted-runner-for-an-enterprise)
+        public func post(labels: [String]) -> Request<PostResponse> {
+            .post(path, body: ["labels": labels])
+        }
+
+        public struct PostResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Set custom labels for a self-hosted runner for an enterprise
+        ///
+        /// Remove all previous custom labels and set the new custom labels for a specific
+        /// self-hosted runner configured in an enterprise.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-custom-labels-for-a-self-hosted-runner-for-an-enterprise)
+        public func put(labels: [String]) -> Request<PutResponse> {
+            .put(path, body: ["labels": labels])
+        }
+
+        public struct PutResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Remove all custom labels from a self-hosted runner for an enterprise
+        ///
+        /// Remove all custom labels from a self-hosted runner configured in an
+        /// enterprise. Returns the remaining read-only labels from the runner.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-all-custom-labels-from-a-self-hosted-runner-for-an-enterprise)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+    }
+}
+
+extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID.Labels {
+    public func name(_ name: String) -> WithName {
+        WithName(path: "\(path)/\(name)")
+    }
+
+    public struct WithName {
+        /// Path: `/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}`
+        public let path: String
+
+        /// Remove a custom label from a self-hosted runner for an enterprise
+        ///
+        /// Remove a custom label from a self-hosted runner configured
+        /// in an enterprise. Returns the remaining labels from the runner.
+        /// 
+        /// This endpoint returns a `404 Not Found` status if the custom label is not
+        /// present on the runner.
+        /// 
+        /// You must authenticate using an access token with the `manage_runners:enterprise` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+    }
+}
+
 extension Paths.Enterprises.WithEnterprise {
     public var auditLog: AuditLog {
         AuditLog(path: path + "/audit-log")
@@ -2373,29 +2531,37 @@ extension Paths.Gists {
         }
 
         public struct PatchRequest: Encodable {
-            public var object1: Object1?
-            public var object2: Object2?
+            /// Description of the gist
+            ///
+            /// Example: "Example Ruby script"
+            public var description: String?
+            /// Names of files to be updated
+            ///
+            /// Example:
+            ///
+            /// {
+            ///   "hello.rb" : {
+            ///     "content" : "blah",
+            ///     "filename" : "goodbye.rb"
+            ///   }
+            /// }
+            public var files: [String: FilesItem]?
 
-            public struct Object1: Encodable {
-                public var description: AnyJSON
+            public struct FilesItem: Encodable {
+                /// The new content of the file
+                public var content: String
+                /// The new filename for the file
+                public var filename: String?
 
-                public init(description: AnyJSON) {
-                    self.description = description
+                public init(content: String, filename: String? = nil) {
+                    self.content = content
+                    self.filename = filename
                 }
             }
 
-            public struct Object2: Encodable {
-                public var files: AnyJSON
-
-                public init(files: AnyJSON) {
-                    self.files = files
-                }
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(object1, forKey: "object1")
-                try values.encodeIfPresent(object2, forKey: "object2")
+            public init(description: String? = nil, files: [String: FilesItem]? = nil) {
+                self.description = description
+                self.files = files
             }
         }
 
@@ -2928,14 +3094,14 @@ extension Paths {
         public struct PostRequest: Encodable {
             /// The Markdown text to render in HTML.
             public var text: String
-            /// The rendering mode.
+            /// The rendering mode. Can be either `markdown` or `gfm`.
             ///
             /// Example: "markdown"
             public var mode: Mode?
-            /// The repository context to use when creating references in `gfm` mode.
+            /// The repository context to use when creating references in `gfm` mode.  For example, setting `context` to `octo-org/octo-repo` will change the text `#42` into an HTML link to issue 42 in the `octo-org/octo-repo` repository.
             public var context: String?
 
-            /// The rendering mode.
+            /// The rendering mode. Can be either `markdown` or `gfm`.
             ///
             /// Example: "markdown"
             public enum Mode: String, Codable, CaseIterable {
@@ -3732,6 +3898,10 @@ extension Paths.Orgs {
             /// \* `true` - all organization members can create private GitHub Pages sites.  
             /// \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
             public var membersCanCreatePrivatePages: Bool?
+            /// Toggles whether organization members can fork private organization repositories. Can be one of:  
+            /// \* `true` - all organization members can fork private repositories within the organization.  
+            /// \* `false` - no organization members can fork private repositories within the organization.
+            public var membersCanForkPrivateRepositories: Bool?
             /// Example: "http://github.blog"
             public var blog: String?
 
@@ -3758,7 +3928,7 @@ extension Paths.Orgs {
                 case `none`
             }
 
-            public init(billingEmail: String? = nil, company: String? = nil, email: String? = nil, twitterUsername: String? = nil, location: String? = nil, name: String? = nil, description: String? = nil, hasOrganizationProjects: Bool? = nil, hasRepositoryProjects: Bool? = nil, defaultRepositoryPermission: DefaultRepositoryPermission? = nil, membersCanCreateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersAllowedRepositoryCreationType: MembersAllowedRepositoryCreationType? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, blog: String? = nil) {
+            public init(billingEmail: String? = nil, company: String? = nil, email: String? = nil, twitterUsername: String? = nil, location: String? = nil, name: String? = nil, description: String? = nil, hasOrganizationProjects: Bool? = nil, hasRepositoryProjects: Bool? = nil, defaultRepositoryPermission: DefaultRepositoryPermission? = nil, membersCanCreateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersAllowedRepositoryCreationType: MembersAllowedRepositoryCreationType? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanForkPrivateRepositories: Bool? = nil, blog: String? = nil) {
                 self.billingEmail = billingEmail
                 self.company = company
                 self.email = email
@@ -3777,6 +3947,7 @@ extension Paths.Orgs {
                 self.membersCanCreatePages = membersCanCreatePages
                 self.membersCanCreatePublicPages = membersCanCreatePublicPages
                 self.membersCanCreatePrivatePages = membersCanCreatePrivatePages
+                self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories
                 self.blog = blog
             }
 
@@ -3799,6 +3970,7 @@ extension Paths.Orgs {
                 case membersCanCreatePages = "members_can_create_pages"
                 case membersCanCreatePublicPages = "members_can_create_public_pages"
                 case membersCanCreatePrivatePages = "members_can_create_private_pages"
+                case membersCanForkPrivateRepositories = "members_can_fork_private_repositories"
                 case blog
             }
         }
@@ -4528,6 +4700,164 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
         public var delete: Request<Void> {
             .delete(path)
+        }
+    }
+}
+
+extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
+    public var labels: Labels {
+        Labels(path: path + "/labels")
+    }
+
+    public struct Labels {
+        /// Path: `/orgs/{org}/actions/runners/{runner_id}/labels`
+        public let path: String
+
+        /// List labels for a self-hosted runner for an organization
+        ///
+        /// Lists all labels for a self-hosted runner configured in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization)
+        public var get: Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Add custom labels to a self-hosted runner for an organization
+        ///
+        /// Add custom labels to a self-hosted runner configured in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization)
+        public func post(labels: [String]) -> Request<PostResponse> {
+            .post(path, body: ["labels": labels])
+        }
+
+        public struct PostResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Set custom labels for a self-hosted runner for an organization
+        ///
+        /// Remove all previous custom labels and set the new custom labels for a specific
+        /// self-hosted runner configured in an organization.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization)
+        public func put(labels: [String]) -> Request<PutResponse> {
+            .put(path, body: ["labels": labels])
+        }
+
+        public struct PutResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Remove all custom labels from a self-hosted runner for an organization
+        ///
+        /// Remove all custom labels from a self-hosted runner configured in an
+        /// organization. Returns the remaining read-only labels from the runner.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+    }
+}
+
+extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID.Labels {
+    public func name(_ name: String) -> WithName {
+        WithName(path: "\(path)/\(name)")
+    }
+
+    public struct WithName {
+        /// Path: `/orgs/{org}/actions/runners/{runner_id}/labels/{name}`
+        public let path: String
+
+        /// Remove a custom label from a self-hosted runner for an organization
+        ///
+        /// Remove a custom label from a self-hosted runner configured
+        /// in an organization. Returns the remaining labels from the runner.
+        /// 
+        /// This endpoint returns a `404 Not Found` status if the custom label is not
+        /// present on the runner.
+        /// 
+        /// You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
         }
     }
 }
@@ -6881,14 +7211,14 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         /// Path: `/orgs/{org}/secret-scanning/alerts`
         public let path: String
 
-        /// List secret scanning alerts by organization
+        /// List secret scanning alerts for an organization
         ///
-        /// Lists all secret scanning alerts for all eligible repositories in an organization, from newest to oldest.
+        /// Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest.
         /// To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
         /// 
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
-        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-by-organization)
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[github.OrganizationSecretScanningAlert]> {
             .get(path, query: parameters?.asQuery())
         }
@@ -9515,6 +9845,169 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
     }
 }
 
+extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
+    public var labels: Labels {
+        Labels(path: path + "/labels")
+    }
+
+    public struct Labels {
+        /// Path: `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels`
+        public let path: String
+
+        /// List labels for a self-hosted runner for a repository
+        ///
+        /// Lists all labels for a self-hosted runner configured in a repository.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this
+        /// endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository)
+        public var get: Request<GetResponse> {
+            .get(path)
+        }
+
+        public struct GetResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Add custom labels to a self-hosted runner for a repository
+        ///
+        /// Add custom labels to a self-hosted runner configured in a repository.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this
+        /// endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository)
+        public func post(labels: [String]) -> Request<PostResponse> {
+            .post(path, body: ["labels": labels])
+        }
+
+        public struct PostResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Set custom labels for a self-hosted runner for a repository
+        ///
+        /// Remove all previous custom labels and set the new custom labels for a specific
+        /// self-hosted runner configured in a repository.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this
+        /// endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository)
+        public func put(labels: [String]) -> Request<PutResponse> {
+            .put(path, body: ["labels": labels])
+        }
+
+        public struct PutResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+
+        /// Remove all custom labels from a self-hosted runner for a repository
+        ///
+        /// Remove all custom labels from a self-hosted runner configured in a
+        /// repository. Returns the remaining read-only labels from the runner.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this
+        /// endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+    }
+}
+
+extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID.Labels {
+    public func name(_ name: String) -> WithName {
+        WithName(path: "\(path)/\(name)")
+    }
+
+    public struct WithName {
+        /// Path: `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}`
+        public let path: String
+
+        /// Remove a custom label from a self-hosted runner for a repository
+        ///
+        /// Remove a custom label from a self-hosted runner configured
+        /// in a repository. Returns the remaining labels from the runner.
+        /// 
+        /// This endpoint returns a `404 Not Found` status if the custom label is not
+        /// present on the runner.
+        /// 
+        /// You must authenticate using an access token with the `repo` scope to use this
+        /// endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-a-repository)
+        public var delete: Request<DeleteResponse> {
+            .delete(path)
+        }
+
+        public struct DeleteResponse: Decodable {
+            public var totalCount: Int
+            public var labels: [github.RunnerLabel]
+
+            public init(totalCount: Int, labels: [github.RunnerLabel]) {
+                self.totalCount = totalCount
+                self.labels = labels
+            }
+
+            private enum CodingKeys: String, CodingKey {
+                case totalCount = "total_count"
+                case labels
+            }
+        }
+    }
+}
+
 extension Paths.Repos.WithOwner.WithRepo.Actions {
     public var runs: Runs {
         Runs(path: path + "/runs")
@@ -10813,17 +11306,41 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
             public struct RequiredStatusChecks: Encodable {
                 /// Require branches to be up to date before merging.
                 public var isStrict: Bool
-                /// The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
+                /// **Deprecated**: The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
+                /// 
+                ///
+                /// - warning: Deprecated.
                 public var contexts: [String]
+                /// The list of status checks to require in order to merge into this branch.
+                public var checks: [Check]?
 
-                public init(isStrict: Bool, contexts: [String]) {
+                public struct Check: Encodable {
+                    /// The name of the required check
+                    public var context: String
+                    /// The ID of the GitHub App that must provide this check. Omit this field to automatically select the GitHub App that has recently provided this check, or any app if it was not set by a GitHub App. Pass -1 to explicitly allow any app to set the status.
+                    public var appID: Int?
+
+                    public init(context: String, appID: Int? = nil) {
+                        self.context = context
+                        self.appID = appID
+                    }
+
+                    private enum CodingKeys: String, CodingKey {
+                        case context
+                        case appID = "app_id"
+                    }
+                }
+
+                public init(isStrict: Bool, contexts: [String], checks: [Check]? = nil) {
                     self.isStrict = isStrict
                     self.contexts = contexts
+                    self.checks = checks
                 }
 
                 private enum CodingKeys: String, CodingKey {
                     case isStrict = "strict"
                     case contexts
+                    case checks
                 }
             }
 
@@ -10835,7 +11352,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 public var dismissStaleReviews: Bool?
                 /// Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them.
                 public var requireCodeOwnerReviews: Bool?
-                /// Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+                /// Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6 or 0 to not require reviewers.
                 public var requiredApprovingReviewCount: Int?
 
                 /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
@@ -10996,7 +11513,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             public var dismissStaleReviews: Bool?
             /// Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed.
             public var requireCodeOwnerReviews: Bool?
-            /// Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+            /// Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6 or 0 to not require reviewers.
             public var requiredApprovingReviewCount: Int?
 
             /// Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
@@ -11108,7 +11625,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         /// 
         /// Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
         ///
-        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-potection)
+        /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-protection)
         public func patch(_ body: PatchRequest? = nil) -> Request<github.StatusCheckPolicy> {
             .patch(path, body: body)
         }
@@ -11116,17 +11633,41 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         public struct PatchRequest: Encodable {
             /// Require branches to be up to date before merging.
             public var isStrict: Bool?
-            /// The list of status checks to require in order to merge into this branch
+            /// **Deprecated**: The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
+            /// 
+            ///
+            /// - warning: Deprecated.
             public var contexts: [String]?
+            /// The list of status checks to require in order to merge into this branch.
+            public var checks: [Check]?
 
-            public init(isStrict: Bool? = nil, contexts: [String]? = nil) {
+            public struct Check: Encodable {
+                /// The name of the required check
+                public var context: String
+                /// The ID of the GitHub App that must provide this check. Omit this field to automatically select the GitHub App that has recently provided this check, or any app if it was not set by a GitHub App. Pass -1 to explicitly allow any app to set the status.
+                public var appID: Int?
+
+                public init(context: String, appID: Int? = nil) {
+                    self.context = context
+                    self.appID = appID
+                }
+
+                private enum CodingKeys: String, CodingKey {
+                    case context
+                    case appID = "app_id"
+                }
+            }
+
+            public init(isStrict: Bool? = nil, contexts: [String]? = nil, checks: [Check]? = nil) {
                 self.isStrict = isStrict
                 self.contexts = contexts
+                self.checks = checks
             }
 
             private enum CodingKeys: String, CodingKey {
                 case isStrict = "strict"
                 case contexts
+                case checks
             }
         }
 
@@ -11828,183 +12369,34 @@ extension Paths.Repos.WithOwner.WithRepo {
             .post(path, body: body)
         }
 
-        public struct PostRequest: Encodable {
-            /// The name of the check. For example, "code-coverage".
-            public var name: String
-            /// The SHA of the commit.
-            public var headSha: String
-            /// The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used.
-            public var detailsURL: String?
-            /// A reference for the run on the integrator's system.
-            public var externalID: String?
-            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
-            public var status: Status?
-            /// The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-            public var startedAt: Date?
-            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.  
-            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
-            public var conclusion: Conclusion?
-            /// The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-            public var completedAt: Date?
-            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description.
-            public var output: Output?
-            /// Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)."
-            public var actions: [Action]?
+        public enum PostRequest: Encodable {
+            case object1(Object1)
+            case object2(Object2)
 
-            /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
-            public enum Status: String, Codable, CaseIterable {
-                case queued
-                case inProgress = "in_progress"
-                case completed
-            }
+            public struct Object1: Encodable {
+                public var status: AnyJSON
+                public var conclusion: AnyJSON
 
-            /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.  
-            /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
-            public enum Conclusion: String, Codable, CaseIterable {
-                case actionRequired = "action_required"
-                case cancelled
-                case failure
-                case neutral
-                case success
-                case skipped
-                case stale
-                case timedOut = "timed_out"
-            }
-
-            /// Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description.
-            public struct Output: Encodable {
-                /// The title of the check run.
-                public var title: String
-                /// The summary of the check run. This parameter supports Markdown.
-                public var summary: String
-                /// The details of the check run. This parameter supports Markdown.
-                public var text: String?
-                /// Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter.
-                public var annotations: [Annotation]?
-                /// Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details.
-                public var images: [Image]?
-
-                public struct Annotation: Encodable {
-                    /// The path of the file to add an annotation to. For example, `assets/css/main.css`.
-                    public var path: String
-                    /// The start line of the annotation.
-                    public var startLine: Int
-                    /// The end line of the annotation.
-                    public var endLine: Int
-                    /// The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
-                    public var startColumn: Int?
-                    /// The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
-                    public var endColumn: Int?
-                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
-                    public var annotationLevel: AnnotationLevel
-                    /// A short description of the feedback for these lines of code. The maximum size is 64 KB.
-                    public var message: String
-                    /// The title that represents the annotation. The maximum size is 255 characters.
-                    public var title: String?
-                    /// Details about this annotation. The maximum size is 64 KB.
-                    public var rawDetails: String?
-
-                    /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
-                    public enum AnnotationLevel: String, Codable, CaseIterable {
-                        case notice
-                        case warning
-                        case failure
-                    }
-
-                    public init(path: String, startLine: Int, endLine: Int, startColumn: Int? = nil, endColumn: Int? = nil, annotationLevel: AnnotationLevel, message: String, title: String? = nil, rawDetails: String? = nil) {
-                        self.path = path
-                        self.startLine = startLine
-                        self.endLine = endLine
-                        self.startColumn = startColumn
-                        self.endColumn = endColumn
-                        self.annotationLevel = annotationLevel
-                        self.message = message
-                        self.title = title
-                        self.rawDetails = rawDetails
-                    }
-
-                    private enum CodingKeys: String, CodingKey {
-                        case path
-                        case startLine = "start_line"
-                        case endLine = "end_line"
-                        case startColumn = "start_column"
-                        case endColumn = "end_column"
-                        case annotationLevel = "annotation_level"
-                        case message
-                        case title
-                        case rawDetails = "raw_details"
-                    }
-                }
-
-                public struct Image: Encodable {
-                    /// The alternative text for the image.
-                    public var alt: String
-                    /// The full URL of the image.
-                    public var imageURL: String
-                    /// A short image description.
-                    public var caption: String?
-
-                    public init(alt: String, imageURL: String, caption: String? = nil) {
-                        self.alt = alt
-                        self.imageURL = imageURL
-                        self.caption = caption
-                    }
-
-                    private enum CodingKeys: String, CodingKey {
-                        case alt
-                        case imageURL = "image_url"
-                        case caption
-                    }
-                }
-
-                public init(title: String, summary: String, text: String? = nil, annotations: [Annotation]? = nil, images: [Image]? = nil) {
-                    self.title = title
-                    self.summary = summary
-                    self.text = text
-                    self.annotations = annotations
-                    self.images = images
+                public init(status: AnyJSON, conclusion: AnyJSON) {
+                    self.status = status
+                    self.conclusion = conclusion
                 }
             }
 
-            public struct Action: Encodable {
-                /// The text to be displayed on a button in the web UI. The maximum size is 20 characters.
-                public var label: String
-                /// A short explanation of what this action would do. The maximum size is 40 characters.
-                public var description: String
-                /// A reference for the action on the integrator's system. The maximum size is 20 characters.
-                public var identifier: String
+            public struct Object2: Encodable {
+                public var status: AnyJSON?
 
-                public init(label: String, description: String, identifier: String) {
-                    self.label = label
-                    self.description = description
-                    self.identifier = identifier
+                public init(status: AnyJSON? = nil) {
+                    self.status = status
                 }
             }
 
-            public init(name: String, headSha: String, detailsURL: String? = nil, externalID: String? = nil, status: Status? = nil, startedAt: Date? = nil, conclusion: Conclusion? = nil, completedAt: Date? = nil, output: Output? = nil, actions: [Action]? = nil) {
-                self.name = name
-                self.headSha = headSha
-                self.detailsURL = detailsURL
-                self.externalID = externalID
-                self.status = status
-                self.startedAt = startedAt
-                self.conclusion = conclusion
-                self.completedAt = completedAt
-                self.output = output
-                self.actions = actions
-            }
-
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case headSha = "head_sha"
-                case detailsURL = "details_url"
-                case externalID = "external_id"
-                case status
-                case startedAt = "started_at"
-                case conclusion
-                case completedAt = "completed_at"
-                case output
-                case actions
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .object1(let value): try container.encode(value)
+                case .object2(let value): try container.encode(value)
+                }
             }
         }
     }
@@ -12183,12 +12575,14 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                 /// A short explanation of what this action would do. The maximum size is 40 characters.
                 public var description: String
                 /// A reference for the action on the integrator's system. The maximum size is 20 characters.
-                public var identifier: String
+                public var identifier: String?
+                public var identifie: AnyJSON
 
-                public init(label: String, description: String, identifier: String) {
+                public init(label: String, description: String, identifier: String? = nil, identifie: AnyJSON) {
                     self.label = label
                     self.description = description
                     self.identifier = identifier
+                    self.identifie = identifie
                 }
             }
 
@@ -12490,8 +12884,9 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// Lists all open code scanning alerts for the default branch (usually `main`
         /// or `master`). You must use an access token with the `security_events` scope to use
-        /// this endpoint. GitHub Apps must have the `security_events` read permission to use
-        /// this endpoint.
+        /// this endpoint with private repos, the `public_repo` scope also grants permission to read
+        /// security events on public repos only. GitHub Apps must have the `security_events` read
+        /// permission to use this endpoint.
         /// 
         /// The response includes a `most_recent_instance` object.
         /// This provides details of the most recent instance of this alert
@@ -12499,15 +12894,42 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// (if you used `ref` in the request).
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
-        public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[github.CodeScanningAlertItems]> {
-            .get(path, query: makeGetQuery(page, perPage))
+        public func get(parameters: GetParameters? = nil) -> Request<[github.CodeScanningAlertItems]> {
+            .get(path, query: parameters?.asQuery())
         }
 
-        private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("page", page?.asQueryValue)
-            query.addQueryItem("per_page", perPage?.asQueryValue)
-            return query
+        public struct GetParameters {
+            public var page: Int?
+            public var perPage: Int?
+            public var direction: Direction?
+            public var sort: Sort?
+
+            public enum Direction: String, Codable, CaseIterable {
+                case asc
+                case desc
+            }
+
+            public enum Sort: String, Codable, CaseIterable {
+                case created
+                case updated
+                case number
+            }
+
+            public init(page: Int? = nil, perPage: Int? = nil, direction: Direction? = nil, sort: Sort? = nil) {
+                self.page = page
+                self.perPage = perPage
+                self.direction = direction
+                self.sort = sort
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("per_page", perPage?.asQueryValue)
+                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("sort", sort?.asQueryValue)
+                return query
+            }
         }
     }
 }
@@ -12523,7 +12945,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
 
         /// Get a code scanning alert
         ///
-        /// Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
         /// 
         /// **Deprecation notice**:
         /// The instances field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The same information can now be retrieved via a GET request to the URL specified by `instances_url`.
@@ -12535,7 +12957,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
 
         /// Update a code scanning alert
         ///
-        /// Updates the status of a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
+        /// Updates the status of a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint with private repositories. You can also use tokens with the `public_repo` scope for public repositories only. GitHub Apps must have the `security_events` write permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert)
         public func patch(_ body: PatchRequest) -> Request<github.CodeScanningAlert> {
@@ -12572,7 +12994,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
 
         /// List instances of a code scanning alert
         ///
-        /// Lists all instances of the specified code scanning alert. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// Lists all instances of the specified code scanning alert.
+        /// You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        /// the `public_repo` scope also grants permission to read security events on public repos only.
+        /// GitHub Apps must have the `security_events` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[github.CodeScanningAlertInstance]> {
@@ -12610,7 +13035,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// For very old analyses this data is not available,
         /// and `0` is returned in this field.
         /// 
-        /// You must use an access token with the `security_events` scope to use this endpoint.
+        /// You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        /// the `public_repo` scope also grants permission to read security events on public repos only.
         /// GitHub Apps must have the `security_events` read permission to use this endpoint.
         /// 
         /// **Deprecation notice**:
@@ -12642,7 +13068,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         /// Get a code scanning analysis for a repository
         ///
         /// Gets a specified code scanning analysis for a repository.
-        /// You must use an access token with the `security_events` scope to use this endpoint.
+        /// You must use an access token with the `security_events` scope to use this endpoint with private repos,
+        /// the `public_repo` scope also grants permission to read security events on public repos only.
         /// GitHub Apps must have the `security_events` read permission to use this endpoint.
         /// 
         /// The default JSON response contains fields that describe the analysis.
@@ -12669,7 +13096,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         ///
         /// Deletes a specified code scanning analysis from a repository. For
         /// private repositories, you must use an access token with the `repo` scope. For public repositories,
-        /// you must use an access token with `public_repo` and `repo:security_events` scopes.
+        /// you must use an access token with `public_repo` scope.
         /// GitHub Apps must have the `security_events` write permission to use this endpoint.
         /// 
         /// You can delete one analysis at a time.
@@ -12758,7 +13185,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
 
         /// Upload an analysis as SARIF data
         ///
-        /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` write permission to use this endpoint.
+        /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint for private repositories. You can also use tokens with the `public_repo` scope for public repositories only. GitHub Apps must have the `security_events` write permission to use this endpoint.
         /// 
         /// There are two places where you can upload code scanning results.
         ///  - If you upload to a pull request, for example `--ref refs/pull/42/merge` or `--ref refs/pull/42/head`, then the results appear as alerts in a pull request check. For more information, see "[Triaging code scanning alerts in pull requests](/code-security/secure-coding/triaging-code-scanning-alerts-in-pull-requests)."
@@ -12829,7 +13256,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
 
         /// Get information about a SARIF upload
         ///
-        /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.
+        /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository)
         public var get: Request<github.CodeScanningSarifsStatus> {
@@ -12900,12 +13327,15 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var machine: String?
             /// Working directory for this codespace
             public var workingDirectory: String?
+            /// Time in minutes before codespace stops from inactivity
+            public var idleTimeoutMinutes: Int?
 
-            public init(ref: String? = nil, location: String, machine: String? = nil, workingDirectory: String? = nil) {
+            public init(ref: String? = nil, location: String, machine: String? = nil, workingDirectory: String? = nil, idleTimeoutMinutes: Int? = nil) {
                 self.ref = ref
                 self.location = location
                 self.machine = machine
                 self.workingDirectory = workingDirectory
+                self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -12913,6 +13343,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 case location
                 case machine
                 case workingDirectory = "working_directory"
+                case idleTimeoutMinutes = "idle_timeout_minutes"
             }
         }
     }
@@ -13041,7 +13472,11 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
         /// 
-        /// For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        /// For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the permission being given must be equal to or higher than the org base permission. Otherwise, the request will fail with:
+        /// 
+        /// ```
+        /// Cannot assign {member} permission of {role name}
+        /// ```
         /// 
         /// Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
         /// 
@@ -13895,68 +14330,6 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
 }
 
 extension Paths.Repos.WithOwner.WithRepo {
-    public var contentReferences: ContentReferences {
-        ContentReferences(path: path + "/content_references")
-    }
-
-    public struct ContentReferences {
-        /// Path: `/repos/{owner}/{repo}/content_references`
-        public let path: String
-    }
-}
-
-extension Paths.Repos.WithOwner.WithRepo.ContentReferences {
-    public func contentReferenceID(_ contentReferenceID: Int) -> WithContentReferenceID {
-        WithContentReferenceID(path: "\(path)/\(contentReferenceID)")
-    }
-
-    public struct WithContentReferenceID {
-        /// Path: `/repos/{owner}/{repo}/content_references/{content_reference_id}`
-        public let path: String
-    }
-}
-
-extension Paths.Repos.WithOwner.WithRepo.ContentReferences.WithContentReferenceID {
-    public var attachments: Attachments {
-        Attachments(path: path + "/attachments")
-    }
-
-    public struct Attachments {
-        /// Path: `/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments`
-        public let path: String
-
-        /// Create a content attachment
-        ///
-        /// Creates an attachment under a content reference URL in the body or comment of an issue or pull request. Use the `id` and `repository` `full_name` of the content reference from the [`content_reference` event](https://docs.github.com/webhooks/event-payloads/#content_reference) to create an attachment.
-        /// 
-        /// The app must create a content attachment within six hours of the content reference URL being posted. See "[Using content attachments](https://docs.github.com/apps/using-content-attachments/)" for details about content attachments.
-        /// 
-        /// You must use an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
-        ///
-        /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-content-attachment)
-        public func post(_ body: PostRequest) -> Request<github.ContentReferenceAttachment> {
-            .post(path, body: body)
-        }
-
-        public struct PostRequest: Encodable {
-            /// The title of the attachment
-            ///
-            /// Example: "Title of the attachment"
-            public var title: String
-            /// The body of the attachment
-            ///
-            /// Example: "Body of the attachment"
-            public var body: String
-
-            public init(title: String, body: String) {
-                self.title = title
-                self.body = body
-            }
-        }
-    }
-}
-
-extension Paths.Repos.WithOwner.WithRepo {
     public var contents: Contents {
         Contents(path: path + "/contents")
     }
@@ -14461,7 +14834,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         }
 
         public struct PostRequest: Encodable {
-            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued`, `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
             public var state: State
             /// The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`.
             public var targetURL: String?
@@ -14476,7 +14849,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
             /// Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
             public var isAutoInactive: Bool?
 
-            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+            /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued`, `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
             public enum State: String, Codable, CaseIterable {
                 case error
                 case failure
@@ -17404,7 +17777,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var name: String
             /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
             public var color: String?
-            /// A short description of the label.
+            /// A short description of the label. Must be 100 characters or fewer.
             public var description: String?
 
             public init(name: String, color: String? = nil, description: String? = nil) {
@@ -17444,7 +17817,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
             public var newName: String?
             /// The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
             public var color: String?
-            /// A short description of the label.
+            /// A short description of the label. Must be 100 characters or fewer.
             public var description: String?
 
             public init(newName: String? = nil, color: String? = nil, description: String? = nil) {
@@ -17500,16 +17873,12 @@ extension Paths.Repos.WithOwner.WithRepo {
 
         /// Enable Git LFS for a repository
         ///
-        /// **Note:** The Git LFS API endpoints are currently in beta and are subject to change.
-        ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
         public var put: Request<Void> {
             .put(path)
         }
 
         /// Disable Git LFS for a repository
-        ///
-        /// **Note:** The Git LFS API endpoints are currently in beta and are subject to change.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository)
         public var delete: Request<Void> {
@@ -17551,8 +17920,6 @@ extension Paths.Repos.WithOwner.WithRepo {
 
         /// Sync a fork branch with the upstream repository
         ///
-        /// **Note:** This endpoint is currently in beta and subject to change.
-        /// 
         /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
@@ -18611,17 +18978,21 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             public var machine: String?
             /// Working directory for this codespace
             public var workingDirectory: String?
+            /// Time in minutes before codespace stops from inactivity
+            public var idleTimeoutMinutes: Int?
 
-            public init(location: String, machine: String? = nil, workingDirectory: String? = nil) {
+            public init(location: String, machine: String? = nil, workingDirectory: String? = nil, idleTimeoutMinutes: Int? = nil) {
                 self.location = location
                 self.machine = machine
                 self.workingDirectory = workingDirectory
+                self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
             private enum CodingKeys: String, CodingKey {
                 case location
                 case machine
                 case workingDirectory = "working_directory"
+                case idleTimeoutMinutes = "idle_timeout_minutes"
             }
         }
     }
@@ -19798,7 +20169,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
 
         /// List secret scanning alerts for a repository
         ///
-        /// Lists all secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// Lists secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
         /// 
         /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
         ///
@@ -19881,6 +20252,39 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
                 self.state = state
                 self.resolution = resolution
             }
+        }
+    }
+}
+
+extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts.WithAlertNumber {
+    public var locations: Locations {
+        Locations(path: path + "/locations")
+    }
+
+    public struct Locations {
+        /// Path: `/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations`
+        public let path: String
+
+        /// List locations for a secret scanning alert
+        ///
+        /// Lists all locations for a given secret scanning alert for a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+        /// 
+        /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
+        ///
+        /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert)
+        public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[github.SecretScanningLocation]> {
+            .get(path, query: makeGetQuery(page, perPage))
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
+        }
+
+        private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("page", page?.asQueryValue)
+            query.addQueryItem("per_page", perPage?.asQueryValue)
+            return query
         }
     }
 }
@@ -23858,13 +24262,16 @@ extension Paths.User {
                 public var machine: String?
                 /// Working directory for this codespace
                 public var workingDirectory: String?
+                /// Time in minutes before codespace stops from inactivity
+                public var idleTimeoutMinutes: Int?
 
-                public init(repositoryID: Int, ref: String? = nil, location: String, machine: String? = nil, workingDirectory: String? = nil) {
+                public init(repositoryID: Int, ref: String? = nil, location: String, machine: String? = nil, workingDirectory: String? = nil, idleTimeoutMinutes: Int? = nil) {
                     self.repositoryID = repositoryID
                     self.ref = ref
                     self.location = location
                     self.machine = machine
                     self.workingDirectory = workingDirectory
+                    self.idleTimeoutMinutes = idleTimeoutMinutes
                 }
 
                 private enum CodingKeys: String, CodingKey {
@@ -23873,6 +24280,7 @@ extension Paths.User {
                     case location
                     case machine
                     case workingDirectory = "working_directory"
+                    case idleTimeoutMinutes = "idle_timeout_minutes"
                 }
             }
 
@@ -23885,6 +24293,8 @@ extension Paths.User {
                 public var machine: String?
                 /// Working directory for this codespace
                 public var workingDirectory: String?
+                /// Time in minutes before codespace stops from inactivity
+                public var idleTimeoutMinutes: Int?
 
                 /// Pull request number for this codespace
                 public struct PullRequest: Encodable {
@@ -23904,11 +24314,12 @@ extension Paths.User {
                     }
                 }
 
-                public init(pullRequest: PullRequest, location: String, machine: String? = nil, workingDirectory: String? = nil) {
+                public init(pullRequest: PullRequest, location: String, machine: String? = nil, workingDirectory: String? = nil, idleTimeoutMinutes: Int? = nil) {
                     self.pullRequest = pullRequest
                     self.location = location
                     self.machine = machine
                     self.workingDirectory = workingDirectory
+                    self.idleTimeoutMinutes = idleTimeoutMinutes
                 }
 
                 private enum CodingKeys: String, CodingKey {
@@ -23916,6 +24327,7 @@ extension Paths.User {
                     case location
                     case machine
                     case workingDirectory = "working_directory"
+                    case idleTimeoutMinutes = "idle_timeout_minutes"
                 }
             }
 
