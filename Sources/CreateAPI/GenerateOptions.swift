@@ -4,7 +4,6 @@
 
 import Foundation
 
-// TODO: Add an option to generate parametes as `let` and a list of exceptions
 final class GenerateOptions {
     var access: String
     var isRemovingUnneededImports: Bool
@@ -25,6 +24,7 @@ final class GenerateOptions {
     var pluralizationExceptions: Set<String>
     var isInterpretingEmptyObjectsAsDictionaries: Bool
     var isNaiveDateEnabled: Bool
+    var isUsingIntegersWithPredefinedCapacity: Bool
     
     enum Indentation: String, Codable {
         case spaces
@@ -109,7 +109,6 @@ final class GenerateOptions {
         }
     }
         
-    // TODO: Inline this?
     struct Entities {
         var isGeneratingStructs: Bool
         var entitiesGeneratedAsClasses: Set<String>
@@ -162,6 +161,7 @@ final class GenerateOptions {
         self.pluralizationExceptions = Set(options.pluralizationExceptions ?? [])
         self.isInterpretingEmptyObjectsAsDictionaries = options.isInterpretingEmptyObjectsAsDictionaries ?? false
         self.isNaiveDateEnabled = options.isNaiveDateEnabled ?? true
+        self.isUsingIntegersWithPredefinedCapacity = options.isUsingIntegersWithPredefinedCapacity ?? false
     }
 }
 
@@ -185,6 +185,7 @@ final class GenerateOptionsSchema: Decodable {
     var pluralizationExceptions: [String]?
     var isInterpretingEmptyObjectsAsDictionaries: Bool?
     var isNaiveDateEnabled: Bool?
+    var isUsingIntegersWithPredefinedCapacity: Bool?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?
@@ -251,6 +252,8 @@ private func makeDefaultParameterEncoders() -> [String: String] {
     return [
         "String": "self",
         "Int": "String(self)",
+        "Int32": "String(self)",
+        "Int64": "String(self)",
         "Double": "String(self)",
         "Bool": #"self ? "true" : "false""#,
         "Date": "ISO8601DateFormatter().string(from: self)",

@@ -6,10 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add int32/int64 support (optional) (and a way to disable)
-
-// TODO: Test remaining String formats https://swagger.io/docs/specification/data-models/data-types/ AND add options to disable some of tem
-// TODO: More concise examples if it's just array of plain types
 // TODO: Add an option to use CodingKeys instead of custom init
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: See what needs to be fixed in petstore-all
@@ -449,7 +445,15 @@ extension Generator {
         switch json {
         case .boolean: return .builtin("Bool")
         case .number: return .builtin("Double")
-        case .integer: return .builtin("Int")
+        case .integer(let info, _):
+            guard options.isUsingIntegersWithPredefinedCapacity else {
+                return .builtin("Int")
+            }
+            switch info.format {
+            case .generic, .other: return .builtin("Int")
+            case .int32: return .builtin("Int32")
+            case .int64: return .builtin("Int64")
+            }
         case .string(let info, _):
             guard !isEnum(info) else { return nil }
             switch info.format {

@@ -518,6 +518,26 @@ final class GenerateTests: XCTestCase {
         try compare(package: "edgecases-indent-with-two-width-spaces")
     }
     
+    func testEdgecasesEnableIntegerCapacity() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-int32-int64",
+            "--config", config("""
+            {
+                "isUsingIntegersWithPredefinedCapacity": true
+            }
+            """)
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "edgecases-int32-int64")
+    }
+    
     func testGenerateGitHub() throws {
         // GIVEN
         let command = try Generate.parse([

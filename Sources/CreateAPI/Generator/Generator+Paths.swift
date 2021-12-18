@@ -329,7 +329,15 @@ extension Generator {
             switch schema {
             case .boolean: return QueryItemType("Bool")
             case .number: return QueryItemType("Double")
-            case .integer: return QueryItemType("Int")
+            case .integer(let info, _):
+                guard options.isUsingIntegersWithPredefinedCapacity else {
+                    return QueryItemType("Int")
+                }
+                switch info.format {
+                case .generic, .other: return QueryItemType("Int")
+                case .int32: return QueryItemType("Int32")
+                case .int64: return QueryItemType("Int64")
+                }
             case .string(let info, _):
                 switch info.format {
                 case .dateTime: return QueryItemType("Date")
