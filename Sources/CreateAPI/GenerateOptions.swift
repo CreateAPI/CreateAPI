@@ -43,12 +43,16 @@ final class GenerateOptions {
     }
         
     struct Rename {
+        var properties: [String: String]
         var parameters: [String: String]
         var enumCaseNames: [String: String]
+        var entities: [String: String]
         
         init(_ paths: GenerateOptionsSchema.Rename?) {
+            self.properties = paths?.properties ?? [:]
             self.parameters = paths?.parameters ?? [:]
             self.enumCaseNames = paths?.enumCaseNames ?? [:]
+            self.entities = paths?.entities ?? [:]
         }
     }
     
@@ -113,9 +117,6 @@ final class GenerateOptions {
         var isGeneratingInitializers: Bool
         var isGeneratingInitWithCoder: Bool
         var isGeneratingDecode: Bool
-        // TODO: Move to separate "Rename" object
-        var mappedPropertyNames: [String: String]
-        var mappedTypeNames: [String: String] // Currently doesn't work for nested types
         var isSortingPropertiesAlphabetically: Bool
         
         init(_ schemas: GenerateOptionsSchema.Schemas?) {
@@ -129,8 +130,6 @@ final class GenerateOptions {
             self.isGeneratingInitializers = schemas?.isGeneratingInitializers ?? true
             self.isGeneratingInitWithCoder = schemas?.isGeneratingInitWithCoder ?? true
             self.isGeneratingDecode = schemas?.isGeneratingDecode ?? true
-            self.mappedPropertyNames = schemas?.mappedPropertyNames ?? [:]
-            self.mappedTypeNames = schemas?.mappedTypeNames ?? [:]
             self.isSortingPropertiesAlphabetically = schemas?.isSortingPropertiesAlphabetically ?? false
         }
     }
@@ -185,8 +184,10 @@ final class GenerateOptionsSchema: Decodable {
     }
     
     struct Rename: Decodable {
+        var properties: [String: String]?
         var parameters: [String: String]?
         var enumCaseNames: [String: String]?
+        var entities: [String: String]?
     }
     
     struct Comments: Decodable {
@@ -222,8 +223,6 @@ final class GenerateOptionsSchema: Decodable {
         var isSkippingRedundantProtocols: Bool?
         var isGeneratingInitWithCoder: Bool?
         var isGeneratingDecode: Bool?
-        var mappedPropertyNames: [String: String]?
-        var mappedTypeNames: [String: String]?
         var isSortingPropertiesAlphabetically: Bool?
     }
 }

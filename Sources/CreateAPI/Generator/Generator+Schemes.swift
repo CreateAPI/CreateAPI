@@ -6,12 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: mappedTypeNames to support nesting + rename
-
-// TODO: Add option to hide AnyJSON
-// TODO: testEdgecasesRename "Status": "State" is not working
-// TODO: New APIs in spec for renams
-// TODO: Rename enums as separate properrty
 // TODO: Add an option to add to namespace
 // TODO: Add an option to generate Encodable for all cases
 
@@ -56,6 +50,9 @@ import GrammaticalNumber
 // TODO: Add an option to skip certain files
 
 // TODO: Add an option to convert optional arrays to empty arrays
+// TODO: `Rename.entities` to support nested types
+// TODO: Add `Rename.enums`
+// TODO: Add an option to hide `anyJSON`
 
 extension Generator {
 
@@ -130,9 +127,9 @@ extension Generator {
                 }
             }
         }
-        if !options.entities.mappedTypeNames.isEmpty {
+        if !options.rename.entities.isEmpty {
             let name = makeTypeName(key.rawValue)
-            if let mapped = options.entities.mappedTypeNames[name.rawValue] {
+            if let mapped = options.rename.entities[name.rawValue] {
                 return TypeName(mapped)
             }
         }
@@ -178,10 +175,10 @@ extension Generator {
         let propertyName = makePropertyName(key)
         
         func makeChildPropertyName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
-            if !options.entities.mappedPropertyNames.isEmpty {
+            if !options.rename.properties.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
-                    if let name = options.entities.mappedPropertyNames[names[i...].joined(separator: ".")] {
+                    if let name = options.rename.properties[names[i...].joined(separator: ".")] {
                         return PropertyName(name)
                     }
                 }
@@ -507,8 +504,8 @@ extension Generator {
                 throw GeneratorError("Internal reference name is missing: \(ref)")
             }
             // TODO: Remove duplication
-            if !options.entities.mappedTypeNames.isEmpty {
-                if let mapped = options.entities.mappedTypeNames[name] {
+            if !options.rename.entities.isEmpty {
+                if let mapped = options.rename.entities[name] {
                     return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
                 }
             }

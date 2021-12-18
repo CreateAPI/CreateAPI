@@ -336,8 +336,8 @@ final class GenerateTests: XCTestCase {
             "--package", "edgecases-rename-properties",
             "--config", config("""
             {
-                "entities": {
-                    "mappedPropertyNames": {
+                "rename": {
+                    "properties": {
                         "id": "identifier",
                         "Category.name": "title",
                         "Pet.status": "state",
@@ -373,8 +373,8 @@ final class GenerateTests: XCTestCase {
             "--output", temp.url.path,
             "--package", "edgecases-yaml-config",
             "--config", config("""
-            entities:
-                mappedPropertyNames:
+            rename:
+                properties:
                     id: identifier
                     Category.name: title
                     Pet.status: state
@@ -457,13 +457,13 @@ final class GenerateTests: XCTestCase {
             "--package", "edgecases-rename",
             "--config", config("""
             {
-                "entities": {
-                    "mappedTypeNames": {
+                "rename": {
+                    "properties": {
+                        "ContainerA.Child.Child.renameMe": "onlyItRenamed"
+                    },
+                    "entities": {
                         "ApiResponse": "APIResponse",
                         "Status": "State"
-                    },
-                    "mappedPropertyNames": {
-                        "ContainerA.Child.Child.renameMe": "onlyItRenamed"
                     }
                 }
             }
