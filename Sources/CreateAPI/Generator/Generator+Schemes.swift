@@ -619,16 +619,30 @@ extension Generator {
             types[index] = try? getPrimitiveType(for: schema, context: context)
         }
         
+        // TODO: Refactor
         // Generate names for anonymous nested objects
         let unnamedCount = types.filter { $0 == nil }.count
-        var genericCount = 1
-        func makeNextGenericName() -> TypeName {
-            defer { genericCount += 1 }
-            return TypeName("Object\((unnamedCount == 1 && genericCount == 1) ? "" : "\(genericCount)")")
-        }
-        for (index, _) in schemas.enumerated() {
-            if types[index] == nil {
-                types[index] = .userDefined(name: makeNextGenericName())
+        if unnamedCount == types.count && types.count > 1 {
+            var next = "a"
+            func makeNextGenericName() -> TypeName {
+                defer { next = next.nextLetter ?? "a" }
+                return TypeName(next)
+            }
+            for (index, _) in schemas.enumerated() {
+                if types[index] == nil {
+                    types[index] = .userDefined(name: makeNextGenericName())
+                }
+            }
+        } else {
+            var genericCount = 1
+            func makeNextGenericName() -> TypeName {
+                defer { genericCount += 1 }
+                return TypeName("Object\((unnamedCount == 1 && genericCount == 1) ? "" : "\(genericCount)")")
+            }
+            for (index, _) in schemas.enumerated() {
+                if types[index] == nil {
+                    types[index] = .userDefined(name: makeNextGenericName())
+                }
             }
         }
         

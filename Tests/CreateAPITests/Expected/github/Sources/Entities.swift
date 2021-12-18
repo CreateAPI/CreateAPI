@@ -12174,11 +12174,11 @@ public struct Environment: Codable {
     public var deploymentBranchPolicy: DeploymentBranchPolicy?
 
     public struct ProtectionRule: Codable {
-        public var object1: Object1?
-        public var object2: Object2?
-        public var object3: Object3?
+        public var a: A?
+        public var b: B?
+        public var c: C?
 
-        public struct Object1: Codable {
+        public struct A: Codable {
             /// Example: 3515
             public var id: Int
             /// Example: "MDQ6R2F0ZTM1MTU="
@@ -12205,7 +12205,7 @@ public struct Environment: Codable {
             }
         }
 
-        public struct Object2: Codable {
+        public struct B: Codable {
             /// Example: 3755
             public var id: Int
             /// Example: "MDQ6R2F0ZTM3NTU="
@@ -12261,7 +12261,7 @@ public struct Environment: Codable {
             }
         }
 
-        public struct Object3: Codable {
+        public struct C: Codable {
             /// Example: 3515
             public var id: Int
             /// Example: "MDQ6R2F0ZTM1MTU="
@@ -12284,16 +12284,16 @@ public struct Environment: Codable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.object1 = try? container.decode(Object1.self)
-            self.object2 = try? container.decode(Object2.self)
-            self.object3 = try? container.decode(Object3.self)
+            self.a = try? container.decode(A.self)
+            self.b = try? container.decode(B.self)
+            self.c = try? container.decode(C.self)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encodeIfPresent(object1, forKey: "object1")
-            try values.encodeIfPresent(object2, forKey: "object2")
-            try values.encodeIfPresent(object3, forKey: "object3")
+            try values.encodeIfPresent(a, forKey: "a")
+            try values.encodeIfPresent(b, forKey: "b")
+            try values.encodeIfPresent(c, forKey: "c")
         }
     }
 

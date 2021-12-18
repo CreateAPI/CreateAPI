@@ -31,6 +31,19 @@ extension String {
         }
         return "\(namespace).\(self)"
     }
+    
+    var nextLetter: String? {
+        // Check if string is build from exactly one Unicode scalar:
+        guard let uniCode = UnicodeScalar(self) else {
+            return nil
+        }
+        switch uniCode {
+        case "a" ..< "z":
+            return String(UnicodeScalar(uniCode.value + 1)!)
+        default:
+            return nil
+        }
+    }
 }
 
 func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {

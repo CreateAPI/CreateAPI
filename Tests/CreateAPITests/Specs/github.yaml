@@ -25529,15 +25529,6 @@ paths:
                     required:
                     - branch
                     - path
-              anyOf:
-              - required:
-                - source
-              - required:
-                - cname
-              - required:
-                - public
-              - required:
-                - https_enforced
             example:
               cname: octocatblog.com
               source:
@@ -27048,11 +27039,6 @@ paths:
                   description: An array of team `slug`s that will be requested.
                   items:
                     type: string
-              anyOf:
-              - required:
-                - reviewers
-              - required:
-                - team_reviewers
             example:
               reviewers:
               - octocat

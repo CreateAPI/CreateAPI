@@ -8879,10 +8879,10 @@ extension Paths.Projects.Columns.WithColumnID {
         }
 
         public enum PostRequest: Encodable {
-            case object1(Object1)
-            case object2(Object2)
+            case a(A)
+            case b(B)
 
-            public struct Object1: Encodable {
+            public struct A: Encodable {
                 /// The project card's note
                 ///
                 /// Example: "Update all gems"
@@ -8893,7 +8893,7 @@ extension Paths.Projects.Columns.WithColumnID {
                 }
             }
 
-            public struct Object2: Encodable {
+            public struct B: Encodable {
                 /// The unique identifier of the content associated with the card
                 ///
                 /// Example: 42
@@ -8917,8 +8917,8 @@ extension Paths.Projects.Columns.WithColumnID {
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
-                case .object1(let value): try container.encode(value)
-                case .object2(let value): try container.encode(value)
+                case .a(let value): try container.encode(value)
+                case .b(let value): try container.encode(value)
                 }
             }
         }
@@ -12370,10 +12370,10 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         public enum PostRequest: Encodable {
-            case object1(Object1)
-            case object2(Object2)
+            case a(A)
+            case b(B)
 
-            public struct Object1: Encodable {
+            public struct A: Encodable {
                 public var status: AnyJSON
                 public var conclusion: AnyJSON
 
@@ -12383,7 +12383,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public struct Object2: Encodable {
+            public struct B: Encodable {
                 public var status: AnyJSON?
 
                 public init(status: AnyJSON? = nil) {
@@ -12394,8 +12394,8 @@ extension Paths.Repos.WithOwner.WithRepo {
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
-                case .object1(let value): try container.encode(value)
-                case .object2(let value): try container.encode(value)
+                case .a(let value): try container.encode(value)
+                case .b(let value): try container.encode(value)
                 }
             }
         }
@@ -18302,57 +18302,65 @@ extension Paths.Repos.WithOwner.WithRepo {
         }
 
         public struct PutRequest: Encodable {
-            public var object1: Object1?
-            public var object2: Object2?
-            public var object3: Object3?
-            public var object4: Object4?
+            /// Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)."
+            public var cname: String?
+            /// Specify whether HTTPS should be enforced for the repository.
+            public var isHTTPSEnforced: Bool?
+            /// Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan.
+            public var isPublic: Bool?
+            public var source: Source?
 
-            public struct Object1: Encodable {
-                public var source: AnyJSON
+            public struct Source: Encodable {
+                /// Update the source for the repository. Must include the branch name, and may optionally specify the subdirectory `/docs`. Possible values are `"gh-pages"`, `"master"`, and `"master /docs"`.
+                public var a: A?
+                /// Update the source for the repository. Must include the branch name and path.
+                public var b: B?
 
-                public init(source: AnyJSON) {
-                    self.source = source
+                /// Update the source for the repository. Must include the branch name, and may optionally specify the subdirectory `/docs`. Possible values are `"gh-pages"`, `"master"`, and `"master /docs"`.
+                public enum A: String, Codable, CaseIterable {
+                    case ghPages = "gh-pages"
+                    case master
+                    case masterDocs = "master /docs"
+                }
+
+                /// Update the source for the repository. Must include the branch name and path.
+                public struct B: Encodable {
+                    /// The repository branch used to publish your site's source files.
+                    public var branch: String
+                    /// The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`.
+                    public var path: Path
+
+                    /// The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`.
+                    public enum Path: String, Codable, CaseIterable {
+                        case slash = "/"
+                        case docs = "/docs"
+                    }
+
+                    public init(branch: String, path: Path) {
+                        self.branch = branch
+                        self.path = path
+                    }
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(a, forKey: "a")
+                    try values.encodeIfPresent(b, forKey: "b")
                 }
             }
 
-            public struct Object2: Encodable {
-                public var cname: AnyJSON
-
-                public init(cname: AnyJSON) {
-                    self.cname = cname
-                }
+            public init(cname: String? = nil, isHTTPSEnforced: Bool? = nil, isPublic: Bool? = nil, source: Source? = nil) {
+                self.cname = cname
+                self.isHTTPSEnforced = isHTTPSEnforced
+                self.isPublic = isPublic
+                self.source = source
             }
 
-            public struct Object3: Encodable {
-                public var `public`: AnyJSON
-
-                public init(`public`: AnyJSON) {
-                    self.public = `public`
-                }
-
-                private enum CodingKeys: String, CodingKey {
-                    case `public` = "public"
-                }
-            }
-
-            public struct Object4: Encodable {
-                public var httpsEnforced: AnyJSON
-
-                public init(httpsEnforced: AnyJSON) {
-                    self.httpsEnforced = httpsEnforced
-                }
-
-                private enum CodingKeys: String, CodingKey {
-                    case httpsEnforced = "https_enforced"
-                }
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(object1, forKey: "object1")
-                try values.encodeIfPresent(object2, forKey: "object2")
-                try values.encodeIfPresent(object3, forKey: "object3")
-                try values.encodeIfPresent(object4, forKey: "object4")
+            private enum CodingKeys: String, CodingKey {
+                case cname
+                case isHTTPSEnforced = "https_enforced"
+                case isPublic = "public"
+                case source
             }
         }
 
@@ -19331,33 +19339,19 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         }
 
         public struct PostRequest: Encodable {
-            public var object1: Object1?
-            public var object2: Object2?
+            /// An array of user `login`s that will be requested.
+            public var reviewers: [String]?
+            /// An array of team `slug`s that will be requested.
+            public var teamReviewers: [String]?
 
-            public struct Object1: Encodable {
-                public var reviewers: AnyJSON
-
-                public init(reviewers: AnyJSON) {
-                    self.reviewers = reviewers
-                }
+            public init(reviewers: [String]? = nil, teamReviewers: [String]? = nil) {
+                self.reviewers = reviewers
+                self.teamReviewers = teamReviewers
             }
 
-            public struct Object2: Encodable {
-                public var teamReviewers: AnyJSON
-
-                public init(teamReviewers: AnyJSON) {
-                    self.teamReviewers = teamReviewers
-                }
-
-                private enum CodingKeys: String, CodingKey {
-                    case teamReviewers = "team_reviewers"
-                }
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(object1, forKey: "object1")
-                try values.encodeIfPresent(object2, forKey: "object2")
+            private enum CodingKeys: String, CodingKey {
+                case reviewers
+                case teamReviewers = "team_reviewers"
             }
         }
 
@@ -24248,10 +24242,10 @@ extension Paths.User {
         }
 
         public enum PostRequest: Encodable {
-            case object1(Object1)
-            case object2(Object2)
+            case a(A)
+            case b(B)
 
-            public struct Object1: Encodable {
+            public struct A: Encodable {
                 /// Repository id for this codespace
                 public var repositoryID: Int
                 /// Git ref (typically a branch name) for this codespace
@@ -24284,7 +24278,7 @@ extension Paths.User {
                 }
             }
 
-            public struct Object2: Encodable {
+            public struct B: Encodable {
                 /// Pull request number for this codespace
                 public var pullRequest: PullRequest
                 /// Location for this codespace
@@ -24334,8 +24328,8 @@ extension Paths.User {
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
-                case .object1(let value): try container.encode(value)
-                case .object2(let value): try container.encode(value)
+                case .a(let value): try container.encode(value)
+                case .b(let value): try container.encode(value)
                 }
             }
         }
