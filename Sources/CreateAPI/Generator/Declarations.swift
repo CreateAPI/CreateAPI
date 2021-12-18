@@ -209,7 +209,7 @@ struct DeclarationMetadata {
 }
 
 struct PathParameter {
+    let key: String // Unprocessed key
     let name: PropertyName
     let type: TypeName
-    let convert: Template
 }

@@ -7,9 +7,7 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Improve how Patch parameters are generated
-// TODO: Add path parameter types support (e.g. Int)
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
-// TODO: Support path parameters like this: GET /report.{format}
 // TODO: Generate phantom ID types
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
 // TODO: Add a way to extend supported content types
@@ -117,37 +115,53 @@ extension Generator {
     
     private func makeOperation(job: Job) throws -> String {
         let component = job.lastComponent
-        let type = component.isEmpty ? TypeName("Root") : makeType(component)
-        let isParameter = component.starts(with: "{")
-
-        let parents = Array(job.components.dropLast().map(makeType))
+        let parameterName = getParameterName(from: component)
+        let type = makePathName(for: component)
+    
+        let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
         let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
         let methods = job.isSubpath ? [] : try makeMethods(for: job.item, context: context)
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, methods: methods)
         
-        let parameter = isParameter ? try getParameterType(item: job.item, component: component) : nil
+        let parameter = try parameterName.map { try getParameter(item: job.item, name: $0) }
         return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, parameter: parameter, contents: generatedType)
     }
     
-    private func getParameterType(item: OpenAPI.PathItem, component: String) throws -> PathParameter {
-        let name = String(component.dropFirst().dropLast())
+    private func makePathName(for component: String) -> TypeName {
+        if component.isEmpty {
+            return TypeName("Root")
+        }
+        if let parameter = getParameterName(from: component) {
+            return makeTypeName(parameter).prepending("With")
+        }
+        return makeTypeName(component)
+    }
+    
+    private func getParameter(item: OpenAPI.PathItem, name: String) throws -> PathParameter {
         let parameters = item.parameters.isEmpty ? (item.allOperations.first?.1.parameters ?? []) : item.parameters
         let parameter = parameters
             .compactMap { try? $0.unwrapped(in: spec) }
             .first { $0.context.inPath && $0.name == name }
-        func makeParamter(type: String, template: String) -> PathParameter {
-            return PathParameter(name: makePropertyName(component), type: TypeName(type), convert: Template(template))
+        let type: String
+        if let parameter = parameter {
+            let (schema, _ ) = try parameter.unwrapped(in: spec)
+            switch schema {
+            case .integer: type = "Int"
+            default: type = "String"
+            }
+        } else {
+            type = "String"
         }
-        guard let parameter = parameter else {
-            return makeParamter(type: "String", template: "%0")
+        return PathParameter(key: name, name: makePropertyName(name), type: TypeName(type))
+    }
+    
+    private func getParameterName(from component: String) -> String? {
+        guard let from = component.firstIndex(of: "{"), let to = component.firstIndex(of: "}") else {
+            return nil
         }
-        let (schema, _ ) = try parameter.unwrapped(in: spec)
-        switch schema {
-        case .integer:  return makeParamter(type: "Int", template: "String(%0)")
-        default: return makeParamter(type: "String", template: "%0")
-        }
+        return String(component[component.index(after: from)..<to])
     }
     
     // MARK: - Methods
@@ -552,13 +566,5 @@ extension Generator {
         case .b:
             throw GeneratorError("HTTP headers with content map are not supported")
         }
-    }
-
-    private func makeType(_ string: String) -> TypeName {
-        let name = TypeName(processing: string, options: options)
-        if string.starts(with: "{") {
-            return name.prepending("With")
-        }
-        return name
     }
 }

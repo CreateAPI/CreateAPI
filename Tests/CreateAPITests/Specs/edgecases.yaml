@@ -348,7 +348,7 @@ paths:
                 $ref: "#/components/schemas/Order"
         "400":
           description: Invalid Order
-  "/store/order/{order_id}":
+  "/store/order/order-{order_id}":
     get:
       tags:
         - store

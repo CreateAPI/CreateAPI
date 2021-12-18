@@ -446,10 +446,12 @@ final class Templates {
     func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, parameter: PathParameter?, contents: String) -> String {
         let stat = isTopLevel ? "static " : ""
         if let parameter = parameter {
+            let componentWithId = component.replacingOccurrences(of: "{\(parameter.key)}", with: "\\(" + parameter.name.rawValue + ")")
+            let path = #""\(path)/"# + componentWithId + "\""
             return """
             extension \(extensionOf) {
                 \(access)\(stat)func \(parameter.name)(_ \(parameter.name): \(parameter.type)) -> \(type) {
-                    \(type)(path: \(isTopLevel ? "\"/\(component)/\"" : "path + \"/\"") + \(parameter.convert.substitute(parameter.name.rawValue)))
+                    \(type)(path: \(path))
                 }
             
             \(contents.indented)

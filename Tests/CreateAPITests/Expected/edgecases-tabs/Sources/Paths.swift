@@ -116,7 +116,7 @@ extension Paths.Pet {
 
 extension Paths.Pet {
 	public func petID(_ petID: Int) -> WithPetID {
-		WithPetID(path: path + "/" + String(petID))
+		WithPetID(path: "\(path)/\(petID)")
 	}
 
 	public struct WithPetID {
@@ -241,11 +241,11 @@ extension Paths.Store {
 
 extension Paths.Store.Order {
 	public func orderID(_ orderID: Int) -> WithOrderID {
-		WithOrderID(path: path + "/" + String(orderID))
+		WithOrderID(path: "\(path)/order-\(orderID)")
 	}
 
 	public struct WithOrderID {
-		/// Path: `/store/order/{order_id}`
+		/// Path: `/store/order/order-{order_id}`
 		public let path: String
 
 		/// Find purchase order by ID
@@ -363,7 +363,7 @@ extension Paths.User {
 
 extension Paths.User {
 	public func username(_ username: String) -> WithUsername {
-		WithUsername(path: path + "/" + username)
+		WithUsername(path: "\(path)/\(username)")
 	}
 
 	public struct WithUsername {

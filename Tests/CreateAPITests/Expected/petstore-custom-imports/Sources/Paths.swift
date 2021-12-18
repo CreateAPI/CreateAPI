@@ -42,7 +42,7 @@ extension Paths {
 
 extension Paths.Pets {
     public func petID(_ petID: String) -> WithPetID {
-        WithPetID(path: path + "/" + petID)
+        WithPetID(path: "\(path)/\(petID)")
     }
 
     public struct WithPetID {
