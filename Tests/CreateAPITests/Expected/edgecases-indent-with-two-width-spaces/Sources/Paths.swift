@@ -446,67 +446,67 @@ extension Paths {
 
     public struct PostRequest: Encodable {
       /// None
-      public var binary: String?
-      /// None
-      public var byte: String
-      /// None
-      public var callback: String?
-      /// None
-      public var date: String?
-      /// None
-      public var dateTime: Date?
-      /// None
-      public var double: Double
-      /// None
-      public var float: Double?
+      public var integer: Int?
       /// None
       public var int32: Int?
       /// None
       public var int64: Int?
       /// None
-      public var integer: Int?
-      /// None
       public var number: Double
       /// None
-      public var password: String?
+      public var float: Double?
+      /// None
+      public var double: Double
+      /// None
+      public var string: String?
       /// None
       public var patternWithoutDelimiter: String
       /// None
-      public var string: String?
+      public var byte: String
+      /// None
+      public var binary: String?
+      /// None
+      public var date: String?
+      /// None
+      public var dateTime: Date?
+      /// None
+      public var password: String?
+      /// None
+      public var callback: String?
 
-      public init(binary: String? = nil, byte: String, callback: String? = nil, date: String? = nil, dateTime: Date? = nil, double: Double, float: Double? = nil, int32: Int? = nil, int64: Int? = nil, integer: Int? = nil, number: Double, password: String? = nil, patternWithoutDelimiter: String, string: String? = nil) {
-        self.binary = binary
-        self.byte = byte
-        self.callback = callback
-        self.date = date
-        self.dateTime = dateTime
-        self.double = double
-        self.float = float
+      public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: String? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
+        self.integer = integer
         self.int32 = int32
         self.int64 = int64
-        self.integer = integer
         self.number = number
-        self.password = password
-        self.patternWithoutDelimiter = patternWithoutDelimiter
+        self.float = float
+        self.double = double
         self.string = string
+        self.patternWithoutDelimiter = patternWithoutDelimiter
+        self.byte = byte
+        self.binary = binary
+        self.date = date
+        self.dateTime = dateTime
+        self.password = password
+        self.callback = callback
       }
 
       public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(binary, forKey: "binary")
-        try values.encode(byte, forKey: "byte")
-        try values.encodeIfPresent(callback, forKey: "callback")
-        try values.encodeIfPresent(date, forKey: "date")
-        try values.encodeIfPresent(dateTime, forKey: "dateTime")
-        try values.encode(double, forKey: "double")
-        try values.encodeIfPresent(float, forKey: "float")
+        try values.encodeIfPresent(integer, forKey: "integer")
         try values.encodeIfPresent(int32, forKey: "int32")
         try values.encodeIfPresent(int64, forKey: "int64")
-        try values.encodeIfPresent(integer, forKey: "integer")
         try values.encode(number, forKey: "number")
-        try values.encodeIfPresent(password, forKey: "password")
-        try values.encode(patternWithoutDelimiter, forKey: "pattern_without_delimiter")
+        try values.encodeIfPresent(float, forKey: "float")
+        try values.encode(double, forKey: "double")
         try values.encodeIfPresent(string, forKey: "string")
+        try values.encode(patternWithoutDelimiter, forKey: "pattern_without_delimiter")
+        try values.encode(byte, forKey: "byte")
+        try values.encodeIfPresent(binary, forKey: "binary")
+        try values.encodeIfPresent(date, forKey: "date")
+        try values.encodeIfPresent(dateTime, forKey: "dateTime")
+        try values.encodeIfPresent(password, forKey: "password")
+        try values.encodeIfPresent(callback, forKey: "callback")
       }
     }
 

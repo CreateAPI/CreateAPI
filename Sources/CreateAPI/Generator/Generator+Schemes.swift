@@ -6,10 +6,9 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Rewrite by creating a tree of types first, optimizing, and only then generating code
 // TODO: mappedTypeNames to support nesting + rename
 
-// TODO: Fix AnyJSON and StringCodingKeys layout
+// TODO: Fix AnyJSON and StringCodingKeys layout + add control over AnyJSON visibility
 // TODO: Add option to hide AnyJSON
 // TODO: testEdgecasesRename "Status": "State" is not working
 // TODO: New APIs in spec for renams
@@ -328,7 +327,9 @@ extension Generator {
     }
     
     private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
-        try object.properties.keys.sorted().compactMap { key in
+        var keys = object.properties.keys
+        if options.schemas.isSortingPropertiesAlphabetically { keys.sort() }
+        return try keys.compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {

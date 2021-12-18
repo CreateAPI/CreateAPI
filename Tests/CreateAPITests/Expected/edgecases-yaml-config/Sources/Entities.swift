@@ -6,13 +6,13 @@
 import Foundation
 
 public struct Order: Codable {
-    public var isDone: Bool?
     public var identifier: Int?
     public var petID: Int?
     public var quantity: Int?
     public var shipDate: Date?
     /// Order Status
     public var status: Status?
+    public var isDone: Bool?
 
     /// Order Status
     public enum Status: String, Codable, CaseIterable {
@@ -21,33 +21,33 @@ public struct Order: Codable {
         case delivered
     }
 
-    public init(isDone: Bool? = nil, identifier: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil) {
-        self.isDone = isDone
+    public init(identifier: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: Status? = nil, isDone: Bool? = nil) {
         self.identifier = identifier
         self.petID = petID
         self.quantity = quantity
         self.shipDate = shipDate
         self.status = status
+        self.isDone = isDone
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete")
         self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
         self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
         self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isDone, forKey: "complete")
         try values.encodeIfPresent(identifier, forKey: "id")
         try values.encodeIfPresent(petID, forKey: "petId")
         try values.encodeIfPresent(quantity, forKey: "quantity")
         try values.encodeIfPresent(shipDate, forKey: "shipDate")
         try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(isDone, forKey: "complete")
     }
 }
 
@@ -74,49 +74,49 @@ public struct Category: Codable {
 }
 
 public struct User: Codable {
-    public var email: String?
-    public var firstName: String?
     public var identifier: Int?
+    public var username: String?
+    public var firstName: String?
     public var lastName: String?
+    public var email: String?
     public var password: String?
     public var phone: String?
     /// User Status
     public var userStatus: Int?
-    public var username: String?
 
-    public init(email: String? = nil, firstName: String? = nil, identifier: Int? = nil, lastName: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil, username: String? = nil) {
-        self.email = email
-        self.firstName = firstName
+    public init(identifier: Int? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil) {
         self.identifier = identifier
+        self.username = username
+        self.firstName = firstName
         self.lastName = lastName
+        self.email = email
         self.password = password
         self.phone = phone
         self.userStatus = userStatus
-        self.username = username
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.email = try values.decodeIfPresent(String.self, forKey: "email")
-        self.firstName = try values.decodeIfPresent(String.self, forKey: "firstName")
         self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.username = try values.decodeIfPresent(String.self, forKey: "username")
+        self.firstName = try values.decodeIfPresent(String.self, forKey: "firstName")
         self.lastName = try values.decodeIfPresent(String.self, forKey: "lastName")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
         self.password = try values.decodeIfPresent(String.self, forKey: "password")
         self.phone = try values.decodeIfPresent(String.self, forKey: "phone")
         self.userStatus = try values.decodeIfPresent(Int.self, forKey: "userStatus")
-        self.username = try values.decodeIfPresent(String.self, forKey: "username")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(email, forKey: "email")
-        try values.encodeIfPresent(firstName, forKey: "firstName")
         try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(username, forKey: "username")
+        try values.encodeIfPresent(firstName, forKey: "firstName")
         try values.encodeIfPresent(lastName, forKey: "lastName")
+        try values.encodeIfPresent(email, forKey: "email")
         try values.encodeIfPresent(password, forKey: "password")
         try values.encodeIfPresent(phone, forKey: "phone")
         try values.encodeIfPresent(userStatus, forKey: "userStatus")
-        try values.encodeIfPresent(username, forKey: "username")
     }
 }
 
@@ -143,14 +143,14 @@ public struct Tag: Codable {
 }
 
 public struct Pet: Codable {
-    public var category: Category?
     public var identifier: Int?
+    public var category: Category?
     /// Example: doggie
     public var name: String
     public var photoURLs: [String]
+    public var tags: [Tag]?
     /// Pet status in the store
     public var state: State?
-    public var tags: [Tag]?
 
     /// Pet status in the store
     public enum State: String, Codable, CaseIterable {
@@ -159,59 +159,59 @@ public struct Pet: Codable {
         case sold
     }
 
-    public init(category: Category? = nil, identifier: Int? = nil, name: String, photoURLs: [String], state: State? = nil, tags: [Tag]? = nil) {
-        self.category = category
+    public init(identifier: Int? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, state: State? = nil) {
         self.identifier = identifier
+        self.category = category
         self.name = name
         self.photoURLs = photoURLs
-        self.state = state
         self.tags = tags
+        self.state = state
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.category = try values.decodeIfPresent(Category.self, forKey: "category")
         self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.category = try values.decodeIfPresent(Category.self, forKey: "category")
         self.name = try values.decode(String.self, forKey: "name")
         self.photoURLs = try values.decode([String].self, forKey: "photoUrls")
-        self.state = try values.decodeIfPresent(State.self, forKey: "status")
         self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
+        self.state = try values.decodeIfPresent(State.self, forKey: "status")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(category, forKey: "category")
         try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(category, forKey: "category")
         try values.encode(name, forKey: "name")
         try values.encode(photoURLs, forKey: "photoUrls")
-        try values.encodeIfPresent(state, forKey: "status")
         try values.encodeIfPresent(tags, forKey: "tags")
+        try values.encodeIfPresent(state, forKey: "status")
     }
 }
 
 public struct APIResponse: Codable {
     public var code: Int?
-    public var message: String?
     public var type: String?
+    public var message: String?
 
-    public init(code: Int? = nil, message: String? = nil, type: String? = nil) {
+    public init(code: Int? = nil, type: String? = nil, message: String? = nil) {
         self.code = code
-        self.message = message
         self.type = type
+        self.message = message
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.code = try values.decodeIfPresent(Int.self, forKey: "code")
-        self.message = try values.decodeIfPresent(String.self, forKey: "message")
         self.type = try values.decodeIfPresent(String.self, forKey: "type")
+        self.message = try values.decodeIfPresent(String.self, forKey: "message")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(code, forKey: "code")
-        try values.encodeIfPresent(message, forKey: "message")
         try values.encodeIfPresent(type, forKey: "type")
+        try values.encodeIfPresent(message, forKey: "message")
     }
 }
 
@@ -236,55 +236,55 @@ public struct Return: Codable {
 
 /// Model for testing model name same as property name
 public struct Name: Codable {
-    public var _123Number: Int?
     public var name: Int
-    public var property: String?
     public var snakeCase: Int?
+    public var property: String?
+    public var _123Number: Int?
 
-    public init(_123Number: Int? = nil, name: Int, property: String? = nil, snakeCase: Int? = nil) {
-        self._123Number = _123Number
+    public init(name: Int, snakeCase: Int? = nil, property: String? = nil, _123Number: Int? = nil) {
         self.name = name
-        self.property = property
         self.snakeCase = snakeCase
+        self.property = property
+        self._123Number = _123Number
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self._123Number = try values.decodeIfPresent(Int.self, forKey: "123Number")
         self.name = try values.decode(Int.self, forKey: "name")
-        self.property = try values.decodeIfPresent(String.self, forKey: "property")
         self.snakeCase = try values.decodeIfPresent(Int.self, forKey: "snake_case")
+        self.property = try values.decodeIfPresent(String.self, forKey: "property")
+        self._123Number = try values.decodeIfPresent(Int.self, forKey: "123Number")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(_123Number, forKey: "123Number")
         try values.encode(name, forKey: "name")
-        try values.encodeIfPresent(property, forKey: "property")
         try values.encodeIfPresent(snakeCase, forKey: "snake_case")
+        try values.encodeIfPresent(property, forKey: "property")
+        try values.encodeIfPresent(_123Number, forKey: "123Number")
     }
 }
 
 /// Model for testing model name starting with number
 public struct _200Response: Codable {
-    public var `class`: String?
     public var name: Int?
+    public var `class`: String?
 
-    public init(`class`: String? = nil, name: Int? = nil) {
-        self.class = `class`
+    public init(name: Int? = nil, `class`: String? = nil) {
         self.name = name
+        self.class = `class`
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.class = try values.decodeIfPresent(String.self, forKey: "class")
         self.name = try values.decodeIfPresent(Int.self, forKey: "name")
+        self.class = try values.decodeIfPresent(String.self, forKey: "class")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(`class`, forKey: "class")
         try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(`class`, forKey: "class")
     }
 }
 
@@ -364,68 +364,68 @@ public struct Animal: Codable {
 }
 
 public struct FormatTest: Codable {
-    public var binary: String?
-    public var byte: String
-    public var date: String
-    public var dateTime: Date?
-    public var double: Double?
-    public var float: Double?
+    public var integer: Int?
     public var int32: Int?
     public var int64: Int?
-    public var integer: Int?
     public var number: Double
-    public var password: String
+    public var float: Double?
+    public var double: Double?
     public var string: String?
+    public var byte: String
+    public var binary: String?
+    public var date: String
+    public var dateTime: Date?
     public var uuid: String?
+    public var password: String
 
-    public init(binary: String? = nil, byte: String, date: String, dateTime: Date? = nil, double: Double? = nil, float: Double? = nil, int32: Int? = nil, int64: Int? = nil, integer: Int? = nil, number: Double, password: String, string: String? = nil, uuid: String? = nil) {
-        self.binary = binary
-        self.byte = byte
-        self.date = date
-        self.dateTime = dateTime
-        self.double = double
-        self.float = float
+    public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: String, dateTime: Date? = nil, uuid: String? = nil, password: String) {
+        self.integer = integer
         self.int32 = int32
         self.int64 = int64
-        self.integer = integer
         self.number = number
-        self.password = password
+        self.float = float
+        self.double = double
         self.string = string
+        self.byte = byte
+        self.binary = binary
+        self.date = date
+        self.dateTime = dateTime
         self.uuid = uuid
+        self.password = password
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
-        self.byte = try values.decode(String.self, forKey: "byte")
-        self.date = try values.decode(String.self, forKey: "date")
-        self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
-        self.double = try values.decodeIfPresent(Double.self, forKey: "double")
-        self.float = try values.decodeIfPresent(Double.self, forKey: "float")
+        self.integer = try values.decodeIfPresent(Int.self, forKey: "integer")
         self.int32 = try values.decodeIfPresent(Int.self, forKey: "int32")
         self.int64 = try values.decodeIfPresent(Int.self, forKey: "int64")
-        self.integer = try values.decodeIfPresent(Int.self, forKey: "integer")
         self.number = try values.decode(Double.self, forKey: "number")
-        self.password = try values.decode(String.self, forKey: "password")
+        self.float = try values.decodeIfPresent(Double.self, forKey: "float")
+        self.double = try values.decodeIfPresent(Double.self, forKey: "double")
         self.string = try values.decodeIfPresent(String.self, forKey: "string")
+        self.byte = try values.decode(String.self, forKey: "byte")
+        self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
+        self.date = try values.decode(String.self, forKey: "date")
+        self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
         self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
+        self.password = try values.decode(String.self, forKey: "password")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(binary, forKey: "binary")
-        try values.encode(byte, forKey: "byte")
-        try values.encode(date, forKey: "date")
-        try values.encodeIfPresent(dateTime, forKey: "dateTime")
-        try values.encodeIfPresent(double, forKey: "double")
-        try values.encodeIfPresent(float, forKey: "float")
+        try values.encodeIfPresent(integer, forKey: "integer")
         try values.encodeIfPresent(int32, forKey: "int32")
         try values.encodeIfPresent(int64, forKey: "int64")
-        try values.encodeIfPresent(integer, forKey: "integer")
         try values.encode(number, forKey: "number")
-        try values.encode(password, forKey: "password")
+        try values.encodeIfPresent(float, forKey: "float")
+        try values.encodeIfPresent(double, forKey: "double")
         try values.encodeIfPresent(string, forKey: "string")
+        try values.encode(byte, forKey: "byte")
+        try values.encodeIfPresent(binary, forKey: "binary")
+        try values.encode(date, forKey: "date")
+        try values.encodeIfPresent(dateTime, forKey: "dateTime")
         try values.encodeIfPresent(uuid, forKey: "uuid")
+        try values.encode(password, forKey: "password")
     }
 }
 
@@ -436,9 +436,9 @@ public enum EnumClass: String, Codable, CaseIterable {
 }
 
 public struct EnumTest: Codable {
+    public var enumString: EnumString?
     public var enumInteger: Int?
     public var enumNumber: Double?
-    public var enumString: EnumString?
     public var outerEnum: OuterEnum?
 
     public enum EnumString: String, Codable, CaseIterable {
@@ -446,75 +446,75 @@ public struct EnumTest: Codable {
         case lower
     }
 
-    public init(enumInteger: Int? = nil, enumNumber: Double? = nil, enumString: EnumString? = nil, outerEnum: OuterEnum? = nil) {
+    public init(enumString: EnumString? = nil, enumInteger: Int? = nil, enumNumber: Double? = nil, outerEnum: OuterEnum? = nil) {
+        self.enumString = enumString
         self.enumInteger = enumInteger
         self.enumNumber = enumNumber
-        self.enumString = enumString
         self.outerEnum = outerEnum
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
         self.enumInteger = try values.decodeIfPresent(Int.self, forKey: "enum_integer")
         self.enumNumber = try values.decodeIfPresent(Double.self, forKey: "enum_number")
-        self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
         self.outerEnum = try values.decodeIfPresent(OuterEnum.self, forKey: "outerEnum")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(enumString, forKey: "enum_string")
         try values.encodeIfPresent(enumInteger, forKey: "enum_integer")
         try values.encodeIfPresent(enumNumber, forKey: "enum_number")
-        try values.encodeIfPresent(enumString, forKey: "enum_string")
         try values.encodeIfPresent(outerEnum, forKey: "outerEnum")
     }
 }
 
 public struct AdditionalPropertiesClass: Codable {
-    public var mapOfMapProperty: [String: [String: String]]?
     public var mapProperty: [String: String]?
+    public var mapOfMapProperty: [String: [String: String]]?
 
-    public init(mapOfMapProperty: [String: [String: String]]? = nil, mapProperty: [String: String]? = nil) {
-        self.mapOfMapProperty = mapOfMapProperty
+    public init(mapProperty: [String: String]? = nil, mapOfMapProperty: [String: [String: String]]? = nil) {
         self.mapProperty = mapProperty
+        self.mapOfMapProperty = mapOfMapProperty
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.mapOfMapProperty = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_of_map_property")
         self.mapProperty = try values.decodeIfPresent([String: String].self, forKey: "map_property")
+        self.mapOfMapProperty = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_of_map_property")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(mapOfMapProperty, forKey: "map_of_map_property")
         try values.encodeIfPresent(mapProperty, forKey: "map_property")
+        try values.encodeIfPresent(mapOfMapProperty, forKey: "map_of_map_property")
     }
 }
 
 public struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
+    public var uuid: String?
     public var dateTime: Date?
     public var map: [String: Animal]?
-    public var uuid: String?
 
-    public init(dateTime: Date? = nil, map: [String: Animal]? = nil, uuid: String? = nil) {
+    public init(uuid: String? = nil, dateTime: Date? = nil, map: [String: Animal]? = nil) {
+        self.uuid = uuid
         self.dateTime = dateTime
         self.map = map
-        self.uuid = uuid
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
         self.map = try values.decodeIfPresent([String: Animal].self, forKey: "map")
-        self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(uuid, forKey: "uuid")
         try values.encodeIfPresent(dateTime, forKey: "dateTime")
         try values.encodeIfPresent(map, forKey: "map")
-        try values.encodeIfPresent(uuid, forKey: "uuid")
     }
 }
 
@@ -599,42 +599,42 @@ public struct HasOnlyReadOnly: Codable {
 }
 
 public struct Capitalization: Codable {
+    public var smallCamel: String?
+    public var capitalCamel: String?
+    public var smallSnake: String?
+    public var capitalSnake: String?
+    public var sCAETHFlowPoints: String?
     /// Name of the pet
     /// 
     public var attName: String?
-    public var capitalCamel: String?
-    public var capitalSnake: String?
-    public var sCAETHFlowPoints: String?
-    public var smallCamel: String?
-    public var smallSnake: String?
 
-    public init(attName: String? = nil, capitalCamel: String? = nil, capitalSnake: String? = nil, sCAETHFlowPoints: String? = nil, smallCamel: String? = nil, smallSnake: String? = nil) {
-        self.attName = attName
+    public init(smallCamel: String? = nil, capitalCamel: String? = nil, smallSnake: String? = nil, capitalSnake: String? = nil, sCAETHFlowPoints: String? = nil, attName: String? = nil) {
+        self.smallCamel = smallCamel
         self.capitalCamel = capitalCamel
+        self.smallSnake = smallSnake
         self.capitalSnake = capitalSnake
         self.sCAETHFlowPoints = sCAETHFlowPoints
-        self.smallCamel = smallCamel
-        self.smallSnake = smallSnake
+        self.attName = attName
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.attName = try values.decodeIfPresent(String.self, forKey: "ATT_NAME")
+        self.smallCamel = try values.decodeIfPresent(String.self, forKey: "smallCamel")
         self.capitalCamel = try values.decodeIfPresent(String.self, forKey: "CapitalCamel")
+        self.smallSnake = try values.decodeIfPresent(String.self, forKey: "small_Snake")
         self.capitalSnake = try values.decodeIfPresent(String.self, forKey: "Capital_Snake")
         self.sCAETHFlowPoints = try values.decodeIfPresent(String.self, forKey: "SCA_ETH_Flow_Points")
-        self.smallCamel = try values.decodeIfPresent(String.self, forKey: "smallCamel")
-        self.smallSnake = try values.decodeIfPresent(String.self, forKey: "small_Snake")
+        self.attName = try values.decodeIfPresent(String.self, forKey: "ATT_NAME")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(attName, forKey: "ATT_NAME")
+        try values.encodeIfPresent(smallCamel, forKey: "smallCamel")
         try values.encodeIfPresent(capitalCamel, forKey: "CapitalCamel")
+        try values.encodeIfPresent(smallSnake, forKey: "small_Snake")
         try values.encodeIfPresent(capitalSnake, forKey: "Capital_Snake")
         try values.encodeIfPresent(sCAETHFlowPoints, forKey: "SCA_ETH_Flow_Points")
-        try values.encodeIfPresent(smallCamel, forKey: "smallCamel")
-        try values.encodeIfPresent(smallSnake, forKey: "small_Snake")
+        try values.encodeIfPresent(attName, forKey: "ATT_NAME")
     }
 }
 
@@ -666,28 +666,28 @@ public struct MapTest: Codable {
 }
 
 public struct ArrayTest: Codable {
+    public var arrayOfString: [String]?
     public var arrayArrayOfInteger: [[Int]]?
     public var arrayArrayOfModel: [[ReadOnlyFirst]]?
-    public var arrayOfString: [String]?
 
-    public init(arrayArrayOfInteger: [[Int]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil, arrayOfString: [String]? = nil) {
+    public init(arrayOfString: [String]? = nil, arrayArrayOfInteger: [[Int]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil) {
+        self.arrayOfString = arrayOfString
         self.arrayArrayOfInteger = arrayArrayOfInteger
         self.arrayArrayOfModel = arrayArrayOfModel
-        self.arrayOfString = arrayOfString
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.arrayOfString = try values.decodeIfPresent([String].self, forKey: "array_of_string")
         self.arrayArrayOfInteger = try values.decodeIfPresent([[Int]].self, forKey: "array_array_of_integer")
         self.arrayArrayOfModel = try values.decodeIfPresent([[ReadOnlyFirst]].self, forKey: "array_array_of_model")
-        self.arrayOfString = try values.decodeIfPresent([String].self, forKey: "array_of_string")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arrayOfString, forKey: "array_of_string")
         try values.encodeIfPresent(arrayArrayOfInteger, forKey: "array_array_of_integer")
         try values.encodeIfPresent(arrayArrayOfModel, forKey: "array_array_of_model")
-        try values.encodeIfPresent(arrayOfString, forKey: "array_of_string")
     }
 }
 
@@ -746,34 +746,34 @@ public struct ArrayOfArrayOfNumberOnly: Codable {
 }
 
 public struct EnumArrays: Codable {
-    public var arrayEnum: [ArrayEnumItem]?
     public var justSymbol: JustSymbol?
-
-    public enum ArrayEnumItem: String, Codable, CaseIterable {
-        case fish
-        case crab
-    }
+    public var arrayEnum: [ArrayEnumItem]?
 
     public enum JustSymbol: String, Codable, CaseIterable {
         case greaterThanOrEqualTo = ">="
         case dollar = "$"
     }
 
-    public init(arrayEnum: [ArrayEnumItem]? = nil, justSymbol: JustSymbol? = nil) {
-        self.arrayEnum = arrayEnum
+    public enum ArrayEnumItem: String, Codable, CaseIterable {
+        case fish
+        case crab
+    }
+
+    public init(justSymbol: JustSymbol? = nil, arrayEnum: [ArrayEnumItem]? = nil) {
         self.justSymbol = justSymbol
+        self.arrayEnum = arrayEnum
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.arrayEnum = try values.decodeIfPresent([ArrayEnumItem].self, forKey: "array_enum")
         self.justSymbol = try values.decodeIfPresent(JustSymbol.self, forKey: "just_symbol")
+        self.arrayEnum = try values.decodeIfPresent([ArrayEnumItem].self, forKey: "array_enum")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(arrayEnum, forKey: "array_enum")
         try values.encodeIfPresent(justSymbol, forKey: "just_symbol")
+        try values.encodeIfPresent(arrayEnum, forKey: "array_enum")
     }
 }
 
@@ -788,9 +788,14 @@ public struct ContainerA: Codable {
     public var refChild: AnyJSON
 
     public struct Child: Codable {
-        public var child: Child
         public var `enum`: Enum
         public var renameMe: String
+        public var child: Child
+
+        public enum Enum: String, Codable, CaseIterable {
+            case a
+            case b
+        }
 
         public struct Child: Codable {
             public var `enum`: Enum
@@ -819,29 +824,24 @@ public struct ContainerA: Codable {
             }
         }
 
-        public enum Enum: String, Codable, CaseIterable {
-            case a
-            case b
-        }
-
-        public init(child: Child, `enum`: Enum, renameMe: String) {
-            self.child = child
+        public init(`enum`: Enum, renameMe: String, child: Child) {
             self.enum = `enum`
             self.renameMe = renameMe
+            self.child = child
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.child = try values.decode(Child.self, forKey: "child")
             self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            self.child = try values.decode(Child.self, forKey: "child")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(child, forKey: "child")
             try values.encode(`enum`, forKey: "enum")
             try values.encode(renameMe, forKey: "rename-me")
+            try values.encode(child, forKey: "child")
         }
     }
 
@@ -867,9 +867,14 @@ public struct ContainerB: Codable {
     public var child: Child
 
     public struct Child: Codable {
-        public var child: Child
         public var `enum`: Enum
         public var renameMe: String
+        public var child: Child
+
+        public enum Enum: String, Codable, CaseIterable {
+            case a
+            case b
+        }
 
         public struct Child: Codable {
             public var `enum`: Enum
@@ -898,29 +903,24 @@ public struct ContainerB: Codable {
             }
         }
 
-        public enum Enum: String, Codable, CaseIterable {
-            case a
-            case b
-        }
-
-        public init(child: Child, `enum`: Enum, renameMe: String) {
-            self.child = child
+        public init(`enum`: Enum, renameMe: String, child: Child) {
             self.enum = `enum`
             self.renameMe = renameMe
+            self.child = child
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.child = try values.decode(Child.self, forKey: "child")
             self.enum = try values.decode(Enum.self, forKey: "enum")
             self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            self.child = try values.decode(Child.self, forKey: "child")
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(child, forKey: "child")
             try values.encode(`enum`, forKey: "enum")
             try values.encode(renameMe, forKey: "rename-me")
+            try values.encode(child, forKey: "child")
         }
     }
 

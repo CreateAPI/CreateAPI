@@ -116,6 +116,7 @@ final class GenerateOptions {
         // TODO: Move to separate "Rename" object
         var mappedPropertyNames: [String: String]
         var mappedTypeNames: [String: String] // Currently doesn't work for nested types
+        var isSortingPropertiesAlphabetically: Bool
         
         init(_ schemas: GenerateOptionsSchema.SchemasOptions?) {
             self.isGeneratingStructs = schemas?.isGeneratingStructs ?? true
@@ -130,6 +131,7 @@ final class GenerateOptions {
             self.isGeneratingDecode = schemas?.isGeneratingDecode ?? true
             self.mappedPropertyNames = schemas?.mappedPropertyNames ?? [:]
             self.mappedTypeNames = schemas?.mappedTypeNames ?? [:]
+            self.isSortingPropertiesAlphabetically = schemas?.isSortingPropertiesAlphabetically ?? false
         }
     }
 
@@ -222,6 +224,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingDecode: Bool?
         var mappedPropertyNames: [String: String]?
         var mappedTypeNames: [String: String]?
+        var isSortingPropertiesAlphabetically: Bool?
     }
 }
 

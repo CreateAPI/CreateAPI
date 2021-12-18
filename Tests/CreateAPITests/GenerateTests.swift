@@ -21,7 +21,7 @@ final class GenerateTests: XCTestCase {
         temp.remove()
     }
     
-    func testPestoreDetault() throws {
+    func testPestoreDefault() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore"),
@@ -158,7 +158,7 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "petstore-operation-id")
     }
-    
+        
     func testPestoreGenerateClasses() throws {
         // GIVEN
         let command = try Generate.parse([
