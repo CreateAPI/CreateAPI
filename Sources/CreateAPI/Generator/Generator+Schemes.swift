@@ -193,7 +193,12 @@ extension Generator {
             assert(info != nil) // context is null for references, but the caller needs to dereference first
             let nullable = info?.nullable ?? true
             let name = makeChildPropertyName(for: name, type: type)
-            return Property(name: name, type: type, isOptional: !isRequired || nullable, key: key, metadata: .init(info), nested: nested)
+            let isOptional = !isRequired || nullable
+            var type = type
+            if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
+                type = type.asPatchParameter()
+            }
+            return Property(name: name, type: type, isOptional: isOptional, key: key, metadata: .init(info), nested: nested)
         }
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {

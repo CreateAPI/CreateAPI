@@ -82,6 +82,7 @@ struct Context {
     var namespace: String? // TODO: Refactor how namespaces are added
     var isDecodableNeeded = true
     var isEncodableNeeded = true
+    var isPatch = false
     
     func adding(_ parent: TypeName) -> Context {
         map { $0.parents = $0.parents + [parent] }

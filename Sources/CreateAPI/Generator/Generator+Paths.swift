@@ -6,7 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Improve how Patch parameters are generated
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, eg inlyvalues from 100 to 500
 // TODO: Add a way to extend supported content types
@@ -396,6 +395,7 @@ extension Generator {
     private func makeRequestBodyType(for requestBody: RequestBody, method: String, context: Context) throws -> GeneratedType {
         var context = context
         context.isDecodableNeeded = false
+        context.isPatch = method == "patch"
         
         let schema: JSONSchema
         

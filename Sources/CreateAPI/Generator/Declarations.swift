@@ -34,6 +34,10 @@ indirect enum MyType: CustomStringConvertible, Hashable {
         .array(element: self)
     }
     
+    func asPatchParameter() -> MyType {
+        .userDefined(name: TypeName("\(self)?")) // TODO: Refactor
+    }
+    
     var name: TypeName {
         TypeName(description)
     }
