@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 
  struct Order: Codable {
     var id: Int?
@@ -373,12 +374,12 @@ import Foundation
     var string: String?
     var byte: String
     var binary: String?
-    var date: String
+    var date: NaiveDate
     var dateTime: Date?
     var uuid: String?
     var password: String
 
-    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: String, dateTime: Date? = nil, uuid: String? = nil, password: String) {
+    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: String? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -405,7 +406,7 @@ import Foundation
         self.string = try values.decodeIfPresent(String.self, forKey: "string")
         self.byte = try values.decode(String.self, forKey: "byte")
         self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
-        self.date = try values.decode(String.self, forKey: "date")
+        self.date = try values.decode(NaiveDate.self, forKey: "date")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
         self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
         self.password = try values.decode(String.self, forKey: "password")

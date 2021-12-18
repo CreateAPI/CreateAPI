@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 
 /// GitHub app
 ///
@@ -20324,7 +20325,7 @@ public struct PagesHTTPSCertificate: Codable {
     ///
     /// Example: ["example.com", "www.example.com"]
     public var domains: [String]
-    public var expiresAt: String?
+    public var expiresAt: NaiveDate?
 
     /// Example: "approved"
     public enum State: String, Codable, CaseIterable {
@@ -20342,7 +20343,7 @@ public struct PagesHTTPSCertificate: Codable {
         case dnsChanged = "dns_changed"
     }
 
-    public init(state: State, description: String, domains: [String], expiresAt: String? = nil) {
+    public init(state: State, description: String, domains: [String], expiresAt: NaiveDate? = nil) {
         self.state = state
         self.description = description
         self.domains = domains
@@ -20354,7 +20355,7 @@ public struct PagesHTTPSCertificate: Codable {
         self.state = try values.decode(State.self, forKey: "state")
         self.description = try values.decode(String.self, forKey: "description")
         self.domains = try values.decode([String].self, forKey: "domains")
-        self.expiresAt = try values.decodeIfPresent(String.self, forKey: "expires_at")
+        self.expiresAt = try values.decodeIfPresent(NaiveDate.self, forKey: "expires_at")
     }
 
     public func encode(to encoder: Encoder) throws {

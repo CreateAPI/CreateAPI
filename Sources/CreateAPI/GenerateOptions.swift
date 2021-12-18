@@ -24,6 +24,7 @@ final class GenerateOptions {
     var isPluralizationEnabled: Bool
     var pluralizationExceptions: Set<String>
     var isInterpretingEmptyObjectsAsDictionaries: Bool
+    var isNaiveDateEnabled: Bool
     
     enum Indentation: String, Codable {
         case spaces
@@ -160,6 +161,7 @@ final class GenerateOptions {
         self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
         self.pluralizationExceptions = Set(options.pluralizationExceptions ?? [])
         self.isInterpretingEmptyObjectsAsDictionaries = options.isInterpretingEmptyObjectsAsDictionaries ?? false
+        self.isNaiveDateEnabled = options.isNaiveDateEnabled ?? true
     }
 }
 
@@ -182,6 +184,7 @@ final class GenerateOptionsSchema: Decodable {
     var isPluralizationEnabled: Bool?
     var pluralizationExceptions: [String]?
     var isInterpretingEmptyObjectsAsDictionaries: Bool?
+    var isNaiveDateEnabled: Bool?
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?

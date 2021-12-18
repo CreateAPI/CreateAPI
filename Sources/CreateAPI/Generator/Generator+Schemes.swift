@@ -7,7 +7,6 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Add File (Data) support (see FormatTest.date)
-// TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
 // TODO: Add UUID support (and test it!)
 // TODO: Review OpenAPI spec for -all
 // TODO: Add int32/int64 support (optional) (and a way to disable)
@@ -88,7 +87,7 @@ extension Generator {
         }
             
         return GeneratorOutput(
-            header: templates.fileHeader,
+            header: fileHeader,
             files: try generated.compactMap { $0 }.map { try $0.get() },
             extensions: makeExtensions()
         )
@@ -460,6 +459,10 @@ extension Generator {
             guard !isEnum(info) else { return nil }
             switch info.format {
             case .dateTime: return .builtin("Date")
+            case .date: if options.isNaiveDateEnabled {
+                setNaiveDateNeeded()
+                return .builtin("NaiveDate")
+            }
             case .other(let other): if other == "uri" { return .builtin("URL") }
             default: break
             }

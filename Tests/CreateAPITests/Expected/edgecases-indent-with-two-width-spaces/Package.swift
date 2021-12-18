@@ -11,12 +11,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kean/APIClient", branch: "main"), 
-        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main")
+        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main"), 
+        .package(url: "https://github.com/kean/NaiveDate", branch: "master")
     ],
     targets: [
         .target(name: "edgecases-indent-with-two-width-spaces", dependencies: [
             .product(name: "APIClient", package: "APIClient"), 
-            .product(name: "HTTPHeaders", package: "HTTPHeaders")
+            .product(name: "HTTPHeaders", package: "HTTPHeaders"), 
+            .product(name: "NaiveDate", package: "NaiveDate")
         ], path: "Sources")
     ]
 )

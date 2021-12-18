@@ -80,7 +80,7 @@ extension Generator {
     }
     
     private func makeHeader() -> String {
-        var header = templates.fileHeader
+        var header = fileHeader
         for value in makeImports() {
             header += "\nimport \(value)"
         }
@@ -333,6 +333,10 @@ extension Generator {
             case .string(let info, _):
                 switch info.format {
                 case .dateTime: return QueryItemType("Date")
+                case .date: if options.isNaiveDateEnabled {
+                    setNaiveDateNeeded()
+                    return QueryItemType("NaiveDate")
+                }
                 case .other(let other): if other == "uri" { return QueryItemType("URL") }
                 default: break
                 }

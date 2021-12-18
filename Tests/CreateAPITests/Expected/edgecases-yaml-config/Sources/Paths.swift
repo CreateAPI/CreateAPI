@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 import APIClient
 import HTTPHeaders
 
@@ -466,7 +467,7 @@ extension Paths {
             /// None
             public var binary: String?
             /// None
-            public var date: String?
+            public var date: NaiveDate?
             /// None
             public var dateTime: Date?
             /// None
@@ -474,7 +475,7 @@ extension Paths {
             /// None
             public var callback: String?
 
-            public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: String? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
+            public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
                 self.integer = integer
                 self.int32 = int32
                 self.int64 = int64

@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 
 public struct Order: Codable {
 	public var id: Int?
@@ -373,12 +374,12 @@ public struct FormatTest: Codable {
 	public var string: String?
 	public var byte: String
 	public var binary: String?
-	public var date: String
+	public var date: NaiveDate
 	public var dateTime: Date?
 	public var uuid: String?
 	public var password: String
 
-	public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: String, dateTime: Date? = nil, uuid: String? = nil, password: String) {
+	public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: String? = nil, password: String) {
 		self.integer = integer
 		self.int32 = int32
 		self.int64 = int64
@@ -405,7 +406,7 @@ public struct FormatTest: Codable {
 		self.string = try values.decodeIfPresent(String.self, forKey: "string")
 		self.byte = try values.decode(String.self, forKey: "byte")
 		self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
-		self.date = try values.decode(String.self, forKey: "date")
+		self.date = try values.decode(NaiveDate.self, forKey: "date")
 		self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
 		self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
 		self.password = try values.decode(String.self, forKey: "password")
