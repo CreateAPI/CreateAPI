@@ -89,23 +89,23 @@ final class GenerateOptions {
         var isMakingOptionalPatchParametersDoubleOptional: Bool
         var skip: Set<String>
         
-        init(_ paths: GenerateOptionsSchema.Paths?) {
-            self.namespace = paths?.namespace ?? "Paths"
-            self.isAddingResponseHeaders = paths?.isAddingResponseHeaders ?? true
-            self.isAddingOperationIds = paths?.isAddingOperationIds ?? false
-            self.imports = Set(paths?.imports ?? ["APIClient", "HTTPHeaders"])
-            self.overrideResponses = paths?.overrideResponses ?? [:]
+        init(_ options: GenerateOptionsSchema.Paths?) {
+            self.namespace = options?.namespace ?? "Paths"
+            self.isAddingResponseHeaders = options?.isAddingResponseHeaders ?? true
+            self.isAddingOperationIds = options?.isAddingOperationIds ?? false
+            self.imports = Set(options?.imports ?? ["APIClient", "HTTPHeaders"])
+            self.overrideResponses = options?.overrideResponses ?? [:]
             var queryParameterEncoders = makeDefaultParameterEncoders()
-            for (key, value) in paths?.queryParameterEncoders ?? [:] {
+            for (key, value) in options?.queryParameterEncoders ?? [:] {
                 queryParameterEncoders[key] = value // Override default values
             }
             self.queryParameterEncoders = queryParameterEncoders
-            self.isUsingPropertiesForMethodsWithNoArguments = paths?.isUsingPropertiesForMethodsWithNoArguments ?? true
-            self.isInliningSimpleRequestType = paths?.isInliningSimpleRequestType ?? true
-            self.isInliningSimpleQueryParameters = paths?.isInliningSimpleQueryParameters ?? true
-            self.simpleQueryParametersThreshold = paths?.simpleQueryParametersThreshold ?? 2
-            self.isMakingOptionalPatchParametersDoubleOptional = paths?.isMakingOptionalPatchParametersDoubleOptional ?? false
-            self.skip = Set(paths?.skip ?? [])
+            self.isUsingPropertiesForMethodsWithNoArguments = options?.isUsingPropertiesForMethodsWithNoArguments ?? true
+            self.isInliningSimpleRequestType = options?.isInliningSimpleRequestType ?? true
+            self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
+            self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
+            self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
+            self.skip = Set(options?.skip ?? [])
         }
     }
         
@@ -122,21 +122,23 @@ final class GenerateOptions {
         var isGeneratingInitWithCoder: Bool
         var isGeneratingDecode: Bool
         var isSortingPropertiesAlphabetically: Bool
+        var isUsingCustomCodingKeys: Bool
         var skip: Set<String>
         
-        init(_ schemas: GenerateOptionsSchema.Entities?) {
-            self.isGeneratingStructs = schemas?.isGeneratingStructs ?? true
-            self.entitiesGeneratedAsClasses = Set(schemas?.entitiesGeneratedAsClasses ?? [])
-            self.entitiesGeneratedAsStructs = Set(schemas?.entitiesGeneratedAsStructs ?? [])
-            self.isMakingClassesFinal = schemas?.isMakingClassesFinal ?? true
-            self.baseClass = schemas?.baseClass
-            self.adoptedProtocols = Set(schemas?.adoptedProtocols ?? ["Codable"])
-            self.isSkippingRedundantProtocols = schemas?.isSkippingRedundantProtocols ?? true
-            self.isGeneratingInitializers = schemas?.isGeneratingInitializers ?? true
-            self.isGeneratingInitWithCoder = schemas?.isGeneratingInitWithCoder ?? true
-            self.isGeneratingDecode = schemas?.isGeneratingDecode ?? true
-            self.isSortingPropertiesAlphabetically = schemas?.isSortingPropertiesAlphabetically ?? false
-            self.skip = Set(schemas?.skip ?? [])
+        init(_ options: GenerateOptionsSchema.Entities?) {
+            self.isGeneratingStructs = options?.isGeneratingStructs ?? true
+            self.entitiesGeneratedAsClasses = Set(options?.entitiesGeneratedAsClasses ?? [])
+            self.entitiesGeneratedAsStructs = Set(options?.entitiesGeneratedAsStructs ?? [])
+            self.isMakingClassesFinal = options?.isMakingClassesFinal ?? true
+            self.baseClass = options?.baseClass
+            self.adoptedProtocols = Set(options?.adoptedProtocols ?? ["Codable"])
+            self.isSkippingRedundantProtocols = options?.isSkippingRedundantProtocols ?? true
+            self.isGeneratingInitializers = options?.isGeneratingInitializers ?? true
+            self.isGeneratingInitWithCoder = options?.isGeneratingInitWithCoder ?? true
+            self.isGeneratingDecode = options?.isGeneratingDecode ?? true
+            self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
+            self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? false
+            self.skip = Set(options?.skip ?? [])
         }
     }
 
@@ -236,6 +238,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingInitWithCoder: Bool?
         var isGeneratingDecode: Bool?
         var isSortingPropertiesAlphabetically: Bool?
+        var isUsingCustomCodingKeys: Bool?
         var skip: [String]?
     }
 }

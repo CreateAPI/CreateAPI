@@ -39,6 +39,24 @@ final class Templates {
         """
     }
     
+    func codingKeys(for properties: [Property]) -> String? {
+        guard properties.contains(where: { $0.name.rawValue != $0.key }) else {
+            return nil
+        }
+        let cases: [String] = properties.map {
+            if $0.name.rawValue == $0.key {
+                return "case \($0.name)"
+            } else {
+                return "case \($0.name) = \"\($0.key)\""
+            }
+        }
+        return """
+        private enum CodingKeys: String, CodingKey {
+        \(cases.joined(separator: "\n").indented)
+        }
+        """
+    }
+    
     // MARK: Enum
     
     func enumOneOf(name: TypeName, contents: [String], protocols: Protocols) -> String {

@@ -6,7 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add an option to use CodingKeys instead of custom init
+
 // TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: See what needs to be fixed in petstore-all
 // TODO: Add support for default values
@@ -40,6 +40,7 @@ import GrammaticalNumber
 // TODO: Add an option to hide `anyJSON`
 // TODO: Generate IDs with phantom types
 // TODO: Add `byte` and `binary` string formats support
+// TODO: Add an option to generate CodingKeys instead of using Strings
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {

@@ -32,28 +32,18 @@ extension Generator {
         if options.entities.isGeneratingInitializers {
             contents.append(templates.initializer(properties: properties))
         }
-        if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
-            contents.append(templates.initFromDecoder(properties: properties))
+        if options.entities.isUsingCustomCodingKeys {
+            if let keys = templates.codingKeys(for: properties) {
+                contents.append(keys)
+            }
+        } else {
+            if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
+                contents.append(templates.initFromDecoder(properties: properties))
+            }
+            if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
+                contents.append(templates.encode(properties: properties))
+            }
         }
-        if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
-            contents.append(templates.encode(properties: properties))
-        }
-        
-        // TODO: Add this an an options
-        //        let hasCustomCodingKeys = keys.contains { PropertyName($0).rawValue != $0 }
-        //        if hasCustomCodingKeys {
-        //            output += "\n"
-        //            output += "    private enum CodingKeys: String, CodingKey {\n"
-        //            for key in keys where !skippedKeys.contains(key) {
-        //                let parameter = PropertyName(key).rawValue
-        //                if parameter == key {
-        //                    output += "        case \(parameter)\n"
-        //                } else {
-        //                    output += "        case \(parameter) = \"\(key)\"\n"
-        //                }
-        //            }
-        //            output +=  "    }\n"
-        //        }
         
         return templates.comments(for: decl.metadata, name: decl.name.rawValue)
         + templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)

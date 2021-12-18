@@ -538,6 +538,25 @@ final class GenerateTests: XCTestCase {
         try compare(package: "edgecases-int32-int64")
     }
     
+    func testEdgecasesGenerateCodingKeys() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "edgecases"),
+            "--output", temp.url.path,
+            "--package", "edgecases-coding-keys",
+            "--config", config("""
+            entities:
+                isUsingCustomCodingKeys: true
+            """, ext: "yml")
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "edgecases-coding-keys")
+    }
+    
     func testGenerateGitHub() throws {
         // GIVEN
         let command = try Generate.parse([
