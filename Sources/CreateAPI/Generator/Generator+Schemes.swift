@@ -53,12 +53,16 @@ import GrammaticalNumber
 // TODO: `Rename.entities` to support nested types
 // TODO: Add `Rename.enums`
 // TODO: Add an option to hide `anyJSON`
+// TODO: Generate IDs with phantom types
 
 extension Generator {
-
     func schemas() throws -> GeneratorOutput {
         let benchmark = Benchmark(name: "Generating entities")
-
+        defer { benchmark.stop() }
+        return try _schemas()
+    }
+    
+    private func _schemas() throws -> GeneratorOutput {
         let schemas = Array(spec.components.schemas)
         var generated = Array<Result<GeneratedFile, Error>?>(repeating: nil, count: schemas.count)
         let context = Context(parents: [])
@@ -87,15 +91,11 @@ extension Generator {
             }
         }
             
-        let output = GeneratorOutput(
+        return GeneratorOutput(
             header: templates.fileHeader,
             files: try generated.compactMap { $0 }.map { try $0.get() },
             extensions: makeExtensions()
         )
-        
-        benchmark.stop()
-        
-        return output
     }
     
     private func makeExtensions() -> GeneratedFile? {

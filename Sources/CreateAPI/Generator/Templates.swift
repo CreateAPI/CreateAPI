@@ -431,11 +431,11 @@ final class Templates {
     
     // MARK: Paths
     
-    func pathEntity(name: String, subpath: String, methods: [String]) -> String {
+    func pathEntity(name: String, subpath: String, operations: [String]) -> String {
         let contents = ["""
         /// Path: `\(subpath)`
         \(access)let path: String
-        """] + methods
+        """] + operations
         return """
         \(access)struct \(name) {
         \(contents.joined(separator: "\n\n").indented)
