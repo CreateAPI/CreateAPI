@@ -6,6 +6,8 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Skip paths that don't contribute anyhing, e.g. `v1` in GoogleBooks
+// TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
 // TODO: Add a way to extend supported content types

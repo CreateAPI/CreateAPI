@@ -583,6 +583,21 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "github")
     }
+    
+    func testGenerateGoogleBooks() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "googlebooks"),
+            "--output", temp.url.path,
+            "--package", "google-books"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "google-books")
+    }
 }
 
 extension GenerateTests {
