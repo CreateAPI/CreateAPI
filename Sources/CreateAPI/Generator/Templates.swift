@@ -509,6 +509,58 @@ final class Templates {
         """)
         return declarations.joined(separator: "\n\n")
     }
+    
+    var anyJSON: String {
+        """
+        \(access)enum AnyJSON: Equatable, Codable {
+            case string(String)
+            case number(Double)
+            case object([String: AnyJSON])
+            case array([AnyJSON])
+            case bool(Bool)
+
+            var value: Any {
+                switch self {
+                case .string(let string): return string
+                case .number(let double): return double
+                case .object(let dictionary): return dictionary
+                case .array(let array): return array
+                case .bool(let bool): return bool
+                }
+            }
+
+            \(access)func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case let .array(array): try container.encode(array)
+                case let .object(object): try container.encode(object)
+                case let .string(string): try container.encode(string)
+                case let .number(number): try container.encode(number)
+                case let .bool(bool): try container.encode(bool)
+                }
+            }
+
+            \(access)init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let object = try? container.decode([String: AnyJSON].self) {
+                    self = .object(object)
+                } else if let array = try? container.decode([AnyJSON].self) {
+                    self = .array(array)
+                } else if let string = try? container.decode(String.self) {
+                    self = .string(string)
+                } else if let bool = try? container.decode(Bool.self) {
+                    self = .bool(bool)
+                } else if let number = try? container.decode(Double.self) {
+                    self = .number(number)
+                } else {
+                    throw DecodingError.dataCorrupted(
+                        .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+                    )
+                }
+            }
+        }
+        """
+    }
 }
 
 extension RawRepresentable where RawValue == String {
@@ -542,84 +594,6 @@ extension String {
         return lines
     }
 }
-
-let anyJSON = """
-public enum AnyJSON: Equatable {
-    case string(String)
-    case number(Double)
-    case object([String: AnyJSON])
-    case array([AnyJSON])
-    case bool(Bool)
-
-    var value: Any {
-        switch self {
-        case .string(let string): return string
-        case .number(let double): return double
-        case .object(let dictionary): return dictionary
-        case .array(let array): return array
-        case .bool(let bool): return bool
-        }
-    }
-}
-
-extension AnyJSON: Codable {
-    public func encode(to encoder: Encoder) throws {
-
-        var container = encoder.singleValueContainer()
-
-        switch self {
-        case let .array(array):
-            try container.encode(array)
-        case let .object(object):
-            try container.encode(object)
-        case let .string(string):
-            try container.encode(string)
-        case let .number(number):
-            try container.encode(number)
-        case let .bool(bool):
-            try container.encode(bool)
-        }
-    }
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        if let object = try? container.decode([String: AnyJSON].self) {
-            self = .object(object)
-        } else if let array = try? container.decode([AnyJSON].self) {
-            self = .array(array)
-        } else if let string = try? container.decode(String.self) {
-            self = .string(string)
-        } else if let bool = try? container.decode(Bool.self) {
-            self = .bool(bool)
-        } else if let number = try? container.decode(Double.self) {
-            self = .number(number)
-        } else {
-            throw DecodingError.dataCorrupted(
-                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
-            )
-        }
-    }
-}
-
-extension AnyJSON: CustomDebugStringConvertible {
-
-    public var debugDescription: String {
-        switch self {
-        case .string(let str):
-            return str.debugDescription
-        case .number(let num):
-            return num.debugDescription
-        case .bool(let bool):
-            return bool.description
-        default:
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = [.prettyPrinted]
-            return try! String(data: encoder.encode(self), encoding: .utf8)!
-        }
-    }
-}
-"""
 
 let stringCodingKey = """
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {

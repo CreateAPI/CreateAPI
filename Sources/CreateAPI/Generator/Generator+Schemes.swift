@@ -8,7 +8,6 @@ import GrammaticalNumber
 
 // TODO: mappedTypeNames to support nesting + rename
 
-// TODO: Fix AnyJSON and StringCodingKeys layout + add control over AnyJSON visibility
 // TODO: Add option to hide AnyJSON
 // TODO: testEdgecasesRename "Status": "State" is not working
 // TODO: New APIs in spec for renams
@@ -103,7 +102,7 @@ extension Generator {
     private func makeExtensions() -> GeneratedFile? {
         var contents: [String] = []
         if isAnyJSONUsed {
-            contents.append(anyJSON)
+            contents.append(templates.anyJSON)
         }
         contents.append(stringCodingKey)
         guard !contents.isEmpty else {

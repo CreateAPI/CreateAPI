@@ -26674,7 +26674,7 @@ public struct KeySimple: Codable {
     }
 }
 
-public enum AnyJSON: Equatable {
+public enum AnyJSON: Equatable, Codable {
     case string(String)
     case number(Double)
     case object([String: AnyJSON])
@@ -26690,30 +26690,20 @@ public enum AnyJSON: Equatable {
         case .bool(let bool): return bool
         }
     }
-}
 
-extension AnyJSON: Codable {
     public func encode(to encoder: Encoder) throws {
-
         var container = encoder.singleValueContainer()
-
         switch self {
-        case let .array(array):
-            try container.encode(array)
-        case let .object(object):
-            try container.encode(object)
-        case let .string(string):
-            try container.encode(string)
-        case let .number(number):
-            try container.encode(number)
-        case let .bool(bool):
-            try container.encode(bool)
+        case let .array(array): try container.encode(array)
+        case let .object(object): try container.encode(object)
+        case let .string(string): try container.encode(string)
+        case let .number(number): try container.encode(number)
+        case let .bool(bool): try container.encode(bool)
         }
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-
         if let object = try? container.decode([String: AnyJSON].self) {
             self = .object(object)
         } else if let array = try? container.decode([AnyJSON].self) {
@@ -26728,24 +26718,6 @@ extension AnyJSON: Codable {
             throw DecodingError.dataCorrupted(
                 .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
             )
-        }
-    }
-}
-
-extension AnyJSON: CustomDebugStringConvertible {
-
-    public var debugDescription: String {
-        switch self {
-        case .string(let str):
-            return str.debugDescription
-        case .number(let num):
-            return num.debugDescription
-        case .bool(let bool):
-            return bool.description
-        default:
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = [.prettyPrinted]
-            return try! String(data: encoder.encode(self), encoding: .utf8)!
         }
     }
 }
