@@ -82,6 +82,18 @@ extension Int {
     }
 }
 
+extension Int32 {
+    var asQueryValue: String {
+        String(self)
+    }
+}
+
+extension Int64 {
+    var asQueryValue: String {
+        String(self)
+    }
+}
+
 extension String {
     var asQueryValue: String {
         self

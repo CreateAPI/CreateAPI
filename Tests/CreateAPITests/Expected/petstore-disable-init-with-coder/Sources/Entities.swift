@@ -19,13 +19,6 @@ public struct Pet: Codable {
         self.name = name
         self.tag = tag
     }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(id, forKey: "id")
-        try values.encode(name, forKey: "name")
-        try values.encodeIfPresent(tag, forKey: "tag")
-    }
 }
 
 public struct Store: Codable {
@@ -33,11 +26,6 @@ public struct Store: Codable {
 
     public init(pets: [Pet]) {
         self.pets = pets
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(pets, forKey: "pets")
     }
 }
 
@@ -48,12 +36,6 @@ public struct Error: Codable {
     public init(code: Int, message: String) {
         self.code = code
         self.message = message
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(code, forKey: "code")
-        try values.encode(message, forKey: "message")
     }
 }
 

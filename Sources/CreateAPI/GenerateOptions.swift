@@ -137,7 +137,7 @@ final class GenerateOptions {
             self.isGeneratingInitWithCoder = options?.isGeneratingInitWithCoder ?? true
             self.isGeneratingDecode = options?.isGeneratingDecode ?? true
             self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
-            self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? false
+            self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? true
             self.skip = Set(options?.skip ?? [])
         }
     }
@@ -261,6 +261,5 @@ private func makeDefaultParameterEncoders() -> [String: String] {
         "Bool": #"self ? "true" : "false""#,
         "Date": "ISO8601DateFormatter().string(from: self)",
         "URL": "absoluteString",
-        "NaiveDate": "String(self)"
     ]
 }

@@ -146,12 +146,6 @@ extension Paths.Pet {
                 self.name = name
                 self.status = status
             }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(name, forKey: "name")
-                try values.encodeIfPresent(status, forKey: "status")
-            }
         }
 
         /// Deletes a pet
@@ -184,12 +178,6 @@ extension Paths.Pet.WithPetID {
             public init(additionalMetadata: String? = nil, file: String? = nil) {
                 self.additionalMetadata = additionalMetadata
                 self.file = file
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(additionalMetadata, forKey: "additionalMetadata")
-                try values.encodeIfPresent(file, forKey: "file")
             }
         }
     }
@@ -492,22 +480,21 @@ extension Paths {
                 self.callback = callback
             }
 
-            public func encode(to encoder: Encoder) throws {
-                var values = encoder.container(keyedBy: StringCodingKey.self)
-                try values.encodeIfPresent(integer, forKey: "integer")
-                try values.encodeIfPresent(int32, forKey: "int32")
-                try values.encodeIfPresent(int64, forKey: "int64")
-                try values.encode(number, forKey: "number")
-                try values.encodeIfPresent(float, forKey: "float")
-                try values.encode(double, forKey: "double")
-                try values.encodeIfPresent(string, forKey: "string")
-                try values.encode(patternWithoutDelimiter, forKey: "pattern_without_delimiter")
-                try values.encode(byte, forKey: "byte")
-                try values.encodeIfPresent(binary, forKey: "binary")
-                try values.encodeIfPresent(date, forKey: "date")
-                try values.encodeIfPresent(dateTime, forKey: "dateTime")
-                try values.encodeIfPresent(password, forKey: "password")
-                try values.encodeIfPresent(callback, forKey: "callback")
+            private enum CodingKeys: String, CodingKey {
+                case integer
+                case int32
+                case int64
+                case number
+                case float
+                case double
+                case string
+                case patternWithoutDelimiter = "pattern_without_delimiter"
+                case byte
+                case binary
+                case date
+                case dateTime
+                case password
+                case callback
             }
         }
 
@@ -551,12 +538,6 @@ extension Int32 {
 }
 
 extension Int64 {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension NaiveDate {
     var asQueryValue: String {
         String(self)
     }

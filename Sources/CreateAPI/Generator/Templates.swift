@@ -487,16 +487,18 @@ final class Templates {
        """
     }
     
-    func queryParameterEncoders(_ encoders: [String: String]) -> String {
-        var declarations = encoders.keys.sorted().map { key in
-            """
-            extension \(key) {
-                var asQueryValue: String {
-            \(encoders[key]!.indented(count: 2))
+    func queryParameterEncoders(_ encoders: [String: String], skipped: Set<String>) -> String {
+        var declarations = encoders.keys.sorted()
+            .filter { !skipped.contains($0) }
+            .map { key in
+                """
+                extension \(key) {
+                    var asQueryValue: String {
+                \(encoders[key]!.indented(count: 2))
+                    }
                 }
+                """
             }
-            """
-        }
         // Encoding RawRepresentable
         declarations.append("""
         extension RawRepresentable where RawValue == String {

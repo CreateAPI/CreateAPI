@@ -546,7 +546,7 @@ final class GenerateTests: XCTestCase {
             "--package", "edgecases-coding-keys",
             "--config", config("""
             entities:
-                isUsingCustomCodingKeys: true
+                isUsingCustomCodingKeys: false
             """, ext: "yml")
         ])
                 
@@ -565,22 +565,16 @@ final class GenerateTests: XCTestCase {
             "--package", "github",
             "--vendor", "github",
             "--config", config("""
-            {
-                "isInterpretingEmptyObjectsAsDictionaries": true,
-                "pluralizationExceptions": ["ConfigWas", "EventsWere"],
-                "paths": {
-                    "overrideResponses": {
-                        "accepted": "Void"
-                    }
-                },
-                "rename": {
-                    "enumCaseNames": {
-                        "reactions-+1": "reactionsPlusOne",
-                        "reactions--1": "reactionsMinusOne",
-                    }
-                }
-            }
-            """)
+            isInterpretingEmptyObjectsAsDictionaries: true
+            pluralizationExceptions: ["ConfigWas", "EventsWere"]
+            paths:
+              overrideResponses:
+                accepted: "Void"
+            rename:
+              enumCaseNames:
+                reactions-+1: "reactionsPlusOne"
+                reactions--1: "reactionsMinusOne"
+            """, ext: "yml")
         ])
                 
         // WHEN

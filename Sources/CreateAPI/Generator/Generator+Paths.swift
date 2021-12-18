@@ -102,7 +102,8 @@ extension Generator {
             contents.append(templates.requestOperationIdExtension)
         }
         if isQueryNeeded {
-            contents.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders))
+            let skipped = !isNaiveDateNeeded ? Set(["NaiveDate"]) : Set()
+            contents.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders, skipped: skipped))
         }
         return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
     }

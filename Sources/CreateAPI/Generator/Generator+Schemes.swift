@@ -6,8 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-
-// TODO: Option to just use automatic CodingKeys (if you backend is perfect)
 // TODO: See what needs to be fixed in petstore-all
 // TODO: Add support for default values
 // TODO: Option to disable custom key generation
