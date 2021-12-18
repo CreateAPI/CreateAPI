@@ -6,10 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add an option to add to namespace
-// TODO: Add an option to generate Encodable for all cases
-
-// TODO: Add not support and fix warnings
 // TODO: Add File (Data) support (see FormatTest.date)
 // TODO: Add Date(Day) support (NaiveDate?) (see FormatTest.date)
 // TODO: Add UUID support (and test it!)
@@ -48,6 +44,7 @@ import GrammaticalNumber
 // TODO: Add nesting support for "entitiesGeneratedAsStructs(classes)"
 // TODO: Add an option to skip certain files
 
+// TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
 // TODO: `Rename.entities` to support nested types
 // TODO: Add `Rename.enums`
