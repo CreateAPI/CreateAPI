@@ -6,6 +6,8 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Support parameter reuse
+// TODO: Support responses reuse
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
