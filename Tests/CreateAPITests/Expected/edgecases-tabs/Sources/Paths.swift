@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 import APIClient
 import HTTPHeaders
 
@@ -131,8 +132,27 @@ extension Paths.Pet {
 		}
 
 		/// Updates a pet in the store with form data
-		public func post(_ body: String? = nil) -> Request<Void> {
-			.post(path, body: body)
+		public func post(_ body: PostRequest? = nil) -> Request<Void> {
+			.post(path, body: body?.asQuery())
+		}
+
+		public struct PostRequest: Encodable {
+			/// Updated name of the pet
+			public var name: String?
+			/// Updated status of the pet
+			public var status: String?
+
+			public init(name: String? = nil, status: String? = nil) {
+				self.name = name
+				self.status = status
+			}
+
+			public func asQuery() -> String {
+				var query: [(String, String?)] = []
+				query.addQueryItem("name", name?.asQueryValue)
+				query.addQueryItem("status", status?.asQueryValue)
+				return query.asPercentEncodedQuery
+			}
 		}
 
 		/// Deletes a pet
@@ -404,8 +424,75 @@ extension Paths {
 
 		/// Fake endpoint for testing various parameters
 
-		public func post(_ body: String? = nil) -> Request<Void> {
-			.post(path, body: body)
+		public func post(_ body: PostRequest? = nil) -> Request<Void> {
+			.post(path, body: body?.asQuery())
+		}
+
+		public struct PostRequest: Encodable {
+			/// None
+			public var integer: Int?
+			/// None
+			public var int32: Int?
+			/// None
+			public var int64: Int?
+			/// None
+			public var number: Double
+			/// None
+			public var float: Double?
+			/// None
+			public var double: Double
+			/// None
+			public var string: String?
+			/// None
+			public var patternWithoutDelimiter: String
+			/// None
+			public var byte: String
+			/// None
+			public var binary: String?
+			/// None
+			public var date: NaiveDate?
+			/// None
+			public var dateTime: Date?
+			/// None
+			public var password: String?
+			/// None
+			public var callback: String?
+
+			public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
+				self.integer = integer
+				self.int32 = int32
+				self.int64 = int64
+				self.number = number
+				self.float = float
+				self.double = double
+				self.string = string
+				self.patternWithoutDelimiter = patternWithoutDelimiter
+				self.byte = byte
+				self.binary = binary
+				self.date = date
+				self.dateTime = dateTime
+				self.password = password
+				self.callback = callback
+			}
+
+			public func asQuery() -> String {
+				var query: [(String, String?)] = []
+				query.addQueryItem("integer", integer?.asQueryValue)
+				query.addQueryItem("int32", int32?.asQueryValue)
+				query.addQueryItem("int64", int64?.asQueryValue)
+				query.addQueryItem("number", number.asQueryValue)
+				query.addQueryItem("float", float?.asQueryValue)
+				query.addQueryItem("double", double.asQueryValue)
+				query.addQueryItem("string", string?.asQueryValue)
+				query.addQueryItem("pattern_without_delimiter", patternWithoutDelimiter.asQueryValue)
+				query.addQueryItem("byte", byte.asQueryValue)
+				query.addQueryItem("binary", binary?.asQueryValue)
+				query.addQueryItem("date", date?.asQueryValue)
+				query.addQueryItem("dateTime", dateTime?.asQueryValue)
+				query.addQueryItem("password", password?.asQueryValue)
+				query.addQueryItem("callback", callback?.asQueryValue)
+				return query.asPercentEncodedQuery
+			}
 		}
 
 		/// To test "client" model
@@ -453,6 +540,12 @@ extension Int64 {
 	}
 }
 
+extension NaiveDate {
+	var asQueryValue: String {
+		String(self)
+	}
+}
+
 extension String {
 	var asQueryValue: String {
 		self
@@ -475,5 +568,11 @@ extension Array where Element == (String, String?) {
 	mutating func addQueryItem(_ name: String, _ value: String?) {
 		guard let value = value, !value.isEmpty else { return }
 		append((name, value))
+	}
+
+	var asPercentEncodedQuery: String {
+		var components = URLComponents()
+		components.queryItems = self.map(URLQueryItem.init)
+		return components.percentEncodedQuery ?? ""
 	}
 }

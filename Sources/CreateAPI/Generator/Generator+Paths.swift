@@ -6,12 +6,13 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add `x-www-form-urlencoded` support
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
 // TODO: Add a way to extend supported content types
+
+// TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -266,6 +267,7 @@ extension Generator {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
+                setNeedsQuery()
                 nested.append(templates.entity(name: type, contents: contents, protocols: []))
             }
         }
@@ -276,7 +278,8 @@ extension Generator {
             if requestBody.type.rawValue != "Void" {
                 if options.paths.isInliningSimpleRequestType,
                    let entity = (requestBody.nested as? EntityDeclaration),
-                   entity.properties.count == 1 {
+                   entity.properties.count == 1,
+                   !entity.isForm {
                     // Inline simple request types (types that only have N properties):
                     //
                     // public func post(body: PostRequest) -> Request<github.Reaction>
@@ -302,7 +305,11 @@ extension Generator {
                     }
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
-                    call.append("body: body")
+                    if let entity = (requestBody.nested as? EntityDeclaration), entity.isForm {
+                        call.append("body: body\(requestBody.isOptional ? "?" : "").asQuery()")
+                    } else {
+                        call.append("body: body")
+                    }
                     if let value = requestBody.nested {
                         nested.append(render(value))
                     }
@@ -451,10 +458,10 @@ extension Generator {
         
         let request = try requestBody.unwrapped(in: spec)
         
-        func firstContent(for keys: Set<OpenAPI.ContentType>) -> OpenAPI.Content? {
+        func firstContent(for keys: Set<OpenAPI.ContentType>) -> (OpenAPI.Content, OpenAPI.ContentType)? {
             for key in keys {
                 if let content = request.content[key] {
-                    return content
+                    return (content, key)
                 }
             }
             return nil
@@ -468,8 +475,7 @@ extension Generator {
             GeneratedType(type: type, nested: nested, isOptional: !(requestBody.requestValue?.required ?? true))
         }
         
-        // TODO: Refactor
-        if let content = firstContent(for: [.json, .jsonapi, .other("application/scim+json")]) {
+        if let (content, contentType) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .form]) {
             let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
@@ -486,6 +492,7 @@ extension Generator {
             default:
                 throw GeneratorError("ERROR: response not handled")
             }
+            context.isFormEncoding = contentType == .form
             let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
             setNeedsEncodable(for: property.type)
             return makeRequestType(property.type.name, nested: property.nested)
@@ -500,7 +507,7 @@ extension Generator {
         if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
             return makeRequestType(TypeName("Data"))
         }
-        if let content = firstContent(for: [.any]) {
+        if let (content, _) = firstContent(for: [.any]) {
             if case .b(let schema) = content.schema, case .string = schema {
                 return makeRequestType(TypeName("String"))
             }

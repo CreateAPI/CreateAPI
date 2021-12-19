@@ -168,6 +168,7 @@ struct EntityDeclaration: Declaration {
     let properties: [Property]
     let protocols: Protocols
     let metadata: DeclarationMetadata
+    var isForm: Bool
     
     var nested: [Declaration] {
         properties.compactMap { $0.nested }

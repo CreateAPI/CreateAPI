@@ -9,6 +9,7 @@ import GrammaticalNumber
 // TODO: Fix "public var uRLFields: URLFields" in Twitter API
 // TODO: Handle Bools with default values, e.g. `public var isFavorite: Bool?` in OnePassword spec
 // TODO: Add Read-Only and Write-Only Properties support
+// TODO: Remove StringCodingKeys when they are not needed
 
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
@@ -283,7 +284,7 @@ extension Generator {
         let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
         let protocols = getProtocols(for: name, context: context)
-        return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info))
+        return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
     }
     
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {

@@ -264,5 +264,6 @@ private func makeDefaultParameterEncoders() -> [String: String] {
         "Bool": #"self ? "true" : "false""#,
         "Date": "ISO8601DateFormatter().string(from: self)",
         "URL": "absoluteString",
+        "NaiveDate": "String(self)",
     ]
 }

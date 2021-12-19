@@ -119,6 +119,7 @@ struct Context {
     var isDecodableNeeded = true
     var isEncodableNeeded = true
     var isPatch = false
+    var isFormEncoding = false
     
     func adding(_ parent: TypeName) -> Context {
         map { $0.parents = $0.parents + [parent] }

@@ -27720,4 +27720,10 @@ extension Array where Element == (String, String?) {
         guard let value = value, !value.isEmpty else { return }
         append((name, value))
     }
+
+    var asPercentEncodedQuery: String {
+        var components = URLComponents()
+        components.queryItems = self.map(URLQueryItem.init)
+        return components.percentEncodedQuery ?? ""
+    }
 }

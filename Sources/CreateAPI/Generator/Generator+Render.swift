@@ -32,16 +32,20 @@ extension Generator {
         if options.entities.isGeneratingInitializers {
             contents.append(templates.initializer(properties: properties))
         }
-        if options.entities.isUsingCustomCodingKeys {
-            if let keys = templates.codingKeys(for: properties) {
-                contents.append(keys)
-            }
+        if decl.isForm {
+            contents.append(templates.asQueryString(properties: properties))
         } else {
-            if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
-                contents.append(templates.initFromDecoder(properties: properties))
-            }
-            if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
-                contents.append(templates.encode(properties: properties))
+            if options.entities.isUsingCustomCodingKeys {
+                if let keys = templates.codingKeys(for: properties) {
+                    contents.append(keys)
+                }
+            } else {
+                if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
+                    contents.append(templates.initFromDecoder(properties: properties))
+                }
+                if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
+                    contents.append(templates.encode(properties: properties))
+                }
             }
         }
         

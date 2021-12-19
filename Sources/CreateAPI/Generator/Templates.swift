@@ -97,7 +97,7 @@ final class Templates {
         """
     }
         
-    func asQueryContents(properties: [Property]) -> String {
+    func asQueryContents(properties: [Property], asString: Bool = false) -> String {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
             if case .array = $0.type {
@@ -117,7 +117,7 @@ final class Templates {
         return """
         var query: [(String, String?)] = []
         \(statements.joined(separator: "\n"))
-        return query
+        return query\(asString ? ".asPercentEncodedQuery" : "")
         """
     }
     
@@ -131,6 +131,14 @@ final class Templates {
         return """
         private func make\(method.capitalizingFirstLetter())Query(\(arguments)) -> [(String, String?)] {
         \(asQueryContents(properties: properties).indented)
+        }
+        """
+    }
+    
+    func asQueryString(properties: [Property]) -> String {
+        """
+        \(access)func asQuery() -> String {
+        \(asQueryContents(properties: properties, asString: true).indented)
         }
         """
     }
@@ -524,6 +532,12 @@ final class Templates {
             mutating func addQueryItem(_ name: String, _ value: String?) {
                 guard let value = value, !value.isEmpty else { return }
                 append((name, value))
+            }
+        
+            var asPercentEncodedQuery: String {
+                var components = URLComponents()
+                components.queryItems = self.map(URLQueryItem.init)
+                return components.percentEncodedQuery ?? ""
             }
         }
         """)
