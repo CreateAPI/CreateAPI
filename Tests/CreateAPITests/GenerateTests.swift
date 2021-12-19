@@ -589,7 +589,11 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "googlebooks"),
             "--output", temp.url.path,
-            "--package", "GoogleBooksAPI"
+            "--package", "GoogleBooksAPI",
+            "--config", config("""
+            paths:
+              isRemovingRedundantPaths: true
+            """, ext: "yml")
         ])
         
         // WHEN
@@ -599,7 +603,7 @@ final class GenerateTests: XCTestCase {
         try compare(package: "GoogleBooksAPI")
     }
     
-    func _testGenerateTomTom() throws {
+    func testGenerateTomTom() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "tomtom"),

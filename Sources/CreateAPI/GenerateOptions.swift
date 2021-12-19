@@ -105,7 +105,7 @@ final class GenerateOptions {
             self.isInliningSimpleRequestType = options?.isInliningSimpleRequestType ?? true
             self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
             self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
-            self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? true
+            self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? false
             self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
             self.skip = Set(options?.skip ?? [])
         }

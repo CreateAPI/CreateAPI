@@ -229,11 +229,11 @@ extension Paths.Store {
 }
 
 extension Paths.Store.Order {
-	public func orderID(_ orderID: Int) -> WithOrderID {
-		WithOrderID(path: "\(path)/order-\(orderID)")
+	public func orderID(_ orderID: Int) -> WithOrder {
+		WithOrder(path: "\(path)/order-\(orderID)")
 	}
 
-	public struct WithOrderID {
+	public struct WithOrder {
 		/// Path: `/store/order/order-{order_id}`
 		public let path: String
 

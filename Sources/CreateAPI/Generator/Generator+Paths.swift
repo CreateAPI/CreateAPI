@@ -163,7 +163,11 @@ extension Generator {
             return TypeName("Root")
         }
         if let parameter = getParameterName(from: component) {
-            return makeTypeName(parameter).prepending("With")
+            if parameter.count == component.count - 2 {
+                return makeTypeName(parameter).prepending("With")
+            } else {
+                return makeTypeName(component.replacingOccurrences(of: "{\(parameter)}", with: "")).prepending("With")
+            }
         }
         return makeTypeName(component)
     }
