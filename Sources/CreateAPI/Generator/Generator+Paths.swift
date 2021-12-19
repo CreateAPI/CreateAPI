@@ -6,8 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Add an option to rename operations
-// TODO: For operations validate operationId
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
@@ -145,13 +143,20 @@ extension Generator {
         let item: OpenAPI.PathItem
         let method: String
         let operation: OpenAPI.Operation
-        var filename: String { operation.operationId ?? "" }
+        var filename: String
     }
     
+    private func getOperationId(for operation: OpenAPI.Operation) -> String {
+        if !options.rename.operations.isEmpty, let name = options.rename.operations[operation.operationId ?? ""] {
+            return name
+        }
+        return operation.operationId ?? ""
+    }
+ 
     private func makeJobsOperations() -> [JobOperation] {
         spec.paths.flatMap { path, item -> [JobOperation] in
             item.allOperations.map { method, operation in
-                JobOperation(path: path, item: item, method: method, operation: operation)
+                JobOperation(path: path, item: item, method: method, operation: operation, filename: getOperationId(for: operation))
             }
         }
     }
@@ -295,7 +300,7 @@ extension Generator {
     }
     
     private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context) throws -> String {
-        let operationId = operation.operationId ?? ""
+        let operationId = getOperationId(for: operation)
         if style == .operations, operationId.isEmpty {
             throw GeneratorError("OperationId is invalid or missing")
         }
@@ -420,7 +425,7 @@ extension Generator {
         
         // Finally, generate the output
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
-        if options.paths.isAddingOperationIds, let operationId = operation.operationId, !operationId.isEmpty {
+        if options.paths.isAddingOperationIds, !operationId.isEmpty {
             setNeedsRequestOperationIdExtension()
             contents += ".id(\"\(operationId)\")"
         }

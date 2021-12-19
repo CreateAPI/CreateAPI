@@ -36,10 +36,10 @@ final class GenerateOptions {
         var addGetImport: Bool
         var header: String?
         
-        init(_ fileHeader: GenerateOptionsSchema.FileHeader?) {
-            self.addSwiftLintDisabled = fileHeader?.addSwiftLintDisabled ?? true
-            self.addGetImport = fileHeader?.addGetImport ?? true
-            self.header = fileHeader?.header
+        init(_ options: GenerateOptionsSchema.FileHeader?) {
+            self.addSwiftLintDisabled = options?.addSwiftLintDisabled ?? true
+            self.addGetImport = options?.addGetImport ?? true
+            self.header = options?.header
         }
     }
         
@@ -48,12 +48,14 @@ final class GenerateOptions {
         var parameters: [String: String]
         var enumCaseNames: [String: String]
         var entities: [String: String]
+        var operations: [String: String]
         
-        init(_ paths: GenerateOptionsSchema.Rename?) {
-            self.properties = paths?.properties ?? [:]
-            self.parameters = paths?.parameters ?? [:]
-            self.enumCaseNames = paths?.enumCaseNames ?? [:]
-            self.entities = paths?.entities ?? [:]
+        init(_ options: GenerateOptionsSchema.Rename?) {
+            self.properties = options?.properties ?? [:]
+            self.parameters = options?.parameters ?? [:]
+            self.enumCaseNames = options?.enumCaseNames ?? [:]
+            self.entities = options?.entities ?? [:]
+            self.operations = options?.operations ?? [:]
         }
     }
     
@@ -65,13 +67,13 @@ final class GenerateOptions {
         var isAddingExternalDocumentation: Bool
         var isCapitalizationEnabled: Bool
         
-        init(_ comments: GenerateOptionsSchema.Comments?) {
-            self.isEnabled = comments?.isEnabled ?? true
-            self.isAddingTitles = comments?.isAddingTitles ?? true
-            self.isAddingDescription = comments?.isAddingDescription ?? true
-            self.isAddingExamples = comments?.isAddingExamples ?? true
-            self.isAddingExternalDocumentation = comments?.isAddingExternalDocumentation ?? true
-            self.isCapitalizationEnabled = comments?.isCapitalizationEnabled ?? true
+        init(_ options: GenerateOptionsSchema.Comments?) {
+            self.isEnabled = options?.isEnabled ?? true
+            self.isAddingTitles = options?.isAddingTitles ?? true
+            self.isAddingDescription = options?.isAddingDescription ?? true
+            self.isAddingExamples = options?.isAddingExamples ?? true
+            self.isAddingExternalDocumentation = options?.isAddingExternalDocumentation ?? true
+            self.isCapitalizationEnabled = options?.isCapitalizationEnabled ?? true
         }
     }
     
@@ -211,6 +213,7 @@ final class GenerateOptionsSchema: Decodable {
         var parameters: [String: String]?
         var enumCaseNames: [String: String]?
         var entities: [String: String]?
+        var operations: [String: String]?
     }
     
     struct Comments: Decodable {
