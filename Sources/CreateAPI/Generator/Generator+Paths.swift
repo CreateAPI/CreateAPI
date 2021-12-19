@@ -8,7 +8,6 @@ import GrammaticalNumber
 
 // TODO: Add an option to rename operations
 // TODO: For operations validate operationId
-// TODO: Fix getAllApIs in Postman
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces

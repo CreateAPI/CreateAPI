@@ -7,6 +7,10 @@ import Foundation
 import APIClient
 import HTTPHeaders
 
+func test() {
+    
+}
+
 extension Paths {
     /// Get all APIs
     ///
@@ -15,11 +19,11 @@ extension Paths {
     /// Response contains an array named `apis` which would contain all the details of APIs present in the workspace.
     /// 
     /// > Requires <a href="#authentication">API Key</a> as `X-Api-Key` request header or `apikey` URL query parameter.
-    static public func getAllApIs(parameters: GetAllApIsParameters? = nil) -> Request<Void> {
+    static public func getAllAPIs(parameters: GetAllAPIsParameters? = nil) -> Request<Void> {
         .get("/apis", query: parameters?.asQuery())
     }
 
-    public struct GetAllApIsParameters {
+    public struct GetAllAPIsParameters {
         /// Example: "c90a3482-f80d-43d6-9dfb-0830f5e43605"
         public var workspace: String?
         /// Example: "{{since}}"
