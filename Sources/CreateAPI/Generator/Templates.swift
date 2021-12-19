@@ -179,11 +179,11 @@ final class Templates {
         initFromDecoder(contents: decode(properties: properties))
     }
     
-    func initFromDecoder(contents: String) -> String {
-        """
+    func initFromDecoder(contents: String, needsValues: Bool = true) -> String {
+        let values = needsValues ? "let values = try decoder.container(keyedBy: StringCodingKey.self)\n" : ""
+        return """
         \(access)init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-        \(contents.indented)
+        \((values + contents).indented)
         }
         """
     }

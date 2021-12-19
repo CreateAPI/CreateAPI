@@ -144,7 +144,6 @@ public struct URLEntity: Codable {
     public var uRLFields: URLFields
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.uRLFields = try URLFields(from: decoder)
     }
@@ -193,7 +192,6 @@ public struct HashtagEntity: Codable {
     public var hashtagFields: HashtagFields
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.hashtagFields = try HashtagFields(from: decoder)
     }
@@ -222,7 +220,6 @@ public struct CashtagEntity: Codable {
     public var cashtagFields: CashtagFields
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.cashtagFields = try CashtagFields(from: decoder)
     }
@@ -256,7 +253,6 @@ public struct MentionEntity: Codable {
     public var mentionFields: MentionFields
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.mentionFields = try MentionFields(from: decoder)
     }
@@ -1914,7 +1910,6 @@ public struct UnsupportedAuthenticationProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -1947,7 +1942,6 @@ public struct UsageCapExceededProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
         self.period = try Period(from: decoder)
@@ -1980,7 +1974,6 @@ public struct ConnectionExceptionProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
         self.connectionIssue = try ConnectionIssue(from: decoder)
@@ -2003,7 +1996,6 @@ public struct ClientDisconnectedProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -2036,7 +2028,6 @@ public struct OperationalDisconnectProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
         self.disconnectType = try DisconnectType(from: decoder)
@@ -2059,7 +2050,6 @@ public struct RulesCapProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -2080,7 +2070,6 @@ public struct InvalidRuleProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -2101,7 +2090,6 @@ public struct DuplicateRuleProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -2122,7 +2110,6 @@ public struct ConflictProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }
@@ -2143,7 +2130,6 @@ public struct NonCompliantRulesProblem: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
     }

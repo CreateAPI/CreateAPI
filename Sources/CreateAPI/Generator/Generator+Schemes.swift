@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Fix "public var uRLFields: URLFields" in Twitter API
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
 // TODO: `Rename.entities` to support nested types
@@ -562,16 +563,18 @@ extension Generator {
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }.map(render)
+        var needsValues = false
         let decoderContents = properties.map {
             if case .userDefined = $0.type {
                 return templates.decodeFromDecoder(property: $0)
             } else {
+                needsValues = true
                 return templates.decode(property: $0)
             }
         }.joined(separator: "\n")
         let protocols = getProtocols(for: name, context: context)
         if protocols.isDecodable {
-            contents.append(templates.initFromDecoder(contents: decoderContents))
+            contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues))
         }
         if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))
