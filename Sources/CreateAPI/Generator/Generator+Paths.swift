@@ -345,7 +345,7 @@ extension Generator {
             if let value = responseValue.nested {
                 nested.append(render(value))
             }
-            responseHeaders = try? makeHeaders(for: response, method: method)
+            responseHeaders = try? makeHeaders(for: response, name: makeNestedTypeName("Headers").rawValue)
         } else {
             responseType = "Void"
         }
@@ -732,7 +732,7 @@ extension Generator {
         
     // MARK: - Response Headers
 
-    private func makeHeaders(for response: Response, method: String) throws -> String? {
+    private func makeHeaders(for response: Response, name: String) throws -> String? {
         guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
         }
@@ -740,7 +740,6 @@ extension Generator {
         guard !contents.isEmpty else {
             return nil
         }
-        let name = method.capitalizingFirstLetter() + "ResponseHeaders"
         return templates.headers(name: name, contents: contents.joined(separator: "\n"))
     }
     
