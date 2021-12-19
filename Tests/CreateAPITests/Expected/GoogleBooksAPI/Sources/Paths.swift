@@ -7,30 +7,8 @@ import Foundation
 import APIClient
 
 extension Paths {
-    public static var books: Books {
-        Books(path: "/books")
-    }
-
-    public struct Books {
-        /// Path: `/books`
-        public let path: String
-    }
-}
-
-extension Paths.Books {
-    public var v1: V1 {
-        V1(path: path + "/v1")
-    }
-
-    public struct V1 {
-        /// Path: `/books/v1`
-        public let path: String
-    }
-}
-
-extension Paths.Books.V1 {
-    public var cloudloading: Cloudloading {
-        Cloudloading(path: path + "/cloudloading")
+    public static var cloudloading: Cloudloading {
+        Cloudloading(path: "/books/v1/cloudloading")
     }
 
     public struct Cloudloading {
@@ -39,7 +17,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Cloudloading {
+extension Paths.Cloudloading {
     public var addBook: AddBook {
         AddBook(path: path + "/addBook")
     }
@@ -78,7 +56,7 @@ extension Paths.Books.V1.Cloudloading {
     }
 }
 
-extension Paths.Books.V1.Cloudloading {
+extension Paths.Cloudloading {
     public var deleteBook: DeleteBook {
         DeleteBook(path: path + "/deleteBook")
     }
@@ -100,7 +78,7 @@ extension Paths.Books.V1.Cloudloading {
     }
 }
 
-extension Paths.Books.V1.Cloudloading {
+extension Paths.Cloudloading {
     public var updateBook: UpdateBook {
         UpdateBook(path: path + "/updateBook")
     }
@@ -116,9 +94,9 @@ extension Paths.Books.V1.Cloudloading {
     }
 }
 
-extension Paths.Books.V1 {
-    public var dictionary: Dictionary {
-        Dictionary(path: path + "/dictionary")
+extension Paths {
+    public static var dictionary: Dictionary {
+        Dictionary(path: "/books/v1/dictionary")
     }
 
     public struct Dictionary {
@@ -127,7 +105,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Dictionary {
+extension Paths.Dictionary {
     public var listOfflineMetadata: ListOfflineMetadata {
         ListOfflineMetadata(path: path + "/listOfflineMetadata")
     }
@@ -149,9 +127,9 @@ extension Paths.Books.V1.Dictionary {
     }
 }
 
-extension Paths.Books.V1 {
-    public var familysharing: Familysharing {
-        Familysharing(path: path + "/familysharing")
+extension Paths {
+    public static var familysharing: Familysharing {
+        Familysharing(path: "/books/v1/familysharing")
     }
 
     public struct Familysharing {
@@ -160,7 +138,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Familysharing {
+extension Paths.Familysharing {
     public var getFamilyInfo: GetFamilyInfo {
         GetFamilyInfo(path: path + "/getFamilyInfo")
     }
@@ -182,7 +160,7 @@ extension Paths.Books.V1.Familysharing {
     }
 }
 
-extension Paths.Books.V1.Familysharing {
+extension Paths.Familysharing {
     public var share: Share {
         Share(path: path + "/share")
     }
@@ -218,7 +196,7 @@ extension Paths.Books.V1.Familysharing {
     }
 }
 
-extension Paths.Books.V1.Familysharing {
+extension Paths.Familysharing {
     public var unshare: Unshare {
         Unshare(path: path + "/unshare")
     }
@@ -254,9 +232,9 @@ extension Paths.Books.V1.Familysharing {
     }
 }
 
-extension Paths.Books.V1 {
-    public var myconfig: Myconfig {
-        Myconfig(path: path + "/myconfig")
+extension Paths {
+    public static var myconfig: Myconfig {
+        Myconfig(path: "/books/v1/myconfig")
     }
 
     public struct Myconfig {
@@ -265,7 +243,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Myconfig {
+extension Paths.Myconfig {
     public var getUserSettings: GetUserSettings {
         GetUserSettings(path: path + "/getUserSettings")
     }
@@ -287,7 +265,7 @@ extension Paths.Books.V1.Myconfig {
     }
 }
 
-extension Paths.Books.V1.Myconfig {
+extension Paths.Myconfig {
     public var releaseDownloadAccess: ReleaseDownloadAccess {
         ReleaseDownloadAccess(path: path + "/releaseDownloadAccess")
     }
@@ -328,7 +306,7 @@ extension Paths.Books.V1.Myconfig {
     }
 }
 
-extension Paths.Books.V1.Myconfig {
+extension Paths.Myconfig {
     public var requestAccess: RequestAccess {
         RequestAccess(path: path + "/requestAccess")
     }
@@ -380,7 +358,7 @@ extension Paths.Books.V1.Myconfig {
     }
 }
 
-extension Paths.Books.V1.Myconfig {
+extension Paths.Myconfig {
     public var syncVolumeLicenses: SyncVolumeLicenses {
         SyncVolumeLicenses(path: path + "/syncVolumeLicenses")
     }
@@ -440,7 +418,7 @@ extension Paths.Books.V1.Myconfig {
     }
 }
 
-extension Paths.Books.V1.Myconfig {
+extension Paths.Myconfig {
     public var updateUserSettings: UpdateUserSettings {
         UpdateUserSettings(path: path + "/updateUserSettings")
     }
@@ -456,9 +434,9 @@ extension Paths.Books.V1.Myconfig {
     }
 }
 
-extension Paths.Books.V1 {
-    public var mylibrary: Mylibrary {
-        Mylibrary(path: path + "/mylibrary")
+extension Paths {
+    public static var mylibrary: Mylibrary {
+        Mylibrary(path: "/books/v1/mylibrary")
     }
 
     public struct Mylibrary {
@@ -467,7 +445,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Mylibrary {
+extension Paths.Mylibrary {
     public var annotations: Annotations {
         Annotations(path: path + "/annotations")
     }
@@ -554,7 +532,7 @@ extension Paths.Books.V1.Mylibrary {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Annotations {
+extension Paths.Mylibrary.Annotations {
     public var summary: Summary {
         Summary(path: path + "/summary")
     }
@@ -579,7 +557,7 @@ extension Paths.Books.V1.Mylibrary.Annotations {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Annotations {
+extension Paths.Mylibrary.Annotations {
     public func annotationID(_ annotationID: String) -> WithAnnotationID {
         WithAnnotationID(path: "\(path)/\(annotationID)")
     }
@@ -612,7 +590,7 @@ extension Paths.Books.V1.Mylibrary.Annotations {
     }
 }
 
-extension Paths.Books.V1.Mylibrary {
+extension Paths.Mylibrary {
     public var bookshelves: Bookshelves {
         Bookshelves(path: path + "/bookshelves")
     }
@@ -634,7 +612,7 @@ extension Paths.Books.V1.Mylibrary {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves {
+extension Paths.Mylibrary.Bookshelves {
     public func shelf(_ shelf: String) -> WithShelf {
         WithShelf(path: "\(path)/\(shelf)")
     }
@@ -656,7 +634,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
+extension Paths.Mylibrary.Bookshelves.WithShelf {
     public var addVolume: AddVolume {
         AddVolume(path: path + "/addVolume")
     }
@@ -699,7 +677,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
+extension Paths.Mylibrary.Bookshelves.WithShelf {
     public var clearVolumes: ClearVolumes {
         ClearVolumes(path: path + "/clearVolumes")
     }
@@ -721,7 +699,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
+extension Paths.Mylibrary.Bookshelves.WithShelf {
     public var moveVolume: MoveVolume {
         MoveVolume(path: path + "/moveVolume")
     }
@@ -757,7 +735,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
+extension Paths.Mylibrary.Bookshelves.WithShelf {
     public var removeVolume: RemoveVolume {
         RemoveVolume(path: path + "/removeVolume")
     }
@@ -798,7 +776,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
+extension Paths.Mylibrary.Bookshelves.WithShelf {
     public var volumes: Volumes {
         Volumes(path: path + "/volumes")
     }
@@ -852,7 +830,7 @@ extension Paths.Books.V1.Mylibrary.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1.Mylibrary {
+extension Paths.Mylibrary {
     public var readingpositions: Readingpositions {
         Readingpositions(path: path + "/readingpositions")
     }
@@ -863,7 +841,7 @@ extension Paths.Books.V1.Mylibrary {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Readingpositions {
+extension Paths.Mylibrary.Readingpositions {
     public func volumeID(_ volumeID: String) -> WithVolumeID {
         WithVolumeID(path: "\(path)/\(volumeID)")
     }
@@ -886,7 +864,7 @@ extension Paths.Books.V1.Mylibrary.Readingpositions {
     }
 }
 
-extension Paths.Books.V1.Mylibrary.Readingpositions.WithVolumeID {
+extension Paths.Mylibrary.Readingpositions.WithVolumeID {
     public var setPosition: SetPosition {
         SetPosition(path: path + "/setPosition")
     }
@@ -941,9 +919,9 @@ extension Paths.Books.V1.Mylibrary.Readingpositions.WithVolumeID {
     }
 }
 
-extension Paths.Books.V1 {
-    public var notification: Notification {
-        Notification(path: path + "/notification")
+extension Paths {
+    public static var notification: Notification {
+        Notification(path: "/books/v1/notification")
     }
 
     public struct Notification {
@@ -952,7 +930,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Notification {
+extension Paths.Notification {
     public var get: Get {
         Get(path: path + "/get")
     }
@@ -988,9 +966,9 @@ extension Paths.Books.V1.Notification {
     }
 }
 
-extension Paths.Books.V1 {
-    public var onboarding: Onboarding {
-        Onboarding(path: path + "/onboarding")
+extension Paths {
+    public static var onboarding: Onboarding {
+        Onboarding(path: "/books/v1/onboarding")
     }
 
     public struct Onboarding {
@@ -999,7 +977,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Onboarding {
+extension Paths.Onboarding {
     public var listCategories: ListCategories {
         ListCategories(path: path + "/listCategories")
     }
@@ -1021,7 +999,7 @@ extension Paths.Books.V1.Onboarding {
     }
 }
 
-extension Paths.Books.V1.Onboarding {
+extension Paths.Onboarding {
     public var listCategoryVolumes: ListCategoryVolumes {
         ListCategoryVolumes(path: path + "/listCategoryVolumes")
     }
@@ -1071,9 +1049,9 @@ extension Paths.Books.V1.Onboarding {
     }
 }
 
-extension Paths.Books.V1 {
-    public var personalizedstream: Personalizedstream {
-        Personalizedstream(path: path + "/personalizedstream")
+extension Paths {
+    public static var personalizedstream: Personalizedstream {
+        Personalizedstream(path: "/books/v1/personalizedstream")
     }
 
     public struct Personalizedstream {
@@ -1082,7 +1060,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Personalizedstream {
+extension Paths.Personalizedstream {
     public var get: Get {
         Get(path: path + "/get")
     }
@@ -1124,9 +1102,9 @@ extension Paths.Books.V1.Personalizedstream {
     }
 }
 
-extension Paths.Books.V1 {
-    public var promooffer: Promooffer {
-        Promooffer(path: path + "/promooffer")
+extension Paths {
+    public static var promooffer: Promooffer {
+        Promooffer(path: "/books/v1/promooffer")
     }
 
     public struct Promooffer {
@@ -1135,7 +1113,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Promooffer {
+extension Paths.Promooffer {
     public var accept: Accept {
         Accept(path: path + "/accept")
     }
@@ -1186,7 +1164,7 @@ extension Paths.Books.V1.Promooffer {
     }
 }
 
-extension Paths.Books.V1.Promooffer {
+extension Paths.Promooffer {
     public var dismiss: Dismiss {
         Dismiss(path: path + "/dismiss")
     }
@@ -1234,7 +1212,7 @@ extension Paths.Books.V1.Promooffer {
     }
 }
 
-extension Paths.Books.V1.Promooffer {
+extension Paths.Promooffer {
     public var get: Get {
         Get(path: path + "/get")
     }
@@ -1279,9 +1257,9 @@ extension Paths.Books.V1.Promooffer {
     }
 }
 
-extension Paths.Books.V1 {
-    public var series: Series {
-        Series(path: path + "/series")
+extension Paths {
+    public static var series: Series {
+        Series(path: "/books/v1/series")
     }
 
     public struct Series {
@@ -1290,7 +1268,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Series {
+extension Paths.Series {
     public var get: Get {
         Get(path: path + "/get")
     }
@@ -1314,7 +1292,7 @@ extension Paths.Books.V1.Series {
     }
 }
 
-extension Paths.Books.V1.Series {
+extension Paths.Series {
     public var membership: Membership {
         Membership(path: path + "/membership")
     }
@@ -1325,7 +1303,7 @@ extension Paths.Books.V1.Series {
     }
 }
 
-extension Paths.Books.V1.Series.Membership {
+extension Paths.Series.Membership {
     public var get: Get {
         Get(path: path + "/get")
     }
@@ -1361,9 +1339,9 @@ extension Paths.Books.V1.Series.Membership {
     }
 }
 
-extension Paths.Books.V1 {
-    public var users: Users {
-        Users(path: path + "/users")
+extension Paths {
+    public static var users: Users {
+        Users(path: "/books/v1/users")
     }
 
     public struct Users {
@@ -1372,7 +1350,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Users {
+extension Paths.Users {
     public func userID(_ userID: String) -> WithUserID {
         WithUserID(path: "\(path)/\(userID)")
     }
@@ -1383,7 +1361,7 @@ extension Paths.Books.V1.Users {
     }
 }
 
-extension Paths.Books.V1.Users.WithUserID {
+extension Paths.Users.WithUserID {
     public var bookshelves: Bookshelves {
         Bookshelves(path: path + "/bookshelves")
     }
@@ -1405,7 +1383,7 @@ extension Paths.Books.V1.Users.WithUserID {
     }
 }
 
-extension Paths.Books.V1.Users.WithUserID.Bookshelves {
+extension Paths.Users.WithUserID.Bookshelves {
     public func shelf(_ shelf: String) -> WithShelf {
         WithShelf(path: "\(path)/\(shelf)")
     }
@@ -1427,7 +1405,7 @@ extension Paths.Books.V1.Users.WithUserID.Bookshelves {
     }
 }
 
-extension Paths.Books.V1.Users.WithUserID.Bookshelves.WithShelf {
+extension Paths.Users.WithUserID.Bookshelves.WithShelf {
     public var volumes: Volumes {
         Volumes(path: path + "/volumes")
     }
@@ -1466,9 +1444,9 @@ extension Paths.Books.V1.Users.WithUserID.Bookshelves.WithShelf {
     }
 }
 
-extension Paths.Books.V1 {
-    public var volumes: Volumes {
-        Volumes(path: path + "/volumes")
+extension Paths {
+    public static var volumes: Volumes {
+        Volumes(path: "/books/v1/volumes")
     }
 
     public struct Volumes {
@@ -1580,7 +1558,7 @@ extension Paths.Books.V1 {
     }
 }
 
-extension Paths.Books.V1.Volumes {
+extension Paths.Volumes {
     public var mybooks: Mybooks {
         Mybooks(path: path + "/mybooks")
     }
@@ -1651,7 +1629,7 @@ extension Paths.Books.V1.Volumes {
     }
 }
 
-extension Paths.Books.V1.Volumes {
+extension Paths.Volumes {
     public var recommended: Recommended {
         Recommended(path: path + "/recommended")
     }
@@ -1693,7 +1671,7 @@ extension Paths.Books.V1.Volumes {
     }
 }
 
-extension Paths.Books.V1.Volumes.Recommended {
+extension Paths.Volumes.Recommended {
     public var rate: Rate {
         Rate(path: path + "/rate")
     }
@@ -1738,7 +1716,7 @@ extension Paths.Books.V1.Volumes.Recommended {
     }
 }
 
-extension Paths.Books.V1.Volumes {
+extension Paths.Volumes {
     public var useruploaded: Useruploaded {
         Useruploaded(path: path + "/useruploaded")
     }
@@ -1794,7 +1772,7 @@ extension Paths.Books.V1.Volumes {
     }
 }
 
-extension Paths.Books.V1.Volumes {
+extension Paths.Volumes {
     public func volumeID(_ volumeID: String) -> WithVolumeID {
         WithVolumeID(path: "\(path)/\(volumeID)")
     }
@@ -1845,7 +1823,7 @@ extension Paths.Books.V1.Volumes {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID {
+extension Paths.Volumes.WithVolumeID {
     public var associated: Associated {
         Associated(path: path + "/associated")
     }
@@ -1897,7 +1875,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID {
+extension Paths.Volumes.WithVolumeID {
     public var layers: Layers {
         Layers(path: path + "/layers")
     }
@@ -1908,7 +1886,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layers {
+extension Paths.Volumes.WithVolumeID.Layers {
     public func layerID(_ layerID: String) -> WithLayerID {
         WithLayerID(path: "\(path)/\(layerID)")
     }
@@ -1974,7 +1952,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID {
+extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
     public var annotations: Annotations {
         Annotations(path: path + "/annotations")
     }
@@ -1985,7 +1963,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
+extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
     public func annotationID(_ annotationID: String) -> WithAnnotationID {
         WithAnnotationID(path: "\(path)/\(annotationID)")
     }
@@ -2008,7 +1986,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID {
+extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
     public var data: Data {
         Data(path: path + "/data")
     }
@@ -2070,7 +2048,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Data {
+extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
     public func annotationDataID(_ annotationDataID: String) -> WithAnnotationDataID {
         WithAnnotationDataID(path: "\(path)/\(annotationDataID)")
     }
@@ -2118,7 +2096,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID.Layers.WithLayerID.Data {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID {
+extension Paths.Volumes.WithVolumeID {
     public var layersummary: Layersummary {
         Layersummary(path: path + "/layersummary")
     }
@@ -2157,7 +2135,7 @@ extension Paths.Books.V1.Volumes.WithVolumeID {
     }
 }
 
-extension Paths.Books.V1.Volumes.WithVolumeID.Layersummary {
+extension Paths.Volumes.WithVolumeID.Layersummary {
     public func summaryID(_ summaryID: String) -> WithSummaryID {
         WithSummaryID(path: "\(path)/\(summaryID)")
     }

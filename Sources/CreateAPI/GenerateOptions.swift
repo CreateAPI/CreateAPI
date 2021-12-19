@@ -87,6 +87,7 @@ final class GenerateOptions {
         var isInliningSimpleQueryParameters: Bool
         var simpleQueryParametersThreshold: Int
         var isMakingOptionalPatchParametersDoubleOptional: Bool
+        var isRemovingRedundantPaths: Bool
         var skip: Set<String>
         
         init(_ options: GenerateOptionsSchema.Paths?) {
@@ -104,6 +105,7 @@ final class GenerateOptions {
             self.isInliningSimpleRequestType = options?.isInliningSimpleRequestType ?? true
             self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
             self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
+            self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? true
             self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
             self.skip = Set(options?.skip ?? [])
         }
@@ -223,6 +225,7 @@ final class GenerateOptionsSchema: Decodable {
         var isInliningSimpleQueryParameters: Bool?
         var simpleQueryParametersThreshold: Int?
         var isMakingOptionalPatchParametersDoubleOptional: Bool?
+        var isRemovingRedundantPaths: Bool?
         var skip: [String]?
     }
     

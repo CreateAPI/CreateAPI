@@ -450,7 +450,7 @@ final class Templates {
         """
     }
     
-    func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, parameter: PathParameter?, contents: String) -> String {
+    func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, path: String, parameter: PathParameter?, contents: String) -> String {
         let stat = isTopLevel ? "static " : ""
         if let parameter = parameter {
             let componentWithId = component.replacingOccurrences(of: "{\(parameter.key)}", with: "\\(" + parameter.name.rawValue + ")")
@@ -468,7 +468,7 @@ final class Templates {
             return """
             extension \(extensionOf) {
                 \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
-                    \(type)(path: \(isTopLevel ? "\"/\(component)\"" : ("path + \"/\(component)\"")))
+                    \(type)(path: \(isTopLevel ? "\"\(path)\"" : ("path + \"/\(component)\"")))
                 }
             
             \(contents.indented)

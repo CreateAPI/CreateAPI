@@ -6,7 +6,6 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Skip paths that don't contribute anyhing, e.g. `v1` in GoogleBooks
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
@@ -51,12 +50,18 @@ extension Generator {
         let components: [String]
         var isSubpath: Bool
         let item: OpenAPI.PathItem
+        let commonIndices: Int
         
         var isTopLevel: Bool { components.count == 1 }
     }
     
     // Make all jobs upfront so we could then parallelize code generation
     private func makeJobs() -> [Job] {
+        guard !spec.paths.isEmpty else { return [] }
+        
+        let commonIndices = findCommonIndiciesCount()
+    
+        // Generate jobs
         var jobs: [Job] = []
         var encountered = Set<OpenAPI.Path>()
         for path in spec.paths {
@@ -65,7 +70,9 @@ extension Generator {
             }
             let components = path.key.components.isEmpty ? [""] : path.key.components
             for index in components.indices {
-                let subComponents = Array(components[...index])
+                guard index >= commonIndices else {
+                    continue // Skip
+                }
                 let subpath = OpenAPI.Path(Array(components[...index]))
                 let isSubpath = index < components.endIndex - 1
                 if isSubpath && spec.paths.contains(key: subpath) {
@@ -74,11 +81,33 @@ extension Generator {
                 guard !encountered.contains(subpath) else { continue }
                 encountered.insert(subpath)
 
-                let job = Job(lastComponent: components[index], path: subpath, components: subComponents, isSubpath: isSubpath, item: path.value)
+                let job = Job(lastComponent: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
                 jobs.append(job)
             }
         }
         return jobs
+    }
+    
+    private func findCommonIndiciesCount() -> Int {
+        guard options.paths.isRemovingRedundantPaths else {
+            return 0
+        }
+        var commonIndices = 0
+        for index in spec.paths.keys[0].components.indices {
+            let component = spec.paths.keys[0].components[index]
+            for key in spec.paths.keys {
+                guard key.components.indices.contains(index),
+                      key.components[index] == component else {
+                    return commonIndices
+                }
+                if let item = spec.paths[OpenAPI.Path(rawValue: key.components[...index].joined(separator: "/"))],
+                   !item.allOperations.isEmpty {
+                    return commonIndices
+                }
+            }
+            commonIndices += 1
+        }
+        return commonIndices
     }
     
     private func makeHeader() -> String {
@@ -125,7 +154,8 @@ extension Generator {
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, operations: operations)
         
         let parameter = try parameterName.map { try getParameter(item: job.item, name: $0) }
-        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, parameter: parameter, contents: generatedType)
+        let path = job.isTopLevel ? job.path.rawValue : "/\(component)"
+        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
     }
     
     private func makePathName(for component: String) -> TypeName {
