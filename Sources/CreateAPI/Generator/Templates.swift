@@ -126,10 +126,10 @@ final class Templates {
     ///     private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
     ///         [("per_page", perPage?.asQueryValue), ("page", page?.asQueryValue)]
     ///     }
-    func asQueryInline(method: String, properties: [Property]) -> String {
+    func asQueryInline(name: String, properties: [Property], isStatic: Bool) -> String {
         let arguments = properties.map { "_ \($0.name): \($0.type)\($0.isOptional ? "?" : "")" }.joined(separator: ", ")
         return """
-        private func make\(method.capitalizingFirstLetter())Query(\(arguments)) -> [(String, String?)] {
+        private \(isStatic ? "static " : "" )func \(name)(\(arguments)) -> [(String, String?)] {
         \(asQueryContents(properties: properties).indented)
         }
         """
@@ -395,25 +395,25 @@ final class Templates {
     
     // MARK: Method
 
-    func methodOrProperty(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
+    func methodOrProperty(name: String, parameters: [String] = [], returning type: String, contents: String, isStatic: Bool) -> String {
         if parameters.isEmpty && options.paths.isUsingPropertiesForMethodsWithNoArguments {
-            return property(name: name, returning: type, contents: contents)
+            return property(name: name, returning: type, contents: contents, isStatic: isStatic)
         } else {
-            return method(name: name, parameters: parameters, returning: type, contents: contents)
+            return method(name: name, parameters: parameters, returning: type, contents: contents, isStatic: isStatic)
         }
     }
     
-    func method(name: String, parameters: [String] = [], returning type: String, contents: String) -> String {
+    func method(name: String, parameters: [String] = [], returning type: String, contents: String, isStatic: Bool) -> String {
         """
-        \(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
+        \(isStatic ? "static " : "")\(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
         \(contents.indented)
         }
         """
     }
     
-    func property(name: String, returning type: String, contents: String) -> String {
+    func property(name: String, returning type: String, contents: String, isStatic: Bool) -> String {
         """
-        \(access)var \(name): \(type) {
+        \(isStatic ? "static " : "")\(access)var \(name): \(type) {
         \(contents.indented)
         }
         """
@@ -490,6 +490,14 @@ final class Templates {
             }
             """
         }
+    }
+    
+    func extensionOf(_ type: String, contents: String) -> String {
+        """
+        extension \(type) {
+        \(contents.indented)
+        }
+        """
     }
     
     // MARK: Misc

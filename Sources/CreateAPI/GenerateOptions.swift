@@ -76,6 +76,7 @@ final class GenerateOptions {
     }
     
     struct Paths {
+        var style: PathsStyle
         var namespace: String
         var isAddingResponseHeaders: Bool
         var isAddingOperationIds: Bool
@@ -91,6 +92,7 @@ final class GenerateOptions {
         var skip: Set<String>
         
         init(_ options: GenerateOptionsSchema.Paths?) {
+            self.style = options?.style ?? .rest
             self.namespace = options?.namespace ?? "Paths"
             self.isAddingResponseHeaders = options?.isAddingResponseHeaders ?? true
             self.isAddingOperationIds = options?.isAddingOperationIds ?? false
@@ -109,6 +111,11 @@ final class GenerateOptions {
             self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
             self.skip = Set(options?.skip ?? [])
         }
+    }
+    
+    enum PathsStyle: String, Decodable {
+        case rest
+        case operations
     }
         
     struct Entities {
@@ -216,6 +223,7 @@ final class GenerateOptionsSchema: Decodable {
     }
     
     struct Paths: Decodable {
+        var style: GenerateOptions.PathsStyle?
         var namespace: String?
         var isAddingResponseHeaders: Bool?
         var isAddingOperationIds: Bool?

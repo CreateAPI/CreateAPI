@@ -6,6 +6,9 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Add an option to rename operations
+// TODO: For operations validate operationId
+// TODO: Fix getAllApIs in Postman
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
@@ -13,6 +16,7 @@ import GrammaticalNumber
 // TODO: Add a way to extend supported content types
 
 // TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
+// TODO: Split operations in separate files
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -27,15 +31,14 @@ extension Generator {
         let lock = NSLock()
         concurrentPerform(on: jobs, parallel: arguments.isVerbose) { index, job in
             do {
-                let entry = try makePath(job: job)
-                let fileName = makeTypeName(job.path.rawValue).rawValue
-                let file = GeneratedFile(name: fileName, contents: entry)
+                let entry = try makeEntry(for: job)
+                let file = GeneratedFile(name: makeTypeName(job.filename).rawValue, contents: entry)
                 lock.sync { generated[index] = .success(file) }
             } catch {
                 if arguments.isStrict {
                     lock.sync { generated[index] = .failure(error) }
                 } else {
-                    print("ERROR: Failed to generate path for \(job.path): \(error)")
+                    print("ERROR: Failed to generate path for \(job.filename): \(error)")
                 }
             }
         }
@@ -45,9 +48,26 @@ extension Generator {
             extensions: makeExtensions()
         )
     }
+    
+    private func makeJobs() -> [Job] {
+        switch options.paths.style {
+        case .rest: return makeJobsRest()
+        case .operations: return makeJobsOperations()
+        }
+    }
+    
+    private func makeEntry(for job: Job) throws -> String {
+        switch job {
+        case let job as JobRest: return try makePath(job: job)
+        case let job as JobOperation: return try makePath(job: job)
+        default: fatalError("Unsupporeted job")
+        }
+    }
 
+    // MARK: - Jobs (Rest)
+    
     // Generate code for the given (sub)path.
-    private struct Job {
+    private struct JobRest: Job {
         let lastComponent: String
         let path: OpenAPI.Path // Can be sub-path too
         let components: [String]
@@ -56,16 +76,17 @@ extension Generator {
         let commonIndices: Int
         
         var isTopLevel: Bool { components.count == 1 }
+        var filename: String { path.rawValue }
     }
     
     // Make all jobs upfront so we could then parallelize code generation
-    private func makeJobs() -> [Job] {
+    private func makeJobsRest() -> [JobRest] {
         guard !spec.paths.isEmpty else { return [] }
         
         let commonIndices = findCommonIndiciesCount()
     
         // Generate jobs
-        var jobs: [Job] = []
+        var jobs: [JobRest] = []
         var encountered = Set<OpenAPI.Path>()
         for path in spec.paths {
             guard !options.paths.skip.contains(path.key.rawValue) else {
@@ -84,7 +105,7 @@ extension Generator {
                 guard !encountered.contains(subpath) else { continue }
                 encountered.insert(subpath)
 
-                let job = Job(lastComponent: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
+                let job = JobRest(lastComponent: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
                 jobs.append(job)
             }
         }
@@ -118,6 +139,26 @@ extension Generator {
         return commonIndices
     }
     
+    // MARK: - Jobs (Operation)
+    
+    private struct JobOperation: Job {
+        let path: OpenAPI.Path
+        let item: OpenAPI.PathItem
+        let method: String
+        let operation: OpenAPI.Operation
+        var filename: String { operation.operationId ?? "" }
+    }
+    
+    private func makeJobsOperations() -> [JobOperation] {
+        spec.paths.flatMap { path, item -> [JobOperation] in
+            item.allOperations.map { method, operation in
+                JobOperation(path: path, item: item, method: method, operation: operation)
+            }
+        }
+    }
+    
+    // MARK: - Misc
+    
     private func makeHeader() -> String {
         var header = fileHeader
         for value in makeImports() {
@@ -147,21 +188,21 @@ extension Generator {
         return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
     }
     
-    // MARK: - Path
+    // MARK: - Paths (Rest)
     
-    private func makePath(job: Job) throws -> String {
+    private func makePath(job: JobRest) throws -> String {
         let component = job.lastComponent
-        let parameterName = getParameterName(from: component)
+        let parameterName = getPathParameterName(from: component)
         let type = makePathName(for: component)
     
         let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
         let context = Context(parents: parents + [type], namespace: arguments.module?.rawValue)
-        let operations = job.isSubpath ? [] : try makeOperations(for: job.item, context: context)
+        let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, style: .rest, context: context)
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, operations: operations)
         
-        let parameter = try parameterName.map { try getParameter(item: job.item, name: $0) }
+        let parameter = try parameterName.map { try getPathParameter(item: job.item, name: $0) }
         let path = job.isTopLevel ? job.path.rawValue : "/\(component)"
         return templates.pathExtension(of: extensionOf, component: component.isEmpty ? "root" : component, type: type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
     }
@@ -170,7 +211,7 @@ extension Generator {
         if component.isEmpty {
             return TypeName("Root")
         }
-        if let parameter = getParameterName(from: component) {
+        if let parameter = getPathParameterName(from: component) {
             if parameter.count == component.count - 2 {
                 return makeTypeName(parameter).prepending("With")
             } else {
@@ -180,42 +221,70 @@ extension Generator {
         return makeTypeName(component)
     }
     
-    private func getParameter(item: OpenAPI.PathItem, name: String) throws -> PathParameter {
+    // MARK: - Path Parameters
+    
+    // TODO: Refactor
+    private func getPathParameter(item: OpenAPI.PathItem, name: String) throws -> PathParameter {
         let parameters = item.parameters.isEmpty ? (item.allOperations.first?.1.parameters ?? []) : item.parameters
         let parameter = parameters
             .compactMap { try? $0.unwrapped(in: spec) }
             .first { $0.context.inPath && $0.name == name }
-        let type: String
+        let type: TypeName
         if let parameter = parameter {
-            let (schema, _ ) = try parameter.unwrapped(in: spec)
-            switch schema {
-            case .integer: type = "Int"
-            default: type = "String"
-            }
+            type = try getPathParameterType(for: parameter)
         } else {
-            type = "String"
+            type = TypeName("String")
         }
-        return PathParameter(key: name, name: makePropertyName(name), type: TypeName(type))
+        return PathParameter(key: name, name: makePropertyName(name), type: type)
     }
     
-    private func getParameterName(from component: String) -> String? {
+    private func getPathParameterType(for parameter: OpenAPI.Parameter) throws -> TypeName {
+        let (schema, _ ) = try parameter.unwrapped(in: spec)
+        switch schema {
+        case .integer: return TypeName("Int")
+        default: return TypeName("String")
+        }
+    }
+    
+    private func getPathParameters(for item: OpenAPI.PathItem, _ operation: OpenAPI.Operation) throws -> [PathParameter] {
+        let parameters = try (item.parameters + operation.parameters)
+            .compactMap { try $0.unwrapped(in: spec) }
+            .filter { $0.context.inPath }
+        return try parameters.map {
+            let type = try getPathParameterType(for: $0)
+            return PathParameter(key: $0.name, name: makePropertyName($0.name), type: type)
+        }
+    }
+        
+    private func getPathParameterName(from component: String) -> String? {
         guard let from = component.firstIndex(of: "{"), let to = component.firstIndex(of: "}") else {
             return nil
         }
         return String(component[component.index(after: from)..<to])
     }
     
-    // MARK: - Methods
+    // MARK: - Paths (Operation)
+    
+    private func makePath(job: JobOperation) throws -> String {
+        let context = Context(parents: [], namespace: arguments.module?.rawValue)
+        // TODO: Add non-strict version
+        guard let entry = try makeOperation(job.path, job.item, job.operation, job.method, .operations, context) else {
+            throw GeneratorError("Failed to generate operation")
+        }
+        return templates.extensionOf("Paths", contents: entry)
+    }
+    
+    // MARK: - Operations
 
-    private func makeOperations(for item: OpenAPI.PathItem, context: Context) throws -> [String] {
+    private func makeOperations(for path: OpenAPI.Path, item: OpenAPI.PathItem, style: GenerateOptions.PathsStyle, context: Context) throws -> [String] {
         try item.allOperations.map { method, operation in
-            try makeOperation(operation, method, context)
+            try makeOperation(path, item, operation, method, style, context)
         }.compactMap { $0 }
     }
 
-    private func makeOperation(_ operation: OpenAPI.Operation, _ method: String, _ context: Context) throws -> String? {
+    private func makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context) throws -> String? {
         do {
-            return try _makeOperation(operation, method: method, context: context)
+            return try _makeOperation(path, item, operation, method, style, context)
         } catch {
             if arguments.isStrict {
                 throw error
@@ -226,16 +295,48 @@ extension Generator {
         }
     }
     
-    private func _makeOperation(_ operation: OpenAPI.Operation, method: String, context: Context) throws -> String {
+    private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context) throws -> String {
+        let operationId = operation.operationId ?? ""
+        if style == .operations, operationId.isEmpty {
+            throw GeneratorError("OperationId is invalid or missing")
+        }
+        
         var nested: [String] = []
         var parameters: [String] = []
-        var call: [String] = ["path"]
+        var call: [String] = []
+        
+        func makeNestedTypeName(_ appending: String) -> TypeName {
+            switch style {
+            case .operations: return makeTypeName(operationId).appending(appending)
+            case .rest: return TypeName("\(method.capitalizingFirstLetter())\(appending)")
+            }
+        }
+        
+        // Path parameters (operation only)
+        switch style {
+        case .operations:
+            // TODO: What if parameters are common?
+            var path = path.rawValue
+            let pathParameters = try getPathParameters(for: item, operation)
+            for parameter in pathParameters {
+                if let range = path.range(of: "{\(parameter.key)}") {
+                    path.replaceSubrange(range, with: "\\(" + parameter.name.rawValue + ")")
+                    parameters.append("\(parameter.name): \(parameter.type)")
+                }
+            }
+            if path.contains("{") {
+                throw GeneratorError("One or more path parameters for \(operationId) is missing")
+            }
+            call.append("\"\(path)\"")
+        case .rest:
+            call.append("path") // Already provided by the wrapping type
+        }
 
         // Response type and headers
         let responseType: String
         var responseHeaders: String?
         if let response = getSuccessfulResponse(for: operation) {
-            let responseValue = try makeResponse(for: response, method: method, context: context)
+            let responseValue = try makeResponse(for: response, nestedTypeName: makeNestedTypeName("Response"), context: context)
             responseType = responseValue.type.rawValue
             if let value = responseValue.nested {
                 nested.append(render(value))
@@ -253,15 +354,16 @@ extension Generator {
             contents += query.compactMap(\.nested).map(render)
             contents += [templates.initializer(properties: query)]
             contents += [templates.asQuery(properties: query)]
-            let type = TypeName("\(method.capitalizingFirstLetter())Parameters")
+            let type = makeNestedTypeName("Parameters")
             if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold {
                 for item in query {
                     parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
                 }
                 let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
-                let initalizer = "make\(method.capitalizingFirstLetter())Query(\(initArgs))"
+                let initName = "make\(makeNestedTypeName("Query"))"
+                let initalizer = "\(initName)(\(initArgs))"
                 call.append("query: \(initalizer)")
-                nested.append(templates.asQueryInline(method: method, properties: query))
+                nested.append(templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations))
                 nested += query.compactMap { $0.nested }.map(render)
             } else {
                 let isOptional = query.allSatisfy { $0.isOptional }
@@ -274,7 +376,7 @@ extension Generator {
         
         // Request body
         if let requestBody = operation.requestBody, method != "get" {
-            let requestBody = try makeRequestBodyType(for: requestBody, method: method, context: context)
+            let requestBody = try makeRequestBodyType(for: requestBody, method: method, nestedTypeName: makeNestedTypeName("Request"), context: context)
             if requestBody.type.rawValue != "Void" {
                 if options.paths.isInliningSimpleRequestType,
                    let entity = (requestBody.nested as? EntityDeclaration),
@@ -325,7 +427,8 @@ extension Generator {
         }
 
         var output = templates.comments(for: .init(operation), name: "")
-        output += templates.methodOrProperty(name: method, parameters: parameters, returning: "Request<\(responseType)>", contents: contents)
+        let methodName = style == .operations ? makePropertyName(operationId).rawValue : method
+        output += templates.methodOrProperty(name: methodName, parameters: parameters, returning: "Request<\(responseType)>", contents: contents, isStatic: style == .operations)
         if let headers = responseHeaders {
             output += "\n\n"
             output += headers
@@ -451,7 +554,7 @@ extension Generator {
 
     // TODO: Add application/x-www-form-urlencoded support
     // TODO: Add uploads support
-    private func makeRequestBodyType(for requestBody: RequestBody, method: String, context: Context) throws -> GeneratedType {
+    private func makeRequestBodyType(for requestBody: RequestBody, method: String, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
         var context = context
         context.isDecodableNeeded = false
         context.isPatch = method == "patch"
@@ -493,7 +596,7 @@ extension Generator {
                 throw GeneratorError("ERROR: response not handled")
             }
             context.isFormEncoding = contentType == .form
-            let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
+            let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
             setNeedsEncodable(for: property.type)
             return makeRequestType(property.type.name, nested: property.nested)
         }
@@ -539,7 +642,7 @@ extension Generator {
         var isOptional = false
     }
 
-    private func makeResponse(for response: Response, method: String, context: Context) throws -> GeneratedType {
+    private func makeResponse(for response: Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
         var context = context
         context.isEncodableNeeded = false
         
@@ -565,10 +668,10 @@ extension Generator {
             schema = value
         }
         
-        return try makeResponse(for: schema, method: method, context: context)
+        return try makeResponse(for: schema, nestedTypeName: nestedTypeName, context: context)
     }
     
-    private func makeResponse(for response: OpenAPI.Response, method: String, context: Context) throws -> GeneratedType {
+    private func makeResponse(for response: OpenAPI.Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
         func firstContent(for keys: Set<OpenAPI.ContentType>) -> OpenAPI.Content? {
             for key in keys {
                 if let content = response.content[key] {
@@ -597,7 +700,7 @@ extension Generator {
             default:
                 throw GeneratorError("ERROR: response not handled")
             }
-            let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
+            let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
             return GeneratedType(type: property.type.name, nested: property.nested)
         }
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
@@ -660,4 +763,8 @@ extension Generator {
             throw GeneratorError("HTTP headers with content map are not supported")
         }
     }
+}
+
+protocol Job {
+    var filename: String { get }
 }
