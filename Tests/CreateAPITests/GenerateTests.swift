@@ -280,7 +280,7 @@ final class GenerateTests: XCTestCase {
             "--config", config("""
             {
                 "entities": {
-                    "isGeneratingInitWithCoder": false
+                    "isGeneratingInitWithDecoder": false
                 }
             }
             """)

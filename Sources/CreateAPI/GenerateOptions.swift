@@ -121,8 +121,8 @@ final class GenerateOptions {
         var isSkippingRedundantProtocols: Bool
         // TODO: simplify this
         var isGeneratingInitializers: Bool
-        var isGeneratingInitWithCoder: Bool
-        var isGeneratingDecode: Bool
+        var isGeneratingInitWithDecoder: Bool
+        var isGeneratingEncodeWithEncoder: Bool
         var isSortingPropertiesAlphabetically: Bool
         var isUsingCustomCodingKeys: Bool
         var isAddingDefaultValues: Bool
@@ -137,8 +137,8 @@ final class GenerateOptions {
             self.adoptedProtocols = Set(options?.adoptedProtocols ?? ["Codable"])
             self.isSkippingRedundantProtocols = options?.isSkippingRedundantProtocols ?? true
             self.isGeneratingInitializers = options?.isGeneratingInitializers ?? true
-            self.isGeneratingInitWithCoder = options?.isGeneratingInitWithCoder ?? true
-            self.isGeneratingDecode = options?.isGeneratingDecode ?? true
+            self.isGeneratingInitWithDecoder = options?.isGeneratingInitWithDecoder ?? true
+            self.isGeneratingEncodeWithEncoder = options?.isGeneratingEncodeWithEncoder ?? true
             self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
             self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? true
             self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
@@ -240,8 +240,8 @@ final class GenerateOptionsSchema: Decodable {
         var baseClass: String?
         var adoptedProtocols: [String]?
         var isSkippingRedundantProtocols: Bool?
-        var isGeneratingInitWithCoder: Bool?
-        var isGeneratingDecode: Bool?
+        var isGeneratingInitWithDecoder: Bool?
+        var isGeneratingEncodeWithEncoder: Bool?
         var isSortingPropertiesAlphabetically: Bool?
         var isUsingCustomCodingKeys: Bool?
         var isAddingDefaultValues: Bool?

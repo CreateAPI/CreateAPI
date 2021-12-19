@@ -43,10 +43,10 @@ extension Generator {
                     contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
                 }
             } else {
-                if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
+                if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithDecoder {
                     contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
                 }
-                if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
+                if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingEncodeWithEncoder {
                     contents.append(templates.encode(properties: properties))
                 }
             }
