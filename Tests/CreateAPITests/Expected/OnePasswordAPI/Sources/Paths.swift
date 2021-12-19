@@ -58,11 +58,11 @@ extension Paths {
 }
 
 extension Paths.Vaults {
-    public func vaultUuid(_ vaultUuid: String) -> WithVaultUuid {
-        WithVaultUuid(path: "\(path)/\(vaultUuid)")
+    public func vaultUUID(_ vaultUUID: String) -> WithVaultUUID {
+        WithVaultUUID(path: "\(path)/\(vaultUUID)")
     }
 
-    public struct WithVaultUuid {
+    public struct WithVaultUUID {
         /// Path: `/vaults/{vaultUuid}`
         public let path: String
 
@@ -73,7 +73,7 @@ extension Paths.Vaults {
     }
 }
 
-extension Paths.Vaults.WithVaultUuid {
+extension Paths.Vaults.WithVaultUUID {
     public var items: Items {
         Items(path: path + "/items")
     }
@@ -100,12 +100,12 @@ extension Paths.Vaults.WithVaultUuid {
     }
 }
 
-extension Paths.Vaults.WithVaultUuid.Items {
-    public func itemUuid(_ itemUuid: String) -> WithItemUuid {
-        WithItemUuid(path: "\(path)/\(itemUuid)")
+extension Paths.Vaults.WithVaultUUID.Items {
+    public func itemUUID(_ itemUUID: String) -> WithItemUUID {
+        WithItemUUID(path: "\(path)/\(itemUUID)")
     }
 
-    public struct WithItemUuid {
+    public struct WithItemUUID {
         /// Path: `/vaults/{vaultUuid}/items/{itemUuid}`
         public let path: String
 
@@ -136,7 +136,7 @@ extension Paths.Vaults.WithVaultUuid.Items {
     }
 }
 
-extension Paths.Vaults.WithVaultUuid.Items.WithItemUuid {
+extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID {
     public var files: Files {
         Files(path: path + "/files")
     }
@@ -158,12 +158,12 @@ extension Paths.Vaults.WithVaultUuid.Items.WithItemUuid {
     }
 }
 
-extension Paths.Vaults.WithVaultUuid.Items.WithItemUuid.Files {
-    public func fileUuid(_ fileUuid: String) -> WithFileUuid {
-        WithFileUuid(path: "\(path)/\(fileUuid)")
+extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID.Files {
+    public func fileUUID(_ fileUUID: String) -> WithFileUUID {
+        WithFileUUID(path: "\(path)/\(fileUUID)")
     }
 
-    public struct WithFileUuid {
+    public struct WithFileUUID {
         /// Path: `/vaults/{vaultUuid}/items/{itemUuid}/files/{fileUuid}`
         public let path: String
 
@@ -180,7 +180,7 @@ extension Paths.Vaults.WithVaultUuid.Items.WithItemUuid.Files {
     }
 }
 
-extension Paths.Vaults.WithVaultUuid.Items.WithItemUuid.Files.WithFileUuid {
+extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID.Files.WithFileUUID {
     public var content: Content {
         Content(path: path + "/content")
     }
