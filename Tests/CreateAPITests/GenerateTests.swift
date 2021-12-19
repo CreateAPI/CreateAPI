@@ -586,83 +586,44 @@ final class GenerateTests: XCTestCase {
     }
     
     func testGenerateGoogleBooks() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "googlebooks"),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", "GoogleBooksAPI"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "GoogleBooksAPI")
+        try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }
     
     func testGenerateTomTom() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "tomtom"),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", "TomTomAPI"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "TomTomAPI")
+        try testSpec(name: "tomtom", package: "TomTomAPI")
     }
     
     func testGeneratePostman() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "postman"),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", "PostmanAPI"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "PostmanAPI")
+        try testSpec(name: "postman", package: "PostmanAPI")
     }
     
     func testGenerateSimpleCart() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "simplecart"),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", "SimpleCartAPI"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "SimpleCartAPI")
+        try testSpec(name: "simplecart", package: "SimpleCartAPI")
     }
     
     func testGenerateTwitter() throws {
+        try testSpec(name: "twitter", package: "TwitterAPI")
+    }
+    
+    func testGenerateOnePasswordConnect() throws {
+        try testSpec(name: "onepassword", package: "OnePasswordAPI")
+    }
+    
+    func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "twitter"),
+            pathForSpec(named: name),
             "--output", temp.url.path,
             "--strict",
-            "--package", "TwitterAPI"
+            "--package", package,
+            "--config", self.config(config, ext: "yml")
         ])
         
         // WHEN
         try command.run()
         
         // THEN
-        try compare(package: "TwitterAPI")
+        try compare(package: package)
     }
 }
 
