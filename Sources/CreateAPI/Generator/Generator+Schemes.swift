@@ -7,6 +7,9 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Fix "public var uRLFields: URLFields" in Twitter API
+// TODO: Handle Bools with default values, e.g. `public var isFavorite: Bool?` in OnePassword spec
+// TODO: Add Read-Only and Write-Only Properties support
+
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
 // TODO: `Rename.entities` to support nested types
