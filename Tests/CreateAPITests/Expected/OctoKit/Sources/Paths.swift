@@ -267,10 +267,12 @@ extension Paths.App.Hook {
         ///   "content_type" : "json",
         ///   "insecure_ssl" : "0",
         ///   "secret" : "********",
-        ///   "url" : 0
+        ///   "url" : "https:\/\/example.com\/webhook"
         /// }
         public struct PatchRequest: Encodable {
             /// The URL to which the payloads will be delivered.
+            ///
+            /// Example: "https://example.com/webhook"
             public var url: URL?
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///
@@ -5504,6 +5506,8 @@ extension Paths.Orgs.WithOrg {
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
             public struct Config: Encodable {
                 /// The URL to which the payloads will be delivered.
+                ///
+                /// Example: "https://example.com/webhook"
                 public var url: URL
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
@@ -5595,6 +5599,8 @@ extension Paths.Orgs.WithOrg.Hooks {
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params).
             public struct Config: Encodable {
                 /// The URL to which the payloads will be delivered.
+                ///
+                /// Example: "https://example.com/webhook"
                 public var url: URL
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
@@ -5682,10 +5688,12 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///   "content_type" : "json",
         ///   "insecure_ssl" : "0",
         ///   "secret" : "********",
-        ///   "url" : 0
+        ///   "url" : "https:\/\/example.com\/webhook"
         /// }
         public struct PatchRequest: Encodable {
             /// The URL to which the payloads will be delivered.
+            ///
+            /// Example: "https://example.com/webhook"
             public var url: URL?
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///
@@ -13218,6 +13226,8 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
             public var sarif: String
             /// The base directory used in the analysis, as it appears in the SARIF file.
             /// This property is used to convert file paths from absolute to relative, so that alerts can be mapped to their correct location in the repository.
+            ///
+            /// Example: "file:///github/workspace/"
             public var checkoutUri: URL?
             /// The time that the analysis run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
             public var startedAt: Date?
@@ -15861,6 +15871,8 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
             public struct Config: Encodable {
                 /// The URL to which the payloads will be delivered.
+                ///
+                /// Example: "https://example.com/webhook"
                 public var url: URL?
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
@@ -15954,6 +15966,8 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
             public struct Config: Encodable {
                 /// The URL to which the payloads will be delivered.
+                ///
+                /// Example: "https://example.com/webhook"
                 public var url: URL
                 /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
                 ///
@@ -16051,10 +16065,12 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///   "content_type" : "json",
         ///   "insecure_ssl" : "0",
         ///   "secret" : "********",
-        ///   "url" : 0
+        ///   "url" : "https:\/\/example.com\/webhook"
         /// }
         public struct PatchRequest: Encodable {
             /// The URL to which the payloads will be delivered.
+            ///
+            /// Example: "https://example.com/webhook"
             public var url: URL?
             /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
             ///

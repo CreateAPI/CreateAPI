@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/kean/OpenAPIKit",
         "state": {
           "branch": "release/3_0",
-          "revision": "47f1196a95c25c7985d8ea9d59a41ae71efec6bf",
+          "revision": "b62f62f317b3a2c06d0fe5bbb02ef23d6fd7fc63",
           "version": null
         }
       },
@@ -39,11 +39,11 @@
       },
       {
         "package": "Yams",
-        "repositoryURL": "https://github.com/jpsim/Yams.git",
+        "repositoryURL": "https://github.com/kean/Yams.git",
         "state": {
-          "branch": null,
-          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
-          "version": "4.0.6"
+          "branch": "main",
+          "revision": "3357d51e5621e3ccfba1acbf9d7b5d0e1cfa59f8",
+          "version": null
         }
       }
     ]

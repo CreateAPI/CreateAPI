@@ -102,6 +102,8 @@ public struct AttachmentResponse: Codable {
     public var createdAt: Date?
     /// The URL containing the content of the attachment.
     /// *Note:* May be null if the attachment is hosted by [Box](https://www.box.com/) and will be null if the attachment is a Video Message hosted by [Vimeo](https://vimeo.com/). If present, this URL may only be valid for two minutes from the time of retrieval. You should avoid persisting this URL somewhere and just refresh it on demand to ensure you do not keep stale URLs.
+    ///
+    /// Example: "https://s3.amazonaws.com/assets/123/Screenshot.png"
     public var downloadURL: URL?
     /// The service hosting the attachment. Valid values are `asana`, `dropbox`, `gdrive`, `box`, and `vimeo`.
     ///
@@ -109,6 +111,8 @@ public struct AttachmentResponse: Codable {
     public var host: String?
     public var parent: Parent?
     /// The URL where the attachment can be viewed, which may be friendlier to users in a browser than just directing them to a raw file. May be null if no view URL exists for the service.
+    ///
+    /// Example: "https://www.dropbox.com/s/123/Screenshot.png"
     public var viewURL: URL?
 
     public struct Parent: Codable {
@@ -1835,6 +1839,8 @@ public struct PortfolioResponse: Codable {
     public var startOn: NaiveDate?
     public var workspace: Workspace?
     /// A url that points directly to the object within Asana.
+    ///
+    /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
     public struct Workspace: Codable {
@@ -2084,12 +2090,16 @@ public struct Preview: Codable {
     /// Example: "Greg: Great! I like this idea.\n\nhttps//a_company.slack.com/archives/ABCDEFG/12345678"
     public var fallback: String?
     /// Text to display in the footer.
+    ///
+    /// Example: "Mar 17, 2019 1:25 PM"
     public var footer: String?
     /// Text to display in the header.
     ///
     /// Example: "Asana for Slack"
     public var header: String?
     /// Where the header will link to.
+    ///
+    /// Example: "https://asana.comn/apps/slack"
     public var headerLink: String?
     /// HTML formatted text for the body of the preview.
     ///
@@ -2104,6 +2114,8 @@ public struct Preview: Codable {
     /// Example: "Greg"
     public var title: String?
     /// Where to title will link to.
+    ///
+    /// Example: "https://asana.slack.com/archives/ABCDEFG/12345678"
     public var titleLink: String?
 
     public init(fallback: String? = nil, footer: String? = nil, header: String? = nil, headerLink: String? = nil, htmlText: String? = nil, text: String? = nil, title: String? = nil, titleLink: String? = nil) {
@@ -2143,6 +2155,8 @@ public struct ProjectResponse: Codable {
     /// Example: "chat_bubbles"
     public var icon: Icon?
     /// A url that points directly to the object within Asana.
+    ///
+    /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
     public struct Owner: Codable {
@@ -3220,6 +3234,8 @@ public struct TagResponse: Codable {
     public var followers: [UserCompact]?
     public var workspace: WorkspaceCompact?
     /// A url that points directly to the object within Asana.
+    ///
+    /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
     public init(from decoder: Decoder) throws {
@@ -3362,6 +3378,8 @@ public struct TaskResponse: Codable {
     public var tags: [TagCompact]?
     public var workspace: Workspace?
     /// A url that points directly to the object within Asana.
+    ///
+    /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
     public struct Assignee: Codable {
@@ -3967,6 +3985,8 @@ public struct TeamResponse: Codable {
     public var htmlDescription: String?
     public var organization: Organization?
     /// A url that points directly to the object within Asana.
+    ///
+    /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
     /// The visibility of the team to users in the same organization
     /// 
@@ -4195,12 +4215,12 @@ public struct UserResponse: Codable {
     /// Example:
     ///
     /// {
-    ///   "image_21x21" : 0,
-    ///   "image_27x27" : 0,
-    ///   "image_36x36" : 0,
-    ///   "image_60x60" : 0,
-    ///   "image_128x128" : 0,
-    ///   "image_1024x1024" : 0
+    ///   "image_21x21" : "https:\/\/...",
+    ///   "image_27x27" : "https:\/\/...",
+    ///   "image_36x36" : "https:\/\/...",
+    ///   "image_60x60" : "https:\/\/...",
+    ///   "image_128x128" : "https:\/\/...",
+    ///   "image_1024x1024" : "https:\/\/..."
     /// }
     public var photo: Photo?
     /// Workspaces and organizations this user may access.
@@ -4212,12 +4232,12 @@ public struct UserResponse: Codable {
     /// Example:
     ///
     /// {
-    ///   "image_21x21" : 0,
-    ///   "image_27x27" : 0,
-    ///   "image_36x36" : 0,
-    ///   "image_60x60" : 0,
-    ///   "image_128x128" : 0,
-    ///   "image_1024x1024" : 0
+    ///   "image_21x21" : "https:\/\/...",
+    ///   "image_27x27" : "https:\/\/...",
+    ///   "image_36x36" : "https:\/\/...",
+    ///   "image_60x60" : "https:\/\/...",
+    ///   "image_128x128" : "https:\/\/...",
+    ///   "image_1024x1024" : "https:\/\/..."
     /// }
     public struct Photo: Codable {
         public var image21x21: URL?
@@ -4506,6 +4526,8 @@ public struct WebhookCompact: Codable {
     public var isActive: Bool?
     public var resource: AsanaNamedResource?
     /// The URL to receive the HTTP POST.
+    ///
+    /// Example: "https://example.com/receive-webhook/7654"
     public var target: URL?
 
     public init(from decoder: Decoder) throws {

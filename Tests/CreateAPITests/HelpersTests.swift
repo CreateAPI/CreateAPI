@@ -5,6 +5,7 @@
 import XCTest
 import class Foundation.Bundle
 @testable import CreateAPI
+import Yams
 
 final class HelpersTests: XCTestCase {    
     func testTypeName() {

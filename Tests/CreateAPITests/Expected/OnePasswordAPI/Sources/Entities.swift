@@ -129,11 +129,11 @@ public struct Item: Codable {
     ///
     /// [
     ///   {
-    ///     "href" : 0,
+    ///     "href" : "https:\/\/example.com",
     ///     "primary" : true
     ///   },
     ///   {
-    ///     "href" : 0
+    ///     "href" : "https:\/\/example.org"
     ///   }
     /// ]
     public var urls: [URL]?

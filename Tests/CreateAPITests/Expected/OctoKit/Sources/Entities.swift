@@ -28,7 +28,9 @@ public struct Integration: Codable {
     public var name: String
     /// Example: "The description of the app."
     public var description: String?
+    /// Example: "https://example.com"
     public var externalURL: URL
+    /// Example: "https://github.com/apps/super-ci"
     public var htmlURL: URL
     /// Example: "2017-07-08T16:18:44-04:00"
     public var createdAt: Date
@@ -167,6 +169,8 @@ public enum WebhookConfigInsecureSSL: Codable, Hashable {
 /// Configuration object of the webhook
 public struct WebhookConfig: Codable {
     /// The URL to which the payloads will be delivered.
+    ///
+    /// Example: "https://example.com/webhook"
     public var url: URL?
     /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
     ///
@@ -411,6 +415,8 @@ public struct HookDelivery: Codable {
     /// Example: 123
     public var repositoryID: Int?
     /// The URL target of the delivery.
+    ///
+    /// Example: "https://www.example.com"
     public var url: String?
     public var request: Request
     public var response: Response
@@ -482,19 +488,31 @@ public struct SimpleUser: Codable {
     public var id: Int
     /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
+    /// Example: "https://github.com/images/error/octocat_happy.gif"
     public var avatarURL: URL
     /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
+    /// Example: "https://api.github.com/users/octocat"
     public var url: URL
+    /// Example: "https://github.com/octocat"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/users/octocat/followers"
     public var followersURL: URL
+    /// Example: "https://api.github.com/users/octocat/following{/other_user}"
     public var followingURL: String
+    /// Example: "https://api.github.com/users/octocat/gists{/gist_id}"
     public var gistsURL: String
+    /// Example: "https://api.github.com/users/octocat/starred{/owner}{/repo}"
     public var starredURL: String
+    /// Example: "https://api.github.com/users/octocat/subscriptions"
     public var subscriptionsURL: URL
+    /// Example: "https://api.github.com/users/octocat/orgs"
     public var organizationsURL: URL
+    /// Example: "https://api.github.com/users/octocat/repos"
     public var reposURL: URL
+    /// Example: "https://api.github.com/users/octocat/events{/privacy}"
     public var eventsURL: String
+    /// Example: "https://api.github.com/users/octocat/received_events"
     public var receivedEventsURL: URL
     /// Example: "User"
     public var type: String
@@ -555,6 +573,7 @@ public struct SimpleUser: Codable {
 public struct Enterprise: Codable {
     /// A short description of the enterprise.
     public var description: String?
+    /// Example: "https://github.com/enterprises/octo-business"
     public var htmlURL: URL
     /// The enterprise's website URL.
     public var websiteURL: URL?
@@ -930,8 +949,11 @@ public struct Installation: Codable {
     public var account: Account?
     /// Describe whether all repositories have been selected or there's a selection involved
     public var repositorySelection: RepositorySelection
+    /// Example: "https://api.github.com/installations/1/access_tokens"
     public var accessTokensURL: URL
+    /// Example: "https://api.github.com/installation/repositories"
     public var repositoriesURL: URL
+    /// Example: "https://github.com/organizations/github/settings/installations/1"
     public var htmlURL: URL
     public var appID: Int
     /// The ID of the user or organization this token is being scoped to.
@@ -1063,52 +1085,96 @@ public struct Repository: Codable {
     public var owner: SimpleUser
     /// Whether the repository is private or public.
     public var isPrivate: Bool
+    /// Example: "https://github.com/octocat/Hello-World"
     public var htmlURL: URL
     /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
+    /// Example: "https://api.github.com/repos/octocat/Hello-World"
     public var url: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}"
     public var archiveURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/assignees{/user}"
     public var assigneesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}"
     public var blobsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/branches{/branch}"
     public var branchesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}"
     public var collaboratorsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/comments{/number}"
     public var commentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/commits{/sha}"
     public var commitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}"
     public var compareURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contents/{+path}"
     public var contentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contributors"
     public var contributorsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/deployments"
     public var deploymentsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/downloads"
     public var downloadsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/events"
     public var eventsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/forks"
     public var forksURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}"
     public var gitCommitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}"
     public var gitRefsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}"
     public var gitTagsURL: String
+    /// Example: "git:github.com/octocat/Hello-World.git"
     public var gitURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}"
     public var issueCommentURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}"
     public var issueEventsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues{/number}"
     public var issuesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}"
     public var keysURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/labels{/name}"
     public var labelsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/languages"
     public var languagesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/merges"
     public var mergesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/milestones{/number}"
     public var milestonesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}"
     public var notificationsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/pulls{/number}"
     public var pullsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/releases{/id}"
     public var releasesURL: String
+    /// Example: "git@github.com:octocat/Hello-World.git"
     public var sshURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/stargazers"
     public var stargazersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}"
     public var statusesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscribers"
     public var subscribersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscription"
     public var subscriptionURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/tags"
     public var tagsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/teams"
     public var teamsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}"
     public var treesURL: String
+    /// Example: "https://github.com/octocat/Hello-World.git"
     public var cloneURL: String
+    /// Example: "git:git.example.com/octocat/Hello-World"
     public var mirrorURL: URL?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/hooks"
     public var hooksURL: URL
+    /// Example: "https://svn.github.com/octocat/Hello-World"
     public var svnURL: URL
+    /// Example: "https://github.com"
     public var homepage: URL?
     public var language: String?
     public var forksCount: Int
@@ -1893,6 +1959,7 @@ public struct InstallationToken: Codable {
 /// The authorization associated with an OAuth Access.
 public struct ApplicationGrant: Codable {
     public var id: Int
+    /// Example: "https://api.github.com/applications/grants/1"
     public var url: URL
     public var app: App
     /// Example: "2011-09-06T17:26:27Z"
@@ -1965,6 +2032,7 @@ public struct ScopedInstallation: Codable {
     public var hasMultipleSingleFiles: Bool?
     /// Example: ["config.yml", ".github/issue_TEMPLATE.md"]
     public var singleFilePaths: [String]?
+    /// Example: "https://api.github.com/users/octocat/repos"
     public var repositoriesURL: URL
     /// Simple User
     public var account: SimpleUser
@@ -2077,6 +2145,7 @@ public struct CodeOfConduct: Codable {
     public var key: String
     /// Example: "Contributor Covenant"
     public var name: String
+    /// Example: "https://api.github.com/codes_of_conduct/contributor_covenant"
     public var url: URL
     /// Example:
     ///
@@ -2194,13 +2263,21 @@ public struct OrganizationSimple: Codable {
     public var id: Int
     /// Example: "MDEyOk9yZ2FuaXphdGlvbjE="
     public var nodeID: String
+    /// Example: "https://api.github.com/orgs/github"
     public var url: URL
+    /// Example: "https://api.github.com/orgs/github/repos"
     public var reposURL: URL
+    /// Example: "https://api.github.com/orgs/github/events"
     public var eventsURL: URL
+    /// Example: "https://api.github.com/orgs/github/hooks"
     public var hooksURL: String
+    /// Example: "https://api.github.com/orgs/github/issues"
     public var issuesURL: String
+    /// Example: "https://api.github.com/orgs/github/members{/member}"
     public var membersURL: String
+    /// Example: "https://api.github.com/orgs/github/public_members{/member}"
     public var publicMembersURL: String
+    /// Example: "https://github.com/images/error/octocat_happy.gif"
     public var avatarURL: String
     /// Example: "A great organization"
     public var description: String?
@@ -2807,6 +2884,8 @@ public struct Issue: Codable {
     public var id: Int
     public var nodeID: String
     /// URL for the issue
+    ///
+    /// Example: "https://api.github.com/repositories/42/issues/1"
     public var url: URL
     public var repositoryURL: URL
     public var labelsURL: String
@@ -3027,6 +3106,8 @@ public struct IssueComment: Codable {
     public var id: Int
     public var nodeID: String
     /// URL for the issue comment
+    ///
+    /// Example: "https://api.github.com/repositories/42/issues/comments/1"
     public var url: URL
     /// Contents of the issue comment
     ///
@@ -3193,14 +3274,21 @@ public struct LinkWithType: Codable {
 }
 
 public struct Feed: Codable {
+    /// Example: "https://github.com/timeline"
     public var timelineURL: String
+    /// Example: "https://github.com/{user}"
     public var userURL: String
+    /// Example: "https://github.com/octocat"
     public var currentUserPublicURL: String?
+    /// Example: "https://github.com/octocat.private?token=abc123"
     public var currentUserURL: String?
+    /// Example: "https://github.com/octocat.private.actor?token=abc123"
     public var currentUserActorURL: String?
+    /// Example: "https://github.com/octocat-org"
     public var currentUserOrganizationURL: String?
-    /// Example: [0]
+    /// Example: ["https://github.com/organizations/github/octocat.private.atom?token=abc123"]
     public var currentUserOrganizationURLs: [URL]?
+    /// Example: "https://github.com/security-advisories"
     public var securityAdvisoriesURL: String?
     public var links: Links
 
@@ -3794,6 +3882,7 @@ public struct GistComment: Codable {
     public var id: Int
     /// Example: "MDExOkdpc3RDb21tZW50MQ=="
     public var nodeID: String
+    /// Example: "https://api.github.com/gists/a6db0bec360bb87e9418/comments/1"
     public var url: URL
     /// The comment text.
     ///
@@ -3836,6 +3925,7 @@ public struct GistComment: Codable {
 }
 
 public struct GistCommit: Codable {
+    /// Example: "https://api.github.com/gists/aa5a315d61ae9438b18d/57a7f021a713b1c5a6a199b54cc514735d2d462f"
     public var url: URL
     /// Example: "57a7f021a713b1c5a6a199b54cc514735d2d462f"
     public var version: String
@@ -3910,6 +4000,7 @@ public struct LicenseSimple: Codable {
     public var key: String
     /// Example: "MIT License"
     public var name: String
+    /// Example: "https://api.github.com/licenses/mit"
     public var url: URL?
     /// Example: "MIT"
     public var spdxID: String?
@@ -3943,9 +4034,11 @@ public struct License: Codable {
     public var name: String
     /// Example: "MIT"
     public var spdxID: String?
+    /// Example: "https://api.github.com/licenses/mit"
     public var url: URL?
     /// Example: "MDc6TGljZW5zZW1pdA=="
     public var nodeID: String
+    /// Example: "http://choosealicense.com/licenses/mit/"
     public var htmlURL: URL
     /// Example: "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
     public var description: String
@@ -4021,7 +4114,9 @@ public struct License: Codable {
 }
 
 public struct MarketplaceListingPlan: Codable {
+    /// Example: "https://api.github.com/marketplace_listing/plans/1313"
     public var url: URL
+    /// Example: "https://api.github.com/marketplace_listing/plans/1313/accounts"
     public var accountsURL: URL
     /// Example: 1313
     public var id: Int
@@ -4181,13 +4276,7 @@ public struct APIOverview: Codable {
     public var api: [String]?
     /// Example: ["127.0.0.1/32"]
     public var git: [String]?
-    /// Example:
-    ///
-    /// [
-    ///   "13.65.0.0\/16",
-    ///   "157.55.204.33\/32",
-    ///   111
-    /// ]
+    /// Example: ["13.65.0.0/16", "157.55.204.33/32", "2a01:111:f403:f90c::/62"]
     public var packages: [String]?
     /// Example: ["192.30.252.153/32", "192.30.252.154/32"]
     public var pages: [String]?
@@ -4260,50 +4349,88 @@ public struct MinimalRepository: Codable {
     /// Simple User
     public var owner: SimpleUser
     public var isPrivate: Bool
+    /// Example: "https://github.com/octocat/Hello-World"
     public var htmlURL: URL
     /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
+    /// Example: "https://api.github.com/repos/octocat/Hello-World"
     public var url: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}"
     public var archiveURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/assignees{/user}"
     public var assigneesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}"
     public var blobsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/branches{/branch}"
     public var branchesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}"
     public var collaboratorsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/comments{/number}"
     public var commentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/commits{/sha}"
     public var commitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}"
     public var compareURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contents/{+path}"
     public var contentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contributors"
     public var contributorsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/deployments"
     public var deploymentsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/downloads"
     public var downloadsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/events"
     public var eventsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/forks"
     public var forksURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}"
     public var gitCommitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}"
     public var gitRefsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}"
     public var gitTagsURL: String
     public var gitURL: String?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}"
     public var issueCommentURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}"
     public var issueEventsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues{/number}"
     public var issuesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}"
     public var keysURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/labels{/name}"
     public var labelsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/languages"
     public var languagesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/merges"
     public var mergesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/milestones{/number}"
     public var milestonesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}"
     public var notificationsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/pulls{/number}"
     public var pullsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/releases{/id}"
     public var releasesURL: String
     public var sshURL: String?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/stargazers"
     public var stargazersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}"
     public var statusesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscribers"
     public var subscribersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscription"
     public var subscriptionURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/tags"
     public var tagsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/teams"
     public var teamsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}"
     public var treesURL: String
     public var cloneURL: String?
     public var mirrorURL: String?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/hooks"
     public var hooksURL: URL
     public var svnURL: String?
     public var homepage: String?
@@ -4583,6 +4710,7 @@ public struct Thread: Codable {
     public var updatedAt: String
     public var lastReadAt: String?
     public var url: String
+    /// Example: "https://api.github.com/notifications/threads/2/subscription"
     public var subscriptionURL: String
 
     public struct Subject: Codable {
@@ -4638,8 +4766,11 @@ public struct ThreadSubscription: Codable {
     public var reason: String?
     /// Example: "2012-10-06T21:34:12Z"
     public var createdAt: Date?
+    /// Example: "https://api.github.com/notifications/threads/1/subscription"
     public var url: URL
+    /// Example: "https://api.github.com/notifications/threads/1"
     public var threadURL: URL?
+    /// Example: "https://api.github.com/repos/1"
     public var repositoryURL: URL?
 
     public init(isSubscribed: Bool, isIgnored: Bool, reason: String? = nil, createdAt: Date? = nil, url: URL, threadURL: URL? = nil, repositoryURL: URL? = nil) {
@@ -4680,13 +4811,21 @@ public struct OrganizationFull: Codable {
     public var id: Int
     /// Example: "MDEyOk9yZ2FuaXphdGlvbjE="
     public var nodeID: String
+    /// Example: "https://api.github.com/orgs/github"
     public var url: URL
+    /// Example: "https://api.github.com/orgs/github/repos"
     public var reposURL: URL
+    /// Example: "https://api.github.com/orgs/github/events"
     public var eventsURL: URL
+    /// Example: "https://api.github.com/orgs/github/hooks"
     public var hooksURL: String
+    /// Example: "https://api.github.com/orgs/github/issues"
     public var issuesURL: String
+    /// Example: "https://api.github.com/orgs/github/members{/member}"
     public var membersURL: String
+    /// Example: "https://api.github.com/orgs/github/public_members{/member}"
     public var publicMembersURL: String
+    /// Example: "https://github.com/images/error/octocat_happy.gif"
     public var avatarURL: String
     /// Example: "A great organization"
     public var description: String?
@@ -4694,6 +4833,7 @@ public struct OrganizationFull: Codable {
     public var name: String?
     /// Example: "GitHub"
     public var company: String?
+    /// Example: "https://github.com/blog"
     public var blog: URL?
     /// Example: "San Francisco"
     public var location: String?
@@ -4712,6 +4852,7 @@ public struct OrganizationFull: Codable {
     /// Example: 20
     public var followers: Int
     public var following: Int
+    /// Example: "https://github.com/octocat"
     public var htmlURL: URL
     /// Example: "2008-01-14T04:33:35Z"
     public var createdAt: Date
@@ -4958,6 +5099,7 @@ public struct OrganizationActionsSecret: Codable {
     public var updatedAt: Date
     /// Visibility of a secret
     public var visibility: Visibility
+    /// Example: "https://api.github.com/organizations/org/secrets/my_secret/repositories"
     public var selectedRepositoriesURL: URL?
 
     /// Visibility of a secret
@@ -4995,6 +5137,7 @@ public struct ActionsPublicKey: Codable {
     /// Example: "hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs="
     public var key: String
     public var id: Int?
+    /// Example: "https://api.github.com/user/keys/2"
     public var url: String?
     /// Example: "ssh-rsa AAAAB3NzaC1yc2EAAA"
     public var title: String?
@@ -5112,7 +5255,7 @@ public struct ExternalGroup: Codable {
     public var groupName: String
     /// The date when the group was last updated_at
     ///
-    /// Example: 1635
+    /// Example: "2021-01-03 22:27:15:000 -700"
     public var updatedAt: String?
     /// An array of teams linked to this group
     ///
@@ -5226,12 +5369,12 @@ public struct ExternalGroups: Codable {
     ///   {
     ///     "group_id" : 1,
     ///     "group_name" : "group-azuread-test",
-    ///     "updated_at" : 1635
+    ///     "updated_at" : "2021-01-03 22:27:15:000 -700"
     ///   },
     ///   {
     ///     "group_id" : 2,
     ///     "group_name" : "group-azuread-test2",
-    ///     "updated_at" : 1635
+    ///     "updated_at" : "2021-06-03 22:27:15:000 -700"
     ///   }
     /// ]
     public var groups: [Group]?
@@ -5245,7 +5388,7 @@ public struct ExternalGroups: Codable {
         public var groupName: String
         /// The time of the last update for this group
         ///
-        /// Example: 1635
+        /// Example: "2019-06-03 22:27:15:000 -700"
         public var updatedAt: String
 
         public init(groupID: Int, groupName: String, updatedAt: String) {
@@ -5313,8 +5456,11 @@ public struct OrganizationInvitation: Codable {
 
 public struct OrgHook: Codable {
     public var id: Int
+    /// Example: "https://api.github.com/orgs/octocat/hooks/1"
     public var url: URL
+    /// Example: "https://api.github.com/orgs/octocat/hooks/1/pings"
     public var pingURL: URL
+    /// Example: "https://api.github.com/orgs/octocat/hooks/1/deliveries"
     public var deliveriesURL: URL?
     /// Example: "web"
     public var name: String
@@ -5459,6 +5605,7 @@ public struct Team: Codable {
     public var permission: String
     public var permissions: Permissions?
     public var url: URL
+    /// Example: "https://github.com/orgs/rails/teams/core"
     public var htmlURL: URL
     public var membersURL: String
     public var repositoriesURL: URL
@@ -5525,6 +5672,7 @@ public struct Team: Codable {
 }
 
 public struct OrgMembership: Codable {
+    /// Example: "https://api.github.com/orgs/octocat/memberships/defunkt"
     public var url: URL
     /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
     ///
@@ -5534,6 +5682,7 @@ public struct OrgMembership: Codable {
     ///
     /// Example: "admin"
     public var role: Role
+    /// Example: "https://api.github.com/orgs/octocat"
     public var organizationURL: URL
     /// Organization Simple
     public var organization: OrganizationSimple
@@ -5609,6 +5758,7 @@ public struct Migration: Codable {
     public var excludeReleases: Bool
     public var excludeOwnerProjects: Bool
     public var repositories: [Repository]
+    /// Example: "https://api.github.com/orgs/octo-org/migrations/79"
     public var url: URL
     /// Example: "2015-07-06T15:33:38-07:00"
     public var createdAt: Date
@@ -5669,7 +5819,9 @@ public struct Package: Codable {
     public var name: String
     /// Example: "docker"
     public var packageType: PackageType
+    /// Example: "https://api.github.com/orgs/github/packages/container/super-linter"
     public var url: String
+    /// Example: "https://github.com/orgs/github/packages/container/package/super-linter"
     public var htmlURL: String
     /// The number of versions of the package.
     public var versionCount: Int
@@ -5735,8 +5887,11 @@ public struct PackageVersion: Codable {
     ///
     /// Example: "latest"
     public var name: String
+    /// Example: "https://api.github.com/orgs/github/packages/container/super-linter/versions/786068"
     public var url: String
+    /// Example: "https://github.com/orgs/github/packages/container/package/super-linter"
     public var packageHTMLURL: String
+    /// Example: "https://github.com/orgs/github/packages/container/super-linter/786068"
     public var htmlURL: String?
     /// Example: "MIT"
     public var license: String?
@@ -5833,9 +5988,13 @@ public struct PackageVersion: Codable {
 
 /// Projects are a way to organize columns and cards of work.
 public struct Project: Codable {
+    /// Example: "https://api.github.com/repos/api-playground/projects-test"
     public var ownerURL: URL
+    /// Example: "https://api.github.com/projects/1002604"
     public var url: URL
+    /// Example: "https://github.com/api-playground/projects-test/projects/12"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/projects/1002604/columns"
     public var columnsURL: URL
     /// Example: 1002604
     public var id: Int
@@ -6020,7 +6179,7 @@ public struct GroupMapping: Codable {
         public var status: String?
         /// The time of the last sync for this group-mapping
         ///
-        /// Example: 1635
+        /// Example: "2019-06-03 22:27:15:000 -700"
         public var syncedAt: String?
 
         public init(groupID: String, groupName: String, groupDescription: String, status: String? = nil, syncedAt: String? = nil) {
@@ -6056,7 +6215,10 @@ public struct TeamFull: Codable {
     /// Example: "MDQ6VGVhbTE="
     public var nodeID: String
     /// URL for the team
+    ///
+    /// Example: "https://api.github.com/organizations/1/team/1"
     public var url: URL
+    /// Example: "https://github.com/orgs/rails/teams/core"
     public var htmlURL: URL
     /// Name of the team
     ///
@@ -6074,7 +6236,9 @@ public struct TeamFull: Codable {
     ///
     /// Example: "push"
     public var permission: String
+    /// Example: "https://api.github.com/organizations/1/team/1/members{/member}"
     public var membersURL: String
+    /// Example: "https://api.github.com/organizations/1/team/1/repos"
     public var repositoriesURL: URL
     /// Team Simple
     ///
@@ -6160,10 +6324,12 @@ public struct TeamDiscussion: Codable {
     /// Example: "0307116bbf7ced493b8d8a346c650b71"
     public var bodyVersion: String
     public var commentsCount: Int
+    /// Example: "https://api.github.com/organizations/1/team/2343027/discussions/1/comments"
     public var commentsURL: URL
     /// Example: "2018-01-25T18:56:31Z"
     public var createdAt: Date
     public var lastEditedAt: Date?
+    /// Example: "https://github.com/orgs/github/teams/justice-league/discussions/1"
     public var htmlURL: URL
     /// Example: "MDE0OlRlYW1EaXNjdXNzaW9uMQ=="
     public var nodeID: String
@@ -6179,6 +6345,7 @@ public struct TeamDiscussion: Codable {
     ///
     /// Example: true
     public var isPrivate: Bool
+    /// Example: "https://api.github.com/organizations/1/team/2343027"
     public var teamURL: URL
     /// The title of the discussion.
     ///
@@ -6186,6 +6353,7 @@ public struct TeamDiscussion: Codable {
     public var title: String
     /// Example: "2018-01-25T18:56:31Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/organizations/1/team/2343027/discussions/1"
     public var url: URL
     /// Reaction Rollup
     public var reactions: ReactionRollup?
@@ -6250,7 +6418,9 @@ public struct TeamDiscussionComment: Codable {
     /// Example: "2018-01-15T23:53:58Z"
     public var createdAt: Date
     public var lastEditedAt: Date?
+    /// Example: "https://api.github.com/organizations/1/team/2403582/discussions/1"
     public var discussionURL: URL
+    /// Example: "https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1"
     public var htmlURL: URL
     /// Example: "MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE="
     public var nodeID: String
@@ -6260,6 +6430,7 @@ public struct TeamDiscussionComment: Codable {
     public var number: Int
     /// Example: "2018-01-15T23:53:58Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1"
     public var url: URL
     /// Reaction Rollup
     public var reactions: ReactionRollup?
@@ -6475,52 +6646,96 @@ public struct TeamRepository: Codable {
     public var owner: SimpleUser?
     /// Whether the repository is private or public.
     public var isPrivate: Bool
+    /// Example: "https://github.com/octocat/Hello-World"
     public var htmlURL: URL
     /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
+    /// Example: "https://api.github.com/repos/octocat/Hello-World"
     public var url: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}"
     public var archiveURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/assignees{/user}"
     public var assigneesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}"
     public var blobsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/branches{/branch}"
     public var branchesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}"
     public var collaboratorsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/comments{/number}"
     public var commentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/commits{/sha}"
     public var commitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}"
     public var compareURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contents/{+path}"
     public var contentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contributors"
     public var contributorsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/deployments"
     public var deploymentsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/downloads"
     public var downloadsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/events"
     public var eventsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/forks"
     public var forksURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}"
     public var gitCommitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}"
     public var gitRefsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}"
     public var gitTagsURL: String
+    /// Example: "git:github.com/octocat/Hello-World.git"
     public var gitURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}"
     public var issueCommentURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}"
     public var issueEventsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues{/number}"
     public var issuesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}"
     public var keysURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/labels{/name}"
     public var labelsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/languages"
     public var languagesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/merges"
     public var mergesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/milestones{/number}"
     public var milestonesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}"
     public var notificationsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/pulls{/number}"
     public var pullsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/releases{/id}"
     public var releasesURL: String
+    /// Example: "git@github.com:octocat/Hello-World.git"
     public var sshURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/stargazers"
     public var stargazersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}"
     public var statusesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscribers"
     public var subscribersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscription"
     public var subscriptionURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/tags"
     public var tagsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/teams"
     public var teamsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}"
     public var treesURL: String
+    /// Example: "https://github.com/octocat/Hello-World.git"
     public var cloneURL: String
+    /// Example: "git:git.example.com/octocat/Hello-World"
     public var mirrorURL: URL?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/hooks"
     public var hooksURL: URL
+    /// Example: "https://svn.github.com/octocat/Hello-World"
     public var svnURL: URL
+    /// Example: "https://github.com"
     public var homepage: URL?
     public var language: String?
     public var forksCount: Int
@@ -6908,6 +7123,7 @@ public struct TeamRepository: Codable {
 
 /// Project cards represent a scope of work.
 public struct ProjectCard: Codable {
+    /// Example: "https://api.github.com/projects/columns/cards/1478"
     public var url: URL
     /// The project card's ID
     ///
@@ -6929,8 +7145,11 @@ public struct ProjectCard: Codable {
     public var isArchived: Bool?
     public var columnName: String?
     public var projectID: String?
+    /// Example: "https://api.github.com/projects/columns/367"
     public var columnURL: URL
+    /// Example: "https://api.github.com/repos/api-playground/projects-test/issues/3"
     public var contentURL: URL?
+    /// Example: "https://api.github.com/projects/120"
     public var projectURL: URL
 
     public init(url: URL, id: Int, nodeID: String, note: String? = nil, creator: SimpleUser? = nil, createdAt: Date, updatedAt: Date, isArchived: Bool? = nil, columnName: String? = nil, projectID: String? = nil, columnURL: URL, contentURL: URL? = nil, projectURL: URL) {
@@ -6968,8 +7187,11 @@ public struct ProjectCard: Codable {
 
 /// Project columns contain cards of work.
 public struct ProjectColumn: Codable {
+    /// Example: "https://api.github.com/projects/columns/367"
     public var url: URL
+    /// Example: "https://api.github.com/projects/120"
     public var projectURL: URL
+    /// Example: "https://api.github.com/projects/columns/367/cards"
     public var cardsURL: URL
     /// The unique identifier of the project column
     ///
@@ -7088,11 +7310,13 @@ public struct RateLimitOverview: Codable {
 
 /// Code of Conduct Simple
 public struct CodeOfConductSimple: Codable {
+    /// Example: "https://api.github.com/repos/github/docs/community/code_of_conduct"
     public var url: URL
     /// Example: "citizen_code_of_conduct"
     public var key: String
     /// Example: "Citizen Code of Conduct"
     public var name: String
+    /// Example: "https://github.com/github/docs/blob/main/CODE_OF_CONDUCT.md"
     public var htmlURL: URL?
 
     public init(url: URL, key: String, name: String, htmlURL: URL? = nil) {
@@ -7122,52 +7346,96 @@ public struct FullRepository: Codable {
     /// Simple User
     public var owner: SimpleUser
     public var isPrivate: Bool
+    /// Example: "https://github.com/octocat/Hello-World"
     public var htmlURL: URL
     /// Example: "This your first repo!"
     public var description: String?
     public var isFork: Bool
+    /// Example: "https://api.github.com/repos/octocat/Hello-World"
     public var url: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}"
     public var archiveURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/assignees{/user}"
     public var assigneesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}"
     public var blobsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/branches{/branch}"
     public var branchesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}"
     public var collaboratorsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/comments{/number}"
     public var commentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/commits{/sha}"
     public var commitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}"
     public var compareURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contents/{+path}"
     public var contentsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/contributors"
     public var contributorsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/deployments"
     public var deploymentsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/downloads"
     public var downloadsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/events"
     public var eventsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/forks"
     public var forksURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}"
     public var gitCommitsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}"
     public var gitRefsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}"
     public var gitTagsURL: String
+    /// Example: "git:github.com/octocat/Hello-World.git"
     public var gitURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}"
     public var issueCommentURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}"
     public var issueEventsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/issues{/number}"
     public var issuesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}"
     public var keysURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/labels{/name}"
     public var labelsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/languages"
     public var languagesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/merges"
     public var mergesURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/milestones{/number}"
     public var milestonesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}"
     public var notificationsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/pulls{/number}"
     public var pullsURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/releases{/id}"
     public var releasesURL: String
+    /// Example: "git@github.com:octocat/Hello-World.git"
     public var sshURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/stargazers"
     public var stargazersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}"
     public var statusesURL: String
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscribers"
     public var subscribersURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/subscription"
     public var subscriptionURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/tags"
     public var tagsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/teams"
     public var teamsURL: URL
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}"
     public var treesURL: String
+    /// Example: "https://github.com/octocat/Hello-World.git"
     public var cloneURL: String
+    /// Example: "git:git.example.com/octocat/Hello-World"
     public var mirrorURL: URL?
+    /// Example: "http://api.github.com/repos/octocat/Hello-World/hooks"
     public var hooksURL: URL
+    /// Example: "https://svn.github.com/octocat/Hello-World"
     public var svnURL: URL
+    /// Example: "https://github.com"
     public var homepage: URL?
     public var language: String?
     public var forksCount: Int
@@ -7622,7 +7890,9 @@ public struct Artifact: Codable {
     ///
     /// Example: 12345
     public var sizeInBytes: Int
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/artifacts/5"
     public var url: String
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/artifacts/5/zip"
     public var archiveDownloadURL: String
     /// Whether or not the artifact has expired.
     public var isExpired: Bool
@@ -7665,6 +7935,7 @@ public struct Job: Codable {
     public var id: Int
     /// The id of the associated workflow run.
     public var runID: Int
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5"
     public var runURL: String
     /// Attempt number of the associated workflow run, 1 for first attempt and higher if the workflow was re-run.
     public var runAttempt: Int?
@@ -7674,7 +7945,9 @@ public struct Job: Codable {
     ///
     /// Example: "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
     public var headSha: String
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/jobs/21"
     public var url: String
+    /// Example: "https://github.com/github/hello-world/runs/4"
     public var htmlURL: String?
     /// The phase of the lifecycle that the job is currently in.
     ///
@@ -7698,6 +7971,7 @@ public struct Job: Codable {
     public var name: String
     /// Steps in this job.
     public var steps: [Step]?
+    /// Example: "https://api.github.com/repos/github/hello-world/check-runs/4"
     public var checkRunURL: String
     /// Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
     ///
@@ -7947,7 +8221,10 @@ public struct WorkflowRun: Codable {
     /// The ID of the parent workflow.
     public var workflowID: Int
     /// The URL to the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5"
     public var url: String
+    /// Example: "https://github.com/github/hello-world/suites/4"
     public var htmlURL: String
     public var pullRequests: [PullRequestMinimal]?
     public var createdAt: Date
@@ -7955,20 +8232,36 @@ public struct WorkflowRun: Codable {
     /// The start time of the latest run. Resets on re-run.
     public var runStartedAt: Date?
     /// The URL to the jobs for the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/jobs"
     public var jobsURL: String
     /// The URL to download the logs for the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/logs"
     public var logsURL: String
     /// The URL to the associated check suite.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/check-suites/12"
     public var checkSuiteURL: String
     /// The URL to the artifacts for the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/rerun/artifacts"
     public var artifactsURL: String
     /// The URL to cancel the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/cancel"
     public var cancelURL: String
     /// The URL to rerun the workflow run.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/rerun"
     public var rerunURL: String
     /// The URL to the previous attempted run of this workflow, if one exists.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/runs/5/attempts/3"
     public var previousAttemptURL: String?
     /// The URL to the workflow.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/actions/workflows/main.yaml"
     public var workflowURL: String
     /// Simple Commit
     public var headCommit: SimpleCommit?
@@ -8075,7 +8368,9 @@ public struct EnvironmentApprovals: Codable {
         ///
         /// Example: "staging"
         public var name: String?
+        /// Example: "https://api.github.com/repos/github/hello-world/environments/staging"
         public var url: String?
+        /// Example: "https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging"
         public var htmlURL: String?
         /// The time that the environment was created, in ISO 8601 format.
         ///
@@ -8160,7 +8455,9 @@ public struct PendingDeployment: Codable {
         ///
         /// Example: "staging"
         public var name: String?
+        /// Example: "https://api.github.com/repos/github/hello-world/environments/staging"
         public var url: String?
+        /// Example: "https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging"
         public var htmlURL: String?
 
         public init(id: Int? = nil, nodeID: String? = nil, name: String? = nil, url: String? = nil, htmlURL: String? = nil) {
@@ -8230,6 +8527,7 @@ public struct PendingDeployment: Codable {
 
 /// A request for a specific ref(branch,sha,tag) to be deployed
 public struct Deployment: Codable {
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/1"
     public var url: URL
     /// Unique identifier of the deployment
     ///
@@ -8262,7 +8560,9 @@ public struct Deployment: Codable {
     public var createdAt: Date
     /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/1/statuses"
     public var statusesURL: URL
+    /// Example: "https://api.github.com/repos/octocat/example"
     public var repositoryURL: URL
     /// Specifies if the given environment is will no longer exist at some point in the future. Default: false.
     ///
@@ -8513,8 +8813,11 @@ public struct Workflow: Codable {
     public var createdAt: Date
     /// Example: "2019-12-06T14:20:20.000Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/repos/actions/setup-ruby/workflows/5"
     public var url: String
+    /// Example: "https://github.com/actions/setup-ruby/blob/master/.github/workflows/ruby.yaml"
     public var htmlURL: String
+    /// Example: "https://github.com/actions/setup-ruby/workflows/CI/badge.svg"
     public var badgeURL: String
     /// Example: "2019-12-06T14:20:20.000Z"
     public var deletedAt: Date?
@@ -8629,6 +8932,8 @@ public struct Autolink: Codable {
     /// Example: "TICKET-"
     public var keyPrefix: String
     /// A template for the target URL that is generated if a key was found.
+    ///
+    /// Example: "https://example.com/TICKET?query=<num>"
     public var urlTemplate: String
 
     public init(id: Int, keyPrefix: String, urlTemplate: String) {
@@ -8687,6 +8992,7 @@ public struct ProtectedBranchRequiredStatusCheck: Codable {
 }
 
 public struct ProtectedBranchAdminEnforced: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins"
     public var url: URL
     /// Example: true
     public var isEnabled: Bool
@@ -8703,6 +9009,7 @@ public struct ProtectedBranchAdminEnforced: Codable {
 }
 
 public struct ProtectedBranchPullRequestReview: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions"
     public var url: URL?
     public var dismissalRestrictions: DismissalRestrictions?
     /// Example: true
@@ -9120,6 +9427,7 @@ public struct BranchProtection: Codable {
     }
 
     public struct RequiredSignatures: Codable {
+        /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures"
         public var url: URL
         /// Example: true
         public var isEnabled: Bool
@@ -9253,8 +9561,11 @@ public struct DiffEntry: Codable {
     public var deletions: Int
     /// Example: 124
     public var changes: Int
+    /// Example: "https://github.com/octocat/Hello-World/blob/6dcb09b5b57875f334f61aebed695e2e4193db5e/file1.txt"
     public var blobURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/raw/6dcb09b5b57875f334f61aebed695e2e4193db5e/file1.txt"
     public var rawURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/contents/file1.txt?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var contentsURL: URL
     /// Example: "@@ -132,7 +132,7 @@ module Test @@ -1000,7 +1000,7 @@ module Test"
     public var patch: String?
@@ -9302,12 +9613,15 @@ public struct DiffEntry: Codable {
 }
 
 public struct Commit: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var url: URL
     /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var sha: String
     /// Example: "MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ=="
     public var nodeID: String
+    /// Example: "https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e/comments"
     public var commentsURL: URL
     public var commit: Commit
     /// Simple User
@@ -9319,6 +9633,7 @@ public struct Commit: Codable {
     public var files: [DiffEntry]?
 
     public struct Commit: Codable {
+        /// Example: "https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e"
         public var url: URL
         /// Git User
         ///
@@ -9337,6 +9652,7 @@ public struct Commit: Codable {
         public struct Tree: Codable {
             /// Example: "827efc6d56897b048c772eb4087f854f46256132"
             public var sha: String
+            /// Example: "https://api.github.com/repos/octocat/Hello-World/tree/827efc6d56897b048c772eb4087f854f46256132"
             public var url: URL
 
             public init(sha: String, url: URL) {
@@ -9369,7 +9685,9 @@ public struct Commit: Codable {
     public struct Parent: Codable {
         /// Example: "7638417db6d59f3c431d3e1f261cc637155684cd"
         public var sha: String
+        /// Example: "https://api.github.com/repos/octocat/Hello-World/commits/7638417db6d59f3c431d3e1f261cc637155684cd"
         public var url: URL
+        /// Example: "https://github.com/octocat/Hello-World/commit/7638417db6d59f3c431d3e1f261cc637155684cd"
         public var htmlURL: URL?
 
         public init(sha: String, url: URL, htmlURL: URL? = nil) {
@@ -9477,12 +9795,14 @@ public struct BranchWithProtection: Codable {
 }
 
 public struct StatusCheckPolicy: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks"
     public var url: URL
     /// Example: true
     public var isStrict: Bool
     /// Example: ["continuous-integration/travis-ci"]
     public var contexts: [String]
     public var checks: [Check]
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks/contexts"
     public var contextsURL: URL
 
     public struct Check: Codable {
@@ -9582,6 +9902,7 @@ public struct ProtectedBranch: Codable {
     }
 
     public struct RequiredSignatures: Codable {
+        /// Example: "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures"
         public var url: URL
         /// Example: true
         public var isEnabled: Bool
@@ -9691,6 +10012,7 @@ public struct ProtectedBranch: Codable {
 ///
 /// A deployment created as the result of an Actions check run from a workflow that references an environment
 public struct DeploymentSimple: Codable {
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/1"
     public var url: URL
     /// Unique identifier of the deployment
     ///
@@ -9714,7 +10036,9 @@ public struct DeploymentSimple: Codable {
     public var createdAt: Date
     /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/1/statuses"
     public var statusesURL: URL
+    /// Example: "https://api.github.com/repos/octocat/example"
     public var repositoryURL: URL
     /// Specifies if the given environment is will no longer exist at some point in the future. Default: false.
     ///
@@ -9778,8 +10102,11 @@ public struct CheckRun: Codable {
     public var nodeID: String
     /// Example: "42"
     public var externalID: String?
+    /// Example: "https://api.github.com/repos/github/hello-world/check-runs/4"
     public var url: String
+    /// Example: "https://github.com/github/hello-world/runs/4"
     public var htmlURL: String?
+    /// Example: "https://example.com"
     public var detailsURL: String?
     /// The phase of the lifecycle that the check is currently in.
     ///
@@ -10005,6 +10332,7 @@ public struct CheckSuite: Codable {
     public var status: Status?
     /// Example: "neutral"
     public var conclusion: Conclusion?
+    /// Example: "https://api.github.com/repos/github/hello-world/check-suites/5"
     public var url: String?
     /// Example: "146e867f55c26428e5f9fade55a9bbf5e95a7912"
     public var before: String?
@@ -10854,19 +11182,31 @@ public struct Collaborator: Codable {
     public var name: String?
     /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
+    /// Example: "https://github.com/images/error/octocat_happy.gif"
     public var avatarURL: URL
     /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
+    /// Example: "https://api.github.com/users/octocat"
     public var url: URL
+    /// Example: "https://github.com/octocat"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/users/octocat/followers"
     public var followersURL: URL
+    /// Example: "https://api.github.com/users/octocat/following{/other_user}"
     public var followingURL: String
+    /// Example: "https://api.github.com/users/octocat/gists{/gist_id}"
     public var gistsURL: String
+    /// Example: "https://api.github.com/users/octocat/starred{/owner}{/repo}"
     public var starredURL: String
+    /// Example: "https://api.github.com/users/octocat/subscriptions"
     public var subscriptionsURL: URL
+    /// Example: "https://api.github.com/users/octocat/orgs"
     public var organizationsURL: URL
+    /// Example: "https://api.github.com/users/octocat/repos"
     public var reposURL: URL
+    /// Example: "https://api.github.com/users/octocat/events{/privacy}"
     public var eventsURL: String
+    /// Example: "https://api.github.com/users/octocat/received_events"
     public var receivedEventsURL: URL
     /// Example: "User"
     public var type: String
@@ -10971,7 +11311,10 @@ public struct RepositoryInvitation: Codable {
     /// Whether or not the invitation has expired
     public var isExpired: Bool?
     /// URL for the repository invitation
+    ///
+    /// Example: "https://api.github.com/user/repository-invitations/1"
     public var url: String
+    /// Example: "https://github.com/octocat/Hello-World/invitations"
     public var htmlURL: String
     public var nodeID: String
 
@@ -11162,18 +11505,28 @@ public struct AutoMerge: Codable {
 }
 
 public struct PullRequestSimple: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
     public var url: URL
     public var id: Int
     /// Example: "MDExOlB1bGxSZXF1ZXN0MQ=="
     public var nodeID: String
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347"
     public var htmlURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347.diff"
     public var diffURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347.patch"
     public var patchURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/issues/1347"
     public var issueURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits"
     public var commitsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments"
     public var reviewCommentsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number}"
     public var reviewCommentURL: String
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/issues/1347/comments"
     public var commentsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var statusesURL: URL
     /// Example: 1347
     public var number: Int
@@ -11633,10 +11986,15 @@ public struct CommunityProfile: Codable {
 }
 
 public struct CommitComparison: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/compare/master...topic"
     public var url: URL
+    /// Example: "https://github.com/octocat/Hello-World/compare/master...topic"
     public var htmlURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/compare/octocat:bbcd538c8e72b8c175046e27cc8f907076331401...octocat:0328041d1152db8ae77652d1618a02e57f745f17"
     public var permalinkURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/compare/master...topic.diff"
     public var diffURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/compare/master...topic.patch"
     public var patchURL: URL
     /// Commit
     public var baseCommit: Commit
@@ -12329,6 +12687,7 @@ public struct Contributor: Codable {
 
 /// The status of a deployment.
 public struct DeploymentStatus: Codable {
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/42/statuses/1"
     public var url: URL
     public var id: Int
     /// Example: "MDE2OkRlcGxveW1lbnRTdGF0dXMx"
@@ -12348,16 +12707,24 @@ public struct DeploymentStatus: Codable {
     /// Example: "production"
     public var environment: String?
     /// Deprecated: the URL to associate with this status.
+    ///
+    /// Example: "https://example.com/deployment/42/output"
     public var targetURL: URL
     /// Example: "2012-07-20T01:19:13Z"
     public var createdAt: Date
     /// Example: "2012-07-20T01:19:13Z"
     public var updatedAt: Date
+    /// Example: "https://api.github.com/repos/octocat/example/deployments/42"
     public var deploymentURL: URL
+    /// Example: "https://api.github.com/repos/octocat/example"
     public var repositoryURL: URL
     /// The URL for accessing your environment.
+    ///
+    /// Example: "https://staging.example.com/"
     public var environmentURL: URL?
     /// The URL to associate with this status.
+    ///
+    /// Example: "https://example.com/deployment/42/output"
     public var logURL: URL?
     /// GitHub app
     ///
@@ -12444,7 +12811,9 @@ public struct Environment: Codable {
     ///
     /// Example: "staging"
     public var name: String
+    /// Example: "https://api.github.com/repos/github/hello-world/environments/staging"
     public var url: String
+    /// Example: "https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging"
     public var htmlURL: String
     /// The time that the environment was created, in ISO 8601 format.
     ///
@@ -12844,6 +13213,8 @@ public struct GitTag: Codable {
     /// Example: "940bd336248efae0f9ee5bc7b2d5c985887b16ac"
     public var sha: String
     /// URL for the tag
+    ///
+    /// Example: "https://api.github.com/repositories/42/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac"
     public var url: URL
     /// Message describing the purpose of the tag
     ///
@@ -12944,7 +13315,7 @@ public struct GitTree: Codable {
     ///     "sha" : "44b4fc6d56897b048c772eb4087f854f46256132",
     ///     "size" : 30,
     ///     "type" : "blob",
-    ///     "url" : 0
+    ///     "url" : "https:\/\/api.github.com\/repos\/octocat\/Hello-World\/git\/blobs\/44b4fc6d56897b048c772eb4087f854f46256132"
     ///   }
     /// ]
     public var tree: [TreeItem]
@@ -12960,6 +13331,7 @@ public struct GitTree: Codable {
         public var sha: String?
         /// Example: 12
         public var size: Int?
+        /// Example: "https://api.github.com/repos/owner-482f3203ecf01f67e9deb18e/BBB_Private_Repo/git/blobs/23f6827669e43831def8a7ad935069c8bd418261"
         public var url: String?
 
         public init(path: String? = nil, mode: String? = nil, type: String? = nil, sha: String? = nil, size: Int? = nil, url: String? = nil) {
@@ -13025,9 +13397,13 @@ public struct Hook: Codable {
     public var updatedAt: Date
     /// Example: "2011-09-06T17:26:27Z"
     public var createdAt: Date
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/hooks/1"
     public var url: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/hooks/1/test"
     public var testURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/hooks/1/pings"
     public var pingURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/hooks/1/deliveries"
     public var deliveriesURL: URL?
     /// Hook Response
     public var lastResponse: HookResponse
@@ -13042,6 +13418,8 @@ public struct Hook: Codable {
         /// Example: "foo"
         public var subdomain: String?
         /// The URL to which the payloads will be delivered.
+        ///
+        /// Example: "https://example.com/webhook"
         public var url: URL?
         public var insecureSSL: WebhookConfigInsecureSSL?
         /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
@@ -13365,6 +13743,7 @@ public struct IssueEvent: Codable {
     public var id: Int
     /// Example: "MDEwOklzc3VlRXZlbnQx"
     public var nodeID: String
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/issues/events/1"
     public var url: URL
     /// Simple User
     public var actor: SimpleUser?
@@ -13372,6 +13751,7 @@ public struct IssueEvent: Codable {
     public var event: String
     /// Example: "6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var commitID: String?
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var commitURL: String?
     /// Example: "2011-04-14T16:00:49Z"
     public var createdAt: Date
@@ -14378,6 +14758,8 @@ public struct Label: Codable {
     /// Example: "MDU6TGFiZWwyMDgwNDU5NDY="
     public var nodeID: String
     /// URL for the label
+    ///
+    /// Example: "https://api.github.com/repositories/42/labels/bug"
     public var url: URL
     /// The name of the label.
     ///
@@ -14423,6 +14805,8 @@ public struct TimelineCommentEvent: Codable {
     public var id: Int
     public var nodeID: String
     /// URL for the issue comment
+    ///
+    /// Example: "https://api.github.com/repositories/42/issues/comments/1"
     public var url: URL
     /// Contents of the issue comment
     ///
@@ -14691,7 +15075,9 @@ public struct TimelineReviewedEvent: Codable {
     public var body: String?
     /// Example: "CHANGES_REQUESTED"
     public var state: String
+    /// Example: "https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/12"
     public var pullRequestURL: URL
     public var links: Links
     public var submittedAt: Date?
@@ -14777,6 +15163,8 @@ public struct TimelineReviewedEvent: Codable {
 /// Pull Request Review Comments are comments on a portion of the Pull Request's diff.
 public struct PullRequestReviewComment: Codable {
     /// URL for the pull request review comment
+    ///
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/comments/1"
     public var url: String
     /// The ID of the pull request review to which the comment belongs.
     ///
@@ -14821,8 +15209,12 @@ public struct PullRequestReviewComment: Codable {
     /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
     /// HTML URL for the pull request review comment.
+    ///
+    /// Example: "https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
     public var htmlURL: URL
     /// URL for the pull request that the review comment belongs to.
+    ///
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1"
     public var pullRequestURL: URL
     /// Author_association
     ///
@@ -14856,6 +15248,7 @@ public struct PullRequestReviewComment: Codable {
         public var pullRequest: PullRequest
 
         public struct `Self`: Codable {
+            /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/comments/1"
             public var href: URL
 
             public init(href: URL) {
@@ -14864,6 +15257,7 @@ public struct PullRequestReviewComment: Codable {
         }
 
         public struct HTML: Codable {
+            /// Example: "https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
             public var href: URL
 
             public init(href: URL) {
@@ -14872,6 +15266,7 @@ public struct PullRequestReviewComment: Codable {
         }
 
         public struct PullRequest: Codable {
+            /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1"
             public var href: URL
 
             public init(href: URL) {
@@ -15293,8 +15688,11 @@ public struct MergedUpstream: Codable {
 
 /// A collection of related issues and pull requests.
 public struct Milestone: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/milestones/1"
     public var url: URL
+    /// Example: "https://github.com/octocat/Hello-World/milestones/v1.0"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/milestones/1/labels"
     public var labelsURL: URL
     /// Example: 1002604
     public var id: Int
@@ -15431,6 +15829,8 @@ public struct PagesHTTPSCertificate: Codable {
 /// The configuration for GitHub Pages for a repository.
 public struct Page: Codable {
     /// The API address for accessing this Page resource.
+    ///
+    /// Example: "https://api.github.com/repos/github/hello-world/pages"
     public var url: URL
     /// The status of the most recent build of the Page.
     ///
@@ -15451,6 +15851,8 @@ public struct Page: Codable {
     /// Example: false
     public var isCustom404: Bool
     /// The web address the Page can be accessed from.
+    ///
+    /// Example: "https://example.com"
     public var htmlURL: URL?
     /// Pages Source Hash
     public var source: PagesSourceHash?
@@ -15570,6 +15972,7 @@ public struct PageBuild: Codable {
 }
 
 public struct PageBuildStatus: Codable {
+    /// Example: "https://api.github.com/repos/github/hello-world/pages/builds/latest"
     public var url: URL
     /// Example: "queued"
     public var status: String
@@ -15789,7 +16192,10 @@ public struct TeamSimple: Codable {
     /// Example: "MDQ6VGVhbTE="
     public var nodeID: String
     /// URL for the team
+    ///
+    /// Example: "https://api.github.com/organizations/1/team/1"
     public var url: URL
+    /// Example: "https://api.github.com/organizations/1/team/1/members{/member}"
     public var membersURL: String
     /// Name of the team
     ///
@@ -15807,7 +16213,9 @@ public struct TeamSimple: Codable {
     ///
     /// Example: "closed"
     public var privacy: String?
+    /// Example: "https://github.com/orgs/rails/teams/core"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/organizations/1/team/1/repos"
     public var repositoriesURL: URL
     /// Example: "justice-league"
     public var slug: String
@@ -15849,18 +16257,28 @@ public struct TeamSimple: Codable {
 
 /// Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
 public struct PullRequest: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
     public var url: URL
     public var id: Int
     /// Example: "MDExOlB1bGxSZXF1ZXN0MQ=="
     public var nodeID: String
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347"
     public var htmlURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347.diff"
     public var diffURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/pull/1347.patch"
     public var patchURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/issues/1347"
     public var issueURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits"
     public var commitsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments"
     public var reviewCommentsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number}"
     public var reviewCommentURL: String
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/issues/1347/comments"
     public var commentsURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e"
     public var statusesURL: URL
     /// Number uniquely identifying the pull request within its repository.
     ///
@@ -17054,7 +17472,9 @@ public struct PullRequestReview: Codable {
     public var body: String
     /// Example: "CHANGES_REQUESTED"
     public var state: String
+    /// Example: "https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/12"
     public var pullRequestURL: URL
     public var links: Links
     public var submittedAt: Date?
@@ -17137,6 +17557,7 @@ public struct PullRequestReview: Codable {
 
 /// Legacy Review Comment
 public struct ReviewComment: Codable {
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/comments/1"
     public var url: URL
     /// Example: 42
     public var pullRequestReviewID: Int?
@@ -17163,7 +17584,9 @@ public struct ReviewComment: Codable {
     public var createdAt: Date
     /// Example: "2011-04-14T16:00:49Z"
     public var updatedAt: Date
+    /// Example: "https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/repos/octocat/Hello-World/pulls/1"
     public var pullRequestURL: URL
     /// Author_association
     ///
@@ -17699,7 +18122,9 @@ public struct RepositorySubscription: Codable {
     public var reason: String?
     /// Example: "2012-10-06T21:34:12Z"
     public var createdAt: Date
+    /// Example: "https://api.github.com/repos/octocat/example/subscription"
     public var url: URL
+    /// Example: "https://api.github.com/repos/octocat/example"
     public var repositoryURL: URL
 
     public init(isSubscribed: Bool, isIgnored: Bool, reason: String? = nil, createdAt: Date, url: URL, repositoryURL: URL) {
@@ -17725,7 +18150,9 @@ public struct Tag: Codable {
     /// Example: "v0.1"
     public var name: String
     public var commit: Commit
+    /// Example: "https://github.com/octocat/Hello-World/zipball/v0.1"
     public var zipballURL: URL
+    /// Example: "https://github.com/octocat/Hello-World/tarball/v0.1"
     public var tarballURL: URL
     public var nodeID: String
 
@@ -18281,6 +18708,7 @@ public struct ScimUser: Codable {
         public var created: Date?
         /// Example: "2019-01-24T22:45:36.000Z"
         public var lastModified: Date?
+        /// Example: "https://api.github.com/scim/v2/organizations/myorg-123abc55141bfd8f/Users/c42772b5-2029-11e9-8543-9264a97dec8d"
         public var location: URL?
 
         public init(resourceType: String? = nil, created: Date? = nil, lastModified: Date? = nil, location: URL? = nil) {
@@ -19372,19 +19800,31 @@ public struct PrivateUser: Codable {
     public var id: Int
     /// Example: "MDQ6VXNlcjE="
     public var nodeID: String
+    /// Example: "https://github.com/images/error/octocat_happy.gif"
     public var avatarURL: URL
     /// Example: "41d064eb2195891e12d0413f63227ea7"
     public var gravatarID: String?
+    /// Example: "https://api.github.com/users/octocat"
     public var url: URL
+    /// Example: "https://github.com/octocat"
     public var htmlURL: URL
+    /// Example: "https://api.github.com/users/octocat/followers"
     public var followersURL: URL
+    /// Example: "https://api.github.com/users/octocat/following{/other_user}"
     public var followingURL: String
+    /// Example: "https://api.github.com/users/octocat/gists{/gist_id}"
     public var gistsURL: String
+    /// Example: "https://api.github.com/users/octocat/starred{/owner}{/repo}"
     public var starredURL: String
+    /// Example: "https://api.github.com/users/octocat/subscriptions"
     public var subscriptionsURL: URL
+    /// Example: "https://api.github.com/users/octocat/orgs"
     public var organizationsURL: URL
+    /// Example: "https://api.github.com/users/octocat/repos"
     public var reposURL: URL
+    /// Example: "https://api.github.com/users/octocat/events{/privacy}"
     public var eventsURL: String
+    /// Example: "https://api.github.com/users/octocat/received_events"
     public var receivedEventsURL: URL
     /// Example: "User"
     public var type: String
@@ -19393,6 +19833,7 @@ public struct PrivateUser: Codable {
     public var name: String?
     /// Example: "GitHub"
     public var company: String?
+    /// Example: "https://github.com/blog"
     public var blog: String?
     /// Example: "San Francisco"
     public var location: String?
@@ -19550,6 +19991,7 @@ public struct CodespacesSecret: Codable {
     public var updatedAt: Date
     /// Visibility of a secret
     public var visibility: Visibility
+    /// Example: "https://api.github.com/user/secrets/SECRET_NAME/repositories"
     public var selectedRepositoriesURL: URL
 
     /// Visibility of a secret

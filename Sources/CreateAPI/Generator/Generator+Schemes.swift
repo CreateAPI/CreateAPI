@@ -161,8 +161,7 @@ extension Generator {
         }
         
         func property(name: PropertyName, type: MyType, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
-            assert(info != nil) // context is null for references, but the caller needs to dereference first
-            let nullable = info?.nullable ?? true
+            let nullable = info?.nullable ?? false
             let name = makeChildPropertyName(for: name, type: type)
             let isOptional = !isRequired || nullable
             var type = type
@@ -217,9 +216,9 @@ extension Generator {
             return property(name: propertyName, type: .userDefined(name: name), info: schema.coreContext, nested: nested)
         }
         
-        func makeReference(reference: JSONReference<JSONSchema>) throws -> Property {
-            let deref = try reference.dereferenced(in: spec.components)
-            let info = deref.coreContext
+        func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
+            // TODO: Refactor (changed it to `null` to avoid issue with cycles
+            let info = (try? reference.dereferenced(in: spec.components))?.coreContext
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
@@ -244,7 +243,7 @@ extension Generator {
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
         case .all, .one, .any: return try makeSomeOf()
-        case .reference(let ref, _): return try makeReference(reference: ref)
+        case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         case .not: throw GeneratorError("`not` properties are not supported")
         default: return try makeProperty(schema: schema)
         }
