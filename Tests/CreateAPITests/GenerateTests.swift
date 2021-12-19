@@ -21,24 +21,12 @@ final class GenerateTests: XCTestCase {
         temp.remove()
     }
     
-    func testPestoreDefault() throws {
+    func testPestore() throws {
         try testSpec(name: "petstore", package: "petstore-default")
     }
     
-    // TODO: Switch to --strict and fix multipart-form-data
-    func testEdgecasesDefault() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
-            "--output", temp.url.path,
-            "--package", "edgecases-default"
-        ])
-                
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "edgecases-default")
+    func testEdgecases() throws {
+        try testSpec(name: "edgecases", package: "edgecases-default")
     }
 
     func testGenerateGitHub() throws {
@@ -109,6 +97,10 @@ final class GenerateTests: XCTestCase {
     // when `gzip` and duplicated `- $ref: "#/components/schemas/AppCategory"` are fixed
     func testGenerateAppStoreConnect() throws {
         try testSpec(name: "app-store-connect", package: "AppStoreConnectAPI")
+    }
+    
+    func testGenerateAsana() throws {
+        try testSpec(name: "asana", package: "AsanaAPI")
     }
     
     func testSpec(name: String, package: String) throws {

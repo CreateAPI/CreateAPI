@@ -130,10 +130,13 @@ extension Generator {
             return try makeAnyOf(name: name, schemas: schemas, context: context)
         case .not:
             throw GeneratorError("`not` is not supported: \(name)")
-        case .reference:
-            return nil // Can't appear in this context
+        case .reference(let info, _):
+            guard let ref = info.name, !ref.isEmpty else {
+                throw GeneratorError("Reference name is missing")
+            }
+            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: TypeName(ref)))
         case .fragment:
-            return nil // Can't appear in this context
+            throw GeneratorError("Fragments not supported in this context: \(name)")
         }
     }
     

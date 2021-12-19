@@ -11,7 +11,7 @@ import GrammaticalNumber
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
 // TODO: Add a way to extend supported content types
-
+// TODO: Add proper support for multipart form data
 // TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
 // TODO: Split operations in separate files
 
@@ -605,7 +605,9 @@ extension Generator {
             setNeedsEncodable(for: property.type)
             return makeRequestType(property.type.name, nested: property.nested)
         }
-        
+        if firstContent(for: [.multipartForm]) != nil {
+            return makeRequestType(TypeName("Data"))
+        }
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return makeRequestType(TypeName("String"))
         }
