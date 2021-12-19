@@ -1,0 +1,486 @@
+openapi: 3.0.0
+info:
+  title: SimpleKart E-commerce API
+  version:
+  contact:
+    name: Postman Team
+    email: simplekart@postman.com
+  description: API for an imaginary E-Commerce store to demonstrate API Builder capabilities in Postman
+servers:
+  - url: 'https://api.simplekart.com'
+paths:
+  '/items/{itemId}':
+    parameters:
+      - schema:
+          type: integer
+          example: '1657'
+          default: '1657'
+          maximum: 20000
+          minimum: 0
+          exclusiveMinimum: false
+        name: itemId
+        in: path
+        description: Id of the item to pull details of
+        required: true
+    get:
+      summary: 'Get item details from the database '
+      tags:
+        - item
+      responses:
+        '200':
+          description: OK - Successfully obtained order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/item'
+              examples:
+                example-1:
+                  value:
+                    itemId: 1657
+                    name: Smart WiFi Router
+                    price: 2096
+                    description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+        '400':
+          description: Bad Request - Invalid item ID supplied
+          content:
+            application/json:
+                schema:
+                    $ref: '#/components/schemas/badRequest'
+                examples:
+                    example-1:
+                        value:
+                            error:
+                                message: 'Provided Id is invalid'
+        '404':
+          description: Not Found - Item not found
+          content:
+            application/json:
+                schema:
+                    $ref: '#/components/schemas/notFound'
+                examples:
+                    example-1:
+                        value:
+                            error:
+                                message: 'The item you are looking for, does not exist'
+      operationId: get-items-itemId
+      description: Obtain item details from item database
+      parameters: []
+  '/orders/{orderId}':
+    parameters:
+      - schema:
+          type: integer
+          default: '674'
+          maximum: 2000
+          minimum: 1
+        name: orderId
+        in: path
+        required: true
+    get:
+      summary: Get order details from database
+      tags:
+        - order
+      responses:
+        '200':
+          description: OK - Successfully obtained order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+              examples:
+                example-1:
+                  value:
+                    orderId: 674
+                    items:
+                      - itemId: 1657
+                        name: Smart WiFi Router
+                        price: 2096
+                        description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+                    arrivalDate: '2020-3-04T13:07:45.962Z'
+                    orderDate: '2020-03-06T19:27:26.733Z'
+                    orderTotal: 2096
+                    address: '95 Tarkiln Hill St.Laurel, MD 20707'
+                example-2:
+                  value:
+                    orderId: 656
+                    items:
+                      - itemId: 16247
+                        name: 'Postman Merch'
+                        price: 15
+                        description: 'Official T-shirt for the Postman community.'
+                    arrivalDate: '2020-3-04T13:07:45.962Z'
+                    orderDate: '2020-03-06T19:27:26.733Z'
+                    orderTotal: 15
+                    address: 'SimpleKart HQ, 221B Baker street'
+        '400':
+          description: Bad Request - Invalid order ID supplied
+          content:
+            application/json:
+                schema:
+                    $ref: '#/components/schemas/badRequest'
+                examples:
+                    example-1:
+                        value:
+                            error:
+                                message: 'Provided Id is invalid'
+        '404':
+          description: Not Found - Order not found
+          content:
+            application/json:
+                schema:
+                    $ref: '#/components/schemas/notFound'
+                examples:
+                    example-1:
+                        value:
+                            error:
+                                message: 'The order you are looking for, does not exist'
+      operationId: get-orders-orderId
+      description: Obtain item details from the database
+  /orders:
+    get:
+      summary: 'Get orders from the database '
+      tags:
+        - orders
+      responses:
+        '200':
+          description: OK - Successful pull of orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orders'
+              examples:
+                example-1:
+                  value:
+                    - orderId: 674
+                      items:
+                        - itemId: 1657
+                          name: Smart WiFi Router
+                          price: 2096
+                          description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+                      arrivalDate: '2020-03-03T13:07:45.962Z'
+                      orderDate: '2020-03-01T19:27:26.733Z'
+                      orderTotal: 2096
+                      address: '95 Tarkiln Hill St.Laurel, MD 20707'
+                    - orderId: 675
+                      items:
+                        - itemId: 1658
+                          name: VR Gaming Headset
+                          price: 79990
+                          description: "VR Gaming Headset puts you at the center of virtual reality's most pulse-pounding, PC-powered gameplay. See the action unfold all around you through our sharpest lenses and next-generation optics. Lose yourself in the experience with a comfortable, improved design that lets you start playing faster and keep playing longer. Insight tracking gives you the power to move throughout your playspace in any direction. No external sensors. No complicated setup. Just hands-on action and interaction with our updated Oculus Touch controllers right out of the box. Step into the game and the future of PC VR."
+                      arrivalDate: '2020-03-03T15:00:56.787Z'
+                      orderDate: '2020-03-02T21:25:22.096Z'
+                      orderTotal: 79990
+                      address: '7405 Arcadia St.Rockville, MD 20850'
+                    - orderId: 676
+                      items:
+                        - itemId: 1665
+                          name: Smart Watch
+                          price: 1805
+                          description: 'Built-in Multi-Sports Mode, record your Running, Cycling, Football, Swimming, Table Tennis, Badminton, Climbing, recording your daily sports data.'
+                      arrivalDate: '2020-03-05T17:30:15.156Z'
+                      orderDate: '2020-03-03T01:10:27.512Z'
+                      orderTotal: 1805
+                      address: '9791 Lawrence Dr.Marlton, NJ 08053r'
+                    - orderId: 677
+                      items:
+                        - itemId: 1659
+                          name: 'Classic Loop Top Shaker Bottle, 20-Ounce'
+                          price: 578
+                          description: 'Easy to maintain proper nutrition and hydration on-the-go.The wide mouth makes it easy to add scoops of powdered mixes, meal ingredients, and liquids, and embossed markings show both ounces and milliliters for easy measuring anywhere (note that markings on the 20-ounce capacity shaker cup only go up to 12 ounces). Bottle contents and liquids are securely contained thanks to a tightly threaded screw-on lid that creates a leakproof seal, and a flip cap that snaps securely shut for shaking and transportation.'
+                      arrivalDate: '2020-03-03T18:16:24.911Z'
+                      orderDate: '2020-03-01T06:09:23.007Z'
+                      orderTotal: 578
+                      address: '822 Clay St.Tampa, FL 33604'
+                    - orderId: 678
+                      items:
+                        - itemId: 1663
+                          name: Hair Dryer
+                          price: 1400
+                          description: 'Hair dryer is engineered to protect hair from extreme heat damage, with the fastest drying+ and controlled styling to help increase smoothness by 75%, increase shine by up to 132% and decrease frizz and flyaways by up to 61%.'
+                      arrivalDate: '2020-03-04T12:09:07.955Z'
+                      orderDate: '2020-03-02T21:50:44.173Z'
+                      orderTotal: 1400
+                      address: '7444 SW. State Ave.Philadelphia, PA 19111'
+                    - orderId: 679
+                      items:
+                        - itemId: 1660
+                          name: 4-Port USB 2.0 Hub
+                          price: 505
+                          description: 'Easily add up to 4 devices with the USB 2.0 Hub. Particularly great for recent notebooks that provide a limited number of USB ports. Achieve full 480 Mbps on each port, or daisy-chain multiple hubs to a maximum of 127 devices.Fully backwards compatible with the USB 1.1 products.'
+                      arrivalDate: '2020-03-04T11:29:56.99Z'
+                      orderDate: '2020-03-03T00:51:26.19Z'
+                      orderTotal: 505
+                      address: '307 Purple Finch Ave.New Lenox, IL 60451'
+                    - orderId: 680
+                      items:
+                        - itemId: 1661
+                          name: 'Wipes Flushable Wet Wipes Dispenser, Mint Chill, 48 Count (Pack of 3)'
+                          price: 938
+                          description: 'For a superior clean that’s fresh, gentle, and effective, choose Wipes with the CleaningRipples Texture. Wipes are 100 percent flushable, remove odor causing bacteria and offer a large, dual layer wipe to clean better than when using dry toilet paper alone.'
+                      arrivalDate: '2020-03-04T02:06:58.886Z'
+                      orderDate: '2020-03-02T04:33:52.652Z'
+                      orderTotal: 938
+                      address: '946 Holly StreetHamilton, OH 45011'
+                    - orderId: 681
+                      items:
+                        - itemId: 1663
+                          name: Hair Dryer
+                          price: 1400
+                          description: 'Hair dryer is engineered to protect hair from extreme heat damage, with the fastest drying+ and controlled styling to help increase smoothness by 75%, increase shine by up to 132% and decrease frizz and flyaways by up to 61%.'
+                      arrivalDate: '2020-03-04T17:26:07.706Z'
+                      orderDate: '2020-03-02T04:17:23.689Z'
+                      orderTotal: 1400
+                      address: '8924 East Birchwood St.Hamburg, NY 14075'
+                    - orderId: 682
+                      items:
+                        - itemId: 1665
+                          name: Smart Watch
+                          price: 1805
+                          description: 'Built-in Multi-Sports Mode, record your Running, Cycling, Football, Swimming, Table Tennis, Badminton, Climbing, recording your daily sports data.'
+                      arrivalDate: '2020-03-05T14:07:01.688Z'
+                      orderDate: '2020-03-03T04:58:18.504Z'
+                      orderTotal: 1805
+                      address: '10 Wilson LaneBay City, MI 48706'
+                    - orderId: 683
+                      items:
+                        - itemId: 1666
+                          name: 'Learning Thermostat, 3rd Gen, Smart Thermostat'
+                          price: 15746
+                          description: 'Learning Thermostat is a smart thermostat that learns what temperatures you like, turns itself down when you’re away and connects to your phone. It has a big, sharp display. And it’s proven to help save energy. In independent studies, the Thermostat saved an average of 10% to 12% on heating bills and 15% on cooling bills.'
+                      arrivalDate: '2020-03-05T10:43:23.713Z'
+                      orderDate: '2020-03-03T08:34:21.21Z'
+                      orderTotal: 15746
+                      address: 'm81 West Shirley Dr.Greenfield, IN 46140'
+                    - orderId: 656
+                      items:
+                        - itemId: 16247
+                          name: 'Postman Merch'
+                          price: 15
+                          description: 'Official T-shirt for the Postman community.'
+                      arrivalDate: '2020-3-04T13:07:45.962Z'
+                      orderDate: '2020-03-06T19:27:26.733Z'
+                      orderTotal: 15
+                      address: 'SimpleKart HQ, 221B Baker street'
+      operationId: get-orders
+      description: Obtain order details from orders database
+      parameters:
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 15
+            default: '10'
+          in: query
+          name: list
+          description: Number of orders to show
+    post:
+      summary: Post order details to the database
+      tags:
+        - orders
+      responses:
+        '201':
+          description: OK - Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+              examples:
+                example-1:
+                  value:
+                    orderId: 674
+                    items:
+                      - itemId: 1657
+                        name: Smart WiFi Router
+                        price: 2096
+                        description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+                    arrivalDate: '2020-3-04T13:07:45.962Z'
+                    orderDate: '2020-03-06T19:27:26.733Z'
+                    orderTotal: 2096
+                    address: '95 Tarkiln Hill St.Laurel, MD 20707'
+      operationId: post-orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item:
+                  $ref: '#/components/schemas/item'
+                address:
+                  type: string
+              required:
+                - address
+            examples:
+              example-1:
+                value:
+                  items:
+                    - itemId: 1657
+                      name: Smart WiFi Router
+                      price: 2096
+                      description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+                  address: '95 Tarkiln Hill St.Laurel, MD 20707'
+        description: Body example
+      description: Post item order to orders database
+  /items:
+    get:
+      summary: Get items from the database
+      tags: []
+      responses:
+        '200':
+          description: OK - Successful pull of items
+          content:
+            application/json:
+              schema:
+                type: array
+                uniqueItems: false
+                maxItems: 15
+                minItems: 4
+                items:
+                  $ref: '#/components/schemas/items'
+              examples:
+                example-1:
+                  value:
+                    - itemId: 1657
+                      name: Smart WiFi Router
+                      price: 2096
+                      description: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+                    - itemId: 1658
+                      name: VR Gaming Headset
+                      price: 79990
+                      description: "VR Gaming Headset puts you at the center of virtual reality's most pulse-pounding, PC-powered gameplay. See the action unfold all around you through our sharpest lenses and next-generation optics. Lose yourself in the experience with a comfortable, improved design that lets you start playing faster and keep playing longer. Insight tracking gives you the power to move throughout your playspace in any direction. No external sensors. No complicated setup. Just hands-on action and interaction with our updated Oculus Touch controllers right out of the box. Step into the game and the future of PC VR."
+                    - itemId: 1659
+                      name: 'Classic Loop Top Shaker Bottle, 20-Ounce'
+                      price: 578
+                      description: 'Easy to maintain proper nutrition and hydration on-the-go.The wide mouth makes it easy to add scoops of powdered mixes, meal ingredients, and liquids, and embossed markings show both ounces and milliliters for easy measuring anywhere (note that markings on the 20-ounce capacity shaker cup only go up to 12 ounces). Bottle contents and liquids are securely contained thanks to a tightly threaded screw-on lid that creates a leakproof seal, and a flip cap that snaps securely shut for shaking and transportation.'
+                    - itemId: 1660
+                      name: 4-Port USB 2.0 Hub
+                      price: 505
+                      description: 'Easily add up to 4 devices with the USB 2.0 Hub. Particularly great for recent notebooks that provide a limited number of USB ports. Achieve full 480 Mbps on each port, or daisy-chain multiple hubs to a maximum of 127 devices.Fully backwards compatible with the USB 1.1 products.'
+                    - itemId: 1661
+                      name: 'Wipes Flushable Wet Wipes Dispenser, Mint Chill, 48 Count (Pack of 3)'
+                      price: 938
+                      description: 'For a superior clean that’s fresh, gentle, and effective, choose Wipes with the CleaningRipples Texture. Wipes are 100 percent flushable, remove odor causing bacteria and offer a large, dual layer wipe to clean better than when using dry toilet paper alone.'
+                    - itemId: 1662
+                      name: Cordless Vacuum Cleaner
+                      price: 41893
+                      description: 'Twice the suction of any cord-free vacuum. Cord-free cleaning, made easier. Intelligently optimizes suction and run time, to deep clean everywhere. With fade-free battery power and a battery-saving trigger. And real-time reporting on the LCD screen to give you control of your clean. The Dynamic Load Sensor (DLS) system automatically changes the motor speed between carpets and hard floors. For deep cleaning across floor types.'
+                    - itemId: 1663
+                      name: Hair Dryer
+                      price: 1400
+                      description: 'Hair dryer is engineered to protect hair from extreme heat damage, with the fastest drying+ and controlled styling to help increase smoothness by 75%, increase shine by up to 132% and decrease frizz and flyaways by up to 61%.'
+                    - itemId: 1664
+                      name: Business Z27n G2 27 inch LED LCD Monitor
+                      price: 24485
+                      description: 'Be a productive powerhouse with the sleek QHD HP Z27n G2 27-inch Display. This virtually seamless display is factory-tested for reliability and longevity with integrated color calibration, uninterrupted multi-screen tiling, and expansive device connections, including USB-C™. Multi-screen productivity with no disruptions Streamline multi-tasking on multiple displays with a 3-sided micro-edge bezel, and daisy chain up to 2 displays per workstation with DisplayPort™.'
+                    - itemId: 1665
+                      name: Smart Watch
+                      price: 1805
+                      description: 'Built-in Multi-Sports Mode, record your Running, Cycling, Football, Swimming, Table Tennis, Badminton, Climbing, recording your daily sports data.'
+                    - itemId: 1666
+                      name: 'Learning Thermostat, 3rd Gen, Smart Thermostat'
+                      price: 15746
+                      description: 'Learning Thermostat is a smart thermostat that learns what temperatures you like, turns itself down when you’re away and connects to your phone. It has a big, sharp display. And it’s proven to help save energy. In independent studies, the Thermostat saved an average of 10% to 12% on heating bills and 15% on cooling bills.'
+                    - itemId: 16247
+                      name: Postman Merch
+                      price: 15
+                      description: 'Official T-shirt for the Postman community.'
+      operationId: get-items
+      description: Pull a list of items from item database
+      parameters:
+        - schema:
+            type: integer
+            default: '10'
+            maximum: 15
+            minimum: 4
+          in: query
+          name: list
+          description: Number of items to be displayed
+components:
+  schemas:
+    item:
+      title: item
+      type: object
+      description: Model containing item information
+      properties:
+        itemId:
+          type: integer
+          example: '1657'
+          minimum: 0
+          maximum: 20000
+        name:
+          type: string
+          example: Smart WiFi Router
+        price:
+          type: integer
+          example: '2096'
+          minimum: 10
+          maximum: 100000
+        description:
+          type: string
+          example: 'Wifi router/wireless router. One of routers for wireless internet, wireless routers for home. Dual band router and gigabit router. Ideal as internet router also gaming router. Long range coverage with high speed. Compatible with all 802.11ac devices and below. 5ghz router/5g router Frequency Range: 2.4GHz and 5GHz; Interface Available: 4 x 10/100/1000Mbps LAN Ports, 1 10/100/1000Mbps WAN Port, 1 USB 2.0 Ports; Protocols Supported: Supports IPv4 and IPv6; System Requirement: Microsoft Windows 98SE NT 2000 XP Vista, or Windows 7 Windows 8/8.1/10, MAC OS NetWare UNIX or Linux; Wireless Standards: IEEE 802.11ac/n/a 5GHz, IEEE 802.11b/g/n 2.4GH'
+          minLength: 1
+      required:
+        - itemId
+    order:
+      title: order
+      type: object
+      properties:
+        address:
+          type: string
+        orderTotal:
+          type: integer
+          maximum: 100000
+          minimum: 1
+          example: '5000'
+        orderDate:
+          type: string
+          format: date-time
+        arrivalDate:
+          type: string
+          format: date-time
+        items:
+          $ref: '#/components/schemas/items'
+        orderId:
+          type: integer
+          maximum: 20000
+          minimum: 1
+          example: '1151'
+      required:
+        - address
+        - items
+    badRequest:
+        title: Bad Request
+        type: object
+        properties:
+            error:
+                type: object
+                properties:
+                    message:
+                        type: string
+    notFound:
+        title: Not Found
+        type: object
+        properties:
+            error:
+                type: object
+                properties:
+                    message:
+                        type: string
+    items:
+      type: array
+      title: items
+      example: '6'
+      maxItems: 15
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/item'
+    orders:
+      type: array
+      title: orders
+      maxItems: 15
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/order'
+  securitySchemes:
+    api-key:
+      name: '12345789012345678901234567890'
+      type: apiKey
+      in: query

@@ -632,6 +632,21 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "PostmanAPI")
     }
+    
+    func testGenerateSimpleCart() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "simplecart"),
+            "--output", temp.url.path,
+            "--package", "SimpleCartAPI"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "SimpleCartAPI")
+    }
 }
 
 extension GenerateTests {
