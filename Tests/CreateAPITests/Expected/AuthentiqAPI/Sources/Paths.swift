@@ -292,7 +292,7 @@ extension Paths.Scope {
         /// Authority updates a JWT with its signature
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
         /// 
-        public var put: Request<Data> {
+        public var put: Request<String> {
             .put(path)
         }
 

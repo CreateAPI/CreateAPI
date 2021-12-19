@@ -501,7 +501,20 @@ extension Generator {
         if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
             return makeRequestType(TypeName("String"))
         }
-        print("WARNING: Unknown request body content types: \(request.content.keys)")
+        if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
+            return makeRequestType(TypeName("Data"))
+        }
+        if let content = firstContent(for: [.any]) {
+            if case .b(let schema) = content.schema, case .string = schema {
+                return makeRequestType(TypeName("String"))
+            }
+            return makeRequestType(TypeName("Data"))
+        }
+        if arguments.isStrict {
+            throw GeneratorError("Unknown request body content types: \(request.content.keys)")
+        } else {
+            print("WARNING: Unknown request body content types: \(request.content.keys)")
+        }
         return makeRequestType(TypeName("Data"))
     }
     
@@ -587,10 +600,23 @@ extension Generator {
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText]) != nil {
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
-        print("WARNING: Unknown response content types: \(response.content.keys)")
+        if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
+            return GeneratedType(type: TypeName("Data"))
+        }
+        if let content = firstContent(for: [.any]) {
+            if case .b(let schema) = content.schema, case .string = schema {
+                return GeneratedType(type: TypeName("String"))
+            }
+            return GeneratedType(type: TypeName("Data"))
+        }
+        if arguments.isStrict {
+            throw GeneratorError("Unknown response body content types: \(response.content.keys)")
+        } else {
+            print("WARNING: Unknown response body content types: \(response.content.keys)")
+        }
         return GeneratedType(type: TypeName("Data"))
     }
         
