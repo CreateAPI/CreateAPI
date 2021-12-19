@@ -101,6 +101,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "platform", package: "PlatformAPI")
     }
     
+    func testGenerateEbayFinances() throws {
+        try testSpec(name: "ebay-finances", package: "EbayFinancesAPI")
+    }
+    
     func testSpec(name: String, package: String) throws {
         // GIVEN
         let command = try Generate.parse([
