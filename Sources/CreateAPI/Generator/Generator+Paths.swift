@@ -566,7 +566,7 @@ extension Generator {
         
         let request = try requestBody.unwrapped(in: spec)
         
-        func firstContent(for keys: Set<OpenAPI.ContentType>) -> (OpenAPI.Content, OpenAPI.ContentType)? {
+        func firstContent(for keys: [OpenAPI.ContentType]) -> (OpenAPI.Content, OpenAPI.ContentType)? {
             for key in keys {
                 if let content = request.content[key] {
                     return (content, key)
@@ -677,7 +677,7 @@ extension Generator {
     }
     
     private func makeResponse(for response: OpenAPI.Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
-        func firstContent(for keys: Set<OpenAPI.ContentType>) -> OpenAPI.Content? {
+        func firstContent(for keys: [OpenAPI.ContentType]) -> OpenAPI.Content? {
             for key in keys {
                 if let content = response.content[key] {
                     return content

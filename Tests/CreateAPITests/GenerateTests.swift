@@ -97,16 +97,19 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "authentiq", package: "AuthentiqAPI")
     }
     
-    func testSpec(name: String, package: String, config: String = "") throws {
+    func testGeneratePlatform() throws {
+        try testSpec(name: "platform", package: "PlatformAPI")
+    }
+    
+    func testSpec(name: String, package: String) throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: name),
             "--output", temp.url.path,
             "--strict",
-            "--package", package,
-            "--config", self.config(config, ext: "yml")
+            "--package", package
         ])
-        
+
         // WHEN
         try command.run()
         
