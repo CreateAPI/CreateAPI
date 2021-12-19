@@ -479,6 +479,9 @@ extension Generator {
                 case .b(let value):
                     schema = value
                 default:
+                    if request.content[.other("application/octet-stream")] != nil {
+                        return GeneratedType(type: TypeName("Data"))
+                    }
                     throw GeneratorError("Response not handled")
                 }
             } else {

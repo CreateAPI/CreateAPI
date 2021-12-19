@@ -2877,6 +2877,43 @@ extension Paths.Import {
     public struct Exported {
         /// Path: `/import/exported`
         public let path: String
+
+        /// Import exported data
+        ///
+        /// This endpoint allows you to import your exported Postman data.
+        /// For more information about how you can export your data, refer <a href="https://go.postman.co/me/export">Export your Postman data.</a>
+        /// 
+        /// On successful imports, the response will be an array with Each element contaning `id`, `name` and `uid` of entities created.
+        /// 
+        /// **Note**: Refer to examples for different scenarios.
+        /// 
+        /// > Requires <a href="#authentication">API Key</a> as `X-Api-Key` request header.
+        public func post(_ body: Data) -> Request<PostResponse> {
+            .post(path, body: body)
+        }
+
+        public struct PostResponse: Decodable {
+            public var collections: [Collection]?
+
+            public struct Collection: Decodable {
+                /// Example: "b31be584-1b1e-4444-b581-761edf88fe77"
+                public var id: String?
+                /// Example: "Swagger Petstore"
+                public var name: String?
+                /// Example: "2282-b31be584-1b1e-4444-b581-761edf88fe77"
+                public var uid: String?
+
+                public init(id: String? = nil, name: String? = nil, uid: String? = nil) {
+                    self.id = id
+                    self.name = name
+                    self.uid = uid
+                }
+            }
+
+            public init(collections: [Collection]? = nil) {
+                self.collections = collections
+            }
+        }
     }
 }
 
