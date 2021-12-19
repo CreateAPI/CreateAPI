@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
 // TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
