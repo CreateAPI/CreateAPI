@@ -16,6 +16,23 @@ extension Either where A == JSONReference<OpenAPI.Parameter>, B == OpenAPI.Param
     }
 }
 
+extension Either where A == JSONReference<OpenAPI.Request>, B == OpenAPI.Request {
+    func unwrapped(in spec: OpenAPI.Document) throws -> OpenAPI.Request {
+        switch self {
+        case .a(let reference):
+            guard let name = reference.name else {
+                throw GeneratorError("Inalid reference")
+            }
+            guard let key = OpenAPI.ComponentKey(rawValue: name), let request = spec.components.requestBodies[key] else {
+                throw GeneratorError("Failed to find a requesty body named \(name)")
+            }
+            return request
+        case .b(let request):
+            return request
+        }
+    }
+}
+
 extension OpenAPI.Parameter {
     func unwrapped(in spec: OpenAPI.Document) throws -> (JSONSchema, Bool) {
         let schema: JSONSchema

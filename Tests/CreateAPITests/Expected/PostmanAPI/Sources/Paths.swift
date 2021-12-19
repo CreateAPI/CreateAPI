@@ -2888,7 +2888,7 @@ extension Paths.Import {
         /// **Note**: Refer to examples for different scenarios.
         /// 
         /// > Requires <a href="#authentication">API Key</a> as `X-Api-Key` request header.
-        public func post(_ body: Data) -> Request<PostResponse> {
+        public func post(_ body: Data? = nil) -> Request<PostResponse> {
             .post(path, body: body)
         }
 

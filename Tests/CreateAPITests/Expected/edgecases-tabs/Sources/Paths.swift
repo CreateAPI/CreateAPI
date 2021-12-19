@@ -4,7 +4,6 @@
 // swiftlint:disable all
 
 import Foundation
-import NaiveDate
 import APIClient
 import HTTPHeaders
 
@@ -132,20 +131,8 @@ extension Paths.Pet {
 		}
 
 		/// Updates a pet in the store with form data
-		public func post(_ body: PostRequest? = nil) -> Request<Void> {
+		public func post(_ body: String? = nil) -> Request<Void> {
 			.post(path, body: body)
-		}
-
-		public struct PostRequest: Encodable {
-			/// Updated name of the pet
-			public var name: String?
-			/// Updated status of the pet
-			public var status: String?
-
-			public init(name: String? = nil, status: String? = nil) {
-				self.name = name
-				self.status = status
-			}
 		}
 
 		/// Deletes a pet
@@ -165,20 +152,8 @@ extension Paths.Pet.WithPetID {
 		public let path: String
 
 		/// Uploads an image
-		public func post(_ body: PostRequest? = nil) -> Request<edgecases_tabs.APIResponse> {
+		public func post(_ body: Data? = nil) -> Request<edgecases_tabs.APIResponse> {
 			.post(path, body: body)
-		}
-
-		public struct PostRequest: Encodable {
-			/// Additional data to pass to server
-			public var additionalMetadata: String?
-			/// File to upload
-			public var file: String?
-
-			public init(additionalMetadata: String? = nil, file: String? = nil) {
-				self.additionalMetadata = additionalMetadata
-				self.file = file
-			}
 		}
 	}
 }
@@ -429,73 +404,8 @@ extension Paths {
 
 		/// Fake endpoint for testing various parameters
 
-		public func post(_ body: PostRequest? = nil) -> Request<Void> {
+		public func post(_ body: String? = nil) -> Request<Void> {
 			.post(path, body: body)
-		}
-
-		public struct PostRequest: Encodable {
-			/// None
-			public var integer: Int?
-			/// None
-			public var int32: Int?
-			/// None
-			public var int64: Int?
-			/// None
-			public var number: Double
-			/// None
-			public var float: Double?
-			/// None
-			public var double: Double
-			/// None
-			public var string: String?
-			/// None
-			public var patternWithoutDelimiter: String
-			/// None
-			public var byte: String
-			/// None
-			public var binary: String?
-			/// None
-			public var date: NaiveDate?
-			/// None
-			public var dateTime: Date?
-			/// None
-			public var password: String?
-			/// None
-			public var callback: String?
-
-			public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
-				self.integer = integer
-				self.int32 = int32
-				self.int64 = int64
-				self.number = number
-				self.float = float
-				self.double = double
-				self.string = string
-				self.patternWithoutDelimiter = patternWithoutDelimiter
-				self.byte = byte
-				self.binary = binary
-				self.date = date
-				self.dateTime = dateTime
-				self.password = password
-				self.callback = callback
-			}
-
-			private enum CodingKeys: String, CodingKey {
-				case integer
-				case int32
-				case int64
-				case number
-				case float
-				case double
-				case string
-				case patternWithoutDelimiter = "pattern_without_delimiter"
-				case byte
-				case binary
-				case date
-				case dateTime
-				case password
-				case callback
-			}
 		}
 
 		/// To test "client" model

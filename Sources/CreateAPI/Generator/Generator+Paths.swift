@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Add `x-www-form-urlencoded` support
 // TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
 // TODO: Add an option to generate a plain list of APIs instead of REST namespaces
@@ -452,51 +453,56 @@ extension Generator {
         context.isDecodableNeeded = false
         context.isPatch = method == "patch"
         
-        let schema: JSONSchema
+        let request = try requestBody.unwrapped(in: spec)
+        
+        func firstContent(for keys: Set<OpenAPI.ContentType>) -> OpenAPI.Content? {
+            for key in keys {
+                if let content = request.content[key] {
+                    return content
+                }
+            }
+            return nil
+        }
+        
+        if request.content.values.isEmpty {
+            return GeneratedType(type: TypeName("Void"))
+        }
+        
+        func makeRequestType(_ type: TypeName, nested: Declaration? = nil) -> GeneratedType {
+            GeneratedType(type: type, nested: nested, isOptional: !(requestBody.requestValue?.required ?? true))
+        }
         
         // TODO: Refactor
-        switch requestBody {
-        case .a(let reference):
-            guard let name = reference.name else {
-                throw GeneratorError("Inalid reference")
-            }
-            guard let key = OpenAPI.ComponentKey(rawValue: name), let request = spec.components.requestBodies[key] else {
-                throw GeneratorError("Failed to find a requesty body named \(name)")
-            }
-            guard let content = request.content[.json] else {
-                throw GeneratorError("No supported content types: \(request.content.keys)")
-            }
+        if let content = firstContent(for: [.json, .jsonapi, .other("application/scim+json")]) {
+            let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
                 schema = JSONSchema.reference(reference)
             case .b(let value):
-                schema = value
-            default:
-                throw GeneratorError("Response not handled")
-            }
-        case .b(let request):
-            if request.content.values.isEmpty {
-                return GeneratedType(type: TypeName("Void"))
-            } else if let content = request.content.values.first {
-                switch content.schema {
-                case .a(let reference):
-                    schema = JSONSchema.reference(reference)
-                case .b(let value):
-                    schema = value
+                switch value {
+                case .string:
+                    return makeRequestType(TypeName("String"))
+                case .integer, .boolean:
+                    return makeRequestType(TypeName("Data"))
                 default:
-                    if request.content[.other("application/octet-stream")] != nil {
-                        return GeneratedType(type: TypeName("Data"))
-                    }
-                    throw GeneratorError("Response not handled")
+                    schema = value
                 }
-            } else {
-                throw GeneratorError("More than one schema in content which is not currently supported")
+            default:
+                throw GeneratorError("ERROR: response not handled")
             }
+            let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
+            setNeedsEncodable(for: property.type)
+            return makeRequestType(property.type.name, nested: property.nested)
         }
         
-        let property = try makeProperty(key: "\(method)Request", schema: schema, isRequired: true, in: context)
-        setNeedsEncodable(for: property.type)
-        return GeneratedType(type: property.type.name, nested: property.nested, isOptional: !(requestBody.requestValue?.required ?? true))
+        if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
+            return makeRequestType(TypeName("String"))
+        }
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
+            return makeRequestType(TypeName("String"))
+        }
+        print("WARNING: Unknown request body content types: \(request.content.keys)")
+        return makeRequestType(TypeName("Data"))
     }
     
     // MARK: - Response Body
@@ -559,23 +565,24 @@ extension Generator {
             return GeneratedType(type: TypeName("Void"))
         }
         if let content = firstContent(for: [.json, .jsonapi, .other("application/scim+json")]) {
+            let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
-                let type = try makeProperty(key: "response", schema: JSONSchema.reference(reference), isRequired: true, in: context).type
-                return GeneratedType(type: type.name)
-            case .b(let schema):
-                switch schema {
+                schema = JSONSchema.reference(reference)
+            case .b(let value):
+                switch value {
                 case .string:
                     return GeneratedType(type: TypeName("String"))
                 case .integer, .boolean:
                     return GeneratedType(type: TypeName("Data"))
                 default:
-                    let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
-                    return GeneratedType(type: property.type.name, nested: property.nested)
+                    schema = value
                 }
             default:
                 throw GeneratorError("ERROR: response not handled")
             }
+            let property = try makeProperty(key: "\(method)Response", schema: schema, isRequired: true, in: context)
+            return GeneratedType(type: property.type.name, nested: property.nested)
         }
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return GeneratedType(type: TypeName("String"))
@@ -583,6 +590,7 @@ extension Generator {
         if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
+        print("WARNING: Unknown response content types: \(response.content.keys)")
         return GeneratedType(type: TypeName("Data"))
     }
         

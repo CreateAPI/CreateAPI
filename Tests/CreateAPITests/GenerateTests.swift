@@ -609,6 +609,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "onepassword", package: "OnePasswordAPI")
     }
     
+    func testGenerateAuthentiq() throws {
+        try testSpec(name: "authentiq", package: "AuthentiqAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
