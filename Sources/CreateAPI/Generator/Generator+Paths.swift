@@ -345,7 +345,7 @@ extension Generator {
             if let value = responseValue.nested {
                 nested.append(render(value))
             }
-            responseHeaders = try? makeHeaders(for: response, name: makeNestedTypeName("Headers").rawValue)
+            responseHeaders = try? makeHeaders(for: response, name: makeNestedTypeName("ResponseHeaders").rawValue)
         } else {
             responseType = "Void"
         }

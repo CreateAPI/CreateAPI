@@ -7,10 +7,6 @@ import Foundation
 import APIClient
 import HTTPHeaders
 
-func test() {
-    
-}
-
 extension Paths {
     /// Get all APIs
     ///
@@ -4804,7 +4800,7 @@ extension Paths {
         .post("/security/api-validation", body: SchemaSecurityValidationRequest(schema: schema))
     }
 
-    public enum PostResponseHeaders {
+    public enum SchemaSecurityValidationResponseHeaders {
         public static let accessControlAllowOrigin = HTTPHeader<String>(field: "Access-Control-Allow-Origin")
         public static let connection = HTTPHeader<String>(field: "Connection")
         public static let contentLength = HTTPHeader<String>(field: "Content-Length")
