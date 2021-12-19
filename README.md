@@ -8,6 +8,10 @@ A description of this package.
 
 You can use either YAML or JSON as configuration files.
 
+## Adding Specs
+
+If you are using CreateAPI and want your spec to be part of the regression testing - add it to GenerateTest with your configuration.
+
 ## OpenAPI Support
 
 Create API supports 

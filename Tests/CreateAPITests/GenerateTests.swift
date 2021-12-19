@@ -647,6 +647,25 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "SimpleCartAPI")
     }
+    
+    func testGenerateTwitter() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "twitter"),
+            "--output", temp.url.path,
+            "--package", "TwitterAPI",
+            "--config", config("""
+            paths:
+              isRemovingRedundantPaths: true
+            """, ext: "yml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "TwitterAPI")
+    }
 }
 
 extension GenerateTests {
