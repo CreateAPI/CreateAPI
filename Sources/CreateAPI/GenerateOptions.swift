@@ -125,6 +125,7 @@ final class GenerateOptions {
         var isGeneratingDecode: Bool
         var isSortingPropertiesAlphabetically: Bool
         var isUsingCustomCodingKeys: Bool
+        var isAddingDefaultValues: Bool
         var skip: Set<String>
         
         init(_ options: GenerateOptionsSchema.Entities?) {
@@ -140,6 +141,7 @@ final class GenerateOptions {
             self.isGeneratingDecode = options?.isGeneratingDecode ?? true
             self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
             self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? true
+            self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
             self.skip = Set(options?.skip ?? [])
         }
     }
@@ -242,6 +244,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingDecode: Bool?
         var isSortingPropertiesAlphabetically: Bool?
         var isUsingCustomCodingKeys: Bool?
+        var isAddingDefaultValues: Bool?
         var skip: [String]?
     }
 }

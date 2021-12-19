@@ -13,7 +13,7 @@ import NaiveDate
     var shipDate: Date?
     /// Order Status
     var status: Status?
-    var isComplete: Bool?
+    var isComplete: Bool
 
     /// Order Status
     enum Status: String, Codable, CaseIterable {
@@ -28,7 +28,7 @@ import NaiveDate
         self.quantity = quantity
         self.shipDate = shipDate
         self.status = status
-        self.isComplete = isComplete
+        self.isComplete = isComplete ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -38,6 +38,16 @@ import NaiveDate
         case shipDate
         case status
         case isComplete = "complete"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decodeIfPresent(Int.self, forKey: .id)
+        self.petID = try values.decodeIfPresent(Int.self, forKey: .petID)
+        self.quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
+        self.shipDate = try values.decodeIfPresent(Date.self, forKey: .shipDate)
+        self.status = try values.decodeIfPresent(Status.self, forKey: .status)
+        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: .isComplete) ?? false
     }
 }
 

@@ -1126,7 +1126,7 @@ public struct Repository: Codable {
     /// Whether this repository acts as a template that can be used to generate new repositories.
     ///
     /// Example: true
-    public var isTemplate: Bool?
+    public var isTemplate: Bool
     public var topics: [String]?
     /// Whether issues are enabled.
     ///
@@ -1160,25 +1160,25 @@ public struct Repository: Codable {
     /// Whether to allow rebase merges for pull requests.
     ///
     /// Example: true
-    public var allowRebaseMerge: Bool?
+    public var allowRebaseMerge: Bool
     public var templateRepository: TemplateRepository?
     public var tempCloneToken: String?
     /// Whether to allow squash merges for pull requests.
     ///
     /// Example: true
-    public var allowSquashMerge: Bool?
+    public var allowSquashMerge: Bool
     /// Whether to allow Auto-merge to be used on pull requests.
     ///
     /// Example: false
-    public var allowAutoMerge: Bool?
+    public var allowAutoMerge: Bool
     /// Whether to delete head branches when pull requests are merged
     ///
     /// Example: false
-    public var deleteBranchOnMerge: Bool?
+    public var deleteBranchOnMerge: Bool
     /// Whether to allow merge commits for pull requests.
     ///
     /// Example: true
-    public var allowMergeCommit: Bool?
+    public var allowMergeCommit: Bool
     /// Whether to allow forking this repo
     public var allowForking: Bool?
     public var subscribersCount: Int?
@@ -1619,7 +1619,7 @@ public struct Repository: Codable {
         self.size = size
         self.defaultBranch = defaultBranch
         self.openIssuesCount = openIssuesCount
-        self.isTemplate = isTemplate
+        self.isTemplate = isTemplate ?? false
         self.topics = topics
         self.hasIssues = hasIssues
         self.hasProjects = hasProjects
@@ -1632,13 +1632,13 @@ public struct Repository: Codable {
         self.pushedAt = pushedAt
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.allowRebaseMerge = allowRebaseMerge
+        self.allowRebaseMerge = allowRebaseMerge ?? true
         self.templateRepository = templateRepository
         self.tempCloneToken = tempCloneToken
-        self.allowSquashMerge = allowSquashMerge
-        self.allowAutoMerge = allowAutoMerge
-        self.deleteBranchOnMerge = deleteBranchOnMerge
-        self.allowMergeCommit = allowMergeCommit
+        self.allowSquashMerge = allowSquashMerge ?? true
+        self.allowAutoMerge = allowAutoMerge ?? false
+        self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
+        self.allowMergeCommit = allowMergeCommit ?? true
         self.allowForking = allowForking
         self.subscribersCount = subscribersCount
         self.networkCount = networkCount
@@ -1739,6 +1739,100 @@ public struct Repository: Codable {
         case watchers
         case masterBranch = "master_branch"
         case starredAt = "starred_at"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decode(Int.self, forKey: .id)
+        self.nodeID = try values.decode(String.self, forKey: .nodeID)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.fullName = try values.decode(String.self, forKey: .fullName)
+        self.license = try values.decodeIfPresent(LicenseSimple.self, forKey: .license)
+        self.organization = try values.decodeIfPresent(SimpleUser.self, forKey: .organization)
+        self.forks = try values.decode(Int.self, forKey: .forks)
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: .permissions)
+        self.owner = try values.decode(SimpleUser.self, forKey: .owner)
+        self.isPrivate = try values.decode(Bool.self, forKey: .isPrivate)
+        self.htmlURL = try values.decode(URL.self, forKey: .htmlURL)
+        self.description = try values.decodeIfPresent(String.self, forKey: .description)
+        self.isFork = try values.decode(Bool.self, forKey: .isFork)
+        self.url = try values.decode(URL.self, forKey: .url)
+        self.archiveURL = try values.decode(String.self, forKey: .archiveURL)
+        self.assigneesURL = try values.decode(String.self, forKey: .assigneesURL)
+        self.blobsURL = try values.decode(String.self, forKey: .blobsURL)
+        self.branchesURL = try values.decode(String.self, forKey: .branchesURL)
+        self.collaboratorsURL = try values.decode(String.self, forKey: .collaboratorsURL)
+        self.commentsURL = try values.decode(String.self, forKey: .commentsURL)
+        self.commitsURL = try values.decode(String.self, forKey: .commitsURL)
+        self.compareURL = try values.decode(String.self, forKey: .compareURL)
+        self.contentsURL = try values.decode(String.self, forKey: .contentsURL)
+        self.contributorsURL = try values.decode(URL.self, forKey: .contributorsURL)
+        self.deploymentsURL = try values.decode(URL.self, forKey: .deploymentsURL)
+        self.downloadsURL = try values.decode(URL.self, forKey: .downloadsURL)
+        self.eventsURL = try values.decode(URL.self, forKey: .eventsURL)
+        self.forksURL = try values.decode(URL.self, forKey: .forksURL)
+        self.gitCommitsURL = try values.decode(String.self, forKey: .gitCommitsURL)
+        self.gitRefsURL = try values.decode(String.self, forKey: .gitRefsURL)
+        self.gitTagsURL = try values.decode(String.self, forKey: .gitTagsURL)
+        self.gitURL = try values.decode(String.self, forKey: .gitURL)
+        self.issueCommentURL = try values.decode(String.self, forKey: .issueCommentURL)
+        self.issueEventsURL = try values.decode(String.self, forKey: .issueEventsURL)
+        self.issuesURL = try values.decode(String.self, forKey: .issuesURL)
+        self.keysURL = try values.decode(String.self, forKey: .keysURL)
+        self.labelsURL = try values.decode(String.self, forKey: .labelsURL)
+        self.languagesURL = try values.decode(URL.self, forKey: .languagesURL)
+        self.mergesURL = try values.decode(URL.self, forKey: .mergesURL)
+        self.milestonesURL = try values.decode(String.self, forKey: .milestonesURL)
+        self.notificationsURL = try values.decode(String.self, forKey: .notificationsURL)
+        self.pullsURL = try values.decode(String.self, forKey: .pullsURL)
+        self.releasesURL = try values.decode(String.self, forKey: .releasesURL)
+        self.sshURL = try values.decode(String.self, forKey: .sshURL)
+        self.stargazersURL = try values.decode(URL.self, forKey: .stargazersURL)
+        self.statusesURL = try values.decode(String.self, forKey: .statusesURL)
+        self.subscribersURL = try values.decode(URL.self, forKey: .subscribersURL)
+        self.subscriptionURL = try values.decode(URL.self, forKey: .subscriptionURL)
+        self.tagsURL = try values.decode(URL.self, forKey: .tagsURL)
+        self.teamsURL = try values.decode(URL.self, forKey: .teamsURL)
+        self.treesURL = try values.decode(String.self, forKey: .treesURL)
+        self.cloneURL = try values.decode(String.self, forKey: .cloneURL)
+        self.mirrorURL = try values.decodeIfPresent(URL.self, forKey: .mirrorURL)
+        self.hooksURL = try values.decode(URL.self, forKey: .hooksURL)
+        self.svnURL = try values.decode(URL.self, forKey: .svnURL)
+        self.homepage = try values.decodeIfPresent(URL.self, forKey: .homepage)
+        self.language = try values.decodeIfPresent(String.self, forKey: .language)
+        self.forksCount = try values.decode(Int.self, forKey: .forksCount)
+        self.stargazersCount = try values.decode(Int.self, forKey: .stargazersCount)
+        self.watchersCount = try values.decode(Int.self, forKey: .watchersCount)
+        self.size = try values.decode(Int.self, forKey: .size)
+        self.defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
+        self.openIssuesCount = try values.decode(Int.self, forKey: .openIssuesCount)
+        self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: .isTemplate) ?? false
+        self.topics = try values.decodeIfPresent([String].self, forKey: .topics)
+        self.hasIssues = try values.decode(Bool.self, forKey: .hasIssues)
+        self.hasProjects = try values.decode(Bool.self, forKey: .hasProjects)
+        self.hasWiki = try values.decode(Bool.self, forKey: .hasWiki)
+        self.hasPages = try values.decode(Bool.self, forKey: .hasPages)
+        self.hasDownloads = try values.decode(Bool.self, forKey: .hasDownloads)
+        self.isArchived = try values.decode(Bool.self, forKey: .isArchived)
+        self.isDisabled = try values.decode(Bool.self, forKey: .isDisabled)
+        self.visibility = try values.decodeIfPresent(String.self, forKey: .visibility)
+        self.pushedAt = try values.decodeIfPresent(Date.self, forKey: .pushedAt)
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: .createdAt)
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: .updatedAt)
+        self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: .allowRebaseMerge) ?? true
+        self.templateRepository = try values.decodeIfPresent(TemplateRepository.self, forKey: .templateRepository)
+        self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: .tempCloneToken)
+        self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: .allowSquashMerge) ?? true
+        self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: .allowAutoMerge) ?? false
+        self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: .deleteBranchOnMerge) ?? false
+        self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: .allowMergeCommit) ?? true
+        self.allowForking = try values.decodeIfPresent(Bool.self, forKey: .allowForking)
+        self.subscribersCount = try values.decodeIfPresent(Int.self, forKey: .subscribersCount)
+        self.networkCount = try values.decodeIfPresent(Int.self, forKey: .networkCount)
+        self.openIssues = try values.decode(Int.self, forKey: .openIssues)
+        self.watchers = try values.decode(Int.self, forKey: .watchers)
+        self.masterBranch = try values.decodeIfPresent(String.self, forKey: .masterBranch)
+        self.starredAt = try values.decodeIfPresent(String.self, forKey: .starredAt)
     }
 }
 
@@ -6444,7 +6538,7 @@ public struct TeamRepository: Codable {
     /// Whether this repository acts as a template that can be used to generate new repositories.
     ///
     /// Example: true
-    public var isTemplate: Bool?
+    public var isTemplate: Bool
     public var topics: [String]?
     /// Whether issues are enabled.
     ///
@@ -6478,7 +6572,7 @@ public struct TeamRepository: Codable {
     /// Whether to allow rebase merges for pull requests.
     ///
     /// Example: true
-    public var allowRebaseMerge: Bool?
+    public var allowRebaseMerge: Bool
     /// Repository
     ///
     /// A git repository
@@ -6487,23 +6581,23 @@ public struct TeamRepository: Codable {
     /// Whether to allow squash merges for pull requests.
     ///
     /// Example: true
-    public var allowSquashMerge: Bool?
+    public var allowSquashMerge: Bool
     /// Whether to allow Auto-merge to be used on pull requests.
     ///
     /// Example: false
-    public var allowAutoMerge: Bool?
+    public var allowAutoMerge: Bool
     /// Whether to delete head branches when pull requests are merged
     ///
     /// Example: false
-    public var deleteBranchOnMerge: Bool?
+    public var deleteBranchOnMerge: Bool
     /// Whether to allow merge commits for pull requests.
     ///
     /// Example: true
-    public var allowMergeCommit: Bool?
+    public var allowMergeCommit: Bool
     /// Whether to allow forking this repo
     ///
     /// Example: false
-    public var allowForking: Bool?
+    public var allowForking: Bool
     public var subscribersCount: Int?
     public var networkCount: Int?
     public var openIssues: Int
@@ -6598,7 +6692,7 @@ public struct TeamRepository: Codable {
         self.size = size
         self.defaultBranch = defaultBranch
         self.openIssuesCount = openIssuesCount
-        self.isTemplate = isTemplate
+        self.isTemplate = isTemplate ?? false
         self.topics = topics
         self.hasIssues = hasIssues
         self.hasProjects = hasProjects
@@ -6611,14 +6705,14 @@ public struct TeamRepository: Codable {
         self.pushedAt = pushedAt
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.allowRebaseMerge = allowRebaseMerge
+        self.allowRebaseMerge = allowRebaseMerge ?? true
         self.templateRepository = templateRepository
         self.tempCloneToken = tempCloneToken
-        self.allowSquashMerge = allowSquashMerge
-        self.allowAutoMerge = allowAutoMerge
-        self.deleteBranchOnMerge = deleteBranchOnMerge
-        self.allowMergeCommit = allowMergeCommit
-        self.allowForking = allowForking
+        self.allowSquashMerge = allowSquashMerge ?? true
+        self.allowAutoMerge = allowAutoMerge ?? false
+        self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
+        self.allowMergeCommit = allowMergeCommit ?? true
+        self.allowForking = allowForking ?? false
         self.subscribersCount = subscribersCount
         self.networkCount = networkCount
         self.openIssues = openIssues
@@ -6716,6 +6810,99 @@ public struct TeamRepository: Codable {
         case openIssues = "open_issues"
         case watchers
         case masterBranch = "master_branch"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decode(Int.self, forKey: .id)
+        self.nodeID = try values.decode(String.self, forKey: .nodeID)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.fullName = try values.decode(String.self, forKey: .fullName)
+        self.license = try values.decodeIfPresent(LicenseSimple.self, forKey: .license)
+        self.forks = try values.decode(Int.self, forKey: .forks)
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: .permissions)
+        self.roleName = try values.decodeIfPresent(String.self, forKey: .roleName)
+        self.owner = try values.decodeIfPresent(SimpleUser.self, forKey: .owner)
+        self.isPrivate = try values.decode(Bool.self, forKey: .isPrivate)
+        self.htmlURL = try values.decode(URL.self, forKey: .htmlURL)
+        self.description = try values.decodeIfPresent(String.self, forKey: .description)
+        self.isFork = try values.decode(Bool.self, forKey: .isFork)
+        self.url = try values.decode(URL.self, forKey: .url)
+        self.archiveURL = try values.decode(String.self, forKey: .archiveURL)
+        self.assigneesURL = try values.decode(String.self, forKey: .assigneesURL)
+        self.blobsURL = try values.decode(String.self, forKey: .blobsURL)
+        self.branchesURL = try values.decode(String.self, forKey: .branchesURL)
+        self.collaboratorsURL = try values.decode(String.self, forKey: .collaboratorsURL)
+        self.commentsURL = try values.decode(String.self, forKey: .commentsURL)
+        self.commitsURL = try values.decode(String.self, forKey: .commitsURL)
+        self.compareURL = try values.decode(String.self, forKey: .compareURL)
+        self.contentsURL = try values.decode(String.self, forKey: .contentsURL)
+        self.contributorsURL = try values.decode(URL.self, forKey: .contributorsURL)
+        self.deploymentsURL = try values.decode(URL.self, forKey: .deploymentsURL)
+        self.downloadsURL = try values.decode(URL.self, forKey: .downloadsURL)
+        self.eventsURL = try values.decode(URL.self, forKey: .eventsURL)
+        self.forksURL = try values.decode(URL.self, forKey: .forksURL)
+        self.gitCommitsURL = try values.decode(String.self, forKey: .gitCommitsURL)
+        self.gitRefsURL = try values.decode(String.self, forKey: .gitRefsURL)
+        self.gitTagsURL = try values.decode(String.self, forKey: .gitTagsURL)
+        self.gitURL = try values.decode(String.self, forKey: .gitURL)
+        self.issueCommentURL = try values.decode(String.self, forKey: .issueCommentURL)
+        self.issueEventsURL = try values.decode(String.self, forKey: .issueEventsURL)
+        self.issuesURL = try values.decode(String.self, forKey: .issuesURL)
+        self.keysURL = try values.decode(String.self, forKey: .keysURL)
+        self.labelsURL = try values.decode(String.self, forKey: .labelsURL)
+        self.languagesURL = try values.decode(URL.self, forKey: .languagesURL)
+        self.mergesURL = try values.decode(URL.self, forKey: .mergesURL)
+        self.milestonesURL = try values.decode(String.self, forKey: .milestonesURL)
+        self.notificationsURL = try values.decode(String.self, forKey: .notificationsURL)
+        self.pullsURL = try values.decode(String.self, forKey: .pullsURL)
+        self.releasesURL = try values.decode(String.self, forKey: .releasesURL)
+        self.sshURL = try values.decode(String.self, forKey: .sshURL)
+        self.stargazersURL = try values.decode(URL.self, forKey: .stargazersURL)
+        self.statusesURL = try values.decode(String.self, forKey: .statusesURL)
+        self.subscribersURL = try values.decode(URL.self, forKey: .subscribersURL)
+        self.subscriptionURL = try values.decode(URL.self, forKey: .subscriptionURL)
+        self.tagsURL = try values.decode(URL.self, forKey: .tagsURL)
+        self.teamsURL = try values.decode(URL.self, forKey: .teamsURL)
+        self.treesURL = try values.decode(String.self, forKey: .treesURL)
+        self.cloneURL = try values.decode(String.self, forKey: .cloneURL)
+        self.mirrorURL = try values.decodeIfPresent(URL.self, forKey: .mirrorURL)
+        self.hooksURL = try values.decode(URL.self, forKey: .hooksURL)
+        self.svnURL = try values.decode(URL.self, forKey: .svnURL)
+        self.homepage = try values.decodeIfPresent(URL.self, forKey: .homepage)
+        self.language = try values.decodeIfPresent(String.self, forKey: .language)
+        self.forksCount = try values.decode(Int.self, forKey: .forksCount)
+        self.stargazersCount = try values.decode(Int.self, forKey: .stargazersCount)
+        self.watchersCount = try values.decode(Int.self, forKey: .watchersCount)
+        self.size = try values.decode(Int.self, forKey: .size)
+        self.defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
+        self.openIssuesCount = try values.decode(Int.self, forKey: .openIssuesCount)
+        self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: .isTemplate) ?? false
+        self.topics = try values.decodeIfPresent([String].self, forKey: .topics)
+        self.hasIssues = try values.decode(Bool.self, forKey: .hasIssues)
+        self.hasProjects = try values.decode(Bool.self, forKey: .hasProjects)
+        self.hasWiki = try values.decode(Bool.self, forKey: .hasWiki)
+        self.hasPages = try values.decode(Bool.self, forKey: .hasPages)
+        self.hasDownloads = try values.decode(Bool.self, forKey: .hasDownloads)
+        self.isArchived = try values.decode(Bool.self, forKey: .isArchived)
+        self.isDisabled = try values.decode(Bool.self, forKey: .isDisabled)
+        self.visibility = try values.decodeIfPresent(String.self, forKey: .visibility)
+        self.pushedAt = try values.decodeIfPresent(Date.self, forKey: .pushedAt)
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: .createdAt)
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: .updatedAt)
+        self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: .allowRebaseMerge) ?? true
+        self.templateRepository = try values.decodeIfPresent(Repository.self, forKey: .templateRepository)
+        self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: .tempCloneToken)
+        self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: .allowSquashMerge) ?? true
+        self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: .allowAutoMerge) ?? false
+        self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: .deleteBranchOnMerge) ?? false
+        self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: .allowMergeCommit) ?? true
+        self.allowForking = try values.decodeIfPresent(Bool.self, forKey: .allowForking) ?? false
+        self.subscribersCount = try values.decodeIfPresent(Int.self, forKey: .subscribersCount)
+        self.networkCount = try values.decodeIfPresent(Int.self, forKey: .networkCount)
+        self.openIssues = try values.decode(Int.self, forKey: .openIssues)
+        self.watchers = try values.decode(Int.self, forKey: .watchers)
+        self.masterBranch = try values.decodeIfPresent(String.self, forKey: .masterBranch)
     }
 }
 
@@ -7057,7 +7244,7 @@ public struct FullRepository: Codable {
     public var openIssues: Int
     public var watchers: Int
     /// Whether anonymous git access is allowed.
-    public var isAnonymousAccessEnabled: Bool?
+    public var isAnonymousAccessEnabled: Bool
     /// Code Of Conduct Simple
     ///
     /// Code of Conduct Simple
@@ -7221,7 +7408,7 @@ public struct FullRepository: Codable {
         self.masterBranch = masterBranch
         self.openIssues = openIssues
         self.watchers = watchers
-        self.isAnonymousAccessEnabled = isAnonymousAccessEnabled
+        self.isAnonymousAccessEnabled = isAnonymousAccessEnabled ?? true
         self.codeOfConduct = codeOfConduct
         self.securityAndAnalysis = securityAndAnalysis
     }
@@ -7321,6 +7508,104 @@ public struct FullRepository: Codable {
         case isAnonymousAccessEnabled = "anonymous_access_enabled"
         case codeOfConduct = "code_of_conduct"
         case securityAndAnalysis = "security_and_analysis"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decode(Int.self, forKey: .id)
+        self.nodeID = try values.decode(String.self, forKey: .nodeID)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.fullName = try values.decode(String.self, forKey: .fullName)
+        self.owner = try values.decode(SimpleUser.self, forKey: .owner)
+        self.isPrivate = try values.decode(Bool.self, forKey: .isPrivate)
+        self.htmlURL = try values.decode(URL.self, forKey: .htmlURL)
+        self.description = try values.decodeIfPresent(String.self, forKey: .description)
+        self.isFork = try values.decode(Bool.self, forKey: .isFork)
+        self.url = try values.decode(URL.self, forKey: .url)
+        self.archiveURL = try values.decode(String.self, forKey: .archiveURL)
+        self.assigneesURL = try values.decode(String.self, forKey: .assigneesURL)
+        self.blobsURL = try values.decode(String.self, forKey: .blobsURL)
+        self.branchesURL = try values.decode(String.self, forKey: .branchesURL)
+        self.collaboratorsURL = try values.decode(String.self, forKey: .collaboratorsURL)
+        self.commentsURL = try values.decode(String.self, forKey: .commentsURL)
+        self.commitsURL = try values.decode(String.self, forKey: .commitsURL)
+        self.compareURL = try values.decode(String.self, forKey: .compareURL)
+        self.contentsURL = try values.decode(String.self, forKey: .contentsURL)
+        self.contributorsURL = try values.decode(URL.self, forKey: .contributorsURL)
+        self.deploymentsURL = try values.decode(URL.self, forKey: .deploymentsURL)
+        self.downloadsURL = try values.decode(URL.self, forKey: .downloadsURL)
+        self.eventsURL = try values.decode(URL.self, forKey: .eventsURL)
+        self.forksURL = try values.decode(URL.self, forKey: .forksURL)
+        self.gitCommitsURL = try values.decode(String.self, forKey: .gitCommitsURL)
+        self.gitRefsURL = try values.decode(String.self, forKey: .gitRefsURL)
+        self.gitTagsURL = try values.decode(String.self, forKey: .gitTagsURL)
+        self.gitURL = try values.decode(String.self, forKey: .gitURL)
+        self.issueCommentURL = try values.decode(String.self, forKey: .issueCommentURL)
+        self.issueEventsURL = try values.decode(String.self, forKey: .issueEventsURL)
+        self.issuesURL = try values.decode(String.self, forKey: .issuesURL)
+        self.keysURL = try values.decode(String.self, forKey: .keysURL)
+        self.labelsURL = try values.decode(String.self, forKey: .labelsURL)
+        self.languagesURL = try values.decode(URL.self, forKey: .languagesURL)
+        self.mergesURL = try values.decode(URL.self, forKey: .mergesURL)
+        self.milestonesURL = try values.decode(String.self, forKey: .milestonesURL)
+        self.notificationsURL = try values.decode(String.self, forKey: .notificationsURL)
+        self.pullsURL = try values.decode(String.self, forKey: .pullsURL)
+        self.releasesURL = try values.decode(String.self, forKey: .releasesURL)
+        self.sshURL = try values.decode(String.self, forKey: .sshURL)
+        self.stargazersURL = try values.decode(URL.self, forKey: .stargazersURL)
+        self.statusesURL = try values.decode(String.self, forKey: .statusesURL)
+        self.subscribersURL = try values.decode(URL.self, forKey: .subscribersURL)
+        self.subscriptionURL = try values.decode(URL.self, forKey: .subscriptionURL)
+        self.tagsURL = try values.decode(URL.self, forKey: .tagsURL)
+        self.teamsURL = try values.decode(URL.self, forKey: .teamsURL)
+        self.treesURL = try values.decode(String.self, forKey: .treesURL)
+        self.cloneURL = try values.decode(String.self, forKey: .cloneURL)
+        self.mirrorURL = try values.decodeIfPresent(URL.self, forKey: .mirrorURL)
+        self.hooksURL = try values.decode(URL.self, forKey: .hooksURL)
+        self.svnURL = try values.decode(URL.self, forKey: .svnURL)
+        self.homepage = try values.decodeIfPresent(URL.self, forKey: .homepage)
+        self.language = try values.decodeIfPresent(String.self, forKey: .language)
+        self.forksCount = try values.decode(Int.self, forKey: .forksCount)
+        self.stargazersCount = try values.decode(Int.self, forKey: .stargazersCount)
+        self.watchersCount = try values.decode(Int.self, forKey: .watchersCount)
+        self.size = try values.decode(Int.self, forKey: .size)
+        self.defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
+        self.openIssuesCount = try values.decode(Int.self, forKey: .openIssuesCount)
+        self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: .isTemplate)
+        self.topics = try values.decodeIfPresent([String].self, forKey: .topics)
+        self.hasIssues = try values.decode(Bool.self, forKey: .hasIssues)
+        self.hasProjects = try values.decode(Bool.self, forKey: .hasProjects)
+        self.hasWiki = try values.decode(Bool.self, forKey: .hasWiki)
+        self.hasPages = try values.decode(Bool.self, forKey: .hasPages)
+        self.hasDownloads = try values.decode(Bool.self, forKey: .hasDownloads)
+        self.isArchived = try values.decode(Bool.self, forKey: .isArchived)
+        self.isDisabled = try values.decode(Bool.self, forKey: .isDisabled)
+        self.visibility = try values.decodeIfPresent(String.self, forKey: .visibility)
+        self.pushedAt = try values.decode(Date.self, forKey: .pushedAt)
+        self.createdAt = try values.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try values.decode(Date.self, forKey: .updatedAt)
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: .permissions)
+        self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: .allowRebaseMerge)
+        self.templateRepository = try values.decodeIfPresent(Repository.self, forKey: .templateRepository)
+        self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: .tempCloneToken)
+        self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: .allowSquashMerge)
+        self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: .allowAutoMerge)
+        self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: .deleteBranchOnMerge)
+        self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: .allowMergeCommit)
+        self.allowForking = try values.decodeIfPresent(Bool.self, forKey: .allowForking)
+        self.subscribersCount = try values.decode(Int.self, forKey: .subscribersCount)
+        self.networkCount = try values.decode(Int.self, forKey: .networkCount)
+        self.license = try values.decodeIfPresent(LicenseSimple.self, forKey: .license)
+        self.organization = try values.decodeIfPresent(SimpleUser.self, forKey: .organization)
+        self.parent = try values.decodeIfPresent(Repository.self, forKey: .parent)
+        self.source = try values.decodeIfPresent(Repository.self, forKey: .source)
+        self.forks = try values.decode(Int.self, forKey: .forks)
+        self.masterBranch = try values.decodeIfPresent(String.self, forKey: .masterBranch)
+        self.openIssues = try values.decode(Int.self, forKey: .openIssues)
+        self.watchers = try values.decode(Int.self, forKey: .watchers)
+        self.isAnonymousAccessEnabled = try values.decodeIfPresent(Bool.self, forKey: .isAnonymousAccessEnabled) ?? true
+        self.codeOfConduct = try values.decodeIfPresent(CodeOfConductSimple.self, forKey: .codeOfConduct)
+        self.securityAndAnalysis = try values.decodeIfPresent(SecurityAndAnalysis.self, forKey: .securityAndAnalysis)
     }
 }
 
@@ -15224,6 +15509,21 @@ public struct Page: Codable {
         case isPublic = "public"
         case httpsCertificate = "https_certificate"
         case isHTTPSEnforced = "https_enforced"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.url = try values.decode(URL.self, forKey: .url)
+        self.status = try values.decodeIfPresent(Status.self, forKey: .status)
+        self.cname = try values.decodeIfPresent(String.self, forKey: .cname)
+        self.protectedDomainState = try values.decodeIfPresent(ProtectedDomainState.self, forKey: .protectedDomainState)
+        self.pendingDomainUnverifiedAt = try values.decodeIfPresent(Date.self, forKey: .pendingDomainUnverifiedAt)
+        self.isCustom404 = try values.decode(Bool.self, forKey: .isCustom404)
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: .htmlURL)
+        self.source = try values.decodeIfPresent(PagesSourceHash.self, forKey: .source)
+        self.isPublic = try values.decode(Bool.self, forKey: .isPublic)
+        self.httpsCertificate = try values.decodeIfPresent(PagesHTTPSCertificate.self, forKey: .httpsCertificate)
+        self.isHTTPSEnforced = try values.decodeIfPresent(Bool.self, forKey: .isHTTPSEnforced)
     }
 }
 

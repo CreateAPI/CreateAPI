@@ -39,16 +39,18 @@ extension Generator {
                 if let keys = templates.codingKeys(for: properties) {
                     contents.append(keys)
                 }
+                if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
+                    contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
+                }
             } else {
                 if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithCoder {
-                    contents.append(templates.initFromDecoder(properties: properties))
+                    contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
                 }
                 if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingDecode {
                     contents.append(templates.encode(properties: properties))
                 }
             }
         }
-        
         return templates.comments(for: decl.metadata, name: decl.name.rawValue)
         + templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
     }

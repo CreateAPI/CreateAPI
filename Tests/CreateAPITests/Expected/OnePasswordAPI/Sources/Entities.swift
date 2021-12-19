@@ -137,7 +137,7 @@ public struct Item: Codable {
     ///   }
     /// ]
     public var urls: [URL]?
-    public var isFavorite: Bool?
+    public var isFavorite: Bool
     public var tags: [String]?
     public var version: Int?
     public var state: State?
@@ -202,7 +202,7 @@ public struct Item: Codable {
         self.vault = vault
         self.category = category
         self.urls = urls
-        self.isFavorite = isFavorite
+        self.isFavorite = isFavorite ?? false
         self.tags = tags
         self.version = version
         self.state = state
@@ -224,6 +224,22 @@ public struct Item: Codable {
         case createdAt
         case updatedAt
         case lastEditedBy
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decodeIfPresent(String.self, forKey: .id)
+        self.title = try values.decodeIfPresent(String.self, forKey: .title)
+        self.vault = try values.decode(Vault.self, forKey: .vault)
+        self.category = try values.decode(Category.self, forKey: .category)
+        self.urls = try values.decodeIfPresent([URL].self, forKey: .urls)
+        self.isFavorite = try values.decodeIfPresent(Bool.self, forKey: .isFavorite) ?? false
+        self.tags = try values.decodeIfPresent([String].self, forKey: .tags)
+        self.version = try values.decodeIfPresent(Int.self, forKey: .version)
+        self.state = try values.decodeIfPresent(State.self, forKey: .state)
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: .createdAt)
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: .updatedAt)
+        self.lastEditedBy = try values.decodeIfPresent(String.self, forKey: .lastEditedBy)
     }
 }
 
@@ -269,7 +285,7 @@ public struct Field: Codable {
     public var label: String?
     public var value: String?
     /// If value is not present then a new value should be generated for this field
-    public var isGenerate: Bool?
+    public var isGenerate: Bool
     /// The recipe is used in conjunction with the "generate" property to set the character set used to generate a new secure value
     public var recipe: GeneratorRecipe?
     /// For fields with a purpose of `PASSWORD` this is the entropy of the value
@@ -308,7 +324,7 @@ public struct Field: Codable {
         self.purpose = purpose
         self.label = label
         self.value = value
-        self.isGenerate = isGenerate
+        self.isGenerate = isGenerate ?? false
         self.recipe = recipe
         self.entropy = entropy
     }
@@ -323,6 +339,19 @@ public struct Field: Codable {
         case isGenerate = "generate"
         case recipe
         case entropy
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decode(String.self, forKey: .id)
+        self.section = try values.decodeIfPresent(Section.self, forKey: .section)
+        self.type = try values.decode(`Type`.self, forKey: .type)
+        self.purpose = try values.decodeIfPresent(Purpose.self, forKey: .purpose)
+        self.label = try values.decodeIfPresent(String.self, forKey: .label)
+        self.value = try values.decodeIfPresent(String.self, forKey: .value)
+        self.isGenerate = try values.decodeIfPresent(Bool.self, forKey: .isGenerate) ?? false
+        self.recipe = try values.decodeIfPresent(GeneratorRecipe.self, forKey: .recipe)
+        self.entropy = try values.decodeIfPresent(Double.self, forKey: .entropy)
     }
 }
 

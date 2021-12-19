@@ -1455,7 +1455,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             /// List of runner IDs to add to the runner group.
             public var runners: [Int]?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool?
+            public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
             public enum Visibility: String, Codable, CaseIterable {
@@ -1468,7 +1468,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.visibility = visibility
                 self.selectedOrganizationIDs = selectedOrganizationIDs
                 self.runners = runners
-                self.allowsPublicRepositories = allowsPublicRepositories
+                self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -1519,7 +1519,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
             /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
             public var visibility: Visibility?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool?
+            public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
             public enum Visibility: String, Codable, CaseIterable {
@@ -1530,7 +1530,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
             public init(name: String? = nil, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = nil) {
                 self.name = name
                 self.visibility = visibility
-                self.allowsPublicRepositories = allowsPublicRepositories
+                self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -3864,7 +3864,7 @@ extension Paths.Orgs {
             /// \* `false` - only organization owners can create repositories.  
             /// Default: `true`  
             /// **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
-            public var membersCanCreateRepositories: Bool?
+            public var membersCanCreateRepositories: Bool
             /// Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:  
             /// \* `true` - all organization members can create internal repositories.  
             /// \* `false` - only organization owners can create internal repositories.  
@@ -3889,19 +3889,19 @@ extension Paths.Orgs {
             /// Toggles whether organization members can create GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create GitHub Pages sites.  
             /// \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePages: Bool?
+            public var membersCanCreatePages: Bool
             /// Toggles whether organization members can create public GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create public GitHub Pages sites.  
             /// \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePublicPages: Bool?
+            public var membersCanCreatePublicPages: Bool
             /// Toggles whether organization members can create private GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create private GitHub Pages sites.  
             /// \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePrivatePages: Bool?
+            public var membersCanCreatePrivatePages: Bool
             /// Toggles whether organization members can fork private organization repositories. Can be one of:  
             /// \* `true` - all organization members can fork private repositories within the organization.  
             /// \* `false` - no organization members can fork private repositories within the organization.
-            public var membersCanForkPrivateRepositories: Bool?
+            public var membersCanForkPrivateRepositories: Bool
             /// Example: "http://github.blog"
             public var blog: String?
 
@@ -3939,15 +3939,15 @@ extension Paths.Orgs {
                 self.hasOrganizationProjects = hasOrganizationProjects
                 self.hasRepositoryProjects = hasRepositoryProjects
                 self.defaultRepositoryPermission = defaultRepositoryPermission
-                self.membersCanCreateRepositories = membersCanCreateRepositories
+                self.membersCanCreateRepositories = membersCanCreateRepositories ?? true
                 self.membersCanCreateInternalRepositories = membersCanCreateInternalRepositories
                 self.membersCanCreatePrivateRepositories = membersCanCreatePrivateRepositories
                 self.membersCanCreatePublicRepositories = membersCanCreatePublicRepositories
                 self.membersAllowedRepositoryCreationType = membersAllowedRepositoryCreationType
-                self.membersCanCreatePages = membersCanCreatePages
-                self.membersCanCreatePublicPages = membersCanCreatePublicPages
-                self.membersCanCreatePrivatePages = membersCanCreatePrivatePages
-                self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories
+                self.membersCanCreatePages = membersCanCreatePages ?? true
+                self.membersCanCreatePublicPages = membersCanCreatePublicPages ?? true
+                self.membersCanCreatePrivatePages = membersCanCreatePrivatePages ?? true
+                self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories ?? false
                 self.blog = blog
             }
 
@@ -4232,7 +4232,7 @@ extension Paths.Orgs.WithOrg.Actions {
             /// List of runner IDs to add to the runner group.
             public var runners: [Int]?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool?
+            public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
             public enum Visibility: String, Codable, CaseIterable {
@@ -4246,7 +4246,7 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.visibility = visibility
                 self.selectedRepositoryIDs = selectedRepositoryIDs
                 self.runners = runners
-                self.allowsPublicRepositories = allowsPublicRepositories
+                self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -4301,7 +4301,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
             public var visibility: Visibility?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool?
+            public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
             public enum Visibility: String, Codable, CaseIterable {
@@ -4313,7 +4313,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
             public init(name: String, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = nil) {
                 self.name = name
                 self.visibility = visibility
-                self.allowsPublicRepositories = allowsPublicRepositories
+                self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -5499,7 +5499,7 @@ extension Paths.Orgs.WithOrg {
             /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
             public var events: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool?
+            public var isActive: Bool
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
             public struct Config: Encodable {
@@ -5542,7 +5542,7 @@ extension Paths.Orgs.WithOrg {
                 self.name = name
                 self.config = config
                 self.events = events
-                self.isActive = isActive
+                self.isActive = isActive ?? true
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -5588,7 +5588,7 @@ extension Paths.Orgs.WithOrg.Hooks {
             /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
             public var events: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool?
+            public var isActive: Bool
             /// Example: "web"
             public var name: String?
 
@@ -5624,7 +5624,7 @@ extension Paths.Orgs.WithOrg.Hooks {
             public init(config: Config? = nil, events: [String]? = nil, isActive: Bool? = nil, name: String? = nil) {
                 self.config = config
                 self.events = events
-                self.isActive = isActive
+                self.isActive = isActive ?? true
                 self.name = name
             }
 
@@ -6373,19 +6373,19 @@ extension Paths.Orgs.WithOrg {
             /// Indicates whether repositories should be locked (to prevent manipulation) while migrating data.
             ///
             /// Example: true
-            public var lockRepositories: Bool?
+            public var lockRepositories: Bool
             /// Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
             ///
             /// Example: true
-            public var excludeAttachments: Bool?
+            public var excludeAttachments: Bool
             /// Indicates whether releases should be excluded from the migration (to reduce migration archive file size).
             ///
             /// Example: true
-            public var excludeReleases: Bool?
+            public var excludeReleases: Bool
             /// Indicates whether projects owned by the organization or users should be excluded. from the migration.
             ///
             /// Example: true
-            public var excludeOwnerProjects: Bool?
+            public var excludeOwnerProjects: Bool
             public var exclude: [ExcludeItem]?
 
             public enum ExcludeItem: String, Codable, CaseIterable {
@@ -6394,10 +6394,10 @@ extension Paths.Orgs.WithOrg {
 
             public init(repositories: [String], lockRepositories: Bool? = nil, excludeAttachments: Bool? = nil, excludeReleases: Bool? = nil, excludeOwnerProjects: Bool? = nil, exclude: [ExcludeItem]? = nil) {
                 self.repositories = repositories
-                self.lockRepositories = lockRepositories
-                self.excludeAttachments = excludeAttachments
-                self.excludeReleases = excludeReleases
-                self.excludeOwnerProjects = excludeOwnerProjects
+                self.lockRepositories = lockRepositories ?? false
+                self.excludeAttachments = excludeAttachments ?? false
+                self.excludeReleases = excludeReleases ?? false
+                self.excludeOwnerProjects = excludeOwnerProjects ?? false
                 self.exclude = exclude
             }
 
@@ -7109,35 +7109,35 @@ extension Paths.Orgs.WithOrg {
             /// A URL with more information about the repository.
             public var homepage: String?
             /// Whether the repository is private.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
             public var visibility: Visibility?
             /// Either `true` to enable issues for this repository or `false` to disable them.
-            public var hasIssues: Bool?
+            public var hasIssues: Bool
             /// Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
-            public var hasProjects: Bool?
+            public var hasProjects: Bool
             /// Either `true` to enable the wiki for this repository or `false` to disable it.
-            public var hasWiki: Bool?
+            public var hasWiki: Bool
             /// Either `true` to make this repo available as a template repository or `false` to prevent it.
-            public var isTemplate: Bool?
+            public var isTemplate: Bool
             /// The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
             public var teamID: Int?
             /// Pass `true` to create an initial commit with empty README.
-            public var isAutoInit: Bool?
+            public var isAutoInit: Bool
             /// Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell".
             public var gitignoreTemplate: String?
             /// Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0".
             public var licenseTemplate: String?
             /// Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
-            public var allowSquashMerge: Bool?
+            public var allowSquashMerge: Bool
             /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
-            public var allowMergeCommit: Bool?
+            public var allowMergeCommit: Bool
             /// Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
-            public var allowRebaseMerge: Bool?
+            public var allowRebaseMerge: Bool
             /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
-            public var allowAutoMerge: Bool?
+            public var allowAutoMerge: Bool
             /// Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
-            public var deleteBranchOnMerge: Bool?
+            public var deleteBranchOnMerge: Bool
 
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
             public enum Visibility: String, Codable, CaseIterable {
@@ -7150,21 +7150,21 @@ extension Paths.Orgs.WithOrg {
                 self.name = name
                 self.description = description
                 self.homepage = homepage
-                self.isPrivate = isPrivate
+                self.isPrivate = isPrivate ?? false
                 self.visibility = visibility
-                self.hasIssues = hasIssues
-                self.hasProjects = hasProjects
-                self.hasWiki = hasWiki
-                self.isTemplate = isTemplate
+                self.hasIssues = hasIssues ?? true
+                self.hasProjects = hasProjects ?? true
+                self.hasWiki = hasWiki ?? true
+                self.isTemplate = isTemplate ?? false
                 self.teamID = teamID
-                self.isAutoInit = isAutoInit
+                self.isAutoInit = isAutoInit ?? false
                 self.gitignoreTemplate = gitignoreTemplate
                 self.licenseTemplate = licenseTemplate
-                self.allowSquashMerge = allowSquashMerge
-                self.allowMergeCommit = allowMergeCommit
-                self.allowRebaseMerge = allowRebaseMerge
-                self.allowAutoMerge = allowAutoMerge
-                self.deleteBranchOnMerge = deleteBranchOnMerge
+                self.allowSquashMerge = allowSquashMerge ?? true
+                self.allowMergeCommit = allowMergeCommit ?? true
+                self.allowRebaseMerge = allowRebaseMerge ?? true
+                self.allowAutoMerge = allowAutoMerge ?? false
+                self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -7714,12 +7714,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             /// The discussion post's body text.
             public var body: String
             /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
 
             public init(title: String, body: String, isPrivate: Bool? = nil) {
                 self.title = title
                 self.body = body
-                self.isPrivate = isPrivate
+                self.isPrivate = isPrivate ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -9299,35 +9299,35 @@ extension Paths.Repos.WithOwner {
             public var homepage: String?
             /// Either `true` to make the repository private or `false` to make it public. Default: `false`.  
             /// **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
             public var visibility: Visibility?
             /// Specify which security and analysis features to enable or disable. For example, to enable GitHub Advanced Security, use this data in the body of the PATCH request: `{"security_and_analysis": {"advanced_security": {"status": "enabled"}}}`. If you have admin permissions for a private repository covered by an Advanced Security license, you can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request.
             public var securityAndAnalysis: SecurityAndAnalysis?
             /// Either `true` to enable issues for this repository or `false` to disable them.
-            public var hasIssues: Bool?
+            public var hasIssues: Bool
             /// Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
-            public var hasProjects: Bool?
+            public var hasProjects: Bool
             /// Either `true` to enable the wiki for this repository or `false` to disable it.
-            public var hasWiki: Bool?
+            public var hasWiki: Bool
             /// Either `true` to make this repo available as a template repository or `false` to prevent it.
-            public var isTemplate: Bool?
+            public var isTemplate: Bool
             /// Updates the default branch for this repository.
             public var defaultBranch: String?
             /// Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
-            public var allowSquashMerge: Bool?
+            public var allowSquashMerge: Bool
             /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
-            public var allowMergeCommit: Bool?
+            public var allowMergeCommit: Bool
             /// Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
-            public var allowRebaseMerge: Bool?
+            public var allowRebaseMerge: Bool
             /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
-            public var allowAutoMerge: Bool?
+            public var allowAutoMerge: Bool
             /// Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
-            public var deleteBranchOnMerge: Bool?
+            public var deleteBranchOnMerge: Bool
             /// `true` to archive this repository. **Note**: You cannot unarchive repositories through the API.
-            public var isArchived: Bool?
+            public var isArchived: Bool
             /// Either `true` to allow private forks, or `false` to prevent private forks.
-            public var allowForking: Bool?
+            public var allowForking: Bool
 
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
             public enum Visibility: String, Codable, CaseIterable {
@@ -9378,21 +9378,21 @@ extension Paths.Repos.WithOwner {
                 self.name = name
                 self.description = description
                 self.homepage = homepage
-                self.isPrivate = isPrivate
+                self.isPrivate = isPrivate ?? false
                 self.visibility = visibility
                 self.securityAndAnalysis = securityAndAnalysis
-                self.hasIssues = hasIssues
-                self.hasProjects = hasProjects
-                self.hasWiki = hasWiki
-                self.isTemplate = isTemplate
+                self.hasIssues = hasIssues ?? true
+                self.hasProjects = hasProjects ?? true
+                self.hasWiki = hasWiki ?? true
+                self.isTemplate = isTemplate ?? false
                 self.defaultBranch = defaultBranch
-                self.allowSquashMerge = allowSquashMerge
-                self.allowMergeCommit = allowMergeCommit
-                self.allowRebaseMerge = allowRebaseMerge
-                self.allowAutoMerge = allowAutoMerge
-                self.deleteBranchOnMerge = deleteBranchOnMerge
-                self.isArchived = isArchived
-                self.allowForking = allowForking
+                self.allowSquashMerge = allowSquashMerge ?? true
+                self.allowMergeCommit = allowMergeCommit ?? true
+                self.allowRebaseMerge = allowRebaseMerge ?? true
+                self.allowAutoMerge = allowAutoMerge ?? false
+                self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
+                self.isArchived = isArchived ?? false
+                self.allowForking = allowForking ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -14702,7 +14702,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Specifies a task to execute (e.g., `deploy` or `deploy:migrations`).
             public var task: String?
             /// Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
-            public var isAutoMerge: Bool?
+            public var isAutoMerge: Bool
             /// The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.
             public var requiredContexts: [String]?
             public var payload: Payload?
@@ -14711,7 +14711,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Short description of the deployment.
             public var description: String?
             /// Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
-            public var isTransientEnvironment: Bool?
+            public var isTransientEnvironment: Bool
             /// Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
             public var isProductionEnvironment: Bool?
 
@@ -14731,12 +14731,12 @@ extension Paths.Repos.WithOwner.WithRepo {
             public init(ref: String, task: String? = nil, isAutoMerge: Bool? = nil, requiredContexts: [String]? = nil, payload: Payload? = nil, environment: String? = nil, description: String? = nil, isTransientEnvironment: Bool? = nil, isProductionEnvironment: Bool? = nil) {
                 self.ref = ref
                 self.task = task
-                self.isAutoMerge = isAutoMerge
+                self.isAutoMerge = isAutoMerge ?? true
                 self.requiredContexts = requiredContexts
                 self.payload = payload
                 self.environment = environment
                 self.description = description
-                self.isTransientEnvironment = isTransientEnvironment
+                self.isTransientEnvironment = isTransientEnvironment ?? false
                 self.isProductionEnvironment = isProductionEnvironment
             }
 
@@ -15527,11 +15527,11 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
             /// The SHA1 value to set this reference to
             public var sha: String
             /// Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
-            public var isForce: Bool?
+            public var isForce: Bool
 
             public init(sha: String, isForce: Bool? = nil) {
                 self.sha = sha
-                self.isForce = isForce
+                self.isForce = isForce ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -15856,7 +15856,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
             public var events: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool?
+            public var isActive: Bool
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
             public struct Config: Encodable {
@@ -15899,7 +15899,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.name = name
                 self.config = config
                 self.events = events
-                self.isActive = isActive
+                self.isActive = isActive ?? true
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -15949,7 +15949,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
             /// Determines a list of events to be removed from the list of events that the Hook triggers for.
             public var removeEvents: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool?
+            public var isActive: Bool
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
             public struct Config: Encodable {
@@ -15993,7 +15993,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 self.events = events
                 self.addEvents = addEvents
                 self.removeEvents = removeEvents
-                self.isActive = isActive
+                self.isActive = isActive ?? true
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -19772,23 +19772,23 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Text describing the contents of the tag.
             public var body: String?
             /// `true` to create a draft (unpublished) release, `false` to create a published one.
-            public var isDraft: Bool?
+            public var isDraft: Bool
             /// `true` to identify the release as a prerelease. `false` to identify the release as a full release.
-            public var isPrerelease: Bool?
+            public var isPrerelease: Bool
             /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
             public var discussionCategoryName: String?
             /// Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes.
-            public var isGenerateReleaseNotes: Bool?
+            public var isGenerateReleaseNotes: Bool
 
             public init(tagName: String, targetCommitish: String? = nil, name: String? = nil, body: String? = nil, isDraft: Bool? = nil, isPrerelease: Bool? = nil, discussionCategoryName: String? = nil, isGenerateReleaseNotes: Bool? = nil) {
                 self.tagName = tagName
                 self.targetCommitish = targetCommitish
                 self.name = name
                 self.body = body
-                self.isDraft = isDraft
-                self.isPrerelease = isPrerelease
+                self.isDraft = isDraft ?? false
+                self.isPrerelease = isPrerelease ?? false
                 self.discussionCategoryName = discussionCategoryName
-                self.isGenerateReleaseNotes = isGenerateReleaseNotes
+                self.isGenerateReleaseNotes = isGenerateReleaseNotes ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -21024,16 +21024,16 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
             /// A short description of the new repository.
             public var description: String?
             /// Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`.
-            public var isIncludeAllBranches: Bool?
+            public var isIncludeAllBranches: Bool
             /// Either `true` to create a new private repository or `false` to create a new public one.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
 
             public init(owner: String? = nil, name: String, description: String? = nil, isIncludeAllBranches: Bool? = nil, isPrivate: Bool? = nil) {
                 self.owner = owner
                 self.name = name
                 self.description = description
-                self.isIncludeAllBranches = isIncludeAllBranches
-                self.isPrivate = isPrivate
+                self.isIncludeAllBranches = isIncludeAllBranches ?? false
+                self.isPrivate = isPrivate ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -23047,12 +23047,12 @@ extension Paths.Teams.WithTeamID {
             /// The discussion post's body text.
             public var body: String
             /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
 
             public init(title: String, body: String, isPrivate: Bool? = nil) {
                 self.title = title
                 self.body = body
-                self.isPrivate = isPrivate
+                self.isPrivate = isPrivate ?? false
             }
 
             private enum CodingKeys: String, CodingKey {
@@ -26297,23 +26297,23 @@ extension Paths.User {
             /// A URL with more information about the repository.
             public var homepage: String?
             /// Whether the repository is private.
-            public var isPrivate: Bool?
+            public var isPrivate: Bool
             /// Whether issues are enabled.
             ///
             /// Example: true
-            public var hasIssues: Bool?
+            public var hasIssues: Bool
             /// Whether projects are enabled.
             ///
             /// Example: true
-            public var hasProjects: Bool?
+            public var hasProjects: Bool
             /// Whether the wiki is enabled.
             ///
             /// Example: true
-            public var hasWiki: Bool?
+            public var hasWiki: Bool
             /// The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
             public var teamID: Int?
             /// Whether the repository is initialized with a minimal README.
-            public var isAutoInit: Bool?
+            public var isAutoInit: Bool
             /// The desired language or platform to apply to the .gitignore.
             ///
             /// Example: "Haskell"
@@ -26325,51 +26325,51 @@ extension Paths.User {
             /// Whether to allow squash merges for pull requests.
             ///
             /// Example: true
-            public var allowSquashMerge: Bool?
+            public var allowSquashMerge: Bool
             /// Whether to allow merge commits for pull requests.
             ///
             /// Example: true
-            public var allowMergeCommit: Bool?
+            public var allowMergeCommit: Bool
             /// Whether to allow rebase merges for pull requests.
             ///
             /// Example: true
-            public var allowRebaseMerge: Bool?
+            public var allowRebaseMerge: Bool
             /// Whether to allow Auto-merge to be used on pull requests.
             ///
             /// Example: false
-            public var allowAutoMerge: Bool?
+            public var allowAutoMerge: Bool
             /// Whether to delete head branches when pull requests are merged
             ///
             /// Example: false
-            public var deleteBranchOnMerge: Bool?
+            public var deleteBranchOnMerge: Bool
             /// Whether downloads are enabled.
             ///
             /// Example: true
-            public var hasDownloads: Bool?
+            public var hasDownloads: Bool
             /// Whether this repository acts as a template that can be used to generate new repositories.
             ///
             /// Example: true
-            public var isTemplate: Bool?
+            public var isTemplate: Bool
 
             public init(name: String, description: String? = nil, homepage: String? = nil, isPrivate: Bool? = nil, hasIssues: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, teamID: Int? = nil, isAutoInit: Bool? = nil, gitignoreTemplate: String? = nil, licenseTemplate: String? = nil, allowSquashMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, hasDownloads: Bool? = nil, isTemplate: Bool? = nil) {
                 self.name = name
                 self.description = description
                 self.homepage = homepage
-                self.isPrivate = isPrivate
-                self.hasIssues = hasIssues
-                self.hasProjects = hasProjects
-                self.hasWiki = hasWiki
+                self.isPrivate = isPrivate ?? false
+                self.hasIssues = hasIssues ?? true
+                self.hasProjects = hasProjects ?? true
+                self.hasWiki = hasWiki ?? true
                 self.teamID = teamID
-                self.isAutoInit = isAutoInit
+                self.isAutoInit = isAutoInit ?? false
                 self.gitignoreTemplate = gitignoreTemplate
                 self.licenseTemplate = licenseTemplate
-                self.allowSquashMerge = allowSquashMerge
-                self.allowMergeCommit = allowMergeCommit
-                self.allowRebaseMerge = allowRebaseMerge
-                self.allowAutoMerge = allowAutoMerge
-                self.deleteBranchOnMerge = deleteBranchOnMerge
-                self.hasDownloads = hasDownloads
-                self.isTemplate = isTemplate
+                self.allowSquashMerge = allowSquashMerge ?? true
+                self.allowMergeCommit = allowMergeCommit ?? true
+                self.allowRebaseMerge = allowRebaseMerge ?? true
+                self.allowAutoMerge = allowAutoMerge ?? false
+                self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
+                self.hasDownloads = hasDownloads ?? true
+                self.isTemplate = isTemplate ?? false
             }
 
             private enum CodingKeys: String, CodingKey {

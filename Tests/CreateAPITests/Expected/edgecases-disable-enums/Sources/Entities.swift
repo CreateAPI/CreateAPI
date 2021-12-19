@@ -13,7 +13,7 @@ public struct Order: Codable {
     public var shipDate: Date?
     /// Order Status
     public var status: String?
-    public var isComplete: Bool?
+    public var isComplete: Bool
 
     public init(id: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: String? = nil, isComplete: Bool? = nil) {
         self.id = id
@@ -21,7 +21,7 @@ public struct Order: Codable {
         self.quantity = quantity
         self.shipDate = shipDate
         self.status = status
-        self.isComplete = isComplete
+        self.isComplete = isComplete ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -31,6 +31,16 @@ public struct Order: Codable {
         case shipDate
         case status
         case isComplete = "complete"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decodeIfPresent(Int.self, forKey: .id)
+        self.petID = try values.decodeIfPresent(Int.self, forKey: .petID)
+        self.quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
+        self.shipDate = try values.decodeIfPresent(Date.self, forKey: .shipDate)
+        self.status = try values.decodeIfPresent(String.self, forKey: .status)
+        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: .isComplete) ?? false
     }
 }
 

@@ -7,9 +7,7 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Fix "public var uRLFields: URLFields" in Twitter API
-// TODO: Handle Bools with default values, e.g. `public var isFavorite: Bool?` in OnePassword spec
 // TODO: Add Read-Only and Write-Only Properties support
-// TODO: Remove StringCodingKeys when they are not needed
 
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
@@ -22,6 +20,8 @@ import GrammaticalNumber
 // TODO: Clarify intentions behind `properties` mixed with `anyOf` https://github.com/github/rest-api-description/discussions/805
 // TODO: Improve `anyOf` support
 // TODO: `entitiesGeneratedAsClasses` - add support for nesting
+// TODO: `makeAllOf` to support custom coding keys
+// TODO: Remove StringCodingKeys when they are not needed
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
@@ -166,7 +166,13 @@ extension Generator {
             if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
                 type = type.asPatchParameter()
             }
-            return Property(name: name, type: type, isOptional: isOptional, key: key, metadata: .init(info), nested: nested)
+            var defaultValue: String?
+            if options.entities.isAddingDefaultValues {
+                if type.isBool {
+                    defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
+                }
+            }
+            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
         }
                 
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
@@ -573,12 +579,12 @@ extension Generator {
                 return templates.decodeFromDecoder(property: $0)
             } else {
                 needsValues = true
-                return templates.decode(property: $0)
+                return templates.decode(property: $0, isUsingCodingKeys: false)
             }
         }.joined(separator: "\n")
         let protocols = getProtocols(for: name, context: context)
         if protocols.isDecodable {
-            contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues))
+            contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues, isUsingCodingKeys: false))
         }
         if protocols.isEncodable {
             contents.append(templates.encode(properties: properties))

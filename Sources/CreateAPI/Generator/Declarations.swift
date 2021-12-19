@@ -142,6 +142,7 @@ struct Property {
     var key: String
     // This is currently only used for query parameters
     var explode = true
+    var defaultValue: String?
     var metadata: DeclarationMetadata?
     // A nested declaration required used as a property type
     var nested: Declaration?
