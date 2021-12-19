@@ -11,6 +11,7 @@ import GrammaticalNumber
 
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
+// TODO: Add support for more default values, strings, arrays?
 // TODO: `Rename.entities` to support nested types
 // TODO: Add `Rename.enums`
 // TODO: Add an option to hide `anyJSON`
