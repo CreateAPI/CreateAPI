@@ -591,11 +591,7 @@ final class GenerateTests: XCTestCase {
             pathForSpec(named: "googlebooks"),
             "--output", temp.url.path,
             "--strict",
-            "--package", "GoogleBooksAPI",
-            "--config", config("""
-            paths:
-              isRemovingRedundantPaths: true
-            """, ext: "yml")
+            "--package", "GoogleBooksAPI"
         ])
         
         // WHEN
@@ -659,11 +655,7 @@ final class GenerateTests: XCTestCase {
             pathForSpec(named: "twitter"),
             "--output", temp.url.path,
             "--strict",
-            "--package", "TwitterAPI",
-            "--config", config("""
-            paths:
-              isRemovingRedundantPaths: true
-            """, ext: "yml")
+            "--package", "TwitterAPI"
         ])
         
         // WHEN

@@ -90,6 +90,7 @@ extension Generator {
         return jobs
     }
     
+    // TODO: Improve this logic
     private func findCommonIndiciesCount() -> Int {
         guard options.paths.isRemovingRedundantPaths else {
             return 0
@@ -100,6 +101,10 @@ extension Generator {
             for key in spec.paths.keys {
                 guard key.components.indices.contains(index),
                       key.components[index] == component else {
+                    return commonIndices
+                }
+                if key.components.indices.contains(index + 1),
+                   key.components[(index + 1)].contains("{") {
                     return commonIndices
                 }
                 if let item = spec.paths[OpenAPI.Path(rawValue: key.components[...index].joined(separator: "/"))],

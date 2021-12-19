@@ -110,7 +110,7 @@ struct Generate: ParsableCommand {
     
     private func readOptions() throws -> GenerateOptions {
         let url = URL(filePath: config)
-        guard let data = try? Data(contentsOf: url) else {
+        guard let data = try? Data(contentsOf: url), !data.isEmpty else {
             return GenerateOptions() // Use default options
         }
         let options: GenerateOptionsSchema
