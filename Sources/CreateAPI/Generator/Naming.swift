@@ -177,10 +177,15 @@ extension String {
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
         if options.isReplacingCommonAcronyms {
-            for abbreviation in acronyms + options.additionalAcronyms {
-                if let range = output.range(of: abbreviation.capitalizingFirstLetter()),
+            for acronym in acronyms + options.additionalAcronyms {
+                if let range = output.range(of: acronym.capitalizingFirstLetter()),
                    (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
-                    output.replaceSubrange(range, with: abbreviation.uppercased())
+                    output.replaceSubrange(range, with: acronym.uppercased())
+                }
+                if isProperty {
+                    if let range = output.lowercased().range(of: acronym), range.lowerBound == output.startIndex {
+                        output.replaceSubrange(range, with: acronym)
+                    }
                 }
             }
         }

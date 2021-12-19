@@ -141,17 +141,17 @@ public struct URLEntity: Codable {
     /// Represent a boundary range (start and end index) for a recognized entity (for example a hashtag or a mention). `start` must be smaller than `end`.  The start index is inclusive, the end index is exclusive.
     public var entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive
     /// Represent the portion of text recognized as a URL.
-    public var uRLFields: URLFields
+    public var urlFields: URLFields
 
     public init(from decoder: Decoder) throws {
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
-        self.uRLFields = try URLFields(from: decoder)
+        self.urlFields = try URLFields(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(entityIndicesInclusiveExclusive, forKey: "entityIndicesInclusiveExclusive")
-        try values.encode(uRLFields, forKey: "uRLFields")
+        try values.encode(urlFields, forKey: "urlFields")
     }
 }
 
