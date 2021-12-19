@@ -617,6 +617,21 @@ final class GenerateTests: XCTestCase {
         // THEN
         try compare(package: "TomTomAPI")
     }
+    
+    func testGeneratePostman() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "postman"),
+            "--output", temp.url.path,
+            "--package", "PostmanAPI"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "PostmanAPI")
+    }
 }
 
 extension GenerateTests {

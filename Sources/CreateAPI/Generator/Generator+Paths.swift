@@ -155,7 +155,7 @@ extension Generator {
         
         let parameter = try parameterName.map { try getParameter(item: job.item, name: $0) }
         let path = job.isTopLevel ? job.path.rawValue : "/\(component)"
-        return templates.pathExtension(of: extensionOf, component: component, type: type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
+        return templates.pathExtension(of: extensionOf, component: component.isEmpty ? "root" : component, type: type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
     }
     
     private func makePathName(for component: String) -> TypeName {

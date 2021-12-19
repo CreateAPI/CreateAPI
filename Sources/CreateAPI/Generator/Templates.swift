@@ -467,7 +467,7 @@ final class Templates {
         } else {
             return """
             extension \(extensionOf) {
-                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
+                \(access)\(stat)var \(PropertyName(processing: component, options: options)): \(type) {
                     \(type)(path: \(isTopLevel ? "\"\(path)\"" : ("path + \"/\(component)\"")))
                 }
             
