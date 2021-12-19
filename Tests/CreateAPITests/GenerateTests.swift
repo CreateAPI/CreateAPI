@@ -105,6 +105,12 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "ebay-finances", package: "EbayFinancesAPI")
     }
     
+    // TODO: Update with the latest version (https://developer.apple.com/documentation/appstoreconnectapi)
+    // when `gzip` and duplicated `- $ref: "#/components/schemas/AppCategory"` are fixed
+    func testGenerateAppStoreConnect() throws {
+        try testSpec(name: "app-store-connect", package: "AppStoreConnectAPI")
+    }
+    
     func testSpec(name: String, package: String) throws {
         // GIVEN
         let command = try Generate.parse([

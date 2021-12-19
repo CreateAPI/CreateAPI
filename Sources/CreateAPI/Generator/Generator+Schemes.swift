@@ -7,6 +7,7 @@ import Foundation
 import GrammaticalNumber
 
 // TODO: Add Read-Only and Write-Only Properties support
+// TODO: stirng with format "binary"?
 // TODO: Add an option to add to namespace to all generated entities
 // TODO: Add an option to convert optional arrays to empty arrays
 // TODO: Add support for more default values, strings, arrays?
