@@ -359,7 +359,8 @@ extension Generator {
             contents += [templates.initializer(properties: query)]
             contents += [templates.asQuery(properties: query)]
             let type = makeNestedTypeName("Parameters")
-            if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold {
+            // TODO: Relax the restriction for `operations` style
+            if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold, (style == .rest || query.allSatisfy { $0.nested == nil }) {
                 for item in query {
                     parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
                 }
