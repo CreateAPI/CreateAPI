@@ -443,10 +443,6 @@ extension Generator {
     private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
 
     // TODO: Add application/x-www-form-urlencoded support
-    // TODO: Add text/plain support
-    // TODO: Add binary support
-    // TODO: Add "image*" support
-    // TODO: Add anyOf, oneOf support
     // TODO: Add uploads support
     private func makeRequestBodyType(for requestBody: RequestBody, method: String, context: Context) throws -> GeneratedType {
         var context = context
