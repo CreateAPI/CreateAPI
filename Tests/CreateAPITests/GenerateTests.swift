@@ -562,6 +562,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "github"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "OctoKit",
             "--vendor", "github",
             "--config", config("""
@@ -589,6 +590,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "googlebooks"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "GoogleBooksAPI",
             "--config", config("""
             paths:
@@ -608,6 +610,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "tomtom"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "TomTomAPI"
         ])
         
@@ -623,6 +626,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "postman"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "PostmanAPI"
         ])
         
@@ -638,6 +642,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "simplecart"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "SimpleCartAPI"
         ])
         
@@ -653,6 +658,7 @@ final class GenerateTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: "twitter"),
             "--output", temp.url.path,
+            "--strict",
             "--package", "TwitterAPI",
             "--config", config("""
             paths:
