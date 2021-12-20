@@ -217,7 +217,8 @@ extension Generator {
         }
         
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
-            // TODO: Refactor (changed it to `null` to avoid issue with cycles
+            // TODO: Refactor (changed it to `null` to avoid issue with cycles)
+            // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
             guard let type = try getPrimitiveType(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
