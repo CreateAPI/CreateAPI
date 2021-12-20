@@ -44,7 +44,7 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
 /// A property/parameter name in a camel-case format, e.g. `gistsURL`.
 ///
 /// If the name matches one of the Swift keywords, it's automatically escaped.
-struct PropertyName: CustomStringConvertible, DeclarationName {
+struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
     
     init(processing rawValue: String, options: GenerateOptions) {

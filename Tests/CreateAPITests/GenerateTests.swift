@@ -154,6 +154,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "open-banking", package: "OpenBankingAPI")
     }
     
+    func testSlack() throws {
+        try testSpec(name: "slack", package: "SlackAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
