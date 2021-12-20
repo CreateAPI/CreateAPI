@@ -1008,25 +1008,7 @@ public struct AppCategoriesResponse: Codable {
     public var links: PagedDocumentLinks
     public var meta: PagingInformation?
 
-    public enum IncludedItem: Codable {
-        case appCategory(AppCategory)
-
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let value = try? container.decode(AppCategory.self) {
-                self = .appCategory(value)
-            } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-            }
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .appCategory(let value): try container.encode(value)
-            }
-        }
-    }
+    public typealias IncludedItem = AppCategory
 
     public init(data: [AppCategory], included: [IncludedItem]? = nil, links: PagedDocumentLinks, meta: PagingInformation? = nil) {
         self.data = data
@@ -1160,25 +1142,7 @@ public struct AppCategoryResponse: Codable {
     public var included: [IncludedItem]?
     public var links: DocumentLinks
 
-    public enum IncludedItem: Codable {
-        case appCategory(AppCategory)
-
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let value = try? container.decode(AppCategory.self) {
-                self = .appCategory(value)
-            } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-            }
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .appCategory(let value): try container.encode(value)
-            }
-        }
-    }
+    public typealias IncludedItem = AppCategory
 
     public init(data: AppCategory, included: [IncludedItem]? = nil, links: DocumentLinks) {
         self.data = data

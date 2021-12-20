@@ -18002,25 +18002,7 @@ public struct SecretScanningLocation: Codable {
         case commit
     }
 
-    public enum Details: Codable {
-        case secretScanningLocationCommit(SecretScanningLocationCommit)
-
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let value = try? container.decode(SecretScanningLocationCommit.self) {
-                self = .secretScanningLocationCommit(value)
-            } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
-            }
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .secretScanningLocationCommit(let value): try container.encode(value)
-            }
-        }
-    }
+    public typealias Details = SecretScanningLocationCommit
 
     public init(type: `Type`, details: Details) {
         self.type = type

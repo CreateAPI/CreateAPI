@@ -3,6 +3,7 @@
 // Copyright (c) 2021 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
+import OpenAPIKit30
 
 extension String {
     func capitalizingFirstLetter() -> String {
@@ -98,5 +99,20 @@ struct Template {
             output = output.replacingOccurrences(of: "%\(index)", with: parameter[index])
         }
         return output
+    }
+}
+
+extension Array {
+    func removingDuplicates<U: Hashable>(by closure: (Element) -> U) -> [Element] {
+        var buffer = [Element]()
+        var encountered = Set<U>()
+        for element in self {
+            let key = closure(element)
+            if !encountered.contains(key) {
+                buffer.append(element)
+                encountered.insert(key)
+            }
+        }
+        return buffer
     }
 }

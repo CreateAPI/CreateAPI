@@ -134,7 +134,7 @@ extension Generator {
             guard let ref = info.name, !ref.isEmpty else {
                 throw GeneratorError("Reference name is missing")
             }
-            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: TypeName(ref)))
+            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: makeTypeName(ref)))
         case .fragment:
             throw GeneratorError("Fragments not supported in this context: \(name)")
         }
@@ -520,14 +520,21 @@ extension Generator {
                 property.name = PropertyName("bool")
             }
             return property
-        }
+        }.removingDuplicates { $0.type }
         
+        // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
+        // TODO: We can potentially inline this instead of creating a typealias
+        if properties.count == 1, properties[0].nested == nil {
+            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: properties[0].type.name))
+        }
+    
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
         let isHashable = properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
         if isHashable { protocols.insert("Hashable") }
         
         var contents: [String] = []
+        // TODO: Add comments for cases
         contents.append(properties.map(templates.case).joined(separator: "\n"))
         contents += properties.compactMap { $0.nested }.map(render)
         if protocols.isDecodable {

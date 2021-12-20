@@ -150,6 +150,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "nyt-community", package: "NYTCommunityAPI")
     }
     
+    func testOpenBanking() throws {
+        try testSpec(name: "open-banking", package: "OpenBankingAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
