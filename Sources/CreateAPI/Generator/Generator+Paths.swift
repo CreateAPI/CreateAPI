@@ -17,6 +17,7 @@ import GrammaticalNumber
 // TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
 // TODO: Split operations in separate files
 // TODO: Add support for application/json-patch+json
+// TODO: Add an option to put inline responses into separate files
 
 extension Generator {
     func paths() throws -> GeneratorOutput {

@@ -153,7 +153,7 @@ struct Generate: ParsableCommand {
                 throw GeneratorError("The file must have one of the following extensions: `json`, `yml`, `yaml`.")
             }
         } catch {
-            throw GeneratorError("ERROR! The spec is missing or invalid. \(error)")
+            throw GeneratorError("ERROR! The spec is missing or invalid. \(OpenAPI.Error(from: error))")
         }
         bench.stop()
         return spec
