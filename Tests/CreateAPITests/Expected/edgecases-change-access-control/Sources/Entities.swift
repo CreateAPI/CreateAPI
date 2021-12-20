@@ -388,7 +388,6 @@ enum EnumClass: String, Codable, CaseIterable {
     var capitalSnake: String?
     var sCAETHFlowPoints: String?
     /// Name of the pet
-    /// 
     var attName: String?
 
     init(smallCamel: String? = nil, capitalCamel: String? = nil, smallSnake: String? = nil, capitalSnake: String? = nil, sCAETHFlowPoints: String? = nil, attName: String? = nil) {

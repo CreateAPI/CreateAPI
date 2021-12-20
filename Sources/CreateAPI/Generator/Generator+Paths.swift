@@ -16,6 +16,7 @@ import GrammaticalNumber
 // TODO: Add proper support for multipart form data
 // TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
 // TODO: Split operations in separate files
+// TODO: Add support for application/json-patch+json
 
 extension Generator {
     func paths() throws -> GeneratorOutput {

@@ -328,7 +328,9 @@ final class Templates {
         
         if options.isAddingTitles, !title.isEmpty {
             let title = options.isCapitalizationEnabled ? title.capitalizingFirstLetter() : title
-            output += "/// \(title)\n"
+            for line in title.lines {
+                output += "/// \(line)\n"
+            }
         }
         if options.isAddingDescription, !description.isEmpty, description != metadata.title {
             if !output.isEmpty {
@@ -469,7 +471,7 @@ final class Templates {
         let stat = isTopLevel ? "static " : ""
         if let parameter = parameter {
             let componentWithId = component.replacingOccurrences(of: "{\(parameter.key)}", with: "\\(" + parameter.name.rawValue + ")")
-            let path = #""\(path)/"# + componentWithId + "\""
+            let path = (isTopLevel ? "\"/" : #""\(path)/"#) + componentWithId + "\""
             return """
             extension \(extensionOf) {
                 \(access)\(stat)func \(parameter.name)(_ \(parameter.name): \(parameter.type)) -> \(type) {
@@ -482,7 +484,7 @@ final class Templates {
         } else {
             return """
             extension \(extensionOf) {
-                \(access)\(stat)var \(PropertyName(processing: component, options: options)): \(type) {
+                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
                     \(type)(path: \(isTopLevel ? "\"\(path)\"" : ("path + \"/\(component)\"")))
                 }
             
@@ -635,11 +637,12 @@ extension String {
     var lines: [String] {
         var lines: [String] = []
         var index = startIndex
-        while let newLineIndex = self[index...].firstIndex(of: "\n") {
-            lines.append(String(self[index..<newLineIndex]))
-            index = self.index(after: newLineIndex)
+        let input = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        while let newLineIndex = input[index...].firstIndex(of: "\n") {
+            lines.append(String(input[index..<newLineIndex]))
+            index = input.index(after: newLineIndex)
         }
-        lines.append(String(self[index...]))
+        lines.append(String(input[index...]))
         return lines
     }
 }

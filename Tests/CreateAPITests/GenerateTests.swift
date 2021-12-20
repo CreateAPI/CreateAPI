@@ -110,13 +110,42 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "jira", package: "Jira")
     }
     
-    func testSpec(name: String, package: String) throws {
+    // TODO: Can we automatically resolve these conflicts?
+    // - "/repositories/{workspace}/{repo_slug}/pipelines-config/
+    // - "/repositories/{workspace}/{repo_slug}/pipelines_config/
+    func _testGenerateBitbucket() throws {
+        try testSpec(name: "bitbucket", package: "BitbucketAPI")
+    }
+    
+    // TODO: Add application/json-patch+json support
+    func _testGenerateBox() throws {
+        try testSpec(name: "box", package: "BoxAPI")
+    }
+    
+    func testCircleCI() throws {
+        try testSpec(name: "circle-ci", package: "CircleCIAPI")
+    }
+    
+    func testCrucible() throws {
+        try testSpec(name: "crucible", package: "CrucibleAPI")
+    }
+    
+    func testInstagram() throws {
+        try testSpec(name: "instagram", package: "InstagramAPI")
+    }
+    
+    func testNYTArchive() throws {
+        try testSpec(name: "nyt-archive", package: "NYTArchiveAPI")
+    }
+    
+    func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: name),
             "--output", temp.url.path,
             "--strict",
-            "--package", package
+            "--package", package,
+            "--config", self.config(config, ext: "yml")
         ])
 
         // WHEN

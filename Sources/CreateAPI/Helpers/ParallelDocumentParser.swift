@@ -29,7 +29,7 @@ final class ParallelDocumentParser: Decodable {
         }
 
         group.wait()
-                
+
         // Skip fields that we don't need for code generation
 
         self.document = OpenAPI.Document(

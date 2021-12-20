@@ -1,0 +1,3041 @@
+openapi: 3.0.0
+#servers:
+#  - url: https://stage.usecrucible.com
+#  - url: https://cfa-stage.usecrucible.com
+servers:
+# Added by API Auto Mocking Plugin
+#  - description: SwaggerHub API Auto Mocking
+#    url: https://virtserver.swaggerhub.com/BrightLink/Crucible/1.2.1
+#  - url: https://stage.usecrucible.com
+#  - url: https://cfa-stage.usecrucible.com
+#  - url: https://cfa-qa.usecrucible.com
+  - url: 'https://{host}'
+    variables:
+      host:
+        default: stage.usecrucible.com  # SaaS server
+info:
+  version: 1.4.2
+  title: Crucible API
+  description: The endpoints to be used with Crucible. Please Authorize once for all endpoints.
+security:
+  - Api-Key: []
+paths:
+  '/candidates':
+    get:
+      summary: Get candidates
+      description: >-
+        Get candidates based on specified filters.
+      tags:
+        - Candidates
+      operationId: Get Candidates
+      parameters:
+        - name: query
+          description: >-
+            A string that will be compared against the client_id of candidates
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          description: An integer representing the number of records to return
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: sort_field
+          description: A column by which to sort the records
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort_dir
+          description: >-
+            A specification of the default direction of the sorting (asc/desc, case-insensitive)
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved a candidate or list of candidates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordsTotal:
+                    type: integer
+                  recordsFiltered:
+                    description: The total number of filtered records returned
+                  candidates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GetCandidatesObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Create candidate
+      description: >-
+        Create a new candidate. Must have 'Candidates Create` permission to access. Any additional data provided that are not in the fields specified in the body will be held in our custom_data field
+      tags:
+        - Candidates
+      operationId: Create Candidate
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                description:
+                  description: The name of the candidate if provided, otherwise the client_id
+                  type: string
+                number:
+                  description: The candidate number for the candidate
+                  type: string
+                client_id:
+                  description: The client-supplied ID for the candidate. Must be unique
+                  type: string
+                photo:
+                  description: A photo of the candidate. Must be in jpeg, jpg, or png image format
+                  type: string
+                  format: binary
+                tags:
+                  description: A list of tags to be associated with the candidate.
+                  type: array
+                  items:
+                    type: string
+                custom_data:
+                  description: An object of additional data fields
+                  type: object
+      responses:
+        '200':
+          description: >-
+            Successfully created a new candidate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateObject'
+        '400':
+          description: >-
+            Bad Request. The request was malformed. Check response body for more information.
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+  '/candidates/client_id={client_id}':
+    get:
+      summary: Get candidate
+      description: >-
+        Retrieve a specific candidate. Must have 'Candidates View` permission to access
+      tags:
+        - Candidates
+      operationId: Get Candidate
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the candidate
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved the candidate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    put:
+      summary: Update candidate
+      description: >-
+        Update a candidate's information. Must have 'Candidates Edit` permission to access
+      tags:
+        - Candidates
+      operationId: Update Candidate
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the candidate
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  description: The candidate number for the candidate
+                  type: string
+                client_id:
+                  description: The client-supplied ID for the candidate. Must be unique
+                  type: string
+                tags:
+                  description: >-
+                    A single tag or list of tags to be associated with the candidate. Updating a candidate with tags replaces all current tag data associated with the candidate
+                  type: array
+                  items:
+                    type: string
+                custom_data:
+                  description: >-
+                    An arbitrary number of additional data fields that can be stored to the candidate. Any preexisting data will remain intact. Any new data mapping to preexisting data keys will be updated with new values. All new data will be added.
+                  type: object
+            examples:
+              exampleRequestBody1:
+                summary: A request body example
+                value:
+                  number: "55555"
+                  client_id: "66666"
+                  tags: ["red", "blue"]
+                  custom_data: {"name": "John", "location": "USA", "eye_color": "blue", "additional_data": "data", "test_id": 111, "15": 5}
+      responses:
+        '200':
+          description: >-
+            Successfully updated the candidate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateUpdateObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      summary: Delete candidate
+      description: >-
+        Delete a candidate record. Must have 'Candidates Delete` permission to access
+      tags:
+        - Candidates
+      operationId: Delete Candidate
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the candidate
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            Successfully deleted the candidate
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/evidence':
+    post:
+      summary: Upload multiple documents as digital evidence
+      description: |
+        Upload multiple documents representing digital evidence to candidate(s).
+        
+        - Supported types - `.pdf, .webm, .mp4`
+        
+        - Must have `Evidence: Create` permission to access
+      tags:
+        - Digital Evidence
+      operationId: Upload digital evidence documents
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  description: >-
+                    A single document or multiple documents representing digital dvidence. Filenames should be in the format `xxxxx-yyyyy.zzz` where `xxxxx` is the client ID of the candidate, `yyyyy` is the Crucible-generated ID of the item, and `zzz` is the file extension.
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: >-
+            Successfully uploaded documents as digital dvidence to candidate(s)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvidenceArrayObject'
+        '400':
+          description: >-
+            Bad Request. The request was malformed. Check response body for more information.
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+  '/candidates/client_id={client_id}/evidence':
+    post:
+      summary: Upload a document as digital evidence
+      description: |
+        Upload a document representing digital evidence to a specific candidate-item pairing
+        - Supported types - `.pdf, .webm, .mp4`
+        
+        - Must have `Evidence: Create` permission to access
+      tags:
+        - Digital Evidence
+      operationId: Upload digital evidence document
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the candidate
+          required: true
+          schema:
+            type: string
+        
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                item_id:
+                  description: >-
+                    The Crucible-generated identifier for the item to be associated with the document.
+                  type: integer
+                evidence:
+                  description: |
+                    The document that represents the digital evidence for the candidate.
+                    Supported types - `.pdf, .webm, .mp4`
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successfully uploaded the document as digital evidence to a candidate-item pairing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvidenceObject'
+        '400':
+          description: >-
+            Bad Request. The request was malformed. Check response body for more information.
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+        '404':
+          description: >-
+            Not found. The candidate provided is not found in the system.
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+  '/evaluations':
+    get:
+      summary: Get Evaluations
+      description: >-
+        Get evaluations based on specified filters.
+      tags:
+        - Evaluations
+      operationId: Get evaluations
+      parameters:
+        - name: examiner_tag
+          description: A tag associated with an examiner at the time the evaluation was started.
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: start_date
+          description: The start date filter. It filters down to only evaluations started or or after that date. Formatted as ISO-8601 dates.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          description: The end date filter. It filters down to only evaluations ended on or after that date. Formatted as ISO-8601 dates.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: >-
+            The requested evaluation was returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResultsObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events':
+    post:
+      summary: Create Exam Event
+      description: >-
+        Create an exam event. Must have 'Exam Events Create` permission to access.
+      tags:
+        - Exam Events
+      operationId: Create Exam Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: >-
+                    *Required. The name of the exam event. Must be a unique, non-empty string
+                  type: string
+                event_type:
+                  description: >-
+                    By default, the event type is "independent_lists". If the event type is `osce`, this must be explicitly set
+                  type: string
+                  enum:
+                    - independent_lists
+                    - osce
+                scoring_rubric_id:
+                  description: >-
+                    The Crucible-generated identifier of the scoring rubric to be utilized. By default, scoring rubric is set to `None`
+                  type: integer
+                stations:
+                  description: >-
+                    The number of stations in an OSCE event. By default, stations is set to `None`. If the event is 'OSCE', this is required minimum int of 0
+                  type: integer
+      responses:
+        '200':
+          description: >-
+            The exam event was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamEventCreateObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}':
+    put:
+      summary: Update Exam Event
+      description: >-
+        Update specific exam event with validated data. Must have 'Exam Events Edit` permission to access.
+      tags:
+        - Exam Events
+      operationId: Update Exam Event
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the exam event. If provided, must be unique, non empty
+                  type: string
+                assignment_method:
+                  description: >-
+                    How stacks are assigned to examiners. Valid types are 'external', 'auto_assign', or 'self_assign'.
+                  type: string
+                  enum:
+                    - external
+                    - auto_assign
+                    - self_assign
+                max_examiners_per_item:
+                  description: Set the maximum number of examiners to grade an item
+                  type: integer
+                allow_examiner_holds:
+                  description: Set the ability to hold/release examiners
+                  type: boolean
+      responses:
+        '200':
+          description: >-
+            The exam event was successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamEventUpdatedObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The identifier provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/form_versions':
+    get:
+      summary: Get Form Versions for Event
+      description: >-
+        Retrieve information about all Form Versions on an Exam Event.
+      tags:
+        - Form Versions
+      parameters:
+        - in: path
+          name: exam_id
+          description: The identifier for the exam event.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The form versions requested were returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  form_versions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FormVersionObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Add new Form Version to an event
+      description: >-
+        Create a new Form Version on an Exam Event.
+      tags:
+        - Form Versions
+      parameters:
+        - in: path
+          name: exam_id
+          description: The identifier for the exam event.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: >-
+                    *Required. The name of the form version. Must be unique to the event and a non-empty string
+                  type: string
+                client_id:
+                  description: >-
+                    The client_id of the form version. Must be unique across all form versions on any event
+                  type: string
+      responses:
+        '200':
+          description: >-
+            The form versions was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormVersionObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/form_versions/{form_version_id}':
+    get:
+      summary: Get a Form Version for Event
+      description: >-
+        Retrieve information about a specific Form Version on an Exam Event.
+      tags:
+        - Form Versions
+      parameters:
+        - in: path
+          name: exam_id
+          description: The identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: form_version_id
+          description: The identifier for the form version.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The form version requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleFormVersionObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The form_version_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    put:
+      summary: Update a Form Version for Event
+      description: >-
+        Update information about a specific Form Version on an Exam Event.
+      tags:
+        - Form Versions
+      parameters:
+        - in: path
+          name: exam_id
+          description: The identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: form_version_id
+          description: The identifier for the form version.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: >-
+                    The name of the form version. Must be unique to the event and a non-empty string
+                  type: string
+                client_id:
+                  description: >-
+                    The client_id of the form version. Must be unique across all form versions on any event
+                  type: string
+                auto_close_exemption_minimum:
+                  description: >-
+                    The minimum aggregate score for which candidates are exempted from the auto-close mechanism.
+                    
+                    Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                        
+                    Conversely, a candidate whose aggregated procedure score is less than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                        
+                    If an exemption minimum is not set, then the auto-close feature will be effectively disabled.
+                  type: number
+                auto_close_exemption_maximum:
+                  description: >-
+                    The maximum aggregate score for which candidates are exempted from the auto-close mechanism.
+                
+                    Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                        
+                    Conversely, a candidate whose aggregated procedure score is greater than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                        
+                    If an exemption maximum is not set, then the auto-close feature will be effectively disabled.
+                  type: number
+      responses:
+        '200':
+          description: >-
+            The form version requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleFormVersionObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The form_version_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      summary: Delete a Form Version for Event
+      description: >-
+        Remove a specific Form Version on an Exam Event.
+      tags:
+        - Form Versions
+      parameters:
+        - in: path
+          name: exam_id
+          description: The identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: form_version_id
+          description: The identifier for the form version.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: >-
+            The form version specified was successfully deleted.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The form_version_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/stacks/client_id={client_id}':
+    get:
+      summary: Get Stack
+      description: >-
+        Retrieve information about a stack.
+      tags:
+        - Stacks
+      operationId: Get Stack
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the stack.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The stack requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackInfoObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      summary: Delete stack
+      description: >-
+        Delete a stack record. Must have 'Stacks Delete` permission to access
+      tags:
+        - Stacks
+      operationId: Delete Stack
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the stack
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            Successfully deleted the stack
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/stacks/client_id={client_id}/teams':
+    post:
+      summary: Assign Stack
+      description: >-
+        Assign a stack.
+      tags:
+        - Stacks
+      operationId: Assign Stack
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the stack.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The stack was assigned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssignmentObject'
+        '400':
+          description: >-
+            The request could not be processed. Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team_id:
+                  description: >-
+                    The Crucible-generated identifier for the team containing the examiner(s).
+                  type: string
+                examiner_ids:
+                  description: The Crucible-generated identifier for the examiner(s). If omitted, the stack will be assigned to all examiners on the team who haven't already been assigned.
+                  type: array
+                  items:
+                    type: integer
+                client_id:
+                  description: The client-supplied identifier for the stack assignment. Can only be used if making an assignment for a single examiner.
+                  type: string
+                randomize_candidate_order:
+                  description: If true, the system will shuffle the order of the stack, rather than relying on the default position of candidates in the stack.
+                  type: boolean
+                lock_marks:
+                  description: If true, then once an examiner has confirmed an evaluation, they will not be able to go back and change any marks they've made. They will only be able to view them.
+                  type: boolean
+                fail_on_open_assignments:
+                  description: If true, an error will be thrown if another examiner, on any team, already has an open assignment for this stack.
+                  type: boolean
+              required:
+                - team_id
+  '/admin/exam_events/{exam_id}/stacks':
+    post:
+      summary: Create Stack
+      description: >-
+        Create a stack.
+      tags:
+        - Stacks
+      operationId: Create Stack
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event with which the stack will be associated.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The stack was created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackInfoObject'
+        '400':
+          description: >-
+            Bad Request. The request was malformed. Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The exam_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                import_type:
+                  description: >-
+                    The type of import. Valid types are single or multiple. If single, all candidiates listed are put onto a single stack. For multiple, all candidates listed are put on their own individual stack.
+                  type: string
+                  enum:
+                    - single
+                    - multiple
+                calibration:
+                  description: The indicator if the stack is a calibration stack.
+                  type: boolean
+                client_id:
+                  description: >-
+                    The client-supplied identifier for the stack.
+                  type: string
+                name:
+                  description: The name of the stack.
+                  type: string
+                form_version_id:
+                  description: The Crucible-generated identifier for a Form Version with which the stack should be associated
+                  type: integer
+                data:
+                  description: A list of candidates. A comma separated pair of the candidate's client_id and number. Each separated by "\n". IE "123,456\n789,012"
+                  type: string
+              required:
+                - import_type
+                - data
+  '/stack_assignments/client_id={client_id}':
+    get:
+      summary: Get Stack Assignment
+      description: >-
+        Retrieve information about a stack assignment.
+      tags:
+        - Stack Assignments
+      operationId: Get Stack Assignment
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the stack.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The stack assignment requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackAssignmentObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+
+    delete:
+      summary: Delete Stack Assignment
+      description: >-
+        Delete a single user's stack assignment. If the assignment is in progress, this will also remove associated evaluations and marks.
+      tags:
+        - Stack Assignments
+      operationId: Delete a Stack Assignment
+      parameters:
+        - name: client_id
+          description: The client-supplied identifier for the stack assignment.
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The stack assignment was deleted.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams':
+    post:
+      summary: Add Team to Exam Event
+      description: >-
+        Add a team to an exam event. Must have 'Teams Create` permission to access
+      tags:
+        - Teams
+      operationId: Add Team to Exam Event
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  description: >-
+                    *Required. The client-supplied identifer for the team. Must be a unique, non-empty string
+                  type: string
+                name:
+                  description: >-
+                    *Required. The name of the team. Must be unique
+                  type: string
+      responses:
+        '200':
+          description: >-
+            The team was successfully added to the exam event
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamObject'
+        '400':
+          description: >-
+            The request could not be processed.  Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The identifier provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams/client_id={team_client_id}':
+    delete:
+      summary: Remove a Team
+      description: >-
+        Remove a team from an exam event. Must have 'Teams Delete` permission to access. If the event has 'Running' status, teams cannot be deleted
+      tags:
+        - Teams
+      operationId: Remove Team from Exam Event
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: >-
+            The team was removed from the event successfully.
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: >-
+            The request could not be processed.  Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams/client_id={team_client_id}/examiners':
+    get:
+      summary: Get Examiners on Team
+      description: >-
+        Get a list of examiners on a team. Must have 'Teams View` permission to access
+      tags:
+        - Teams
+      operationId: Get Examiners on Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The list of examiners requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    description: The number of examiners
+                    type: integer
+                  examiners:
+                    description: An array of examiners
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamExaminersObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Assign Examiner to Team
+      description: >-
+        Assign an examiner to a team. Must have 'Teams Edit` permission to access
+      tags:
+        - Teams
+      operationId: Assign Examiner to Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                examiner_id:
+                  description: >-
+                    The Crucible-generated identifier for the examiner.
+                  type: integer
+              required:
+                - examiner_id
+      responses:
+        '200':
+          description: >-
+            The examiner was assigned to the team successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserTeamObject'
+        '400':
+          description: >-
+            The request could not be processed. Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams/client_id={team_client_id}/examiners/{examiner_id}':
+    delete:
+      summary: Remove Examiner from Team
+      description: >-
+        Remove an examiner from a team. Must have 'Teams Edit` permission to access
+      tags:
+        - Teams
+      operationId: Remove Examiner from Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: examiner_id
+          description: The Crucible-generated identifier for the examiner.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The examiner was removed from the team successfully.
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: >-
+            The request could not be processed.  Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams/client_id={team_client_id}/items':
+    get:
+      summary: Get Items on Team
+      description: >-
+        Get a list of items on a team. Must have 'Teams View` and 'Exam Events View' permissions to access
+      tags:
+        - Teams
+      operationId: Get Items on Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The list of items requested was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ItemsObject'
+                  total:
+                    description: The total number of items returned
+                    type: integer
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Assign Item to Team
+      description: >-
+        Assign an item to a team. Must have 'Teams Edit` and 'Exam Events Edit' permissions to access
+      tags:
+        - Teams
+      operationId: Assign Item to Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_id:
+                  description: >-
+                    *Required. The Crucible-generated identifer for an item. Must be unique to the team
+                  type: string
+              required:
+                - item_id
+      responses:
+        '200':
+          description: >-
+            The item was assigned to the team successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ItemsObject'
+        '400':
+          description: >-
+            The request could not be processed. Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/admin/exam_events/{exam_id}/teams/client_id={team_client_id}/items/{item_id}':
+    delete:
+      summary: Remove Item from Team
+      description: >-
+        Remove an item from a team. Must have 'Teams Edit` and 'Exam Events Edit' permissions to access. If an exam event has status 'Running', the item cannot be deleted
+      tags:
+        - Teams
+      operationId: Remove Item from Team
+      parameters:
+        - in: path
+          name: exam_id
+          description: The Crucible-generated identifier for the exam event.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: team_client_id
+          description: The client-supplied identifier for the team.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: item_id
+          description: The Crucible-generated identifier for the item.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The item was removed from the team successfully.
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: >-
+            The request could not be processed. Check response body for more information.
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. One or more of the IDs provided in the path are not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema:
+                type: string
+  '/users':
+    post:
+      summary: 'Create a User'
+      description: Creates a new user.
+      tags:
+        - Users
+      operationId: CreateUser
+      responses:
+        '200':
+          description: >-
+            Successfully created a user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserExaminerObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  description: >-
+                    The role of user. Valid types are Administrator, Examiner, RolePlayer. More than one role can be added at the same time.
+                  type: array
+                  items:
+                      type: string
+                user_name:
+                  description: The user name of the user. This is what is used on the login screen. All usernames must be unique.
+                  type: string
+                password:
+                  description: >-
+                    The password for the user. The password must adhere to the currently configured password requirements.
+                  type: string
+                password2:
+                  description: Verification of the password. Must be identical to the value in the password field.
+                  type: string
+                first_name:
+                  description: The first name of the user.
+                  type: string
+                last_name:
+                  description: The last name of the user.
+                  type: string
+                client_id:
+                  description: The client-supplied identifier for the user.
+                  type: string
+              required:
+                - type
+                - user_name
+                - password
+                - password2
+  '/users/client_id={client_id}':
+    get:
+      summary: Get User
+      description: >-
+        Retrieve information about the user.
+      tags:
+        - Users
+      operationId: Get User
+      parameters:
+        - name: client_id
+          description: The client-supplied identifier for the user.
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The requested user was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserExaminerObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema: {}
+    put:
+      summary: Update User
+      description: >-
+        Used to update data about a user.
+      tags:
+        - Users
+      operationId: Update User
+      parameters:
+        - in: path
+          name: client_id
+          description: The client-supplied identifier for the user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  description: The first name of the user.
+                  type: string
+                last_name:
+                  description: The last name of the user
+                  type: string
+                username:
+                  description: The username of the user. This is what is used on the login screen. All usernames must be unique.
+                  type: string
+                tags:
+                  description: A list of tags to be associated with the user. Any tags that were previously associated with the user will be removed, and replaced by this new list (even if empty).
+                  type: array
+                  items:
+                    type: string
+                is_captain:
+                  description: The indicator if the examiner is a captain. Only for use with user type Examiner.
+                  type: boolean
+                groups:
+                  description: A list of permission group ids to be associated with the user. Any permission groups that were previously associated with the user will be removed, and replaced by this new list (even if empty).
+                  type: array
+                  items:
+                    type: string
+                roles:
+                  description: The role of user. Valid types are Administrator, Examiner, RolePlayer. Must list all existing or new roles. This will replace any existing roles.
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: >-
+            The requested user was updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      #oneOf:
+                      # - $ref: '#/components/schemas/UserObject'
+                      $ref: '#/components/schemas/UserExaminerObject'
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema: {}
+  '/users/client_id={client_id}/status':
+    get:
+      summary: Get User Status
+      description: >-
+        Gets the status of a user. If user is not an examiner, an empty object will be returned. If the examiner has an open stack assignment on a running exam event, then information about the event and the stack assignment is returned. If the user does not have an open stack assignment on a running exam event, then none of the information will be included in the response.
+      tags:
+        - Users
+      operationId: Get user status
+      parameters:
+        - name: client_id
+          description: The client-supplied identifier for the user.
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            The requested user status was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_event:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserStatusObject'
+                  client_id:
+                    description: The client-supplied identifier for the user.
+                    type: string
+                  id:
+                    description: The Crucible-generated identifier for the user.
+                    type: string
+        '401':
+          description: >-
+            Unauthorized. The API key that is being utilized does not have the correct permission for access.
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: >-
+            Not found. The client_id provided is not found in the system.
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: >-
+            Internal Server Error (General error not expected by the system occured). Check the response body for more information.
+          content:
+            application/json:
+              schema: {}
+  '/groups/search':
+    get:
+      summary: Permission Group Search
+      description: >-
+        Returns a list of all of the permission groups in the system.
+      tags:
+        - Utilities
+      operationId: Group Search
+      responses:
+        '200':
+          description: >-
+            The permission group list was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groups:
+                    $ref: '#/components/schemas/PermissionSearchObject'
+  '/ping':
+    get:
+      summary: Ping
+      description: >-
+        Validate that the host is running and available for API usage. Authorization is not needed.
+      tags:
+        - Utilities
+      operationId: Ping
+      responses:
+        '200':
+          description: >-
+            The host is running and available.
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    SingleFormVersionObject:
+      title: Form Version Object
+      description: Information about a Form Version
+      type: object
+      properties:
+        id:
+          description: The Crucible-generated identifier for the Form Version.
+          type: integer
+        name:
+          description: The name of the Form Version.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the Form Version.
+          type: string
+        exam_event_id:
+          description: The Crucible-generated identifier of the Exam Event
+          type: integer
+        stack_count:
+          description: The number of stacks associated with the Form Version
+          type: integer
+        auto_close_exemption_minimum:
+          description: >-
+            The minimum aggregate score for which candidates are exempted from the auto-close mechanism.
+                
+            Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                
+            Conversely, a candidate whose aggregated procedure score is less than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                
+            If an exemption minimum is not set, then the auto-close feature will be effectively disabled.
+          type: number
+        auto_close_exemption_maximum:
+          description: >-
+            The maximum aggregate score for which candidates are exempted from the auto-close mechanism.
+                
+            Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                
+            Conversely, a candidate whose aggregated procedure score is greater than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                
+            If an exemption maximum is not set, then the auto-close feature will be effectively disabled.
+          type: number
+        items:
+          description: A list of items associated with the form version
+          type: array
+          items:
+            type: object
+            properties:
+              designator:
+                description: The name and abbreviation of the item
+                type: string
+              name:
+                description: The name of the item
+                type: string
+              id:
+                description: The Crucible generated identifier of the item
+                type: integer
+              teams:
+                description: Teams that are associated with the items
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: The name of the team
+                      type: string
+                    client_id:
+                      description: The client supplied identifier of the team
+                      type: string
+                    id:
+                      description: The Crucible generated identifier of the team
+                      type: integer
+    FormVersionObject:
+      title: Form Version Object
+      description: Information about a Form Version
+      type: object
+      properties:
+        id:
+          description: The Crucible-generated identifier for the Form Version.
+          type: integer
+        name:
+          description: The name of the Form Version.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the Form Version.
+          type: string
+        exam_event_id:
+          description: The Crucible-generated identifier of the Exam Event
+          type: integer
+        stack_count:
+          description: The number of stacks associated with the Form Version
+          type: integer
+        auto_close_exemption_minimum:
+          description: >-
+            The minimum aggregate score for which candidates are exempted from the auto-close mechanism.
+                
+            Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                
+            Conversely, a candidate whose aggregated procedure score is less than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                
+            If an exemption minimum is not set, then the auto-close feature will be effectively disabled.
+          type: number
+        auto_close_exemption_maximum:
+          description: >-
+            The maximum aggregate score for which candidates are exempted from the auto-close mechanism.
+                
+            Any candidate whose aggregated procedure score for an event falls inside the exemption range (inclusive) will not be auto-closed, and will continue to be evaluated until the appropriate number of evaluations have been completed for each procedure.
+                
+            Conversely, a candidate whose aggregated procedure score is greater than this value will be auto-closed once they have a first evaluation for every item they should be graded on.  They will not receive any second evaluations.
+                
+            If an exemption maximum is not set, then the auto-close feature will be effectively disabled.
+          type: number
+        items:
+          description: A list of items associated with the form version
+          type: array
+          items:
+            type: object
+            properties:
+              designator:
+                description: The name and abbreviation of the item
+                type: string
+              name:
+                description: The name of the item
+                type: string
+              id:
+                description: The Crucible generated identifier of the item
+                type: integer
+    EvidenceArrayObject:
+      title: Evidence array object
+      description: Object that holds an array of digital evidence documents successfully uploaded
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: Name of the document
+                type: string
+              size:
+                description: Size of the document
+                type: integer
+              url:
+                description: URL to retrieve document
+                type: string
+    EvidenceObject:
+      title: Evidence object
+      description: The digital evidence document that was successfully uploaded
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            candidate_client_id:
+              description: The client-supplied identifier for the candidate
+              type: string
+            candidate_id:
+              description: The Crucible-generated identifier for the candidate
+              type: integer
+            created:
+              description: Date of creation of the document. Formatted as ISO-8601 timestamps.
+              type: string
+              format: datetime
+            item_id:
+              description: The Crucible-generated identifier for the item
+              type: integer
+            id:
+              description: The Crucible-generated identifier for the document
+              type: integer
+            mime_type:
+              description: The media type of document uploaded
+              type: string
+            filename:
+              description: The client-supplied name for the document
+              type: string
+    ExamEventUpdatedObject:
+      title: Updated Exam Event Object
+      description: The returned updated exam event
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              description: The Crucible-generated identifier of the exam event
+              type: integer
+            name:
+              description: The name of the event
+              type: string
+            status:
+              description: Status of the exam event
+              type: string
+              enum:
+                - Pending
+                - Published
+                - Finalized
+                - Running
+                - Paused
+                - Closed
+            max_examiners_per_item:
+              description: The maximum number of examiners to grade an item
+              type: integer
+            allow_examiner_holds:
+              description: Can examiners be prohibited from continuing to grade
+              type: boolean
+            event_type:
+              description: The type of exam event
+              type: string
+              enum:
+                - independent_lists
+                - osce
+            started:
+              description: Time the event started. Formatted as ISO-8601 timestamps. If not started, it will be null
+              type: string
+              format: datetime
+            assignment_method:
+              description: The type of assignment method (external, auto_assign, self_assign)
+              type: string
+              enum:
+                - external
+                - auto_assign
+                - self_assign
+            closed:
+              description: Time the event closed. Formatted as ISO-8601 timestamps. If not closed, it will be null
+              type: string
+              format: datetime
+        success:
+          type: boolean
+        error:
+          type: string
+    ResultsObject:
+      title: Results Object
+      description: The results from an evaluation by a single examiner.
+      type: object
+      properties:
+        eval_end:
+          description: The end time of the evaluation. Formatted as ISO-8601 timestamp.
+          type: string
+          format: date
+        item:
+          description: The description of the item that was evaluated.
+          type: object
+          properties:
+            content_domain:
+              description: A specific client described grouping of items.
+              type: string
+            abbreviation:
+              description: The abbreviated name of the item.
+              type: string
+            name:
+              description: The full name of the item.
+              type: string
+            id:
+              description: The Crucible-generated identifier for the item.
+              type: integer
+        score:
+          description: The score earned for the item.
+          type: integer
+        examiner:
+          description: The examiner that performed this evaluation.
+          type: object
+          properties:
+            id:
+              description: The Crucible-generated identifier for this examiner.
+              type: integer
+            client_id:
+              description: The client-supplied identifier for this examiner.
+              type: string
+        candidate:
+          description: The candidate that was examined.
+          type: object
+          properties:
+            id:
+              description: The Crucible-generated identifier for this candidate.
+              type: integer
+            client_id:
+              description: The client-supplied identifier for this candidate.
+              type: string
+        eval_start:
+          description: The start time of the evaluation. Formatted as ISO-8601 timestamp.
+          type: string
+          format: date
+        id:
+          description: The Crucible-generated identifier for this evaluation.
+          type: integer
+        stack_assignment:
+          description: The description of the stack assignment.
+          type: object
+          properties:
+            examiner_tags:
+              description: Tags associated with the examiner when they began the evaluation.
+              type: array
+              items:
+                type: string
+            client_id:
+              description: The client-supplied identifier for this stack assignment.
+              type: string
+            id:
+              description: The Crucible-generated identifier for this stack assignment.
+              type: integer
+    ExamEventCreateObject:
+      title: Exam Event Create Object
+      description: Exam event was successfully created.
+      type: object
+      properties:
+        results:
+          description: The Crucible-generated identifier of the exam event
+          type: integer
+    AssignmentObject:
+      title: Assignment Object
+      description: Information about a single stack assignment.
+      type: object
+      properties:
+        completed:
+          description: The time the stack assignment was completed. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        stack_assignment_id:
+          description: The Crucible-generated identifier for this stack assignment.
+          type: string
+        assigned:
+          description: The time the stack assignment was assigned. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        client_id:
+          description: The client-supplied identifier for the user.
+          type: string
+        exam_event_id:
+          description: The Crucible-generated identifier for this exam event.
+          type: string
+        examiner_user_id:
+          description: The Crucible-generated identifier for the user.
+          type: string
+    UserObject:
+      title: User Object
+      description: The information returned when a user is of user type Administrator.
+      type: object
+      properties:
+        first_name:
+          description: The first name of the user.
+          type: string
+        last_name:
+          description: The last name of the user.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the user.
+          type: string
+        tags:
+          description: All the tags associated with the user.
+          type: array
+          items:
+            type: string
+        user_name:
+          description: The user name of the user.
+          type: string
+        categorization_name:
+          description: A string comprised of "last_name, first_name"
+          type: string
+        content_domains:
+          description: A list of all content domains with which the user is associated.
+          type: array
+          items:
+            type: string
+        is_captain:
+          description: Indicates if the examiner is a captain.
+          type: boolean
+        url:
+          description: The URL which defines this resource.
+          type: string
+        groups:
+          description: The perission groups to which the user belngs.
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupObject'
+        type:
+          description: The user type
+          type: string
+        id:
+          description: The Crucible-generated identifier for the user.
+          type: integer
+    UserExaminerObject:
+      title: User Object
+      description: The information returned when a user is of user type Examiner or RolePlayer.
+      type: object
+      properties:
+        first_name:
+          description: The first name of the user.
+          type: string
+        last_name:
+          description: The last name of the user.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the user.
+          type: string
+        tags:
+          description: A list of all tags with which the user is associated.
+          type: array
+          items:
+            type: string
+        user_name:
+          description: The user name of the user.
+          type: string
+        categorization_name:
+          description: A string comprised of "last_name, first_name"
+          type: string
+        stack_assignments:
+          description: A list of all the stack assignments with which the user has ever been assigned.
+          type: array
+          items:
+            $ref: '#/components/schemas/StackAssignmentUserObject'
+        content_domains:
+          description: A list of all content domains with which the user is associated.
+          type: array
+          items:
+            type: string
+        is_captain:
+          description: Indicates if the examiner is a captain.
+          type: boolean
+        url:
+          description: The URL which defines this resource.
+          type: string
+        groups:
+          description: The perission groups to which the user belngs.
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupObject'
+        active_roles:
+          description: Current roles the user is associated with. Roles can be Administrator, Examiner or Role Player.
+          type: array
+          items:
+            type: string
+        all_roles:
+          description: Any role the user has ever been associated with.
+          type: array
+          items:
+            type: string
+        id:
+          description: The Crucible-generated identifier for the user.
+          type: integer
+    UserStatusObject:
+      title: User Status Object
+      description: The information about a users status.
+      type: object
+      properties:
+        status:
+          description: >
+            The status of the running event the examiner is associated with.
+            Pending - The exam has not started.
+            Published - For use with scheduled exams. The exam has been published and can recieve examiner requests.
+            Finalized - For use with scheduled exams. The examiner assignments for the exam have been finalized.
+            Running - The exam is running.
+            Paused - For use with OSCE exams. The exam is paused and examiners and roleplayers can be swapped.
+            Closed - The exam is closed.
+          type: string
+          enum:
+            - Pending
+            - Published
+            - Finalized
+            - Running
+            - Paused
+            - Closed
+        assignment:
+          description: Information about the user's active stack assignment. If the user does not have an active stack assignment then this will be null.
+          type: object
+          properties:
+            stack:
+              $ref: '#/components/schemas/StackObject'
+            client_id:
+              description: The client-supplied identifier for the stack assignment.
+              type: string
+            id:
+              description: The Crucible-generated identifier for the stack assignment.
+              type: integer
+        team:
+          description: The team the user is currently assigned.
+          type: object
+          properties:
+            name:
+              description: The name of the team.
+              type: string
+            client_id:
+              description: The client-supplied identifier for the team.
+              type: string
+            id:
+              description: The Crucible-generated identifier for the team.
+              type: integer
+        id:
+          description: The Crucible-generated identifier for the event.
+          type: string
+        name:
+          description: The name of the event.
+          type: string
+    UserTeamObject:
+      title: User Object
+      description: The information about a users when assigned to a team.
+      type: object
+      properties:
+        first_name:
+          description: The first name of the user.
+          type: string
+        last_name:
+          description: The last name of the user.
+          type: string
+        url:
+          description: The URL which defines this resource.
+          type: string
+        categorization_name:
+          description: A string comprised of "last_name, first_name"
+          type: string
+        content_domains:
+          description: A list of all content domains with which the user is associated.
+          type: array
+          items:
+            type: string
+        client_id:
+          description: The client-supplied identifier for the user.
+          type: string
+        user_name:
+          description: The user name of the user.
+          type: string
+        id:
+          description: The Crucible-generated identifier for the user.
+          type: integer
+    TeamObject:
+      title: Team Object
+      description: Information of the team added to an exam event
+      type: object
+      properties:
+        allow_examiner_holds:
+          description: Allows an examiner to be held or paused during an event. Default is 'True'
+          type: boolean
+        name:
+          description: The name of the team
+          type: string
+        item_ids:
+          description: An list of item ids associated to that team
+          type: array
+          items:
+            type: integer
+        tags:
+          description: An list of tags associated to that team
+          type: array
+          items:
+            type: string
+        exam_event_name:
+          description: The name of the exam event that team is on
+          type: string
+        exam_event_id:
+          description: The Crucible-generated ID of the exam event that team is on
+          type: integer
+        examiner_ids:
+          description: An array of Crucible-generated examiner IDs associated with that team
+          type: array
+          items:
+            type: integer
+        team_id:
+          description: The client-supplied ID associated with that team
+          type: string
+        id:
+          description: The Crucible-generated id of that team
+          type: integer
+        exam_event_max_examiners:
+          description: The maximum number of examiners that can grade an item on an exam event
+          type: integer
+        custom_data:
+          description: Additional client supplied data to be associated with this team
+          type: object
+    TeamExaminersObject:
+      title: Team Examiners Object
+      description: A list of examiner information for a specific team
+      type: object
+      properties:
+        group_ids:
+          description: A list of Crucible-generated identifiers for Permission Groups that examiner belongs to
+          type: array
+          items:
+            type: integer
+        tags:
+          description: A list of Crucible-generated identifiers for Tags that examiner is associated with
+          type: array
+          items:
+            type: integer
+        url:
+          description: The url directing to the examiner
+          type: string
+        categorization_name:
+          description: The name of the examiner formatted as "{last_name}, {first_name}"
+          type: string
+        is_captain:
+          description: Flag for designating an examiner to be a captain. If true and if they have the correct permissions, an examiner may interact with the captain interface within Crucible. If false, an examiner will only be able to view the examiner interface
+          type: boolean
+        active:
+          description: Flag for designating an examiner active. If false, an examiner may not log into the system
+          type: boolean
+        id:
+          description: The Crucible-generated identifier of the examiner
+          type: integer
+        on_hold:
+          description: Flag for designating an examiner may not grade
+          type: boolean
+    ItemsObject:
+      title: Items Object
+      description: Information of the item added to a team on an exam event
+      type: object
+      properties:
+        confirmation_required:
+          description: >-
+            Flag for requiring confirmation. If true, item confirmation page will display after an item has been graded prompting the examiner to review and confirm their marks
+          type: boolean
+        archived:
+          description: Flag to archive the item. If true, an item is unavailable to grade
+          type: boolean
+        num_pages:
+          description: The number of pages of the item
+          type: integer
+        name:
+          description: The name of the item
+          type: string
+        cut_score:
+          description: The passing score of an evaluation for an item
+          type: integer
+        url:
+          description: The URL directing to the item
+          type: string
+        designator:
+          description: The name and abbreviation of the item
+          type: string
+        teams:
+          description: A list of teams the item is associated with
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: The name of the team
+                type: string
+              client_id:
+                description: The client-supplied identifier of the team
+                type: string
+              id:
+                description: The Crucible-generated identifier of the team
+                type: integer
+        abbreviation:
+          description: The abbreviation of the item
+          type: string
+        content_domain:
+          description: The content domain associated with the item
+          type: object
+          properties:
+            name:
+              description: The name of the content domain
+              type: string
+            id:
+              description: The Crucible generated id of the content domain
+              type: integer
+        max_points:
+          description: The maximum number of points that can be scored on an item
+          type: integer
+        id:
+          description: The Crucible-generated identifier of the item
+          type: integer
+        pilot:
+          description: Flag to indicate if the item is a pilot item
+          type: boolean
+    StackInfoObject:
+      title: Stack Info Object
+      description: Information about the current stack.
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              description: The name of the stack.
+              type: string
+            calibration:
+              description: Indicates if the stack is a calibration stack.
+              type: boolean
+            total_candidates:
+              description: The total number of candidates on the stack.
+              type: integer
+            candidates:
+              description: Information about each of the candidates on the stack.
+              type: array
+              items:
+                $ref: '#/components/schemas/StackCandidateObject'
+            client_id:
+              description: The client-supplied identifier for the stack.
+              type: string
+            exam_events:
+              description: Information about all the exam events the stack is associated with.
+              type: array
+              items:
+                $ref: '#/components/schemas/ExamEventObject'
+            id:
+              description: The Crucible-generated identifier for the stack.
+              type: string
+    StackAssignmentObject:
+      title: Stack Assignment Object
+      description: Information about the stack assignment.
+      type: object
+      properties:
+        status:
+          description: The current status of the stack assignment.
+          type: string
+        examiner:
+          description: The examiner assigned to the stack.
+          type: object
+          properties:
+            user_name:
+              description: The user name of the examiner.
+              type: string
+            name:
+              description: The name of the examiner.
+              type: string
+            client_id:
+              description: The client-supplied identifier for the examiner.
+              type: string
+            id:
+              description: The Crucible-generated identifier for the examiner.
+              type: integer
+        url:
+          description: The URL which defines this resource.
+          type: string
+        items:
+          description: A list of all the items on the stack assignment.
+          type: array
+          items:
+            $ref: '#/components/schemas/NameIdObject'
+        completed:
+          description: The time the stack assignment was completed. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        exam_event:
+          $ref: '#/components/schemas/NameIdObject'
+        stack:
+          $ref: '#/components/schemas/StackObject'
+        assigned:
+          description: The time the stack was assigned. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        candidates:
+          description: A list of all the candidates and their evaluations on the stack.
+          type: array
+          items:
+            $ref: '#/components/schemas/CandidatesObject'
+        order_suspect:
+          description: Indicates if the stack is out of order.
+          type: boolean
+        id:
+          description: The Crucible-generated identifier for the stack assignment.
+          type: integer
+    StackAssignmentUserObject:
+      title: Stack Assignment User Object
+      description: Information about the users stack assignment.
+      type: object
+      properties:
+        status:
+          description: The current status of the stack assignment.
+          type: string
+        examiner:
+          description: The examiner assigned to the stack.
+          type: object
+          properties:
+            user_name:
+              description: The user name of the examiner.
+              type: string
+            name:
+              description: The name of the examiner.
+              type: string
+            client_id:
+              description: The client-supplied identifier for the examiner.
+              type: string
+            id:
+              description: The Crucible-generated identifier for the examiner.
+              type: integer
+        url:
+          description: The URL which defines this resource.
+          type: string
+        items:
+          description: A list of all the items on the stack assignment.
+          type: array
+          items:
+            $ref: '#/components/schemas/NameIdObject'
+        completed:
+          description: The time the stack assignment was completed. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        exam_event:
+          $ref: '#/components/schemas/NameIdObject'
+        stack:
+          $ref: '#/components/schemas/StackObject'
+        assigned:
+          description: The time the stack was assigned. Formatted as ISO-8601 timestamps.
+          type: string
+          format: date
+        order_suspect:
+          description: Indicates if the stack is out of order.
+          type: boolean
+        id:
+          description: The Crucible-generated identifier for the stack assignment.
+          type: integer
+    GroupObject:
+      title: Group Object
+      description: Information about the permission group. The first item is the Crucible-generated identifier for the group, and the second item is the name of the group.
+      type: array
+      items:
+        oneOf:
+          - type: integer
+          - type: string
+      minItems: 2
+      maxItems: 2
+    StackObject:
+      title: Stack Object
+      description: Information about the stack.
+      type: object
+      properties:
+        id:
+          description: The Crucible-generated identifier for the stack.
+          type: integer
+        client_id:
+          description: The client-supplied identifier for the stack.
+          type: string
+        name:
+          description: The name of the stack.
+          type: string
+    ExamEventObject:
+      title: Exam Event
+      description: Information about the exam event.
+      type: object
+      properties:
+        exam_name:
+          description: The name of the event.
+          type: string
+        id:
+          description: The Crucible-generated identifier for the exam event.
+          type: integer
+    NameIdObject:
+      title: Generic Name and Id Object
+      type: object
+      properties:
+        name:
+          description: The name
+          type: string
+        id:
+          description: The Crucible-generated identifier.
+          type: integer
+    StackCandidateObject:
+      title: Stack Candidate Object
+      description: Information about the candidate.
+      type: object
+      properties:
+        status:
+          description: The evaluation status of the candidate.
+          type: string
+        stack_position:
+          description: The position in the stack for the candidiate.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the candidate.
+          type: string
+        photo:
+          description: The photo of the candidate.
+          type: string
+          format: byte
+        number:
+          description: The candidate number for the candidate.
+          type: string
+        id:
+          description: The Crucible-generated identifier for the candidate.
+          type: integer
+    CandidateUpdateObject:
+      title: Candidate Object
+      description: The response when creating a new candidate
+      type: object
+      properties:
+        description:
+          description: Description of the candidate
+          type: string
+        tags:
+          description: An array of tags associated with the candidate
+          type: array
+          items:
+            type: string
+        possible_points:
+          description: The max number of points possible across all evaluated items
+          type: integer
+        number:
+          description: The client-supplied number for the candidate
+          type: string
+        total_points_earned:
+          description: The sum of the scores for all evaluations for the candidate
+          type: integer
+        client_id:
+          description: The client-supplied identifier for the candidate
+          type: string
+        custom_data:
+          description: An object storing additional data fields
+          type: object
+          properties:
+            name:
+              type: string
+            additional_data:
+              type: integer
+            additional_data2:
+              type: string
+        evaluations:
+          description: An array of evaluation data
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationDataObject'
+        id:
+          description: The Crucible-generated identifier for the candidate
+          type: integer
+        number_items_evaluated:
+          description: The number of items evaluated for a candidate
+          type: integer
+    CandidateObject:
+      title: Candidate Object
+      description: The response when creating a new candidate
+      type: object
+      properties:
+        description:
+          description: The candidate's client-supplied identifier
+          type: string
+        tags:
+          description: An array of tags associated with the candidate
+          type: array
+          items:
+            type: string
+        possible_points:
+          description: The max number of points possible across all evaluated items
+          type: integer
+        number:
+          description: The client-supplied number for the candidate
+          type: string
+        total_points_earned:
+          description: The sum of the scores for all evaluations for the candidate
+          type: integer
+        client_id:
+          description: The client-supplied identifier for the candidate
+          type: string
+        evaluations:
+          description: An array of evaluation data
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationDataObject'
+        id:
+          description: The Crucible-generated identifier for the candidate
+          type: integer
+        number_items_evaluated:
+          description: The number of items evaluated for a candidate
+          type: integer
+          
+    EvaluationDataObject:
+      title: Evaluation Data Object
+      description: Information about the evaluation
+      type: object
+      properties:
+        id:
+          description: The Crucible-generated identifier of the evaluation
+          type: integer
+        start:
+          description: The start time of the evaluation. Formatted as ISO-8601 timestamp.
+          type: string
+          format: datetime
+        end:
+          description: The end time of the evaluation. Formatted as ISO-8601 timestamp.
+          type: string
+          format: datetime
+        score:
+          description: The score of the evaluation
+          type: integer
+        url:
+          description: The url directing to the evaluation
+          type: string
+        item:
+          description: An object of items on the procedure
+          type: object
+          properties:
+            id:
+              description: The Crucible-generated identifier for the item
+              type: integer
+            name:
+              description: The name of the item
+              type: string
+            max_points:
+              description: The maximum number of points on the item
+              type: integer
+        stack_assignment:
+          description: Stack assignment data
+          type: object
+          properties:
+            id:
+              description: The Crucible-generated identifier of the stack assignment
+              type: integer
+            stack:
+              description: Stack data
+              type: object
+              properties:
+                id:
+                  description: The Crucible-generated identifier of the stack
+                  type: integer
+                name:
+                  description: The name of the stack
+                  type: string
+            examiner:
+              description: Examiner data
+              type: object
+              properties:
+                id:
+                  description: The Crucible-generated identifier of the examiner
+                  type: integer
+                pin:
+                  description: The pin of the examiner
+                  type: string
+                name:
+                  description: The name of the examiner
+                  type: string
+    GetCandidatesObject:
+      title: Get Candidates Object
+      description: A retrieval of a single candidate or multiple candidates
+      type: object
+      properties:
+        name:
+          description: The name of the candidate
+          type: string
+        total_completed_evaluations:
+          description: The total number of evaluations completed on the candidate
+          type: integer
+        tags:
+          description: A list of tags associated with the candidate
+          type: array
+          items:
+            type: string
+        number:
+          description: The candidate number associated with the candidate
+          type: string
+        email:
+          description: The email associated with the candidate
+          type: string
+        client_id:
+          description: The client-supplied identifier of the canddidate
+          type: string
+        id:
+          description: The Crucible-generated identifier of the candidate
+          type: integer
+    CandidatesObject:
+      title: Candidates Object
+      description: Information about the candidate.
+      type: object
+      properties:
+        assignment_candidate_id:
+          description: The Crucible-generated identifier for the candidate on this stack assignment.
+          type: string
+        client_id:
+          description: The client-supplied identifier for the candidate.
+          type: integer
+        url:
+          description: The URL which defines this resource.
+          type: string
+        position:
+          description: The candidate's position in the stack.
+          type: integer
+        evaluations:
+          description: An array of all the evaluations on the stack.
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationsObject'
+        number:
+          description: The candidiate number
+          type: string
+        id:
+          description: The Crucible-generated identifier for the candidate.
+          type: integer
+    EvaluationsObject:
+      title: Evaluations Object
+      description: Information about the evaluation.
+      type: object
+      properties:
+        item_id:
+          description: The Crucible-generated identifier for the item.
+          type: string
+        procedure_score:
+          description: The median score of all evaluations for this candidate on this item.
+          type: integer
+        score:
+          description: The score for the examiner associated with this stack assignment.
+          type: integer
+        item_name:
+          description: The name of the item.
+          type: string
+    PermissionSearchObject:
+      title: Permission Search Object
+      description: Information about each permission group.
+      type: object
+      properties:
+        description:
+          description: The client-supplied description for the permission group.
+          type: string
+        created:
+          description: When the permission group was created. Formatted as ISO-8601 timestamp.
+          type: string
+          format: date
+        group_name:
+          description: The client-supplied name for the permission group.
+          type: string
+        permanent:
+          description: Indicates if the permission group can be deleted from the UI.
+          type: string
+        hidden:
+          description: Indicates if the permission group is displayed in the UI.
+          type: string
+        id:
+          description: The Crucible-generated identifier for the candidate.
+          type: integer
+  securitySchemes:
+    Api-Key:
+      type: apiKey
+      name: Api-Key
+      in: header
+      description: |
+        Provide an authenticated user's `Api-Key` as part of a Bearer scheme.
+
+        Clients are expected to use this service as part of a Crucible
+        installation, with the user's Api-Key supplied by BrightLink.

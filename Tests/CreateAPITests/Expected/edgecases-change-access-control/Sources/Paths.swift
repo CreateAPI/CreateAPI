@@ -423,7 +423,6 @@ extension Paths {
         }
 
         /// Fake endpoint for testing various parameters
-
         func post(_ body: PostRequest? = nil) -> Request<Void> {
             .post(path, body: body?.asQuery())
         }
