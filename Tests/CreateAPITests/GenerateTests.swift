@@ -138,6 +138,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "nyt-archive", package: "NYTArchiveAPI")
     }
     
+    func testNYTArticleSearch() throws {
+        try testSpec(name: "nyt-article-search", package: "NYTArticleSearchAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
