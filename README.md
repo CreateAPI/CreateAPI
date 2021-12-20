@@ -1,4 +1,6 @@
-# Create API
+<img width="80px" src="https://user-images.githubusercontent.com/1567433/146774765-4671c989-62c3-4418-8bdb-2773d7a26067.png">
+
+# GenerateAPI
 
 A description of this package.
 
