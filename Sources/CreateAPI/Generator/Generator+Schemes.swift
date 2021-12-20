@@ -609,6 +609,7 @@ extension Generator {
         }
     }
     
+    // TODO: Refactor, this is a mess
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
@@ -619,7 +620,6 @@ extension Generator {
             types[index] = try? getPrimitiveType(for: schema, context: context)
         }
         
-        // TODO: Refactor
         // Generate names for anonymous nested objects
         let unnamedCount = types.filter { $0 == nil }.count
         if unnamedCount == types.count && types.count > 1 {
@@ -658,7 +658,8 @@ extension Generator {
             let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor
             return isArray ? name.pluralized() : name
         }
-        return types.map { parameter(for: $0!.description) }
+        
+        // TODO: Find a better way to dismabiguate this (test it on Soundcloud spec)
+        return types.map { parameter(for: $0!.description) }.disambiguateDuplicateNames()
     }
-    
 }

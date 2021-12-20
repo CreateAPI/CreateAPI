@@ -158,6 +158,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "slack", package: "SlackAPI")
     }
     
+    func testSoundcloud() throws {
+        try testSpec(name: "soundcloud", package: "SoundcloudAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([

@@ -116,3 +116,18 @@ extension Array {
         return buffer
     }
 }
+
+extension Array where Element == String {
+    func disambiguateDuplicateNames() -> [String] {
+        var encountered: [String: Int] = [:]
+        return self.map { name in
+            if let count = encountered[name] {
+                encountered[name] = count + 1
+                return name + "\(count + 1)"
+            } else {
+                encountered[name] = 1
+                return name
+            }
+        }
+    }
+}

@@ -571,12 +571,7 @@ extension Generator {
         let request = try requestBody.unwrapped(in: spec)
         
         func firstContent(for keys: [OpenAPI.ContentType]) -> (OpenAPI.Content, OpenAPI.ContentType)? {
-            for key in keys {
-                if let content = request.content[key] {
-                    return (content, key)
-                }
-            }
-            return nil
+            getFirstContent(for: keys, from: request.content)
         }
         
         if request.content.values.isEmpty {
@@ -587,7 +582,7 @@ extension Generator {
             GeneratedType(type: type, nested: nested, isOptional: !(requestBody.requestValue?.required ?? true))
         }
         
-        if let (content, contentType) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .form]) {
+        if let (content, contentType) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .other("application/json"), .form]) {
             let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
@@ -602,7 +597,7 @@ extension Generator {
                     schema = value
                 }
             default:
-                throw GeneratorError("ERROR: response not handled")
+                return GeneratedType(type: TypeName("String"))
             }
             context.isFormEncoding = contentType == .form
             let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
@@ -682,19 +677,36 @@ extension Generator {
         return try makeResponse(for: schema, nestedTypeName: nestedTypeName, context: context)
     }
     
-    private func makeResponse(for response: OpenAPI.Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
-        func firstContent(for keys: [OpenAPI.ContentType]) -> OpenAPI.Content? {
-            for key in keys {
-                if let content = response.content[key] {
-                    return content
+    private func getFirstContent(for keys: [OpenAPI.ContentType], from map: OpenAPI.Content.Map) -> (OpenAPI.Content, OpenAPI.ContentType)? {
+        for key in keys {
+            // TODO: Update OpenAPIKIt to better support content-type parameters instead of this
+            switch key {
+            case .other(let expected):
+                if let content = map.first(where: { key, _ in
+                    guard case .other(let value) = key else {
+                        return false
+                    }
+                    return value.hasPrefix(expected)
+                }) {
+                    return (content.value, key)
+                }
+            default:
+                if let content = map[key] {
+                    return (content, key)
                 }
             }
-            return nil
+        }
+        return nil
+    }
+    
+    private func makeResponse(for response: OpenAPI.Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
+        func firstContent(for keys: [OpenAPI.ContentType]) -> (OpenAPI.Content, OpenAPI.ContentType)? {
+            getFirstContent(for: keys, from: response.content)
         }
         if response.content.isEmpty {
             return GeneratedType(type: TypeName("Void"))
         }
-        if let content = firstContent(for: [.json, .jsonapi, .other("application/scim+json")]) {
+        if let (content, _) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .other("application/json")]) {
             let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
@@ -709,7 +721,7 @@ extension Generator {
                     schema = value
                 }
             default:
-                throw GeneratorError("ERROR: response not handled")
+                return GeneratedType(type: TypeName("String"))
             }
             let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
             return GeneratedType(type: property.type.name, nested: property.nested)
@@ -723,7 +735,7 @@ extension Generator {
         if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
             return GeneratedType(type: TypeName("Data"))
         }
-        if let content = firstContent(for: [.any]) {
+        if let (content, _) = firstContent(for: [.any]) {
             if case .b(let schema) = content.schema, case .string = schema {
                 return GeneratedType(type: TypeName("String"))
             }
