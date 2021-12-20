@@ -23,7 +23,7 @@
         "package": "OpenAPIKit",
         "repositoryURL": "https://github.com/kean/OpenAPIKit",
         "state": {
-          "branch": "release/3_0",
+          "branch": "create-api",
           "revision": "b62f62f317b3a2c06d0fe5bbb02ef23d6fd7fc63",
           "version": null
         }

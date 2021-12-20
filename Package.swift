@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.macOS(.v10_15)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
-        .package(url: "https://github.com/kean/OpenAPIKit", branch: "release/3_0"),
+        .package(url: "https://github.com/kean/OpenAPIKit", branch: "create-api"),
         .package(url: "https://github.com/kean/Yams.git", branch: "main"),
         .package(url: "https://github.com/Cosmo/GrammaticalNumber", from: "0.0.3"),
         .package(url: "https://github.com/eonist/FileWatcher", from: "0.2.0")
