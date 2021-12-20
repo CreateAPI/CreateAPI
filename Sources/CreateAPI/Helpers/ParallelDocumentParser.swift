@@ -20,7 +20,7 @@ final class ParallelDocumentParser: Decodable {
         
         var components: Result<OpenAPI.Components, Error>!
         perform(in: group) {
-            components = Result(catching: { try container.decodeIfPresent(ParallelComponentsParser.self, forKey: .components)?.components ?? .noComponents })
+            components = Result(catching: { try container.decodeIfPresent(OpenAPI.Components.self, forKey: .components) ?? .noComponents })
         }
         
         var paths: Result<OpenAPI.PathItem.Map, Error>!
@@ -50,68 +50,6 @@ final class ParallelDocumentParser: Decodable {
         case info
         case paths
         case components
-    }
-}
-
-// Experimental.
-final class ParallelComponentsParser: Decodable {
-    let components: OpenAPI.Components
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let group = DispatchGroup()
-        var schemas: Result<OpenAPI.ComponentDictionary<JSONSchema>, Error>!
-        perform(in: group) {
-            schemas = Result(catching: { try container.decodeIfPresent(OpenAPI.ComponentDictionary<JSONSchema>.self, forKey: .schemas) ?? [:] })
-        }
-        
-        var examples: Result<OpenAPI.ComponentDictionary<OpenAPI.Example>, Error>!
-        perform(in: group) {
-            examples = Result(catching: { try container.decodeIfPresent(OpenAPI.ComponentDictionary<OpenAPI.Example>.self, forKey: .examples)
-                ?? [:] })
-        }
-        
-        var parameters: Result<OpenAPI.ComponentDictionary<OpenAPI.Parameter>, Error>!
-        var requestBodies: Result<OpenAPI.ComponentDictionary<OpenAPI.Request>, Error>!
-        var responses: Result<OpenAPI.ComponentDictionary<OpenAPI.Response>, Error>!
-        var headers: Result<OpenAPI.ComponentDictionary<OpenAPI.Header>, Error>!
-        perform(in: group) {
-            responses = Result(catching: { try container.decodeIfPresent(OpenAPI.ComponentDictionary<OpenAPI.Response>.self, forKey: .responses)
-                ?? [:]})
-            parameters = Result(catching: { try  container.decodeIfPresent(OpenAPI.ComponentDictionary<OpenAPI.Parameter>.self, forKey: .parameters)
-                ?? [:] })
-            requestBodies = Result(catching: { try container.decodeIfPresent(OpenAPI.ComponentDictionary<OpenAPI.Request>.self, forKey: .requestBodies)
-                ?? [:] })
-            headers = Result(catching: { try container.decodeIfPresent(OpenAPI.ComponentDictionary<OpenAPI.Header>.self, forKey: .headers)
-                ?? [:] })
-        }
-        
-        group.wait()
-        
-        self.components = OpenAPI.Components(
-            schemas: try schemas.get(),
-            responses: try responses.get(),
-            parameters: try parameters.get(),
-            examples: try examples.get(),
-            requestBodies: try requestBodies.get(),
-            headers: try headers.get(),
-            securitySchemes: [:],
-            callbacks: [:],
-            vendorExtensions: [:]
-        )
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case schemas
-        case responses
-        case parameters
-        case examples
-        case requestBodies
-        case headers
-        case securitySchemes
-        case links
-        case callbacks
     }
 }
 

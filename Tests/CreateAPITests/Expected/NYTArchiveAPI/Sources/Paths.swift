@@ -29,7 +29,6 @@ extension Paths.WithYear {
         /// Archive API
         ///
         /// The Archive API provides lists of NYT articles by month going back to 1851.  Simply pass in the year and month you want and it returns a JSON object with all articles for that month.
-        /// 
         public var get: Request<GetResponse> {
             .get(path)
         }

@@ -198,14 +198,10 @@ public struct GroupName: Codable {
 }
 
 public struct ListWrapperCallbackApplicationRole: Codable {
-
-
     public init() {}
 }
 
 public struct ListWrapperCallbackGroupName: Codable {
-
-
     public init() {}
 }
 
@@ -535,10 +531,10 @@ public struct FieldMetadata: Codable {
 
     public struct Schema: Codable {
         /// The schema of a field.
-        public var jsonTypeBean: JsonTypeBean
+        public var jsonTypeBean: JSONTypeBean
 
         public init(from decoder: Decoder) throws {
-            self.jsonTypeBean = try JsonTypeBean(from: decoder)
+            self.jsonTypeBean = try JSONTypeBean(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -717,7 +713,7 @@ public struct IssueBean: Codable {
     /// The ID and name of each field present on the issue.
     public var names: [String: String]?
     /// The schema describing each field present on the issue.
-    public var schema: [String: JsonTypeBean]?
+    public var schema: [String: JSONTypeBean]?
     /// The transitions that can be performed on the issue.
     public var transitions: [IssueTransition]?
     /// The operations that can be performed on the issue.
@@ -772,7 +768,7 @@ public struct IssueBean: Codable {
         }
     }
 
-    public init(expand: String? = nil, id: String? = nil, this: URL? = nil, key: String? = nil, renderedFields: [String: AnyJSON]? = nil, properties: [String: AnyJSON]? = nil, names: [String: String]? = nil, schema: [String: JsonTypeBean]? = nil, transitions: [IssueTransition]? = nil, operations: Operations? = nil, editmeta: Editmeta? = nil, changelog: Changelog? = nil, versionedRepresentations: [String: [String: AnyJSON]]? = nil, fieldsToInclude: IncludedFields? = nil, fields: [String: AnyJSON]? = nil) {
+    public init(expand: String? = nil, id: String? = nil, this: URL? = nil, key: String? = nil, renderedFields: [String: AnyJSON]? = nil, properties: [String: AnyJSON]? = nil, names: [String: String]? = nil, schema: [String: JSONTypeBean]? = nil, transitions: [IssueTransition]? = nil, operations: Operations? = nil, editmeta: Editmeta? = nil, changelog: Changelog? = nil, versionedRepresentations: [String: [String: AnyJSON]]? = nil, fieldsToInclude: IncludedFields? = nil, fields: [String: AnyJSON]? = nil) {
         self.expand = expand
         self.id = id
         self.this = this
@@ -887,7 +883,7 @@ public struct IssueUpdateMetadata: Codable {
 }
 
 /// The schema of a field.
-public struct JsonTypeBean: Codable {
+public struct JSONTypeBean: Codable {
     /// The data type of the field.
     public var type: String
     /// When the data type is an array, the name of the field items within the array.
@@ -986,9 +982,9 @@ public struct SearchResults: Codable {
     /// The ID and name of each field in the search results.
     public var names: [String: String]?
     /// The schema describing the field types in the search results.
-    public var schema: [String: JsonTypeBean]?
+    public var schema: [String: JSONTypeBean]?
 
-    public init(expand: String? = nil, startAt: Int? = nil, maxResults: Int? = nil, total: Int? = nil, issues: [IssueBean]? = nil, warningMessages: [String]? = nil, names: [String: String]? = nil, schema: [String: JsonTypeBean]? = nil) {
+    public init(expand: String? = nil, startAt: Int? = nil, maxResults: Int? = nil, total: Int? = nil, issues: [IssueBean]? = nil, warningMessages: [String]? = nil, names: [String: String]? = nil, schema: [String: JSONTypeBean]? = nil) {
         self.expand = expand
         self.startAt = startAt
         self.maxResults = maxResults
@@ -3316,10 +3312,10 @@ public struct FieldDetails: Codable {
 
     public struct Schema: Codable {
         /// The schema of a field.
-        public var jsonTypeBean: JsonTypeBean
+        public var jsonTypeBean: JSONTypeBean
 
         public init(from decoder: Decoder) throws {
-            self.jsonTypeBean = try JsonTypeBean(from: decoder)
+            self.jsonTypeBean = try JSONTypeBean(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4918,8 +4914,6 @@ public struct WorkflowSimpleCondition: Codable {
 
     /// EXPERIMENTAL. The configuration of the transition rule.
     public struct Configuration: Codable {
-
-
         public init() {}
     }
 
@@ -5188,7 +5182,7 @@ public struct WorkflowsWithTransitionRulesDetails: Codable {
 public enum CustomContextVariable: Codable {
     case userContextVariable(UserContextVariable)
     case issueContextVariable(IssueContextVariable)
-    case jsonContextVariable(JsonContextVariable)
+    case jsonContextVariable(JSONContextVariable)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -5196,7 +5190,7 @@ public enum CustomContextVariable: Codable {
             self = .userContextVariable(value)
         } else if let value = try? container.decode(IssueContextVariable.self) {
             self = .issueContextVariable(value)
-        } else if let value = try? container.decode(JsonContextVariable.self) {
+        } else if let value = try? container.decode(JSONContextVariable.self) {
             self = .jsonContextVariable(value)
         } else {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
@@ -5394,7 +5388,7 @@ public struct JiraExpressionEvalRequestBean: Codable {
 }
 
 /// A JSON object with custom content.
-public struct JsonContextVariable: Codable {
+public struct JSONContextVariable: Codable {
     /// Type of custom context variable.
     public var type: String
     /// A JSON object containing custom content.
@@ -5402,8 +5396,6 @@ public struct JsonContextVariable: Codable {
 
     /// A JSON object containing custom content.
     public struct Value: Codable {
-
-
         public init() {}
     }
 
@@ -6110,9 +6102,9 @@ public struct IssueEntityProperties: Codable {
     /// A list of entity property IDs.
     public var entitiesIDs: [Int]?
     /// A list of entity property keys and values.
-    public var properties: [String: JsonNode]?
+    public var properties: [String: JSONNode]?
 
-    public init(entitiesIDs: [Int]? = nil, properties: [String: JsonNode]? = nil) {
+    public init(entitiesIDs: [Int]? = nil, properties: [String: JSONNode]? = nil) {
         self.entitiesIDs = entitiesIDs
         self.properties = properties
     }
@@ -6123,7 +6115,7 @@ public struct IssueEntityProperties: Codable {
     }
 }
 
-public struct JsonNode: Codable {
+public struct JSONNode: Codable {
     public var isFloatingPointNumber: Bool?
     public var elements: Elements?
     public var isPojo: Bool?
@@ -6162,8 +6154,6 @@ public struct JsonNode: Codable {
     public var isNull: Bool?
 
     public struct Elements: Codable {
-
-
         public init() {}
     }
 
@@ -6177,14 +6167,10 @@ public struct JsonNode: Codable {
     }
 
     public struct FieldNames: Codable {
-
-
         public init() {}
     }
 
     public struct Fields: Codable {
-
-
         public init() {}
     }
 
@@ -6272,9 +6258,9 @@ public struct IssueEntityPropertiesForMultiUpdate: Codable {
     /// The ID of the issue.
     public var issueID: Int?
     /// Entity properties to set on the issue. The maximum length of an issue property value is 32768 characters.
-    public var properties: [String: JsonNode]?
+    public var properties: [String: JSONNode]?
 
-    public init(issueID: Int? = nil, properties: [String: JsonNode]? = nil) {
+    public init(issueID: Int? = nil, properties: [String: JSONNode]? = nil) {
         self.issueID = issueID
         self.properties = properties
     }
@@ -7161,8 +7147,6 @@ public struct PageBeanComponentWithIssueCount: Codable {
 }
 
 public struct StringList: Codable {
-
-
     public init() {}
 }
 
@@ -7645,7 +7629,7 @@ public struct IssueLinkType: Codable {
     }
 }
 
-public struct LinkIssueRequestJsonBean: Codable {
+public struct LinkIssueRequestJSONBean: Codable {
     /// This object is used as follows:
     /// 
     ///  *  In the [ issueLink](#api-rest-api-3-issueLink-post) resource it defines and reports on the type of link between the issues. Find a list of issue link types with [Get issue link types](#api-rest-api-3-issueLinkType-get).
@@ -9371,7 +9355,7 @@ public struct FoundUsersAndGroups: Codable {
     }
 }
 
-public struct CustomFieldDefinitionJsonBean: Codable {
+public struct CustomFieldDefinitionJSONBean: Codable {
     /// The name of the custom field, which is displayed in Jira. This is not the unique identifier.
     public var name: String
     /// The description of the custom field, which is displayed in Jira.
@@ -11361,7 +11345,7 @@ public struct Field: Codable {
     /// The name of the field.
     public var name: String
     /// The schema of a field.
-    public var schema: JsonTypeBean
+    public var schema: JSONTypeBean
     /// The description of the field.
     public var description: String?
     /// The key of the field.
@@ -11379,7 +11363,7 @@ public struct Field: Codable {
     /// Information about the most recent use of a field.
     public var lastUsed: FieldLastUsed?
 
-    public init(id: String, name: String, schema: JsonTypeBean, description: String? = nil, key: String? = nil, isLocked: Bool? = nil, isUnscreenable: Bool? = nil, searcherKey: String? = nil, screensCount: Int? = nil, contextsCount: Int? = nil, lastUsed: FieldLastUsed? = nil) {
+    public init(id: String, name: String, schema: JSONTypeBean, description: String? = nil, key: String? = nil, isLocked: Bool? = nil, isUnscreenable: Bool? = nil, searcherKey: String? = nil, screensCount: Int? = nil, contextsCount: Int? = nil, lastUsed: FieldLastUsed? = nil) {
         self.id = id
         self.name = name
         self.schema = schema
@@ -13903,8 +13887,6 @@ public struct ConnectModules: Codable {
 ///   "type" : "single_select"
 /// }
 public struct ConnectModule: Codable {
-
-
     public init() {}
 }
 

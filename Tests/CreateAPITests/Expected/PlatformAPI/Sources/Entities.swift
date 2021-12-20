@@ -74,8 +74,6 @@ public struct DeviceDetails: Codable {
 
     /// Optional metadata object for this device. The metadata for a device may only be set by clients with push-admin privileges and will be used more extensively in the future with smart notifications.
     public struct Metadata: Codable {
-
-
         public init() {}
     }
 
@@ -446,8 +444,6 @@ public struct TokenRequest: Codable {
     ///   ]
     /// }
     public struct Capability: Codable {
-
-
         public init() {}
     }
 

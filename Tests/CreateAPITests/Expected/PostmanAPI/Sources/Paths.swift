@@ -2147,7 +2147,7 @@ extension Paths.Collections {
         /// Path: `/collections/{collection_uid}`
         public let path: String
 
-        /// Single Collection 
+        /// Single Collection
         ///
         /// Access the contents of a collection that is accessible to you using its unique id (`uid`).
         /// 
@@ -3072,9 +3072,9 @@ extension Paths.Import {
                                     public var description: String?
 
                                     public struct Content: Encodable {
-                                        public var applicationJson: ApplicationJson?
+                                        public var applicationJSON: ApplicationJSON?
 
-                                        public struct ApplicationJson: Encodable {
+                                        public struct ApplicationJSON: Encodable {
                                             public var schema: Schema?
 
                                             public struct Schema: Encodable {
@@ -3123,12 +3123,12 @@ extension Paths.Import {
                                             }
                                         }
 
-                                        public init(applicationJson: ApplicationJson? = nil) {
-                                            self.applicationJson = applicationJson
+                                        public init(applicationJSON: ApplicationJSON? = nil) {
+                                            self.applicationJSON = applicationJSON
                                         }
 
                                         private enum CodingKeys: String, CodingKey {
-                                            case applicationJson = "application/json"
+                                            case applicationJSON = "application/json"
                                         }
                                     }
 

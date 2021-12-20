@@ -59,7 +59,6 @@ extension Paths.Geographies.WithGeoID.Media {
         /// [media search endpoint](https://instagram.com/developer/endpoints/media/).
         /// 
         /// **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
-        /// 
         @available(*, deprecated, message: "Deprecated")
         public func get(count: Int? = nil, minID: String? = nil) -> Request<InstagramAPI.MediaListResponse> {
             .get(path, query: makeGetQuery(count, minID))
@@ -221,7 +220,6 @@ extension Paths.Media {
         /// Get a list of what media is most popular at the moment. Can return mix of `image` and `video` types.
         /// 
         /// **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
-        /// 
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<InstagramAPI.MediaSearchResponse> {
             .get(path)
@@ -242,7 +240,6 @@ extension Paths.Media {
         ///
         /// Search for media in a given area. The default time span is set to 5 days. The time span must not exceed 7 days.
         /// Defaults time stamps cover the last 5 days. Can return mix of `image` and `video` types.
-        /// 
         public func get(parameters: GetParameters) -> Request<InstagramAPI.MediaSearchResponse> {
             .get(path, query: parameters.asQuery())
         }
@@ -301,7 +298,6 @@ extension Paths.Media.Shortcode {
         /// 
         /// A media object's shortcode can be found in its shortlink URL. An example shortlink is
         /// `http://instagram.com/p/D/`, its corresponding shortcode is `D`.
-        /// 
         public var get: Request<InstagramAPI.MediaEntryResponse> {
             .get(path)
         }
@@ -324,7 +320,6 @@ extension Paths.Media {
         /// 
         /// **Note:** if you authenticate with an OAuth Token, you will receive the user_has_liked key which quickly tells
         /// you whether the current user has liked this media item.
-        /// 
         public var get: Request<InstagramAPI.MediaEntryResponse> {
             .get(path)
         }
@@ -353,7 +348,6 @@ extension Paths.Media.WithMediaID {
         ///   * The comment cannot contain more than 4 hashtags.
         ///   * The comment cannot contain more than 1 URL.
         ///   * The comment cannot consist of all capital letters.
-        /// 
         public func post(text: String) -> Request<InstagramAPI.StatusResponse> {
             .post(path, query: makePostQuery(text))
         }
@@ -378,7 +372,6 @@ extension Paths.Media.WithMediaID.Comments {
         /// Remove a comment.
         ///
         /// Remove a comment either on the authenticated user's media object or authored by the authenticated user.
-        /// 
         public var delete: Request<InstagramAPI.StatusResponse> {
             .delete(path)
         }
@@ -488,7 +481,6 @@ extension Paths.Tags.WithTagName.Media {
         ///
         /// Get a list of recently tagged media. Use the `max_tag_id` and `min_tag_id` parameters in the pagination
         /// response to paginate through these objects.
-        /// 
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.TagMediaListResponse> {
             .get(path, query: parameters?.asQuery())
         }
@@ -574,7 +566,6 @@ extension Paths.Users.`Self` {
         /// See the authenticated user's feed.
         /// 
         /// **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
-        /// 
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.MediaListResponse> {
             .get(path, query: parameters?.asQuery())
@@ -627,7 +618,6 @@ extension Paths.Users.`Self`.Media {
         /// See the list of media liked by the authenticated user. Private media is returned as long as the authenticated
         /// user has permission to view that media. Liked media lists are only available for the currently authenticated
         /// user.
-        /// 
         public func get(count: Int? = nil, maxLikeID: String? = nil) -> Request<InstagramAPI.MediaListResponse> {
             .get(path, query: makeGetQuery(count, maxLikeID))
         }
@@ -672,7 +662,6 @@ extension Paths.Users {
         /// **self** instead of the `user-id`.
         /// 
         /// Security scope `public_content` is required to read information about other users.
-        /// 
         public var get: Request<InstagramAPI.UserResponse> {
             .get(path)
         }
@@ -692,7 +681,6 @@ extension Paths.Users.WithUserID {
         ///
         /// Get the list of users this user is followed by. To get users followed by the owner of the access token, you
         /// can use **self** instead of the `user-id`.
-        /// 
         public var get: Request<InstagramAPI.UsersPagingResponse> {
             .get(path)
         }
@@ -712,7 +700,6 @@ extension Paths.Users.WithUserID {
         ///
         /// Get the list of users this user follows. To get follows of the owner of the access token, you can use **self**
         /// instead of the `user-id`.
-        /// 
         public var get: Request<InstagramAPI.UsersPagingResponse> {
             .get(path)
         }
@@ -745,7 +732,6 @@ extension Paths.Users.WithUserID.Media {
         /// access token, you can use **self** instead of the `user-id`.
         /// 
         /// Security scope `public_content` is required to read information about other users.
-        /// 
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.MediaListResponse> {
             .get(path, query: parameters?.asQuery())
         }

@@ -51,25 +51,19 @@ public struct AsanaNamedResource: Codable {
 
 public struct AttachmentRequest: Codable {
     /// The type of the attachment. Must be one of the [given values](/docs/attachment). If not specified, a file attachment of type `asana_file_attachments` will be assumed. Note that if the value of `resource_subtype` is `external`, a `parent`, `name`, and `url` must also be provided.
-    /// 
     ///
     /// Example: "external"
     public var resourceSubtype: ResourceSubtype?
     /// Required for file attachments.
-    /// 
     public var file: String?
     /// Globally unique identifier of the parent task, as a string. Required for attachments of type `external`.
-    /// 
     public var parent: String?
     /// The URL of the external resource being attached. Required for attachments of type `external`.
-    /// 
     public var url: String?
     /// The name of the external resource being attached. Required for attachments of type `external`.
-    /// 
     public var name: String?
 
     /// The type of the attachment. Must be one of the [given values](/docs/attachment). If not specified, a file attachment of type `asana_file_attachments` will be assumed. Note that if the value of `resource_subtype` is `external`, a `parent`, `name`, and `url` must also be provided.
-    /// 
     ///
     /// Example: "external"
     public enum ResourceSubtype: String, Codable, CaseIterable {
@@ -289,8 +283,6 @@ public struct AuditLogEventContext: Codable {
 
 /// Event specific details. The schema will vary depending on the `event_type`.
 public struct AuditLogEventDetails: Codable {
-
-
     public init() {}
 }
 
@@ -499,8 +491,6 @@ public struct BatchRequestAction: Codable {
     ///   "workspace" : "1337"
     /// }
     public struct Data: Codable {
-
-
         public init() {}
     }
 
@@ -588,8 +578,6 @@ public struct BatchResponse: Codable {
     ///   "location" : "\/tasks\/1234"
     /// }
     public struct Headers: Codable {
-
-
         public init() {}
     }
 
@@ -606,8 +594,6 @@ public struct BatchResponse: Codable {
     ///   }
     /// }
     public struct Body: Codable {
-
-
         public init() {}
     }
 
@@ -774,12 +760,10 @@ public struct CustomFieldCompact: Codable {
     /// Example: "Status"
     public var name: String?
     /// The type of the custom field. Must be one of the given values.
-    /// 
     ///
     /// Example: "text"
     public var resourceSubtype: ResourceSubtype?
     /// *Deprecated: new integrations should prefer the resource_subtype field.* The type of the custom field. Must be one of the given values.
-    /// 
     public var type: `Type`?
     /// *Conditional*. Only relevant for custom fields of type `enum`. This array specifies the possible values which an `enum` custom field can adopt. To modify the enum options, refer to [working with enum options](/docs/create-an-enum-option).
     public var enumOptions: [EnumOption]?
@@ -801,7 +785,6 @@ public struct CustomFieldCompact: Codable {
     public var displayValue: String?
 
     /// The type of the custom field. Must be one of the given values.
-    /// 
     ///
     /// Example: "text"
     public enum ResourceSubtype: String, Codable, CaseIterable {
@@ -812,7 +795,6 @@ public struct CustomFieldCompact: Codable {
     }
 
     /// *Deprecated: new integrations should prefer the resource_subtype field.* The type of the custom field. Must be one of the given values.
-    /// 
     public enum `Type`: String, Codable, CaseIterable {
         case text
         case `enum`
@@ -969,8 +951,6 @@ public struct ModifyDependentsRequest: Codable {
 
 /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
 public struct EmptyResponse: Codable {
-
-
     public init() {}
 }
 
@@ -3624,7 +3604,6 @@ public struct TaskBase: Codable {
     /// The number of users who have liked this task.
     public var numLikes: Int?
     /// [Opt In](/docs/input-output-options). The number of subtasks on this task.
-    /// 
     public var numSubtasks: Int?
     /// The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.
     /// The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.
@@ -3974,12 +3953,10 @@ public struct TaskCountResponse: Codable {
 public struct TeamResponse: Codable {
     public var teamBase: TeamBase
     /// [Opt In](/docs/input-output-options). The description of the team.
-    /// 
     ///
     /// Example: "All developers should be members of this team."
     public var description: String?
     /// [Opt In](/docs/input-output-options). The description of the team with formatting as HTML.
-    /// 
     ///
     /// Example: "<body><em>All</em> developers should be members of this team.</body>"
     public var htmlDescription: String?
@@ -3989,7 +3966,6 @@ public struct TeamResponse: Codable {
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
     /// The visibility of the team to users in the same organization
-    /// 
     public var visibility: Visibility?
 
     public struct Organization: Codable {
@@ -4006,7 +3982,6 @@ public struct TeamResponse: Codable {
     }
 
     /// The visibility of the team to users in the same organization
-    /// 
     public enum Visibility: String, Codable, CaseIterable {
         case secret
         case requestToJoin = "request_to_join"
@@ -4037,17 +4012,14 @@ public struct TeamResponse: Codable {
 public struct TeamRequest: Codable {
     public var teamBase: TeamBase
     /// The description of the team.
-    /// 
     ///
     /// Example: "All developers should be members of this team."
     public var description: String?
     /// The description of the team with formatting as HTML.
-    /// 
     ///
     /// Example: "<body><em>All</em> developers should be members of this team.</body>"
     public var htmlDescription: String?
     /// The organization/workspace the team belongs to.
-    /// 
     ///
     /// Example: "123456789"
     public var organization: String?

@@ -423,8 +423,6 @@ extension Paths.API._3.Attachment.Content {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 
@@ -497,8 +495,6 @@ extension Paths.API._3.Attachment.Thumbnail {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 
@@ -1589,7 +1585,7 @@ extension Paths.API._3 {
         /// Creates a custom field.
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
-        public func post(_ body: Jira.CustomFieldDefinitionJsonBean) -> Request<Jira.FieldDetails> {
+        public func post(_ body: Jira.CustomFieldDefinitionJSONBean) -> Request<Jira.FieldDetails> {
             .post(path, body: body)
         }
     }
@@ -5538,7 +5534,7 @@ extension Paths.API._3 {
         ///  *  *Link issues* [project permission](https://confluence.atlassian.com/x/yodKLg) on the project containing the from (outward) issue,
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         ///  *  If the comment has visibility restrictions, belongs to the group or has the role visibility is restricted to.
-        public func post(_ body: Jira.LinkIssueRequestJsonBean) -> Request<AnyJSON> {
+        public func post(_ body: Jira.LinkIssueRequestJSONBean) -> Request<AnyJSON> {
             .post(path, body: body)
         }
     }
@@ -9953,8 +9949,6 @@ extension Paths.API._3.UniversalAvatar.View.`Type` {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 
@@ -10016,8 +10010,6 @@ extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type`.Avatar {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 
@@ -10079,8 +10071,6 @@ extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type`.Owner {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 

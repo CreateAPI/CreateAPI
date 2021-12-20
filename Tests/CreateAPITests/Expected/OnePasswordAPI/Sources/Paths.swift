@@ -124,7 +124,6 @@ extension Paths.Vaults.WithVaultUUID.Items {
         /// Applies a modified [RFC6902 JSON Patch](https://tools.ietf.org/html/rfc6902) document to an Item or ItemField. This endpoint only supports `add`, `remove` and `replace` operations.
         /// 
         /// When modifying a specific ItemField, the ItemField's ID in the `path` attribute of the operation object: `/fields/{fieldId}`
-        /// 
         public func patch(_ body: OnePasswordAPI.Patch? = nil) -> Request<OnePasswordAPI.FullItem> {
             .patch(path, body: body)
         }

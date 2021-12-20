@@ -17,7 +17,6 @@ extension Paths {
         public let path: String
 
         /// Provides information about the signed in user.
-        /// 
         public var get: Request<CircleCIAPI.User> {
             .get(path)
         }
@@ -56,7 +55,6 @@ extension Paths.Project.WithUsername {
         public let path: String
 
         /// Build summary for each of the last 30 builds for a single git repo.
-        /// 
         public func get(parameters: GetParameters? = nil) -> Request<[CircleCIAPI.Build]> {
             .get(path, query: parameters?.asQuery())
         }
@@ -89,24 +87,19 @@ extension Paths.Project.WithUsername {
         }
 
         /// Triggers a new build, returns a summary of the build.
-        /// 
         public func post(_ body: PostRequest? = nil) -> Request<CircleCIAPI.BuildSummary> {
             .post(path, body: body)
         }
 
         public struct PostRequest: Encodable {
             /// Additional environment variables to inject into the build environment. A map of names to values.
-            /// 
             public var buildParameters: CircleCIAPI.BuildParameters?
             /// The number of containers to use to run the build. Default is null and the project default is used.
-            /// 
             public var parallel: String?
             /// The specific revision to build.
             /// Default is null and the head of the branch is used. Cannot be used with tag parameter.
-            /// 
             public var revision: String?
             /// The tag to build. Default is null. Cannot be used with revision parameter.
-            /// 
             public var tag: String?
 
             public init(buildParameters: CircleCIAPI.BuildParameters? = nil, parallel: String? = nil, revision: String? = nil, tag: String? = nil) {
@@ -136,7 +129,6 @@ extension Paths.Project.WithUsername.WithProject {
         public let path: String
 
         /// Clears the cache for a project.
-        /// 
         public var delete: Request<DeleteResponse> {
             .delete(path)
         }
@@ -161,14 +153,12 @@ extension Paths.Project.WithUsername.WithProject {
         public let path: String
 
         /// Lists checkout keys.
-        /// 
         public var get: Request<[CircleCIAPI.Key]> {
             .get(path)
         }
 
         /// Creates a new checkout key.
         /// Only usable with a user API token.
-        /// 
         public func post(_ body: String? = nil) -> Request<CircleCIAPI.Key> {
             .post(path, body: body)
         }
@@ -185,13 +175,11 @@ extension Paths.Project.WithUsername.WithProject.CheckoutKey {
         public let path: String
 
         /// Get a checkout key.
-        /// 
         public var get: Request<CircleCIAPI.Key> {
             .get(path)
         }
 
         /// Delete a checkout key.
-        /// 
         public var delete: Request<DeleteResponse> {
             .delete(path)
         }
@@ -220,13 +208,11 @@ extension Paths.Project.WithUsername.WithProject {
         public let path: String
 
         /// Lists the environment variables for :project
-        /// 
         public var get: Request<[CircleCIAPI.Envvar]> {
             .get(path)
         }
 
         /// Creates a new environment variable
-        /// 
         public var post: Request<CircleCIAPI.Envvar> {
             .post(path)
         }
@@ -243,13 +229,11 @@ extension Paths.Project.WithUsername.WithProject.Envvar {
         public let path: String
 
         /// Gets the hidden value of environment variable :name
-        /// 
         public var get: Request<CircleCIAPI.Envvar> {
             .get(path)
         }
 
         /// Deletes the environment variable named ':name'
-        /// 
         public var delete: Request<DeleteResponse> {
             .delete(path)
         }
@@ -278,7 +262,6 @@ extension Paths.Project.WithUsername.WithProject {
         public let path: String
 
         /// Create an ssh key used to access external systems that require SSH key-based authentication
-        /// 
         public func post(_ body: PostRequest) -> Request<PostResponse> {
             .post(path, body: body)
         }
@@ -332,7 +315,6 @@ extension Paths.Project.WithUsername.WithProject.Tree {
         /// Optional build parameters can be set using an experimental API.
         /// 
         /// Note: For more about build parameters, read about [using parameterized builds](https://circleci.com/docs/parameterized-builds/)
-        /// 
         public func post(_ body: PostRequest? = nil) -> Request<CircleCIAPI.Build> {
             .post(path, body: body)
         }
@@ -343,14 +325,11 @@ extension Paths.Project.WithUsername.WithProject.Tree {
 
         public struct PostRequest: Encodable {
             /// Additional environment variables to inject into the build environment. A map of names to values.
-            /// 
             public var buildParameters: CircleCIAPI.BuildParameters?
             /// The number of containers to use to run the build. Default is null and the project default is used.
-            /// 
             public var parallel: String?
             /// The specific revision to build.
             /// Default is null and the head of the branch is used. Cannot be used with tag parameter.
-            /// 
             public var revision: String?
 
             public init(buildParameters: CircleCIAPI.BuildParameters? = nil, parallel: String? = nil, revision: String? = nil) {
@@ -379,7 +358,6 @@ extension Paths.Project.WithUsername.WithProject {
 
         /// Full details for a single build. The response includes all of the fields from the build summary.
         /// This is also the payload for the [notification webhooks](/docs/configuration/#notify), in which case this object is the value to a key named 'payload'.
-        /// 
         public var get: Request<CircleCIAPI.BuildDetail> {
             .get(path)
         }
@@ -396,7 +374,6 @@ extension Paths.Project.WithUsername.WithProject.WithBuildNum {
         public let path: String
 
         /// List the artifacts produced by a given build.
-        /// 
         public var get: Request<[CircleCIAPI.Artifact]> {
             .get(path)
         }
@@ -413,7 +390,6 @@ extension Paths.Project.WithUsername.WithProject.WithBuildNum {
         public let path: String
 
         /// Cancels the build, returns a summary of the build.
-        /// 
         public var post: Request<CircleCIAPI.Build> {
             .post(path)
         }
@@ -430,7 +406,6 @@ extension Paths.Project.WithUsername.WithProject.WithBuildNum {
         public let path: String
 
         /// Retries the build, returns a summary of the new build.
-        /// 
         public var post: Request<CircleCIAPI.Build> {
             .post(path)
         }
@@ -448,7 +423,6 @@ extension Paths.Project.WithUsername.WithProject.WithBuildNum {
 
         /// Provides test metadata for a build
         /// Note: [Learn how to set up your builds to collect test metadata](https://circleci.com/docs/test-metadata/)
-        /// 
         public var get: Request<CircleCIAPI.Tests> {
             .get(path)
         }
@@ -465,7 +439,6 @@ extension Paths {
         public let path: String
 
         /// List of all the projects you're following on CircleCI, with build information organized by branch.
-        /// 
         public var get: Request<[CircleCIAPI.Project]> {
             .get(path)
         }
@@ -482,7 +455,6 @@ extension Paths {
         public let path: String
 
         /// Build summary for each of the last 30 recent builds, ordered by build_num.
-        /// 
         public func get(limit: Int? = nil, offset: Int? = nil) -> Request<[CircleCIAPI.Build]> {
             .get(path, query: makeGetQuery(limit, offset))
         }
@@ -517,7 +489,6 @@ extension Paths.User {
         public let path: String
 
         /// Adds your Heroku API key to CircleCI, takes apikey as form param name.
-        /// 
         public var post: Request<Void> {
             .post(path)
         }

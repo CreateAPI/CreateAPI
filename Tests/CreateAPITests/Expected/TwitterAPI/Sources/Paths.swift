@@ -2259,11 +2259,11 @@ extension Paths.Tweets.Sample {
 }
 
 extension Paths {
-    public static var openapiJson: OpenapiJson {
-        OpenapiJson(path: "/2/openapi.json")
+    public static var openapiJSON: OpenapiJSON {
+        OpenapiJSON(path: "/2/openapi.json")
     }
 
-    public struct OpenapiJson {
+    public struct OpenapiJSON {
         /// Path: `/2/openapi.json`
         public let path: String
 
@@ -2275,8 +2275,6 @@ extension Paths {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
     }

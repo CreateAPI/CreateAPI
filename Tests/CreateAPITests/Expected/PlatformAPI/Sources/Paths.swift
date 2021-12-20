@@ -630,8 +630,6 @@ extension Paths {
         }
 
         public struct GetResponse: Decodable {
-
-
             public init() {}
         }
 

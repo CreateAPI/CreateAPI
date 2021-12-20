@@ -811,8 +811,6 @@ public struct Geo: Codable {
     }
 
     public struct Properties: Codable {
-
-
         public init() {}
     }
 

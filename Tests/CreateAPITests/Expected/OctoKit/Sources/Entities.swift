@@ -5165,8 +5165,6 @@ public struct ActionsPublicKey: Codable {
 
 /// An object without any properties.
 public struct EmptyObject: Codable {
-
-
     public init() {}
 }
 

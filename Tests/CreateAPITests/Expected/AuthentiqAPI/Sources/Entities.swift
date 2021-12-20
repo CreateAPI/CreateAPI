@@ -6,7 +6,6 @@
 import Foundation
 
 /// Authentiq ID in JWT format, self-signed.
-/// 
 public struct AuthentiqID: Codable {
     /// Device token for push messages
     public var devtoken: String?
@@ -20,7 +19,6 @@ public struct AuthentiqID: Codable {
 }
 
 /// Claim in JWT format, self- or issuer-signed.
-/// 
 public struct Claims: Codable {
     public var email: String?
     public var phone: String?
@@ -55,7 +53,6 @@ public struct Error: Codable {
 }
 
 /// PushToken in JWT format, self-signed.
-/// 
 public struct PushToken: Codable {
     /// Audience (URI)
     public var aud: String

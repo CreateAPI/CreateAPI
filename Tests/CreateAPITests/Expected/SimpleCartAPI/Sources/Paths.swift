@@ -15,7 +15,7 @@ extension Paths.Items {
         /// Path: `/items/{itemId}`
         public let path: String
 
-        /// Get item details from the database 
+        /// Get item details from the database
         ///
         /// Obtain item details from item database
         public var get: Request<SimpleCartAPI.Item> {
@@ -51,7 +51,7 @@ extension Paths {
         /// Path: `/orders`
         public let path: String
 
-        /// Get orders from the database 
+        /// Get orders from the database
         ///
         /// Obtain order details from orders database
         public func get(list: Int? = nil) -> Request<[SimpleCartAPI.Order]> {

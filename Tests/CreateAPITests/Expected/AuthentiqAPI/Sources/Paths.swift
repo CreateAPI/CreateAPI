@@ -20,7 +20,6 @@ extension Paths {
         /// v5: `JWT(sub, pk, devtoken, ...)`
         /// 
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public func post(_ body: String) -> Request<PostResponse> {
             .post(path, body: body)
         }
@@ -42,7 +41,6 @@ extension Paths {
         /// If called with `email` and `phone` only, a verification code
         /// will be sent by email. Do a second call adding `code` to
         /// complete the revocation.
-        /// 
         public func delete(parameters: DeleteParameters) -> Request<DeleteResponse> {
             .delete(path, query: parameters.asQuery())
         }
@@ -88,7 +86,6 @@ extension Paths.Key {
         public let path: String
 
         /// Get public details of an Authentiq ID.
-        /// 
         public var get: Request<GetResponse> {
             .get(path)
         }
@@ -114,7 +111,6 @@ extension Paths.Key {
         /// a self-signed JWT
         /// 
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public func post(_ body: String) -> Request<PostResponse> {
             .post(path, body: body)
         }
@@ -136,7 +132,6 @@ extension Paths.Key {
         /// and PUT to update registration `JWT(sub, pk, devtoken, ...)`
         /// 
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public func put(_ body: String) -> Request<PutResponse> {
             .put(path, body: body)
         }
@@ -171,7 +166,6 @@ extension Paths.Key {
         }
 
         /// HEAD info on Authentiq ID
-        /// 
         public var head: Request<Void> {
             .head(path)
         }
@@ -189,7 +183,6 @@ extension Paths {
 
         /// Push sign-in request
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public func post(callback: String, _ body: String) -> Request<PostResponse> {
             .post(path, query: makePostQuery(callback), body: body)
         }
@@ -222,7 +215,6 @@ extension Paths {
 
         /// Scope verification request
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public func post(test: Int? = nil, _ body: String) -> Request<PostResponse> {
             .post(path, query: makePostQuery(test), body: body)
         }
@@ -291,7 +283,6 @@ extension Paths.Scope {
 
         /// Authority updates a JWT with its signature
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
-        /// 
         public var put: Request<String> {
             .put(path)
         }

@@ -11315,7 +11315,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 /// Require branches to be up to date before merging.
                 public var isStrict: Bool
                 /// **Deprecated**: The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
-                /// 
                 ///
                 /// - warning: Deprecated.
                 public var contexts: [String]
@@ -11642,7 +11641,6 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
             /// Require branches to be up to date before merging.
             public var isStrict: Bool?
             /// **Deprecated**: The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use `checks` instead of `contexts` for more fine-grained control.
-            /// 
             ///
             /// - warning: Deprecated.
             public var contexts: [String]?
@@ -15732,7 +15730,6 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public var tree: [TreeItem]
             /// The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
             /// If not provided, GitHub will create a new Git tree object from only the entries defined in the `tree` parameter. If you create a new commit pointing to such a tree, then all files which were a part of the parent commit's tree and were not defined in the `tree` parameter will be listed as deleted by the new commit.
-            /// 
             public var baseTree: String?
 
             public struct TreeItem: Encodable {
@@ -19082,7 +19079,6 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
 
         /// Create a review comment for a pull request
         ///
-        /// 
         /// Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
         /// 
         /// You can still create a review comment using the `position` parameter. When you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
@@ -20405,7 +20401,6 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
 
         /// Get all contributor commit activity
         ///
-        /// 
         /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly Hash (`weeks` array) with the following information:
         /// 
         /// *   `w` - Start of the week, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).

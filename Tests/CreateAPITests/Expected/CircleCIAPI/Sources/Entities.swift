@@ -147,10 +147,7 @@ public struct BuildDetail: Codable {
 }
 
 /// Additional environment variables to inject into the build environment. A map of names to values.
-/// 
 public struct BuildParameters: Codable {
-
-
     public init() {}
 }
 
@@ -243,11 +240,9 @@ public struct Key: Codable {
     /// When the key was issued
     public var time: Date?
     /// Can be "deploy-key" or "github-user-key"
-    /// 
     public var type: `Type`?
 
     /// Can be "deploy-key" or "github-user-key"
-    /// 
     public enum `Type`: String, Codable, CaseIterable {
         case deployKey = "deploy-key"
         case githubUserKey = "github-user-key"
@@ -352,8 +347,6 @@ public struct Project: Codable {
     public var vcsURL: URL?
 
     public struct Branches: Codable {
-
-
         public init() {}
     }
 
@@ -572,14 +565,10 @@ public struct User: Codable {
     public var trialEnd: Date?
 
     public struct OrganizationPrefs: Codable {
-
-
         public init() {}
     }
 
     public struct Projects: Codable {
-
-
         public init() {}
     }
 

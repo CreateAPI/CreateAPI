@@ -103,8 +103,6 @@ extension Paths.Candidates {
 
             /// An arbitrary number of additional data fields that can be stored to the candidate. Any preexisting data will remain intact. Any new data mapping to preexisting data keys will be updated with new values. All new data will be added.
             public struct CustomData: Encodable {
-
-
                 public init() {}
             }
 
@@ -159,7 +157,6 @@ extension Paths.Admin {
         /// - Supported types - `.pdf, .webm, .mp4`
         /// 
         /// - Must have `Evidence: Create` permission to access
-        /// 
         public func post(_ body: Data) -> Request<CrucibleAPI.EvidenceArrayObject> {
             .post(path, body: body)
         }
@@ -181,7 +178,6 @@ extension Paths.Candidates.WithClientID {
         /// - Supported types - `.pdf, .webm, .mp4`
         /// 
         /// - Must have `Evidence: Create` permission to access
-        /// 
         public func post(_ body: Data) -> Request<CrucibleAPI.EvidenceObject> {
             .post(path, body: body)
         }
@@ -489,8 +485,6 @@ extension Paths.Stacks {
         }
 
         public struct DeleteResponse: Decodable {
-
-
             public init() {}
         }
     }

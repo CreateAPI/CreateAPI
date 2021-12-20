@@ -628,7 +628,6 @@ public struct UserExaminerObject: Codable {
 /// The information about a users status.
 public struct UserStatusObject: Codable {
     /// The status of the running event the examiner is associated with. Pending - The exam has not started. Published - For use with scheduled exams. The exam has been published and can recieve examiner requests. Finalized - For use with scheduled exams. The examiner assignments for the exam have been finalized. Running - The exam is running. Paused - For use with OSCE exams. The exam is paused and examiners and roleplayers can be swapped. Closed - The exam is closed.
-    /// 
     public var status: Status?
     /// Information about the user's active stack assignment. If the user does not have an active stack assignment then this will be null.
     public var assignment: Assignment?
@@ -640,7 +639,6 @@ public struct UserStatusObject: Codable {
     public var name: String?
 
     /// The status of the running event the examiner is associated with. Pending - The exam has not started. Published - For use with scheduled exams. The exam has been published and can recieve examiner requests. Finalized - For use with scheduled exams. The examiner assignments for the exam have been finalized. Running - The exam is running. Paused - For use with OSCE exams. The exam is paused and examiners and roleplayers can be swapped. Closed - The exam is closed.
-    /// 
     public enum Status: String, Codable, CaseIterable {
         case pending = "Pending"
         case published = "Published"
@@ -776,8 +774,6 @@ public struct TeamObject: Codable {
 
     /// Additional client supplied data to be associated with this team
     public struct CustomData: Codable {
-
-
         public init() {}
     }
 

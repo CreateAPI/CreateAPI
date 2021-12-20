@@ -52,7 +52,7 @@ extension Paths.Search.WithVersionNumber {
 }
 
 extension Paths.Search.WithVersionNumber {
-    public var cS: CS {
+    public var cs: CS {
         CS(path: path + "/cS")
     }
 
