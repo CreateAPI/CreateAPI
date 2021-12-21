@@ -712,17 +712,17 @@ extension Paths.API._3 {
 }
 
 extension Paths.API._3.Avatar {
-    public func type(_ type: String) -> With`Type` {
-        With`Type`(path: "\(path)/\(type)")
+    public func type(_ type: String) -> WithType {
+        WithType(path: "\(path)/\(type)")
     }
 
-    public struct With`Type` {
+    public struct WithType {
         /// Path: `/rest/api/3/avatar/{type}`
         public let path: String
     }
 }
 
-extension Paths.API._3.Avatar.With`Type` {
+extension Paths.API._3.Avatar.WithType {
     public var system: System {
         System(path: path + "/system")
     }
@@ -9761,17 +9761,17 @@ extension Paths.API._3.UniversalAvatar {
 }
 
 extension Paths.API._3.UniversalAvatar.`Type` {
-    public func type(_ type: String) -> With`Type` {
-        With`Type`(path: "\(path)/\(type)")
+    public func type(_ type: String) -> WithType {
+        WithType(path: "\(path)/\(type)")
     }
 
-    public struct With`Type` {
+    public struct WithType {
         /// Path: `/rest/api/3/universal_avatar/type/{type}`
         public let path: String
     }
 }
 
-extension Paths.API._3.UniversalAvatar.`Type`.With`Type` {
+extension Paths.API._3.UniversalAvatar.`Type`.WithType {
     public var owner: Owner {
         Owner(path: path + "/owner")
     }
@@ -9782,7 +9782,7 @@ extension Paths.API._3.UniversalAvatar.`Type`.With`Type` {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner {
+extension Paths.API._3.UniversalAvatar.`Type`.WithType.Owner {
     public func entityID(_ entityID: String) -> WithEntityID {
         WithEntityID(path: "\(path)/\(entityID)")
     }
@@ -9864,7 +9864,7 @@ extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner {
+extension Paths.API._3.UniversalAvatar.`Type`.WithType.Owner {
     public func owningObjectID(_ owningObjectID: String) -> WithOwningObjectID {
         WithOwningObjectID(path: "\(path)/\(owningObjectID)")
     }
@@ -9875,7 +9875,7 @@ extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner.WithOwningObjectID {
+extension Paths.API._3.UniversalAvatar.`Type`.WithType.Owner.WithOwningObjectID {
     public var avatar: Avatar {
         Avatar(path: path + "/avatar")
     }
@@ -9886,7 +9886,7 @@ extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner.WithOwningObjectI
     }
 }
 
-extension Paths.API._3.UniversalAvatar.`Type`.With`Type`.Owner.WithOwningObjectID.Avatar {
+extension Paths.API._3.UniversalAvatar.`Type`.WithType.Owner.WithOwningObjectID.Avatar {
     public func id(_ id: Int) -> WithID {
         WithID(path: "\(path)/\(id)")
     }
@@ -9929,11 +9929,11 @@ extension Paths.API._3.UniversalAvatar.View {
 }
 
 extension Paths.API._3.UniversalAvatar.View.`Type` {
-    public func type(_ type: String) -> With`Type` {
-        With`Type`(path: "\(path)/\(type)")
+    public func type(_ type: String) -> WithType {
+        WithType(path: "\(path)/\(type)")
     }
 
-    public struct With`Type` {
+    public struct WithType {
         /// Path: `/rest/api/3/universal_avatar/view/type/{type}`
         public let path: String
 
@@ -9974,7 +9974,7 @@ extension Paths.API._3.UniversalAvatar.View.`Type` {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type` {
+extension Paths.API._3.UniversalAvatar.View.`Type`.WithType {
     public var avatar: Avatar {
         Avatar(path: path + "/avatar")
     }
@@ -9985,7 +9985,7 @@ extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type` {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type`.Avatar {
+extension Paths.API._3.UniversalAvatar.View.`Type`.WithType.Avatar {
     public func id(_ id: Int) -> WithID {
         WithID(path: "\(path)/\(id)")
     }
@@ -10035,7 +10035,7 @@ extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type`.Avatar {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type` {
+extension Paths.API._3.UniversalAvatar.View.`Type`.WithType {
     public var owner: Owner {
         Owner(path: path + "/owner")
     }
@@ -10046,7 +10046,7 @@ extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type` {
     }
 }
 
-extension Paths.API._3.UniversalAvatar.View.`Type`.With`Type`.Owner {
+extension Paths.API._3.UniversalAvatar.View.`Type`.WithType.Owner {
     public func entityID(_ entityID: String) -> WithEntityID {
         WithEntityID(path: "\(path)/\(entityID)")
     }

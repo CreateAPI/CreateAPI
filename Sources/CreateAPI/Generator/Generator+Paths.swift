@@ -219,11 +219,15 @@ extension Generator {
         if component.isEmpty {
             return TypeName("Root")
         }
-        if let parameter = getPathParameterName(from: component) {
+        if let parameter = getPathParamegterName(from: component) {
+            func makeType(for input: String) -> TypeName {
+                // Remove ticks from types like `Type`. Maybe use a different techinque?
+                TypeName("With" + makeTypeName(input).rawValue.trimmingCharacters(in: CharacterSet(charactersIn: "`")))
+            }
             if parameter.count == component.count - 2 {
-                return makeTypeName(parameter).prepending("With")
+                return makeType(for: parameter)
             } else {
-                return makeTypeName(component.replacingOccurrences(of: "{\(parameter)}", with: "")).prepending("With")
+                return makeType(for: component.replacingOccurrences(of: "{\(parameter)}", with: ""))
             }
         }
         return makeTypeName(component)
@@ -386,11 +390,13 @@ extension Generator {
         // Request body
         if let requestBody = operation.requestBody, method != "get" {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, nestedTypeName: makeNestedTypeName("Request"), context: context)
+            // TODO: Refactor
             if requestBody.type.rawValue != "Void" {
                 if options.paths.isInliningSimpleRequestType,
                    let entity = (requestBody.nested as? EntityDeclaration),
                    entity.properties.count == 1,
-                   !entity.isForm {
+                   !entity.isForm,
+                   !parameters.contains(where: { $0.hasPrefix(entity.properties[0].name.rawValue + ":") })  { // Chceked on Spotify spec
                     // Inline simple request types (types that only have N properties):
                     //
                     // public func post(body: PostRequest) -> Request<github.Reaction>
@@ -613,7 +619,13 @@ extension Generator {
         if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
             return makeRequestType(TypeName("String"))
         }
-        if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
+        if firstContent(for: [
+            .bmp, .jpg, .tif, .anyImage,
+            .mov, .mp4, .mpg, .anyVideo,
+            .mp3, .anyAudio,
+            .rar, .tar, .zip,
+            .other("application/octet-stream")
+        ]) != nil {
             return makeRequestType(TypeName("Data"))
         }
         if let (content, _) = firstContent(for: [.any]) {
@@ -732,7 +744,14 @@ extension Generator {
         if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
-        if firstContent(for: [.anyImage, .anyVideo, .anyAudio, .other("application/octet-stream")]) != nil {
+        // TODO: Add support for images as response types
+        if firstContent(for: [
+            .bmp, .jpg, .tif, .anyImage,
+            .mov, .mp4, .mpg, .anyVideo,
+            .mp3, .anyAudio,
+            .rar, .tar, .zip,
+            .other("application/octet-stream")
+        ]) != nil {
             return GeneratedType(type: TypeName("Data"))
         }
         if let (content, _) = firstContent(for: [.any]) {
