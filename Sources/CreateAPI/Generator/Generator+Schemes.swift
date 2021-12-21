@@ -295,6 +295,7 @@ extension Generator {
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
         let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
+            .removingDuplicates(by: \.name)
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
     }
