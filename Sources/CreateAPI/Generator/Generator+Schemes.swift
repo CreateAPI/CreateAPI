@@ -592,8 +592,7 @@ extension Generator {
         }
 
         let protocols = getProtocols(for: name, context: context)
-        #warning("TODO: pass info")
-        return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(nil), isForm: context.isFormEncoding)
+        return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {

@@ -137,6 +137,7 @@ public struct URLFields: Codable {
     }
 }
 
+/// Represent the portion of text recognized as a URL, and its start and end position within the text.
 public struct URLEntity: Codable {
     /// Represent a boundary range (start and end index) for a recognized entity (for example a hashtag or a mention). `start` must be smaller than `end`.  The start index is inclusive, the end index is exclusive.
     public var entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive
@@ -1650,6 +1651,7 @@ public struct ProblemFields: Codable {
     }
 }
 
+/// A generic problem with no additional information beyond that provided by the HTTP status code.
 public struct GenericProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1680,6 +1682,7 @@ public struct GenericProblem: Codable {
     }
 }
 
+/// A problem that indicates this request is invalid.
 public struct InvalidRequestProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1720,6 +1723,7 @@ public struct InvalidRequestProblem: Codable {
     }
 }
 
+/// A problem that indicates that a given Tweet, User, etc. does not exist.
 public struct ResourceNotFoundProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1769,6 +1773,7 @@ public struct ResourceNotFoundProblem: Codable {
     }
 }
 
+/// A problem that indicates you are not allowed to see a particular Tweet, User, etc.
 public struct ResourceUnauthorizedProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1826,6 +1831,7 @@ public struct ResourceUnauthorizedProblem: Codable {
     }
 }
 
+/// A problem that indicates a particular Tweet, User, etc. is not available to you.
 public struct ResourceUnavailableProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1870,6 +1876,7 @@ public struct ResourceUnavailableProblem: Codable {
     }
 }
 
+/// A problem that indicates that you are not allowed to see a particular field on a Tweet, User, etc.
 public struct FieldUnauthorizedProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1918,6 +1925,7 @@ public struct FieldUnauthorizedProblem: Codable {
     }
 }
 
+/// A problem that indicates your client is forbidden from making this request.
 public struct ClientForbiddenProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -1957,6 +1965,7 @@ public struct ClientForbiddenProblem: Codable {
     }
 }
 
+/// A problem that indicates that the resource requested violates the precepts of this API.
 public struct DisallowedResourceProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2005,6 +2014,7 @@ public struct DisallowedResourceProblem: Codable {
     }
 }
 
+/// A problem that indicates that the authentication used is not supported.
 public struct UnsupportedAuthenticationProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2030,6 +2040,7 @@ public struct UnsupportedAuthenticationProblem: Codable {
     }
 }
 
+/// A problem that indicates that a usage cap has been exceeded.
 public struct UsageCapExceededProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2073,6 +2084,7 @@ public struct UsageCapExceededProblem: Codable {
     }
 }
 
+/// A problem that indicates something is wrong with the connection
 public struct ConnectionExceptionProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2109,6 +2121,7 @@ public struct ConnectionExceptionProblem: Codable {
     }
 }
 
+/// Your client has gone away.
 public struct ClientDisconnectedProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2134,6 +2147,7 @@ public struct ClientDisconnectedProblem: Codable {
     }
 }
 
+/// You have been disconnected for operational reasons.
 public struct OperationalDisconnectProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2174,6 +2188,7 @@ public struct OperationalDisconnectProblem: Codable {
     }
 }
 
+/// You have exceeded the maximum number of rules.
 public struct RulesCapProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2199,6 +2214,7 @@ public struct RulesCapProblem: Codable {
     }
 }
 
+/// The rule you have submitted is invalid.
 public struct InvalidRuleProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2224,6 +2240,7 @@ public struct InvalidRuleProblem: Codable {
     }
 }
 
+/// The rule you have submitted is a duplicate.
 public struct DuplicateRuleProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2249,6 +2266,7 @@ public struct DuplicateRuleProblem: Codable {
     }
 }
 
+/// You cannot create a new job if one is already in progress.
 public struct ConflictProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
@@ -2274,6 +2292,7 @@ public struct ConflictProblem: Codable {
     }
 }
 
+/// A problem that indicates the user's rule set is not compliant.
 public struct NonCompliantRulesProblem: Codable {
     public var problemFields: ProblemFields
     public var type: `Type`?
