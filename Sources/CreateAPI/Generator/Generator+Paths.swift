@@ -383,9 +383,9 @@ extension Generator {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
-                setNeedsQuery()
                 nested.append(templates.entity(name: type, contents: contents, protocols: []))
             }
+            setNeedsQuery()
         }
         
         // Request body
@@ -606,7 +606,10 @@ extension Generator {
             default:
                 return GeneratedType(type: TypeName("String"))
             }
-            context.isFormEncoding = contentType == .form
+            if contentType == .form {
+                setNeedsQuery()
+                context.isFormEncoding = true
+            }
             let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
             setNeedsEncodable(for: property.type)
             return makeRequestType(property.type.name, nested: property.nested)
@@ -617,7 +620,7 @@ extension Generator {
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return makeRequestType(TypeName("String"))
         }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml")]) != nil {
             return makeRequestType(TypeName("String"))
         }
         if firstContent(for: [
@@ -730,7 +733,7 @@ extension Generator {
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt")]) != nil {
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
         // TODO: Add support for images as response types

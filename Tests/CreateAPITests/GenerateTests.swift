@@ -196,8 +196,7 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "twilio", package: "TwilioAPI")
     }
     
-    // TODO: Fix ContentType parsing and re-enable
-    func _testWikimedia() throws {
+    func testWikimedia() throws {
         try testSpec(name: "wikimedia", package: "WikimediaAPI")
     }
     
