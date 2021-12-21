@@ -201,7 +201,7 @@ extension String {
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 
-private let keywords = Set(["func", "public", "private", "open", "fileprivate", "internal", "default", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "where", "associatedtype", "guard", "enum", "struct", "class", "protocol", "extension", "if", "else", "self", "none", "throw", "throws", "rethrows", "inout", "operator", "static", "subscript", "case", "break", "continue", "defer", "do", "fallthrough", "repeat", "while", "as", "some", "super", "catch", "false", "true", "is", "nil"])
+private let keywords = Set(["func", "public", "private", "open", "fileprivate", "internal", "default", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "where", "associatedtype", "guard", "enum", "struct", "class", "protocol", "extension", "if", "else", "self", "none", "throw", "throws", "rethrows", "inout", "operator", "static", "subscript", "case", "break", "continue", "defer", "do", "fallthrough", "repeat", "while", "as", "some", "super", "catch", "false", "true", "is", "nil", "try"])
 
 private let capitilizedKeywords = Set(["Self", "Type", "Protocol", "Any", "AnyObject"])
 

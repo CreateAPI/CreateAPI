@@ -219,7 +219,7 @@ extension Generator {
         if component.isEmpty {
             return TypeName("Root")
         }
-        if let parameter = getPathParamegterName(from: component) {
+        if let parameter = getPathParameterName(from: component) {
             func makeType(for input: String) -> TypeName {
                 // Remove ticks from types like `Type`. Maybe use a different techinque?
                 TypeName("With" + makeTypeName(input).rawValue.trimmingCharacters(in: CharacterSet(charactersIn: "`")))

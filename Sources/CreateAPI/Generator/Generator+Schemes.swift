@@ -22,6 +22,7 @@ import GrammaticalNumber
 // TODO: `entitiesGeneratedAsClasses` - add support for nesting
 // TODO: `makeAllOf` to support custom coding keys
 // TODO: Remove StringCodingKeys when they are not needed
+// TODO: Support comments in typealiases
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
@@ -136,7 +137,9 @@ extension Generator {
             }
             return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: makeTypeName(ref)))
         case .fragment:
-            throw GeneratorError("Fragments not supported in this context: \(name)")
+            guard !options.isInliningPrimitiveTypes else { return nil }
+            setNeedsAnyJson()
+            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: TypeName("AnyJSON")))
         }
     }
     
@@ -233,7 +236,7 @@ extension Generator {
             }
             return property(name: propertyName, type: type, info: info)
         }
-        
+
         switch schema {
         case .object(let info, let details):
             // Try go generate primitive type first
@@ -420,7 +423,7 @@ extension Generator {
         case .any: return false
         case .not: return false
         case .reference: return false
-        case .fragment: return false
+        case .fragment: return true
         }
     }
     

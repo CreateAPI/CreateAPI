@@ -167,6 +167,10 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "spotify", package: "SpotifyAPI")
     }
     
+    func testSquare() throws {
+        try testSpec(name: "square", package: "SquareAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
