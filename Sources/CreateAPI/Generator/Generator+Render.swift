@@ -51,7 +51,15 @@ extension Generator {
                 }
             }
         }
+        let hasReferencesToItself = properties.contains(where: { $0.type.name == decl.name && $0.nested == nil })
+        let entity: String
+        if hasReferencesToItself {
+            // Struct can't have references to itself
+            entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
+        } else {
+            entity = templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
+        }
         return templates.comments(for: decl.metadata, name: decl.name.rawValue)
-        + templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
+        + entity
     }
 }

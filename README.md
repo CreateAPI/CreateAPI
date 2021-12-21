@@ -20,4 +20,4 @@ Create API supports
 
 - External References
 - `allowReserved` and `allowEmptyValue` option in query parameters
-- `spaceDelimited`, `pipeDelimited`, and `deepObject` query parameters `style` values
+- `spaceDelimited`, `pipeDelimited`, and `deepObject` query parameters `style` values, form encoding only supports primitive types

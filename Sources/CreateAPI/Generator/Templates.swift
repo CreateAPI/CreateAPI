@@ -24,16 +24,27 @@ final class Templates {
     ///     }
     func entity(name: TypeName, contents: [String], protocols: Protocols) -> String {
         let isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
-        let type = isStruct ? "struct" : (options.entities.isMakingClassesFinal ? "final class" : "class")
+        return isStruct ? self.struct(name: name, contents: contents, protocols: protocols) : self.class(name: name, contents: contents, protocols: protocols)
+    }
+    
+    func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
+        let lhs = [options.access, "struct", name.rawValue]
+        let rhs = protocols.sorted()
+        return declaration(lhs: lhs, rhs: rhs, contents: contents)
+    }
+    
+    func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
+        let type = options.entities.isMakingClassesFinal ? "final class" : "class"
         let lhs = [options.access, type, name.rawValue]
-            .compactMap { $0 }.joined(separator: " ")
-        let rhs = ([isStruct ? nil : options.entities.baseClass] + protocols.sorted())
-            .compactMap { $0 }.joined(separator: ", ")
-
-        let declaration = rhs.isEmpty ? lhs : "\(lhs): \(rhs)"
-        
+        let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
+        return declaration(lhs: lhs, rhs: rhs, contents: contents)
+    }
+    
+    private func declaration(lhs: [String], rhs: [String], contents: [String]) -> String {
+        let lhs = lhs.joined(separator: " ")
+        let rhs = rhs.joined(separator: ", ")
         return """
-        \(declaration) {
+        \(rhs.isEmpty ? lhs : "\(lhs): \(rhs)") {
         \(contents.joined(separator: "\n\n").indented)
         }
         """
@@ -181,6 +192,13 @@ final class Templates {
         return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
     }
     
+    func defaultValue(for property: Property) -> String {
+        guard let value = property.defaultValue, !value.isEmpty, property.isOptional else {
+            return ""
+        }
+        return " ?? \(value)"
+    }
+    
     /// Generated decoding of the directly inlined nested object.
     ///
     ///     self.animal = try Animal(from: decoder)
@@ -204,7 +222,12 @@ final class Templates {
     
     func initFromDecoderAnyOf(properties: [Property]) -> String {
         let contents = properties.map {
-            "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
+            let defaultValue = self.defaultValue(for: $0)
+            if defaultValue.isEmpty {
+                return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
+            } else {
+                return "self.\($0.name.accessor) = (try? container.decode(\($0.type).self))\(defaultValue)"
+            }
         }.joined(separator: "\n")
         return """
         \(access)init(from decoder: Decoder) throws {

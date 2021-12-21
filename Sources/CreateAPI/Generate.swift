@@ -7,7 +7,7 @@ import OpenAPIKit30
 import Foundation
 import Yams
 
-// TODO: Generate `README.md` for package
+// TODO: Generate `README.md` for package (see `info`)
 // TODO: Disable sandbox
 // TODO: Add Linux support
 // TODO: Add OpenAPI 3.1 support
@@ -109,6 +109,8 @@ struct Generate: ParsableCommand {
     }
     
     private func readOptions() throws -> GenerateOptions {
+        VendorExtensionsConfiguration.isEnabled = false
+        
         let url = URL(filePath: config)
         guard let data = try? Data(contentsOf: url), !data.isEmpty else {
             return GenerateOptions() // Use default options

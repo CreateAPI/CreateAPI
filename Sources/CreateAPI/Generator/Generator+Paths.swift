@@ -18,6 +18,7 @@ import GrammaticalNumber
 // TODO: Split operations in separate files
 // TODO: Add support for application/json-patch+json
 // TODO: Add an option to put inline responses into separate files
+// TODO: Add support for remaining encoding styles https://swagger.io/docs/specification/serialization/
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -396,7 +397,7 @@ extension Generator {
                    let entity = (requestBody.nested as? EntityDeclaration),
                    entity.properties.count == 1,
                    !entity.isForm,
-                   !parameters.contains(where: { $0.hasPrefix(entity.properties[0].name.rawValue + ":") })  { // Chceked on Spotify spec
+                   !parameters.contains(where: { $0.hasPrefix(entity.properties[0].name.rawValue + ":") })  { // See Spotify spec
                     // Inline simple request types (types that only have N properties):
                     //
                     // public func post(body: PostRequest) -> Request<github.Reaction>
@@ -558,7 +559,7 @@ extension Generator {
             }
             return name
         }
-
+    
         let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
         return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, metadata: .init(schema.coreContext), nested: type.nested)
     }
@@ -624,6 +625,7 @@ extension Generator {
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
             .rar, .tar, .zip,
+            .pdf,
             .other("application/octet-stream")
         ]) != nil {
             return makeRequestType(TypeName("Data"))
@@ -691,21 +693,8 @@ extension Generator {
     
     private func getFirstContent(for keys: [OpenAPI.ContentType], from map: OpenAPI.Content.Map) -> (OpenAPI.Content, OpenAPI.ContentType)? {
         for key in keys {
-            // TODO: Update OpenAPIKIt to better support content-type parameters instead of this
-            switch key {
-            case .other(let expected):
-                if let content = map.first(where: { key, _ in
-                    guard case .other(let value) = key else {
-                        return false
-                    }
-                    return value.hasPrefix(expected)
-                }) {
-                    return (content.value, key)
-                }
-            default:
-                if let content = map[key] {
-                    return (content, key)
-                }
+            if let content = map.first(where: { $0.key.typeAndSubtype == key.typeAndSubtype }) {
+                return (content.value, content.key)
             }
         }
         return nil
@@ -750,6 +739,7 @@ extension Generator {
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
             .rar, .tar, .zip,
+            .pdf,
             .other("application/octet-stream")
         ]) != nil {
             return GeneratedType(type: TypeName("Data"))

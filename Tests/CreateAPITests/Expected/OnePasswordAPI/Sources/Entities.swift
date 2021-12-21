@@ -312,6 +312,7 @@ public struct Field: Codable {
 
     /// Some item types, Login and Password, have fields used for autofill. This property indicates that purpose and is required for some item types.
     public enum Purpose: String, Codable, CaseIterable {
+        case empty = ""
         case username = "USERNAME"
         case password = "PASSWORD"
         case notes = "NOTES"

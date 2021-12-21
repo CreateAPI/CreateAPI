@@ -4,6 +4,8 @@
 
 import Foundation
 
+// TODO: Fix how `internal` access is applied
+
 final class GenerateOptions {
     var access: String
     var isRemovingUnneededImports: Bool

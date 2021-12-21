@@ -126,6 +126,12 @@ extension String {
         if let replacement = replacements[self] {
             return replacement
         }
+        if last == ">" {
+            return "\(dropLast())GreaterThan"
+        }
+        if last == "<" {
+            return "\(dropLast())LessThan"
+        }
         if first == "+" {
             return "plus\(dropFirst())"
         }
@@ -198,6 +204,19 @@ extension String {
     }
 }
 
+// TODO: Expand this to work with multiple characters
+func sanitizeEnumCaseName(_ string: String) -> String {
+    if string.count == 1 &&
+        !(string.unicodeScalars.count == 1 && Character(string).isNumber),
+        string.unicodeScalars.allSatisfy({ $0.properties.isEmoji }) {
+        return string.unicodeScalars
+            .map { $0.properties.name }
+            .compactMap { $0 }
+            .joined(separator: "")
+    }
+    return string
+}
+
 // We can't list everything, but these are the most common words
 private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "enable", "enables", "require", "requires", "delete", "deletes", "can", "should", "use", "uses", "contain", "contains", "dismiss", "dismisses", "respond", "responds", "exclude", "excludes", "lock", "locks", "was", "were", "enforce", "enforces", "resolve", "resolves"])
 
@@ -219,7 +238,6 @@ private let replacements: [String: String] = [
     "#": "hash",
     "@": "alpha",
     "&": "and",
-    "-": "munis",
     "+": "plus",
     "\"": "backslash",
     "/": "slash"

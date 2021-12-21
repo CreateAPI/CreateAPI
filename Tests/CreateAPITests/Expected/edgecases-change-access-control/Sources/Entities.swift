@@ -297,6 +297,7 @@ enum EnumClass: String, Codable, CaseIterable {
     enum EnumString: String, Codable, CaseIterable {
         case upper = "UPPER"
         case lower
+        case empty = ""
     }
 
     init(enumString: EnumString? = nil, enumInteger: Int? = nil, enumNumber: Double? = nil, outerEnum: OuterEnum? = nil) {

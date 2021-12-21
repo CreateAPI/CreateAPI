@@ -295,7 +295,7 @@ extension Generator {
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
         let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
-            .removingDuplicates(by: \.name)
+            .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
     }
@@ -369,17 +369,10 @@ extension Generator {
     // MARK: - Enums
     
     func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
-        func getValue(_ value: Any) -> String? {
-            if let string = value as? String {
-                return string
-            }
-            if let bool = value as? Bool {
-                return bool ? "true" : "false"
-            }
-            return nil
-        }
-        
-        let values = (info.allowedValues ?? []).map(\.value).compactMap(getValue)
+        // TODO: null should be addressed differently
+        let values = (info.allowedValues ?? []).map(\.value)
+            .compactMap { $0 as? String }
+            .filter { $0 != "null" }
         guard !values.isEmpty else {
             throw GeneratorError("Enum \"\(name)\" has no values")
         }
@@ -393,7 +386,10 @@ extension Generator {
                     return makePropertyName(name)
                 }
             }
-            return makePropertyName($0)
+            let name = sanitizeEnumCaseName($0)
+                .trimmingCharacters(in: .whitespaces)
+            // TODO: Is this expected behavior? Or does it mean "nullable"?
+            return name.isEmpty ? PropertyName("empty") : makePropertyName(name)
         }
         let hasDuplicates = values.count != Set(caseNames.map(\.rawValue)).count
         let cases: [EnumOfStringsDeclaration.Case] = zip(values, caseNames).map { value, name in
@@ -583,7 +579,7 @@ extension Generator {
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }
-        }
+        }.removingDuplicates(by: \.name)
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }.map(render)

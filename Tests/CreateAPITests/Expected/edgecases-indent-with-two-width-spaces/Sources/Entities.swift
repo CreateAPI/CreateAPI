@@ -297,6 +297,7 @@ public struct EnumTest: Codable {
   public enum EnumString: String, Codable, CaseIterable {
     case upper = "UPPER"
     case lower
+    case empty = ""
   }
 
   public init(enumString: EnumString? = nil, enumInteger: Int? = nil, enumNumber: Double? = nil, outerEnum: OuterEnum? = nil) {

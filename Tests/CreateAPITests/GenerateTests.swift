@@ -175,6 +175,37 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "stackexchange", package: "StackExchangeAPI")
     }
     
+    // TODO: Add support for query-encoding objects and uncomment
+    func _testStripe() throws {
+        try testSpec(name: "stripe", package: "StripeAPI")
+    }
+    
+    func testTelegramBot() throws {
+        try testSpec(name: "telegram-bot", package: "TelegramBotPI")
+    }
+    
+    func testTicketMaster() throws {
+        try testSpec(name: "ticketmaster", package: "TicketmasterAPI")
+    }
+    
+    func testTrello() throws {
+        try testSpec(name: "trello", package: "TrelloAPI")
+    }
+    
+    func testTwilio() throws {
+        try testSpec(name: "twilio", package: "TwilioAPI")
+    }
+    
+    // TODO: Fix ContentType parsing and re-enable
+    func _testWikimedia() throws {
+        try testSpec(name: "wikimedia", package: "WikimediaAPI")
+    }
+    
+    // TODO: Fix nested types duplication and reenable
+    func _testZoom() throws {
+        try testSpec(name: "zoom", package: "ZoomAPI")
+    }
+    
     func testSpec(name: String, package: String, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([

@@ -6075,6 +6075,7 @@ public enum SecretScanningAlertState: String, Codable, CaseIterable {
 
 /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
 public enum SecretScanningAlertResolution: String, Codable, CaseIterable {
+    case empty = ""
     case falsePositive = "false_positive"
     case wontFix = "wont_fix"
     case revoked
@@ -10464,6 +10465,7 @@ public enum CodeScanningAlertState: String, Codable, CaseIterable {
 
 /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
 public enum CodeScanningAlertDismissedReason: String, Codable, CaseIterable {
+    case empty = ""
     case falsePositive = "false positive"
     case wontFix = "won't fix"
     case usedInTests = "used in tests"

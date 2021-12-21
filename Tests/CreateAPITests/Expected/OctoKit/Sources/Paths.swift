@@ -20779,6 +20779,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         }
 
         public enum Per: String, Codable, CaseIterable {
+            case empty = ""
             case day
             case week
         }
@@ -20861,6 +20862,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         }
 
         public enum Per: String, Codable, CaseIterable {
+            case empty = ""
             case day
             case week
         }
