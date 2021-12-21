@@ -27,11 +27,18 @@ extension Generator {
         let properties = decl.properties
         
         var contents: [String] = []
-        contents.append(templates.properties(properties))
-        contents += decl.nested.map(render)
-        if options.entities.isGeneratingInitializers {
-            contents.append(templates.initializer(properties: properties))
+        switch decl.type {
+        case .object, .allOf, .anyOf:
+            contents.append(templates.properties(properties))
+            contents += decl.nested.map(render)
+            if options.entities.isGeneratingInitializers {
+                contents.append(templates.initializer(properties: properties))
+            }
+        case .oneOf:
+            contents.append(properties.map(templates.case).joined(separator: "\n"))
+            contents += decl.nested.map(render)
         }
+
         switch decl.type {
         case .object:
             if decl.isForm {
@@ -76,18 +83,26 @@ extension Generator {
             if decl.protocols.isEncodable {
                 contents.append(templates.encode(properties: properties))
             }
+        case .oneOf:
+            if decl.protocols.isDecodable {
+                contents.append(templates.initFromDecoderOneOf(properties: properties))
+            }
+            if decl.protocols.isEncodable {
+                contents.append(templates.encodeOneOf(properties: properties))
+            }
         }
         
         // TODO: This doesn't work if the name is a typealias
         let hasReferencesToItself = properties.contains(where: { $0.type.name == decl.name && $0.nested == nil })
         let entity: String
-        if hasReferencesToItself {
+        if decl.type == .oneOf {
+            entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
+        } else if hasReferencesToItself {
             // Struct can't have references to itself
             entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
         } else {
             entity = templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
         }
-        return templates.comments(for: decl.metadata, name: decl.name.rawValue)
-        + entity
+        return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
     }
 }

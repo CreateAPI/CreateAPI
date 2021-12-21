@@ -436,6 +436,7 @@ public struct CurrentlyPlayingContextObject: Codable {
     /// Unix Millisecond Timestamp when data was fetched.
     public var timestamp: Int?
 
+    /// The currently playing track or episode. Can be `null`.
     public enum Item: Codable {
         case trackObject(TrackObject)
         case episodeObject(EpisodeObject)
@@ -502,6 +503,7 @@ public struct CurrentlyPlayingObject: Codable {
     /// Unix Millisecond Timestamp when data was fetched
     public var timestamp: Int?
 
+    /// The currently playing track or episode. Can be `null`.
     public enum Item: Codable {
         case trackObject(TrackObject)
         case episodeObject(EpisodeObject)
@@ -1282,6 +1284,7 @@ public struct PlaylistTrackObject: Codable {
     /// Information about the track or episode.
     public var track: Track?
 
+    /// Information about the track or episode.
     public enum Track: Codable {
         case trackObject(TrackObject)
         case episodeObject(EpisodeObject)

@@ -16749,6 +16749,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
             public var assignees: [String]?
 
+            /// The title of the issue.
             public enum Title: Encodable, Hashable {
                 case string(String)
                 case int(Int)
@@ -17112,6 +17113,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             /// Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
             public var assignees: [String]?
 
+            /// The title of the issue.
             public enum Title: Encodable, Hashable {
                 case string(String)
                 case int(Int)

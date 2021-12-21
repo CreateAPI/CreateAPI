@@ -2318,6 +2318,7 @@ public struct NonCompliantRulesProblem: Codable {
     }
 }
 
+/// An HTTP Problem Details object, as defined in IETF RFC 7807 (https://tools.ietf.org/html/rfc7807).
 public enum Problem: Codable {
     case genericProblem(GenericProblem)
     case invalidRequestProblem(InvalidRequestProblem)
@@ -2445,6 +2446,7 @@ public struct TweetSearchResponse: Codable {
     }
 }
 
+/// A tweet or error that can be returned by the streaming tweet API.
 public enum StreamingTweet: Codable {
     case singleTweetLookupResponse(SingleTweetLookupResponse)
     case object(Object)
@@ -2477,6 +2479,7 @@ public enum StreamingTweet: Codable {
     }
 }
 
+/// A tweet or error that can be returned by the streaming tweet API
 public enum FilteredStreamingTweet: Codable {
     case a(A)
     case b(B)

@@ -126,8 +126,8 @@ extension Generator {
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
         case .all(let schemas, let info):
             return try makeAllOf(name: name, schemas: schemas, info: info, context: context)
-        case .one(let schemas, _):
-            return try makeOneOf(name: name, schemas: schemas, context: context)
+        case .one(let schemas, let info):
+            return try makeOneOf(name: name, schemas: schemas, info: info, context: context)
         case .any(let schemas, let info):
             return try makeAnyOf(name: name, schemas: schemas, info: info, context: context)
         case .not:
@@ -512,7 +512,7 @@ extension Generator {
     
     // MARK: - oneOf/anyOf/allOf
     
-    private func makeOneOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
+    private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let context = context.adding(name)
         let properties: [Property] = try makeProperties(for: schemas, context: context).map {
             // TODO: Generalize this and add better naming for nested types.
@@ -535,18 +535,7 @@ extension Generator {
         let isHashable = properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
         if isHashable { protocols.insert("Hashable") }
         
-        var contents: [String] = []
-        // TODO: Add comments for cases
-        contents.append(properties.map(templates.case).joined(separator: "\n"))
-        contents += properties.compactMap { $0.nested }.map(render)
-        if protocols.isDecodable {
-            contents.append(templates.initFromDecoderOneOf(properties: properties))
-        }
-        if protocols.isEncodable {
-            contents.append(templates.encodeOneOf(properties: properties))
-        }
-        let output = templates.enumOneOf(name: name, contents: contents, protocols: protocols)
-        return AnyDeclaration(name: name, contents: output)
+        return EntityDeclaration(name: name, type: .oneOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
