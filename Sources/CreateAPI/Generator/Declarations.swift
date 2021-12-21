@@ -166,6 +166,7 @@ struct EnumOfStringsDeclaration: Declaration {
 // Gets rendered as either a struct or a class depending on the options.
 struct EntityDeclaration: Declaration {
     let name: TypeName
+    var type: EntityType
     let properties: [Property]
     let protocols: Protocols
     let metadata: DeclarationMetadata
@@ -180,6 +181,11 @@ struct EntityDeclaration: Declaration {
         guard case .userDefined(let name) = type else { return false }
         return nested.contains { $0.name == name }
     }
+}
+
+enum EntityType {
+    case object
+    case anyOf
 }
 
 struct AnyDeclaration: Declaration {

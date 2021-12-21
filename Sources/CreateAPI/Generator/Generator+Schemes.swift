@@ -6,6 +6,7 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
+// TODO: Pass info to oneOf, anyOf
 // TODO: Add Read-Only and Write-Only Properties support
 // TODO: stirng with format "binary"?
 // TODO: Add an option to add to namespace to all generated entities
@@ -127,8 +128,8 @@ extension Generator {
             return try makeAllOf(name: name, schemas: schemas, context: context)
         case .one(let schemas, _):
             return try makeOneOf(name: name, schemas: schemas, context: context)
-        case .any(let schemas, _):
-            return try makeAnyOf(name: name, schemas: schemas, context: context)
+        case .any(let schemas, let info):
+            return try makeAnyOf(name: name, schemas: schemas, info: info, context: context)
         case .not:
             throw GeneratorError("`not` is not supported: \(name)")
         case .reference(let info, _):
@@ -295,9 +296,10 @@ extension Generator {
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
         let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
+            .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
         let protocols = getProtocols(for: name, context: context)
-        return EntityDeclaration(name: name, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
+        return EntityDeclaration(name: name, type: .object, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
     }
     
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {
@@ -547,39 +549,48 @@ extension Generator {
         return AnyDeclaration(name: name, contents: output)
     }
     
-    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
+    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
-        var contents: [String] = []
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
             properties.remove(at: index)
         }
-        contents.append(templates.properties(properties))
-        contents += properties.compactMap { $0.nested }.map(render)
         let protocols = getProtocols(for: name, context: context)
-        if protocols.isDecodable {
-            contents.append(templates.initFromDecoderAnyOf(properties: properties))
-        }
-        if protocols.isEncodable {
-            contents.append(templates.encodeAnyOf(properties: properties))
-        }
-        let output = templates.entity(name: name, contents: contents, protocols: protocols)
-        return AnyDeclaration(name: name, contents: output)
+        return EntityDeclaration(name: name, type: .anyOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
         let types = makeTypeNames(for: schemas, context: context)
         let context = context.adding(name)
+
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
             switch schema {
             case .object(_, let details):
-                // Inline properties for nested objects (differnt from other OpenAPI constructs)
+                // Inline properties for nested objects (different from other OpenAPI constructs)
                 return try makeProperties(for: name, object: details, context: context)
+            case .reference(let info,_ ):
+                if options.entities.isInliningPropertiesFromReferencedSchames,
+                   let schema = try? info.dereferenced(in: spec.components),
+                   case .object(_, let details) = schema.jsonSchema {
+                    return try makeProperties(for: name, object: details, context: context)
+                } else {
+                    var context = context
+                    if name.rawValue == info.name { // Gotta disambiguate
+                        context.namespace = arguments.module.rawValue
+                    }
+                    return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
+                }
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
             }
         }.removingDuplicates(by: \.name)
+        
+        // TODO: Figure out how to inline these
+        if properties.count == 1 {
+            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: properties[0].type.name))
+        }
+        
         var contents: [String] = []
         contents.append(templates.properties(properties))
         contents += properties.compactMap { $0.nested }.map(render)

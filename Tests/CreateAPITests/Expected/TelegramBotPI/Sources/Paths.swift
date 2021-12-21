@@ -371,9 +371,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -382,6 +388,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -399,6 +406,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -483,9 +497,15 @@ extension Paths {
             /// Message identifier in the chat specified in *from\_chat\_id*
             public var messageID: Int
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -494,9 +514,15 @@ extension Paths {
                 }
             }
 
+            /// Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
             public struct FromChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -584,10 +610,16 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
 
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
+
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
                     if let value = int { try container.encode(value) }
@@ -595,10 +627,16 @@ extension Paths {
                 }
             }
 
+            /// Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
             public struct FromChatID: Encodable {
                 public var int: Int?
                 public var string: String?
 
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
+
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
                     if let value = int { try container.encode(value) }
@@ -606,6 +644,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -623,6 +662,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1037,9 +1083,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1048,6 +1100,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -1065,6 +1118,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1130,6 +1190,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -1176,9 +1241,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1238,6 +1309,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -1274,9 +1350,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1367,9 +1449,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1378,6 +1466,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -1395,6 +1484,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1497,9 +1593,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1508,6 +1610,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -1525,6 +1628,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1635,9 +1745,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1646,6 +1762,7 @@ extension Paths {
                 }
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -1663,6 +1780,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1767,9 +1891,15 @@ extension Paths {
             /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public var replyMarkup: ReplyMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1787,6 +1917,7 @@ extension Paths {
                 case slotMachine = "🎰"
             }
 
+            /// Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
             public struct ReplyMarkup: Encodable {
                 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
                 ///
@@ -1804,6 +1935,13 @@ extension Paths {
                 ///
                 /// [External Documentation](https://core.telegram.org/bots/api/#forcereply)
                 public var forceReply: TelegramBotPI.ForceReply?
+
+                public init(inlineKeyboardMarkup: TelegramBotPI.InlineKeyboardMarkup? = nil, replyKeyboardMarkup: TelegramBotPI.ReplyKeyboardMarkup? = nil, replyKeyboardRemove: TelegramBotPI.ReplyKeyboardRemove? = nil, forceReply: TelegramBotPI.ForceReply? = nil) {
+                    self.inlineKeyboardMarkup = inlineKeyboardMarkup
+                    self.replyKeyboardMarkup = replyKeyboardMarkup
+                    self.replyKeyboardRemove = replyKeyboardRemove
+                    self.forceReply = forceReply
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -1882,9 +2020,15 @@ extension Paths {
             /// Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
             public var action: String
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2058,9 +2202,15 @@ extension Paths {
             /// Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
             public var untilDate: Int?
 
+            /// Unique identifier for the target group or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2129,9 +2279,15 @@ extension Paths {
             /// Do nothing if the user is not banned
             public var isOnlyIfBanned: Bool?
 
+            /// Unique identifier for the target group or username of the target supergroup or channel (in the format `@username`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2204,9 +2360,15 @@ extension Paths {
             /// Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
             public var untilDate: Int?
 
+            /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2293,9 +2455,15 @@ extension Paths {
             /// Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
             public var canPromoteMembers: Bool?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2380,9 +2548,15 @@ extension Paths {
             /// New custom title for the administrator; 0-16 characters, emoji are not allowed
             public var customTitle: String
 
+            /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2451,9 +2625,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#chatpermissions)
             public var permissions: TelegramBotPI.ChatPermissions
 
+            /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2516,9 +2696,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2618,9 +2804,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2683,9 +2875,15 @@ extension Paths {
             /// New chat title, 1-255 characters
             public var title: String
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2750,9 +2948,15 @@ extension Paths {
             /// New chat description, 0-255 characters
             public var description: String?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2819,9 +3023,15 @@ extension Paths {
             /// Pass *True*, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
             public var isDisableNotification: Bool?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2888,9 +3098,15 @@ extension Paths {
             /// Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
             public var messageID: Int?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -2953,9 +3169,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3016,9 +3238,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3079,9 +3307,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3142,9 +3376,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3205,9 +3445,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3273,9 +3519,15 @@ extension Paths {
             /// Unique identifier of the target user
             public var userID: Int
 
+            /// Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3340,9 +3592,15 @@ extension Paths {
             /// Name of the sticker set to be set as the group sticker set
             public var stickerSetName: String
 
+            /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3405,9 +3663,15 @@ extension Paths {
             /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public var chatID: ChatID
 
+            /// Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3601,6 +3865,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -3645,9 +3914,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3705,6 +3980,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -3747,9 +4027,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3805,6 +4091,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -3855,6 +4146,11 @@ extension Paths {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
 
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
+
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()
                     self.message = try? container.decode(TelegramBotPI.Message.self)
@@ -3891,9 +4187,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -3969,9 +4271,15 @@ extension Paths {
             /// [External Documentation](https://core.telegram.org/bots/api/#inlinekeyboardmarkup)
             public var replyMarkup: TelegramBotPI.InlineKeyboardMarkup?
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -4046,9 +4354,15 @@ extension Paths {
             /// Identifier of the message to delete
             public var messageID: Int
 
+            /// Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
             public struct ChatID: Encodable {
                 public var int: Int?
                 public var string: String?
+
+                public init(int: Int? = nil, string: String? = nil) {
+                    self.int = int
+                    self.string = string
+                }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.singleValueContainer()
@@ -4906,6 +5220,11 @@ extension Paths {
             public struct Result: Decodable {
                 public var message: TelegramBotPI.Message?
                 public var isBool: Bool
+
+                public init(message: TelegramBotPI.Message? = nil, isBool: Bool? = nil) {
+                    self.message = message
+                    self.isBool = isBool ?? true
+                }
 
                 public init(from decoder: Decoder) throws {
                     let container = try decoder.singleValueContainer()

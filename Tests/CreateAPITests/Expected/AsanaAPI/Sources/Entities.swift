@@ -109,18 +109,7 @@ public struct AttachmentResponse: Codable {
     /// Example: "https://www.dropbox.com/s/123/Screenshot.png"
     public var viewURL: URL?
 
-    public struct Parent: Codable {
-        public var taskCompact: TaskCompact
-
-        public init(from decoder: Decoder) throws {
-            self.taskCompact = try TaskCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(taskCompact, forKey: "taskCompact")
-        }
-    }
+    public typealias Parent = TaskCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -349,61 +338,13 @@ public struct AuditLogEvent: Codable {
     public var details: Details?
     public var context: Context?
 
-    public struct Actor: Codable {
-        /// The entity that triggered the event. Will typically be a user.
-        public var auditLogEventActor: AuditLogEventActor
+    public typealias Actor = AuditLogEventActor
 
-        public init(from decoder: Decoder) throws {
-            self.auditLogEventActor = try AuditLogEventActor(from: decoder)
-        }
+    public typealias Resource = AuditLogEventResource
 
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(auditLogEventActor, forKey: "auditLogEventActor")
-        }
-    }
+    public typealias Details = AuditLogEventDetails
 
-    public struct Resource: Codable {
-        /// The primary object that was affected by this event.
-        public var auditLogEventResource: AuditLogEventResource
-
-        public init(from decoder: Decoder) throws {
-            self.auditLogEventResource = try AuditLogEventResource(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(auditLogEventResource, forKey: "auditLogEventResource")
-        }
-    }
-
-    public struct Details: Codable {
-        /// Event specific details. The schema will vary depending on the `event_type`.
-        public var auditLogEventDetails: AuditLogEventDetails
-
-        public init(from decoder: Decoder) throws {
-            self.auditLogEventDetails = try AuditLogEventDetails(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(auditLogEventDetails, forKey: "auditLogEventDetails")
-        }
-    }
-
-    public struct Context: Codable {
-        /// The context from which this event originated.
-        public var auditLogEventContext: AuditLogEventContext
-
-        public init(from decoder: Decoder) throws {
-            self.auditLogEventContext = try AuditLogEventContext(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(auditLogEventContext, forKey: "auditLogEventContext")
-        }
-    }
+    public typealias Context = AuditLogEventContext
 
     public init(gid: String? = nil, createdAt: Date? = nil, eventType: String? = nil, eventCategory: String? = nil, actor: Actor? = nil, resource: Resource? = nil, details: Details? = nil, context: Context? = nil) {
         self.gid = gid
@@ -617,18 +558,7 @@ public struct CustomFieldResponse: Codable {
     public var multiEnumValues: [EnumOption]?
     public var createdBy: UserCompact?
 
-    public struct EnumValue: Codable {
-        public var enumOption: EnumOption
-
-        public init(from decoder: Decoder) throws {
-            self.enumOption = try EnumOption(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(enumOption, forKey: "enumOption")
-        }
-    }
+    public typealias EnumValue = EnumOption
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -839,44 +769,11 @@ public struct CustomFieldSettingResponse: Codable {
     public var parent: Parent?
     public var customField: CustomField?
 
-    public struct Project: Codable {
-        public var projectCompact: ProjectCompact
+    public typealias Project = ProjectCompact
 
-        public init(from decoder: Decoder) throws {
-            self.projectCompact = try ProjectCompact(from: decoder)
-        }
+    public typealias Parent = ProjectCompact
 
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(projectCompact, forKey: "projectCompact")
-        }
-    }
-
-    public struct Parent: Codable {
-        public var projectCompact: ProjectCompact
-
-        public init(from decoder: Decoder) throws {
-            self.projectCompact = try ProjectCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(projectCompact, forKey: "projectCompact")
-        }
-    }
-
-    public struct CustomField: Codable {
-        public var customFieldResponse: CustomFieldResponse
-
-        public init(from decoder: Decoder) throws {
-            self.customFieldResponse = try CustomFieldResponse(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(customFieldResponse, forKey: "customFieldResponse")
-        }
-    }
+    public typealias CustomField = CustomFieldResponse
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -899,19 +796,7 @@ public struct CustomFieldSettingResponse: Codable {
 
 public typealias CustomFieldSettingBase = CustomFieldSettingCompact
 
-public struct CustomFieldSettingCompact: Codable {
-    /// A generic Asana Resource, containing a globally unique identifier.
-    public var asanaResource: AsanaResource
-
-    public init(from decoder: Decoder) throws {
-        self.asanaResource = try AsanaResource(from: decoder)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(asanaResource, forKey: "asanaResource")
-    }
-}
+public typealias CustomFieldSettingCompact = AsanaResource
 
 /// Example:
 ///
@@ -1283,70 +1168,15 @@ public struct GoalResponse: Codable {
     public var metric: Metric?
     public var owner: Owner?
 
-    public struct Team: Codable {
-        public var teamCompact: TeamCompact
+    public typealias Team = TeamCompact
 
-        public init(from decoder: Decoder) throws {
-            self.teamCompact = try TeamCompact(from: decoder)
-        }
+    public typealias Workspace = WorkspaceCompact
 
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(teamCompact, forKey: "teamCompact")
-        }
-    }
+    public typealias TimePeriod = TimePeriodCompact
 
-    public struct Workspace: Codable {
-        public var workspaceCompact: WorkspaceCompact
+    public typealias Metric = GoalMetricBase
 
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
-
-    public struct TimePeriod: Codable {
-        public var timePeriodCompact: TimePeriodCompact
-
-        public init(from decoder: Decoder) throws {
-            self.timePeriodCompact = try TimePeriodCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(timePeriodCompact, forKey: "timePeriodCompact")
-        }
-    }
-
-    public struct Metric: Codable {
-        public var goalMetricBase: GoalMetricBase
-
-        public init(from decoder: Decoder) throws {
-            self.goalMetricBase = try GoalMetricBase(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(goalMetricBase, forKey: "goalMetricBase")
-        }
-    }
-
-    public struct Owner: Codable {
-        public var userCompact: UserCompact
-
-        public init(from decoder: Decoder) throws {
-            self.userCompact = try UserCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userCompact, forKey: "userCompact")
-        }
-    }
+    public typealias Owner = UserCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1490,18 +1320,7 @@ public struct GoalCompact: Codable {
     public var name: String?
     public var owner: Owner?
 
-    public struct Owner: Codable {
-        public var userCompact: UserCompact
-
-        public init(from decoder: Decoder) throws {
-            self.userCompact = try UserCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userCompact, forKey: "userCompact")
-        }
-    }
+    public typealias Owner = UserCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1823,18 +1642,7 @@ public struct PortfolioResponse: Codable {
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
-    public struct Workspace: Codable {
-        public var workspaceCompact: WorkspaceCompact
-
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
+    public typealias Workspace = WorkspaceCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2139,31 +1947,9 @@ public struct ProjectResponse: Codable {
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
-    public struct Owner: Codable {
-        public var userCompact: UserCompact
+    public typealias Owner = UserCompact
 
-        public init(from decoder: Decoder) throws {
-            self.userCompact = try UserCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userCompact, forKey: "userCompact")
-        }
-    }
-
-    public struct Team: Codable {
-        public var teamCompact: TeamCompact
-
-        public init(from decoder: Decoder) throws {
-            self.teamCompact = try TeamCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(teamCompact, forKey: "teamCompact")
-        }
-    }
+    public typealias Team = TeamCompact
 
     /// The icon for a project.
     ///
@@ -2351,18 +2137,7 @@ public struct ProjectBase: Codable {
         case lightWarmGray = "light-warm-gray"
     }
 
-    public struct CurrentStatus: Codable {
-        public var projectStatusResponse: ProjectStatusResponse
-
-        public init(from decoder: Decoder) throws {
-            self.projectStatusResponse = try ProjectStatusResponse(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(projectStatusResponse, forKey: "projectStatusResponse")
-        }
-    }
+    public typealias CurrentStatus = ProjectStatusResponse
 
     /// The default view (list, board, calendar, or timeline) of a project.
     ///
@@ -2374,18 +2149,7 @@ public struct ProjectBase: Codable {
         case timeline
     }
 
-    public struct Workspace: Codable {
-        public var workspaceCompact: WorkspaceCompact
-
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
+    public typealias Workspace = WorkspaceCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3362,18 +3126,7 @@ public struct TaskResponse: Codable {
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
-    public struct Assignee: Codable {
-        public var userCompact: UserCompact
-
-        public init(from decoder: Decoder) throws {
-            self.userCompact = try UserCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userCompact, forKey: "userCompact")
-        }
-    }
+    public typealias Assignee = UserCompact
 
     public struct AssigneeSection: Codable {
         public var sectionCompact: SectionCompact
@@ -3393,31 +3146,9 @@ public struct TaskResponse: Codable {
         }
     }
 
-    public struct Parent: Codable {
-        public var taskCompact: TaskCompact
+    public typealias Parent = TaskCompact
 
-        public init(from decoder: Decoder) throws {
-            self.taskCompact = try TaskCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(taskCompact, forKey: "taskCompact")
-        }
-    }
-
-    public struct Workspace: Codable {
-        public var workspaceCompact: WorkspaceCompact
-
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
+    public typealias Workspace = WorkspaceCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3968,18 +3699,7 @@ public struct TeamResponse: Codable {
     /// The visibility of the team to users in the same organization
     public var visibility: Visibility?
 
-    public struct Organization: Codable {
-        public var workspaceCompact: WorkspaceCompact
-
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
+    public typealias Organization = WorkspaceCompact
 
     /// The visibility of the team to users in the same organization
     public enum Visibility: String, Codable, CaseIterable {
@@ -4095,18 +3815,7 @@ public struct TeamMembershipCompact: Codable {
     }
 }
 
-public struct TimePeriodResponse: Codable {
-    public var timePeriodBase: TimePeriodBase
-
-    public init(from decoder: Decoder) throws {
-        self.timePeriodBase = try TimePeriodBase(from: decoder)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(timePeriodBase, forKey: "timePeriodBase")
-    }
-}
+public typealias TimePeriodResponse = TimePeriodBase
 
 public struct TimePeriodBase: Codable {
     public var timePeriodCompact: TimePeriodCompact
@@ -4322,31 +4031,9 @@ public struct UserTaskListCompact: Codable {
     /// The workspace in which the user task list is located.
     public var workspace: Workspace?
 
-    public struct Owner: Codable {
-        public var userCompact: UserCompact
+    public typealias Owner = UserCompact
 
-        public init(from decoder: Decoder) throws {
-            self.userCompact = try UserCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userCompact, forKey: "userCompact")
-        }
-    }
-
-    public struct Workspace: Codable {
-        public var workspaceCompact: WorkspaceCompact
-
-        public init(from decoder: Decoder) throws {
-            self.workspaceCompact = try WorkspaceCompact(from: decoder)
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(workspaceCompact, forKey: "workspaceCompact")
-        }
-    }
+    public typealias Workspace = WorkspaceCompact
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)

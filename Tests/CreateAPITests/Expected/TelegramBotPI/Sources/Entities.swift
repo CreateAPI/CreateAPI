@@ -1705,6 +1705,9 @@ public struct ResponseParameters: Codable {
     }
 }
 
+/// This object represents the content of a media message to be sent. It should be one of
+///
+/// [External Documentation](https://core.telegram.org/bots/api/#inputmedia)
 public struct InputMedia: Codable {
     /// Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
     ///
@@ -1726,6 +1729,14 @@ public struct InputMedia: Codable {
     ///
     /// [External Documentation](https://core.telegram.org/bots/api/#inputmediavideo)
     public var inputMediaVideo: InputMediaVideo?
+
+    public init(inputMediaAnimation: InputMediaAnimation? = nil, inputMediaDocument: InputMediaDocument? = nil, inputMediaAudio: InputMediaAudio? = nil, inputMediaPhoto: InputMediaPhoto? = nil, inputMediaVideo: InputMediaVideo? = nil) {
+        self.inputMediaAnimation = inputMediaAnimation
+        self.inputMediaDocument = inputMediaDocument
+        self.inputMediaAudio = inputMediaAudio
+        self.inputMediaPhoto = inputMediaPhoto
+        self.inputMediaVideo = inputMediaVideo
+    }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -1803,12 +1814,18 @@ public struct InputMediaVideo: Codable {
     /// *Optional*. Pass *True*, if the uploaded video is suitable for streaming
     public var isSupportsStreaming: Bool?
 
+    /// *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
     public struct Thumb: Codable {
         /// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
         ///
         /// [External Documentation](https://core.telegram.org/bots/api/#inputfile)
         public var anyJSON: AnyJSON?
         public var string: String?
+
+        public init(anyJSON: AnyJSON? = nil, string: String? = nil) {
+            self.anyJSON = anyJSON
+            self.string = string
+        }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -1873,12 +1890,18 @@ public struct InputMediaAnimation: Codable {
     /// *Optional*. Animation duration
     public var duration: Int?
 
+    /// *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
     public struct Thumb: Codable {
         /// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
         ///
         /// [External Documentation](https://core.telegram.org/bots/api/#inputfile)
         public var anyJSON: AnyJSON?
         public var string: String?
+
+        public init(anyJSON: AnyJSON? = nil, string: String? = nil) {
+            self.anyJSON = anyJSON
+            self.string = string
+        }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -1941,12 +1964,18 @@ public struct InputMediaAudio: Codable {
     /// *Optional*. Title of the audio
     public var title: String?
 
+    /// *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
     public struct Thumb: Codable {
         /// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
         ///
         /// [External Documentation](https://core.telegram.org/bots/api/#inputfile)
         public var anyJSON: AnyJSON?
         public var string: String?
+
+        public init(anyJSON: AnyJSON? = nil, string: String? = nil) {
+            self.anyJSON = anyJSON
+            self.string = string
+        }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -2005,12 +2034,18 @@ public struct InputMediaDocument: Codable {
     /// *Optional*. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album.
     public var isDisableContentTypeDetection: Bool?
 
+    /// *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
     public struct Thumb: Codable {
         /// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
         ///
         /// [External Documentation](https://core.telegram.org/bots/api/#inputfile)
         public var anyJSON: AnyJSON?
         public var string: String?
+
+        public init(anyJSON: AnyJSON? = nil, string: String? = nil) {
+            self.anyJSON = anyJSON
+            self.string = string
+        }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -2204,6 +2239,9 @@ public struct InlineQuery: Codable {
     }
 }
 
+/// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
+///
+/// [External Documentation](https://core.telegram.org/bots/api/#inlinequeryresult)
 public struct InlineQueryResult: Codable {
     /// Represents a link to an MP3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the audio.
     ///
@@ -2287,6 +2325,29 @@ public struct InlineQueryResult: Codable {
     ///
     /// [External Documentation](https://core.telegram.org/bots/api/#inlinequeryresultvoice)
     public var inlineQueryResultVoice: InlineQueryResultVoice?
+
+    public init(inlineQueryResultCachedAudio: InlineQueryResultCachedAudio? = nil, inlineQueryResultCachedDocument: InlineQueryResultCachedDocument? = nil, inlineQueryResultCachedGif: InlineQueryResultCachedGif? = nil, inlineQueryResultCachedMpeg4Gif: InlineQueryResultCachedMpeg4Gif? = nil, inlineQueryResultCachedPhoto: InlineQueryResultCachedPhoto? = nil, inlineQueryResultCachedSticker: InlineQueryResultCachedSticker? = nil, inlineQueryResultCachedVideo: InlineQueryResultCachedVideo? = nil, inlineQueryResultCachedVoice: InlineQueryResultCachedVoice? = nil, inlineQueryResultArticle: InlineQueryResultArticle? = nil, inlineQueryResultAudio: InlineQueryResultAudio? = nil, inlineQueryResultContact: InlineQueryResultContact? = nil, inlineQueryResultGame: InlineQueryResultGame? = nil, inlineQueryResultDocument: InlineQueryResultDocument? = nil, inlineQueryResultGif: InlineQueryResultGif? = nil, inlineQueryResultLocation: InlineQueryResultLocation? = nil, inlineQueryResultMpeg4Gif: InlineQueryResultMpeg4Gif? = nil, inlineQueryResultPhoto: InlineQueryResultPhoto? = nil, inlineQueryResultVenue: InlineQueryResultVenue? = nil, inlineQueryResultVideo: InlineQueryResultVideo? = nil, inlineQueryResultVoice: InlineQueryResultVoice? = nil) {
+        self.inlineQueryResultCachedAudio = inlineQueryResultCachedAudio
+        self.inlineQueryResultCachedDocument = inlineQueryResultCachedDocument
+        self.inlineQueryResultCachedGif = inlineQueryResultCachedGif
+        self.inlineQueryResultCachedMpeg4Gif = inlineQueryResultCachedMpeg4Gif
+        self.inlineQueryResultCachedPhoto = inlineQueryResultCachedPhoto
+        self.inlineQueryResultCachedSticker = inlineQueryResultCachedSticker
+        self.inlineQueryResultCachedVideo = inlineQueryResultCachedVideo
+        self.inlineQueryResultCachedVoice = inlineQueryResultCachedVoice
+        self.inlineQueryResultArticle = inlineQueryResultArticle
+        self.inlineQueryResultAudio = inlineQueryResultAudio
+        self.inlineQueryResultContact = inlineQueryResultContact
+        self.inlineQueryResultGame = inlineQueryResultGame
+        self.inlineQueryResultDocument = inlineQueryResultDocument
+        self.inlineQueryResultGif = inlineQueryResultGif
+        self.inlineQueryResultLocation = inlineQueryResultLocation
+        self.inlineQueryResultMpeg4Gif = inlineQueryResultMpeg4Gif
+        self.inlineQueryResultPhoto = inlineQueryResultPhoto
+        self.inlineQueryResultVenue = inlineQueryResultVenue
+        self.inlineQueryResultVideo = inlineQueryResultVideo
+        self.inlineQueryResultVoice = inlineQueryResultVoice
+    }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -3541,6 +3602,9 @@ public struct InlineQueryResultCachedAudio: Codable {
     }
 }
 
+/// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
+///
+/// [External Documentation](https://core.telegram.org/bots/api/#inputmessagecontent)
 public struct InputMessageContent: Codable {
     /// Represents the [content](https://core.telegram.org/bots/api/#inputmessagecontent) of a text message to be sent as the result of an inline query.
     ///
@@ -3558,6 +3622,13 @@ public struct InputMessageContent: Codable {
     ///
     /// [External Documentation](https://core.telegram.org/bots/api/#inputcontactmessagecontent)
     public var inputContactMessageContent: InputContactMessageContent?
+
+    public init(inputTextMessageContent: InputTextMessageContent? = nil, inputLocationMessageContent: InputLocationMessageContent? = nil, inputVenueMessageContent: InputVenueMessageContent? = nil, inputContactMessageContent: InputContactMessageContent? = nil) {
+        self.inputTextMessageContent = inputTextMessageContent
+        self.inputLocationMessageContent = inputLocationMessageContent
+        self.inputVenueMessageContent = inputVenueMessageContent
+        self.inputContactMessageContent = inputContactMessageContent
+    }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -4135,6 +4206,9 @@ public struct EncryptedCredentials: Codable {
     }
 }
 
+/// This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
+///
+/// [External Documentation](https://core.telegram.org/bots/api/#passportelementerror)
 public struct PassportElementError: Codable {
     /// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
     ///
@@ -4172,6 +4246,18 @@ public struct PassportElementError: Codable {
     ///
     /// [External Documentation](https://core.telegram.org/bots/api/#passportelementerrorunspecified)
     public var passportElementErrorUnspecified: PassportElementErrorUnspecified?
+
+    public init(passportElementErrorDataField: PassportElementErrorDataField? = nil, passportElementErrorFrontSide: PassportElementErrorFrontSide? = nil, passportElementErrorReverseSide: PassportElementErrorReverseSide? = nil, passportElementErrorSelfie: PassportElementErrorSelfie? = nil, passportElementErrorFile: PassportElementErrorFile? = nil, passportElementErrorFiles: PassportElementErrorFiles? = nil, passportElementErrorTranslationFile: PassportElementErrorTranslationFile? = nil, passportElementErrorTranslationFiles: PassportElementErrorTranslationFiles? = nil, passportElementErrorUnspecified: PassportElementErrorUnspecified? = nil) {
+        self.passportElementErrorDataField = passportElementErrorDataField
+        self.passportElementErrorFrontSide = passportElementErrorFrontSide
+        self.passportElementErrorReverseSide = passportElementErrorReverseSide
+        self.passportElementErrorSelfie = passportElementErrorSelfie
+        self.passportElementErrorFile = passportElementErrorFile
+        self.passportElementErrorFiles = passportElementErrorFiles
+        self.passportElementErrorTranslationFile = passportElementErrorTranslationFile
+        self.passportElementErrorTranslationFiles = passportElementErrorTranslationFiles
+        self.passportElementErrorUnspecified = passportElementErrorUnspecified
+    }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

@@ -32,25 +32,37 @@ extension Generator {
         if options.entities.isGeneratingInitializers {
             contents.append(templates.initializer(properties: properties))
         }
-        if decl.isForm {
-            contents.append(templates.asQueryString(properties: properties))
-        } else {
-            if options.entities.isUsingCustomCodingKeys {
-                if let keys = templates.codingKeys(for: properties) {
-                    contents.append(keys)
-                }
-                if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
-                    contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
-                }
+        switch decl.type {
+        case .object:
+            if decl.isForm {
+                contents.append(templates.asQueryString(properties: properties))
             } else {
-                if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithDecoder {
-                    contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
-                }
-                if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingEncodeWithEncoder {
-                    contents.append(templates.encode(properties: properties))
+                if options.entities.isUsingCustomCodingKeys {
+                    if let keys = templates.codingKeys(for: properties) {
+                        contents.append(keys)
+                    }
+                    if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
+                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
+                    }
+                } else {
+                    if decl.protocols.isDecodable, !properties.isEmpty, options.entities.isGeneratingInitWithDecoder {
+                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
+                    }
+                    if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingEncodeWithEncoder {
+                        contents.append(templates.encode(properties: properties))
+                    }
                 }
             }
+        case .anyOf:
+            if decl.protocols.isDecodable {
+                contents.append(templates.initFromDecoderAnyOf(properties: properties))
+            }
+            if decl.protocols.isEncodable {
+                contents.append(templates.encodeAnyOf(properties: properties))
+            }
         }
+        
+        // TODO: This doesn't work if the name is a typealias
         let hasReferencesToItself = properties.contains(where: { $0.type.name == decl.name && $0.nested == nil })
         let entity: String
         if hasReferencesToItself {

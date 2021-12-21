@@ -5901,6 +5901,10 @@ extension Paths.Orgs.WithOrg {
             /// Interaction limit settings.
             public var interactionLimitResponse: OctoKit.InteractionLimitResponse?
 
+            public init(interactionLimitResponse: OctoKit.InteractionLimitResponse? = nil) {
+                self.interactionLimitResponse = interactionLimitResponse
+            }
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(OctoKit.InteractionLimitResponse.self)
@@ -16517,6 +16521,10 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Interaction limit settings.
             public var interactionLimitResponse: OctoKit.InteractionLimitResponse?
 
+            public init(interactionLimitResponse: OctoKit.InteractionLimitResponse? = nil) {
+                self.interactionLimitResponse = interactionLimitResponse
+            }
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(OctoKit.InteractionLimitResponse.self)
@@ -18353,6 +18361,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.branch = branch
                         self.path = path
                     }
+                }
+
+                public init(a: A? = nil, b: B? = nil) {
+                    self.a = a
+                    self.b = b
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -20322,6 +20335,11 @@ extension Paths.Repos.WithOwner.WithRepo {
         public struct GetResponse: Decodable {
             public var simpleUsers: [OctoKit.SimpleUser]?
             public var stargazers: [OctoKit.Stargazer]?
+
+            public init(simpleUsers: [OctoKit.SimpleUser]? = nil, stargazers: [OctoKit.Stargazer]? = nil) {
+                self.simpleUsers = simpleUsers
+                self.stargazers = stargazers
+            }
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
@@ -25260,6 +25278,10 @@ extension Paths.User {
             /// Interaction limit settings.
             public var interactionLimitResponse: OctoKit.InteractionLimitResponse?
 
+            public init(interactionLimitResponse: OctoKit.InteractionLimitResponse? = nil) {
+                self.interactionLimitResponse = interactionLimitResponse
+            }
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 self.interactionLimitResponse = try? container.decode(OctoKit.InteractionLimitResponse.self)
@@ -27580,6 +27602,11 @@ extension Paths.Users.WithUsername {
         public struct GetResponse: Decodable {
             public var starredRepositories: [OctoKit.StarredRepository]?
             public var repositories: [OctoKit.Repository]?
+
+            public init(starredRepositories: [OctoKit.StarredRepository]? = nil, repositories: [OctoKit.Repository]? = nil) {
+                self.starredRepositories = starredRepositories
+                self.repositories = repositories
+            }
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()

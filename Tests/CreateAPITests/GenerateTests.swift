@@ -94,7 +94,7 @@ final class GenerateTests: XCTestCase {
     }
     
     // TODO: Update with the latest version (https://developer.apple.com/documentation/appstoreconnectapi)
-    // when `gzip` and duplicated `- $ref: "#/components/schemas/AppCategory"` are fixed
+    // when duplicated `- $ref: "#/components/schemas/AppCategory"` are fixed
     func testGenerateAppStoreConnect() throws {
         try testSpec(name: "app-store-connect", package: "AppStoreConnectAPI")
     }
@@ -108,7 +108,7 @@ final class GenerateTests: XCTestCase {
     // TODO: Upadte when https://github.com/jpsim/Yams/issues/337 is addressed
     // Spec URL: https://developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json
     func _testJira() throws {
-        try testSpec(name: "jira", package: "Jira")
+        try testSpec(name: "jira", package: "JiraAPI")
     }
     
     // TODO: Can we automatically resolve these conflicts?
@@ -135,7 +135,7 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "instagram", package: "InstagramAPI")
     }
     
-    func testNYTArchive() throws {
+    func testNYTArchiveS() throws {
         try testSpec(name: "nyt-archive", package: "NYTArchiveAPI")
     }
     

@@ -571,6 +571,10 @@ public struct User: Codable {
             }
         }
 
+        public init(object: Object? = nil) {
+            self.object = object
+        }
+
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.object = try? container.decode(Object.self)
@@ -809,6 +813,10 @@ public struct CompleteUser: Codable {
             }
         }
 
+        public init(object: Object? = nil) {
+            self.object = object
+        }
+
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.object = try? container.decode(Object.self)
@@ -1013,6 +1021,10 @@ public struct UsersListItem: Codable {
                 case product
                 case isRecurring = "recurring"
             }
+        }
+
+        public init(object: Object? = nil) {
+            self.object = object
         }
 
         public init(from decoder: Decoder) throws {
@@ -1476,11 +1488,17 @@ public struct Activities: Codable {
         /// Origin.
         public var origin: Origin?
 
+        /// Origin.
         public struct Origin: Codable {
             /// Soundcloud Track object.
             public var track: Track?
             /// Soundcloud Playlist Object
             public var playlist: Playlist?
+
+            public init(track: Track? = nil, playlist: Playlist? = nil) {
+                self.track = track
+                self.playlist = playlist
+            }
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()

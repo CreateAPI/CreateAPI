@@ -229,6 +229,8 @@ private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [
+    "=": "equal",
+    "!=": "notEqual",
     ">=": "greaterThanOrEqualTo",
     "<=": "lessThanOrEqualTo",
     ">": "greaterThan",
@@ -240,7 +242,9 @@ private let replacements: [String: String] = [
     "&": "and",
     "+": "plus",
     "\"": "backslash",
-    "/": "slash"
+    "/": "slash",
+    "~": "tilda",
+    "~=": "tildaEqual"
 ]
 
 private let badCharacters = CharacterSet.alphanumerics.inverted

@@ -190,7 +190,9 @@ struct Generate: ParsableCommand {
     }
     
     private var arguments: GenerateArguments {
-        let module = (package ?? module).map(ModuleName.init(processing:))
+        guard let module = (package ?? module).map(ModuleName.init(processing:)) else {
+            fatalError("You must provide either `module` or `package`")
+        }
         return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, vendor: vendor, module: module)
     }
 }

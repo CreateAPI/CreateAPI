@@ -137,6 +137,7 @@ final class GenerateOptions {
         var isSortingPropertiesAlphabetically: Bool
         var isUsingCustomCodingKeys: Bool
         var isAddingDefaultValues: Bool
+        var isInliningPropertiesFromReferencedSchames: Bool
         var skip: Set<String>
         
         init(_ options: GenerateOptionsSchema.Entities?) {
@@ -153,6 +154,7 @@ final class GenerateOptions {
             self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
             self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? true
             self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
+            self.isInliningPropertiesFromReferencedSchames = options?.isInliningPropertiesFromReferencedSchames ?? false
             self.skip = Set(options?.skip ?? [])
         }
     }
@@ -258,6 +260,7 @@ final class GenerateOptionsSchema: Decodable {
         var isSortingPropertiesAlphabetically: Bool?
         var isUsingCustomCodingKeys: Bool?
         var isAddingDefaultValues: Bool?
+        var isInliningPropertiesFromReferencedSchames: Bool?
         var skip: [String]?
     }
 }
@@ -267,7 +270,7 @@ struct GenerateArguments {
     let isParallel: Bool
     let isStrict: Bool
     let vendor: String?
-    let module: ModuleName?
+    let module: ModuleName
 }
 
 private func makeDefaultParameterEncoders() -> [String: String] {
