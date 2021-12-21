@@ -10,6 +10,7 @@ extension Generator {
         switch decl {
         case let decl as EnumOfStringsDeclaration: return render(decl)
         case let decl as EntityDeclaration: return render(decl)
+        case let decl as TypealiasDeclaration: return render(decl)
         case let decl as AnyDeclaration: return decl.contents
         default: fatalError()
         }
@@ -104,5 +105,9 @@ extension Generator {
             entity = templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
         }
         return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
+    }
+    
+    private func render(_ value: TypealiasDeclaration) -> String {
+        templates.typealias(name: value.name, type: value.type)
     }
 }

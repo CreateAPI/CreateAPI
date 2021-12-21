@@ -190,6 +190,11 @@ enum EntityType {
     case oneOf
 }
 
+struct TypealiasDeclaration: Declaration {
+    let name: TypeName
+    var type: TypeName
+}
+
 struct AnyDeclaration: Declaration {
     let name: TypeName
     let contents: String

@@ -136,11 +136,11 @@ extension Generator {
             guard let ref = info.name, !ref.isEmpty else {
                 throw GeneratorError("Reference name is missing")
             }
-            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: makeTypeName(ref)))
+            return TypealiasDeclaration(name: name, type: makeTypeName(ref))
         case .fragment:
             guard !options.isInliningPrimitiveTypes else { return nil }
             setNeedsAnyJson()
-            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: TypeName("AnyJSON")))
+            return TypealiasDeclaration(name: name, type: TypeName("AnyJSON"))
         }
     }
     
@@ -357,11 +357,12 @@ extension Generator {
                 return nil
             }
             let type = type.asArray().name
-            return AnyDeclaration(name: type, contents: templates.typealias(name: name, type: type))
+            return TypealiasDeclaration(name: name, type: type)
         }
         // Requres generation of a separate type
         var output = ""
         let itemName = name.appending("Item")
+        // TODO: Don't render this inline
         output += templates.typealias(name: name, type: itemName.asArray)
         output += "\n\n"
         output += (try makeDeclaration(name: itemName, schema: item, context: context)).map(render) ?? ""
@@ -527,7 +528,7 @@ extension Generator {
         // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
         // TODO: We can potentially inline this instead of creating a typealias
         if properties.count == 1, properties[0].nested == nil {
-            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: properties[0].type.name))
+            return TypealiasDeclaration(name: name, type: properties[0].type.name)
         }
     
         var protocols = getProtocols(for: name, context: context)
@@ -577,7 +578,7 @@ extension Generator {
         
         // TODO: Figure out how to inline these
         if properties.count == 1 {
-            return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: properties[0].type.name))
+            return TypealiasDeclaration(name: name, type: properties[0].type.name)
         }
 
         let protocols = getProtocols(for: name, context: context)
