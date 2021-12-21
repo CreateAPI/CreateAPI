@@ -136,11 +136,11 @@ extension Generator {
             guard let ref = info.name, !ref.isEmpty else {
                 throw GeneratorError("Reference name is missing")
             }
-            return TypealiasDeclaration(name: name, type: makeTypeName(ref))
+            return TypealiasDeclaration(name: name, type: .userDefined(name: makeTypeName(ref)))
         case .fragment:
             guard !options.isInliningPrimitiveTypes else { return nil }
             setNeedsAnyJson()
-            return TypealiasDeclaration(name: name, type: TypeName("AnyJSON"))
+            return TypealiasDeclaration(name: name, type: .anyJSON)
         }
     }
     
@@ -356,8 +356,7 @@ extension Generator {
             guard !options.isInliningPrimitiveTypes else {
                 return nil
             }
-            let type = type.asArray().name
-            return TypealiasDeclaration(name: name, type: type)
+            return TypealiasDeclaration(name: name, type: type.asArray())
         }
         // Requres generation of a separate type
         var output = ""
@@ -528,7 +527,7 @@ extension Generator {
         // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
         // TODO: We can potentially inline this instead of creating a typealias
         if properties.count == 1, properties[0].nested == nil {
-            return TypealiasDeclaration(name: name, type: properties[0].type.name)
+            return TypealiasDeclaration(name: name, type: properties[0].type)
         }
     
         var protocols = getProtocols(for: name, context: context)
@@ -578,7 +577,7 @@ extension Generator {
         
         // TODO: Figure out how to inline these
         if properties.count == 1 {
-            return TypealiasDeclaration(name: name, type: properties[0].type.name)
+            return TypealiasDeclaration(name: name, type: properties[0].type)
         }
 
         let protocols = getProtocols(for: name, context: context)

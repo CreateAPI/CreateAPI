@@ -108,6 +108,6 @@ extension Generator {
     }
     
     private func render(_ value: TypealiasDeclaration) -> String {
-        templates.typealias(name: value.name, type: value.type)
+        templates.typealias(name: value.name, type: value.type.name)
     }
 }
