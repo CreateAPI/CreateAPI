@@ -207,6 +207,14 @@ extension Paths.AppManifests.WithCode {
             public var webhookSecret: String?
             public var pem: String
 
+            public init(integration: OctoKit.Integration, clientID: String, clientSecret: String, webhookSecret: String? = nil, pem: String) {
+                self.integration = integration
+                self.clientID = clientID
+                self.clientSecret = clientSecret
+                self.webhookSecret = webhookSecret
+                self.pem = pem
+            }
+
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
                 self.integration = try OctoKit.Integration(from: decoder)

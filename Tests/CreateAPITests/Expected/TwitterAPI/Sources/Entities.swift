@@ -143,6 +143,11 @@ public struct URLEntity: Codable {
     /// Represent the portion of text recognized as a URL.
     public var urlFields: URLFields
 
+    public init(entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive, urlFields: URLFields) {
+        self.entityIndicesInclusiveExclusive = entityIndicesInclusiveExclusive
+        self.urlFields = urlFields
+    }
+
     public init(from decoder: Decoder) throws {
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.urlFields = try URLFields(from: decoder)
@@ -191,6 +196,11 @@ public struct HashtagEntity: Codable {
     /// Represent the portion of text recognized as a Hashtag, and its start and end position within the text.
     public var hashtagFields: HashtagFields
 
+    public init(entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive, hashtagFields: HashtagFields) {
+        self.entityIndicesInclusiveExclusive = entityIndicesInclusiveExclusive
+        self.hashtagFields = hashtagFields
+    }
+
     public init(from decoder: Decoder) throws {
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
         self.hashtagFields = try HashtagFields(from: decoder)
@@ -218,6 +228,11 @@ public struct CashtagEntity: Codable {
     public var entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive
     /// Represent the portion of text recognized as a Cashtag, and its start and end position within the text.
     public var cashtagFields: CashtagFields
+
+    public init(entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive, cashtagFields: CashtagFields) {
+        self.entityIndicesInclusiveExclusive = entityIndicesInclusiveExclusive
+        self.cashtagFields = cashtagFields
+    }
 
     public init(from decoder: Decoder) throws {
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
@@ -251,6 +266,11 @@ public struct MentionEntity: Codable {
     public var entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive
     /// Represent the portion of text recognized as a User mention, and its start and end position within the text.
     public var mentionFields: MentionFields
+
+    public init(entityIndicesInclusiveExclusive: EntityIndicesInclusiveExclusive, mentionFields: MentionFields) {
+        self.entityIndicesInclusiveExclusive = entityIndicesInclusiveExclusive
+        self.mentionFields = mentionFields
+    }
 
     public init(from decoder: Decoder) throws {
         self.entityIndicesInclusiveExclusive = try EntityIndicesInclusiveExclusive(from: decoder)
@@ -1349,6 +1369,13 @@ public struct Photo: Codable {
         case photo
     }
 
+    public init(commonMediaFields: CommonMediaFields, type: `Type`? = nil, url: URL? = nil, altText: String? = nil) {
+        self.commonMediaFields = commonMediaFields
+        self.type = type
+        self.url = url
+        self.altText = altText
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.commonMediaFields = try CommonMediaFields(from: decoder)
@@ -1496,6 +1523,17 @@ public struct Video: Codable {
         }
     }
 
+    public init(commonMediaFields: CommonMediaFields, type: `Type`? = nil, previewImageURL: URL? = nil, durationMs: Int? = nil, publicMetrics: PublicMetrics? = nil, nonPublicMetrics: NonPublicMetrics? = nil, organicMetrics: OrganicMetrics? = nil, promotedMetrics: PromotedMetrics? = nil) {
+        self.commonMediaFields = commonMediaFields
+        self.type = type
+        self.previewImageURL = previewImageURL
+        self.durationMs = durationMs
+        self.publicMetrics = publicMetrics
+        self.nonPublicMetrics = nonPublicMetrics
+        self.organicMetrics = organicMetrics
+        self.promotedMetrics = promotedMetrics
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.commonMediaFields = try CommonMediaFields(from: decoder)
@@ -1528,6 +1566,12 @@ public struct AnimatedGif: Codable {
 
     public enum `Type`: String, Codable, CaseIterable {
         case animatedGif = "animated_gif"
+    }
+
+    public init(commonMediaFields: CommonMediaFields, type: `Type`? = nil, previewImageURL: URL? = nil) {
+        self.commonMediaFields = commonMediaFields
+        self.type = type
+        self.previewImageURL = previewImageURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -1615,6 +1659,12 @@ public struct GenericProblem: Codable {
         case aboutBlank = "about:blank"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, status: Int) {
+        self.problemFields = problemFields
+        self.type = type
+        self.status = status
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
@@ -1649,6 +1699,12 @@ public struct InvalidRequestProblem: Codable {
         }
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, errors: [Error]? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+        self.errors = errors
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
@@ -1681,6 +1737,15 @@ public struct ResourceNotFoundProblem: Codable {
         case user
         case tweet
         case media
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil, parameter: String, value: AnyJSON, resourceID: String, resourceType: ResourceType) {
+        self.problemFields = problemFields
+        self.type = type
+        self.parameter = parameter
+        self.value = value
+        self.resourceID = resourceID
+        self.resourceType = resourceType
     }
 
     public init(from decoder: Decoder) throws {
@@ -1728,6 +1793,16 @@ public struct ResourceUnauthorizedProblem: Codable {
         case media
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, value: String, parameter: String, section: Section, resourceID: String, resourceType: ResourceType) {
+        self.problemFields = problemFields
+        self.type = type
+        self.value = value
+        self.parameter = parameter
+        self.section = section
+        self.resourceID = resourceID
+        self.resourceType = resourceType
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
@@ -1766,6 +1841,14 @@ public struct ResourceUnavailableProblem: Codable {
         case user
         case tweet
         case media
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil, parameter: String, resourceID: String, resourceType: ResourceType) {
+        self.problemFields = problemFields
+        self.type = type
+        self.parameter = parameter
+        self.resourceID = resourceID
+        self.resourceType = resourceType
     }
 
     public init(from decoder: Decoder) throws {
@@ -1808,6 +1891,14 @@ public struct FieldUnauthorizedProblem: Codable {
         case media
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, section: Section, resourceType: ResourceType, field: String) {
+        self.problemFields = problemFields
+        self.type = type
+        self.section = section
+        self.resourceType = resourceType
+        self.field = field
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
@@ -1840,6 +1931,13 @@ public struct ClientForbiddenProblem: Codable {
     public enum Reason: String, Codable, CaseIterable {
         case officialClientForbidden = "official-client-forbidden"
         case clientNotEnrolled = "client-not-enrolled"
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil, reason: Reason? = nil, registrationURL: URL? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+        self.reason = reason
+        self.registrationURL = registrationURL
     }
 
     public init(from decoder: Decoder) throws {
@@ -1880,6 +1978,14 @@ public struct DisallowedResourceProblem: Codable {
         case includes
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, resourceID: String, resourceType: ResourceType, section: Section) {
+        self.problemFields = problemFields
+        self.type = type
+        self.resourceID = resourceID
+        self.resourceType = resourceType
+        self.section = section
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.problemFields = try ProblemFields(from: decoder)
@@ -1905,6 +2011,11 @@ public struct UnsupportedAuthenticationProblem: Codable {
 
     public enum `Type`: String, Codable, CaseIterable {
         case httpsAPITwitterCom2ProblemsUnsupportedAuthentication = "https://api.twitter.com/2/problems/unsupported-authentication"
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
     }
 
     public init(from decoder: Decoder) throws {
@@ -1939,6 +2050,13 @@ public struct UsageCapExceededProblem: Codable {
         case product = "Product"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, period: Period? = nil, scope: Scope? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+        self.period = period
+        self.scope = scope
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -1971,6 +2089,12 @@ public struct ConnectionExceptionProblem: Codable {
         case rulesInvalidIssue = "RulesInvalidIssue"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, connectionIssue: ConnectionIssue? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+        self.connectionIssue = connectionIssue
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -1991,6 +2115,11 @@ public struct ClientDisconnectedProblem: Codable {
 
     public enum `Type`: String, Codable, CaseIterable {
         case httpsAPITwitterCom2ProblemsClientDisconnected = "https://api.twitter.com/2/problems/client-disconnected"
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
     }
 
     public init(from decoder: Decoder) throws {
@@ -2025,6 +2154,12 @@ public struct OperationalDisconnectProblem: Codable {
         case invalidRules = "InvalidRules"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil, disconnectType: DisconnectType? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+        self.disconnectType = disconnectType
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -2047,6 +2182,11 @@ public struct RulesCapProblem: Codable {
         case httpsAPITwitterCom2ProblemsRuleCap = "https://api.twitter.com/2/problems/rule-cap"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -2065,6 +2205,11 @@ public struct InvalidRuleProblem: Codable {
 
     public enum `Type`: String, Codable, CaseIterable {
         case httpsAPITwitterCom2ProblemsInvalidRules = "https://api.twitter.com/2/problems/invalid-rules"
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
     }
 
     public init(from decoder: Decoder) throws {
@@ -2087,6 +2232,11 @@ public struct DuplicateRuleProblem: Codable {
         case httpsAPITwitterCom2ProblemsDuplicateRules = "https://api.twitter.com/2/problems/duplicate-rules"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -2107,6 +2257,11 @@ public struct ConflictProblem: Codable {
         case httpsAPITwitterCom2ProblemsConflict = "https://api.twitter.com/2/problems/conflict"
     }
 
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
+    }
+
     public init(from decoder: Decoder) throws {
         self.problemFields = try ProblemFields(from: decoder)
         self.type = try `Type`(from: decoder)
@@ -2125,6 +2280,11 @@ public struct NonCompliantRulesProblem: Codable {
 
     public enum `Type`: String, Codable, CaseIterable {
         case httpsAPITwitterCom2ProblemsNoncompliantRules = "https://api.twitter.com/2/problems/noncompliant-rules"
+    }
+
+    public init(problemFields: ProblemFields, type: `Type`? = nil) {
+        self.problemFields = problemFields
+        self.type = type
     }
 
     public init(from decoder: Decoder) throws {

@@ -462,6 +462,11 @@ public struct TooManyRequests: Codable {
     public var error: Error
     public var spamWarningUrn: String?
 
+    public init(error: Error, spamWarningUrn: String? = nil) {
+        self.error = error
+        self.spamWarningUrn = spamWarningUrn
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.error = try Error(from: decoder)

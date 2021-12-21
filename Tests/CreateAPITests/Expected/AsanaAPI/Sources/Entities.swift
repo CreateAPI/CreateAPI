@@ -36,6 +36,11 @@ public struct AsanaNamedResource: Codable {
     /// Example: "Bug Task"
     public var name: String?
 
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -111,6 +116,15 @@ public struct AttachmentResponse: Codable {
 
     public typealias Parent = TaskCompact
 
+    public init(attachmentBase: AttachmentBase, createdAt: Date? = nil, downloadURL: URL? = nil, host: String? = nil, parent: Parent? = nil, viewURL: URL? = nil) {
+        self.attachmentBase = attachmentBase
+        self.createdAt = createdAt
+        self.downloadURL = downloadURL
+        self.host = host
+        self.parent = parent
+        self.viewURL = viewURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.attachmentBase = try AttachmentBase(from: decoder)
@@ -145,6 +159,12 @@ public struct AttachmentCompact: Codable {
     ///
     /// Example: "dropbox"
     public var resourceSubtype: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil, resourceSubtype: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.resourceSubtype = resourceSubtype
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -560,6 +580,13 @@ public struct CustomFieldResponse: Codable {
 
     public typealias EnumValue = EnumOption
 
+    public init(customFieldBase: CustomFieldBase, enumValue: EnumValue? = nil, multiEnumValues: [EnumOption]? = nil, createdBy: UserCompact? = nil) {
+        self.customFieldBase = customFieldBase
+        self.enumValue = enumValue
+        self.multiEnumValues = multiEnumValues
+        self.createdBy = createdBy
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.customFieldBase = try CustomFieldBase(from: decoder)
@@ -583,6 +610,11 @@ public struct CustomFieldRequest: Codable {
     ///
     /// Example: "1331"
     public var workspace: String
+
+    public init(customFieldBase: CustomFieldBase, workspace: String) {
+        self.customFieldBase = customFieldBase
+        self.workspace = workspace
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -651,6 +683,19 @@ public struct CustomFieldBase: Codable {
     public enum CustomLabelPosition: String, Codable, CaseIterable {
         case prefix
         case suffix
+    }
+
+    public init(customFieldCompact: CustomFieldCompact, description: String? = nil, enumOptions: [EnumOption]? = nil, precision: Int? = nil, format: Format? = nil, currencyCode: String? = nil, customLabel: String? = nil, customLabelPosition: CustomLabelPosition? = nil, isGlobalToWorkspace: Bool? = nil, hasNotificationsEnabled: Bool? = nil) {
+        self.customFieldCompact = customFieldCompact
+        self.description = description
+        self.enumOptions = enumOptions
+        self.precision = precision
+        self.format = format
+        self.currencyCode = currencyCode
+        self.customLabel = customLabel
+        self.customLabelPosition = customLabelPosition
+        self.isGlobalToWorkspace = isGlobalToWorkspace
+        self.hasNotificationsEnabled = hasNotificationsEnabled
     }
 
     public init(from decoder: Decoder) throws {
@@ -732,6 +777,18 @@ public struct CustomFieldCompact: Codable {
         case number
     }
 
+    public init(asanaResource: AsanaResource, name: String? = nil, resourceSubtype: ResourceSubtype? = nil, type: `Type`? = nil, enumOptions: [EnumOption]? = nil, isEnabled: Bool? = nil, numberValue: Double? = nil, textValue: String? = nil, displayValue: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.resourceSubtype = resourceSubtype
+        self.type = type
+        self.enumOptions = enumOptions
+        self.isEnabled = isEnabled
+        self.numberValue = numberValue
+        self.textValue = textValue
+        self.displayValue = displayValue
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -774,6 +831,14 @@ public struct CustomFieldSettingResponse: Codable {
     public typealias Parent = ProjectCompact
 
     public typealias CustomField = CustomFieldResponse
+
+    public init(customFieldSettingBase: CustomFieldSettingBase, project: Project? = nil, isImportant: Bool? = nil, parent: Parent? = nil, customField: CustomField? = nil) {
+        self.customFieldSettingBase = customFieldSettingBase
+        self.project = project
+        self.isImportant = isImportant
+        self.parent = parent
+        self.customField = customField
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -850,6 +915,12 @@ public struct EnumOptionRequest: Codable {
     /// Example: "12345"
     public var insertAfter: String?
 
+    public init(enumOptionBase: EnumOptionBase, insertBefore: String? = nil, insertAfter: String? = nil) {
+        self.enumOptionBase = enumOptionBase
+        self.insertBefore = insertBefore
+        self.insertAfter = insertAfter
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.enumOptionBase = try EnumOptionBase(from: decoder)
@@ -882,6 +953,13 @@ public struct EnumOption: Codable {
     ///
     /// Example: "blue"
     public var color: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil, isEnabled: Bool? = nil, color: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.isEnabled = isEnabled
+        self.color = color
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1031,6 +1109,11 @@ public struct EventResponse: Codable {
         /// The user who triggered the event.
         public var anyJSON: AnyJSON
 
+        public init(userCompact: UserCompact, anyJSON: AnyJSON) {
+            self.userCompact = userCompact
+            self.anyJSON = anyJSON
+        }
+
         public init(from decoder: Decoder) throws {
             self.userCompact = try UserCompact(from: decoder)
             self.anyJSON = try AnyJSON(from: decoder)
@@ -1048,6 +1131,11 @@ public struct EventResponse: Codable {
         /// The resource which has triggered the event by being modified in some way.
         public var anyJSON: AnyJSON
 
+        public init(asanaNamedResource: AsanaNamedResource, anyJSON: AnyJSON) {
+            self.asanaNamedResource = asanaNamedResource
+            self.anyJSON = anyJSON
+        }
+
         public init(from decoder: Decoder) throws {
             self.asanaNamedResource = try AsanaNamedResource(from: decoder)
             self.anyJSON = try AnyJSON(from: decoder)
@@ -1064,6 +1152,11 @@ public struct EventResponse: Codable {
         public var asanaNamedResource: AsanaNamedResource
         /// For added/removed events, the parent object that resource was added to or removed from. The parent will be `null` for other event types.
         public var anyJSON: AnyJSON
+
+        public init(asanaNamedResource: AsanaNamedResource, anyJSON: AnyJSON) {
+            self.asanaNamedResource = asanaNamedResource
+            self.anyJSON = anyJSON
+        }
 
         public init(from decoder: Decoder) throws {
             self.asanaNamedResource = try AsanaNamedResource(from: decoder)
@@ -1178,6 +1271,18 @@ public struct GoalResponse: Codable {
 
     public typealias Owner = UserCompact
 
+    public init(goalBase: GoalBase, likes: [Like]? = nil, numLikes: Int? = nil, team: Team? = nil, workspace: Workspace? = nil, followers: [UserCompact]? = nil, timePeriod: TimePeriod? = nil, metric: Metric? = nil, owner: Owner? = nil) {
+        self.goalBase = goalBase
+        self.likes = likes
+        self.numLikes = numLikes
+        self.team = team
+        self.workspace = workspace
+        self.followers = followers
+        self.timePeriod = timePeriod
+        self.metric = metric
+        self.owner = owner
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.goalBase = try GoalBase(from: decoder)
@@ -1225,6 +1330,15 @@ public struct GoalRequest: Codable {
     ///
     /// Example: "12345"
     public var owner: String?
+
+    public init(goalBase: GoalBase, team: String? = nil, workspace: String? = nil, followers: [String]? = nil, timePeriod: String? = nil, owner: String? = nil) {
+        self.goalBase = goalBase
+        self.team = team
+        self.workspace = workspace
+        self.followers = followers
+        self.timePeriod = timePeriod
+        self.owner = owner
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1284,6 +1398,18 @@ public struct GoalBase: Codable {
     /// Example: false
     public var isLiked: Bool?
 
+    public init(asanaResource: AsanaResource, name: String? = nil, htmlNotes: String? = nil, notes: String? = nil, dueOn: String? = nil, startOn: String? = nil, status: String? = nil, isWorkspaceLevel: Bool? = nil, isLiked: Bool? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.htmlNotes = htmlNotes
+        self.notes = notes
+        self.dueOn = dueOn
+        self.startOn = startOn
+        self.status = status
+        self.isWorkspaceLevel = isWorkspaceLevel
+        self.isLiked = isLiked
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -1322,6 +1448,12 @@ public struct GoalCompact: Codable {
 
     public typealias Owner = UserCompact
 
+    public init(asanaResource: AsanaResource, name: String? = nil, owner: Owner? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.owner = owner
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -1344,6 +1476,11 @@ public struct GoalMetricCurrentValueRequest: Codable {
     ///
     /// Example: 8.12
     public var currentNumberValue: Double?
+
+    public init(asanaResource: AsanaResource, currentNumberValue: Double? = nil) {
+        self.asanaResource = asanaResource
+        self.currentNumberValue = currentNumberValue
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1405,6 +1542,18 @@ public struct GoalMetricBase: Codable {
         case `none`
         case currency
         case percentage
+    }
+
+    public init(asanaResource: AsanaResource, resourceSubtype: ResourceSubtype? = nil, precision: Int? = nil, unit: Unit? = nil, currencyCode: String? = nil, initialNumberValue: Double? = nil, targetNumberValue: Double? = nil, currentNumberValue: Double? = nil, currentDisplayValue: String? = nil) {
+        self.asanaResource = asanaResource
+        self.resourceSubtype = resourceSubtype
+        self.precision = precision
+        self.unit = unit
+        self.currencyCode = currencyCode
+        self.initialNumberValue = initialNumberValue
+        self.targetNumberValue = targetNumberValue
+        self.currentNumberValue = currentNumberValue
+        self.currentDisplayValue = currentDisplayValue
     }
 
     public init(from decoder: Decoder) throws {
@@ -1515,6 +1664,14 @@ public struct JobCompact: Codable {
         case failed
     }
 
+    public init(asanaResource: AsanaResource, resourceSubtype: String? = nil, status: Status? = nil, newProject: ProjectCompact? = nil, newTask: TaskCompact? = nil) {
+        self.asanaResource = asanaResource
+        self.resourceSubtype = resourceSubtype
+        self.status = status
+        self.newProject = newProject
+        self.newTask = newTask
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -1598,6 +1755,14 @@ public struct OrganizationExportCompact: Codable {
         case error
     }
 
+    public init(asanaResource: AsanaResource, createdAt: Date? = nil, downloadURL: URL? = nil, state: State? = nil, organization: WorkspaceCompact? = nil) {
+        self.asanaResource = asanaResource
+        self.createdAt = createdAt
+        self.downloadURL = downloadURL
+        self.state = state
+        self.organization = organization
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -1644,6 +1809,19 @@ public struct PortfolioResponse: Codable {
 
     public typealias Workspace = WorkspaceCompact
 
+    public init(portfolioBase: PortfolioBase, createdAt: Date? = nil, createdBy: UserCompact? = nil, customFieldSettings: [CustomFieldSettingResponse]? = nil, dueOn: Date? = nil, members: [UserCompact]? = nil, owner: UserCompact? = nil, startOn: NaiveDate? = nil, workspace: Workspace? = nil, permalinkURL: String? = nil) {
+        self.portfolioBase = portfolioBase
+        self.createdAt = createdAt
+        self.createdBy = createdBy
+        self.customFieldSettings = customFieldSettings
+        self.dueOn = dueOn
+        self.members = members
+        self.owner = owner
+        self.startOn = startOn
+        self.workspace = workspace
+        self.permalinkURL = permalinkURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.portfolioBase = try PortfolioBase(from: decoder)
@@ -1683,6 +1861,12 @@ public struct PortfolioRequest: Codable {
     ///
     /// Example: "167589"
     public var workspace: String?
+
+    public init(portfolioBase: PortfolioBase, members: [String]? = nil, workspace: String? = nil) {
+        self.portfolioBase = portfolioBase
+        self.members = members
+        self.workspace = workspace
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1730,6 +1914,11 @@ public struct PortfolioBase: Codable {
         case lightWarmGray = "light-warm-gray"
     }
 
+    public init(portfolioCompact: PortfolioCompact, color: Color? = nil) {
+        self.portfolioCompact = portfolioCompact
+        self.color = color
+    }
+
     public init(from decoder: Decoder) throws {
         self.portfolioCompact = try PortfolioCompact(from: decoder)
         self.color = try Color(from: decoder)
@@ -1749,6 +1938,11 @@ public struct PortfolioCompact: Codable {
     ///
     /// Example: "Bug Portfolio"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -1854,6 +2048,12 @@ public struct PortfolioMembershipCompact: Codable {
     public var asanaResource: AsanaResource
     public var portfolio: PortfolioCompact?
     public var user: UserCompact?
+
+    public init(asanaResource: AsanaResource, portfolio: PortfolioCompact? = nil, user: UserCompact? = nil) {
+        self.asanaResource = asanaResource
+        self.portfolio = portfolio
+        self.user = user
+    }
 
     public init(from decoder: Decoder) throws {
         self.asanaResource = try AsanaResource(from: decoder)
@@ -1989,6 +2189,16 @@ public struct ProjectResponse: Codable {
         case coins
     }
 
+    public init(projectBase: ProjectBase, customFields: [CustomFieldCompact]? = nil, followers: [UserCompact]? = nil, owner: Owner? = nil, team: Team? = nil, icon: Icon? = nil, permalinkURL: String? = nil) {
+        self.projectBase = projectBase
+        self.customFields = customFields
+        self.followers = followers
+        self.owner = owner
+        self.team = team
+        self.icon = icon
+        self.permalinkURL = permalinkURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.projectBase = try ProjectBase(from: decoder)
@@ -2035,6 +2245,14 @@ public struct ProjectRequest: Codable {
     ///
     /// Example: "12345"
     public var team: String?
+
+    public init(projectBase: ProjectBase, customFields: [String: String]? = nil, followers: String? = nil, owner: String? = nil, team: String? = nil) {
+        self.projectBase = projectBase
+        self.customFields = customFields
+        self.followers = followers
+        self.owner = owner
+        self.team = team
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2151,6 +2369,26 @@ public struct ProjectBase: Codable {
 
     public typealias Workspace = WorkspaceCompact
 
+    public init(projectCompact: ProjectCompact, isArchived: Bool? = nil, color: Color? = nil, createdAt: Date? = nil, currentStatus: CurrentStatus? = nil, customFieldSettings: [CustomFieldSettingCompact]? = nil, defaultView: DefaultView? = nil, dueDate: Date? = nil, dueOn: Date? = nil, htmlNotes: String? = nil, isTemplate: Bool? = nil, members: [UserCompact]? = nil, modifiedAt: Date? = nil, notes: String? = nil, isPublic: Bool? = nil, startOn: NaiveDate? = nil, workspace: Workspace? = nil) {
+        self.projectCompact = projectCompact
+        self.isArchived = isArchived
+        self.color = color
+        self.createdAt = createdAt
+        self.currentStatus = currentStatus
+        self.customFieldSettings = customFieldSettings
+        self.defaultView = defaultView
+        self.dueDate = dueDate
+        self.dueOn = dueOn
+        self.htmlNotes = htmlNotes
+        self.isTemplate = isTemplate
+        self.members = members
+        self.modifiedAt = modifiedAt
+        self.notes = notes
+        self.isPublic = isPublic
+        self.startOn = startOn
+        self.workspace = workspace
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.projectCompact = try ProjectCompact(from: decoder)
@@ -2201,6 +2439,11 @@ public struct ProjectCompact: Codable {
     ///
     /// Example: "Stuff to buy"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2356,6 +2599,12 @@ public struct ProjectMembershipResponse: Codable {
         case commentOnly = "comment_only"
     }
 
+    public init(projectMembershipBase: ProjectMembershipBase, project: ProjectCompact? = nil, writeAccess: WriteAccess? = nil) {
+        self.projectMembershipBase = projectMembershipBase
+        self.project = project
+        self.writeAccess = writeAccess
+    }
+
     public init(from decoder: Decoder) throws {
         self.projectMembershipBase = try ProjectMembershipBase(from: decoder)
         self.project = try ProjectCompact(from: decoder)
@@ -2376,6 +2625,11 @@ public struct ProjectMembershipCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
     public var asanaResource: AsanaResource
     public var user: UserCompact?
+
+    public init(asanaResource: AsanaResource, user: UserCompact? = nil) {
+        self.asanaResource = asanaResource
+        self.user = user
+    }
 
     public init(from decoder: Decoder) throws {
         self.asanaResource = try AsanaResource(from: decoder)
@@ -2402,6 +2656,14 @@ public struct ProjectStatusResponse: Codable {
     ///
     /// Example: "2012-02-22T02:06:58.147Z"
     public var modifiedAt: Date?
+
+    public init(projectStatusBase: ProjectStatusBase, author: UserCompact? = nil, createdAt: Date? = nil, createdBy: UserCompact? = nil, modifiedAt: Date? = nil) {
+        self.projectStatusBase = projectStatusBase
+        self.author = author
+        self.createdAt = createdAt
+        self.createdBy = createdBy
+        self.modifiedAt = modifiedAt
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2445,6 +2707,13 @@ public struct ProjectStatusBase: Codable {
         case blue
     }
 
+    public init(projectStatusCompact: ProjectStatusCompact, text: String, htmlText: String? = nil, color: Color) {
+        self.projectStatusCompact = projectStatusCompact
+        self.text = text
+        self.htmlText = htmlText
+        self.color = color
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.projectStatusCompact = try ProjectStatusCompact(from: decoder)
@@ -2470,6 +2739,11 @@ public struct ProjectStatusCompact: Codable {
     /// Example: "Status Update - Jun 15"
     public var title: String?
 
+    public init(asanaResource: AsanaResource, title: String? = nil) {
+        self.asanaResource = asanaResource
+        self.title = title
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -2492,6 +2766,13 @@ public struct SectionResponse: Codable {
     public var project: ProjectCompact?
     /// *Deprecated - please use project instead*
     public var projects: [ProjectCompact]?
+
+    public init(sectionBase: SectionBase, createdAt: Date? = nil, project: ProjectCompact? = nil, projects: [ProjectCompact]? = nil) {
+        self.sectionBase = sectionBase
+        self.createdAt = createdAt
+        self.project = project
+        self.projects = projects
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2552,6 +2833,11 @@ public struct SectionCompact: Codable {
     ///
     /// Example: "Next Actions"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2747,6 +3033,49 @@ public struct StoryResponse: Codable {
         }
     }
 
+    public init(storyBase: StoryBase, createdBy: UserCompact? = nil, isEdited: Bool? = nil, isHearted: Bool? = nil, hearts: [Like]? = nil, numHearts: Int? = nil, isLiked: Bool? = nil, likes: [Like]? = nil, numLikes: Int? = nil, previews: [Preview]? = nil, oldName: String? = nil, newName: String? = nil, oldDates: StoryResponseDates? = nil, newDates: StoryResponseDates? = nil, oldResourceSubtype: String? = nil, newResourceSubtype: String? = nil, story: StoryCompact? = nil, assignee: UserCompact? = nil, follower: UserCompact? = nil, oldSection: SectionCompact? = nil, newSection: SectionCompact? = nil, task: TaskCompact? = nil, project: ProjectCompact? = nil, tag: TagCompact? = nil, customField: CustomFieldCompact? = nil, oldTextValue: String? = nil, newTextValue: String? = nil, oldNumberValue: Int? = nil, newNumberValue: Int? = nil, oldEnumValue: EnumOption? = nil, newEnumValue: EnumOption? = nil, oldMultiEnumValues: [EnumOption]? = nil, newMultiEnumValues: [EnumOption]? = nil, newApprovalStatus: String? = nil, oldApprovalStatus: String? = nil, duplicateOf: TaskCompact? = nil, duplicatedFrom: TaskCompact? = nil, dependency: TaskCompact? = nil, source: Source? = nil, target: Target? = nil) {
+        self.storyBase = storyBase
+        self.createdBy = createdBy
+        self.isEdited = isEdited
+        self.isHearted = isHearted
+        self.hearts = hearts
+        self.numHearts = numHearts
+        self.isLiked = isLiked
+        self.likes = likes
+        self.numLikes = numLikes
+        self.previews = previews
+        self.oldName = oldName
+        self.newName = newName
+        self.oldDates = oldDates
+        self.newDates = newDates
+        self.oldResourceSubtype = oldResourceSubtype
+        self.newResourceSubtype = newResourceSubtype
+        self.story = story
+        self.assignee = assignee
+        self.follower = follower
+        self.oldSection = oldSection
+        self.newSection = newSection
+        self.task = task
+        self.project = project
+        self.tag = tag
+        self.customField = customField
+        self.oldTextValue = oldTextValue
+        self.newTextValue = newTextValue
+        self.oldNumberValue = oldNumberValue
+        self.newNumberValue = newNumberValue
+        self.oldEnumValue = oldEnumValue
+        self.newEnumValue = newEnumValue
+        self.oldMultiEnumValues = oldMultiEnumValues
+        self.newMultiEnumValues = newMultiEnumValues
+        self.newApprovalStatus = newApprovalStatus
+        self.oldApprovalStatus = oldApprovalStatus
+        self.duplicateOf = duplicateOf
+        self.duplicatedFrom = duplicatedFrom
+        self.dependency = dependency
+        self.source = source
+        self.target = target
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.storyBase = try StoryBase(from: decoder)
@@ -2884,6 +3213,16 @@ public struct StoryBase: Codable {
         case phoenixSpreadingLove = "phoenix_spreading_love"
     }
 
+    public init(asanaResource: AsanaResource, createdAt: Date? = nil, resourceSubtype: String? = nil, text: String? = nil, htmlText: String? = nil, isPinned: Bool? = nil, stickerName: StickerName? = nil) {
+        self.asanaResource = asanaResource
+        self.createdAt = createdAt
+        self.resourceSubtype = resourceSubtype
+        self.text = text
+        self.htmlText = htmlText
+        self.isPinned = isPinned
+        self.stickerName = stickerName
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -2926,6 +3265,14 @@ public struct StoryCompact: Codable {
     ///
     /// Example: "marked today"
     public var text: String?
+
+    public init(asanaResource: AsanaResource, createdAt: Date? = nil, createdBy: UserCompact? = nil, resourceSubtype: String? = nil, text: String? = nil) {
+        self.asanaResource = asanaResource
+        self.createdAt = createdAt
+        self.createdBy = createdBy
+        self.resourceSubtype = resourceSubtype
+        self.text = text
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -2982,6 +3329,14 @@ public struct TagResponse: Codable {
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
+    public init(tagBase: TagBase, createdAt: Date? = nil, followers: [UserCompact]? = nil, workspace: WorkspaceCompact? = nil, permalinkURL: String? = nil) {
+        self.tagBase = tagBase
+        self.createdAt = createdAt
+        self.followers = followers
+        self.workspace = workspace
+        self.permalinkURL = permalinkURL
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.tagBase = try TagBase(from: decoder)
@@ -3011,6 +3366,12 @@ public struct TagRequest: Codable {
     ///
     /// Example: "12345"
     public var workspace: String?
+
+    public init(tagBase: TagBase, followers: [String]? = nil, workspace: String? = nil) {
+        self.tagBase = tagBase
+        self.followers = followers
+        self.workspace = workspace
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3062,6 +3423,12 @@ public struct TagBase: Codable {
         case lightWarmGray = "light-warm-gray"
     }
 
+    public init(tagCompact: TagCompact, color: Color? = nil, notes: String? = nil) {
+        self.tagCompact = tagCompact
+        self.color = color
+        self.notes = notes
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.tagCompact = try TagCompact(from: decoder)
@@ -3084,6 +3451,11 @@ public struct TagCompact: Codable {
     ///
     /// Example: "Stuff to buy"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3134,6 +3506,11 @@ public struct TaskResponse: Codable {
         /// The `assignee_section` property will be returned in the response only if the request was sent by the user who is the assignee of the task. Note that you can only write to `assignee_section` with the gid of an existing section visible in the user's "My Tasks" list.
         public var anyJSON: AnyJSON
 
+        public init(sectionCompact: SectionCompact, anyJSON: AnyJSON) {
+            self.sectionCompact = sectionCompact
+            self.anyJSON = anyJSON
+        }
+
         public init(from decoder: Decoder) throws {
             self.sectionCompact = try SectionCompact(from: decoder)
             self.anyJSON = try AnyJSON(from: decoder)
@@ -3149,6 +3526,19 @@ public struct TaskResponse: Codable {
     public typealias Parent = TaskCompact
 
     public typealias Workspace = WorkspaceCompact
+
+    public init(taskBase: TaskBase, assignee: Assignee? = nil, assigneeSection: AssigneeSection? = nil, customFields: [CustomFieldResponse]? = nil, followers: [UserCompact]? = nil, parent: Parent? = nil, projects: [ProjectCompact]? = nil, tags: [TagCompact]? = nil, workspace: Workspace? = nil, permalinkURL: String? = nil) {
+        self.taskBase = taskBase
+        self.assignee = assignee
+        self.assigneeSection = assigneeSection
+        self.customFields = customFields
+        self.followers = followers
+        self.parent = parent
+        self.projects = projects
+        self.tags = tags
+        self.workspace = workspace
+        self.permalinkURL = permalinkURL
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3219,6 +3609,18 @@ public struct TaskRequest: Codable {
     ///
     /// Example: "12345"
     public var workspace: String?
+
+    public init(taskBase: TaskBase, assignee: String? = nil, assigneeSection: String? = nil, customFields: [String: String]? = nil, followers: [String]? = nil, parent: String? = nil, projects: [String]? = nil, tags: [String]? = nil, workspace: String? = nil) {
+        self.taskBase = taskBase
+        self.assignee = assignee
+        self.assigneeSection = assigneeSection
+        self.customFields = customFields
+        self.followers = followers
+        self.parent = parent
+        self.projects = projects
+        self.tags = tags
+        self.workspace = workspace
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3410,6 +3812,36 @@ public struct TaskBase: Codable {
         case approval
     }
 
+    public init(taskCompact: TaskCompact, approvalStatus: ApprovalStatus? = nil, assigneeStatus: AssigneeStatus? = nil, isCompleted: Bool? = nil, completedAt: Date? = nil, completedBy: UserCompact? = nil, createdAt: Date? = nil, dependencies: [AsanaResource]? = nil, dependents: [AsanaResource]? = nil, dueAt: NaiveDate? = nil, dueOn: NaiveDate? = nil, external: External? = nil, htmlNotes: String? = nil, isHearted: Bool? = nil, hearts: [Like]? = nil, isRenderedAsSeparator: Bool? = nil, isLiked: Bool? = nil, likes: [Like]? = nil, memberships: [Membership]? = nil, modifiedAt: Date? = nil, name: String? = nil, notes: String? = nil, numHearts: Int? = nil, numLikes: Int? = nil, numSubtasks: Int? = nil, resourceSubtype: ResourceSubtype? = nil, startOn: NaiveDate? = nil) {
+        self.taskCompact = taskCompact
+        self.approvalStatus = approvalStatus
+        self.assigneeStatus = assigneeStatus
+        self.isCompleted = isCompleted
+        self.completedAt = completedAt
+        self.completedBy = completedBy
+        self.createdAt = createdAt
+        self.dependencies = dependencies
+        self.dependents = dependents
+        self.dueAt = dueAt
+        self.dueOn = dueOn
+        self.external = external
+        self.htmlNotes = htmlNotes
+        self.isHearted = isHearted
+        self.hearts = hearts
+        self.isRenderedAsSeparator = isRenderedAsSeparator
+        self.isLiked = isLiked
+        self.likes = likes
+        self.memberships = memberships
+        self.modifiedAt = modifiedAt
+        self.name = name
+        self.notes = notes
+        self.numHearts = numHearts
+        self.numLikes = numLikes
+        self.numSubtasks = numSubtasks
+        self.resourceSubtype = resourceSubtype
+        self.startOn = startOn
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.taskCompact = try TaskCompact(from: decoder)
@@ -3480,6 +3912,11 @@ public struct TaskCompact: Codable {
     ///
     /// Example: "Bug Task"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3708,6 +4145,15 @@ public struct TeamResponse: Codable {
         case `public`
     }
 
+    public init(teamBase: TeamBase, description: String? = nil, htmlDescription: String? = nil, organization: Organization? = nil, permalinkURL: String? = nil, visibility: Visibility? = nil) {
+        self.teamBase = teamBase
+        self.description = description
+        self.htmlDescription = htmlDescription
+        self.organization = organization
+        self.permalinkURL = permalinkURL
+        self.visibility = visibility
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.teamBase = try TeamBase(from: decoder)
@@ -3744,6 +4190,13 @@ public struct TeamRequest: Codable {
     /// Example: "123456789"
     public var organization: String?
 
+    public init(teamBase: TeamBase, description: String? = nil, htmlDescription: String? = nil, organization: String? = nil) {
+        self.teamBase = teamBase
+        self.description = description
+        self.htmlDescription = htmlDescription
+        self.organization = organization
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.teamBase = try TeamBase(from: decoder)
@@ -3770,6 +4223,11 @@ public struct TeamCompact: Codable {
     ///
     /// Example: "Marketing"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -3798,6 +4256,13 @@ public struct TeamMembershipCompact: Codable {
     /// Example: false
     public var isGuest: Bool?
 
+    public init(asanaResource: AsanaResource, user: UserCompact? = nil, team: TeamCompact? = nil, isGuest: Bool? = nil) {
+        self.asanaResource = asanaResource
+        self.user = user
+        self.team = team
+        self.isGuest = isGuest
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -3820,6 +4285,11 @@ public typealias TimePeriodResponse = TimePeriodBase
 public struct TimePeriodBase: Codable {
     public var timePeriodCompact: TimePeriodCompact
     public var parent: TimePeriodCompact?
+
+    public init(timePeriodCompact: TimePeriodCompact, parent: TimePeriodCompact? = nil) {
+        self.timePeriodCompact = timePeriodCompact
+        self.parent = parent
+    }
 
     public init(from decoder: Decoder) throws {
         self.timePeriodCompact = try TimePeriodCompact(from: decoder)
@@ -3864,6 +4334,14 @@ public struct TimePeriodCompact: Codable {
         case q2 = "Q2"
         case q3 = "Q3"
         case q4 = "Q4"
+    }
+
+    public init(asanaResource: AsanaResource, endOn: String? = nil, startOn: String? = nil, period: Period? = nil, displayName: String? = nil) {
+        self.asanaResource = asanaResource
+        self.endOn = endOn
+        self.startOn = startOn
+        self.period = period
+        self.displayName = displayName
     }
 
     public init(from decoder: Decoder) throws {
@@ -3947,6 +4425,13 @@ public struct UserResponse: Codable {
         }
     }
 
+    public init(userBase: UserBase, email: String? = nil, photo: Photo? = nil, workspaces: [WorkspaceCompact]? = nil) {
+        self.userBase = userBase
+        self.email = email
+        self.photo = photo
+        self.workspaces = workspaces
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.userBase = try UserBase(from: decoder)
@@ -3975,6 +4460,11 @@ public struct UserCompact: Codable {
     ///
     /// Example: "Greg Sanchez"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -4035,6 +4525,13 @@ public struct UserTaskListCompact: Codable {
 
     public typealias Workspace = WorkspaceCompact
 
+    public init(asanaResource: AsanaResource, name: String? = nil, owner: Owner? = nil, workspace: Workspace? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+        self.owner = owner
+        self.workspace = workspace
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
@@ -4079,6 +4576,11 @@ public struct WebhookResponse: Codable {
         /// A set of filters to specify a whitelist for what types of events will be delivered.
         public var anyJSON: AnyJSON
 
+        public init(webhookFilter: WebhookFilter, anyJSON: AnyJSON) {
+            self.webhookFilter = webhookFilter
+            self.anyJSON = anyJSON
+        }
+
         public init(from decoder: Decoder) throws {
             self.webhookFilter = try WebhookFilter(from: decoder)
             self.anyJSON = try AnyJSON(from: decoder)
@@ -4089,6 +4591,15 @@ public struct WebhookResponse: Codable {
             try values.encode(webhookFilter, forKey: "webhookFilter")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
+    }
+
+    public init(webhookCompact: WebhookCompact, createdAt: Date? = nil, lastFailureAt: Date? = nil, lastFailureContent: String? = nil, lastSuccessAt: Date? = nil, filters: [Filter]? = nil) {
+        self.webhookCompact = webhookCompact
+        self.createdAt = createdAt
+        self.lastFailureAt = lastFailureAt
+        self.lastFailureContent = lastFailureContent
+        self.lastSuccessAt = lastSuccessAt
+        self.filters = filters
     }
 
     public init(from decoder: Decoder) throws {
@@ -4130,6 +4641,11 @@ public struct WebhookRequest: Codable {
         /// A set of filters to specify a whitelist for what types of events will be delivered.
         public var anyJSON: AnyJSON
 
+        public init(webhookFilter: WebhookFilter, anyJSON: AnyJSON) {
+            self.webhookFilter = webhookFilter
+            self.anyJSON = anyJSON
+        }
+
         public init(from decoder: Decoder) throws {
             self.webhookFilter = try WebhookFilter(from: decoder)
             self.anyJSON = try AnyJSON(from: decoder)
@@ -4158,6 +4674,11 @@ public struct WebhookUpdateRequest: Codable {
         public var webhookFilter: WebhookFilter
         /// A set of filters to specify a whitelist for what types of events will be delivered.
         public var anyJSON: AnyJSON
+
+        public init(webhookFilter: WebhookFilter, anyJSON: AnyJSON) {
+            self.webhookFilter = webhookFilter
+            self.anyJSON = anyJSON
+        }
 
         public init(from decoder: Decoder) throws {
             self.webhookFilter = try WebhookFilter(from: decoder)
@@ -4188,6 +4709,13 @@ public struct WebhookCompact: Codable {
     ///
     /// Example: "https://example.com/receive-webhook/7654"
     public var target: URL?
+
+    public init(asanaResource: AsanaResource, isActive: Bool? = nil, resource: AsanaNamedResource? = nil, target: URL? = nil) {
+        self.asanaResource = asanaResource
+        self.isActive = isActive
+        self.resource = resource
+        self.target = target
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -4251,6 +4779,12 @@ public struct WorkspaceResponse: Codable {
     /// Example: false
     public var isOrganization: Bool?
 
+    public init(workspaceBase: WorkspaceBase, emailDomains: [URL]? = nil, isOrganization: Bool? = nil) {
+        self.workspaceBase = workspaceBase
+        self.emailDomains = emailDomains
+        self.isOrganization = isOrganization
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.workspaceBase = try WorkspaceBase(from: decoder)
@@ -4277,6 +4811,11 @@ public struct WorkspaceCompact: Codable {
     ///
     /// Example: "My Company Workspace"
     public var name: String?
+
+    public init(asanaResource: AsanaResource, name: String? = nil) {
+        self.asanaResource = asanaResource
+        self.name = name
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
@@ -4325,6 +4864,14 @@ public struct WorkspaceMembershipResponse: Codable {
     /// Reflects if this user is a guest of the workspace.
     public var isGuest: Bool?
 
+    public init(workspaceMembershipBase: WorkspaceMembershipBase, userTaskList: UserTaskListResponse? = nil, isActive: Bool? = nil, isAdmin: Bool? = nil, isGuest: Bool? = nil) {
+        self.workspaceMembershipBase = workspaceMembershipBase
+        self.userTaskList = userTaskList
+        self.isActive = isActive
+        self.isAdmin = isAdmin
+        self.isGuest = isGuest
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.workspaceMembershipBase = try WorkspaceMembershipBase(from: decoder)
@@ -4353,6 +4900,12 @@ public struct WorkspaceMembershipCompact: Codable {
     public var asanaResource: AsanaResource
     public var user: UserCompact?
     public var workspace: WorkspaceCompact?
+
+    public init(asanaResource: AsanaResource, user: UserCompact? = nil, workspace: WorkspaceCompact? = nil) {
+        self.asanaResource = asanaResource
+        self.user = user
+        self.workspace = workspace
+    }
 
     public init(from decoder: Decoder) throws {
         self.asanaResource = try AsanaResource(from: decoder)

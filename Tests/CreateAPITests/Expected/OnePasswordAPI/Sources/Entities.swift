@@ -259,6 +259,13 @@ public struct FullItem: Codable {
         }
     }
 
+    public init(item: Item, sections: [Section]? = nil, fields: [Field]? = nil, files: [File]? = nil) {
+        self.item = item
+        self.sections = sections
+        self.fields = fields
+        self.files = files
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.item = try Item(from: decoder)

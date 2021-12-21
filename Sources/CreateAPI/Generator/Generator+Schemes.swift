@@ -124,8 +124,8 @@ extension Generator {
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
-        case .all(let schemas, _):
-            return try makeAllOf(name: name, schemas: schemas, context: context)
+        case .all(let schemas, let info):
+            return try makeAllOf(name: name, schemas: schemas, info: info, context: context)
         case .one(let schemas, _):
             return try makeOneOf(name: name, schemas: schemas, context: context)
         case .any(let schemas, let info):
@@ -560,7 +560,7 @@ extension Generator {
         return EntityDeclaration(name: name, type: .anyOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
-    private func makeAllOf(name: TypeName, schemas: [JSONSchema], context: Context) throws -> Declaration {
+    private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let types = makeTypeNames(for: schemas, context: context)
         let context = context.adding(name)
 
@@ -590,28 +590,10 @@ extension Generator {
         if properties.count == 1 {
             return AnyDeclaration(name: name, contents: templates.typealias(name: name, type: properties[0].type.name))
         }
-        
-        var contents: [String] = []
-        contents.append(templates.properties(properties))
-        contents += properties.compactMap { $0.nested }.map(render)
-        var needsValues = false
-        let decoderContents = properties.map {
-            if case .userDefined = $0.type {
-                return templates.decodeFromDecoder(property: $0)
-            } else {
-                needsValues = true
-                return templates.decode(property: $0, isUsingCodingKeys: false)
-            }
-        }.joined(separator: "\n")
+
         let protocols = getProtocols(for: name, context: context)
-        if protocols.isDecodable {
-            contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues, isUsingCodingKeys: false))
-        }
-        if protocols.isEncodable {
-            contents.append(templates.encode(properties: properties))
-        }
-        let output = templates.entity(name: name, contents: contents, protocols: protocols)
-        return AnyDeclaration(name: name, contents: output)
+        #warning("TODO: pass info")
+        return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(nil), isForm: context.isFormEncoding)
     }
     
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {

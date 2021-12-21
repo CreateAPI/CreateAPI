@@ -186,6 +186,7 @@ struct EntityDeclaration: Declaration {
 enum EntityType {
     case object
     case anyOf
+    case allOf
 }
 
 struct AnyDeclaration: Declaration {

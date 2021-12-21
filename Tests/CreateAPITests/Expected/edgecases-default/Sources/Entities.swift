@@ -210,6 +210,11 @@ public struct Dog: Codable {
     public var animal: Animal
     public var breed: String?
 
+    public init(animal: Animal, breed: String? = nil) {
+        self.animal = animal
+        self.breed = breed
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
@@ -226,6 +231,11 @@ public struct Dog: Codable {
 public struct Cat: Codable {
     public var animal: Animal
     public var isDeclawed: Bool?
+
+    public init(animal: Animal, isDeclawed: Bool? = nil) {
+        self.animal = animal
+        self.isDeclawed = isDeclawed
+    }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)

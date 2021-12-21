@@ -376,6 +376,11 @@ public struct SignedTokenRequest: Codable {
     /// A signature, generated as an HMAC of each of the above components, using the key secret value.
     public var mac: String
 
+    public init(tokenRequest: TokenRequest, mac: String) {
+        self.tokenRequest = tokenRequest
+        self.mac = mac
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.tokenRequest = try TokenRequest(from: decoder)

@@ -210,6 +210,11 @@ import NaiveDate
     var animal: Animal
     var breed: String?
 
+    init(animal: Animal, breed: String? = nil) {
+        self.animal = animal
+        self.breed = breed
+    }
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
@@ -226,6 +231,11 @@ import NaiveDate
  struct Cat: Codable {
     var animal: Animal
     var isDeclawed: Bool?
+
+    init(animal: Animal, isDeclawed: Bool? = nil) {
+        self.animal = animal
+        self.isDeclawed = isDeclawed
+    }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)

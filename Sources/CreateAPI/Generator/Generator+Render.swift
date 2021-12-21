@@ -60,6 +60,22 @@ extension Generator {
             if decl.protocols.isEncodable {
                 contents.append(templates.encodeAnyOf(properties: properties))
             }
+        case .allOf:
+            var needsValues = false
+            let decoderContents = properties.map {
+                if case .userDefined = $0.type {
+                    return templates.decodeFromDecoder(property: $0)
+                } else {
+                    needsValues = true
+                    return templates.decode(property: $0, isUsingCodingKeys: false)
+                }
+            }.joined(separator: "\n")
+            if decl.protocols.isDecodable {
+                contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues, isUsingCodingKeys: false))
+            }
+            if decl.protocols.isEncodable {
+                contents.append(templates.encode(properties: properties))
+            }
         }
         
         // TODO: This doesn't work if the name is a typealias
