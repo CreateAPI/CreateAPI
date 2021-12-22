@@ -18059,7 +18059,7 @@ public struct SecretScanningLocation: Codable {
     ///
     /// Example: "commit"
     public var type: `Type`
-    public var details: Details
+    public var details: SecretScanningLocationCommit
 
     /// The location type. Because secrets may be found in different types of resources (ie. code, comments, issues), this field identifies the type of resource where the secret was found.
     ///
@@ -18068,9 +18068,7 @@ public struct SecretScanningLocation: Codable {
         case commit
     }
 
-    public typealias Details = SecretScanningLocationCommit
-
-    public init(type: `Type`, details: Details) {
+    public init(type: `Type`, details: SecretScanningLocationCommit) {
         self.type = type
         self.details = details
     }

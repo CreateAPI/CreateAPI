@@ -585,8 +585,6 @@ public struct Configuration: Codable {
     /// The configuration of time tracking.
     public var timeTrackingConfiguration: TimeTrackingConfiguration?
 
-    public typealias TimeTrackingConfiguration = JiraAPI.TimeTrackingConfiguration
-
     public init(isVotingEnabled: Bool? = nil, isWatchingEnabled: Bool? = nil, isUnassignedIssuesAllowed: Bool? = nil, isSubTasksEnabled: Bool? = nil, isIssueLinkingEnabled: Bool? = nil, isTimeTrackingEnabled: Bool? = nil, isAttachmentsEnabled: Bool? = nil, timeTrackingConfiguration: TimeTrackingConfiguration? = nil) {
         self.isVotingEnabled = isVotingEnabled
         self.isWatchingEnabled = isWatchingEnabled
@@ -812,8 +810,6 @@ public struct IssueTypeDetails: Codable {
     /// Details of the next-gen projects the issue type is available in.
     public var scope: Scope?
 
-    public typealias Scope = JiraAPI.Scope
-
     public init(this: String? = nil, id: String? = nil, description: String? = nil, iconURL: String? = nil, name: String? = nil, isSubtask: Bool? = nil, avatarID: Int? = nil, entityID: String? = nil, hierarchyLevel: Int? = nil, scope: Scope? = nil) {
         self.this = this
         self.id = id
@@ -902,9 +898,9 @@ public struct ProjectDetails: Codable {
     /// Whether or not the project is simplified.
     public var isSimplified: Bool?
     /// The URLs of the project's avatars.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: AvatarURLsBean?
     /// The category the project belongs to.
-    public var projectCategory: ProjectCategory?
+    public var projectCategory: UpdatedProjectCategory?
 
     /// The [project type](https://confluence.atlassian.com/x/GwiiLQ#Jiraapplicationsoverview-Productfeaturesandprojecttypes) of the project.
     public enum ProjectTypeKey: String, Codable, CaseIterable {
@@ -913,11 +909,7 @@ public struct ProjectDetails: Codable {
         case business
     }
 
-    public typealias AvatarURLs = AvatarURLsBean
-
-    public typealias ProjectCategory = UpdatedProjectCategory
-
-    public init(this: String? = nil, id: String? = nil, key: String? = nil, name: String? = nil, projectTypeKey: ProjectTypeKey? = nil, isSimplified: Bool? = nil, avatarURLs: AvatarURLs? = nil, projectCategory: ProjectCategory? = nil) {
+    public init(this: String? = nil, id: String? = nil, key: String? = nil, name: String? = nil, projectTypeKey: ProjectTypeKey? = nil, isSimplified: Bool? = nil, avatarURLs: AvatarURLsBean? = nil, projectCategory: UpdatedProjectCategory? = nil) {
         self.this = this
         self.id = id
         self.key = key
@@ -945,7 +937,7 @@ public struct Scope: Codable {
     /// The type of scope.
     public var type: `Type`?
     /// The project the item has scope in.
-    public var project: Project?
+    public var project: ProjectDetails?
 
     /// The type of scope.
     public enum `Type`: String, Codable, CaseIterable {
@@ -953,9 +945,7 @@ public struct Scope: Codable {
         case template = "TEMPLATE"
     }
 
-    public typealias Project = ProjectDetails
-
-    public init(type: `Type`? = nil, project: Project? = nil) {
+    public init(type: `Type`? = nil, project: ProjectDetails? = nil) {
         self.type = type
         self.project = project
     }
@@ -1046,7 +1036,7 @@ public struct User: Codable {
     /// The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
     public var emailAddress: String?
     /// The avatars of the user.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: AvatarURLsBean?
     /// The display name of the user. Depending on the user’s privacy setting, this may return an alternative value.
     public var displayName: String?
     /// Whether the user is active.
@@ -1056,9 +1046,9 @@ public struct User: Codable {
     /// The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
     public var locale: String?
     /// The groups that the user belongs to.
-    public var groups: Groups?
+    public var groups: SimpleListWrapperGroupName?
     /// The application roles the user is assigned to.
-    public var applicationRoles: ApplicationRoles?
+    public var applicationRoles: SimpleListWrapperApplicationRole?
     /// Expand options that include additional user details in the response.
     public var expand: String?
 
@@ -1074,13 +1064,7 @@ public struct User: Codable {
         case unknown
     }
 
-    public typealias AvatarURLs = AvatarURLsBean
-
-    public typealias Groups = SimpleListWrapperGroupName
-
-    public typealias ApplicationRoles = SimpleListWrapperApplicationRole
-
-    public init(this: URL? = nil, key: String? = nil, accountID: String? = nil, accountType: AccountType? = nil, name: String? = nil, emailAddress: String? = nil, avatarURLs: AvatarURLs? = nil, displayName: String? = nil, isActive: Bool? = nil, timeZone: String? = nil, locale: String? = nil, groups: Groups? = nil, applicationRoles: ApplicationRoles? = nil, expand: String? = nil) {
+    public init(this: URL? = nil, key: String? = nil, accountID: String? = nil, accountType: AccountType? = nil, name: String? = nil, emailAddress: String? = nil, avatarURLs: AvatarURLsBean? = nil, displayName: String? = nil, isActive: Bool? = nil, timeZone: String? = nil, locale: String? = nil, groups: SimpleListWrapperGroupName? = nil, applicationRoles: SimpleListWrapperApplicationRole? = nil, expand: String? = nil) {
         self.this = this
         self.key = key
         self.accountID = accountID
@@ -1134,7 +1118,7 @@ public struct WorkflowScheme: Codable {
     /// Whether the workflow scheme is a draft or not.
     public var isDraft: Bool?
     /// The user that last modified the draft workflow scheme. A modification is a change to the issue type-project mappings only. This property does not apply to non-draft workflows.
-    public var lastModifiedUser: LastModifiedUser?
+    public var lastModifiedUser: User?
     /// The date-time that the draft workflow scheme was last modified. A modification is a change to the issue type-project mappings only. This property does not apply to non-draft workflows.
     public var lastModified: String?
     public var this: URL?
@@ -1149,9 +1133,7 @@ public struct WorkflowScheme: Codable {
     /// The issue types available in Jira.
     public var issueTypes: [String: IssueTypeDetails]?
 
-    public typealias LastModifiedUser = User
-
-    public init(id: Int? = nil, name: String? = nil, description: String? = nil, defaultWorkflow: String? = nil, issueTypeMappings: [String: String]? = nil, originalDefaultWorkflow: String? = nil, originalIssueTypeMappings: [String: String]? = nil, isDraft: Bool? = nil, lastModifiedUser: LastModifiedUser? = nil, lastModified: String? = nil, this: URL? = nil, isUpdateDraftIfNeeded: Bool? = nil, issueTypes: [String: IssueTypeDetails]? = nil) {
+    public init(id: Int? = nil, name: String? = nil, description: String? = nil, defaultWorkflow: String? = nil, issueTypeMappings: [String: String]? = nil, originalDefaultWorkflow: String? = nil, originalIssueTypeMappings: [String: String]? = nil, isDraft: Bool? = nil, lastModifiedUser: User? = nil, lastModified: String? = nil, this: URL? = nil, isUpdateDraftIfNeeded: Bool? = nil, issueTypes: [String: IssueTypeDetails]? = nil) {
         self.id = id
         self.name = name
         self.description = description
@@ -1372,8 +1354,6 @@ public struct WorkflowSchemeAssociations: Codable {
     /// The workflow scheme.
     public var workflowScheme: WorkflowScheme
 
-    public typealias WorkflowScheme = JiraAPI.WorkflowScheme
-
     public init(projectIDs: [String], workflowScheme: WorkflowScheme) {
         self.projectIDs = projectIDs
         self.workflowScheme = workflowScheme
@@ -1410,13 +1390,11 @@ public struct PermissionGrant: Codable {
     /// The URL of the permission granted details.
     public var this: URL?
     /// The user or group being granted the permission. It consists of a `type` and a type-dependent `parameter`. See [Holder object](../api-group-permission-schemes/#holder-object) in *Get all permission schemes* for more information.
-    public var holder: Holder?
+    public var holder: PermissionHolder?
     /// The permission to grant. This permission can be one of the built-in permissions or a custom permission added by an app. See [Built-in permissions](../api-group-permission-schemes/#built-in-permissions) in *Get all permission schemes* for more information about the built-in permissions. See the [project permission](https://developer.atlassian.com/cloud/jira/platform/modules/project-permission/) and [global permission](https://developer.atlassian.com/cloud/jira/platform/modules/global-permission/) module documentation for more information about custom permissions.
     public var permission: String?
 
-    public typealias Holder = PermissionHolder
-
-    public init(id: Int? = nil, this: URL? = nil, holder: Holder? = nil, permission: String? = nil) {
+    public init(id: Int? = nil, this: URL? = nil, holder: PermissionHolder? = nil, permission: String? = nil) {
         self.id = id
         self.this = this
         self.holder = holder
@@ -1463,8 +1441,6 @@ public struct PermissionScheme: Codable {
     public var scope: Scope?
     /// The permission scheme to create or update. See [About permission schemes and grants](../api-group-permission-schemes/#about-permission-schemes-and-grants) for more information.
     public var permissions: [PermissionGrant]?
-
-    public typealias Scope = JiraAPI.Scope
 
     public init(expand: String? = nil, id: Int? = nil, this: URL? = nil, name: String, description: String? = nil, scope: Scope? = nil, permissions: [PermissionGrant]? = nil) {
         self.expand = expand
@@ -1527,8 +1503,6 @@ public struct DeprecatedWorkflow: Codable {
     /// The scope where this workflow applies
     public var scope: Scope?
     public var isDefault: Bool?
-
-    public typealias Scope = JiraAPI.Scope
 
     public init(name: String? = nil, description: String? = nil, lastModifiedDate: String? = nil, lastModifiedUser: String? = nil, lastModifiedUserAccountID: String? = nil, steps: Int? = nil, scope: Scope? = nil, isDefault: Bool? = nil) {
         self.name = name
@@ -1640,9 +1614,9 @@ public struct CreateWorkflowTransitionDetails: Codable {
     /// The type of the transition.
     public var type: `Type`
     /// The rules of the transition.
-    public var rules: Rules?
+    public var rules: CreateWorkflowTransitionRulesDetails?
     /// The screen of the transition.
-    public var screen: Screen?
+    public var screen: CreateWorkflowTransitionScreenDetails?
     /// The properties of the transition.
     public var properties: [String: String]?
 
@@ -1653,11 +1627,7 @@ public struct CreateWorkflowTransitionDetails: Codable {
         case directed
     }
 
-    public typealias Rules = CreateWorkflowTransitionRulesDetails
-
-    public typealias Screen = CreateWorkflowTransitionScreenDetails
-
-    public init(name: String, description: String? = nil, from: [String]? = nil, to: String, type: `Type`, rules: Rules? = nil, screen: Screen? = nil, properties: [String: String]? = nil) {
+    public init(name: String, description: String? = nil, from: [String]? = nil, to: String, type: `Type`, rules: CreateWorkflowTransitionRulesDetails? = nil, screen: CreateWorkflowTransitionScreenDetails? = nil, properties: [String: String]? = nil) {
         self.name = name
         self.description = description
         self.from = from
@@ -1685,15 +1655,13 @@ public struct CreateWorkflowTransitionRule: Codable {
 /// The details of a workflow transition rules.
 public struct CreateWorkflowTransitionRulesDetails: Codable {
     /// The workflow conditions.
-    public var conditions: Conditions?
+    public var conditions: CreateWorkflowCondition?
     /// The workflow validators.
     public var validators: [CreateWorkflowTransitionRule]?
     /// The workflow post functions.
     public var postFunctions: [CreateWorkflowTransitionRule]?
 
-    public typealias Conditions = CreateWorkflowCondition
-
-    public init(conditions: Conditions? = nil, validators: [CreateWorkflowTransitionRule]? = nil, postFunctions: [CreateWorkflowTransitionRule]? = nil) {
+    public init(conditions: CreateWorkflowCondition? = nil, validators: [CreateWorkflowTransitionRule]? = nil, postFunctions: [CreateWorkflowTransitionRule]? = nil) {
         self.conditions = conditions
         self.validators = validators
         self.postFunctions = postFunctions
@@ -2046,11 +2014,9 @@ public struct ConnectWorkflowTransitionRule: Codable {
     public var key: String
     /// A rule configuration.
     public var configuration: RuleConfiguration
-    public var transition: Transition?
+    public var transition: WorkflowTransition?
 
-    public typealias Transition = WorkflowTransition
-
-    public init(id: String, key: String, configuration: RuleConfiguration, transition: Transition? = nil) {
+    public init(id: String, key: String, configuration: RuleConfiguration, transition: WorkflowTransition? = nil) {
         self.id = id
         self.key = key
         self.configuration = configuration
@@ -2639,7 +2605,7 @@ public struct Changelog: Codable {
     /// The ID of the changelog.
     public var id: String?
     /// The user who made the change.
-    public var author: Author?
+    public var author: UserDetails?
     /// The date on which the change took place.
     public var created: Date?
     /// The list of items changed.
@@ -2647,11 +2613,7 @@ public struct Changelog: Codable {
     /// The history metadata associated with the changed.
     public var historyMetadata: HistoryMetadata?
 
-    public typealias Author = UserDetails
-
-    public typealias HistoryMetadata = JiraAPI.HistoryMetadata
-
-    public init(id: String? = nil, author: Author? = nil, created: Date? = nil, items: [ChangeDetails]? = nil, historyMetadata: HistoryMetadata? = nil) {
+    public init(id: String? = nil, author: UserDetails? = nil, created: Date? = nil, items: [ChangeDetails]? = nil, historyMetadata: HistoryMetadata? = nil) {
         self.id = id
         self.author = author
         self.created = created
@@ -2665,7 +2627,7 @@ public struct FieldMetadata: Codable {
     /// Whether the field is required.
     public var isRequired: Bool
     /// The data type of the field.
-    public var schema: Schema
+    public var schema: JSONTypeBean
     /// The name of the field.
     public var name: String
     /// The key of the field.
@@ -2681,9 +2643,7 @@ public struct FieldMetadata: Codable {
     /// The default value of the field.
     public var defaultValue: AnyJSON?
 
-    public typealias Schema = JSONTypeBean
-
-    public init(isRequired: Bool, schema: Schema, name: String, key: String, autoCompleteURL: String? = nil, hasDefaultValue: Bool? = nil, operations: [String], allowedValues: [AnyJSON]? = nil, defaultValue: AnyJSON? = nil) {
+    public init(isRequired: Bool, schema: JSONTypeBean, name: String, key: String, autoCompleteURL: String? = nil, hasDefaultValue: Bool? = nil, operations: [String], allowedValues: [AnyJSON]? = nil, defaultValue: AnyJSON? = nil) {
         self.isRequired = isRequired
         self.schema = schema
         self.name = name
@@ -2725,21 +2685,15 @@ public struct HistoryMetadata: Codable {
     /// The description key of the email address associated the history record.
     public var emailDescriptionKey: String?
     /// Details of the user whose action created the history record.
-    public var actor: Actor?
+    public var actor: HistoryMetadataParticipant?
     /// Details of the system that generated the history record.
-    public var generator: Generator?
+    public var generator: HistoryMetadataParticipant?
     /// Details of the cause that triggered the creation the history record.
-    public var cause: Cause?
+    public var cause: HistoryMetadataParticipant?
     /// Additional arbitrary information about the history record.
     public var extraData: [String: String]?
 
-    public typealias Actor = HistoryMetadataParticipant
-
-    public typealias Generator = HistoryMetadataParticipant
-
-    public typealias Cause = HistoryMetadataParticipant
-
-    public init(type: String? = nil, description: String? = nil, descriptionKey: String? = nil, activityDescription: String? = nil, activityDescriptionKey: String? = nil, emailDescription: String? = nil, emailDescriptionKey: String? = nil, actor: Actor? = nil, generator: Generator? = nil, cause: Cause? = nil, extraData: [String: String]? = nil) {
+    public init(type: String? = nil, description: String? = nil, descriptionKey: String? = nil, activityDescription: String? = nil, activityDescriptionKey: String? = nil, emailDescription: String? = nil, emailDescriptionKey: String? = nil, actor: HistoryMetadataParticipant? = nil, generator: HistoryMetadataParticipant? = nil, cause: HistoryMetadataParticipant? = nil, extraData: [String: String]? = nil) {
         self.type = type
         self.description = description
         self.descriptionKey = descriptionKey
@@ -2823,21 +2777,15 @@ public struct IssueBean: Codable {
     /// The operations that can be performed on the issue.
     public var operations: Operations?
     /// The metadata for the fields on the issue that can be amended.
-    public var editmeta: Editmeta?
+    public var editmeta: IssueUpdateMetadata?
     /// Details of changelogs associated with the issue.
-    public var changelog: Changelog?
+    public var changelog: PageOfChangelogs?
     /// The versions of each field on the issue.
     public var versionedRepresentations: [String: [String: AnyJSON]]?
     public var fieldsToInclude: IncludedFields?
     public var fields: [String: AnyJSON]?
 
-    public typealias Operations = JiraAPI.Operations
-
-    public typealias Editmeta = IssueUpdateMetadata
-
-    public typealias Changelog = PageOfChangelogs
-
-    public init(expand: String? = nil, id: String? = nil, this: URL? = nil, key: String? = nil, renderedFields: [String: AnyJSON]? = nil, properties: [String: AnyJSON]? = nil, names: [String: String]? = nil, schema: [String: JSONTypeBean]? = nil, transitions: [IssueTransition]? = nil, operations: Operations? = nil, editmeta: Editmeta? = nil, changelog: Changelog? = nil, versionedRepresentations: [String: [String: AnyJSON]]? = nil, fieldsToInclude: IncludedFields? = nil, fields: [String: AnyJSON]? = nil) {
+    public init(expand: String? = nil, id: String? = nil, this: URL? = nil, key: String? = nil, renderedFields: [String: AnyJSON]? = nil, properties: [String: AnyJSON]? = nil, names: [String: String]? = nil, schema: [String: JSONTypeBean]? = nil, transitions: [IssueTransition]? = nil, operations: Operations? = nil, editmeta: IssueUpdateMetadata? = nil, changelog: PageOfChangelogs? = nil, versionedRepresentations: [String: [String: AnyJSON]]? = nil, fieldsToInclude: IncludedFields? = nil, fields: [String: AnyJSON]? = nil) {
         self.expand = expand
         self.id = id
         self.this = this
@@ -2881,7 +2829,7 @@ public struct IssueTransition: Codable {
     /// The name of the issue transition.
     public var name: String?
     /// Details of the issue status after the transition.
-    public var to: To?
+    public var to: StatusDetails?
     /// Whether there is a screen associated with the issue transition.
     public var hasScreen: Bool?
     /// Whether the issue transition is global, that is, the transition is applied to issues regardless of their status.
@@ -2898,9 +2846,7 @@ public struct IssueTransition: Codable {
     public var expand: String?
     public var isLooped: Bool?
 
-    public typealias To = StatusDetails
-
-    public init(id: String? = nil, name: String? = nil, to: To? = nil, hasScreen: Bool? = nil, isGlobal: Bool? = nil, isInitial: Bool? = nil, isAvailable: Bool? = nil, isConditional: Bool? = nil, fields: [String: FieldMetadata]? = nil, expand: String? = nil, isLooped: Bool? = nil) {
+    public init(id: String? = nil, name: String? = nil, to: StatusDetails? = nil, hasScreen: Bool? = nil, isGlobal: Bool? = nil, isInitial: Bool? = nil, isAvailable: Bool? = nil, isConditional: Bool? = nil, fields: [String: FieldMetadata]? = nil, expand: String? = nil, isLooped: Bool? = nil) {
         self.id = id
         self.name = name
         self.to = to
@@ -3119,8 +3065,6 @@ public struct StatusDetails: Codable {
     /// The category assigned to the status.
     public var statusCategory: StatusCategory?
 
-    public typealias StatusCategory = JiraAPI.StatusCategory
-
     public init(this: String? = nil, description: String? = nil, iconURL: String? = nil, name: String? = nil, id: String? = nil, statusCategory: StatusCategory? = nil) {
         self.this = this
         self.description = description
@@ -3157,7 +3101,7 @@ public struct UserDetails: Codable {
     /// The email address of the user. Depending on the user’s privacy settings, this may be returned as null.
     public var emailAddress: String?
     /// The avatars of the user.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: AvatarURLsBean?
     /// The display name of the user. Depending on the user’s privacy settings, this may return an alternative value.
     public var displayName: String?
     /// Whether the user is active.
@@ -3167,9 +3111,7 @@ public struct UserDetails: Codable {
     /// The type of account represented by this user. This will be one of 'atlassian' (normal users), 'app' (application user) or 'customer' (Jira Service Desk customer user)
     public var accountType: String?
 
-    public typealias AvatarURLs = AvatarURLsBean
-
-    public init(this: String? = nil, name: String? = nil, key: String? = nil, accountID: String? = nil, emailAddress: String? = nil, avatarURLs: AvatarURLs? = nil, displayName: String? = nil, isActive: Bool? = nil, timeZone: String? = nil, accountType: String? = nil) {
+    public init(this: String? = nil, name: String? = nil, key: String? = nil, accountID: String? = nil, emailAddress: String? = nil, avatarURLs: AvatarURLsBean? = nil, displayName: String? = nil, isActive: Bool? = nil, timeZone: String? = nil, accountType: String? = nil) {
         self.this = this
         self.name = name
         self.key = key
@@ -3479,7 +3421,7 @@ public struct Filter: Codable {
     /// A description of the filter.
     public var description: String?
     /// The user who owns the filter. This is defaulted to the creator of the filter, however Jira administrators can change the owner of a shared filter in the admin settings.
-    public var owner: Owner?
+    public var owner: User?
     /// The JQL query for the filter. For example, *project = SSP AND issuetype = Bug*.
     public var jql: String?
     /// A URL to view the filter results in Jira, using the ID of the filter. For example, *https://your-domain.atlassian.net/issues/?filter=10100*.
@@ -3495,17 +3437,11 @@ public struct Filter: Codable {
     /// The groups and projects that can edit the filter.
     public var editPermissions: [SharePermission]?
     /// A paginated list of the users that the filter is shared with. This includes users that are members of the groups or can browse the projects that the filter is shared with.
-    public var sharedUsers: SharedUsers?
+    public var sharedUsers: UserList?
     /// A paginated list of the users that are subscribed to the filter.
-    public var subscriptions: Subscriptions?
+    public var subscriptions: FilterSubscriptionsList?
 
-    public typealias Owner = User
-
-    public typealias SharedUsers = UserList
-
-    public typealias Subscriptions = FilterSubscriptionsList
-
-    public init(this: URL? = nil, id: String? = nil, name: String, description: String? = nil, owner: Owner? = nil, jql: String? = nil, viewURL: URL? = nil, searchURL: URL? = nil, isFavourite: Bool? = nil, favouritedCount: Int? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, sharedUsers: SharedUsers? = nil, subscriptions: Subscriptions? = nil) {
+    public init(this: URL? = nil, id: String? = nil, name: String, description: String? = nil, owner: User? = nil, jql: String? = nil, viewURL: URL? = nil, searchURL: URL? = nil, isFavourite: Bool? = nil, favouritedCount: Int? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, sharedUsers: UserList? = nil, subscriptions: FilterSubscriptionsList? = nil) {
         self.this = this
         self.id = id
         self.name = name
@@ -3547,13 +3483,9 @@ public struct FilterSubscription: Codable {
     /// The user subscribing to filter.
     public var user: User?
     /// The group subscribing to filter.
-    public var group: Group?
+    public var group: GroupName?
 
-    public typealias User = JiraAPI.User
-
-    public typealias Group = GroupName
-
-    public init(id: Int? = nil, user: User? = nil, group: Group? = nil) {
+    public init(id: Int? = nil, user: User? = nil, group: GroupName? = nil) {
         self.id = id
         self.user = user
         self.group = group
@@ -3671,7 +3603,7 @@ public struct Project: Codable {
     /// A brief description of the project.
     public var description: String?
     /// The username of the project lead.
-    public var lead: Lead?
+    public var lead: User?
     /// List of the components contained in the project.
     public var components: [ProjectComponent]?
     /// List of the issue types available in the project.
@@ -3689,7 +3621,7 @@ public struct Project: Codable {
     /// The name and self URL for each role defined in the project. For more information, see [Create project role](#api-rest-api-3-role-post).
     public var roles: [String: URL]?
     /// The URLs of the project's avatars.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: AvatarURLsBean?
     /// The category the project belongs to.
     public var projectCategory: ProjectCategory?
     /// The [project type](https://confluence.atlassian.com/x/GwiiLQ#Jiraapplicationsoverview-Productfeaturesandprojecttypes) of the project.
@@ -3703,15 +3635,15 @@ public struct Project: Codable {
     /// Whether the project is private.
     public var isPrivate: Bool?
     /// The issue type hierarchy for the project.
-    public var issueTypeHierarchy: IssueTypeHierarchy?
+    public var issueTypeHierarchy: Hierarchy?
     /// User permissions on the project
-    public var permissions: Permissions?
+    public var permissions: ProjectPermissions?
     /// Map of project properties
     public var properties: [String: AnyJSON]?
     /// Unique ID for next-gen projects.
     public var uuid: String?
     /// Insights about the project.
-    public var insight: Insight?
+    public var insight: ProjectInsight?
     /// Whether the project is marked as deleted.
     public var isDeleted: Bool?
     /// The date when the project is deleted permanently.
@@ -3719,27 +3651,21 @@ public struct Project: Codable {
     /// The date when the project was marked as deleted.
     public var deletedDate: Date?
     /// The user who marked the project as deleted.
-    public var deletedBy: DeletedBy?
+    public var deletedBy: User?
     /// Whether the project is archived.
     public var isArchived: Bool?
     /// The date when the project was archived.
     public var archivedDate: Date?
     /// The user who archived the project.
-    public var archivedBy: ArchivedBy?
+    public var archivedBy: User?
     /// The project landing page info.
-    public var landingPageInfo: LandingPageInfo?
-
-    public typealias Lead = User
+    public var landingPageInfo: ProjectLandingPageInfo?
 
     /// The default assignee when creating issues for this project.
     public enum AssigneeType: String, Codable, CaseIterable {
         case projectLead = "PROJECT_LEAD"
         case unassigned = "UNASSIGNED"
     }
-
-    public typealias AvatarURLs = AvatarURLsBean
-
-    public typealias ProjectCategory = JiraAPI.ProjectCategory
 
     /// The [project type](https://confluence.atlassian.com/x/GwiiLQ#Jiraapplicationsoverview-Productfeaturesandprojecttypes) of the project.
     public enum ProjectTypeKey: String, Codable, CaseIterable {
@@ -3754,19 +3680,7 @@ public struct Project: Codable {
         case nextGen = "next-gen"
     }
 
-    public typealias IssueTypeHierarchy = Hierarchy
-
-    public typealias Permissions = ProjectPermissions
-
-    public typealias Insight = ProjectInsight
-
-    public typealias DeletedBy = User
-
-    public typealias ArchivedBy = User
-
-    public typealias LandingPageInfo = ProjectLandingPageInfo
-
-    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, key: String? = nil, description: String? = nil, lead: Lead? = nil, components: [ProjectComponent]? = nil, issueTypes: [IssueTypeDetails]? = nil, url: String? = nil, email: String? = nil, assigneeType: AssigneeType? = nil, versions: [Version]? = nil, name: String? = nil, roles: [String: URL]? = nil, avatarURLs: AvatarURLs? = nil, projectCategory: ProjectCategory? = nil, projectTypeKey: ProjectTypeKey? = nil, isSimplified: Bool? = nil, style: Style? = nil, isFavourite: Bool? = nil, isPrivate: Bool? = nil, issueTypeHierarchy: IssueTypeHierarchy? = nil, permissions: Permissions? = nil, properties: [String: AnyJSON]? = nil, uuid: String? = nil, insight: Insight? = nil, isDeleted: Bool? = nil, retentionTillDate: Date? = nil, deletedDate: Date? = nil, deletedBy: DeletedBy? = nil, isArchived: Bool? = nil, archivedDate: Date? = nil, archivedBy: ArchivedBy? = nil, landingPageInfo: LandingPageInfo? = nil) {
+    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, key: String? = nil, description: String? = nil, lead: User? = nil, components: [ProjectComponent]? = nil, issueTypes: [IssueTypeDetails]? = nil, url: String? = nil, email: String? = nil, assigneeType: AssigneeType? = nil, versions: [Version]? = nil, name: String? = nil, roles: [String: URL]? = nil, avatarURLs: AvatarURLsBean? = nil, projectCategory: ProjectCategory? = nil, projectTypeKey: ProjectTypeKey? = nil, isSimplified: Bool? = nil, style: Style? = nil, isFavourite: Bool? = nil, isPrivate: Bool? = nil, issueTypeHierarchy: Hierarchy? = nil, permissions: ProjectPermissions? = nil, properties: [String: AnyJSON]? = nil, uuid: String? = nil, insight: ProjectInsight? = nil, isDeleted: Bool? = nil, retentionTillDate: Date? = nil, deletedDate: Date? = nil, deletedBy: User? = nil, isArchived: Bool? = nil, archivedDate: Date? = nil, archivedBy: User? = nil, landingPageInfo: ProjectLandingPageInfo? = nil) {
         self.expand = expand
         self.this = this
         self.id = id
@@ -3878,7 +3792,7 @@ public struct ProjectComponent: Codable {
     /// The description for the component. Optional when creating or updating a component.
     public var description: String?
     /// The user details for the component's lead user.
-    public var lead: Lead?
+    public var lead: User?
     /// This property is no longer available and will be removed from the documentation soon. See the [deprecation notice](https://developer.atlassian.com/cloud/jira/platform/deprecation-notice-user-privacy-api-migration-guide/) for details.
     public var leadUserName: String?
     /// The accountId of the component's lead user. The accountId uniquely identifies the user across all Atlassian products. For example, *5b10ac8d82e05b22cc7d4ef5*.
@@ -3894,7 +3808,7 @@ public struct ProjectComponent: Codable {
     /// Optional when creating or updating a component.
     public var assigneeType: AssigneeType?
     /// The details of the user associated with `assigneeType`, if any. See `realAssignee` for details of the user assigned to issues created with this component.
-    public var assignee: Assignee?
+    public var assignee: User?
     /// The type of the assignee that is assigned to issues created with this component, when an assignee cannot be set from the `assigneeType`. For example, `assigneeType` is set to `COMPONENT_LEAD` but no component lead is set. This property is set to one of the following values:
     /// 
     ///  *  `PROJECT_LEAD` when `assigneeType` is `PROJECT_LEAD` and the project lead has permission to be assigned issues in the project that the component is in.
@@ -3903,15 +3817,13 @@ public struct ProjectComponent: Codable {
     ///  *  `PROJECT_DEFAULT` when none of the preceding cases are true.
     public var realAssigneeType: RealAssigneeType?
     /// The user assigned to issues created with this component, when `assigneeType` does not identify a valid assignee.
-    public var realAssignee: RealAssignee?
+    public var realAssignee: User?
     /// Whether a user is associated with `assigneeType`. For example, if the `assigneeType` is set to `COMPONENT_LEAD` but the component lead is not set, then `false` is returned.
     public var isAssigneeTypeValid: Bool?
     /// The key of the project the component is assigned to. Required when creating a component. Can't be updated.
     public var project: String?
     /// The ID of the project the component is assigned to.
     public var projectID: Int?
-
-    public typealias Lead = User
 
     /// The nominal user type used to determine the assignee for issues created with this component. See `realAssigneeType` for details on how the type of the user, and hence the user, assigned to issues is determined. Can take the following values:
     /// 
@@ -3929,8 +3841,6 @@ public struct ProjectComponent: Codable {
         case unassigned = "UNASSIGNED"
     }
 
-    public typealias Assignee = User
-
     /// The type of the assignee that is assigned to issues created with this component, when an assignee cannot be set from the `assigneeType`. For example, `assigneeType` is set to `COMPONENT_LEAD` but no component lead is set. This property is set to one of the following values:
     /// 
     ///  *  `PROJECT_LEAD` when `assigneeType` is `PROJECT_LEAD` and the project lead has permission to be assigned issues in the project that the component is in.
@@ -3944,9 +3854,7 @@ public struct ProjectComponent: Codable {
         case unassigned = "UNASSIGNED"
     }
 
-    public typealias RealAssignee = User
-
-    public init(this: URL? = nil, id: String? = nil, name: String? = nil, description: String? = nil, lead: Lead? = nil, leadUserName: String? = nil, leadAccountID: String? = nil, assigneeType: AssigneeType? = nil, assignee: Assignee? = nil, realAssigneeType: RealAssigneeType? = nil, realAssignee: RealAssignee? = nil, isAssigneeTypeValid: Bool? = nil, project: String? = nil, projectID: Int? = nil) {
+    public init(this: URL? = nil, id: String? = nil, name: String? = nil, description: String? = nil, lead: User? = nil, leadUserName: String? = nil, leadAccountID: String? = nil, assigneeType: AssigneeType? = nil, assignee: User? = nil, realAssigneeType: RealAssigneeType? = nil, realAssignee: User? = nil, isAssigneeTypeValid: Bool? = nil, project: String? = nil, projectID: Int? = nil) {
         self.this = this
         self.id = id
         self.name = name
@@ -4053,8 +3961,6 @@ public struct ProjectRole: Codable {
     /// Whether this role is the default role for the project
     public var isDefault: Bool?
 
-    public typealias Scope = JiraAPI.Scope
-
     public init(this: URL? = nil, name: String? = nil, id: Int? = nil, description: String? = nil, actors: [RoleActor]? = nil, scope: Scope? = nil, translatedName: String? = nil, isCurrentUserRole: Bool? = nil, isRoleConfigurable: Bool? = nil, isAdmin: Bool? = nil, isDefault: Bool? = nil) {
         self.this = this
         self.name = name
@@ -4123,8 +4029,8 @@ public struct RoleActor: Codable {
     public var name: String?
     /// The avatar of the role actor.
     public var avatarURL: URL?
-    public var actorUser: ActorUser?
-    public var actorGroup: ActorGroup?
+    public var actorUser: ProjectRoleUser?
+    public var actorGroup: ProjectRoleGroup?
 
     /// The type of role actor.
     public enum `Type`: String, Codable, CaseIterable {
@@ -4132,11 +4038,7 @@ public struct RoleActor: Codable {
         case atlassianUserRoleActor = "atlassian-user-role-actor"
     }
 
-    public typealias ActorUser = ProjectRoleUser
-
-    public typealias ActorGroup = ProjectRoleGroup
-
-    public init(id: Int? = nil, displayName: String? = nil, type: `Type`? = nil, name: String? = nil, avatarURL: URL? = nil, actorUser: ActorUser? = nil, actorGroup: ActorGroup? = nil) {
+    public init(id: Int? = nil, displayName: String? = nil, type: `Type`? = nil, name: String? = nil, avatarURL: URL? = nil, actorUser: ProjectRoleUser? = nil, actorGroup: ProjectRoleGroup? = nil) {
         self.id = id
         self.displayName = displayName
         self.type = type
@@ -4176,11 +4078,11 @@ public struct SharePermission: Codable {
     public var project: Project?
     /// The project role that the filter is shared with.
     /// For a request, specify the `id` for the role. You must also specify the `project` object and `id` for the project that the role is in.
-    public var role: Role?
+    public var role: ProjectRole?
     /// The group that the filter is shared with. For a request, specify the `name` property for the group.
-    public var group: Group?
+    public var group: GroupName?
     /// The user account ID that the filter is shared with. For a request, specify the `accountId` property for the user.
-    public var user: User?
+    public var user: UserBean?
 
     /// The type of share permission:
     /// 
@@ -4202,15 +4104,7 @@ public struct SharePermission: Codable {
         case projectUnknown = "project-unknown"
     }
 
-    public typealias Project = JiraAPI.Project
-
-    public typealias Role = ProjectRole
-
-    public typealias Group = GroupName
-
-    public typealias User = UserBean
-
-    public init(id: Int? = nil, type: `Type`, project: Project? = nil, role: Role? = nil, group: Group? = nil, user: User? = nil) {
+    public init(id: Int? = nil, type: `Type`, project: Project? = nil, role: ProjectRole? = nil, group: GroupName? = nil, user: UserBean? = nil) {
         self.id = id
         self.type = type
         self.project = project
@@ -4236,11 +4130,9 @@ public struct UserBean: Codable {
     /// The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, *5b10ac8d82e05b22cc7d4ef5*.
     public var accountID: String?
     /// The avatars of the user.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: UserBeanAvatarURLs?
 
-    public typealias AvatarURLs = UserBeanAvatarURLs
-
-    public init(key: String? = nil, this: URL? = nil, name: String? = nil, displayName: String? = nil, isActive: Bool? = nil, accountID: String? = nil, avatarURLs: AvatarURLs? = nil) {
+    public init(key: String? = nil, this: URL? = nil, name: String? = nil, displayName: String? = nil, isActive: Bool? = nil, accountID: String? = nil, avatarURLs: UserBeanAvatarURLs? = nil) {
         self.key = key
         self.this = this
         self.name = name
@@ -4356,11 +4248,9 @@ public struct Version: Codable {
     /// If the expand option `operations` is used, returns the list of operations available for this version.
     public var operations: [SimpleLink]?
     /// If the expand option `issuesstatus` is used, returns the count of issues in this version for each of the status categories *to do*, *in progress*, *done*, and *unmapped*. The *unmapped* property contains a count of issues with a status other than *to do*, *in progress*, and *done*.
-    public var issuesStatusForFixVersion: IssuesStatusForFixVersion?
+    public var issuesStatusForFixVersion: VersionIssuesStatus?
 
-    public typealias IssuesStatusForFixVersion = VersionIssuesStatus
-
-    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, description: String? = nil, name: String? = nil, isArchived: Bool? = nil, isReleased: Bool? = nil, startDate: NaiveDate? = nil, releaseDate: NaiveDate? = nil, isOverdue: Bool? = nil, userStartDate: String? = nil, userReleaseDate: String? = nil, project: String? = nil, projectID: Int? = nil, moveUnfixedIssuesTo: URL? = nil, operations: [SimpleLink]? = nil, issuesStatusForFixVersion: IssuesStatusForFixVersion? = nil) {
+    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, description: String? = nil, name: String? = nil, isArchived: Bool? = nil, isReleased: Bool? = nil, startDate: NaiveDate? = nil, releaseDate: NaiveDate? = nil, isOverdue: Bool? = nil, userStartDate: String? = nil, userReleaseDate: String? = nil, project: String? = nil, projectID: Int? = nil, moveUnfixedIssuesTo: URL? = nil, operations: [SimpleLink]? = nil, issuesStatusForFixVersion: VersionIssuesStatus? = nil) {
         self.expand = expand
         self.this = this
         self.id = id
@@ -4433,7 +4323,7 @@ public struct FilterDetails: Codable {
     /// The description of the filter.
     public var description: String?
     /// The user who owns the filter. Defaults to the creator of the filter, however, Jira administrators can change the owner of a shared filter in the admin settings.
-    public var owner: Owner?
+    public var owner: User?
     /// The JQL query for the filter. For example, *project = SSP AND issuetype = Bug*.
     public var jql: String?
     /// A URL to view the filter results in Jira, using the ID of the filter. For example, *https://your-domain.atlassian.net/issues/?filter=10100*.
@@ -4451,9 +4341,7 @@ public struct FilterDetails: Codable {
     /// The users that are subscribed to the filter.
     public var subscriptions: [FilterSubscription]?
 
-    public typealias Owner = User
-
-    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, name: String, description: String? = nil, owner: Owner? = nil, jql: String? = nil, viewURL: URL? = nil, searchURL: URL? = nil, isFavourite: Bool? = nil, favouritedCount: Int? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, subscriptions: [FilterSubscription]? = nil) {
+    public init(expand: String? = nil, this: URL? = nil, id: String? = nil, name: String, description: String? = nil, owner: User? = nil, jql: String? = nil, viewURL: URL? = nil, searchURL: URL? = nil, isFavourite: Bool? = nil, favouritedCount: Int? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, subscriptions: [FilterSubscription]? = nil) {
         self.expand = expand
         self.this = this
         self.id = id
@@ -4822,11 +4710,9 @@ public struct BulkIssuePropertyUpdateRequest: Codable {
     /// EXPERIMENTAL. The Jira expression to calculate the value of the property. The value of the expression must be an object that can be converted to JSON, such as a number, boolean, string, list, or map. The context variables available to the expression are `issue` and `user`. Issues for which the expression returns a value whose JSON representation is longer than 32768 characters are ignored.
     public var expression: String?
     /// The bulk operation filter.
-    public var filter: Filter?
+    public var filter: IssueFilterForBulkPropertySet?
 
-    public typealias Filter = IssueFilterForBulkPropertySet
-
-    public init(value: AnyJSON? = nil, expression: String? = nil, filter: Filter? = nil) {
+    public init(value: AnyJSON? = nil, expression: String? = nil, filter: IssueFilterForBulkPropertySet? = nil) {
         self.value = value
         self.expression = expression
         self.filter = filter
@@ -5186,15 +5072,15 @@ public struct EventNotification: Codable {
     ///  *  `GroupCustomField` The `parameter` is the ID of the custom field.
     public var parameter: String?
     /// The specified group.
-    public var group: Group?
+    public var group: GroupName?
     /// The custom user or group field.
-    public var field: Field?
+    public var field: FieldDetails?
     /// The email address.
     public var emailAddress: String?
     /// The specified project role.
     public var projectRole: ProjectRole?
     /// The specified user.
-    public var user: User?
+    public var user: UserDetails?
 
     /// Identifies the recipients of the notification.
     public enum NotificationType: String, Codable, CaseIterable {
@@ -5212,15 +5098,7 @@ public struct EventNotification: Codable {
         case groupCustomField = "GroupCustomField"
     }
 
-    public typealias Group = GroupName
-
-    public typealias Field = FieldDetails
-
-    public typealias ProjectRole = JiraAPI.ProjectRole
-
-    public typealias User = UserDetails
-
-    public init(expand: String? = nil, id: Int? = nil, notificationType: NotificationType? = nil, parameter: String? = nil, group: Group? = nil, field: Field? = nil, emailAddress: String? = nil, projectRole: ProjectRole? = nil, user: User? = nil) {
+    public init(expand: String? = nil, id: Int? = nil, notificationType: NotificationType? = nil, parameter: String? = nil, group: GroupName? = nil, field: FieldDetails? = nil, emailAddress: String? = nil, projectRole: ProjectRole? = nil, user: UserDetails? = nil) {
         self.expand = expand
         self.id = id
         self.notificationType = notificationType
@@ -5254,13 +5132,9 @@ public struct FieldDetails: Codable {
     /// The scope of the field.
     public var scope: Scope?
     /// The data schema for the field.
-    public var schema: Schema?
+    public var schema: JSONTypeBean?
 
-    public typealias Scope = JiraAPI.Scope
-
-    public typealias Schema = JSONTypeBean
-
-    public init(id: String? = nil, key: String? = nil, name: String? = nil, isCustom: Bool? = nil, isOrderable: Bool? = nil, isNavigable: Bool? = nil, isSearchable: Bool? = nil, clauseNames: [String]? = nil, scope: Scope? = nil, schema: Schema? = nil) {
+    public init(id: String? = nil, key: String? = nil, name: String? = nil, isCustom: Bool? = nil, isOrderable: Bool? = nil, isNavigable: Bool? = nil, isSearchable: Bool? = nil, clauseNames: [String]? = nil, scope: Scope? = nil, schema: JSONTypeBean? = nil) {
         self.id = id
         self.key = key
         self.name = name
@@ -5296,11 +5170,9 @@ public final class NotificationEvent: Codable {
     /// The description of the event.
     public var description: String?
     /// The template of the event. Only custom events configured by Jira administrators have template.
-    public var templateEvent: TemplateEvent?
+    public var templateEvent: NotificationEvent?
 
-    public typealias TemplateEvent = NotificationEvent
-
-    public init(id: Int? = nil, name: String? = nil, description: String? = nil, templateEvent: TemplateEvent? = nil) {
+    public init(id: Int? = nil, name: String? = nil, description: String? = nil, templateEvent: NotificationEvent? = nil) {
         self.id = id
         self.name = name
         self.description = description
@@ -5323,8 +5195,6 @@ public struct NotificationScheme: Codable {
     public var notificationSchemeEvents: [NotificationSchemeEvent]?
     /// The scope of the notification scheme.
     public var scope: Scope?
-
-    public typealias Scope = JiraAPI.Scope
 
     public init(expand: String? = nil, id: Int? = nil, this: String? = nil, name: String? = nil, description: String? = nil, notificationSchemeEvents: [NotificationSchemeEvent]? = nil, scope: Scope? = nil) {
         self.expand = expand
@@ -5406,7 +5276,7 @@ public struct Dashboard: Codable {
     /// The name of the dashboard.
     public var name: String?
     /// The owner of the dashboard.
-    public var owner: Owner?
+    public var owner: UserBean?
     /// The number of users who have this dashboard as a favorite.
     public var popularity: Int?
     /// The rank of this dashboard.
@@ -5422,9 +5292,7 @@ public struct Dashboard: Codable {
     /// Whether the current user has permission to edit the dashboard.
     public var isWritable: Bool?
 
-    public typealias Owner = UserBean
-
-    public init(description: String? = nil, id: String? = nil, isFavourite: Bool? = nil, name: String? = nil, owner: Owner? = nil, popularity: Int? = nil, rank: Int? = nil, this: URL? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, view: String? = nil, isWritable: Bool? = nil) {
+    public init(description: String? = nil, id: String? = nil, isFavourite: Bool? = nil, name: String? = nil, owner: UserBean? = nil, popularity: Int? = nil, rank: Int? = nil, this: URL? = nil, sharePermissions: [SharePermission]? = nil, editPermissions: [SharePermission]? = nil, view: String? = nil, isWritable: Bool? = nil) {
         self.description = description
         self.id = id
         self.isFavourite = isFavourite
@@ -6141,8 +6009,6 @@ public struct Screen: Codable {
     /// The scope of the screen.
     public var scope: Scope?
 
-    public typealias Scope = JiraAPI.Scope
-
     public init(id: Int? = nil, name: String? = nil, description: String? = nil, scope: Scope? = nil) {
         self.id = id
         self.name = name
@@ -6497,9 +6363,9 @@ public struct ComponentWithIssueCount: Codable {
     /// Count of issues for the component.
     public var issueCount: Int?
     /// The details of the user associated with `assigneeType`, if any. See `realAssignee` for details of the user assigned to issues created with this component.
-    public var assignee: Assignee?
+    public var assignee: User?
     /// The user assigned to issues created with this component, when `assigneeType` does not identify a valid assignee.
-    public var realAssignee: RealAssignee?
+    public var realAssignee: User?
     /// Whether a user is associated with `assigneeType`. For example, if the `assigneeType` is set to `COMPONENT_LEAD` but the component lead is not set, then `false` is returned.
     public var isAssigneeTypeValid: Bool?
     /// The type of the assignee that is assigned to issues created with this component, when an assignee cannot be set from the `assigneeType`. For example, `assigneeType` is set to `COMPONENT_LEAD` but no component lead is set. This property is set to one of the following values:
@@ -6523,17 +6389,13 @@ public struct ComponentWithIssueCount: Codable {
     ///  *  `PROJECT_DEFAULT` the assignee to any issues created with this component is nominally the default assignee for the project that the component is in.
     public var assigneeType: AssigneeType?
     /// The user details for the component's lead user.
-    public var lead: Lead?
+    public var lead: User?
     /// Not used.
     public var projectID: Int?
     /// The name for the component.
     public var name: String?
     /// The unique identifier for the component.
     public var id: String?
-
-    public typealias Assignee = User
-
-    public typealias RealAssignee = User
 
     /// The type of the assignee that is assigned to issues created with this component, when an assignee cannot be set from the `assigneeType`. For example, `assigneeType` is set to `COMPONENT_LEAD` but no component lead is set. This property is set to one of the following values:
     /// 
@@ -6561,9 +6423,7 @@ public struct ComponentWithIssueCount: Codable {
         case unassigned = "UNASSIGNED"
     }
 
-    public typealias Lead = User
-
-    public init(issueCount: Int? = nil, assignee: Assignee? = nil, realAssignee: RealAssignee? = nil, isAssigneeTypeValid: Bool? = nil, realAssigneeType: RealAssigneeType? = nil, description: String? = nil, this: URL? = nil, project: String? = nil, assigneeType: AssigneeType? = nil, lead: Lead? = nil, projectID: Int? = nil, name: String? = nil, id: String? = nil) {
+    public init(issueCount: Int? = nil, assignee: User? = nil, realAssignee: User? = nil, isAssigneeTypeValid: Bool? = nil, realAssigneeType: RealAssigneeType? = nil, description: String? = nil, this: URL? = nil, project: String? = nil, assigneeType: AssigneeType? = nil, lead: User? = nil, projectID: Int? = nil, name: String? = nil, id: String? = nil) {
         self.issueCount = issueCount
         self.assignee = assignee
         self.realAssignee = realAssignee
@@ -6869,13 +6729,13 @@ public struct Comment: Codable {
     /// The ID of the comment.
     public var id: String?
     /// The ID of the user who created the comment.
-    public var author: Author?
+    public var author: UserDetails?
     /// The comment text in [Atlassian Document Format](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/).
     public var body: AnyJSON?
     /// The rendered version of the comment.
     public var renderedBody: String?
     /// The ID of the user who updated the comment last.
-    public var updateAuthor: UpdateAuthor?
+    public var updateAuthor: UserDetails?
     /// The date and time at which the comment was created.
     public var created: Date?
     /// The date and time at which the comment was updated last.
@@ -6889,13 +6749,7 @@ public struct Comment: Codable {
     /// A list of comment properties. Optional on create and update.
     public var properties: [EntityProperty]?
 
-    public typealias Author = UserDetails
-
-    public typealias UpdateAuthor = UserDetails
-
-    public typealias Visibility = JiraAPI.Visibility
-
-    public init(this: String? = nil, id: String? = nil, author: Author? = nil, body: AnyJSON? = nil, renderedBody: String? = nil, updateAuthor: UpdateAuthor? = nil, created: Date? = nil, updated: Date? = nil, visibility: Visibility? = nil, isJsdPublic: Bool? = nil, jsdAuthorCanSeeRequest: Bool? = nil, properties: [EntityProperty]? = nil) {
+    public init(this: String? = nil, id: String? = nil, author: UserDetails? = nil, body: AnyJSON? = nil, renderedBody: String? = nil, updateAuthor: UserDetails? = nil, created: Date? = nil, updated: Date? = nil, visibility: Visibility? = nil, isJsdPublic: Bool? = nil, jsdAuthorCanSeeRequest: Bool? = nil, properties: [EntityProperty]? = nil) {
         self.this = this
         self.id = id
         self.author = author
@@ -6931,29 +6785,19 @@ public struct Fields: Codable {
     /// The summary description of the linked issue.
     public var summary: String?
     /// The status of the linked issue.
-    public var status: Status?
+    public var status: StatusDetails?
     /// The priority of the linked issue.
     public var priority: Priority?
     /// The assignee of the linked issue.
-    public var assignee: Assignee?
+    public var assignee: UserDetails?
     /// The time tracking of the linked issue.
-    public var timetracking: Timetracking?
+    public var timetracking: TimeTrackingDetails?
     /// Details about an issue type.
     public var issuetype: IssueTypeDetails?
     /// The type of the linked issue.
-    public var issueType: IssueType?
+    public var issueType: IssueTypeDetails?
 
-    public typealias Status = StatusDetails
-
-    public typealias Priority = JiraAPI.Priority
-
-    public typealias Assignee = UserDetails
-
-    public typealias Timetracking = TimeTrackingDetails
-
-    public typealias IssueType = IssueTypeDetails
-
-    public init(summary: String? = nil, status: Status? = nil, priority: Priority? = nil, assignee: Assignee? = nil, timetracking: Timetracking? = nil, issuetype: IssueTypeDetails? = nil, issueType: IssueType? = nil) {
+    public init(summary: String? = nil, status: StatusDetails? = nil, priority: Priority? = nil, assignee: UserDetails? = nil, timetracking: TimeTrackingDetails? = nil, issuetype: IssueTypeDetails? = nil, issueType: IssueTypeDetails? = nil) {
         self.summary = summary
         self.status = status
         self.priority = priority
@@ -7041,8 +6885,6 @@ public struct LinkedIssue: Codable {
     /// The fields associated with the issue.
     public var fields: Fields?
 
-    public typealias Fields = JiraAPI.Fields
-
     public init(id: String? = nil, key: String? = nil, this: URL? = nil, fields: Fields? = nil) {
         self.id = id
         self.key = key
@@ -7127,19 +6969,13 @@ public struct IssueLink: Codable {
     /// The URL of the issue link.
     public var this: URL?
     /// The type of link between the issues.
-    public var type: `Type`
+    public var type: IssueLinkType
     /// The issue the link joins to.
-    public var inwardIssue: InwardIssue
+    public var inwardIssue: LinkedIssue
     /// The issue the link originates from.
-    public var outwardIssue: OutwardIssue
+    public var outwardIssue: LinkedIssue
 
-    public typealias `Type` = IssueLinkType
-
-    public typealias InwardIssue = LinkedIssue
-
-    public typealias OutwardIssue = LinkedIssue
-
-    public init(id: String? = nil, this: URL? = nil, type: `Type`, inwardIssue: InwardIssue, outwardIssue: OutwardIssue) {
+    public init(id: String? = nil, this: URL? = nil, type: IssueLinkType, inwardIssue: LinkedIssue, outwardIssue: LinkedIssue) {
         self.id = id
         self.this = this
         self.type = type
@@ -7180,9 +7016,9 @@ public struct Worklog: Codable {
     /// The URL of the worklog item.
     public var this: URL?
     /// Details of the user who created the worklog.
-    public var author: Author?
+    public var author: UserDetails?
     /// Details of the user who last updated the worklog.
-    public var updateAuthor: UpdateAuthor?
+    public var updateAuthor: UserDetails?
     /// A comment about the worklog in [Atlassian Document Format](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/). Optional when creating or updating a worklog.
     public var comment: AnyJSON?
     /// The datetime on which the worklog was created.
@@ -7204,13 +7040,7 @@ public struct Worklog: Codable {
     /// Details of properties for the worklog. Optional when creating or updating a worklog.
     public var properties: [EntityProperty]?
 
-    public typealias Author = UserDetails
-
-    public typealias UpdateAuthor = UserDetails
-
-    public typealias Visibility = JiraAPI.Visibility
-
-    public init(this: URL? = nil, author: Author? = nil, updateAuthor: UpdateAuthor? = nil, comment: AnyJSON? = nil, created: Date? = nil, updated: Date? = nil, visibility: Visibility? = nil, started: Date? = nil, timeSpent: String? = nil, timeSpentSeconds: Int? = nil, id: String? = nil, issueID: String? = nil, properties: [EntityProperty]? = nil) {
+    public init(this: URL? = nil, author: UserDetails? = nil, updateAuthor: UserDetails? = nil, comment: AnyJSON? = nil, created: Date? = nil, updated: Date? = nil, visibility: Visibility? = nil, started: Date? = nil, timeSpent: String? = nil, timeSpentSeconds: Int? = nil, id: String? = nil, issueID: String? = nil, properties: [EntityProperty]? = nil) {
         self.this = this
         self.author = author
         self.updateAuthor = updateAuthor
@@ -7314,11 +7144,9 @@ public struct IssueSecurityLevelMember: Codable {
     /// The ID of the issue security level.
     public var issueSecurityLevelID: Int
     /// The user or group being granted the permission. It consists of a `type` and a type-dependent `parameter`. See [Holder object](../api-group-permission-schemes/#holder-object) in *Get all permission schemes* for more information.
-    public var holder: Holder
+    public var holder: PermissionHolder
 
-    public typealias Holder = PermissionHolder
-
-    public init(id: Int, issueSecurityLevelID: Int, holder: Holder) {
+    public init(id: Int, issueSecurityLevelID: Int, holder: PermissionHolder) {
         self.id = id
         self.issueSecurityLevelID = issueSecurityLevelID
         self.holder = holder
@@ -7483,7 +7311,7 @@ public struct FieldUpdateOperation: Codable {
 /// Details of an issue update request.
 public struct IssueUpdateDetails: Codable {
     /// Details of a transition. Required when performing a transition, optional when creating or editing an issue.
-    public var transition: Transition?
+    public var transition: IssueTransition?
     /// List of issue screen fields to update, specifying the sub-field to update and its value for each field. This field provides a straightforward option when setting a sub-field. When multiple sub-fields or other operations are required, use `update`. Fields included in here cannot be included in `update`.
     public var fields: [String: AnyJSON]?
     /// A Map containing the field field name and a list of operations to perform on the issue screen field. Note that fields included in here cannot be included in `fields`.
@@ -7493,11 +7321,7 @@ public struct IssueUpdateDetails: Codable {
     /// Details of issue properties to be add or update.
     public var properties: [EntityProperty]?
 
-    public typealias Transition = IssueTransition
-
-    public typealias HistoryMetadata = JiraAPI.HistoryMetadata
-
-    public init(transition: Transition? = nil, fields: [String: AnyJSON]? = nil, update: [String: [FieldUpdateOperation]]? = nil, historyMetadata: HistoryMetadata? = nil, properties: [EntityProperty]? = nil) {
+    public init(transition: IssueTransition? = nil, fields: [String: AnyJSON]? = nil, update: [String: [FieldUpdateOperation]]? = nil, historyMetadata: HistoryMetadata? = nil, properties: [EntityProperty]? = nil) {
         self.transition = transition
         self.fields = fields
         self.update = update
@@ -7591,11 +7415,9 @@ public struct CreatedIssue: Codable {
     /// The URL of the created issue or subtask.
     public var this: String?
     /// The response code and messages related to any requested transition.
-    public var transition: Transition?
+    public var transition: NestedResponse?
 
-    public typealias Transition = NestedResponse
-
-    public init(id: String? = nil, key: String? = nil, this: String? = nil, transition: Transition? = nil) {
+    public init(id: String? = nil, key: String? = nil, this: String? = nil, transition: NestedResponse? = nil) {
         self.id = id
         self.key = key
         self.this = this
@@ -7695,8 +7517,6 @@ public struct IssueTypeIssueCreateMetadata: Codable {
     /// List of the fields available when creating an issue for the issue type.
     public var fields: [String: FieldMetadata]?
 
-    public typealias Scope = JiraAPI.Scope
-
     public init(this: String? = nil, id: String? = nil, description: String? = nil, iconURL: String? = nil, name: String? = nil, isSubtask: Bool? = nil, avatarID: Int? = nil, entityID: String? = nil, hierarchyLevel: Int? = nil, scope: Scope? = nil, expand: String? = nil, fields: [String: FieldMetadata]? = nil) {
         self.this = this
         self.id = id
@@ -7741,13 +7561,11 @@ public struct ProjectIssueCreateMetadata: Codable {
     /// The name of the project.
     public var name: String?
     /// List of the project's avatars, returning the avatar size and associated URL.
-    public var avatarURLs: AvatarURLs?
+    public var avatarURLs: AvatarURLsBean?
     /// List of the issue types supported by the project.
     public var issuetypes: [IssueTypeIssueCreateMetadata]?
 
-    public typealias AvatarURLs = AvatarURLsBean
-
-    public init(expand: String? = nil, this: String? = nil, id: String? = nil, key: String? = nil, name: String? = nil, avatarURLs: AvatarURLs? = nil, issuetypes: [IssueTypeIssueCreateMetadata]? = nil) {
+    public init(expand: String? = nil, this: String? = nil, id: String? = nil, key: String? = nil, name: String? = nil, avatarURLs: AvatarURLsBean? = nil, issuetypes: [IssueTypeIssueCreateMetadata]? = nil) {
         self.expand = expand
         self.this = this
         self.id = id
@@ -7810,13 +7628,9 @@ public struct RemoteIssueLink: Codable {
     /// Description of the relationship between the issue and the linked item.
     public var relationship: String?
     /// Details of the item linked to.
-    public var object: Object?
+    public var object: RemoteObject?
 
-    public typealias Application = JiraAPI.Application
-
-    public typealias Object = RemoteObject
-
-    public init(id: Int? = nil, this: URL? = nil, globalID: String? = nil, application: Application? = nil, relationship: String? = nil, object: Object? = nil) {
+    public init(id: Int? = nil, this: URL? = nil, globalID: String? = nil, application: Application? = nil, relationship: String? = nil, object: RemoteObject? = nil) {
         self.id = id
         self.this = this
         self.globalID = globalID
@@ -7848,10 +7662,6 @@ public struct RemoteObject: Codable {
     /// The status of the item.
     public var status: Status?
 
-    public typealias Icon = JiraAPI.Icon
-
-    public typealias Status = JiraAPI.Status
-
     public init(url: String, title: String, summary: String? = nil, icon: Icon? = nil, status: Status? = nil) {
         self.url = url
         self.title = title
@@ -7867,8 +7677,6 @@ public struct Status: Codable {
     public var isResolved: Bool?
     /// Details of the icon representing the status. If not provided, no status icon displays in Jira.
     public var icon: Icon?
-
-    public typealias Icon = JiraAPI.Icon
 
     public init(isResolved: Bool? = nil, icon: Icon? = nil) {
         self.isResolved = isResolved
@@ -7916,13 +7724,9 @@ public struct RemoteIssueLinkRequest: Codable {
     /// Description of the relationship between the issue and the linked item. If not set, the relationship description "links to" is used in Jira.
     public var relationship: String?
     /// Details of the item linked to.
-    public var object: Object
+    public var object: RemoteObject
 
-    public typealias Application = JiraAPI.Application
-
-    public typealias Object = RemoteObject
-
-    public init(globalID: String? = nil, application: Application? = nil, relationship: String? = nil, object: Object) {
+    public init(globalID: String? = nil, application: Application? = nil, relationship: String? = nil, object: RemoteObject) {
         self.globalID = globalID
         self.application = application
         self.relationship = relationship
@@ -7964,15 +7768,11 @@ public struct Notification: Codable {
     /// The HTML body of the email notification for the issue.
     public var htmlBody: String?
     /// The recipients of the email notification for the issue.
-    public var to: To?
+    public var to: NotificationRecipients?
     /// Restricts the notifications to users with the specified permissions.
-    public var restrict: Restrict?
+    public var restrict: NotificationRecipientsRestrictions?
 
-    public typealias To = NotificationRecipients
-
-    public typealias Restrict = NotificationRecipientsRestrictions
-
-    public init(subject: String? = nil, textBody: String? = nil, htmlBody: String? = nil, to: To? = nil, restrict: Restrict? = nil) {
+    public init(subject: String? = nil, textBody: String? = nil, htmlBody: String? = nil, to: NotificationRecipients? = nil, restrict: NotificationRecipientsRestrictions? = nil) {
         self.subject = subject
         self.textBody = textBody
         self.htmlBody = htmlBody
@@ -8192,7 +7992,7 @@ public struct Attachment: Codable {
     /// The file name of the attachment.
     public var filename: String?
     /// Details of the user who added the attachment.
-    public var author: Author?
+    public var author: UserDetails?
     /// The datetime the attachment was created.
     public var created: Date?
     /// The size of the attachment.
@@ -8204,9 +8004,7 @@ public struct Attachment: Codable {
     /// The URL of a thumbnail representing the attachment.
     public var thumbnail: String?
 
-    public typealias Author = UserDetails
-
-    public init(this: String? = nil, id: String? = nil, filename: String? = nil, author: Author? = nil, created: Date? = nil, size: Int? = nil, mimeType: String? = nil, content: String? = nil, thumbnail: String? = nil) {
+    public init(this: String? = nil, id: String? = nil, filename: String? = nil, author: UserDetails? = nil, created: Date? = nil, size: Int? = nil, mimeType: String? = nil, content: String? = nil, thumbnail: String? = nil) {
         self.this = this
         self.id = id
         self.filename = filename
@@ -8237,13 +8035,11 @@ public struct Group: Codable {
     /// The URL for these group details.
     public var this: URL?
     /// A paginated list of the users that are members of the group. A maximum of 50 users is returned in the list, to access additional users append `[start-index:end-index]` to the expand request. For example, to access the next 50 users, use`?expand=users[51:100]`.
-    public var users: Users?
+    public var users: PagedListUserDetailsApplicationUser?
     /// Expand options that include additional group details in the response.
     public var expand: String?
 
-    public typealias Users = PagedListUserDetailsApplicationUser
-
-    public init(name: String? = nil, this: URL? = nil, users: Users? = nil, expand: String? = nil) {
+    public init(name: String? = nil, this: URL? = nil, users: PagedListUserDetailsApplicationUser? = nil, expand: String? = nil) {
         self.name = name
         self.this = this
         self.users = users
@@ -8663,13 +8459,9 @@ public struct ScreenWithTab: Codable {
     /// The scope of the screen.
     public var scope: Scope?
     /// The tab for the screen.
-    public var tab: Tab?
+    public var tab: ScreenableTab?
 
-    public typealias Scope = JiraAPI.Scope
-
-    public typealias Tab = ScreenableTab
-
-    public init(id: Int? = nil, name: String? = nil, description: String? = nil, scope: Scope? = nil, tab: Tab? = nil) {
+    public init(id: Int? = nil, name: String? = nil, description: String? = nil, scope: Scope? = nil, tab: ScreenableTab? = nil) {
         self.id = id
         self.name = name
         self.description = description
@@ -8686,8 +8478,6 @@ public struct Context: Codable {
     public var name: String?
     /// The scope of the context.
     public var scope: Scope?
-
-    public typealias Scope = JiraAPI.Scope
 
     public init(id: Int? = nil, name: String? = nil, scope: Scope? = nil) {
         self.id = id
@@ -9013,8 +8803,6 @@ public struct IssueTypeSchemeProjects: Codable {
     /// The IDs of the projects using the issue type scheme.
     public var projectIDs: [String]
 
-    public typealias IssueTypeScheme = JiraAPI.IssueTypeScheme
-
     public init(issueTypeScheme: IssueTypeScheme, projectIDs: [String]) {
         self.issueTypeScheme = issueTypeScheme
         self.projectIDs = projectIDs
@@ -9311,8 +9099,6 @@ public struct ProjectRoleDetails: Codable {
     /// Whether this role is the default role for the project.
     public var isDefault: Bool?
 
-    public typealias Scope = JiraAPI.Scope
-
     public init(this: URL? = nil, name: String? = nil, id: Int? = nil, description: String? = nil, isAdmin: Bool? = nil, scope: Scope? = nil, isRoleConfigurable: Bool? = nil, translatedName: String? = nil, isDefault: Bool? = nil) {
         self.this = this
         self.name = name
@@ -9374,18 +9160,16 @@ public struct IssueFieldOption: Codable {
 /// Details of the projects the option is available in.
 public struct IssueFieldOptionConfiguration: Codable {
     /// Defines the projects that the option is available in. If the scope is not defined, then the option is available in all projects.
-    public var scope: Scope?
+    public var scope: IssueFieldOptionScopeBean?
     /// DEPRECATED
     public var attributes: [Attribute]?
-
-    public typealias Scope = IssueFieldOptionScopeBean
 
     public enum Attribute: String, Codable, CaseIterable {
         case notSelectable
         case defaultValue
     }
 
-    public init(scope: Scope? = nil, attributes: [Attribute]? = nil) {
+    public init(scope: IssueFieldOptionScopeBean? = nil, attributes: [Attribute]? = nil) {
         self.scope = scope
         self.attributes = attributes
     }
@@ -9397,11 +9181,9 @@ public struct IssueFieldOptionScopeBean: Codable {
     /// Defines the projects in which the option is available and the behavior of the option within each project. Specify one object per project. The behavior of the option in a project context overrides the behavior in the global context.
     public var projects2: [ProjectScopeBean]?
     /// Defines the behavior of the option within the global context. If this property is set, even if set to an empty object, then the option is available in all projects.
-    public var global: Global?
+    public var global: GlobalScopeBean?
 
-    public typealias Global = GlobalScopeBean
-
-    public init(projects: [Int]? = nil, projects2: [ProjectScopeBean]? = nil, global: Global? = nil) {
+    public init(projects: [Int]? = nil, projects2: [ProjectScopeBean]? = nil, global: GlobalScopeBean? = nil) {
         self.projects = projects
         self.projects2 = projects2
         self.global = global
@@ -9484,11 +9266,9 @@ public struct RemoveOptionFromIssuesResult: Codable {
     /// The IDs of the unchanged issues, those issues where errors prevent modification.
     public var unmodifiedIssues: [Int]?
     /// A collection of errors related to unchanged issues. The collection size is limited, which means not all errors may be returned.
-    public var errors: Errors?
+    public var errors: SimpleErrorCollection?
 
-    public typealias Errors = SimpleErrorCollection
-
-    public init(modifiedIssues: [Int]? = nil, unmodifiedIssues: [Int]? = nil, errors: Errors? = nil) {
+    public init(modifiedIssues: [Int]? = nil, unmodifiedIssues: [Int]? = nil, errors: SimpleErrorCollection? = nil) {
         self.modifiedIssues = modifiedIssues
         self.unmodifiedIssues = unmodifiedIssues
         self.errors = errors
@@ -9528,7 +9308,7 @@ public struct TaskProgressBeanRemoveOptionFromIssuesResult: Codable {
     /// Information about the progress of the task.
     public var message: String?
     /// The result of the task execution.
-    public var result: Result?
+    public var result: RemoveOptionFromIssuesResult?
     /// The ID of the user who submitted the task.
     public var submittedBy: Int
     /// The progress of the task, as a percentage complete.
@@ -9555,9 +9335,7 @@ public struct TaskProgressBeanRemoveOptionFromIssuesResult: Codable {
         case dead = "DEAD"
     }
 
-    public typealias Result = RemoveOptionFromIssuesResult
-
-    public init(this: URL, id: String, description: String? = nil, status: Status, message: String? = nil, result: Result? = nil, submittedBy: Int, progress: Int, elapsedRuntime: Int, submitted: Int, started: Int? = nil, finished: Int? = nil, lastUpdate: Int) {
+    public init(this: URL, id: String, description: String? = nil, status: Status, message: String? = nil, result: RemoveOptionFromIssuesResult? = nil, submittedBy: Int, progress: Int, elapsedRuntime: Int, submitted: Int, started: Int? = nil, finished: Int? = nil, lastUpdate: Int) {
         self.this = this
         self.id = id
         self.description = description
@@ -10088,7 +9866,7 @@ public struct AttachmentMetadata: Codable {
     /// The name of the attachment file.
     public var filename: String?
     /// Details of the user who attached the file.
-    public var author: Author?
+    public var author: User?
     /// The datetime the attachment was created.
     public var created: Date?
     /// The size of the attachment.
@@ -10104,9 +9882,7 @@ public struct AttachmentMetadata: Codable {
     /// \[EXPERIMENTAL\] - The file ID of the attachment in the media store.
     public var mediaAPIFileID: String?
 
-    public typealias Author = User
-
-    public init(id: Int? = nil, this: URL? = nil, filename: String? = nil, author: Author? = nil, created: Date? = nil, size: Int? = nil, mimeType: String? = nil, properties: [String: AnyJSON]? = nil, content: String? = nil, thumbnail: String? = nil, mediaAPIFileID: String? = nil) {
+    public init(id: Int? = nil, this: URL? = nil, filename: String? = nil, author: User? = nil, created: Date? = nil, size: Int? = nil, mimeType: String? = nil, properties: [String: AnyJSON]? = nil, content: String? = nil, thumbnail: String? = nil, mediaAPIFileID: String? = nil) {
         self.id = id
         self.this = this
         self.filename = filename
@@ -10393,8 +10169,6 @@ public struct IssueTypeScreenSchemesProjects: Codable {
     /// The IDs of the projects using the issue type screen scheme.
     public var projectIDs: [String]
 
-    public typealias IssueTypeScreenScheme = JiraAPI.IssueTypeScreenScheme
-
     public init(issueTypeScreenScheme: IssueTypeScreenScheme, projectIDs: [String]) {
         self.issueTypeScreenScheme = issueTypeScreenScheme
         self.projectIDs = projectIDs
@@ -10666,15 +10440,11 @@ public struct ScreenScheme: Codable {
     /// The description of the screen scheme.
     public var description: String?
     /// The IDs of the screens for the screen types of the screen scheme.
-    public var screens: Screens?
+    public var screens: ScreenTypes?
     /// Details of the issue type screen schemes associated with the screen scheme.
-    public var issueTypeScreenSchemes: IssueTypeScreenSchemes?
+    public var issueTypeScreenSchemes: PageBeanIssueTypeScreenScheme?
 
-    public typealias Screens = ScreenTypes
-
-    public typealias IssueTypeScreenSchemes = PageBeanIssueTypeScreenScheme
-
-    public init(id: Int? = nil, name: String? = nil, description: String? = nil, screens: Screens? = nil, issueTypeScreenSchemes: IssueTypeScreenSchemes? = nil) {
+    public init(id: Int? = nil, name: String? = nil, description: String? = nil, screens: ScreenTypes? = nil, issueTypeScreenSchemes: PageBeanIssueTypeScreenScheme? = nil) {
         self.id = id
         self.name = name
         self.description = description
@@ -10719,11 +10489,9 @@ public struct ScreenSchemeDetails: Codable {
     /// The description of the screen scheme. The maximum length is 255 characters.
     public var description: String?
     /// The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.
-    public var screens: Screens
+    public var screens: ScreenTypes
 
-    public typealias Screens = ScreenTypes
-
-    public init(name: String, description: String? = nil, screens: Screens) {
+    public init(name: String, description: String? = nil, screens: ScreenTypes) {
         self.name = name
         self.description = description
         self.screens = screens
@@ -10747,11 +10515,9 @@ public struct UpdateScreenSchemeDetails: Codable {
     /// The description of the screen scheme. The maximum length is 255 characters.
     public var description: String?
     /// The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.
-    public var screens: Screens?
+    public var screens: UpdateScreenTypes?
 
-    public typealias Screens = UpdateScreenTypes
-
-    public init(name: String? = nil, description: String? = nil, screens: Screens? = nil) {
+    public init(name: String? = nil, description: String? = nil, screens: UpdateScreenTypes? = nil) {
         self.name = name
         self.description = description
         self.screens = screens
@@ -11841,11 +11607,9 @@ public struct IssueContextVariable: Codable {
 /// The JQL specifying the issues available in the evaluated Jira expression under the `issues` context variable.
 public struct JexpIssues: Codable {
     /// The JQL query that specifies the set of issues available in the Jira expression.
-    public var jql: Jql?
+    public var jql: JexpJqlIssues?
 
-    public typealias Jql = JexpJqlIssues
-
-    public init(jql: Jql? = nil) {
+    public init(jql: JexpJqlIssues? = nil) {
         self.jql = jql
     }
 }
@@ -11878,11 +11642,11 @@ public struct JexpJqlIssues: Codable {
 
 public struct JiraExpressionEvalContextBean: Codable {
     /// The issue that is available under the `issue` variable when evaluating the expression.
-    public var issue: Issue?
+    public var issue: IDOrKeyBean?
     /// The collection of issues that is available under the `issues` variable when evaluating the expression.
-    public var issues: Issues?
+    public var issues: JexpIssues?
     /// The project that is available under the `project` variable when evaluating the expression.
-    public var project: Project?
+    public var project: IDOrKeyBean?
     /// The ID of the sprint that is available under the `sprint` variable when evaluating the expression.
     public var sprint: Int?
     /// The ID of the board that is available under the `board` variable when evaluating the expression.
@@ -11899,13 +11663,7 @@ public struct JiraExpressionEvalContextBean: Codable {
     ///  *  `list`: A JSON list of `user`, `issue`, or `json` variable types.
     public var custom: [CustomContextVariable]?
 
-    public typealias Issue = IDOrKeyBean
-
-    public typealias Issues = JexpIssues
-
-    public typealias Project = IDOrKeyBean
-
-    public init(issue: Issue? = nil, issues: Issues? = nil, project: Project? = nil, sprint: Int? = nil, board: Int? = nil, serviceDesk: Int? = nil, customerRequest: Int? = nil, custom: [CustomContextVariable]? = nil) {
+    public init(issue: IDOrKeyBean? = nil, issues: JexpIssues? = nil, project: IDOrKeyBean? = nil, sprint: Int? = nil, board: Int? = nil, serviceDesk: Int? = nil, customerRequest: Int? = nil, custom: [CustomContextVariable]? = nil) {
         self.issue = issue
         self.issues = issues
         self.project = project
@@ -11923,11 +11681,9 @@ public struct JiraExpressionEvalRequestBean: Codable {
     /// Example: "{ key: issue.key, type: issue.issueType.name, links: issue.links.map(link => link.linkedIssue.id) }"
     public var expression: String
     /// The context in which the Jira expression is evaluated.
-    public var context: Context?
+    public var context: JiraExpressionEvalContextBean?
 
-    public typealias Context = JiraExpressionEvalContextBean
-
-    public init(expression: String, context: Context? = nil) {
+    public init(expression: String, context: JiraExpressionEvalContextBean? = nil) {
         self.expression = expression
         self.context = context
     }
@@ -12003,15 +11759,11 @@ public struct IssuesMetaBean: Codable {
 
 public struct JiraExpressionEvaluationMetaDataBean: Codable {
     /// Contains information about the expression complexity. For example, the number of steps it took to evaluate the expression.
-    public var complexity: Complexity?
+    public var complexity: JiraExpressionsComplexityBean?
     /// Contains information about the `issues` variable in the context. For example, is the issues were loaded with JQL, information about the page will be included here.
-    public var issues: Issues?
+    public var issues: IssuesMetaBean?
 
-    public typealias Complexity = JiraExpressionsComplexityBean
-
-    public typealias Issues = IssuesMetaBean
-
-    public init(complexity: Complexity? = nil, issues: Issues? = nil) {
+    public init(complexity: JiraExpressionsComplexityBean? = nil, issues: IssuesMetaBean? = nil) {
         self.complexity = complexity
         self.issues = issues
     }
@@ -12022,11 +11774,9 @@ public struct JiraExpressionResult: Codable {
     /// The value of the evaluated expression. It may be a primitive JSON value or a Jira REST API object. (Some expressions do not produce any meaningful results—for example, an expression that returns a lambda function—if that's the case a simple string representation is returned. These string representations should not be relied upon and may change without notice.)
     public var value: AnyJSON
     /// Contains various characteristics of the performed expression evaluation.
-    public var meta: Meta?
+    public var meta: JiraExpressionEvaluationMetaDataBean?
 
-    public typealias Meta = JiraExpressionEvaluationMetaDataBean
-
-    public init(value: AnyJSON, meta: Meta? = nil) {
+    public init(value: AnyJSON, meta: JiraExpressionEvaluationMetaDataBean? = nil) {
         self.value = value
         self.meta = meta
     }
@@ -12034,23 +11784,15 @@ public struct JiraExpressionResult: Codable {
 
 public struct JiraExpressionsComplexityBean: Codable {
     /// The number of steps it took to evaluate the expression, where a step is a high-level operation performed by the expression. A step is an operation such as arithmetic, accessing a property, accessing a context variable, or calling a function.
-    public var steps: Steps
+    public var steps: JiraExpressionsComplexityValueBean
     /// The number of expensive operations executed while evaluating the expression. Expensive operations are those that load additional data, such as entity properties, comments, or custom fields.
-    public var expensiveOperations: ExpensiveOperations
+    public var expensiveOperations: JiraExpressionsComplexityValueBean
     /// The number of Jira REST API beans returned in the response.
-    public var beans: Beans
+    public var beans: JiraExpressionsComplexityValueBean
     /// The number of primitive values returned in the response.
-    public var primitiveValues: PrimitiveValues
+    public var primitiveValues: JiraExpressionsComplexityValueBean
 
-    public typealias Steps = JiraExpressionsComplexityValueBean
-
-    public typealias ExpensiveOperations = JiraExpressionsComplexityValueBean
-
-    public typealias Beans = JiraExpressionsComplexityValueBean
-
-    public typealias PrimitiveValues = JiraExpressionsComplexityValueBean
-
-    public init(steps: Steps, expensiveOperations: ExpensiveOperations, beans: Beans, primitiveValues: PrimitiveValues) {
+    public init(steps: JiraExpressionsComplexityValueBean, expensiveOperations: JiraExpressionsComplexityValueBean, beans: JiraExpressionsComplexityValueBean, primitiveValues: JiraExpressionsComplexityValueBean) {
         self.steps = steps
         self.expensiveOperations = expensiveOperations
         self.beans = beans

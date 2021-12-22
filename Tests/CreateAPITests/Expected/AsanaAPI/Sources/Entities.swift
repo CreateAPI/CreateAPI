@@ -94,7 +94,7 @@ public struct AttachmentRequest: Codable {
 }
 
 public struct AttachmentResponse: Codable {
-    public var attachmentBase: AttachmentBase
+    public var attachmentCompact: AttachmentCompact
     /// The time at which this resource was created.
     ///
     /// Example: "2012-02-22T02:06:58.147Z"
@@ -108,16 +108,14 @@ public struct AttachmentResponse: Codable {
     ///
     /// Example: "dropbox"
     public var host: String?
-    public var parent: Parent?
+    public var parent: TaskCompact?
     /// The URL where the attachment can be viewed, which may be friendlier to users in a browser than just directing them to a raw file. May be null if no view URL exists for the service.
     ///
     /// Example: "https://www.dropbox.com/s/123/Screenshot.png"
     public var viewURL: URL?
 
-    public typealias Parent = TaskCompact
-
-    public init(attachmentBase: AttachmentBase, createdAt: Date? = nil, downloadURL: URL? = nil, host: String? = nil, parent: Parent? = nil, viewURL: URL? = nil) {
-        self.attachmentBase = attachmentBase
+    public init(attachmentCompact: AttachmentCompact, createdAt: Date? = nil, downloadURL: URL? = nil, host: String? = nil, parent: TaskCompact? = nil, viewURL: URL? = nil) {
+        self.attachmentCompact = attachmentCompact
         self.createdAt = createdAt
         self.downloadURL = downloadURL
         self.host = host
@@ -127,17 +125,17 @@ public struct AttachmentResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.attachmentBase = try AttachmentBase(from: decoder)
+        self.attachmentCompact = try AttachmentCompact(from: decoder)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
         self.downloadURL = try values.decodeIfPresent(URL.self, forKey: "download_url")
         self.host = try values.decodeIfPresent(String.self, forKey: "host")
-        self.parent = try Parent(from: decoder)
+        self.parent = try TaskCompact(from: decoder)
         self.viewURL = try values.decodeIfPresent(URL.self, forKey: "view_url")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(attachmentBase, forKey: "attachmentBase")
+        try values.encode(attachmentCompact, forKey: "attachmentCompact")
         try values.encodeIfPresent(createdAt, forKey: "created_at")
         try values.encodeIfPresent(downloadURL, forKey: "download_url")
         try values.encodeIfPresent(host, forKey: "host")
@@ -145,8 +143,6 @@ public struct AttachmentResponse: Codable {
         try values.encodeIfPresent(viewURL, forKey: "view_url")
     }
 }
-
-public typealias AttachmentBase = AttachmentCompact
 
 public struct AttachmentCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -353,20 +349,12 @@ public struct AuditLogEvent: Codable {
     ///
     /// Example: "deletion"
     public var eventCategory: String?
-    public var actor: Actor?
-    public var resource: Resource?
-    public var details: Details?
-    public var context: Context?
+    public var actor: AuditLogEventActor?
+    public var resource: AuditLogEventResource?
+    public var details: AuditLogEventDetails?
+    public var context: AuditLogEventContext?
 
-    public typealias Actor = AuditLogEventActor
-
-    public typealias Resource = AuditLogEventResource
-
-    public typealias Details = AuditLogEventDetails
-
-    public typealias Context = AuditLogEventContext
-
-    public init(gid: String? = nil, createdAt: Date? = nil, eventType: String? = nil, eventCategory: String? = nil, actor: Actor? = nil, resource: Resource? = nil, details: Details? = nil, context: Context? = nil) {
+    public init(gid: String? = nil, createdAt: Date? = nil, eventType: String? = nil, eventCategory: String? = nil, actor: AuditLogEventActor? = nil, resource: AuditLogEventResource? = nil, details: AuditLogEventDetails? = nil, context: AuditLogEventContext? = nil) {
         self.gid = gid
         self.createdAt = createdAt
         self.eventType = eventType
@@ -573,14 +561,12 @@ public struct BatchResponse: Codable {
 
 public struct CustomFieldResponse: Codable {
     public var customFieldBase: CustomFieldBase
-    public var enumValue: EnumValue?
+    public var enumValue: EnumOption?
     /// *Conditional*. Only relevant for custom fields of type `multi_enum`. This object is the chosen values of a multi_enum custom field.
     public var multiEnumValues: [EnumOption]?
     public var createdBy: UserCompact?
 
-    public typealias EnumValue = EnumOption
-
-    public init(customFieldBase: CustomFieldBase, enumValue: EnumValue? = nil, multiEnumValues: [EnumOption]? = nil, createdBy: UserCompact? = nil) {
+    public init(customFieldBase: CustomFieldBase, enumValue: EnumOption? = nil, multiEnumValues: [EnumOption]? = nil, createdBy: UserCompact? = nil) {
         self.customFieldBase = customFieldBase
         self.enumValue = enumValue
         self.multiEnumValues = multiEnumValues
@@ -590,7 +576,7 @@ public struct CustomFieldResponse: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.customFieldBase = try CustomFieldBase(from: decoder)
-        self.enumValue = try EnumValue(from: decoder)
+        self.enumValue = try EnumOption(from: decoder)
         self.multiEnumValues = try values.decodeIfPresent([EnumOption].self, forKey: "multi_enum_values")
         self.createdBy = try UserCompact(from: decoder)
     }
@@ -817,23 +803,17 @@ public struct CustomFieldCompact: Codable {
 }
 
 public struct CustomFieldSettingResponse: Codable {
-    public var customFieldSettingBase: CustomFieldSettingBase
-    public var project: Project?
+    public var asanaResource: AsanaResource
+    public var project: ProjectCompact?
     /// `is_important` is used in the Asana web application to determine if this custom field is displayed in the list/grid view of a project or portfolio.
     ///
     /// Example: false
     public var isImportant: Bool?
-    public var parent: Parent?
-    public var customField: CustomField?
+    public var parent: ProjectCompact?
+    public var customField: CustomFieldResponse?
 
-    public typealias Project = ProjectCompact
-
-    public typealias Parent = ProjectCompact
-
-    public typealias CustomField = CustomFieldResponse
-
-    public init(customFieldSettingBase: CustomFieldSettingBase, project: Project? = nil, isImportant: Bool? = nil, parent: Parent? = nil, customField: CustomField? = nil) {
-        self.customFieldSettingBase = customFieldSettingBase
+    public init(asanaResource: AsanaResource, project: ProjectCompact? = nil, isImportant: Bool? = nil, parent: ProjectCompact? = nil, customField: CustomFieldResponse? = nil) {
+        self.asanaResource = asanaResource
         self.project = project
         self.isImportant = isImportant
         self.parent = parent
@@ -842,26 +822,22 @@ public struct CustomFieldSettingResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.customFieldSettingBase = try CustomFieldSettingBase(from: decoder)
-        self.project = try Project(from: decoder)
+        self.asanaResource = try AsanaResource(from: decoder)
+        self.project = try ProjectCompact(from: decoder)
         self.isImportant = try values.decodeIfPresent(Bool.self, forKey: "is_important")
-        self.parent = try Parent(from: decoder)
-        self.customField = try CustomField(from: decoder)
+        self.parent = try ProjectCompact(from: decoder)
+        self.customField = try CustomFieldResponse(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(customFieldSettingBase, forKey: "customFieldSettingBase")
+        try values.encode(asanaResource, forKey: "asanaResource")
         try values.encodeIfPresent(project, forKey: "project")
         try values.encodeIfPresent(isImportant, forKey: "is_important")
         try values.encodeIfPresent(parent, forKey: "parent")
         try values.encodeIfPresent(customField, forKey: "custom_field")
     }
 }
-
-public typealias CustomFieldSettingBase = CustomFieldSettingCompact
-
-public typealias CustomFieldSettingCompact = AsanaResource
 
 /// Example:
 ///
@@ -905,7 +881,7 @@ public struct EmptyResponse: Codable {
 }
 
 public struct EnumOptionRequest: Codable {
-    public var enumOptionBase: EnumOptionBase
+    public var enumOption: EnumOption
     /// An existing enum option within this custom field before which the new enum option should be inserted. Cannot be provided together with after_enum_option.
     ///
     /// Example: "12345"
@@ -915,28 +891,26 @@ public struct EnumOptionRequest: Codable {
     /// Example: "12345"
     public var insertAfter: String?
 
-    public init(enumOptionBase: EnumOptionBase, insertBefore: String? = nil, insertAfter: String? = nil) {
-        self.enumOptionBase = enumOptionBase
+    public init(enumOption: EnumOption, insertBefore: String? = nil, insertAfter: String? = nil) {
+        self.enumOption = enumOption
         self.insertBefore = insertBefore
         self.insertAfter = insertAfter
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.enumOptionBase = try EnumOptionBase(from: decoder)
+        self.enumOption = try EnumOption(from: decoder)
         self.insertBefore = try values.decodeIfPresent(String.self, forKey: "insert_before")
         self.insertAfter = try values.decodeIfPresent(String.self, forKey: "insert_after")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(enumOptionBase, forKey: "enumOptionBase")
+        try values.encode(enumOption, forKey: "enumOption")
         try values.encodeIfPresent(insertBefore, forKey: "insert_before")
         try values.encodeIfPresent(insertAfter, forKey: "insert_after")
     }
 }
-
-public typealias EnumOptionBase = EnumOption
 
 public struct EnumOption: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -1253,25 +1227,15 @@ public struct GoalResponse: Codable {
     /// The number of users who have liked this goal.
     public var numLikes: Int?
     /// *Conditional*. This property is only present when the `workspace` provided is an organization.
-    public var team: Team?
-    public var workspace: Workspace?
+    public var team: TeamCompact?
+    public var workspace: WorkspaceCompact?
     /// Array of users following this goal.
     public var followers: [UserCompact]?
-    public var timePeriod: TimePeriod?
-    public var metric: Metric?
-    public var owner: Owner?
+    public var timePeriod: TimePeriodCompact?
+    public var metric: GoalMetricBase?
+    public var owner: UserCompact?
 
-    public typealias Team = TeamCompact
-
-    public typealias Workspace = WorkspaceCompact
-
-    public typealias TimePeriod = TimePeriodCompact
-
-    public typealias Metric = GoalMetricBase
-
-    public typealias Owner = UserCompact
-
-    public init(goalBase: GoalBase, likes: [Like]? = nil, numLikes: Int? = nil, team: Team? = nil, workspace: Workspace? = nil, followers: [UserCompact]? = nil, timePeriod: TimePeriod? = nil, metric: Metric? = nil, owner: Owner? = nil) {
+    public init(goalBase: GoalBase, likes: [Like]? = nil, numLikes: Int? = nil, team: TeamCompact? = nil, workspace: WorkspaceCompact? = nil, followers: [UserCompact]? = nil, timePeriod: TimePeriodCompact? = nil, metric: GoalMetricBase? = nil, owner: UserCompact? = nil) {
         self.goalBase = goalBase
         self.likes = likes
         self.numLikes = numLikes
@@ -1288,12 +1252,12 @@ public struct GoalResponse: Codable {
         self.goalBase = try GoalBase(from: decoder)
         self.likes = try values.decodeIfPresent([Like].self, forKey: "likes")
         self.numLikes = try values.decodeIfPresent(Int.self, forKey: "num_likes")
-        self.team = try Team(from: decoder)
-        self.workspace = try Workspace(from: decoder)
+        self.team = try TeamCompact(from: decoder)
+        self.workspace = try WorkspaceCompact(from: decoder)
         self.followers = try values.decodeIfPresent([UserCompact].self, forKey: "followers")
-        self.timePeriod = try TimePeriod(from: decoder)
-        self.metric = try Metric(from: decoder)
-        self.owner = try Owner(from: decoder)
+        self.timePeriod = try TimePeriodCompact(from: decoder)
+        self.metric = try GoalMetricBase(from: decoder)
+        self.owner = try UserCompact(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -1444,11 +1408,9 @@ public struct GoalCompact: Codable {
     ///
     /// Example: "Grow web traffic by 30%"
     public var name: String?
-    public var owner: Owner?
+    public var owner: UserCompact?
 
-    public typealias Owner = UserCompact
-
-    public init(asanaResource: AsanaResource, name: String? = nil, owner: Owner? = nil) {
+    public init(asanaResource: AsanaResource, name: String? = nil, owner: UserCompact? = nil) {
         self.asanaResource = asanaResource
         self.name = name
         self.owner = owner
@@ -1458,7 +1420,7 @@ public struct GoalCompact: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
-        self.owner = try Owner(from: decoder)
+        self.owner = try UserCompact(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -1494,8 +1456,6 @@ public struct GoalMetricCurrentValueRequest: Codable {
         try values.encodeIfPresent(currentNumberValue, forKey: "current_number_value")
     }
 }
-
-public typealias GoalMetricRequest = GoalMetricBase
 
 public struct GoalMetricBase: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -1636,10 +1596,6 @@ public struct GoalAddSupportingWorkRequest: Codable {
     }
 }
 
-public typealias JobResponse = JobBase
-
-public typealias JobBase = JobCompact
-
 public struct JobCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
     public var asanaResource: AsanaResource
@@ -1716,10 +1672,6 @@ public struct OrganizationExportRequest: Codable {
         self.organization = organization
     }
 }
-
-public typealias OrganizationExportResponse = OrganizationExportBase
-
-public typealias OrganizationExportBase = OrganizationExportCompact
 
 public struct OrganizationExportCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -1801,15 +1753,13 @@ public struct PortfolioResponse: Codable {
     ///
     /// Example: "2019-09-14"
     public var startOn: NaiveDate?
-    public var workspace: Workspace?
+    public var workspace: WorkspaceCompact?
     /// A url that points directly to the object within Asana.
     ///
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
 
-    public typealias Workspace = WorkspaceCompact
-
-    public init(portfolioBase: PortfolioBase, createdAt: Date? = nil, createdBy: UserCompact? = nil, customFieldSettings: [CustomFieldSettingResponse]? = nil, dueOn: Date? = nil, members: [UserCompact]? = nil, owner: UserCompact? = nil, startOn: NaiveDate? = nil, workspace: Workspace? = nil, permalinkURL: String? = nil) {
+    public init(portfolioBase: PortfolioBase, createdAt: Date? = nil, createdBy: UserCompact? = nil, customFieldSettings: [CustomFieldSettingResponse]? = nil, dueOn: Date? = nil, members: [UserCompact]? = nil, owner: UserCompact? = nil, startOn: NaiveDate? = nil, workspace: WorkspaceCompact? = nil, permalinkURL: String? = nil) {
         self.portfolioBase = portfolioBase
         self.createdAt = createdAt
         self.createdBy = createdBy
@@ -1832,7 +1782,7 @@ public struct PortfolioResponse: Codable {
         self.members = try values.decodeIfPresent([UserCompact].self, forKey: "members")
         self.owner = try UserCompact(from: decoder)
         self.startOn = try values.decodeIfPresent(NaiveDate.self, forKey: "start_on")
-        self.workspace = try Workspace(from: decoder)
+        self.workspace = try WorkspaceCompact(from: decoder)
         self.permalinkURL = try values.decodeIfPresent(String.self, forKey: "permalink_url")
     }
 
@@ -2039,10 +1989,6 @@ public struct RemoveFollowersRequest: Codable {
     }
 }
 
-public typealias PortfolioMembershipResponse = PortfolioMembershipBase
-
-public typealias PortfolioMembershipBase = PortfolioMembershipCompact
-
 public struct PortfolioMembershipCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
     public var asanaResource: AsanaResource
@@ -2136,8 +2082,8 @@ public struct ProjectResponse: Codable {
     /// Array of users following this project. Followers are a subset of members who have opted in to receive "tasks added" notifications for a project.
     public var followers: [UserCompact]?
     /// The current owner of the project, may be null.
-    public var owner: Owner?
-    public var team: Team?
+    public var owner: UserCompact?
+    public var team: TeamCompact?
     /// The icon for a project.
     ///
     /// Example: "chat_bubbles"
@@ -2146,10 +2092,6 @@ public struct ProjectResponse: Codable {
     ///
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
-
-    public typealias Owner = UserCompact
-
-    public typealias Team = TeamCompact
 
     /// The icon for a project.
     ///
@@ -2189,7 +2131,7 @@ public struct ProjectResponse: Codable {
         case coins
     }
 
-    public init(projectBase: ProjectBase, customFields: [CustomFieldCompact]? = nil, followers: [UserCompact]? = nil, owner: Owner? = nil, team: Team? = nil, icon: Icon? = nil, permalinkURL: String? = nil) {
+    public init(projectBase: ProjectBase, customFields: [CustomFieldCompact]? = nil, followers: [UserCompact]? = nil, owner: UserCompact? = nil, team: TeamCompact? = nil, icon: Icon? = nil, permalinkURL: String? = nil) {
         self.projectBase = projectBase
         self.customFields = customFields
         self.followers = followers
@@ -2204,8 +2146,8 @@ public struct ProjectResponse: Codable {
         self.projectBase = try ProjectBase(from: decoder)
         self.customFields = try values.decodeIfPresent([CustomFieldCompact].self, forKey: "custom_fields")
         self.followers = try values.decodeIfPresent([UserCompact].self, forKey: "followers")
-        self.owner = try Owner(from: decoder)
-        self.team = try Team(from: decoder)
+        self.owner = try UserCompact(from: decoder)
+        self.team = try TeamCompact(from: decoder)
         self.icon = try Icon(from: decoder)
         self.permalinkURL = try values.decodeIfPresent(String.self, forKey: "permalink_url")
     }
@@ -2287,9 +2229,9 @@ public struct ProjectBase: Codable {
     ///
     /// Example: "2012-02-22T02:06:58.147Z"
     public var createdAt: Date?
-    public var currentStatus: CurrentStatus?
+    public var currentStatus: ProjectStatusResponse?
     /// Array of Custom Field Settings (in compact form).
-    public var customFieldSettings: [CustomFieldSettingCompact]?
+    public var customFieldSettings: [AsanaResource]?
     /// The default view (list, board, calendar, or timeline) of a project.
     ///
     /// Example: "calendar"
@@ -2329,7 +2271,7 @@ public struct ProjectBase: Codable {
     ///
     /// Example: "2019-09-14"
     public var startOn: NaiveDate?
-    public var workspace: Workspace?
+    public var workspace: WorkspaceCompact?
 
     /// Color of the project.
     ///
@@ -2355,8 +2297,6 @@ public struct ProjectBase: Codable {
         case lightWarmGray = "light-warm-gray"
     }
 
-    public typealias CurrentStatus = ProjectStatusResponse
-
     /// The default view (list, board, calendar, or timeline) of a project.
     ///
     /// Example: "calendar"
@@ -2367,9 +2307,7 @@ public struct ProjectBase: Codable {
         case timeline
     }
 
-    public typealias Workspace = WorkspaceCompact
-
-    public init(projectCompact: ProjectCompact, isArchived: Bool? = nil, color: Color? = nil, createdAt: Date? = nil, currentStatus: CurrentStatus? = nil, customFieldSettings: [CustomFieldSettingCompact]? = nil, defaultView: DefaultView? = nil, dueDate: Date? = nil, dueOn: Date? = nil, htmlNotes: String? = nil, isTemplate: Bool? = nil, members: [UserCompact]? = nil, modifiedAt: Date? = nil, notes: String? = nil, isPublic: Bool? = nil, startOn: NaiveDate? = nil, workspace: Workspace? = nil) {
+    public init(projectCompact: ProjectCompact, isArchived: Bool? = nil, color: Color? = nil, createdAt: Date? = nil, currentStatus: ProjectStatusResponse? = nil, customFieldSettings: [AsanaResource]? = nil, defaultView: DefaultView? = nil, dueDate: Date? = nil, dueOn: Date? = nil, htmlNotes: String? = nil, isTemplate: Bool? = nil, members: [UserCompact]? = nil, modifiedAt: Date? = nil, notes: String? = nil, isPublic: Bool? = nil, startOn: NaiveDate? = nil, workspace: WorkspaceCompact? = nil) {
         self.projectCompact = projectCompact
         self.isArchived = isArchived
         self.color = color
@@ -2395,8 +2333,8 @@ public struct ProjectBase: Codable {
         self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
         self.color = try Color(from: decoder)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
-        self.currentStatus = try CurrentStatus(from: decoder)
-        self.customFieldSettings = try values.decodeIfPresent([CustomFieldSettingCompact].self, forKey: "custom_field_settings")
+        self.currentStatus = try ProjectStatusResponse(from: decoder)
+        self.customFieldSettings = try values.decodeIfPresent([AsanaResource].self, forKey: "custom_field_settings")
         self.defaultView = try DefaultView(from: decoder)
         self.dueDate = try values.decodeIfPresent(Date.self, forKey: "due_date")
         self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
@@ -2407,7 +2345,7 @@ public struct ProjectBase: Codable {
         self.notes = try values.decodeIfPresent(String.self, forKey: "notes")
         self.isPublic = try values.decodeIfPresent(Bool.self, forKey: "public")
         self.startOn = try values.decodeIfPresent(NaiveDate.self, forKey: "start_on")
-        self.workspace = try Workspace(from: decoder)
+        self.workspace = try WorkspaceCompact(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -2584,7 +2522,7 @@ public struct RemoveCustomFieldSettingRequest: Codable {
 }
 
 public struct ProjectMembershipResponse: Codable {
-    public var projectMembershipBase: ProjectMembershipBase
+    public var projectMembershipCompact: ProjectMembershipCompact
     public var project: ProjectCompact?
     /// Whether the user has full access to the project or has comment-only access.
     ///
@@ -2599,27 +2537,25 @@ public struct ProjectMembershipResponse: Codable {
         case commentOnly = "comment_only"
     }
 
-    public init(projectMembershipBase: ProjectMembershipBase, project: ProjectCompact? = nil, writeAccess: WriteAccess? = nil) {
-        self.projectMembershipBase = projectMembershipBase
+    public init(projectMembershipCompact: ProjectMembershipCompact, project: ProjectCompact? = nil, writeAccess: WriteAccess? = nil) {
+        self.projectMembershipCompact = projectMembershipCompact
         self.project = project
         self.writeAccess = writeAccess
     }
 
     public init(from decoder: Decoder) throws {
-        self.projectMembershipBase = try ProjectMembershipBase(from: decoder)
+        self.projectMembershipCompact = try ProjectMembershipCompact(from: decoder)
         self.project = try ProjectCompact(from: decoder)
         self.writeAccess = try WriteAccess(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(projectMembershipBase, forKey: "projectMembershipBase")
+        try values.encode(projectMembershipCompact, forKey: "projectMembershipCompact")
         try values.encodeIfPresent(project, forKey: "project")
         try values.encodeIfPresent(writeAccess, forKey: "write_access")
     }
 }
-
-public typealias ProjectMembershipBase = ProjectMembershipCompact
 
 public struct ProjectMembershipCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -2683,8 +2619,6 @@ public struct ProjectStatusResponse: Codable {
         try values.encodeIfPresent(modifiedAt, forKey: "modified_at")
     }
 }
-
-public typealias ProjectStatusRequest = ProjectStatusBase
 
 public struct ProjectStatusBase: Codable {
     public var projectStatusCompact: ProjectStatusCompact
@@ -2758,7 +2692,7 @@ public struct ProjectStatusCompact: Codable {
 }
 
 public struct SectionResponse: Codable {
-    public var sectionBase: SectionBase
+    public var sectionCompact: SectionCompact
     /// The time at which this resource was created.
     ///
     /// Example: "2012-02-22T02:06:58.147Z"
@@ -2767,8 +2701,8 @@ public struct SectionResponse: Codable {
     /// *Deprecated - please use project instead*
     public var projects: [ProjectCompact]?
 
-    public init(sectionBase: SectionBase, createdAt: Date? = nil, project: ProjectCompact? = nil, projects: [ProjectCompact]? = nil) {
-        self.sectionBase = sectionBase
+    public init(sectionCompact: SectionCompact, createdAt: Date? = nil, project: ProjectCompact? = nil, projects: [ProjectCompact]? = nil) {
+        self.sectionCompact = sectionCompact
         self.createdAt = createdAt
         self.project = project
         self.projects = projects
@@ -2776,7 +2710,7 @@ public struct SectionResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.sectionBase = try SectionBase(from: decoder)
+        self.sectionCompact = try SectionCompact(from: decoder)
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
         self.project = try ProjectCompact(from: decoder)
         self.projects = try values.decodeIfPresent([ProjectCompact].self, forKey: "projects")
@@ -2784,7 +2718,7 @@ public struct SectionResponse: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(sectionBase, forKey: "sectionBase")
+        try values.encode(sectionCompact, forKey: "sectionCompact")
         try values.encodeIfPresent(createdAt, forKey: "created_at")
         try values.encodeIfPresent(project, forKey: "project")
         try values.encodeIfPresent(projects, forKey: "projects")
@@ -2823,8 +2757,6 @@ public struct SectionRequest: Codable {
         case insertAfter = "insert_after"
     }
 }
-
-public typealias SectionBase = SectionCompact
 
 public struct SectionCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -3165,8 +3097,6 @@ public struct StoryResponse: Codable {
     }
 }
 
-public typealias StoryRequest = StoryBase
-
 public struct StoryBase: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
     public var asanaResource: AsanaResource
@@ -3472,13 +3402,13 @@ public struct TagCompact: Codable {
 
 public struct TaskResponse: Codable {
     public var taskBase: TaskBase
-    public var assignee: Assignee?
+    public var assignee: UserCompact?
     public var assigneeSection: AssigneeSection?
     /// Array of custom field values applied to the task. These represent the custom field values recorded on this project for a particular custom field. For example, these custom field values will contain an `enum_value` property for custom fields of type `enum`, a `text_value` property for custom fields of type `text`, and so on. Please note that the `gid` returned on each custom field value *is identical* to the `gid` of the custom field, which allows referencing the custom field metadata through the `/custom_fields/custom_field-gid` endpoint.
     public var customFields: [CustomFieldResponse]?
     /// Array of users following this task.
     public var followers: [UserCompact]?
-    public var parent: Parent?
+    public var parent: TaskCompact?
     /// *Create-only.* Array of projects this task is associated with. At task creation time, this array can be used to add the task to many projects at once. After task creation, these associations can be modified using the addProject and removeProject endpoints.
     public var projects: [ProjectCompact]?
     /// Array of tags associated with this task. In order to change tags on an existing task use `addTag` and `removeTag`.
@@ -3492,13 +3422,11 @@ public struct TaskResponse: Codable {
     ///   }
     /// ]
     public var tags: [TagCompact]?
-    public var workspace: Workspace?
+    public var workspace: WorkspaceCompact?
     /// A url that points directly to the object within Asana.
     ///
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
-
-    public typealias Assignee = UserCompact
 
     public struct AssigneeSection: Codable {
         public var sectionCompact: SectionCompact
@@ -3523,11 +3451,7 @@ public struct TaskResponse: Codable {
         }
     }
 
-    public typealias Parent = TaskCompact
-
-    public typealias Workspace = WorkspaceCompact
-
-    public init(taskBase: TaskBase, assignee: Assignee? = nil, assigneeSection: AssigneeSection? = nil, customFields: [CustomFieldResponse]? = nil, followers: [UserCompact]? = nil, parent: Parent? = nil, projects: [ProjectCompact]? = nil, tags: [TagCompact]? = nil, workspace: Workspace? = nil, permalinkURL: String? = nil) {
+    public init(taskBase: TaskBase, assignee: UserCompact? = nil, assigneeSection: AssigneeSection? = nil, customFields: [CustomFieldResponse]? = nil, followers: [UserCompact]? = nil, parent: TaskCompact? = nil, projects: [ProjectCompact]? = nil, tags: [TagCompact]? = nil, workspace: WorkspaceCompact? = nil, permalinkURL: String? = nil) {
         self.taskBase = taskBase
         self.assignee = assignee
         self.assigneeSection = assigneeSection
@@ -3543,14 +3467,14 @@ public struct TaskResponse: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.taskBase = try TaskBase(from: decoder)
-        self.assignee = try Assignee(from: decoder)
+        self.assignee = try UserCompact(from: decoder)
         self.assigneeSection = try AssigneeSection(from: decoder)
         self.customFields = try values.decodeIfPresent([CustomFieldResponse].self, forKey: "custom_fields")
         self.followers = try values.decodeIfPresent([UserCompact].self, forKey: "followers")
-        self.parent = try Parent(from: decoder)
+        self.parent = try TaskCompact(from: decoder)
         self.projects = try values.decodeIfPresent([ProjectCompact].self, forKey: "projects")
         self.tags = try values.decodeIfPresent([TagCompact].self, forKey: "tags")
-        self.workspace = try Workspace(from: decoder)
+        self.workspace = try WorkspaceCompact(from: decoder)
         self.permalinkURL = try values.decodeIfPresent(String.self, forKey: "permalink_url")
     }
 
@@ -4119,7 +4043,7 @@ public struct TaskCountResponse: Codable {
 }
 
 public struct TeamResponse: Codable {
-    public var teamBase: TeamBase
+    public var teamCompact: TeamCompact
     /// [Opt In](/docs/input-output-options). The description of the team.
     ///
     /// Example: "All developers should be members of this team."
@@ -4128,15 +4052,13 @@ public struct TeamResponse: Codable {
     ///
     /// Example: "<body><em>All</em> developers should be members of this team.</body>"
     public var htmlDescription: String?
-    public var organization: Organization?
+    public var organization: WorkspaceCompact?
     /// A url that points directly to the object within Asana.
     ///
     /// Example: "https://app.asana.com/0/resource/123456789/list"
     public var permalinkURL: String?
     /// The visibility of the team to users in the same organization
     public var visibility: Visibility?
-
-    public typealias Organization = WorkspaceCompact
 
     /// The visibility of the team to users in the same organization
     public enum Visibility: String, Codable, CaseIterable {
@@ -4145,8 +4067,8 @@ public struct TeamResponse: Codable {
         case `public`
     }
 
-    public init(teamBase: TeamBase, description: String? = nil, htmlDescription: String? = nil, organization: Organization? = nil, permalinkURL: String? = nil, visibility: Visibility? = nil) {
-        self.teamBase = teamBase
+    public init(teamCompact: TeamCompact, description: String? = nil, htmlDescription: String? = nil, organization: WorkspaceCompact? = nil, permalinkURL: String? = nil, visibility: Visibility? = nil) {
+        self.teamCompact = teamCompact
         self.description = description
         self.htmlDescription = htmlDescription
         self.organization = organization
@@ -4156,17 +4078,17 @@ public struct TeamResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.teamBase = try TeamBase(from: decoder)
+        self.teamCompact = try TeamCompact(from: decoder)
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
         self.htmlDescription = try values.decodeIfPresent(String.self, forKey: "html_description")
-        self.organization = try Organization(from: decoder)
+        self.organization = try WorkspaceCompact(from: decoder)
         self.permalinkURL = try values.decodeIfPresent(String.self, forKey: "permalink_url")
         self.visibility = try Visibility(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(teamBase, forKey: "teamBase")
+        try values.encode(teamCompact, forKey: "teamCompact")
         try values.encodeIfPresent(description, forKey: "description")
         try values.encodeIfPresent(htmlDescription, forKey: "html_description")
         try values.encodeIfPresent(organization, forKey: "organization")
@@ -4176,7 +4098,7 @@ public struct TeamResponse: Codable {
 }
 
 public struct TeamRequest: Codable {
-    public var teamBase: TeamBase
+    public var teamCompact: TeamCompact
     /// The description of the team.
     ///
     /// Example: "All developers should be members of this team."
@@ -4190,8 +4112,8 @@ public struct TeamRequest: Codable {
     /// Example: "123456789"
     public var organization: String?
 
-    public init(teamBase: TeamBase, description: String? = nil, htmlDescription: String? = nil, organization: String? = nil) {
-        self.teamBase = teamBase
+    public init(teamCompact: TeamCompact, description: String? = nil, htmlDescription: String? = nil, organization: String? = nil) {
+        self.teamCompact = teamCompact
         self.description = description
         self.htmlDescription = htmlDescription
         self.organization = organization
@@ -4199,7 +4121,7 @@ public struct TeamRequest: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.teamBase = try TeamBase(from: decoder)
+        self.teamCompact = try TeamCompact(from: decoder)
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
         self.htmlDescription = try values.decodeIfPresent(String.self, forKey: "html_description")
         self.organization = try values.decodeIfPresent(String.self, forKey: "organization")
@@ -4207,14 +4129,12 @@ public struct TeamRequest: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(teamBase, forKey: "teamBase")
+        try values.encode(teamCompact, forKey: "teamCompact")
         try values.encodeIfPresent(description, forKey: "description")
         try values.encodeIfPresent(htmlDescription, forKey: "html_description")
         try values.encodeIfPresent(organization, forKey: "organization")
     }
 }
-
-public typealias TeamBase = TeamCompact
 
 public struct TeamCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -4241,10 +4161,6 @@ public struct TeamCompact: Codable {
         try values.encodeIfPresent(name, forKey: "name")
     }
 }
-
-public typealias TeamMembershipResponse = TeamMembershipBase
-
-public typealias TeamMembershipBase = TeamMembershipCompact
 
 public struct TeamMembershipCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -4279,8 +4195,6 @@ public struct TeamMembershipCompact: Codable {
         try values.encodeIfPresent(isGuest, forKey: "is_guest")
     }
 }
-
-public typealias TimePeriodResponse = TimePeriodBase
 
 public struct TimePeriodBase: Codable {
     public var timePeriodCompact: TimePeriodCompact
@@ -4364,7 +4278,7 @@ public struct TimePeriodCompact: Codable {
 }
 
 public struct UserResponse: Codable {
-    public var userBase: UserBase
+    public var userCompact: UserCompact
     /// The user's email address.
     ///
     /// Example: "gsanchez@example.com"
@@ -4425,8 +4339,8 @@ public struct UserResponse: Codable {
         }
     }
 
-    public init(userBase: UserBase, email: String? = nil, photo: Photo? = nil, workspaces: [WorkspaceCompact]? = nil) {
-        self.userBase = userBase
+    public init(userCompact: UserCompact, email: String? = nil, photo: Photo? = nil, workspaces: [WorkspaceCompact]? = nil) {
+        self.userCompact = userCompact
         self.email = email
         self.photo = photo
         self.workspaces = workspaces
@@ -4434,7 +4348,7 @@ public struct UserResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.userBase = try UserBase(from: decoder)
+        self.userCompact = try UserCompact(from: decoder)
         self.email = try values.decodeIfPresent(String.self, forKey: "email")
         self.photo = try Photo(from: decoder)
         self.workspaces = try values.decodeIfPresent([WorkspaceCompact].self, forKey: "workspaces")
@@ -4442,16 +4356,12 @@ public struct UserResponse: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(userBase, forKey: "userBase")
+        try values.encode(userCompact, forKey: "userCompact")
         try values.encodeIfPresent(email, forKey: "email")
         try values.encodeIfPresent(photo, forKey: "photo")
         try values.encodeIfPresent(workspaces, forKey: "workspaces")
     }
 }
-
-public typealias UserRequest = UserBase
-
-public typealias UserBase = UserCompact
 
 public struct UserCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -4503,12 +4413,6 @@ public struct TeamRemoveUserRequest: Codable {
     }
 }
 
-public typealias UserTaskListResponse = UserTaskListBase
-
-public typealias UserTaskListRequest = UserTaskListBase
-
-public typealias UserTaskListBase = UserTaskListCompact
-
 public struct UserTaskListCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
     public var asanaResource: AsanaResource
@@ -4517,15 +4421,11 @@ public struct UserTaskListCompact: Codable {
     /// Example: "My Tasks in My Workspace"
     public var name: String?
     /// The owner of the user task list, i.e. the person whose My Tasks is represented by this resource.
-    public var owner: Owner?
+    public var owner: UserCompact?
     /// The workspace in which the user task list is located.
-    public var workspace: Workspace?
+    public var workspace: WorkspaceCompact?
 
-    public typealias Owner = UserCompact
-
-    public typealias Workspace = WorkspaceCompact
-
-    public init(asanaResource: AsanaResource, name: String? = nil, owner: Owner? = nil, workspace: Workspace? = nil) {
+    public init(asanaResource: AsanaResource, name: String? = nil, owner: UserCompact? = nil, workspace: WorkspaceCompact? = nil) {
         self.asanaResource = asanaResource
         self.name = name
         self.owner = owner
@@ -4536,8 +4436,8 @@ public struct UserTaskListCompact: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.asanaResource = try AsanaResource(from: decoder)
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
-        self.owner = try Owner(from: decoder)
-        self.workspace = try Workspace(from: decoder)
+        self.owner = try UserCompact(from: decoder)
+        self.workspace = try WorkspaceCompact(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -4769,7 +4669,7 @@ public struct WebhookFilter: Codable {
 }
 
 public struct WorkspaceResponse: Codable {
-    public var workspaceBase: WorkspaceBase
+    public var workspaceCompact: WorkspaceCompact
     /// The email domains that are associated with this workspace.
     ///
     /// Example: ["asana.com"]
@@ -4779,30 +4679,26 @@ public struct WorkspaceResponse: Codable {
     /// Example: false
     public var isOrganization: Bool?
 
-    public init(workspaceBase: WorkspaceBase, emailDomains: [URL]? = nil, isOrganization: Bool? = nil) {
-        self.workspaceBase = workspaceBase
+    public init(workspaceCompact: WorkspaceCompact, emailDomains: [URL]? = nil, isOrganization: Bool? = nil) {
+        self.workspaceCompact = workspaceCompact
         self.emailDomains = emailDomains
         self.isOrganization = isOrganization
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.workspaceBase = try WorkspaceBase(from: decoder)
+        self.workspaceCompact = try WorkspaceCompact(from: decoder)
         self.emailDomains = try values.decodeIfPresent([URL].self, forKey: "email_domains")
         self.isOrganization = try values.decodeIfPresent(Bool.self, forKey: "is_organization")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(workspaceBase, forKey: "workspaceBase")
+        try values.encode(workspaceCompact, forKey: "workspaceCompact")
         try values.encodeIfPresent(emailDomains, forKey: "email_domains")
         try values.encodeIfPresent(isOrganization, forKey: "is_organization")
     }
 }
-
-public typealias WorkspaceRequest = WorkspaceBase
-
-public typealias WorkspaceBase = WorkspaceCompact
 
 public struct WorkspaceCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.
@@ -4855,8 +4751,8 @@ public struct WorkspaceRemoveUserRequest: Codable {
 }
 
 public struct WorkspaceMembershipResponse: Codable {
-    public var workspaceMembershipBase: WorkspaceMembershipBase
-    public var userTaskList: UserTaskListResponse?
+    public var workspaceMembershipCompact: WorkspaceMembershipCompact
+    public var userTaskList: UserTaskListCompact?
     /// Reflects if this user still a member of the workspace.
     public var isActive: Bool?
     /// Reflects if this user is an admin of the workspace.
@@ -4864,8 +4760,8 @@ public struct WorkspaceMembershipResponse: Codable {
     /// Reflects if this user is a guest of the workspace.
     public var isGuest: Bool?
 
-    public init(workspaceMembershipBase: WorkspaceMembershipBase, userTaskList: UserTaskListResponse? = nil, isActive: Bool? = nil, isAdmin: Bool? = nil, isGuest: Bool? = nil) {
-        self.workspaceMembershipBase = workspaceMembershipBase
+    public init(workspaceMembershipCompact: WorkspaceMembershipCompact, userTaskList: UserTaskListCompact? = nil, isActive: Bool? = nil, isAdmin: Bool? = nil, isGuest: Bool? = nil) {
+        self.workspaceMembershipCompact = workspaceMembershipCompact
         self.userTaskList = userTaskList
         self.isActive = isActive
         self.isAdmin = isAdmin
@@ -4874,8 +4770,8 @@ public struct WorkspaceMembershipResponse: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.workspaceMembershipBase = try WorkspaceMembershipBase(from: decoder)
-        self.userTaskList = try UserTaskListResponse(from: decoder)
+        self.workspaceMembershipCompact = try WorkspaceMembershipCompact(from: decoder)
+        self.userTaskList = try UserTaskListCompact(from: decoder)
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "is_active")
         self.isAdmin = try values.decodeIfPresent(Bool.self, forKey: "is_admin")
         self.isGuest = try values.decodeIfPresent(Bool.self, forKey: "is_guest")
@@ -4883,17 +4779,13 @@ public struct WorkspaceMembershipResponse: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(workspaceMembershipBase, forKey: "workspaceMembershipBase")
+        try values.encode(workspaceMembershipCompact, forKey: "workspaceMembershipCompact")
         try values.encodeIfPresent(userTaskList, forKey: "user_task_list")
         try values.encodeIfPresent(isActive, forKey: "is_active")
         try values.encodeIfPresent(isAdmin, forKey: "is_admin")
         try values.encodeIfPresent(isGuest, forKey: "is_guest")
     }
 }
-
-public typealias WorkspaceMembershipRequest = WorkspaceMembershipBase
-
-public typealias WorkspaceMembershipBase = WorkspaceMembershipCompact
 
 public struct WorkspaceMembershipCompact: Codable {
     /// A generic Asana Resource, containing a globally unique identifier.

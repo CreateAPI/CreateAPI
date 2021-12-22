@@ -658,7 +658,7 @@ extension Paths.Goals.WithGoalGid {
         /// Create a goal metric
         ///
         /// Creates and adds a goal metric to a specified goal. Note that this replaces an existing goal metric if one already exists.
-        public func post(data: AsanaAPI.GoalMetricRequest? = nil) -> Request<PostResponse> {
+        public func post(data: AsanaAPI.GoalMetricBase? = nil) -> Request<PostResponse> {
             .post(path, body: ["data": data])
         }
 
@@ -973,9 +973,9 @@ extension Paths.Jobs {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.JobResponse?
+            public var data: AsanaAPI.JobCompact?
 
-            public init(data: AsanaAPI.JobResponse? = nil) {
+            public init(data: AsanaAPI.JobCompact? = nil) {
                 self.data = data
             }
         }
@@ -999,9 +999,9 @@ extension Paths {
         }
 
         public struct PostResponse: Decodable {
-            public var data: AsanaAPI.OrganizationExportResponse?
+            public var data: AsanaAPI.OrganizationExportCompact?
 
-            public init(data: AsanaAPI.OrganizationExportResponse? = nil) {
+            public init(data: AsanaAPI.OrganizationExportCompact? = nil) {
                 self.data = data
             }
         }
@@ -1025,9 +1025,9 @@ extension Paths.OrganizationExports {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.OrganizationExportResponse?
+            public var data: AsanaAPI.OrganizationExportCompact?
 
-            public init(data: AsanaAPI.OrganizationExportResponse? = nil) {
+            public init(data: AsanaAPI.OrganizationExportCompact? = nil) {
                 self.data = data
             }
         }
@@ -1077,9 +1077,9 @@ extension Paths.PortfolioMemberships {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.PortfolioMembershipResponse?
+            public var data: AsanaAPI.PortfolioMembershipCompact?
 
-            public init(data: AsanaAPI.PortfolioMembershipResponse? = nil) {
+            public init(data: AsanaAPI.PortfolioMembershipCompact? = nil) {
                 self.data = data
             }
         }
@@ -1607,7 +1607,7 @@ extension Paths.Projects.WithProjectGid {
         ///
         /// Creates a new status update on the project.
         /// Returns the full record of the newly created project status update.
-        public func post(data: AsanaAPI.ProjectStatusRequest? = nil) -> Request<PostResponse> {
+        public func post(data: AsanaAPI.ProjectStatusBase? = nil) -> Request<PostResponse> {
             .post(path, body: ["data": data])
         }
 
@@ -1784,9 +1784,9 @@ extension Paths.Projects.WithProjectGid {
         }
 
         public struct PostResponse: Decodable {
-            public var data: AsanaAPI.JobResponse?
+            public var data: AsanaAPI.JobCompact?
 
-            public init(data: AsanaAPI.JobResponse? = nil) {
+            public init(data: AsanaAPI.JobCompact? = nil) {
                 self.data = data
             }
         }
@@ -2386,7 +2386,7 @@ extension Paths.Stories {
         /// Update a story
         ///
         /// Updates the story and returns the full record for the updated story. Only comment stories can have their text updated, and only comment stories and attachment stories can be pinned. Only one of `text` and `html_text` can be specified.
-        public func put(data: AsanaAPI.StoryRequest? = nil) -> Request<PutResponse> {
+        public func put(data: AsanaAPI.StoryBase? = nil) -> Request<PutResponse> {
             .put(path, body: ["data": data])
         }
 
@@ -2456,7 +2456,7 @@ extension Paths.Tasks.WithTaskGid {
         /// authenticated user, and timestamped when the server receives the request.
         /// 
         /// Returns the full record for the new story added to the task.
-        public func post(data: AsanaAPI.StoryRequest? = nil) -> Request<PostResponse> {
+        public func post(data: AsanaAPI.StoryBase? = nil) -> Request<PostResponse> {
             .post(path, body: ["data": data])
         }
 
@@ -2858,9 +2858,9 @@ extension Paths.Tasks.WithTaskGid {
         }
 
         public struct PostResponse: Decodable {
-            public var data: AsanaAPI.JobResponse?
+            public var data: AsanaAPI.JobCompact?
 
-            public init(data: AsanaAPI.JobResponse? = nil) {
+            public init(data: AsanaAPI.JobCompact? = nil) {
                 self.data = data
             }
         }
@@ -3480,9 +3480,9 @@ extension Paths.TeamMemberships {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.TeamMembershipResponse?
+            public var data: AsanaAPI.TeamMembershipCompact?
 
-            public init(data: AsanaAPI.TeamMembershipResponse? = nil) {
+            public init(data: AsanaAPI.TeamMembershipCompact? = nil) {
                 self.data = data
             }
         }
@@ -3738,9 +3738,9 @@ extension Paths.Teams.WithTeamGid {
         }
 
         public struct PostResponse: Decodable {
-            public var data: AsanaAPI.TeamMembershipResponse?
+            public var data: AsanaAPI.TeamMembershipCompact?
 
-            public init(data: AsanaAPI.TeamMembershipResponse? = nil) {
+            public init(data: AsanaAPI.TeamMembershipCompact? = nil) {
                 self.data = data
             }
         }
@@ -3791,9 +3791,9 @@ extension Paths.TimePeriods {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.TimePeriodResponse?
+            public var data: AsanaAPI.TimePeriodBase?
 
-            public init(data: AsanaAPI.TimePeriodResponse? = nil) {
+            public init(data: AsanaAPI.TimePeriodBase? = nil) {
                 self.data = data
             }
         }
@@ -3922,9 +3922,9 @@ extension Paths.UserTaskLists {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.UserTaskListResponse?
+            public var data: AsanaAPI.UserTaskListCompact?
 
-            public init(data: AsanaAPI.UserTaskListResponse? = nil) {
+            public init(data: AsanaAPI.UserTaskListCompact? = nil) {
                 self.data = data
             }
         }
@@ -3948,9 +3948,9 @@ extension Paths.Users.WithUserGid {
         }
 
         public struct GetResponse: Decodable {
-            public var data: AsanaAPI.UserTaskListResponse?
+            public var data: AsanaAPI.UserTaskListCompact?
 
-            public init(data: AsanaAPI.UserTaskListResponse? = nil) {
+            public init(data: AsanaAPI.UserTaskListCompact? = nil) {
                 self.data = data
             }
         }
@@ -4412,7 +4412,7 @@ extension Paths.Workspaces {
         /// A specific, existing workspace can be updated by making a PUT request on the URL for that workspace. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged.
         /// Currently the only field that can be modified for a workspace is its name.
         /// Returns the complete, updated workspace record.
-        public func put(data: AsanaAPI.WorkspaceRequest? = nil) -> Request<PutResponse> {
+        public func put(data: AsanaAPI.WorkspaceCompact? = nil) -> Request<PutResponse> {
             .put(path, body: ["data": data])
         }
 

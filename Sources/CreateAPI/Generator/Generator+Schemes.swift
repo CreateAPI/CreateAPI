@@ -5,6 +5,7 @@
 import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
+import AppKit
 
 // TODO: Pass info to oneOf, anyOf
 // TODO: Add Read-Only and Write-Only Properties support
@@ -46,7 +47,7 @@ extension Generator {
                 }
                 return
             }
-                        
+
             do {
                 if let entry = try makeDeclaration(name: name, schema: schema, context: context) {
                     let file = GeneratedFile(name: name.rawValue, contents: render(entry))
@@ -108,8 +109,18 @@ extension Generator {
 
     // MARK: - Declaration
     
-    /// Recursively a type declaration: struct, class, enum, typealias, etc.
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
+        guard let declaration = try _makeDeclaration(name: name, schema: schema, context: context) else {
+            return nil
+        }
+        if options.isInliningPrimitiveTypes, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
+            return nil
+        }
+        return declaration
+    }
+    
+    /// Recursively a type declaration: struct, class, enum, typealias, etc.
+    func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         switch schema {
         case .boolean, .number, .integer:
             return nil // Always inline
@@ -138,7 +149,6 @@ extension Generator {
             }
             return TypealiasDeclaration(name: name, type: .userDefined(name: makeTypeName(ref)))
         case .fragment:
-            guard !options.isInliningPrimitiveTypes else { return nil }
             setNeedsAnyJson()
             return TypealiasDeclaration(name: name, type: .anyJSON)
         }
@@ -213,8 +223,11 @@ extension Generator {
             }
             return property(name: propertyName, type: type, info: info)
         }
-        
+
         func makeSomeOf() throws -> Property {
+            if let type = try getPrimitiveType(for: schema, context: context) {
+                return property(name: propertyName, type: type, info: schema.coreContext)
+            }
             let name = makeTypeName(key)
             let nested = try makeDeclaration(name: name, schema: schema, context: context)
             return property(name: propertyName, type: .userDefined(name: name), info: schema.coreContext, nested: nested)
@@ -429,6 +442,8 @@ extension Generator {
     
     // Anything that's not an object or a reference.
     func getPrimitiveType(for json: JSONSchema, context: Context) throws -> MyType? {
+        var context = context
+        context.isInlinableTypeCheck = true
         switch json {
         case .boolean: return .builtin("Bool")
         case .number: return .builtin("Double")
@@ -464,6 +479,9 @@ extension Generator {
             }
             return try getPrimitiveType(for: items, context: context)?.asArray()
         case .all, .one, .any, .not:
+            if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: json, context: context) as? TypealiasDeclaration {
+                return alias.type
+            }
             return nil
         case .reference(let reference, _):
             return try getReferenceType(reference, context: context)
@@ -480,14 +498,15 @@ extension Generator {
                 let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
                 return .userDefined(name: replacement.namespace(context.namespace))
             }
+            #warning("TEMP:")
             // Note: while dereferencing, it does it recursively.
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
             if options.isInliningPrimitiveTypes,
                let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
                let schema = spec.components.schemas[key],
-               let inlined = try getPrimitiveType(for: schema, context: context),
-               isInlinable(schema, context: context) {
+               let inlined = try getPrimitiveType(for: schema, context: context) {
+//               isInlinable(schema, context: context) {
                 return inlined // Inline simple types
             }
             guard let name = ref.name else {
@@ -507,7 +526,7 @@ extension Generator {
     
     // MARK: - oneOf/anyOf/allOf
     
-    private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
+    private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
         let context = context.adding(name)
         let properties: [Property] = try makeProperties(for: schemas, context: context).map {
             // TODO: Generalize this and add better naming for nested types.
@@ -524,6 +543,8 @@ extension Generator {
         if properties.count == 1, properties[0].nested == nil {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
+        
+        guard !context.isInlinableTypeCheck else { return nil }
     
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
@@ -533,7 +554,9 @@ extension Generator {
         return EntityDeclaration(name: name, type: .oneOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
-    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
+    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
+        guard !context.isInlinableTypeCheck else { return nil }
+        
         let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
         // `anyOf` where one type is off just means optional response
@@ -544,7 +567,7 @@ extension Generator {
         return EntityDeclaration(name: name, type: .anyOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
-    private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
+    private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
         let types = makeTypeNames(for: schemas, context: context)
         let context = context.adding(name)
 
@@ -574,6 +597,8 @@ extension Generator {
         if properties.count == 1 {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
+        
+        guard !context.isInlinableTypeCheck else { return nil }
 
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
