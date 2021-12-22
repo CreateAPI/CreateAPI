@@ -178,7 +178,7 @@ public struct Name: Codable {
 }
 
 /// Model for testing model name starting with number
-public struct _200Response: Codable {
+public struct __200Response: Codable {
   public var name: Int?
   public var `class`: String?
 

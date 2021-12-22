@@ -14,7 +14,7 @@ indirect enum MyType: CustomStringConvertible, Hashable {
     case array(element: MyType)
     // Dictionary
     case dictionary(key: MyType, value: MyType)
-    
+
     // MARK: Helpers
     
     var isBool: Bool { builtinTypeName == "Bool" }

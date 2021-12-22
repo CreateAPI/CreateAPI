@@ -865,9 +865,9 @@ extension Paths {
             public var mock: Mock?
 
             public struct Contracttest: Decodable {
-                public var _2a9b8fa888b74b8683728e3f6f6e07f2: _2a9b8fa888b74b8683728e3f6f6e07f2?
+                public var _2a9b8fa888b74b8683728e3f6f6e07f2: __2a9b8fa888b74b8683728e3f6f6e07f2?
 
-                public struct _2a9b8fa888b74b8683728e3f6f6e07f2: Decodable {
+                public struct __2a9b8fa888b74b8683728e3f6f6e07f2: Decodable {
                     /// Example: "2a9b8fa8-88b7-4b86-8372-8e3f6f6e07f2"
                     public var id: String?
                     /// Example: "C test"
@@ -882,7 +882,7 @@ extension Paths {
                     }
                 }
 
-                public init(_2a9b8fa888b74b8683728e3f6f6e07f2: _2a9b8fa888b74b8683728e3f6f6e07f2? = nil) {
+                public init(_2a9b8fa888b74b8683728e3f6f6e07f2: __2a9b8fa888b74b8683728e3f6f6e07f2? = nil) {
                     self._2a9b8fa888b74b8683728e3f6f6e07f2 = _2a9b8fa888b74b8683728e3f6f6e07f2
                 }
 
@@ -892,10 +892,10 @@ extension Paths {
             }
 
             public struct Integrationtest: Decodable {
-                public var _521b0486Ab914d3a918943c9380a0533: _521b0486Ab914d3a918943c9380a0533?
+                public var _521b0486Ab914d3a918943c9380a0533: __521b0486Ab914d3a918943c9380a0533?
                 public var a236b715E682460b97b6C1db24f7612e: A236b715E682460b97b6C1db24f7612e?
 
-                public struct _521b0486Ab914d3a918943c9380a0533: Decodable {
+                public struct __521b0486Ab914d3a918943c9380a0533: Decodable {
                     /// Example: "521b0486-ab91-4d3a-9189-43c9380a0533"
                     public var id: String?
                     /// Example: "C1"
@@ -925,7 +925,7 @@ extension Paths {
                     }
                 }
 
-                public init(_521b0486Ab914d3a918943c9380a0533: _521b0486Ab914d3a918943c9380a0533? = nil, a236b715E682460b97b6C1db24f7612e: A236b715E682460b97b6C1db24f7612e? = nil) {
+                public init(_521b0486Ab914d3a918943c9380a0533: __521b0486Ab914d3a918943c9380a0533? = nil, a236b715E682460b97b6C1db24f7612e: A236b715E682460b97b6C1db24f7612e? = nil) {
                     self._521b0486Ab914d3a918943c9380a0533 = _521b0486Ab914d3a918943c9380a0533
                     self.a236b715E682460b97b6C1db24f7612e = a236b715E682460b97b6C1db24f7612e
                 }
@@ -937,9 +937,9 @@ extension Paths {
             }
 
             public struct Mock: Decodable {
-                public var _4ccd755f2c80481bA26249b55e12f5e1: _4ccd755f2c80481bA26249b55e12f5e1?
+                public var _4ccd755f2c80481bA26249b55e12f5e1: __4ccd755f2c80481bA26249b55e12f5e1?
 
-                public struct _4ccd755f2c80481bA26249b55e12f5e1: Decodable {
+                public struct __4ccd755f2c80481bA26249b55e12f5e1: Decodable {
                     /// Example: "4ccd755f-2c80-481b-a262-49b55e12f5e1"
                     public var id: String?
                     /// Example: "Mock"
@@ -957,7 +957,7 @@ extension Paths {
                     }
                 }
 
-                public init(_4ccd755f2c80481bA26249b55e12f5e1: _4ccd755f2c80481bA26249b55e12f5e1? = nil) {
+                public init(_4ccd755f2c80481bA26249b55e12f5e1: __4ccd755f2c80481bA26249b55e12f5e1? = nil) {
                     self._4ccd755f2c80481bA26249b55e12f5e1 = _4ccd755f2c80481bA26249b55e12f5e1
                 }
 

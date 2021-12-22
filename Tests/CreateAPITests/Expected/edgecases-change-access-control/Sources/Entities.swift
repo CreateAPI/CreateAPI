@@ -178,7 +178,7 @@ import NaiveDate
 }
 
 /// Model for testing model name starting with number
- struct _200Response: Codable {
+ struct __200Response: Codable {
     var name: Int?
     var `class`: String?
 

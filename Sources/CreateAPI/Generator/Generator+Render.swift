@@ -91,13 +91,11 @@ extension Generator {
                 contents.append(templates.encodeOneOf(properties: properties))
             }
         }
-        
-        // TODO: This doesn't work if the name is a typealias
-        let hasReferencesToItself = properties.contains(where: { $0.type.name == decl.name && $0.nested == nil })
+
         let entity: String
         if decl.type == .oneOf {
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
-        } else if hasReferencesToItself {
+        } else if decl.hasReferencesToItself {
             // Struct can't have references to itself
             entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
         } else {
@@ -111,5 +109,22 @@ extension Generator {
          value.nested.map(render)]
             .compactMap { $0 }
             .joined(separator: "\n\n")
+    }
+}
+
+private extension EntityDeclaration {
+    var hasReferencesToItself: Bool {
+        properties.contains {
+            // Check a simple case where a property references to the type itself
+            // (not it's not a nested type with the same name)
+            if $0.type.name == name && $0.nested == nil {
+                return true
+            }
+            // Shallow check for typealiases
+            if let alias = $0.nested as? TypealiasDeclaration, alias.type.name == name {
+                return true
+            }
+            return false
+        }
     }
 }

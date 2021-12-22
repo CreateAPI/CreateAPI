@@ -103,11 +103,7 @@ final class GenerateTests: XCTestCase {
         try testSpec(name: "asana", package: "AsanaAPI")
     }
     
-    // TODO: Fix all compilations issues and uncomment it
-    // TODO: Update when https://github.com/mattpolzin/OpenAPIKit/issues/239 is addressed
-    // TODO: Upadte when https://github.com/jpsim/Yams/issues/337 is addressed
-    // Spec URL: https://developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json
-    func _testJira() throws {
+    func testJira() throws {
         try testSpec(name: "jira", package: "JiraAPI")
     }
     

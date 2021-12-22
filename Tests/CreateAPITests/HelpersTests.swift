@@ -28,7 +28,7 @@ final class HelpersTests: XCTestCase {
         XCTAssertEqual(typeName("url"), "URL")
         XCTAssertEqual(typeName("a-z"), "AZ")
         XCTAssertEqual(typeName("A-Z"), "AZ")
-        XCTAssertEqual(typeName("123List"), "_123List")
+        XCTAssertEqual(typeName("123List"), "__123List")
         XCTAssertEqual(typeName("user_url"), "UserURL")
         XCTAssertEqual(typeName("snake_case"), "SnakeCase")
         XCTAssertEqual(typeName("SNAKE_CASE"), "SnakeCase")

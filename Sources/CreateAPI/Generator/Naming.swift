@@ -169,7 +169,8 @@ extension String {
         }
         // Make sure it starts with a valid chatecter, e.g. "213List" doesn't pass.
         if !CharacterSet(charactersIn: String(first)).isSubset(of: .letters) {
-            output = "_" + output
+            // Disambiguate between types and properties
+            output = (isProperty ? "_" : "__") + output
         }
         // Replace abbreviations (but only at code boundries)
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
