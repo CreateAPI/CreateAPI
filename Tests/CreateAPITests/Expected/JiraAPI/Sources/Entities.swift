@@ -837,14 +837,6 @@ public struct IssueTypeDetails: Codable {
     }
 }
 
-public struct ListWrapperCallbackApplicationRole: Codable {
-    public init() {}
-}
-
-public struct ListWrapperCallbackGroupName: Codable {
-    public init() {}
-}
-
 /// A page of items.
 public struct PageBeanWorkflowScheme: Codable {
     /// The URL of the page.
@@ -6492,10 +6484,6 @@ public struct PageBeanComponentWithIssueCount: Codable {
         case isLast
         case values
     }
-}
-
-public struct StringList: Codable {
-    public init() {}
 }
 
 /// A page of items.

@@ -5168,11 +5168,6 @@ public struct ActionsPublicKey: Codable {
     }
 }
 
-/// An object without any properties.
-public struct EmptyObject: Codable {
-    public init() {}
-}
-
 public struct CredentialAuthorization: Codable {
     /// User login that owns the underlying credential.
     ///

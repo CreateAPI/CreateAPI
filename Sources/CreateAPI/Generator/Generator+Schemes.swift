@@ -113,6 +113,7 @@ extension Generator {
         guard let declaration = try _makeDeclaration(name: name, schema: schema, context: context) else {
             return nil
         }
+        #warning("TODO: inline if nested isnt nil too?")
         if options.isInliningPrimitiveTypes, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
             return nil
         }
@@ -128,10 +129,6 @@ extension Generator {
             guard isEnum(info) else { return nil } // Always inline
             return try makeStringEnum(name: name, info: info)
         case .object(let info, let details):
-            if let type = try getPrimitiveType(for: JSONSchema.object(info, details), context: context), !type.isVoid {
-                guard !options.isInliningPrimitiveTypes else { return nil }
-                return nil
-            }
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
@@ -307,6 +304,9 @@ extension Generator {
     // MARK: - Object
     
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
+        if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
+            return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
+        }
         let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
@@ -447,6 +447,7 @@ extension Generator {
             }
             return .builtin("String")
         case .object(let info, let details):
+            // TODO: Use _makeDeclaration
             if let dictionary = try makeDictionary(key: "placeholder", info: info, details: details, context: context), dictionary.nested == nil {
                 return dictionary.type
             }
@@ -476,7 +477,6 @@ extension Generator {
                 let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
                 return .userDefined(name: replacement.namespace(context.namespace))
             }
-            #warning("TEMP:")
             // Note: while dereferencing, it does it recursively.
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
@@ -484,7 +484,6 @@ extension Generator {
                let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
                let schema = spec.components.schemas[key],
                let inlined = try getPrimitiveType(for: schema, context: context) {
-//               isInlinable(schema, context: context) {
                 return inlined // Inline simple types
             }
             guard let name = ref.name else {
