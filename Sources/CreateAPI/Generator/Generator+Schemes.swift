@@ -358,14 +358,9 @@ extension Generator {
             }
             return TypealiasDeclaration(name: name, type: type.asArray())
         }
-        // Requres generation of a separate type
-        var output = ""
-        let itemName = name.appending("Item")
-        // TODO: Don't render this inline
-        output += templates.typealias(name: name, type: itemName.asArray)
-        output += "\n\n"
-        output += (try makeDeclaration(name: itemName, schema: item, context: context)).map(render) ?? ""
-        return AnyDeclaration(name: name, contents: output)
+        let itemName = MyType.userDefined(name: name.appending("Item"))
+        let nested = try makeDeclaration(name: itemName.name, schema: item, context: context)
+        return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
     }
     
     // MARK: - Enums

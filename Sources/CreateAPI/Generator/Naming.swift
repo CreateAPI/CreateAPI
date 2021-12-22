@@ -27,17 +27,9 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     func appending(_ text: String) -> TypeName {
         TypeName(rawValue + text)
     }
-    
-    func prepending(_ text: String) -> TypeName {
-        TypeName(text + rawValue)
-    }
-    
+        
     func namespace(_ namespace: String?) -> TypeName {
         TypeName(rawValue.namespace(namespace))
-    }
-    
-    var asArray: TypeName {
-        TypeName("[\(rawValue)]")
     }
 }
 

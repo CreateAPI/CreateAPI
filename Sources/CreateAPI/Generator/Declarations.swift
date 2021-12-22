@@ -193,6 +193,7 @@ enum EntityType {
 struct TypealiasDeclaration: Declaration {
     let name: TypeName
     var type: MyType
+    var nested: Declaration?
 }
 
 struct AnyDeclaration: Declaration {

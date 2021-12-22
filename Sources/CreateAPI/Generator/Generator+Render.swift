@@ -108,6 +108,9 @@ extension Generator {
     }
     
     private func render(_ value: TypealiasDeclaration) -> String {
-        templates.typealias(name: value.name, type: value.type.name)
+        [templates.typealias(name: value.name, type: value.type.name),
+         value.nested.map(render)]
+            .compactMap { $0 }
+            .joined(separator: "\n\n")
     }
 }
