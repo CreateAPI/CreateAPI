@@ -11,7 +11,6 @@ extension Generator {
         case let decl as EnumOfStringsDeclaration: return render(decl)
         case let decl as EntityDeclaration: return render(decl)
         case let decl as TypealiasDeclaration: return render(decl)
-        case let decl as AnyDeclaration: return decl.contents
         default: fatalError()
         }
     }

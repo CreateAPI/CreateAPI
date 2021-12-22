@@ -196,11 +196,6 @@ struct TypealiasDeclaration: Declaration {
     var nested: Declaration?
 }
 
-struct AnyDeclaration: Declaration {
-    let name: TypeName
-    let contents: String
-}
-
 struct DeclarationMetadata {
     var title: String?
     var description: String?
