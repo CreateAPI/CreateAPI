@@ -164,6 +164,8 @@ public enum ConsentStatus: String, Codable, CaseIterable {
     case partiallyAuthorised
 }
 
+public typealias ChosenScaMethod = AuthenticationObject
+
 /// Type of the authentication method.
 /// 
 /// More authentication types might be added during implementation projects and documented in the ASPSP documentation.
@@ -2771,12 +2773,14 @@ public struct AuthorisationConfirmation: Codable {
 /// where the information of the payment is contained in a pain.001 message (Part 1) and
 /// the additional informations related to the periodic payment is an additional JSON message (Part 2).
 public struct PeriodicPaymentInitiationMultipartBody: Codable {
-    public var xmlSct: String?
+    public var xmlSct: XmlSct?
     /// The body part 2 of a periodic payment initation request containes the execution related informations
     /// of the periodic payment.
     public var jsonStandingorderType: PeriodicPaymentInitiationXmlPart2StandingorderTypeJSON?
 
-    public init(xmlSct: String? = nil, jsonStandingorderType: PeriodicPaymentInitiationXmlPart2StandingorderTypeJSON? = nil) {
+    public typealias XmlSct = String
+
+    public init(xmlSct: XmlSct? = nil, jsonStandingorderType: PeriodicPaymentInitiationXmlPart2StandingorderTypeJSON? = nil) {
         self.xmlSct = xmlSct
         self.jsonStandingorderType = jsonStandingorderType
     }
@@ -2992,7 +2996,7 @@ public struct PaymentInitationRequestResponse201: Codable {
     /// These methods shall be presented towards the PSU for selection by the TPP.
     public var scaMethods: [AuthenticationObject]?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -3058,7 +3062,7 @@ public struct PaymentInitationRequestResponse201: Codable {
     public var psuMessage: String?
     public var tppMessages: [TppMessage2XX]?
 
-    public init(transactionStatus: TransactionStatus, paymentID: String, transactionFees: Amount? = nil, currencyConversionFee: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, isTransactionFeeIndicator: Bool? = nil, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil, tppMessages: [TppMessage2XX]? = nil) {
+    public init(transactionStatus: TransactionStatus, paymentID: String, transactionFees: Amount? = nil, currencyConversionFee: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, isTransactionFeeIndicator: Bool? = nil, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil, tppMessages: [TppMessage2XX]? = nil) {
         self.transactionStatus = transactionStatus
         self.paymentID = paymentID
         self.transactionFees = transactionFees
@@ -3148,7 +3152,7 @@ public struct PaymentInitiationCancelResponse202: Codable {
     /// These methods shall be presented towards the PSU for selection by the TPP.
     public var scaMethods: [AuthenticationObject]?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -3179,7 +3183,7 @@ public struct PaymentInitiationCancelResponse202: Codable {
     ///     conditions as the data element 'scaMethods'
     public var links: [String: HrefType]?
 
-    public init(transactionStatus: TransactionStatus, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType]? = nil) {
+    public init(transactionStatus: TransactionStatus, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType]? = nil) {
         self.transactionStatus = transactionStatus
         self.scaMethods = scaMethods
         self.chosenScaMethod = chosenScaMethod
@@ -3676,7 +3680,7 @@ public struct StartScaprocessResponse: Codable {
     /// These methods shall be presented towards the PSU for selection by the TPP.
     public var scaMethods: [AuthenticationObject]?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -3721,7 +3725,7 @@ public struct StartScaprocessResponse: Codable {
     /// Text to be displayed to the PSU.
     public var psuMessage: String?
 
-    public init(scaStatus: ScaStatus, authorisationID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil) {
+    public init(scaStatus: ScaStatus, authorisationID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil) {
         self.scaStatus = scaStatus
         self.authorisationID = authorisationID
         self.scaMethods = scaMethods
@@ -3914,7 +3918,7 @@ public struct UpdatePsuAuthenticationResponse: Codable {
     /// }
     public var estimatedInterbankSettlementAmount: Amount?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -3992,7 +3996,7 @@ public struct UpdatePsuAuthenticationResponse: Codable {
     /// Example: "123auth456"
     public var authorisationID: String?
 
-    public init(transactionFees: Amount? = nil, currencyConversionFees: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, scaMethods: [AuthenticationObject]? = nil, links: [String: HrefType]? = nil, scaStatus: ScaStatus, psuMessage: String? = nil, authorisationID: String? = nil) {
+    public init(transactionFees: Amount? = nil, currencyConversionFees: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, scaMethods: [AuthenticationObject]? = nil, links: [String: HrefType]? = nil, scaStatus: ScaStatus, psuMessage: String? = nil, authorisationID: String? = nil) {
         self.transactionFees = transactionFees
         self.currencyConversionFees = currencyConversionFees
         self.estimatedTotalAmount = estimatedTotalAmount
@@ -4052,7 +4056,7 @@ public struct SelectPsuAuthenticationMethodResponse: Codable {
     /// }
     public var estimatedInterbankSettlementAmount: Amount?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -4133,7 +4137,7 @@ public struct SelectPsuAuthenticationMethodResponse: Codable {
     /// Text to be displayed to the PSU.
     public var psuMessage: String?
 
-    public init(transactionFees: Amount? = nil, currencyConversionFees: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType]? = nil, scaStatus: ScaStatus, psuMessage: String? = nil) {
+    public init(transactionFees: Amount? = nil, currencyConversionFees: Amount? = nil, estimatedTotalAmount: Amount? = nil, estimatedInterbankSettlementAmount: Amount? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType]? = nil, scaStatus: ScaStatus, psuMessage: String? = nil) {
         self.transactionFees = transactionFees
         self.currencyConversionFees = currencyConversionFees
         self.estimatedTotalAmount = estimatedTotalAmount
@@ -4299,7 +4303,7 @@ public struct SigningBasketResponse201: Codable {
     /// These methods shall be presented towards the PSU for selection by the TPP.
     public var scaMethods: [AuthenticationObject]?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -4351,7 +4355,7 @@ public struct SigningBasketResponse201: Codable {
     public var psuMessage: String?
     public var tppMessages: [TppMessage2XX]?
 
-    public init(transactionStatus: TransactionStatusSBS, basketID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: LinksSigningBasket, psuMessage: String? = nil, tppMessages: [TppMessage2XX]? = nil) {
+    public init(transactionStatus: TransactionStatusSBS, basketID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: LinksSigningBasket, psuMessage: String? = nil, tppMessages: [TppMessage2XX]? = nil) {
         self.transactionStatus = transactionStatus
         self.basketID = basketID
         self.scaMethods = scaMethods
@@ -4405,7 +4409,7 @@ public struct ConsentsResponse201: Codable {
     /// These methods shall be presented towards the PSU for selection by the TPP.
     public var scaMethods: [AuthenticationObject]?
     /// Authentication object.
-    public var chosenScaMethod: AuthenticationObject?
+    public var chosenScaMethod: ChosenScaMethod?
     /// It is contained in addition to the data element 'chosenScaMethod' if challenge data is needed for SCA.
     /// In rare cases this attribute is also used in the context of the 'startAuthorisationWithPsuAuthentication' link.
     public var challengeData: ChallengeData?
@@ -4457,7 +4461,7 @@ public struct ConsentsResponse201: Codable {
     /// Text to be displayed to the PSU.
     public var psuMessage: String?
 
-    public init(consentStatus: ConsentStatus, consentID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: AuthenticationObject? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil) {
+    public init(consentStatus: ConsentStatus, consentID: String, scaMethods: [AuthenticationObject]? = nil, chosenScaMethod: ChosenScaMethod? = nil, challengeData: ChallengeData? = nil, links: [String: HrefType], psuMessage: String? = nil) {
         self.consentStatus = consentStatus
         self.consentID = consentID
         self.scaMethods = scaMethods

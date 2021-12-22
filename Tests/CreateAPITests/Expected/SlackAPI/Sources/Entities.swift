@@ -5,22 +5,9 @@
 
 import Foundation
 
-public typealias DefsPinnedInfo = [String: DefsPinnedInfoItem]
-
-public struct DefsPinnedInfoItem: Codable {
-    /// User ID
-    public var pinnedBy: String
-    public var pinnedTs: Int
-
-    public init(pinnedBy: String, pinnedTs: Int) {
-        self.pinnedBy = pinnedBy
-        self.pinnedTs = pinnedTs
-    }
-
-    private enum CodingKeys: String, CodingKey {
-        case pinnedBy = "pinned_by"
-        case pinnedTs = "pinned_ts"
-    }
+/// Info for a pinned item
+public struct DefsPinnedInfo: Codable {
+    public init() {}
 }
 
 /// Channel Object

@@ -5168,6 +5168,11 @@ public struct ActionsPublicKey: Codable {
     }
 }
 
+/// An object without any properties.
+public struct EmptyObject: Codable {
+    public init() {}
+}
+
 public struct CredentialAuthorization: Codable {
     /// User login that owns the underlying credential.
     ///
@@ -18054,7 +18059,7 @@ public struct SecretScanningLocation: Codable {
     ///
     /// Example: "commit"
     public var type: `Type`
-    public var details: SecretScanningLocationCommit
+    public var details: Details
 
     /// The location type. Because secrets may be found in different types of resources (ie. code, comments, issues), this field identifies the type of resource where the secret was found.
     ///
@@ -18063,7 +18068,9 @@ public struct SecretScanningLocation: Codable {
         case commit
     }
 
-    public init(type: `Type`, details: SecretScanningLocationCommit) {
+    public typealias Details = SecretScanningLocationCommit
+
+    public init(type: `Type`, details: Details) {
         self.type = type
         self.details = details
     }
