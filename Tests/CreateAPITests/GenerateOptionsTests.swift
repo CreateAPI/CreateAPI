@@ -286,7 +286,7 @@ final class GenerateOptionsTests: XCTestCase {
             "--package", "petstore-disable-inlining",
             "--config", config("""
             {
-                "isInliningPrimitiveTypes": false
+                "isInliningTypealiases": false
             }
             """)
         ])
@@ -517,7 +517,7 @@ final class GenerateOptionsTests: XCTestCase {
             "--package", "edgecases-coding-keys",
             "--config", config("""
             entities:
-                isUsingCustomCodingKeys: false
+                isGeneratingCustomCodingKeys: false
             """, ext: "yml")
         ])
                 

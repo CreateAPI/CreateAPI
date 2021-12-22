@@ -38,8 +38,6 @@ final class GenerateTests: XCTestCase {
             "--package", "OctoKit",
             "--vendor", "github",
             "--config", config("""
-            isInterpretingEmptyObjectsAsDictionaries: true
-            pluralizationExceptions: ["ConfigWas", "EventsWere"]
             paths:
               overrideResponses:
                 accepted: "Void"
@@ -47,6 +45,8 @@ final class GenerateTests: XCTestCase {
               enumCaseNames:
                 reactions-+1: "reactionsPlusOne"
                 reactions--1: "reactionsMinusOne"
+            entities:
+              isInterpretingEmptyObjectsAsDictionaries: true
             """, ext: "yml")
         ])
                 

@@ -49,7 +49,7 @@ final class HelpersTests: XCTestCase {
         // Additional acronyms
         do {
             let options = GenerateOptions()
-            options.additionalAcronyms = ["nft"]
+            options.addedAcronyms = ["nft"]
             XCTAssertEqual(TypeName(processing: "myNft", options: options).rawValue, "MyNFT")
         }
         
@@ -111,7 +111,7 @@ final class HelpersTests: XCTestCase {
         let options = GenerateOptions()
         
         func asBoolean(_ name: String) -> String {
-            PropertyName(processing: name, options: options).asBoolean.rawValue
+            PropertyName(processing: name, options: options).asBoolean(options).rawValue
         }
         
         // Simple

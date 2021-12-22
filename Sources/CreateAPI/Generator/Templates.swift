@@ -9,7 +9,10 @@ import Foundation
 final class Templates {
     let options: GenerateOptions
     
-    var access: String { options.access.isEmpty ? "" :  options.access + " " }
+    var access: String {
+        guard let access = options.access, !access.isEmpty else { return "" }
+        return access + " "
+    }
     
     init(options: GenerateOptions) {
         self.options = options
@@ -28,14 +31,14 @@ final class Templates {
     }
     
     func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let lhs = [options.access, "struct", name.rawValue]
+        let lhs = [options.access, "struct", name.rawValue].compactMap { $0 }
         let rhs = protocols.sorted()
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
     
     func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
         let type = options.entities.isMakingClassesFinal ? "final class" : "class"
-        let lhs = [options.access, type, name.rawValue]
+        let lhs = [options.access, type, name.rawValue].compactMap { $0 }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }

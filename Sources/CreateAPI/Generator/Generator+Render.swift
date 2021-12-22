@@ -44,7 +44,7 @@ extension Generator {
             if decl.isForm {
                 contents.append(templates.asQueryString(properties: properties))
             } else {
-                if options.entities.isUsingCustomCodingKeys {
+                if options.entities.isGeneratingCustomCodingKeys {
                     if let keys = templates.codingKeys(for: properties) {
                         contents.append(keys)
                     }

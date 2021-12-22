@@ -4,33 +4,75 @@
 
 import Foundation
 
-// TODO: Fix how `internal` access is applied
-
 final class GenerateOptions {
-    var access: String
-    var isRemovingUnneededImports: Bool
-    var paths: Paths
-    var entities: Entities
+    var access: String?
     var isAddingDeprecations: Bool
     var isGeneratingEnums: Bool
     var isGeneratingSwiftyBooleanPropertyNames: Bool
-    var isInliningPrimitiveTypes: Bool
+    var isInliningTypealiases: Bool
     var isReplacingCommonAcronyms: Bool
-    var additionalAcronyms: [String]
-    var fileHeader: FileHeader
-    var rename: Rename
-    var comments: Comments
+    var addedAcronyms: [String]
+    var ignoredAcronyms: [String]
     var indentation: Indentation
     var spaceWidth: Int
     var isPluralizationEnabled: Bool
-    var pluralizationExceptions: Set<String>
-    var isInterpretingEmptyObjectsAsDictionaries: Bool
     var isNaiveDateEnabled: Bool
     var isUsingIntegersWithPredefinedCapacity: Bool
+
+    var entities: Entities
+    var paths: Paths
+    var fileHeader: FileHeader
+    var rename: Rename
+    var comments: Comments
     
+    // It's important for longer names to come first
+    lazy var allAcronyms: [String] = Set(acronyms)
+        .union(addedAcronyms)
+        .subtracting(ignoredAcronyms)
+        .sorted { $0.count > $1.count }
+
     enum Indentation: String, Codable {
         case spaces
         case tabs
+    }
+    
+    struct Entities {
+        var isGeneratingStructs: Bool
+        var entitiesGeneratedAsClasses: Set<String>
+        var entitiesGeneratedAsStructs: Set<String>
+        var isMakingClassesFinal: Bool
+        var baseClass: String?
+        var protocols: Set<String>
+        var isSkippingRedundantProtocols: Bool
+        // TODO: simplify this
+        var isGeneratingInitializers: Bool
+        var isGeneratingInitWithDecoder: Bool
+        var isGeneratingEncodeWithEncoder: Bool
+        var isSortingPropertiesAlphabetically: Bool
+        var isGeneratingCustomCodingKeys: Bool
+        var isAddingDefaultValues: Bool
+        var isInliningPropertiesFromReferencedSchemas: Bool
+        var isInterpretingEmptyObjectsAsDictionaries: Bool
+        var skip: Set<String>
+        
+        init(_ options: GenerateOptionsSchema.Entities?) {
+            self.isGeneratingStructs = options?.isGeneratingStructs ?? true
+            self.entitiesGeneratedAsClasses = Set(options?.entitiesGeneratedAsClasses ?? [])
+            self.entitiesGeneratedAsStructs = Set(options?.entitiesGeneratedAsStructs ?? [])
+            self.isMakingClassesFinal = options?.isMakingClassesFinal ?? true
+            self.baseClass = options?.baseClass
+            self.protocols = Set(options?.protocols ?? ["Codable"])
+            self.isSkippingRedundantProtocols = options?.isSkippingRedundantProtocols ?? true
+            self.isGeneratingInitializers = options?.isGeneratingInitializers ?? true
+            self.isGeneratingInitWithDecoder = options?.isGeneratingInitWithDecoder ?? true
+            self.isGeneratingEncodeWithEncoder = options?.isGeneratingEncodeWithEncoder ?? true
+            self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
+            self.isGeneratingCustomCodingKeys = options?.isGeneratingCustomCodingKeys ?? true
+            self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
+            self.isInliningPropertiesFromReferencedSchemas = options?.isInliningPropertiesFromReferencedSchemas ?? false
+            self.isInterpretingEmptyObjectsAsDictionaries = options?.isInterpretingEmptyObjectsAsDictionaries ?? false
+            self.skip = Set(options?.skip ?? [])
+        }
     }
 
     struct FileHeader {
@@ -51,6 +93,7 @@ final class GenerateOptions {
         var enumCaseNames: [String: String]
         var entities: [String: String]
         var operations: [String: String]
+        var collectionElements: [String: String]
         
         init(_ options: GenerateOptionsSchema.Rename?) {
             self.properties = options?.properties ?? [:]
@@ -58,6 +101,7 @@ final class GenerateOptions {
             self.enumCaseNames = options?.enumCaseNames ?? [:]
             self.entities = options?.entities ?? [:]
             self.operations = options?.operations ?? [:]
+            self.collectionElements = options?.collectionElements ?? [:]
         }
     }
     
@@ -100,7 +144,7 @@ final class GenerateOptions {
             self.namespace = options?.namespace ?? "Paths"
             self.isAddingResponseHeaders = options?.isAddingResponseHeaders ?? true
             self.isAddingOperationIds = options?.isAddingOperationIds ?? false
-            self.imports = Set(options?.imports ?? ["APIClient", "HTTPHeaders"])
+            self.imports = Set(options?.imports ?? ["APIClient"])
             self.overrideResponses = options?.overrideResponses ?? [:]
             var queryParameterEncoders = makeDefaultParameterEncoders()
             for (key, value) in options?.queryParameterEncoders ?? [:] {
@@ -121,55 +165,17 @@ final class GenerateOptions {
         case rest
         case operations
     }
-        
-    struct Entities {
-        var isGeneratingStructs: Bool
-        var entitiesGeneratedAsClasses: Set<String>
-        var entitiesGeneratedAsStructs: Set<String>
-        var isMakingClassesFinal: Bool
-        var baseClass: String?
-        var adoptedProtocols: Set<String>
-        var isSkippingRedundantProtocols: Bool
-        // TODO: simplify this
-        var isGeneratingInitializers: Bool
-        var isGeneratingInitWithDecoder: Bool
-        var isGeneratingEncodeWithEncoder: Bool
-        var isSortingPropertiesAlphabetically: Bool
-        var isUsingCustomCodingKeys: Bool
-        var isAddingDefaultValues: Bool
-        var isInliningPropertiesFromReferencedSchames: Bool
-        var skip: Set<String>
-        
-        init(_ options: GenerateOptionsSchema.Entities?) {
-            self.isGeneratingStructs = options?.isGeneratingStructs ?? true
-            self.entitiesGeneratedAsClasses = Set(options?.entitiesGeneratedAsClasses ?? [])
-            self.entitiesGeneratedAsStructs = Set(options?.entitiesGeneratedAsStructs ?? [])
-            self.isMakingClassesFinal = options?.isMakingClassesFinal ?? true
-            self.baseClass = options?.baseClass
-            self.adoptedProtocols = Set(options?.adoptedProtocols ?? ["Codable"])
-            self.isSkippingRedundantProtocols = options?.isSkippingRedundantProtocols ?? true
-            self.isGeneratingInitializers = options?.isGeneratingInitializers ?? true
-            self.isGeneratingInitWithDecoder = options?.isGeneratingInitWithDecoder ?? true
-            self.isGeneratingEncodeWithEncoder = options?.isGeneratingEncodeWithEncoder ?? true
-            self.isSortingPropertiesAlphabetically = options?.isSortingPropertiesAlphabetically ?? false
-            self.isUsingCustomCodingKeys = options?.isUsingCustomCodingKeys ?? true
-            self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
-            self.isInliningPropertiesFromReferencedSchames = options?.isInliningPropertiesFromReferencedSchames ?? false
-            self.skip = Set(options?.skip ?? [])
-        }
-    }
-
+ 
     init(_ options: GenerateOptionsSchema = .init()) {
         self.access = options.access ?? "public"
-#warning("TODO: replace with Get")
-        self.isRemovingUnneededImports = options.isRemovingUnneededImports ?? true
         self.paths = Paths(options.paths)
         self.isAddingDeprecations = options.isAddingDeprecations ?? true
         self.isGeneratingEnums = options.isGeneratingEnums ?? true
         self.isGeneratingSwiftyBooleanPropertyNames = options.isGeneratingSwiftyBooleanPropertyNames ?? true
-        self.isInliningPrimitiveTypes = options.isInliningPrimitiveTypes ?? true
+        self.isInliningTypealiases = options.isInliningTypealiases ?? true
         self.isReplacingCommonAcronyms = options.isReplacingCommonAcronyms ?? true
-        self.additionalAcronyms = (options.additionalAcronyms ?? []).map { $0.lowercased() }
+        self.addedAcronyms = (options.addedAcronyms ?? []).map { $0.lowercased() }
+        self.ignoredAcronyms = (options.ignoredAcronyms ?? []).map { $0.lowercased() }
         self.entities = Entities(options.entities)
         self.fileHeader = FileHeader(options.fileHeader)
         self.rename = Rename(options.rename)
@@ -177,8 +183,6 @@ final class GenerateOptions {
         self.indentation = options.indentation ?? .spaces
         self.spaceWidth = options.spaceWidth ?? 4
         self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
-        self.pluralizationExceptions = Set(options.pluralizationExceptions ?? [])
-        self.isInterpretingEmptyObjectsAsDictionaries = options.isInterpretingEmptyObjectsAsDictionaries ?? false
         self.isNaiveDateEnabled = options.isNaiveDateEnabled ?? true
         self.isUsingIntegersWithPredefinedCapacity = options.isUsingIntegersWithPredefinedCapacity ?? false
     }
@@ -186,25 +190,44 @@ final class GenerateOptions {
 
 final class GenerateOptionsSchema: Decodable {
     var access: String?
-    var isRemovingUnneededImports: Bool?
-    var paths: Paths?
     var isAddingDeprecations: Bool?
     var isGeneratingEnums: Bool?
     var isGeneratingSwiftyBooleanPropertyNames: Bool?
-    var isInliningPrimitiveTypes: Bool?
+    var isInliningTypealiases: Bool?
     var isReplacingCommonAcronyms: Bool?
-    var additionalAcronyms: [String]?
-    var entities: Entities?
-    var fileHeader: FileHeader?
-    var rename: Rename?
-    var comments: Comments?
+    var addedAcronyms: [String]?
+    var ignoredAcronyms: [String]?
     var indentation: GenerateOptions.Indentation?
     var spaceWidth: Int?
     var isPluralizationEnabled: Bool?
-    var pluralizationExceptions: [String]?
     var isInterpretingEmptyObjectsAsDictionaries: Bool?
     var isNaiveDateEnabled: Bool?
     var isUsingIntegersWithPredefinedCapacity: Bool?
+    
+    var entities: Entities?
+    var paths: Paths?
+    var fileHeader: FileHeader?
+    var rename: Rename?
+    var comments: Comments?
+    
+    struct Entities: Decodable {
+        var isGeneratingStructs: Bool?
+        var entitiesGeneratedAsClasses: [String]?
+        var entitiesGeneratedAsStructs: [String]?
+        var isMakingClassesFinal: Bool?
+        var isGeneratingInitializers: Bool?
+        var baseClass: String?
+        var protocols: [String]?
+        var isSkippingRedundantProtocols: Bool?
+        var isGeneratingInitWithDecoder: Bool?
+        var isGeneratingEncodeWithEncoder: Bool?
+        var isSortingPropertiesAlphabetically: Bool?
+        var isGeneratingCustomCodingKeys: Bool?
+        var isAddingDefaultValues: Bool?
+        var isInliningPropertiesFromReferencedSchemas: Bool?
+        var isInterpretingEmptyObjectsAsDictionaries: Bool?
+        var skip: [String]?
+    }
     
     struct FileHeader: Decodable {
         var addSwiftLintDisabled: Bool?
@@ -218,6 +241,7 @@ final class GenerateOptionsSchema: Decodable {
         var enumCaseNames: [String: String]?
         var entities: [String: String]?
         var operations: [String: String]?
+        var collectionElements: [String: String]?
     }
     
     struct Comments: Decodable {
@@ -245,24 +269,6 @@ final class GenerateOptionsSchema: Decodable {
         var isRemovingRedundantPaths: Bool?
         var skip: [String]?
     }
-    
-    struct Entities: Decodable {
-        var isGeneratingStructs: Bool?
-        var entitiesGeneratedAsClasses: [String]?
-        var entitiesGeneratedAsStructs: [String]?
-        var isMakingClassesFinal: Bool?
-        var isGeneratingInitializers: Bool?
-        var baseClass: String?
-        var adoptedProtocols: [String]?
-        var isSkippingRedundantProtocols: Bool?
-        var isGeneratingInitWithDecoder: Bool?
-        var isGeneratingEncodeWithEncoder: Bool?
-        var isSortingPropertiesAlphabetically: Bool?
-        var isUsingCustomCodingKeys: Bool?
-        var isAddingDefaultValues: Bool?
-        var isInliningPropertiesFromReferencedSchames: Bool?
-        var skip: [String]?
-    }
 }
 
 struct GenerateArguments {
@@ -286,3 +292,5 @@ private func makeDefaultParameterEncoders() -> [String: String] {
         "NaiveDate": "String(self)",
     ]
 }
+
+private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]

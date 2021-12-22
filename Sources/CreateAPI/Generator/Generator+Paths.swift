@@ -170,7 +170,7 @@ extension Generator {
     
     private func makeHeader() -> String {
         var header = fileHeader
-        for value in makeImports() {
+        for value in makeImports().sorted() {
             header += "\nimport \(value)"
         }
         return header
@@ -178,8 +178,8 @@ extension Generator {
     
     private func makeImports() -> [String] {
         var imports = options.paths.imports
-        if options.isRemovingUnneededImports && !isHTTPHeadersDependencyNeeded {
-            imports.remove("HTTPHeaders")
+        if isHTTPHeadersDependencyNeeded {
+            imports.insert("HTTPHeaders")
         }
         return imports.sorted()
     }
@@ -555,7 +555,7 @@ extension Generator {
                 return PropertyName(name)
             }
             if options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
-                return name.asBoolean
+                return name.asBoolean(options)
             }
             return name
         }

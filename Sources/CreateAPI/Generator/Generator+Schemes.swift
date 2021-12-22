@@ -114,7 +114,7 @@ extension Generator {
             return nil
         }
         #warning("TODO: inline if nested isnt nil too?")
-        if options.isInliningPrimitiveTypes, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
+        if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
             return nil
         }
         return declaration
@@ -166,7 +166,7 @@ extension Generator {
                 }
             }
             if let type = type, options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
-                return name.asBoolean
+                return name.asBoolean(options)
             }
             return name
         }
@@ -191,6 +191,7 @@ extension Generator {
         // TODO: Reuse 
         
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
+            // TODO: This should be done using the same apporach as makeSomeOf
             if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
                 return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
             }
@@ -273,7 +274,7 @@ extension Generator {
     // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
     private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
         var additional = details.additionalProperties
-        if details.properties.isEmpty, options.isInterpretingEmptyObjectsAsDictionaries {
+        if details.properties.isEmpty, options.entities.isInterpretingEmptyObjectsAsDictionaries {
             additional = additional ?? .a(true)
         }
         guard let additional = additional else {
@@ -313,7 +314,7 @@ extension Generator {
     }
     
     private func getProtocols(for type: TypeName, context: Context) -> Protocols {
-        var protocols = Protocols(options.entities.adoptedProtocols)
+        var protocols = Protocols(options.entities.protocols)
         let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
         let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
@@ -341,17 +342,18 @@ extension Generator {
     }
     
     private func makeNestedArrayTypeName(for key: String) -> TypeName {
+        if let name = options.rename.collectionElements[key] {
+            return TypeName(name)
+        }
         let name = makeTypeName(key)
-        if options.isPluralizationEnabled, !options.pluralizationExceptions.contains(name.rawValue) {
-            // Some know words that the library doesn't handle well
-            if name.rawValue == "Environments" { return TypeName("Environment") }
-            let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
-            if words.last?.singularized() != words.last {
-                let sing = (words.dropLast() + [words.last?.singularized()])
-                    .compactMap { $0?.capitalizingFirstLetter() }
-                    .joined(separator: "")
-                return makeTypeName(sing) // TODO: refactor
-            }
+        // Some know words that the library doesn't handle well
+        if name.rawValue == "Environments" { return TypeName("Environment") }
+        let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
+        if words.last?.singularized() != words.last {
+            let sing = (words.dropLast() + [words.last?.singularized()])
+                .compactMap { $0?.capitalizingFirstLetter() }
+                .joined(separator: "")
+            return makeTypeName(sing) // TODO: refactor
         }
         return name.appending("Item")
     }
@@ -474,7 +476,7 @@ extension Generator {
             // Note: while dereferencing, it does it recursively.
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
-            if options.isInliningPrimitiveTypes,
+            if options.isInliningTypealiases,
                let name = ref.name,
                let key = OpenAPI.ComponentKey(rawValue: name),
                let schema = spec.components.schemas[key],
@@ -549,7 +551,7 @@ extension Generator {
                 // Inline properties for nested objects (different from other OpenAPI constructs)
                 return try makeProperties(for: name, object: details, context: context)
             case .reference(let info,_ ):
-                if options.entities.isInliningPropertiesFromReferencedSchames,
+                if options.entities.isInliningPropertiesFromReferencedSchemas,
                    let schema = try? info.dereferenced(in: spec.components),
                    case .object(_, let details) = schema.jsonSchema {
                     return try makeProperties(for: name, object: details, context: context)

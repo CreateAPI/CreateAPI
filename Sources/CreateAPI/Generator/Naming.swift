@@ -50,7 +50,7 @@ struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
     var description: String { rawValue }
     
     /// Creates a Swifty property name, e.g. "finished" becomes "isFinished".
-    var asBoolean: PropertyName {
+    func asBoolean(_ options: GenerateOptions) -> PropertyName {
         var string = rawValue.trimmingCharacters(in: CharacterSet.ticks)
         let words = string.words
         guard !words.isEmpty else {
@@ -60,7 +60,7 @@ struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
             return self
         }
         let first = words[0]
-        if acronyms.contains(first.lowercased()) {
+        if options.allAcronyms.contains(first.lowercased()) {
             string.removeFirst(first.count)
             string = first.uppercased() + string
         }
@@ -176,7 +176,7 @@ extension String {
         // WARNING: Depends on isProperty and first lowercase letter (implementation detail)
         // TODO: Refactor
         if options.isReplacingCommonAcronyms {
-            for acronym in acronyms + options.additionalAcronyms {
+            for acronym in options.allAcronyms {
                 if let range = output.range(of: acronym.capitalizingFirstLetter()),
                    (range.upperBound == output.endIndex || output[range.upperBound].isUppercase || output[range.upperBound] == "s") {
                     output.replaceSubrange(range, with: acronym.uppercased())
@@ -195,6 +195,8 @@ extension String {
         output = isProperty ? output.escapedPropertyName : output.escapedTypeName
         return output
     }
+    
+
 }
 
 // TODO: Expand this to work with multiple characters
@@ -216,9 +218,6 @@ private let booleanExceptions = Set(["is", "has", "have", "allow", "allows", "en
 private let keywords = Set(["func", "public", "private", "open", "fileprivate", "internal", "default", "import", "init", "deinit", "typealias", "let", "var", "in", "return", "for", "switch", "where", "associatedtype", "guard", "enum", "struct", "class", "protocol", "extension", "if", "else", "self", "none", "throw", "throws", "rethrows", "inout", "operator", "static", "subscript", "case", "break", "continue", "defer", "do", "fallthrough", "repeat", "while", "as", "some", "super", "catch", "false", "true", "is", "nil", "try"])
 
 private let capitilizedKeywords = Set(["Self", "Type", "Protocol", "Any", "AnyObject"])
-
-// WARNING: Order is important (consuming the longer ones first)
-private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]
 
 // In reality, no one should be using case names like this.
 private let replacements: [String: String] = [
