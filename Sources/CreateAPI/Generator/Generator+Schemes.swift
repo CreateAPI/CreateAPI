@@ -251,12 +251,7 @@ extension Generator {
         }
 
         switch schema {
-        case .object(let info, let details):
-            // Try go generate primitive type first
-            if let property = try? makeProperty(schema: schema) {
-                return property
-            }
-            return try makeObject(info: info, details: details)
+        case .object(let info, let details): return try makeObject(info: info, details: details)
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
         case .all, .one, .any: return try makeSomeOf()
