@@ -411,29 +411,7 @@ extension Generator {
         }
         return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
     }
-    
-    private func isInlinable(_ schema: JSONSchema, context: Context) -> Bool {
-        switch schema {
-        case .boolean: return true
-        case .number: return true
-        case .integer: return true
-        case .string(let info, _):
-            return !isEnum(info)
-        case .object: return true
-        case .array(_, let details):
-            if let item = details.items {
-                return (try? getPrimitiveType(for: item, context: context)) != nil
-            }
-            return false
-        case .all: return false
-        case .one: return false
-        case .any: return false
-        case .not: return false
-        case .reference: return false
-        case .fragment: return true
-        }
-    }
-    
+        
     private func isEnum(_ info: JSONSchemaContext) -> Bool {
         options.isGeneratingEnums && info.allowedValues != nil
     }
