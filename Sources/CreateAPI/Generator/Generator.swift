@@ -113,6 +113,7 @@ struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
     var errorDescription: String? { message }
 }
 
+// TODO: Move props to bit array
 struct Context {
     var parents: [TypeName]
     var namespace: String? // TODO: Refactor how namespaces are added
@@ -120,6 +121,7 @@ struct Context {
     var isEncodableNeeded = true
     var isPatch = false
     var isFormEncoding = false
+    var isInlinableTypeCheck = false
     
     func adding(_ parent: TypeName) -> Context {
         map { $0.parents = $0.parents + [parent] }

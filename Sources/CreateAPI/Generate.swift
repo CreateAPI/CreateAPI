@@ -109,8 +109,6 @@ struct Generate: ParsableCommand {
     }
     
     private func readOptions() throws -> GenerateOptions {
-        VendorExtensionsConfiguration.isEnabled = false
-        
         let url = URL(filePath: config)
         guard let data = try? Data(contentsOf: url), !data.isEmpty else {
             return GenerateOptions() // Use default options
@@ -132,6 +130,8 @@ struct Generate: ParsableCommand {
     }
     
     private func parseInputSpec() throws -> OpenAPI.Document {
+        VendorExtensionsConfiguration.isEnabled = false
+        
         let inputURL = URL(filePath: input)
         
         var bench = Benchmark(name: "Read spec data")
