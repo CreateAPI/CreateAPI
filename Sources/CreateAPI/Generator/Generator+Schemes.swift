@@ -188,6 +188,8 @@ extension Generator {
             return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
         }
                 
+        // TODO: Reuse 
+        
         func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
             if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
                 return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
@@ -296,7 +298,7 @@ extension Generator {
                 return AdditionalProperties(type: .dictionary(value: type), info: info)
             }
             let nestedTypeName = makeNestedArrayTypeName(for: key)
-            let nested = try _makeDeclaration(name: nestedTypeName, schema: schema, context: context)
+            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
             return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
         }
     }
@@ -478,7 +480,8 @@ extension Generator {
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
             if options.isInliningPrimitiveTypes,
-               let key = OpenAPI.ComponentKey(rawValue: ref.name ?? ""),
+               let name = ref.name,
+               let key = OpenAPI.ComponentKey(rawValue: name),
                let schema = spec.components.schemas[key],
                let inlined = try getPrimitiveType(for: schema, context: context) {
                 return inlined // Inline simple types
