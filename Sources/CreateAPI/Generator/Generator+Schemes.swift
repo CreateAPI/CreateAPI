@@ -274,7 +274,7 @@ extension Generator {
     // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
     private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
         var additional = details.additionalProperties
-        if details.properties.isEmpty, options.entities.isInterpretingEmptyObjectsAsDictionaries {
+        if details.properties.isEmpty, options.entities.isAdditionalPropertiesOnByDefault {
             additional = additional ?? .a(true)
         }
         guard let additional = additional else {
@@ -288,6 +288,7 @@ extension Generator {
             if !details.properties.isEmpty {
                 return nil
             }
+            setNeedsAnyJson()
             return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
         case .b(let schema):
             if let type = try getPrimitiveType(for: schema, context: context) {

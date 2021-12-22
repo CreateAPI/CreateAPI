@@ -18,12 +18,8 @@ extension Paths {
         /// Checks API calling code.
         ///
         /// [API method documentation](https://api.slack.com/methods/api.test)
-        public func get(foo: String? = nil, error: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(foo: String? = nil, error: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(foo, error))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ foo: String?, _ error: String?) -> [(String, String?)] {
@@ -47,12 +43,8 @@ extension Paths {
         /// Returns list of permissions this app has on a team.
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.info)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -75,12 +67,8 @@ extension Paths {
         /// Allows an app to request additional scopes
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.request)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -117,12 +105,8 @@ extension Paths {
         /// Returns list of resource grants this app has on a team.
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.resources.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -159,12 +143,8 @@ extension Paths {
         /// Returns list of scopes this app has on a team.
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.scopes.list)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -187,12 +167,8 @@ extension Paths {
         /// Revokes a token.
         ///
         /// [API method documentation](https://api.slack.com/methods/auth.revoke)
-        public func get(isTest: Bool? = nil, token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(isTest: Bool? = nil, token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(isTest, token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ isTest: Bool?, _ token: String?) -> [(String, String?)] {
@@ -216,12 +192,8 @@ extension Paths {
         /// Checks authentication & identity.
         ///
         /// [API method documentation](https://api.slack.com/methods/auth.test)
-        public var get: Request<[String: GetResponseItem]> {
+        public var get: Request<[String: [String: AnyJSON]]> {
             .get(path)
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -238,12 +210,8 @@ extension Paths {
         /// Gets information about a bot user.
         ///
         /// [API method documentation](https://api.slack.com/methods/bots.info)
-        public func get(token: String? = nil, bot: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, bot: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, bot))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ bot: String?) -> [(String, String?)] {
@@ -267,12 +235,8 @@ extension Paths {
         /// Archives a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.archive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -289,12 +253,8 @@ extension Paths {
         /// Creates a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.create)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -328,12 +288,8 @@ extension Paths {
         /// Fetches history of messages and events from a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.history)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -382,12 +338,8 @@ extension Paths {
         /// Gets information about a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.info)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -424,12 +376,8 @@ extension Paths {
         /// Invites a user to a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.invite)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -458,12 +406,8 @@ extension Paths {
         /// Joins a channel, creating it if needed.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.join)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -497,12 +441,8 @@ extension Paths {
         /// Removes a user from a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.kick)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -531,12 +471,8 @@ extension Paths {
         /// Leaves a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.leave)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -553,12 +489,8 @@ extension Paths {
         /// Lists all channels in a Slack team.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -601,12 +533,8 @@ extension Paths {
         /// Sets the read cursor in a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.mark)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -635,12 +563,8 @@ extension Paths {
         /// Renames a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.rename)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -678,12 +602,8 @@ extension Paths {
         /// Retrieve a thread of messages posted to a channel
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.replies)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -720,12 +640,8 @@ extension Paths {
         /// Sets the purpose for a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.setPurpose)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -754,12 +670,8 @@ extension Paths {
         /// Sets the topic for a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.setTopic)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -788,12 +700,8 @@ extension Paths {
         /// Unarchives a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.unarchive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -810,12 +718,8 @@ extension Paths {
         /// Deletes a message.
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.delete)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -853,12 +757,8 @@ extension Paths {
         /// Retrieve a permalink URL for a specific extant message
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.getPermalink)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -895,12 +795,8 @@ extension Paths {
         /// Share a me message into a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.meMessage)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -929,12 +825,8 @@ extension Paths {
         /// Sends an ephemeral message to a user in a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.postEphemeral)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -988,12 +880,8 @@ extension Paths {
         /// Sends a message to a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.postMessage)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1075,12 +963,8 @@ extension Paths {
         /// Provide custom unfurl behavior for user-posted URLs
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.unfurl)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1130,12 +1014,8 @@ extension Paths {
         /// Updates a message.
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.update)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1189,12 +1069,8 @@ extension Paths {
         /// Archives a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.archive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1211,12 +1087,8 @@ extension Paths {
         /// Closes a direct message or multi-person direct message.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.close)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1233,12 +1105,8 @@ extension Paths {
         /// Initiates a public or private channel-based conversation
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.create)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1272,12 +1140,8 @@ extension Paths {
         /// Fetches a conversation's history of messages and events.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.history)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -1326,12 +1190,8 @@ extension Paths {
         /// Retrieve information about a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.info)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -1368,12 +1228,8 @@ extension Paths {
         /// Invites users to a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.invite)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1402,12 +1258,8 @@ extension Paths {
         /// Joins an existing conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.join)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1424,12 +1276,8 @@ extension Paths {
         /// Removes a user from a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.kick)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1458,12 +1306,8 @@ extension Paths {
         /// Leaves a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.leave)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1480,12 +1324,8 @@ extension Paths {
         /// Lists all channels in a Slack team.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -1528,12 +1368,8 @@ extension Paths {
         /// Retrieve members of a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.members)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -1573,12 +1409,8 @@ extension Paths {
         /// Opens or resumes a direct message or multi-person direct message.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.open)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1616,12 +1448,8 @@ extension Paths {
         /// Renames a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.rename)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1650,12 +1478,8 @@ extension Paths {
         /// Retrieve a thread of messages posted to a conversation
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.replies)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -1707,12 +1531,8 @@ extension Paths {
         /// Sets the purpose for a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.setPurpose)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1741,12 +1561,8 @@ extension Paths {
         /// Sets the topic for a conversation.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.setTopic)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1775,12 +1591,8 @@ extension Paths {
         /// Reverses conversation archival.
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.unarchive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1797,12 +1609,8 @@ extension Paths {
         /// Open a dialog with a user
         ///
         /// [API method documentation](https://api.slack.com/methods/dialog.open)
-        public func get(dialog: String? = nil, triggerID: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(dialog: String? = nil, triggerID: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(dialog, triggerID))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ dialog: String?, _ triggerID: String?) -> [(String, String?)] {
@@ -1826,12 +1634,8 @@ extension Paths {
         /// Ends the current user's Do Not Disturb session immediately.
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.endDnd)
-        public var post: Request<[String: PostResponseItem]> {
+        public var post: Request<[String: [String: AnyJSON]]> {
             .post(path)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1848,12 +1652,8 @@ extension Paths {
         /// Ends the current user's snooze mode immediately.
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.endSnooze)
-        public var post: Request<[String: PostResponseItem]> {
+        public var post: Request<[String: [String: AnyJSON]]> {
             .post(path)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -1870,12 +1670,8 @@ extension Paths {
         /// Retrieves a user's current Do Not Disturb status.
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.info)
-        public func get(token: String? = nil, user: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, user: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, user))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
@@ -1899,12 +1695,8 @@ extension Paths {
         /// Turns on Do Not Disturb mode for the current user, or changes its duration.
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.setSnooze)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body?.asQuery())
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -1940,12 +1732,8 @@ extension Paths {
         /// Retrieves the Do Not Disturb status for users on a team.
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.teamInfo)
-        public func get(token: String? = nil, users: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, users: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, users))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ users: String?) -> [(String, String?)] {
@@ -1969,12 +1757,8 @@ extension Paths {
         /// Lists custom emoji for a team.
         ///
         /// [API method documentation](https://api.slack.com/methods/emoji.list)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -1997,12 +1781,8 @@ extension Paths {
         /// Add a comment to an existing file.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.comments.add)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2031,12 +1811,8 @@ extension Paths {
         /// Deletes an existing comment on a file.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.comments.delete)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2065,12 +1841,8 @@ extension Paths {
         /// Edit an existing file comment.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.comments.edit)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2102,12 +1874,8 @@ extension Paths {
         /// Deletes a file.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.delete)
-        public func post(file: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(file: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["file": file])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2124,12 +1892,8 @@ extension Paths {
         /// Gets information about a team file.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.info)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2169,12 +1933,8 @@ extension Paths {
         /// Lists & filters team files.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2226,12 +1986,8 @@ extension Paths {
         /// Revokes public/external sharing access for a file
         ///
         /// [API method documentation](https://api.slack.com/methods/files.revokePublicURL)
-        public func post(file: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(file: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["file": file])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2248,12 +2004,8 @@ extension Paths {
         /// Enables a file for public/external sharing.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.sharedPublicURL)
-        public func post(file: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(file: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["file": file])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2270,12 +2022,8 @@ extension Paths {
         /// Uploads or creates a file.
         ///
         /// [API method documentation](https://api.slack.com/methods/files.upload)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body?.asQuery())
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2335,12 +2083,8 @@ extension Paths {
         /// Archives a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.archive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2357,12 +2101,8 @@ extension Paths {
         /// Creates a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.create)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2396,12 +2136,8 @@ extension Paths {
         /// Clones and archives a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.createChild)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body?.asQuery())
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2437,12 +2173,8 @@ extension Paths {
         /// Fetches history of messages and events from a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.history)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2491,12 +2223,8 @@ extension Paths {
         /// Gets information about a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.info)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2533,12 +2261,8 @@ extension Paths {
         /// Invites a user to a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.invite)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2567,12 +2291,8 @@ extension Paths {
         /// Removes a user from a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.kick)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2601,12 +2321,8 @@ extension Paths {
         /// Leaves a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.leave)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2623,12 +2339,8 @@ extension Paths {
         /// Lists private channels that the calling user has access to.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2665,12 +2377,8 @@ extension Paths {
         /// Sets the read cursor in a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.mark)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2699,12 +2407,8 @@ extension Paths {
         /// Opens a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.open)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2721,12 +2425,8 @@ extension Paths {
         /// Renames a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.rename)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2764,12 +2464,8 @@ extension Paths {
         /// Retrieve a thread of messages posted to a private channel
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.replies)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2806,12 +2502,8 @@ extension Paths {
         /// Sets the purpose for a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.setPurpose)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2840,12 +2532,8 @@ extension Paths {
         /// Sets the topic for a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.setTopic)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -2874,12 +2562,8 @@ extension Paths {
         /// Unarchives a private channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.unarchive)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2896,12 +2580,8 @@ extension Paths {
         /// Close a direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/im.close)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -2918,12 +2598,8 @@ extension Paths {
         /// Fetches history of messages and events from direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/im.history)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -2972,12 +2648,8 @@ extension Paths {
         /// Lists direct message channels for the calling user.
         ///
         /// [API method documentation](https://api.slack.com/methods/im.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3014,12 +2686,8 @@ extension Paths {
         /// Sets the read cursor in a direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/im.mark)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3048,12 +2716,8 @@ extension Paths {
         /// Opens a direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/im.open)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3091,12 +2755,8 @@ extension Paths {
         /// Retrieve a thread of messages posted to a direct message conversation
         ///
         /// [API method documentation](https://api.slack.com/methods/im.replies)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3133,12 +2793,8 @@ extension Paths {
         /// For Enterprise Grid workspaces, map local user IDs to global user IDs
         ///
         /// [API method documentation](https://api.slack.com/methods/migration.exchange)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3175,12 +2831,8 @@ extension Paths {
         /// Closes a multiparty direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.close)
-        public func post(channel: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(channel: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["channel": channel])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -3197,12 +2849,8 @@ extension Paths {
         /// Fetches history of messages and events from a multiparty direct message.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.history)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3251,12 +2899,8 @@ extension Paths {
         /// Lists multiparty direct message channels for the calling user.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.list)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -3279,12 +2923,8 @@ extension Paths {
         /// Sets the read cursor in a multiparty direct message channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.mark)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3313,12 +2953,8 @@ extension Paths {
         /// This method opens a multiparty direct message.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.open)
-        public func post(users: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(users: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["users": users])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -3335,12 +2971,8 @@ extension Paths {
         /// Retrieve a thread of messages posted to a direct message conversation from a multiparty direct message.
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.replies)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3377,12 +3009,8 @@ extension Paths {
         /// Exchanges a temporary OAuth verifier code for an access token.
         ///
         /// [API method documentation](https://api.slack.com/methods/oauth.access)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3425,12 +3053,8 @@ extension Paths {
         /// Exchanges a temporary OAuth verifier code for a workspace token.
         ///
         /// [API method documentation](https://api.slack.com/methods/oauth.token)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3473,12 +3097,8 @@ extension Paths {
         /// Pins an item to a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/pins.add)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3520,15 +3140,8 @@ extension Paths {
         /// Lists items pinned to a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/pins.list)
-        public func get(token: String? = nil, channel: String? = nil) -> Request<GetResponse> {
+        public func get(token: String? = nil, channel: String? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(token, channel))
-        }
-
-        /// Pins.list success schema
-        ///
-        /// Schema for successful response from pins.list method
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ channel: String?) -> [(String, String?)] {
@@ -3552,12 +3165,8 @@ extension Paths {
         /// Un-pins an item from a channel.
         ///
         /// [API method documentation](https://api.slack.com/methods/pins.remove)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3599,12 +3208,8 @@ extension Paths {
         /// Adds a reaction to an item.
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.add)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3650,15 +3255,8 @@ extension Paths {
         /// Gets reactions for an item.
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.get)
-        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        /// Reactions.get success schema
-        ///
-        /// Schema for successful response from reactions.get method
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3704,12 +3302,8 @@ extension Paths {
         /// Lists reactions made by a user.
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3752,12 +3346,8 @@ extension Paths {
         /// Removes a reaction from an item.
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.remove)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3803,12 +3393,8 @@ extension Paths {
         /// Creates a reminder.
         ///
         /// [API method documentation](https://api.slack.com/methods/reminders.add)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -3840,12 +3426,8 @@ extension Paths {
         /// Marks a reminder as complete.
         ///
         /// [API method documentation](https://api.slack.com/methods/reminders.complete)
-        public func post(reminder: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(reminder: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["reminder": reminder])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -3862,12 +3444,8 @@ extension Paths {
         /// Deletes a reminder.
         ///
         /// [API method documentation](https://api.slack.com/methods/reminders.delete)
-        public func post(reminder: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(reminder: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["reminder": reminder])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -3884,12 +3462,8 @@ extension Paths {
         /// Gets information about a reminder.
         ///
         /// [API method documentation](https://api.slack.com/methods/reminders.info)
-        public func get(token: String? = nil, reminder: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, reminder: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, reminder))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ reminder: String?) -> [(String, String?)] {
@@ -3913,12 +3487,8 @@ extension Paths {
         /// Lists all reminders created by or for a given user.
         ///
         /// [API method documentation](https://api.slack.com/methods/reminders.list)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -3941,12 +3511,8 @@ extension Paths {
         /// Starts a Real Time Messaging session.
         ///
         /// [API method documentation](https://api.slack.com/methods/rtm.connect)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -3983,12 +3549,8 @@ extension Paths {
         /// Searches for messages and files matching a query.
         ///
         /// [API method documentation](https://api.slack.com/methods/search.all)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4037,12 +3599,8 @@ extension Paths {
         /// Searches for files matching a query.
         ///
         /// [API method documentation](https://api.slack.com/methods/search.files)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4091,12 +3649,8 @@ extension Paths {
         /// Searches for messages matching a query.
         ///
         /// [API method documentation](https://api.slack.com/methods/search.messages)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4145,12 +3699,8 @@ extension Paths {
         /// Adds a star to an item.
         ///
         /// [API method documentation](https://api.slack.com/methods/stars.add)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4192,12 +3742,8 @@ extension Paths {
         /// Lists stars for a user.
         ///
         /// [API method documentation](https://api.slack.com/methods/stars.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4234,12 +3780,8 @@ extension Paths {
         /// Removes a star from an item.
         ///
         /// [API method documentation](https://api.slack.com/methods/stars.remove)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4281,12 +3823,8 @@ extension Paths {
         /// Gets the access logs for the current team.
         ///
         /// [API method documentation](https://api.slack.com/methods/team.accessLogs)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4326,12 +3864,8 @@ extension Paths {
         /// Gets billable users information for the current team.
         ///
         /// [API method documentation](https://api.slack.com/methods/team.billableInfo)
-        public func get(token: String? = nil, user: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, user: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, user))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
@@ -4355,12 +3889,8 @@ extension Paths {
         /// Gets information about the current team.
         ///
         /// [API method documentation](https://api.slack.com/methods/team.info)
-        public func get(token: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -4383,12 +3913,8 @@ extension Paths {
         /// Gets the integration logs for the current team.
         ///
         /// [API method documentation](https://api.slack.com/methods/team.integrationLogs)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4437,12 +3963,8 @@ extension Paths {
         /// Retrieve a team's profile.
         ///
         /// [API method documentation](https://api.slack.com/methods/team.profile.get)
-        public func get(token: String? = nil, visibility: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, visibility: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, visibility))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ visibility: String?) -> [(String, String?)] {
@@ -4466,12 +3988,8 @@ extension Paths {
         /// Create a User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.create)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4517,12 +4035,8 @@ extension Paths {
         /// Disable an existing User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.disable)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4556,12 +4070,8 @@ extension Paths {
         /// Enable a User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.enable)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4595,12 +4105,8 @@ extension Paths {
         /// List all User Groups for a team
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4640,12 +4146,8 @@ extension Paths {
         /// Update an existing User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.update)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4695,12 +4197,8 @@ extension Paths {
         /// List all users in a User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.users.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4737,12 +4235,8 @@ extension Paths {
         /// Update the list of users for a User Group
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.users.update)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4780,12 +4274,8 @@ extension Paths {
         /// List conversations the calling user may access.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.conversations)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4831,12 +4321,8 @@ extension Paths {
         /// Delete the user profile photo
         ///
         /// [API method documentation](https://api.slack.com/methods/users.deletePhoto)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body?.asQuery())
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -4868,12 +4354,8 @@ extension Paths {
         /// Gets user presence information.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.getPresence)
-        public func get(token: String? = nil, user: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, user: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, user))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
@@ -4897,15 +4379,8 @@ extension Paths {
         /// Get a user's identity.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.identity)
-        public func get(token: String? = nil) -> Request<GetResponse> {
+        public func get(token: String? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(token))
-        }
-
-        /// Users.identity schema
-        ///
-        /// Schema for successful response from users.identity method
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
@@ -4928,12 +4403,8 @@ extension Paths {
         /// Gets information about a user.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.info)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -4970,12 +4441,8 @@ extension Paths {
         /// Lists all users in a Slack team.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.list)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -5018,12 +4485,8 @@ extension Paths {
         /// Find a user with an email address.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.lookupByEmail)
-        public func get(token: String? = nil, email: String? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(token: String? = nil, email: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: makeGetQuery(token, email))
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ token: String?, _ email: String?) -> [(String, String?)] {
@@ -5047,12 +4510,8 @@ extension Paths {
         /// Retrieves a user's profile information.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.profile.get)
-        public func get(parameters: GetParameters? = nil) -> Request<[String: GetResponseItem]> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponseItem: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -5089,12 +4548,8 @@ extension Paths {
         /// Set the profile information for a user.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.profile.set)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -5129,12 +4584,8 @@ extension Paths {
         /// Marked a user as active. Deprecated and non-functional.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.setActive)
-        public var post: Request<[String: PostResponseItem]> {
+        public var post: Request<[String: [String: AnyJSON]]> {
             .post(path)
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }
@@ -5151,12 +4602,8 @@ extension Paths {
         /// Set the user profile photo
         ///
         /// [API method documentation](https://api.slack.com/methods/users.setPhoto)
-        public func post(_ body: PostRequest? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: body?.asQuery())
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
 
         public struct PostRequest: Encodable {
@@ -5204,12 +4651,8 @@ extension Paths {
         /// Manually sets user presence.
         ///
         /// [API method documentation](https://api.slack.com/methods/users.setPresence)
-        public func post(presence: String? = nil) -> Request<[String: PostResponseItem]> {
+        public func post(presence: String? = nil) -> Request<[String: [String: AnyJSON]]> {
             .post(path, body: ["presence": presence])
-        }
-
-        public struct PostResponseItem: Decodable {
-            public init() {}
         }
     }
 }

@@ -770,14 +770,9 @@ public struct TeamObject: Codable {
     /// The maximum number of examiners that can grade an item on an exam event
     public var examEventMaxExaminers: Int?
     /// Additional client supplied data to be associated with this team
-    public var customData: CustomData?
+    public var customData: [String: AnyJSON]?
 
-    /// Additional client supplied data to be associated with this team
-    public struct CustomData: Codable {
-        public init() {}
-    }
-
-    public init(allowExaminerHolds: Bool? = nil, name: String? = nil, itemIDs: [Int]? = nil, tags: [String]? = nil, examEventName: String? = nil, examEventID: Int? = nil, examinerIDs: [Int]? = nil, teamID: String? = nil, id: Int? = nil, examEventMaxExaminers: Int? = nil, customData: CustomData? = nil) {
+    public init(allowExaminerHolds: Bool? = nil, name: String? = nil, itemIDs: [Int]? = nil, tags: [String]? = nil, examEventName: String? = nil, examEventID: Int? = nil, examinerIDs: [Int]? = nil, teamID: String? = nil, id: Int? = nil, examEventMaxExaminers: Int? = nil, customData: [String: AnyJSON]? = nil) {
         self.allowExaminerHolds = allowExaminerHolds
         self.name = name
         self.itemIDs = itemIDs

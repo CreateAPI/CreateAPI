@@ -66,7 +66,7 @@ extension Paths.Cloudloading {
         public let path: String
 
         /// Remove the book and its contents
-        public func post(volumeID: String) -> Request<GoogleBooksAPI.Empty> {
+        public func post(volumeID: String) -> Request<[String: AnyJSON]> {
             .post(path, query: makePostQuery(volumeID))
         }
 
@@ -170,7 +170,7 @@ extension Paths.Familysharing {
         public let path: String
 
         /// Initiates sharing of the content with the user's family. Empty response indicates success.
-        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -206,7 +206,7 @@ extension Paths.Familysharing {
         public let path: String
 
         /// Initiates revoking content that has already been shared with the user's family. Empty response indicates success.
-        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -578,7 +578,7 @@ extension Paths.Mylibrary.Annotations {
         }
 
         /// Deletes an annotation.
-        public func delete(source: String? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func delete(source: String? = nil) -> Request<[String: AnyJSON]> {
             .delete(path, query: makeDeleteQuery(source))
         }
 
@@ -644,7 +644,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Adds a volume to a bookshelf.
-        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -687,7 +687,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Clears all volumes from a bookshelf.
-        public func post(source: String? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func post(source: String? = nil) -> Request<[String: AnyJSON]> {
             .post(path, query: makePostQuery(source))
         }
 
@@ -709,7 +709,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Moves a volume within a bookshelf.
-        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -745,7 +745,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
         public let path: String
 
         /// Removes a volume from a bookshelf.
-        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -874,7 +874,7 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
         public let path: String
 
         /// Sets my reading position information for a volume.
-        public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters.asQuery())
         }
 
@@ -1123,7 +1123,7 @@ extension Paths.Promooffer {
         public let path: String
 
         /// Accepts the promo offer.
-        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters?.asQuery())
         }
 
@@ -1174,7 +1174,7 @@ extension Paths.Promooffer {
         public let path: String
 
         /// Marks the promo offer as dismissed.
-        public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.Empty> {
+        public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
             .post(path, query: parameters?.asQuery())
         }
 

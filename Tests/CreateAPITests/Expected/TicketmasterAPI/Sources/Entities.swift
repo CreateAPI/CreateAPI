@@ -163,11 +163,6 @@ public struct Attraction: Codable {
     }
 }
 
-/// All Attraction's extensions
-public struct AttractionExtensions: Codable {
-    public init() {}
-}
-
 /// Attribution
 public struct Attribution: Codable {
     /// LicenceName
@@ -686,11 +681,6 @@ public struct EventDates: Codable {
     }
 }
 
-/// All Event's extensions
-public struct EventExtensions: Codable {
-    public init() {}
-}
-
 /// This class defines an Event with only images view on the Discovery API
 public struct EventImages: Codable {
     /// Unique id of the entity in the discovery API
@@ -747,10 +737,6 @@ public struct EventStatus: Codable {
     public init(code: Code? = nil) {
         self.code = code
     }
-}
-
-public struct Extension: Codable {
-    public init() {}
 }
 
 /// ExternalLink
@@ -819,11 +805,6 @@ public struct Geometry: Codable {
     public init(location: Location? = nil) {
         self.location = location
     }
-}
-
-/// Event's Host extension
-public struct HostExtension: Codable {
-    public init() {}
 }
 
 /// Image
@@ -1137,11 +1118,6 @@ public struct PublicSaleDates: Codable {
     }
 }
 
-/// The class defines the public visibility period on the Discovery/Publish API.
-public struct PublicVisibility: Codable {
-    public init() {}
-}
-
 /// Relationship
 public struct Relationship: Codable {
     /// The ID of the related entity
@@ -1203,11 +1179,6 @@ public struct Social: Codable {
     public init(twitter: Twitter? = nil) {
         self.twitter = twitter
     }
-}
-
-/// Source
-public struct Source: Codable {
-    public init() {}
 }
 
 /// Event's Start Dates
@@ -1275,16 +1246,6 @@ public struct State: Codable {
     }
 }
 
-/// The Attraction Tool (TAT) extension
-public struct TatExtension: Codable {
-    public init() {}
-}
-
-/// Attraction's extension (ticketmaster source)
-public struct TicketmasterAttractionExtensions: Codable {
-    public init() {}
-}
-
 /// Event's extension (ticketmaster source)
 public struct TicketmasterEventExtensions: Codable {
     /// Event's display settings extension
@@ -1293,11 +1254,6 @@ public struct TicketmasterEventExtensions: Codable {
     public init(displaySettings: DisplaySettingExtension? = nil) {
         self.displaySettings = displaySettings
     }
-}
-
-/// Venue's extension (ticketmaster source)
-public struct TicketmasterVenueExtensions: Codable {
-    public init() {}
 }
 
 /// Twitter data
@@ -1522,6 +1478,54 @@ public struct VenueGeneralInfo: Codable {
     public init(childRule: String? = nil, generalRule: String? = nil) {
         self.childRule = childRule
         self.generalRule = generalRule
+    }
+}
+
+public enum AnyJSON: Equatable, Codable {
+    case string(String)
+    case number(Double)
+    case object([String: AnyJSON])
+    case array([AnyJSON])
+    case bool(Bool)
+
+    var value: Any {
+        switch self {
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .array(array): try container.encode(array)
+        case let .object(object): try container.encode(object)
+        case let .string(string): try container.encode(string)
+        case let .number(number): try container.encode(number)
+        case let .bool(bool): try container.encode(bool)
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let object = try? container.decode([String: AnyJSON].self) {
+            self = .object(object)
+        } else if let array = try? container.decode([AnyJSON].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let bool = try? container.decode(Bool.self) {
+            self = .bool(bool)
+        } else if let number = try? container.decode(Double.self) {
+            self = .number(number)
+        } else {
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+            )
+        }
     }
 }
 

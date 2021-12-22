@@ -54,7 +54,7 @@ extension Paths {
                     public var lft: Int?
                     public var parentID: AnyJSON?
                     public var recommendationCount: Int?
-                    public var replies: [Reply]?
+                    public var replies: [[String: AnyJSON]]?
                     public var replyCount: Int?
                     public var rgt: Int?
                     public var status: String?
@@ -66,11 +66,7 @@ extension Paths {
                     public var userTitle: String?
                     public var userURL: Int?
 
-                    public struct Reply: Decodable {
-                        public init() {}
-                    }
-
-                    public init(approveDate: String? = nil, assetID: Int? = nil, assetURL: String? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, editorsSelection: Int? = nil, lft: Int? = nil, parentID: AnyJSON? = nil, recommendationCount: Int? = nil, replies: [Reply]? = nil, replyCount: Int? = nil, rgt: Int? = nil, status: String? = nil, statusID: Int? = nil, updateDate: String? = nil, userDisplayName: String? = nil, userID: Int? = nil, userLocation: String? = nil, userTitle: String? = nil, userURL: Int? = nil) {
+                    public init(approveDate: String? = nil, assetID: Int? = nil, assetURL: String? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, editorsSelection: Int? = nil, lft: Int? = nil, parentID: AnyJSON? = nil, recommendationCount: Int? = nil, replies: [[String: AnyJSON]]? = nil, replyCount: Int? = nil, rgt: Int? = nil, status: String? = nil, statusID: Int? = nil, updateDate: String? = nil, userDisplayName: String? = nil, userID: Int? = nil, userLocation: String? = nil, userTitle: String? = nil, userURL: Int? = nil) {
                         self.approveDate = approveDate
                         self.assetID = assetID
                         self.assetURL = assetURL
@@ -177,7 +173,7 @@ extension Paths {
                     public var location: String?
                     public var parentID: AnyJSON?
                     public var recommendationCount: Int?
-                    public var replies: [Reply]?
+                    public var replies: [[String: AnyJSON]]?
                     public var status: String?
                     public var statusID: Int?
                     public var updateDate: String?
@@ -193,32 +189,24 @@ extension Paths {
                         public var assetTitle: String?
                         public var assetURL: String?
                         public var createDate: String?
-                        public var labels: [Label]?
+                        public var labels: [[String: AnyJSON]]?
                         public var properties: Properties?
                         public var source: String?
                         public var taxonomy: String?
-                        public var text: [TextItem]?
+                        public var text: [[String: AnyJSON]]?
                         public var updateDate: String?
                         public var vendorID: String?
 
                         public struct AllProperty: Decodable {
                             public var description: String?
                             public var name: String?
-                            public var properties: [Property]?
+                            public var properties: [[String: AnyJSON]]?
 
-                            public struct Property: Decodable {
-                                public init() {}
-                            }
-
-                            public init(description: String? = nil, name: String? = nil, properties: [Property]? = nil) {
+                            public init(description: String? = nil, name: String? = nil, properties: [[String: AnyJSON]]? = nil) {
                                 self.description = description
                                 self.name = name
                                 self.properties = properties
                             }
-                        }
-
-                        public struct Label: Decodable {
-                            public init() {}
                         }
 
                         public struct Properties: Decodable {
@@ -269,11 +257,7 @@ extension Paths {
                             }
                         }
 
-                        public struct TextItem: Decodable {
-                            public init() {}
-                        }
-
-                        public init(allProperties: [AllProperty]? = nil, assetID: Int? = nil, assetTitle: String? = nil, assetURL: String? = nil, createDate: String? = nil, labels: [Label]? = nil, properties: Properties? = nil, source: String? = nil, taxonomy: String? = nil, text: [TextItem]? = nil, updateDate: String? = nil, vendorID: String? = nil) {
+                        public init(allProperties: [AllProperty]? = nil, assetID: Int? = nil, assetTitle: String? = nil, assetURL: String? = nil, createDate: String? = nil, labels: [[String: AnyJSON]]? = nil, properties: Properties? = nil, source: String? = nil, taxonomy: String? = nil, text: [[String: AnyJSON]]? = nil, updateDate: String? = nil, vendorID: String? = nil) {
                             self.allProperties = allProperties
                             self.assetID = assetID
                             self.assetTitle = assetTitle
@@ -304,11 +288,7 @@ extension Paths {
                         }
                     }
 
-                    public struct Reply: Decodable {
-                        public init() {}
-                    }
-
-                    public init(approveDate: String? = nil, asset: Asset? = nil, assetID: Int? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, displayName: String? = nil, editorsSelection: Int? = nil, location: String? = nil, parentID: AnyJSON? = nil, recommendationCount: Int? = nil, replies: [Reply]? = nil, status: String? = nil, statusID: Int? = nil, updateDate: String? = nil, userDisplayName: String? = nil, userID: Int? = nil, userLocation: String? = nil, userTitle: String? = nil, userURL: String? = nil) {
+                    public init(approveDate: String? = nil, asset: Asset? = nil, assetID: Int? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, displayName: String? = nil, editorsSelection: Int? = nil, location: String? = nil, parentID: AnyJSON? = nil, recommendationCount: Int? = nil, replies: [[String: AnyJSON]]? = nil, status: String? = nil, statusID: Int? = nil, updateDate: String? = nil, userDisplayName: String? = nil, userID: Int? = nil, userLocation: String? = nil, userTitle: String? = nil, userURL: String? = nil) {
                         self.approveDate = approveDate
                         self.asset = asset
                         self.assetID = assetID
@@ -634,12 +614,12 @@ extension Paths {
                     public var commentType: String?
                     public var createDate: String?
                     public var isEditorsSelection: Bool?
-                    public var labels: [Label]?
+                    public var labels: [[String: AnyJSON]]?
                     public var parentID: AnyJSON?
                     public var permid: Int?
                     public var picURL: String?
                     public var recommendations: Int?
-                    public var replies: [Reply]?
+                    public var replies: [[String: AnyJSON]]?
                     public var replyCount: Int?
                     public var status: String?
                     public var updateDate: String?
@@ -663,20 +643,16 @@ extension Paths {
                         public var properties: Properties?
                         public var source: String?
                         public var taxonomy: String?
-                        public var text: [TextItem]?
+                        public var text: [[String: AnyJSON]]?
                         public var updateDate: String?
                         public var vendorID: String?
 
                         public struct AllProperty: Decodable {
                             public var description: String?
                             public var name: String?
-                            public var properties: [Property]?
+                            public var properties: [[String: AnyJSON]]?
 
-                            public struct Property: Decodable {
-                                public init() {}
-                            }
-
-                            public init(description: String? = nil, name: String? = nil, properties: [Property]? = nil) {
+                            public init(description: String? = nil, name: String? = nil, properties: [[String: AnyJSON]]? = nil) {
                                 self.description = description
                                 self.name = name
                                 self.properties = properties
@@ -741,11 +717,7 @@ extension Paths {
                             }
                         }
 
-                        public struct TextItem: Decodable {
-                            public init() {}
-                        }
-
-                        public init(allProperties: [AllProperty]? = nil, assetID: Int? = nil, assetTitle: String? = nil, assetURL: String? = nil, createDate: String? = nil, labels: [Label]? = nil, properties: Properties? = nil, source: String? = nil, taxonomy: String? = nil, text: [TextItem]? = nil, updateDate: String? = nil, vendorID: String? = nil) {
+                        public init(allProperties: [AllProperty]? = nil, assetID: Int? = nil, assetTitle: String? = nil, assetURL: String? = nil, createDate: String? = nil, labels: [Label]? = nil, properties: Properties? = nil, source: String? = nil, taxonomy: String? = nil, text: [[String: AnyJSON]]? = nil, updateDate: String? = nil, vendorID: String? = nil) {
                             self.allProperties = allProperties
                             self.assetID = assetID
                             self.assetTitle = assetTitle
@@ -776,15 +748,7 @@ extension Paths {
                         }
                     }
 
-                    public struct Label: Decodable {
-                        public init() {}
-                    }
-
-                    public struct Reply: Decodable {
-                        public init() {}
-                    }
-
-                    public init(approveDate: String? = nil, asset: Asset? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, isEditorsSelection: Bool? = nil, labels: [Label]? = nil, parentID: AnyJSON? = nil, permid: Int? = nil, picURL: String? = nil, recommendations: Int? = nil, replies: [Reply]? = nil, replyCount: Int? = nil, status: String? = nil, updateDate: String? = nil, userDisplayName: AnyJSON? = nil, userID: Int? = nil, userLocation: AnyJSON? = nil, userSubmittedDisplayName: String? = nil, userSubmittedLocation: String? = nil, userSubmittedTitle: AnyJSON? = nil, userSubmittedURL: AnyJSON? = nil, userTitle: AnyJSON? = nil, userURL: AnyJSON? = nil) {
+                    public init(approveDate: String? = nil, asset: Asset? = nil, commentBody: String? = nil, commentID: Int? = nil, commentSequence: Int? = nil, commentTitle: String? = nil, commentType: String? = nil, createDate: String? = nil, isEditorsSelection: Bool? = nil, labels: [[String: AnyJSON]]? = nil, parentID: AnyJSON? = nil, permid: Int? = nil, picURL: String? = nil, recommendations: Int? = nil, replies: [[String: AnyJSON]]? = nil, replyCount: Int? = nil, status: String? = nil, updateDate: String? = nil, userDisplayName: AnyJSON? = nil, userID: Int? = nil, userLocation: AnyJSON? = nil, userSubmittedDisplayName: String? = nil, userSubmittedLocation: String? = nil, userSubmittedTitle: AnyJSON? = nil, userSubmittedURL: AnyJSON? = nil, userTitle: AnyJSON? = nil, userURL: AnyJSON? = nil) {
                         self.approveDate = approveDate
                         self.asset = asset
                         self.commentBody = commentBody

@@ -2000,16 +2000,11 @@ extension Paths.Me.Player {
             /// A JSON array of the Spotify track URIs to play. For example: {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]}
             public var uris: [String]?
             /// Indicates from where in the context playback should start. Only available when context_uri corresponds to an album or playlist object, or when the uris parameter is used. “position” is zero based and can’t be negative. Example: "offset": {"position": 5} “uri” is a string representing the uri of the item to start at. Example: "offset": {"uri": "spotify:track:1301WleyT98MSxVHPZCA6M"}
-            public var offset: Offset?
+            public var offset: [String: AnyJSON]?
             /// Indicates from what position to start playback. Must be a positive number. Passing in a position that is greater than the length of the track will cause the player to start playing the next song.
             public var positionMs: Int?
 
-            /// Indicates from where in the context playback should start. Only available when context_uri corresponds to an album or playlist object, or when the uris parameter is used. “position” is zero based and can’t be negative. Example: "offset": {"position": 5} “uri” is a string representing the uri of the item to start at. Example: "offset": {"uri": "spotify:track:1301WleyT98MSxVHPZCA6M"}
-            public struct Offset: Encodable {
-                public init() {}
-            }
-
-            public init(contextUri: String? = nil, uris: [String]? = nil, offset: Offset? = nil, positionMs: Int? = nil) {
+            public init(contextUri: String? = nil, uris: [String]? = nil, offset: [String: AnyJSON]? = nil, positionMs: Int? = nil) {
                 self.contextUri = contextUri
                 self.uris = uris
                 self.offset = offset
@@ -2224,15 +2219,11 @@ extension Paths.Playlists.WithPlaylistID {
 
         public struct DeleteRequest: Encodable {
             /// An array of objects containing [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) of the tracks or episodes to remove. For example: `{ "tracks": [{ "uri": "spotify:track:4iV5W9uYEdYUVa79Axb7Rh" },{ "uri": "spotify:track:1301WleyT98MSxVHPZCA6M" }] }`. A maximum of 100 objects can be sent at once.
-            public var tracks: [Track]
+            public var tracks: [[String: AnyJSON]]
             /// The playlist's snapshot ID against which you want to make the changes. The API will validate that the specified items exist and in the specified positions and make the changes, even if more recent changes have been made to the playlist.
             public var snapshotID: String?
 
-            public struct Track: Encodable {
-                public init() {}
-            }
-
-            public init(tracks: [Track], snapshotID: String? = nil) {
+            public init(tracks: [[String: AnyJSON]], snapshotID: String? = nil) {
                 self.tracks = tracks
                 self.snapshotID = snapshotID
             }

@@ -2270,12 +2270,8 @@ extension Paths {
         /// Returns the open api spec document.
         ///
         /// Full open api spec in JSON format. (See https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)
-        public var get: Request<GetResponse> {
+        public var get: Request<[String: AnyJSON]> {
             .get(path)
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
     }
 }

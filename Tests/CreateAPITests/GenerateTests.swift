@@ -45,8 +45,6 @@ final class GenerateTests: XCTestCase {
               enumCaseNames:
                 reactions-+1: "reactionsPlusOne"
                 reactions--1: "reactionsMinusOne"
-            entities:
-              isInterpretingEmptyObjectsAsDictionaries: true
             """, ext: "yml")
         ])
                 

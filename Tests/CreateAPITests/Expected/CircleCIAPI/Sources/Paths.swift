@@ -93,7 +93,7 @@ extension Paths.Project.WithUsername {
 
         public struct PostRequest: Encodable {
             /// Additional environment variables to inject into the build environment. A map of names to values.
-            public var buildParameters: CircleCIAPI.BuildParameters?
+            public var buildParameters: [String: AnyJSON]?
             /// The number of containers to use to run the build. Default is null and the project default is used.
             public var parallel: String?
             /// The specific revision to build.
@@ -102,7 +102,7 @@ extension Paths.Project.WithUsername {
             /// The tag to build. Default is null. Cannot be used with revision parameter.
             public var tag: String?
 
-            public init(buildParameters: CircleCIAPI.BuildParameters? = nil, parallel: String? = nil, revision: String? = nil, tag: String? = nil) {
+            public init(buildParameters: [String: AnyJSON]? = nil, parallel: String? = nil, revision: String? = nil, tag: String? = nil) {
                 self.buildParameters = buildParameters
                 self.parallel = parallel
                 self.revision = revision
@@ -325,14 +325,14 @@ extension Paths.Project.WithUsername.WithProject.Tree {
 
         public struct PostRequest: Encodable {
             /// Additional environment variables to inject into the build environment. A map of names to values.
-            public var buildParameters: CircleCIAPI.BuildParameters?
+            public var buildParameters: [String: AnyJSON]?
             /// The number of containers to use to run the build. Default is null and the project default is used.
             public var parallel: String?
             /// The specific revision to build.
             /// Default is null and the head of the branch is used. Cannot be used with tag parameter.
             public var revision: String?
 
-            public init(buildParameters: CircleCIAPI.BuildParameters? = nil, parallel: String? = nil, revision: String? = nil) {
+            public init(buildParameters: [String: AnyJSON]? = nil, parallel: String? = nil, revision: String? = nil) {
                 self.buildParameters = buildParameters
                 self.parallel = parallel
                 self.revision = revision

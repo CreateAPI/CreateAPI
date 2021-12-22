@@ -453,7 +453,7 @@ extension Paths.Lists.WithDate {
                 public var normalListEndsAt: Int?
                 public var updated: String?
                 public var books: [Book]?
-                public var corrections: [Correction]?
+                public var corrections: [[String: AnyJSON]]?
 
                 public struct Book: Decodable {
                     public var rank: Int?
@@ -540,11 +540,7 @@ extension Paths.Lists.WithDate {
                     }
                 }
 
-                public struct Correction: Decodable {
-                    public init() {}
-                }
-
-                public init(listName: String? = nil, bestsellersDate: String? = nil, publishedDate: String? = nil, displayName: String? = nil, normalListEndsAt: Int? = nil, updated: String? = nil, books: [Book]? = nil, corrections: [Correction]? = nil) {
+                public init(listName: String? = nil, bestsellersDate: String? = nil, publishedDate: String? = nil, displayName: String? = nil, normalListEndsAt: Int? = nil, updated: String? = nil, books: [Book]? = nil, corrections: [[String: AnyJSON]]? = nil) {
                     self.listName = listName
                     self.bestsellersDate = bestsellersDate
                     self.publishedDate = publishedDate

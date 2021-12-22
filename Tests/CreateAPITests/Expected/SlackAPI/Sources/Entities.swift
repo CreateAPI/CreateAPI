@@ -45,7 +45,7 @@ public struct ObjsChannel: Codable {
     public var isShared: Bool
     /// Timestamp in format 0123456789.012345
     public var lastRead: String?
-    public var latest: Latest?
+    public var latest: [String: AnyJSON]?
     public var members: [String]
     public var name: String
     public var nameNormalized: String
@@ -59,10 +59,6 @@ public struct ObjsChannel: Codable {
     public var unlinked: Int?
     public var unreadCount: Int?
     public var unreadCountDisplay: Int?
-
-    public struct Latest: Codable {
-        public init() {}
-    }
 
     public struct Purpose: Codable {
         /// User ID or empty string, used for topic and purpose creation
@@ -102,7 +98,7 @@ public struct ObjsChannel: Codable {
         }
     }
 
-    public init(acceptedUser: String? = nil, created: Int, creator: String, id: String, isArchived: Bool? = nil, isChannel: Bool, isGeneral: Bool? = nil, isMember: Bool? = nil, isMoved: Int? = nil, isMpim: Bool, isOrgShared: Bool, isPendingExtShared: Bool? = nil, isPrivate: Bool, isReadOnly: Bool? = nil, isShared: Bool, lastRead: String? = nil, latest: Latest? = nil, members: [String], name: String, nameNormalized: String, numMembers: Int? = nil, pendingShared: [String]? = nil, previousNames: [String]? = nil, priority: Int? = nil, purpose: Purpose, topic: Topic, unlinked: Int? = nil, unreadCount: Int? = nil, unreadCountDisplay: Int? = nil) {
+    public init(acceptedUser: String? = nil, created: Int, creator: String, id: String, isArchived: Bool? = nil, isChannel: Bool, isGeneral: Bool? = nil, isMember: Bool? = nil, isMoved: Int? = nil, isMpim: Bool, isOrgShared: Bool, isPendingExtShared: Bool? = nil, isPrivate: Bool, isReadOnly: Bool? = nil, isShared: Bool, lastRead: String? = nil, latest: [String: AnyJSON]? = nil, members: [String], name: String, nameNormalized: String, numMembers: Int? = nil, pendingShared: [String]? = nil, previousNames: [String]? = nil, priority: Int? = nil, purpose: Purpose, topic: Topic, unlinked: Int? = nil, unreadCount: Int? = nil, unreadCountDisplay: Int? = nil) {
         self.acceptedUser = acceptedUser
         self.created = created
         self.creator = creator
@@ -204,16 +200,6 @@ public struct ObjsComment: Codable {
         case timestamp
         case user
     }
-}
-
-public typealias ObjsComments = [ObjsCommentsItem]
-
-public struct ObjsCommentsItem: Codable {
-    public init() {}
-}
-
-public struct ObjsConversation: Codable {
-    public init() {}
 }
 
 /// File object
@@ -402,7 +388,7 @@ public struct ObjsGroup: Codable {
     public var isPendingExtShared: Bool?
     /// Timestamp in format 0123456789.012345
     public var lastRead: String?
-    public var latest: Latest?
+    public var latest: [String: AnyJSON]?
     public var members: [String]
     public var name: String
     public var nameNormalized: String
@@ -411,10 +397,6 @@ public struct ObjsGroup: Codable {
     public var topic: Topic
     public var unreadCount: Int?
     public var unreadCountDisplay: Int?
-
-    public struct Latest: Codable {
-        public init() {}
-    }
 
     public struct Purpose: Codable {
         /// User ID or empty string, used for topic and purpose creation
@@ -454,7 +436,7 @@ public struct ObjsGroup: Codable {
         }
     }
 
-    public init(created: Int, creator: String, id: String, isArchived: Bool? = nil, isGroup: Bool, isMoved: Int? = nil, isMpim: Bool? = nil, isOpen: Bool? = nil, isPendingExtShared: Bool? = nil, lastRead: String? = nil, latest: Latest? = nil, members: [String], name: String, nameNormalized: String, priority: Int? = nil, purpose: Purpose, topic: Topic, unreadCount: Int? = nil, unreadCountDisplay: Int? = nil) {
+    public init(created: Int, creator: String, id: String, isArchived: Bool? = nil, isGroup: Bool, isMoved: Int? = nil, isMpim: Bool? = nil, isOpen: Bool? = nil, isPendingExtShared: Bool? = nil, lastRead: String? = nil, latest: [String: AnyJSON]? = nil, members: [String], name: String, nameNormalized: String, priority: Int? = nil, purpose: Purpose, topic: Topic, unreadCount: Int? = nil, unreadCountDisplay: Int? = nil) {
         self.created = created
         self.creator = creator
         self.id = id
@@ -535,7 +517,7 @@ public struct ObjsIm: Codable {
 /// Message object
 public struct ObjsMessage: Codable {
     public var attachments: [Attachmants]?
-    public var botID: BotID?
+    public var botID: [String: AnyJSON]?
     /// File Comment Object
     public var comment: ObjsComment?
     public var isDisplayAsBot: Bool?
@@ -604,10 +586,6 @@ public struct ObjsMessage: Codable {
         }
     }
 
-    public struct BotID: Codable {
-        public init() {}
-    }
-
     public struct Icons: Codable {
         public var emoji: String?
 
@@ -628,7 +606,7 @@ public struct ObjsMessage: Codable {
         }
     }
 
-    public init(attachments: [Attachmants]? = nil, botID: BotID? = nil, comment: ObjsComment? = nil, isDisplayAsBot: Bool? = nil, file: ObjsFile? = nil, icons: Icons? = nil, inviter: String? = nil, isIntro: Bool? = nil, lastRead: String? = nil, name: String? = nil, oldName: String? = nil, permalink: URL? = nil, pinnedTo: [String]? = nil, purpose: String? = nil, reactions: [ObjsReaction]? = nil, replies: [Reply]? = nil, replyCount: Int? = nil, sourceTeam: String? = nil, isSubscribed: Bool? = nil, subtype: String? = nil, team: String? = nil, text: String, threadTs: String? = nil, topic: String? = nil, ts: String, type: String, unreadCount: Int? = nil, isUpload: Bool? = nil, user: String? = nil, userProfile: ObjsUserProfileShort? = nil, userTeam: String? = nil, username: String? = nil) {
+    public init(attachments: [Attachmants]? = nil, botID: [String: AnyJSON]? = nil, comment: ObjsComment? = nil, isDisplayAsBot: Bool? = nil, file: ObjsFile? = nil, icons: Icons? = nil, inviter: String? = nil, isIntro: Bool? = nil, lastRead: String? = nil, name: String? = nil, oldName: String? = nil, permalink: URL? = nil, pinnedTo: [String]? = nil, purpose: String? = nil, reactions: [ObjsReaction]? = nil, replies: [Reply]? = nil, replyCount: Int? = nil, sourceTeam: String? = nil, isSubscribed: Bool? = nil, subtype: String? = nil, team: String? = nil, text: String, threadTs: String? = nil, topic: String? = nil, ts: String, type: String, unreadCount: Int? = nil, isUpload: Bool? = nil, user: String? = nil, userProfile: ObjsUserProfileShort? = nil, userTeam: String? = nil, username: String? = nil) {
         self.attachments = attachments
         self.botID = botID
         self.comment = comment
@@ -939,7 +917,7 @@ public struct ObjsUserProfile: Codable {
     public var displayName: String
     public var displayNameNormalized: String
     public var email: String?
-    public var fields: Fields?
+    public var fields: [String: AnyJSON]?
     public var firstName: String?
     public var guestChannels: String?
     public var image192: URL
@@ -962,11 +940,7 @@ public struct ObjsUserProfile: Codable {
     public var team: String?
     public var title: String?
 
-    public struct Fields: Codable {
-        public init() {}
-    }
-
-    public init(isAlwaysActive: Bool? = nil, avatarHash: String, displayName: String, displayNameNormalized: String, email: String? = nil, fields: Fields? = nil, firstName: String? = nil, guestChannels: String? = nil, image192: URL, image24: URL, image32: URL, image48: URL, image512: URL? = nil, image72: URL, imageOriginal: URL? = nil, lastName: String? = nil, phone: String? = nil, realName: String, realNameNormalized: String, skype: String? = nil, statusEmoji: String? = nil, statusExpiration: Int? = nil, statusText: String? = nil, statusTextCanonical: String? = nil, team: String? = nil, title: String? = nil) {
+    public init(isAlwaysActive: Bool? = nil, avatarHash: String, displayName: String, displayNameNormalized: String, email: String? = nil, fields: [String: AnyJSON]? = nil, firstName: String? = nil, guestChannels: String? = nil, image192: URL, image24: URL, image32: URL, image48: URL, image512: URL? = nil, image72: URL, imageOriginal: URL? = nil, lastName: String? = nil, phone: String? = nil, realName: String, realNameNormalized: String, skype: String? = nil, statusEmoji: String? = nil, statusExpiration: Int? = nil, statusText: String? = nil, statusTextCanonical: String? = nil, team: String? = nil, title: String? = nil) {
         self.isAlwaysActive = isAlwaysActive
         self.avatarHash = avatarHash
         self.displayName = displayName
@@ -1059,6 +1033,54 @@ public struct ObjsUserProfileShort: Codable {
         case name
         case realName = "real_name"
         case team
+    }
+}
+
+public enum AnyJSON: Equatable, Codable {
+    case string(String)
+    case number(Double)
+    case object([String: AnyJSON])
+    case array([AnyJSON])
+    case bool(Bool)
+
+    var value: Any {
+        switch self {
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .array(array): try container.encode(array)
+        case let .object(object): try container.encode(object)
+        case let .string(string): try container.encode(string)
+        case let .number(number): try container.encode(number)
+        case let .bool(bool): try container.encode(bool)
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let object = try? container.decode([String: AnyJSON].self) {
+            self = .object(object)
+        } else if let array = try? container.decode([AnyJSON].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let bool = try? container.decode(Bool.self) {
+            self = .bool(bool)
+        } else if let number = try? container.decode(Double.self) {
+            self = .number(number)
+        } else {
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+            )
+        }
     }
 }
 

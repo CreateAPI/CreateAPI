@@ -28,19 +28,6 @@ public struct ACHDetails: Codable {
     }
 }
 
-/// Defines the request parameters for the `AcceptDispute` endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct AcceptDisputeRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields in an `AcceptDispute` response.
 ///
 /// Example:
@@ -150,20 +137,6 @@ public enum ActionCancelReason: String, Codable, CaseIterable {
     case buyerCanceled = "BUYER_CANCELED"
     case sellerCanceled = "SELLER_CANCELED"
     case timedOut = "TIMED_OUT"
-}
-
-/// Defines the fields that are included in the request body of
-/// a request to the [AddGroupToCustomer](https://developer.squareup.com/reference/square_2021-08-18/customers-api/add-group-to-customer) endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct AddGroupToCustomerRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -2579,23 +2552,6 @@ public struct CancelPaymentByIdempotencyKeyResponse: Codable {
     }
 }
 
-/// Describes the request to cancel (void) a payment using
-/// [CancelPayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/cancel-payment).
-/// You can only cancel a payment that is approved (not completed).
-/// For more information, see
-/// [Delayed capture of a payment](https://developer.squareup.com/docs/payments-api/take-payments/card-payments#delayed-capture-of-a-card-payment).
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct CancelPaymentRequest: Codable {
-    public init() {}
-}
-
 /// Defines the response returned by [CancelPayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/cancel-payment).
 ///
 /// Example:
@@ -2665,12 +2621,6 @@ public struct CancelPaymentResponse: Codable {
     }
 }
 
-/// Defines parameters in a
-/// [CancelSubscription](https://developer.squareup.com/reference/square_2021-08-18/subscriptions-api/cancel-subscription) endpoint request.
-public struct CancelSubscriptionRequest: Codable {
-    public init() {}
-}
-
 /// Defines fields that are included in a
 /// [CancelSubscription](https://developer.squareup.com/reference/square_2021-08-18/subscriptions-api/cancel-subscription) response.
 ///
@@ -2709,17 +2659,6 @@ public struct CancelSubscriptionResponse: Codable {
 /// Example:
 ///
 /// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct CancelTerminalCheckoutRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
 ///   "checkout" : {
 ///     "amount_money" : {
 ///       "amount" : 123,
@@ -2751,17 +2690,6 @@ public struct CancelTerminalCheckoutResponse: Codable {
         self.checkout = checkout
         self.errors = errors
     }
-}
-
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct CancelTerminalRefundRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -2804,15 +2732,6 @@ public struct CancelTerminalRefundResponse: Codable {
         self.errors = errors
         self.refund = refund
     }
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct CaptureTransactionRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -3751,15 +3670,6 @@ public struct CatalogImage: Codable {
         self.name = name
         self.url = url
     }
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct CatalogInfoRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -5663,10 +5573,6 @@ public struct ChargeResponse: Codable {
     }
 }
 
-public struct CheckAppointmentsOnboardedRequest: Codable {
-    public init() {}
-}
-
 /// Square Checkout lets merchants accept online payments for supported
 /// payment types using a checkout workflow hosted on squareup.com.
 public struct Checkout: Codable {
@@ -5783,23 +5689,6 @@ public enum CheckoutOptionsPaymentType: String, Codable, CaseIterable {
     case felicaQuicpay = "FELICA_QUICPAY"
     case felicaTransportationGroup = "FELICA_TRANSPORTATION_GROUP"
     case felicaAll = "FELICA_ALL"
-}
-
-/// Describes a request to complete (capture) a payment using
-/// [CompletePayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/complete-payment).
-/// 
-/// By default, payments are set to `autocomplete` immediately after they are created.
-/// To complete payments manually, set `autocomplete` to `false`.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct CompletePaymentRequest: Codable {
-    public init() {}
 }
 
 /// Defines the response returned by[CompletePayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/complete-payment).
@@ -9732,17 +9621,6 @@ public enum DayOfWeek: String, Codable, CaseIterable {
     case sat = "SAT"
 }
 
-/// A request to delete a `BreakType`.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct DeleteBreakTypeRequest: Codable {
-    public init() {}
-}
-
 /// The response to a request to delete a `BreakType`. The response might contain a set
 /// of `Error` objects if the request resulted in errors.
 ///
@@ -9758,15 +9636,6 @@ public struct DeleteBreakTypeResponse: Codable {
     public init(errors: [Error]? = nil) {
         self.errors = errors
     }
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct DeleteCatalogObjectRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -9803,18 +9672,6 @@ public struct DeleteCatalogObjectResponse: Codable {
     }
 }
 
-/// Defines the fields that are included in requests to the
-/// `DeleteCustomerCard` endpoint.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct DeleteCustomerCardRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields that are included in the response body of
 /// a request to the `DeleteCustomerCard` endpoint.
 ///
@@ -9830,20 +9687,6 @@ public struct DeleteCustomerCardResponse: Codable {
     public init(errors: [Error]? = nil) {
         self.errors = errors
     }
-}
-
-/// Defines the fields that can be included in a request to the
-/// [DeleteCustomerGroup](https://developer.squareup.com/reference/square_2021-08-18/customer-groups-api/delete-customer-group) endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct DeleteCustomerGroupRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -9899,19 +9742,6 @@ public struct DeleteCustomerResponse: Codable {
     }
 }
 
-/// Defines the parameters for a `DeleteDisputeEvidence` request.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct DeleteDisputeEvidenceRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields in a `DeleteDisputeEvidence` response.
 ///
 /// Example:
@@ -9956,17 +9786,6 @@ public struct DeleteInvoiceResponse: Codable {
     }
 }
 
-/// A request to delete a loyalty reward.
-///
-/// Example:
-///
-/// {
-///   "request_params" : "?reward_id=9f18ac21-233a-31c3-be77-b45840f5a810"
-/// }
-public struct DeleteLoyaltyRewardRequest: Codable {
-    public init() {}
-}
-
 /// A response returned by the API call.
 ///
 /// Example:
@@ -9981,17 +9800,6 @@ public struct DeleteLoyaltyRewardResponse: Codable {
     public init(errors: [Error]? = nil) {
         self.errors = errors
     }
-}
-
-/// A request to delete a `Shift`.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct DeleteShiftRequest: Codable {
-    public init() {}
 }
 
 /// The response to a request to delete a `Shift`. The response might contain a set of
@@ -10009,11 +9817,6 @@ public struct DeleteShiftResponse: Codable {
     public init(errors: [Error]? = nil) {
         self.errors = errors
     }
-}
-
-/// Represents a `DeleteSnippet` request.
-public struct DeleteSnippetRequest: Codable {
-    public init() {}
 }
 
 /// Represents a `DeleteSnippet` response.
@@ -10270,21 +10073,6 @@ public struct DigitalWalletDetails: Codable {
     public init(status: String? = nil) {
         self.status = status
     }
-}
-
-/// Disables the card, preventing any further updates or charges. Disabling
-/// an already disabled card is allowed but has no effect. Accessible via
-/// HTTP requests at POST https://connect.squareup.com/v2/cards/{card_id}/disable
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct DisableCardRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -10968,12 +10756,6 @@ public struct FilterValue: Codable {
     }
 }
 
-/// Request object for fetching a specific `BankAccount`
-/// by the object ID.
-public struct GetBankAccountByV1IDRequest: Codable {
-    public init() {}
-}
-
 /// Response object returned by GetBankAccountByV1Id.
 ///
 /// Example:
@@ -11012,12 +10794,6 @@ public struct GetBankAccountByV1IDResponse: Codable {
         case bankAccount = "bank_account"
         case errors
     }
-}
-
-/// Request object to fetch a specific `BankAccount`
-/// by the object ID.
-public struct GetBankAccountRequest: Codable {
-    public init() {}
 }
 
 /// Response object returned by `GetBankAccount`.
@@ -11060,17 +10836,6 @@ public struct GetBankAccountResponse: Codable {
     }
 }
 
-/// A request to get a `BreakType` by ID.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct GetBreakTypeRequest: Codable {
-    public init() {}
-}
-
 /// The response to a request to get a `BreakType`. The response contains
 /// the requested `BreakType` objects and might contain a set of `Error` objects if
 /// the request resulted in errors.
@@ -11110,17 +10875,6 @@ public struct GetBreakTypeResponse: Codable {
 /// Example:
 ///
 /// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct GetDeviceCodeRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
 ///   "device_code" : {
 ///     "code" : "EBCARJ",
 ///     "created_at" : "2020-02-06T18:44:33.000Z",
@@ -11148,17 +10902,6 @@ public struct GetDeviceCodeResponse: Codable {
         case deviceCode = "device_code"
         case errors
     }
-}
-
-/// A request to get an `EmployeeWage`.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct GetEmployeeWageRequest: Codable {
-    public init() {}
 }
 
 /// A response to a request to get an `EmployeeWage`. The response contains
@@ -11194,11 +10937,6 @@ public struct GetEmployeeWageResponse: Codable {
         case employeeWage = "employee_wage"
         case errors
     }
-}
-
-/// Describes a `GetInvoice` request.
-public struct GetInvoiceRequest: Codable {
-    public init() {}
 }
 
 /// Describes a `GetInvoice` response.
@@ -11284,20 +11022,6 @@ public struct GetInvoiceResponse: Codable {
     }
 }
 
-/// Describes a request to retrieve a refund using
-/// [GetPaymentRefund](https://developer.squareup.com/reference/square_2021-08-18/refunds-api/get-payment-refund).
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct GetPaymentRefundRequest: Codable {
-    public init() {}
-}
-
 /// Defines the response returned by [GetRefund](https://developer.squareup.com/reference/square_2021-08-18/refunds-api/get-payment-refund).
 /// 
 /// Note: If there are errors processing the request, the refund field might not be
@@ -11341,20 +11065,6 @@ public struct GetPaymentRefundResponse: Codable {
         self.errors = errors
         self.refund = refund
     }
-}
-
-/// Describes a request to retrieve a payment using
-/// [GetPayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/get-payment).
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct GetPaymentRequest: Codable {
-    public init() {}
 }
 
 /// Defines the response returned by [GetPayment](https://developer.squareup.com/reference/square_2021-08-18/payments-api/get-payment).
@@ -11438,17 +11148,6 @@ public struct GetPaymentResponse: Codable {
     }
 }
 
-/// A request to get a `Shift` by ID.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct GetShiftRequest: Codable {
-    public init() {}
-}
-
 /// A response to a request to get a `Shift`. The response contains
 /// the requested `Shift` object and might contain a set of `Error` objects if
 /// the request resulted in errors.
@@ -11502,17 +11201,6 @@ public struct GetShiftResponse: Codable {
     }
 }
 
-/// A request to get a `TeamMemberWage`.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct GetTeamMemberWageRequest: Codable {
-    public init() {}
-}
-
 /// A response to a request to get a `TeamMemberWage`. The response contains
 /// the requested `TeamMemberWage` objects and might contain a set of `Error` objects if
 /// the request resulted in errors.
@@ -11551,17 +11239,6 @@ public struct GetTeamMemberWageResponse: Codable {
 /// Example:
 ///
 /// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct GetTerminalCheckoutRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
 ///   "checkout" : {
 ///     "amount_money" : {
 ///       "amount" : 2610,
@@ -11593,17 +11270,6 @@ public struct GetTerminalCheckoutResponse: Codable {
         self.checkout = checkout
         self.errors = errors
     }
-}
-
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct GetTerminalRefundRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -14838,18 +14504,6 @@ public struct ListInvoicesResponse: Codable {
     }
 }
 
-/// Defines the fields that are included in requests to
-/// the __ListLocations__ endpoint.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct ListLocationsRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields that are included in the response body of
 /// a request to the __ListLocations__ endpoint.
 /// 
@@ -14894,19 +14548,6 @@ public struct ListLocationsResponse: Codable {
         self.errors = errors
         self.locations = locations
     }
-}
-
-/// A request to list `LoyaltyProgram`.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct ListLoyaltyProgramsRequest: Codable {
-    public init() {}
 }
 
 /// A response that contains all loyalty programs.
@@ -15464,11 +15105,6 @@ public struct ListRefundsResponse: Codable {
         self.errors = errors
         self.refunds = refunds
     }
-}
-
-/// Represents a `ListSites` request.
-public struct ListSitesRequest: Codable {
-    public init() {}
 }
 
 /// Represents a `ListSites` response. The response can include either `sites` or `errors`.
@@ -17229,10 +16865,6 @@ public struct ObtainTokenResponse: Codable {
         case subscriptionID = "subscription_id"
         case tokenType = "token_type"
     }
-}
-
-public struct OnboardAppointmentsRequest: Codable {
-    public init() {}
 }
 
 /// Contains all information related to a single order to process with Square,
@@ -20403,20 +20035,6 @@ public enum RegisterDomainResponseStatus: String, Codable, CaseIterable {
     case verified = "VERIFIED"
 }
 
-/// Defines the fields that are included in the request body of
-/// a request to the [RemoveGroupFromCustomer](https://developer.squareup.com/reference/square_2021-08-18/customers-api/remove-group-from-customer) endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RemoveGroupFromCustomerRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields that are included in the response body of
 /// a request to the [RemoveGroupFromCustomer](https://developer.squareup.com/reference/square_2021-08-18/customers-api/remove-group-from-customer)
 /// endpoint.
@@ -20505,13 +20123,6 @@ public struct RenewTokenResponse: Codable {
 
 /// Defines parameters in a
 /// [ResumeSubscription](https://developer.squareup.com/reference/square_2021-08-18/subscriptions-api/resume-subscription) endpoint
-/// request.
-public struct ResumeSubscriptionRequest: Codable {
-    public init() {}
-}
-
-/// Defines parameters in a
-/// [ResumeSubscription](https://developer.squareup.com/reference/square_2021-08-18/subscriptions-api/resume-subscription) endpoint
 /// response.
 ///
 /// Example:
@@ -20544,10 +20155,6 @@ public struct ResumeSubscriptionResponse: Codable {
         self.errors = errors
         self.subscription = subscription
     }
-}
-
-public struct RetrieveBookingRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -20588,10 +20195,6 @@ public struct RetrieveBookingResponse: Codable {
         self.booking = booking
         self.errors = errors
     }
-}
-
-public struct RetrieveBusinessBookingProfileRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -20638,20 +20241,6 @@ public struct RetrieveBusinessBookingProfileResponse: Codable {
         case businessBookingProfile = "business_booking_profile"
         case errors
     }
-}
-
-/// Retrieves details for a specific Card. Accessible via
-/// HTTP requests at GET https://connect.squareup.com/v2/cards/{card_id}
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveCardRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -20908,20 +20497,6 @@ public struct RetrieveCatalogObjectResponse: Codable {
     }
 }
 
-/// Defines the fields that can be included in a request to the
-/// [RetrieveCustomerGroup](https://developer.squareup.com/reference/square_2021-08-18/customer-groups-api/retrieve-customer-group) endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveCustomerGroupRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields that are included in the response body of
 /// a request to the [RetrieveCustomerGroup](https://developer.squareup.com/reference/square_2021-08-18/customer-groups-api/retrieve-customer-group) endpoint.
 /// 
@@ -20950,18 +20525,6 @@ public struct RetrieveCustomerGroupResponse: Codable {
         self.errors = errors
         self.group = group
     }
-}
-
-/// Defines the fields that are included in requests to the `RetrieveCustomer`
-/// endpoint.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct RetrieveCustomerRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -21015,19 +20578,6 @@ public struct RetrieveCustomerResponse: Codable {
     }
 }
 
-/// Defines the valid parameters for requests to the `RetrieveCustomerSegmentRequest` endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveCustomerSegmentRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields that are included in the response body for requests to the `RetrieveCustomerSegment` endpoint.
 /// 
 /// Either `errors` or `segment` is present in a given response (never both).
@@ -21057,19 +20607,6 @@ public struct RetrieveCustomerSegmentResponse: Codable {
     }
 }
 
-/// Defines the parameters for a `RetrieveDisputeEvidence` request.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveDisputeEvidenceRequest: Codable {
-    public init() {}
-}
-
 /// Defines the fields in a `RetrieveDisputeEvidence` response.
 ///
 /// Example:
@@ -21095,19 +20632,6 @@ public struct RetrieveDisputeEvidenceResponse: Codable {
         self.errors = errors
         self.evidence = evidence
     }
-}
-
-/// Defines the request parameters for the `RetrieveDispute` endpoint.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveDisputeRequest: Codable {
-    public init() {}
 }
 
 /// Defines fields in a `RetrieveDispute` response.
@@ -21145,10 +20669,6 @@ public struct RetrieveDisputeResponse: Codable {
         self.dispute = dispute
         self.errors = errors
     }
-}
-
-public struct RetrieveEmployeeRequest: Codable {
-    public init() {}
 }
 
 public struct RetrieveEmployeeResponse: Codable {
@@ -21273,17 +20793,6 @@ public struct RetrieveGiftCardFromNonceResponse: Codable {
     }
 }
 
-/// A request to retrieve digital gift cards.
-///
-/// Example:
-///
-/// {
-///   "request_params" : "?id=gftc:00113070ba5745f0b2377c1b9570cb03"
-/// }
-public struct RetrieveGiftCardRequest: Codable {
-    public init() {}
-}
-
 /// A response that contains a `GiftCard`. The response might contain a set of `Error` objects
 /// if the request resulted in errors.
 ///
@@ -21318,15 +20827,6 @@ public struct RetrieveGiftCardResponse: Codable {
         case errors
         case giftCard = "gift_card"
     }
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct RetrieveInventoryAdjustmentRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -21515,15 +21015,6 @@ public struct RetrieveInventoryCountResponse: Codable {
 /// Example:
 ///
 /// {
-/// 
-/// }
-public struct RetrieveInventoryPhysicalCountRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
 ///   "count" : {
 ///     "catalog_object_id" : "W62UWFY35CWMYGVWK6TWJDNI",
 ///     "catalog_object_type" : "ITEM_VARIATION",
@@ -21563,15 +21054,6 @@ public struct RetrieveInventoryPhysicalCountResponse: Codable {
 /// Example:
 ///
 /// {
-/// 
-/// }
-public struct RetrieveInventoryTransferRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
 ///   "errors" : [
 /// 
 ///   ],
@@ -21605,18 +21087,6 @@ public struct RetrieveInventoryTransferResponse: Codable {
         self.errors = errors
         self.transfer = transfer
     }
-}
-
-/// Defines the fields that are included in the request body for
-/// the __RetrieveLocation__ endpoint.
-///
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct RetrieveLocationRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that the
@@ -21661,17 +21131,6 @@ public struct RetrieveLocationResponse: Codable {
     }
 }
 
-/// A request to retrieve a loyalty account.
-///
-/// Example:
-///
-/// {
-///   "request_params" : "?account_id=79b807d2-d786-46a9-933b-918028d7a8c5"
-/// }
-public struct RetrieveLoyaltyAccountRequest: Codable {
-    public init() {}
-}
-
 /// A response that includes the loyalty account.
 ///
 /// Example:
@@ -21708,17 +21167,6 @@ public struct RetrieveLoyaltyAccountResponse: Codable {
         case errors
         case loyaltyAccount = "loyalty_account"
     }
-}
-
-/// A request to retrieve the [loyalty program](https://developer.squareup.com/reference/square_2021-08-18/objects/LoyaltyProgram) that belongs to a seller. A seller can have only one loyalty program.
-///
-/// Example:
-///
-/// {
-///   "request_params" : "?program_id=main"
-/// }
-public struct RetrieveLoyaltyProgramRequest: Codable {
-    public init() {}
 }
 
 /// A response that contains the loyalty program.
@@ -21788,17 +21236,6 @@ public struct RetrieveLoyaltyProgramResponse: Codable {
     }
 }
 
-/// A request to retrieve a loyalty reward.
-///
-/// Example:
-///
-/// {
-///   "request_params" : "?reward_id=9f18ac21-233a-31c3-be77-b45840f5a810"
-/// }
-public struct RetrieveLoyaltyRewardRequest: Codable {
-    public init() {}
-}
-
 /// A response that includes the loyalty reward.
 ///
 /// Example:
@@ -21827,11 +21264,6 @@ public struct RetrieveLoyaltyRewardResponse: Codable {
     }
 }
 
-/// Request object for the [RetrieveMerchant](https://developer.squareup.com/reference/square_2021-08-18/merchants-api/retrieve-merchant) endpoint.
-public struct RetrieveMerchantRequest: Codable {
-    public init() {}
-}
-
 /// The response object returned by the [RetrieveMerchant](https://developer.squareup.com/reference/square_2021-08-18/merchants-api/retrieve-merchant) endpoint.
 ///
 /// Example:
@@ -21857,21 +21289,6 @@ public struct RetrieveMerchantResponse: Codable {
         self.errors = errors
         self.merchant = merchant
     }
-}
-
-public struct RetrieveObsMigrationProfileRequest: Codable {
-    public init() {}
-}
-
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveOrderRequest: Codable {
-    public init() {}
 }
 
 /// Example:
@@ -22038,11 +21455,6 @@ public struct RetrieveOrderResponse: Codable {
     }
 }
 
-/// Represents a `RetrieveSnippet` request.
-public struct RetrieveSnippetRequest: Codable {
-    public init() {}
-}
-
 /// Represents a `RetrieveSnippet` response. The response can include either `snippet` or `errors`.
 ///
 /// Example:
@@ -22066,12 +21478,6 @@ public struct RetrieveSnippetResponse: Codable {
         self.errors = errors
         self.snippet = snippet
     }
-}
-
-/// Defines parameters in a
-/// [RetrieveSubscription](https://developer.squareup.com/reference/square_2021-08-18/subscriptions-api/retrieve-subscription) endpoint request.
-public struct RetrieveSubscriptionRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response from the
@@ -22115,10 +21521,6 @@ public struct RetrieveSubscriptionResponse: Codable {
     }
 }
 
-public struct RetrieveTeamMemberBookingProfileRequest: Codable {
-    public init() {}
-}
-
 /// Example:
 ///
 /// {
@@ -22146,19 +21548,6 @@ public struct RetrieveTeamMemberBookingProfileResponse: Codable {
         case errors
         case teamMemberBookingProfile = "team_member_booking_profile"
     }
-}
-
-/// Represents a retrieve request for a `TeamMember` object.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveTeamMemberRequest: Codable {
-    public init() {}
 }
 
 /// Represents a response from a retrieve request containing a `TeamMember` object or error messages.
@@ -22201,15 +21590,6 @@ public struct RetrieveTeamMemberResponse: Codable {
         case errors
         case teamMember = "team_member"
     }
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct RetrieveTransactionRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of
@@ -22278,19 +21658,6 @@ public struct RetrieveTransactionResponse: Codable {
         self.errors = errors
         self.transaction = transaction
     }
-}
-
-/// Represents a retrieve request for the wage setting of a team member.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct RetrieveWageSettingRequest: Codable {
-    public init() {}
 }
 
 /// Represents a response from a retrieve request containing the specified `WageSetting` object or error messages.
@@ -25264,19 +24631,6 @@ public struct StandardUnitDescriptionGroup: Codable {
         case languageCode = "language_code"
         case standardUnitDescriptions = "standard_unit_descriptions"
     }
-}
-
-/// Defines the parameters for a `SubmitEvidence` request.
-///
-/// Example:
-///
-/// {
-///   "request_body" : {
-/// 
-///   }
-/// }
-public struct SubmitEvidenceRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields in a `SubmitEvidence` response.
@@ -29030,26 +28384,6 @@ public enum V1RefundType: String, Codable, CaseIterable {
     case partial = "PARTIAL"
 }
 
-public struct V1RetrieveEmployeeRequest: Codable {
-    public init() {}
-}
-
-public struct V1RetrieveEmployeeRoleRequest: Codable {
-    public init() {}
-}
-
-public struct V1RetrieveOrderRequest: Codable {
-    public init() {}
-}
-
-public struct V1RetrievePaymentRequest: Codable {
-    public init() {}
-}
-
-public struct V1RetrieveSettlementRequest: Codable {
-    public init() {}
-}
-
 /// V1Settlement
 public struct V1Settlement: Codable {
     /// The Square-issued unique identifier for the bank account associated with the settlement.
@@ -29313,15 +28647,6 @@ public enum V1UpdateOrderRequestAction: String, Codable, CaseIterable {
     case complete = "COMPLETE"
     case cancel = "CANCEL"
     case refund = "REFUND"
-}
-
-/// Example:
-///
-/// {
-/// 
-/// }
-public struct VoidTransactionRequest: Codable {
-    public init() {}
 }
 
 /// Defines the fields that are included in the response body of

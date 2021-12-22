@@ -146,11 +146,6 @@ public struct BuildDetail: Codable {
     }
 }
 
-/// Additional environment variables to inject into the build environment. A map of names to values.
-public struct BuildParameters: Codable {
-    public init() {}
-}
-
 public struct BuildSummary: Codable {
     public var addedAt: Date?
     public var buildNum: Int?
@@ -304,7 +299,7 @@ public struct PreviousBuild: Codable {
 
 public struct Project: Codable {
     public var aws: Aws?
-    public var branches: Branches?
+    public var branches: [String: AnyJSON]?
     public var campfireNotifyPrefs: String?
     public var campfireRoom: String?
     public var campfireSubdomain: String?
@@ -346,10 +341,6 @@ public struct Project: Codable {
     public var vcsType: String?
     public var vcsURL: URL?
 
-    public struct Branches: Codable {
-        public init() {}
-    }
-
     public struct FeatureFlags: Codable {
         public var isBuildForkPrs: Bool?
         public var isFleet: Bool?
@@ -380,7 +371,7 @@ public struct Project: Codable {
         }
     }
 
-    public init(aws: Aws? = nil, branches: Branches? = nil, campfireNotifyPrefs: String? = nil, campfireRoom: String? = nil, campfireSubdomain: String? = nil, campfireToken: String? = nil, compile: String? = nil, defaultBranch: String? = nil, dependencies: String? = nil, extra: String? = nil, featureFlags: FeatureFlags? = nil, flowdockAPIToken: String? = nil, isFollowed: Bool? = nil, hasUsableKey: Bool? = nil, herokuDeployUser: String? = nil, hipchatAPIToken: String? = nil, hipchatNotify: String? = nil, hipchatNotifyPrefs: String? = nil, hipchatRoom: String? = nil, ircChannel: String? = nil, ircKeyword: String? = nil, ircNotifyPrefs: String? = nil, ircPassword: String? = nil, ircServer: String? = nil, ircUsername: String? = nil, language: String? = nil, isOss: Bool? = nil, parallel: Int? = nil, reponame: String? = nil, scopes: [Scope]? = nil, setup: String? = nil, slackAPIToken: String? = nil, slackChannel: String? = nil, slackChannelOverride: String? = nil, slackNotifyPrefs: String? = nil, slackSubdomain: String? = nil, slackWebhookURL: URL? = nil, sshKeys: [String]? = nil, test: String? = nil, username: String? = nil, vcsType: String? = nil, vcsURL: URL? = nil) {
+    public init(aws: Aws? = nil, branches: [String: AnyJSON]? = nil, campfireNotifyPrefs: String? = nil, campfireRoom: String? = nil, campfireSubdomain: String? = nil, campfireToken: String? = nil, compile: String? = nil, defaultBranch: String? = nil, dependencies: String? = nil, extra: String? = nil, featureFlags: FeatureFlags? = nil, flowdockAPIToken: String? = nil, isFollowed: Bool? = nil, hasUsableKey: Bool? = nil, herokuDeployUser: String? = nil, hipchatAPIToken: String? = nil, hipchatNotify: String? = nil, hipchatNotifyPrefs: String? = nil, hipchatRoom: String? = nil, ircChannel: String? = nil, ircKeyword: String? = nil, ircNotifyPrefs: String? = nil, ircPassword: String? = nil, ircServer: String? = nil, ircUsername: String? = nil, language: String? = nil, isOss: Bool? = nil, parallel: Int? = nil, reponame: String? = nil, scopes: [Scope]? = nil, setup: String? = nil, slackAPIToken: String? = nil, slackChannel: String? = nil, slackChannelOverride: String? = nil, slackNotifyPrefs: String? = nil, slackSubdomain: String? = nil, slackWebhookURL: URL? = nil, sshKeys: [String]? = nil, test: String? = nil, username: String? = nil, vcsType: String? = nil, vcsURL: URL? = nil) {
         self.aws = aws
         self.branches = branches
         self.campfireNotifyPrefs = campfireNotifyPrefs
@@ -555,24 +546,16 @@ public struct User: Codable {
     public var isInBetaProgram: Bool?
     public var login: String?
     public var name: String?
-    public var organizationPrefs: OrganizationPrefs?
+    public var organizationPrefs: [String: AnyJSON]?
     public var parallelism: Int?
     public var plan: String?
-    public var projects: Projects?
+    public var projects: [String: AnyJSON]?
     public var pusherID: String?
     public var selectedEmail: String?
     public var signInCount: Int?
     public var trialEnd: Date?
 
-    public struct OrganizationPrefs: Codable {
-        public init() {}
-    }
-
-    public struct Projects: Codable {
-        public init() {}
-    }
-
-    public init(isAdmin: Bool? = nil, allEmails: [String]? = nil, analyticsID: String? = nil, avatarURL: URL? = nil, basicEmailPrefs: String? = nil, bitbucket: Int? = nil, isBitbucketAuthorized: Bool? = nil, containers: Int? = nil, createdAt: Date? = nil, daysLeftInTrial: Int? = nil, isDevAdmin: Bool? = nil, enrolledBetas: [String]? = nil, githubID: Int? = nil, githubOauthScopes: [String]? = nil, gravatarID: Int? = nil, herokuAPIKey: String? = nil, isInBetaProgram: Bool? = nil, login: String? = nil, name: String? = nil, organizationPrefs: OrganizationPrefs? = nil, parallelism: Int? = nil, plan: String? = nil, projects: Projects? = nil, pusherID: String? = nil, selectedEmail: String? = nil, signInCount: Int? = nil, trialEnd: Date? = nil) {
+    public init(isAdmin: Bool? = nil, allEmails: [String]? = nil, analyticsID: String? = nil, avatarURL: URL? = nil, basicEmailPrefs: String? = nil, bitbucket: Int? = nil, isBitbucketAuthorized: Bool? = nil, containers: Int? = nil, createdAt: Date? = nil, daysLeftInTrial: Int? = nil, isDevAdmin: Bool? = nil, enrolledBetas: [String]? = nil, githubID: Int? = nil, githubOauthScopes: [String]? = nil, gravatarID: Int? = nil, herokuAPIKey: String? = nil, isInBetaProgram: Bool? = nil, login: String? = nil, name: String? = nil, organizationPrefs: [String: AnyJSON]? = nil, parallelism: Int? = nil, plan: String? = nil, projects: [String: AnyJSON]? = nil, pusherID: String? = nil, selectedEmail: String? = nil, signInCount: Int? = nil, trialEnd: Date? = nil) {
         self.isAdmin = isAdmin
         self.allEmails = allEmails
         self.analyticsID = analyticsID

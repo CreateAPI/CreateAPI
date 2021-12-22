@@ -286,11 +286,6 @@ public struct AuditLogEventContext: Codable {
     }
 }
 
-/// Event specific details. The schema will vary depending on the `event_type`.
-public struct AuditLogEventDetails: Codable {
-    public init() {}
-}
-
 /// The primary object that was affected by this event.
 public struct AuditLogEventResource: Codable {
     /// The type of resource.
@@ -351,10 +346,10 @@ public struct AuditLogEvent: Codable {
     public var eventCategory: String?
     public var actor: AuditLogEventActor?
     public var resource: AuditLogEventResource?
-    public var details: AuditLogEventDetails?
+    public var details: [String: AnyJSON]?
     public var context: AuditLogEventContext?
 
-    public init(gid: String? = nil, createdAt: Date? = nil, eventType: String? = nil, eventCategory: String? = nil, actor: AuditLogEventActor? = nil, resource: AuditLogEventResource? = nil, details: AuditLogEventDetails? = nil, context: AuditLogEventContext? = nil) {
+    public init(gid: String? = nil, createdAt: Date? = nil, eventType: String? = nil, eventCategory: String? = nil, actor: AuditLogEventActor? = nil, resource: AuditLogEventResource? = nil, details: [String: AnyJSON]? = nil, context: AuditLogEventContext? = nil) {
         self.gid = gid
         self.createdAt = createdAt
         self.eventType = eventType
@@ -404,7 +399,7 @@ public struct BatchRequestAction: Codable {
     ///   "assignee" : "me",
     ///   "workspace" : "1337"
     /// }
-    public var data: Data?
+    public var data: [String: AnyJSON]?
     /// Pagination (`limit` and `offset`) and output options (`fields` or `expand`) for the action. “Pretty” JSON output is not an available option on individual actions; if you want pretty output, specify that option on the parent request.
     ///
     /// Example:
@@ -429,18 +424,6 @@ public struct BatchRequestAction: Codable {
         case delete
         case patch
         case head
-    }
-
-    /// For `GET` requests, this should be a map of query parameters you would have normally passed in the URL. Options and pagination are not accepted here; put them in `options` instead. For `POST`, `PATCH`, and `PUT` methods, this should be the content you would have normally put in the data field of the body.
-    ///
-    /// Example:
-    ///
-    /// {
-    ///   "assignee" : "me",
-    ///   "workspace" : "1337"
-    /// }
-    public struct Data: Codable {
-        public init() {}
     }
 
     /// Pagination (`limit` and `offset`) and output options (`fields` or `expand`) for the action. “Pretty” JSON output is not an available option on individual actions; if you want pretty output, specify that option on the parent request.
@@ -476,7 +459,7 @@ public struct BatchRequestAction: Codable {
         }
     }
 
-    public init(relativePath: String, method: Method, data: Data? = nil, options: Options? = nil) {
+    public init(relativePath: String, method: Method, data: [String: AnyJSON]? = nil, options: Options? = nil) {
         self.relativePath = relativePath
         self.method = method
         self.data = data
@@ -504,7 +487,7 @@ public struct BatchResponse: Codable {
     /// {
     ///   "location" : "\/tasks\/1234"
     /// }
-    public var headers: Headers?
+    public var headers: [String: AnyJSON]?
     /// The JSON body that the invoked endpoint returned.
     ///
     /// Example:
@@ -517,36 +500,9 @@ public struct BatchResponse: Codable {
     ///     "notes" : "How are you today?"
     ///   }
     /// }
-    public var body: Body?
+    public var body: [String: AnyJSON]?
 
-    /// A map of HTTP headers specific to this result. This is primarily used for returning a `Location` header to accompany a `201 Created` result.  The parent HTTP response will contain all common headers.
-    ///
-    /// Example:
-    ///
-    /// {
-    ///   "location" : "\/tasks\/1234"
-    /// }
-    public struct Headers: Codable {
-        public init() {}
-    }
-
-    /// The JSON body that the invoked endpoint returned.
-    ///
-    /// Example:
-    ///
-    /// {
-    ///   "data" : {
-    ///     "completed" : false,
-    ///     "gid" : "1967",
-    ///     "name" : "Hello, world!",
-    ///     "notes" : "How are you today?"
-    ///   }
-    /// }
-    public struct Body: Codable {
-        public init() {}
-    }
-
-    public init(statusCode: Int? = nil, headers: Headers? = nil, body: Body? = nil) {
+    public init(statusCode: Int? = nil, headers: [String: AnyJSON]? = nil, body: [String: AnyJSON]? = nil) {
         self.statusCode = statusCode
         self.headers = headers
         self.body = body
@@ -873,11 +829,6 @@ public struct ModifyDependentsRequest: Codable {
     public init(dependents: [String]? = nil) {
         self.dependents = dependents
     }
-}
-
-/// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-public struct EmptyResponse: Codable {
-    public init() {}
 }
 
 public struct EnumOptionRequest: Codable {

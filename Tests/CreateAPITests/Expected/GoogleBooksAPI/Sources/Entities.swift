@@ -776,11 +776,6 @@ public struct DownloadAccesses: Codable {
     }
 }
 
-/// A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON object `{}`.
-public struct Empty: Codable {
-    public init() {}
-}
-
 public struct FamilyInfo: Codable {
     /// Resource type.
     public var kind: String?
@@ -2319,6 +2314,54 @@ public struct Volumeseriesinfo: Codable {
         self.kind = kind
         self.shortSeriesBookTitle = shortSeriesBookTitle
         self.volumeSeries = volumeSeries
+    }
+}
+
+public enum AnyJSON: Equatable, Codable {
+    case string(String)
+    case number(Double)
+    case object([String: AnyJSON])
+    case array([AnyJSON])
+    case bool(Bool)
+
+    var value: Any {
+        switch self {
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .array(array): try container.encode(array)
+        case let .object(object): try container.encode(object)
+        case let .string(string): try container.encode(string)
+        case let .number(number): try container.encode(number)
+        case let .bool(bool): try container.encode(bool)
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let object = try? container.decode([String: AnyJSON].self) {
+            self = .object(object)
+        } else if let array = try? container.decode([AnyJSON].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let bool = try? container.decode(Bool.self) {
+            self = .bool(bool)
+        } else if let number = try? container.decode(Double.self) {
+            self = .number(number)
+        } else {
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+            )
+        }
     }
 }
 

@@ -53,9 +53,9 @@ extension Paths.Attachments {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -328,9 +328,9 @@ extension Paths.CustomFields {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -563,9 +563,9 @@ extension Paths.Goals {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -721,9 +721,9 @@ extension Paths.Goals.WithGoalGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -748,9 +748,9 @@ extension Paths.Goals.WithGoalGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -831,9 +831,9 @@ extension Paths.Goals.WithGoalGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -858,9 +858,9 @@ extension Paths.Goals.WithGoalGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1237,9 +1237,9 @@ extension Paths.Portfolios {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1291,9 +1291,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1319,9 +1319,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1346,9 +1346,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1373,9 +1373,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1401,9 +1401,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1429,9 +1429,9 @@ extension Paths.Portfolios.WithPortfolioGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1547,9 +1547,9 @@ extension Paths.ProjectStatuses {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1758,9 +1758,9 @@ extension Paths.Projects {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -1993,9 +1993,9 @@ extension Paths.Projects.WithProjectGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2052,9 +2052,9 @@ extension Paths.Projects.WithProjectGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2080,9 +2080,9 @@ extension Paths.Projects.WithProjectGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2108,9 +2108,9 @@ extension Paths.Projects.WithProjectGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2136,9 +2136,9 @@ extension Paths.Projects.WithProjectGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2220,9 +2220,9 @@ extension Paths.Sections {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2300,9 +2300,9 @@ extension Paths.Sections.WithSectionGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2332,9 +2332,9 @@ extension Paths.Projects.WithProjectGid.Sections {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2409,9 +2409,9 @@ extension Paths.Stories {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2596,9 +2596,9 @@ extension Paths.Tags {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -2832,9 +2832,9 @@ extension Paths.Tasks {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3102,9 +3102,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3128,9 +3128,9 @@ extension Paths.Tasks.WithTaskGid {
         }
 
         public struct PostResponse: Decodable {
-            public var data: [AsanaAPI.EmptyResponse]?
+            public var data: [[String: AnyJSON]]?
 
-            public init(data: [AsanaAPI.EmptyResponse]? = nil) {
+            public init(data: [[String: AnyJSON]]? = nil) {
                 self.data = data
             }
         }
@@ -3206,9 +3206,9 @@ extension Paths.Tasks.WithTaskGid {
         }
 
         public struct PostResponse: Decodable {
-            public var data: [AsanaAPI.EmptyResponse]?
+            public var data: [[String: AnyJSON]]?
 
-            public init(data: [AsanaAPI.EmptyResponse]? = nil) {
+            public init(data: [[String: AnyJSON]]? = nil) {
                 self.data = data
             }
         }
@@ -3246,9 +3246,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3276,9 +3276,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3303,9 +3303,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3330,9 +3330,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3359,9 +3359,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3386,9 +3386,9 @@ extension Paths.Tasks.WithTaskGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -3765,9 +3765,9 @@ extension Paths.Teams.WithTeamGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -4259,9 +4259,9 @@ extension Paths.Webhooks {
 
         public struct DeleteResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }
@@ -4473,9 +4473,9 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
         public struct PostResponse: Decodable {
             /// An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.
-            public var data: AsanaAPI.EmptyResponse?
+            public var data: [String: AnyJSON]?
 
-            public init(data: AsanaAPI.EmptyResponse? = nil) {
+            public init(data: [String: AnyJSON]? = nil) {
                 self.data = data
             }
         }

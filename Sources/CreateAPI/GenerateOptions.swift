@@ -52,7 +52,7 @@ final class GenerateOptions {
         var isGeneratingCustomCodingKeys: Bool
         var isAddingDefaultValues: Bool
         var isInliningPropertiesFromReferencedSchemas: Bool
-        var isInterpretingEmptyObjectsAsDictionaries: Bool
+        var isAdditionalPropertiesOnByDefault: Bool
         var skip: Set<String>
         
         init(_ options: GenerateOptionsSchema.Entities?) {
@@ -70,7 +70,7 @@ final class GenerateOptions {
             self.isGeneratingCustomCodingKeys = options?.isGeneratingCustomCodingKeys ?? true
             self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
             self.isInliningPropertiesFromReferencedSchemas = options?.isInliningPropertiesFromReferencedSchemas ?? false
-            self.isInterpretingEmptyObjectsAsDictionaries = options?.isInterpretingEmptyObjectsAsDictionaries ?? false
+            self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
             self.skip = Set(options?.skip ?? [])
         }
     }
@@ -200,7 +200,7 @@ final class GenerateOptionsSchema: Decodable {
     var indentation: GenerateOptions.Indentation?
     var spaceWidth: Int?
     var isPluralizationEnabled: Bool?
-    var isInterpretingEmptyObjectsAsDictionaries: Bool?
+    var isAdditionalPropertiesOnByDefault: Bool?
     var isNaiveDateEnabled: Bool?
     var isUsingIntegersWithPredefinedCapacity: Bool?
     
@@ -225,7 +225,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingCustomCodingKeys: Bool?
         var isAddingDefaultValues: Bool?
         var isInliningPropertiesFromReferencedSchemas: Bool?
-        var isInterpretingEmptyObjectsAsDictionaries: Bool?
+        var isAdditionalPropertiesOnByDefault: Bool?
         var skip: [String]?
     }
     

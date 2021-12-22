@@ -418,12 +418,8 @@ extension Paths.API.__3.Attachment.Content {
         /// 
         ///  *  *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
-        public func get(isRedirect: Bool? = nil) -> Request<GetResponse> {
+        public func get(isRedirect: Bool? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(isRedirect))
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ isRedirect: Bool?) -> [(String, String?)] {
@@ -490,12 +486,8 @@ extension Paths.API.__3.Attachment.Thumbnail {
         /// 
         ///  *  *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
-        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {
@@ -9944,12 +9936,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type` {
         /// This operation can be accessed anonymously.
         /// 
         /// **[Permissions](#permissions) required:** None.
-        public func get(size: Size? = nil, format: Format? = nil) -> Request<GetResponse> {
+        public func get(size: Size? = nil, format: Format? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(size, format))
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
@@ -10005,12 +9993,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Avatar {
         ///  *  For system avatars, none.
         ///  *  For custom project avatars, *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project the avatar belongs to.
         ///  *  For custom issue type avatars, *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for at least one project the issue type is used in.
-        public func get(size: Size? = nil, format: Format? = nil) -> Request<GetResponse> {
+        public func get(size: Size? = nil, format: Format? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(size, format))
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
@@ -10066,12 +10050,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Owner {
         ///  *  For system avatars, none.
         ///  *  For custom project avatars, *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project the avatar belongs to.
         ///  *  For custom issue type avatars, *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for at least one project the issue type is used in.
-        public func get(size: Size? = nil, format: Format? = nil) -> Request<GetResponse> {
+        public func get(size: Size? = nil, format: Format? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: makeGetQuery(size, format))
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {

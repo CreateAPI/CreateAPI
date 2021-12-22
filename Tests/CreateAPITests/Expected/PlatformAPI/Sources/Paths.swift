@@ -625,12 +625,8 @@ extension Paths {
         /// Retrieve usage statistics for an application
         ///
         /// The Ably system can be queried to obtain usage statistics for a given application, and results are provided aggregated across all channels in use in the application in the specified period. Stats may be used to track usage against account quotas.
-        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+        public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
             .get(path, query: parameters?.asQuery())
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
 
         public struct GetParameters {

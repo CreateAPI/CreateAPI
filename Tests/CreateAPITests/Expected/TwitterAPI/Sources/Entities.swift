@@ -825,17 +825,13 @@ public struct Geo: Codable {
     public var bbox: [Double]
     /// A [GeoJson Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) geometry object.
     public var geometry: Point?
-    public var properties: Properties
+    public var properties: [String: AnyJSON]
 
     public enum `Type`: String, Codable, CaseIterable {
         case feature = "Feature"
     }
 
-    public struct Properties: Codable {
-        public init() {}
-    }
-
-    public init(type: `Type`, bbox: [Double], geometry: Point? = nil, properties: Properties) {
+    public init(type: `Type`, bbox: [Double], geometry: Point? = nil, properties: [String: AnyJSON]) {
         self.type = type
         self.bbox = bbox
         self.geometry = geometry

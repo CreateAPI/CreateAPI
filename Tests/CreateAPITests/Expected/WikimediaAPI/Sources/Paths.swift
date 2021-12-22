@@ -59,12 +59,8 @@ extension Paths.Media.Math.Check {
         /// and perform a GET request against that URL.
         /// 
         /// Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
-        public func post(_ body: Data) -> Request<PostResponse> {
+        public func post(_ body: Data) -> Request<[String: AnyJSON]> {
             .post(path, body: body)
-        }
-
-        public struct PostResponse: Decodable {
-            public init() {}
         }
     }
 }
@@ -95,12 +91,8 @@ extension Paths.Media.Math.Formula {
         /// the given hash.
         /// 
         /// Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
-        public var get: Request<GetResponse> {
+        public var get: Request<[String: AnyJSON]> {
             .get(path)
-        }
-
-        public struct GetResponse: Decodable {
-            public init() {}
         }
     }
 }
@@ -2956,7 +2948,7 @@ extension Paths.Transform.List.Tool {
         /// Fetches the list of tools and all of the language pairs it can translate
         /// 
         /// Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
-        public var get: Request<WikimediaAPI.CxListPairsForTool> {
+        public var get: Request<[String: AnyJSON]> {
             .get(path)
         }
     }
@@ -2987,7 +2979,7 @@ extension Paths.Transform.List.Tool.WithTool.WithFrom {
         /// Fetches the list of tools and all of the language pairs it can translate
         /// 
         /// Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
-        public var get: Request<WikimediaAPI.CxListPairsForTool> {
+        public var get: Request<[String: AnyJSON]> {
             .get(path)
         }
     }

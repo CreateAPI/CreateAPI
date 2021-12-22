@@ -564,7 +564,7 @@ public struct CursorPagingObject: Codable {
     /// A link to the Web API endpoint returning the full result of the request.
     public var href: String?
     /// The requested data.
-    public var items: [Item]?
+    public var items: [[String: AnyJSON]]?
     /// The maximum number of items in the response (as set in the query or by default).
     public var limit: Int?
     /// URL to the next page of items. ( `null` if none)
@@ -572,11 +572,7 @@ public struct CursorPagingObject: Codable {
     /// The total number of items available to return.
     public var total: Int?
 
-    public struct Item: Codable {
-        public init() {}
-    }
-
-    public init(cursors: CursorObject? = nil, href: String? = nil, items: [Item]? = nil, limit: Int? = nil, next: String? = nil, total: Int? = nil) {
+    public init(cursors: CursorObject? = nil, href: String? = nil, items: [[String: AnyJSON]]? = nil, limit: Int? = nil, next: String? = nil, total: Int? = nil) {
         self.cursors = cursors
         self.href = href
         self.items = items
@@ -1056,7 +1052,7 @@ public struct PagingObject: Codable {
     /// A link to the Web API endpoint returning the full result of the request
     public var href: String?
     /// The requested content
-    public var items: [Item]?
+    public var items: [[String: AnyJSON]]?
     /// The maximum number of items in the response (as set in the query or by default).
     public var limit: Int?
     /// URL to the next page of items. ( `null` if none)
@@ -1068,11 +1064,7 @@ public struct PagingObject: Codable {
     /// The total number of items available to return.
     public var total: Int?
 
-    public struct Item: Codable {
-        public init() {}
-    }
-
-    public init(href: String? = nil, items: [Item]? = nil, limit: Int? = nil, next: String? = nil, offset: Int? = nil, previous: String? = nil, total: Int? = nil) {
+    public init(href: String? = nil, items: [[String: AnyJSON]]? = nil, limit: Int? = nil, next: String? = nil, offset: Int? = nil, previous: String? = nil, total: Int? = nil) {
         self.href = href
         self.items = items
         self.limit = limit
@@ -2575,6 +2567,54 @@ public struct TuneableTrackObject: Codable {
         case tempo
         case timeSignature = "time_signature"
         case valence
+    }
+}
+
+public enum AnyJSON: Equatable, Codable {
+    case string(String)
+    case number(Double)
+    case object([String: AnyJSON])
+    case array([AnyJSON])
+    case bool(Bool)
+
+    var value: Any {
+        switch self {
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .array(array): try container.encode(array)
+        case let .object(object): try container.encode(object)
+        case let .string(string): try container.encode(string)
+        case let .number(number): try container.encode(number)
+        case let .bool(bool): try container.encode(bool)
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let object = try? container.decode([String: AnyJSON].self) {
+            self = .object(object)
+        } else if let array = try? container.decode([AnyJSON].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let bool = try? container.decode(Bool.self) {
+            self = .bool(bool)
+        } else if let number = try? container.decode(Double.self) {
+            self = .number(number)
+        } else {
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "Invalid JSON value.")
+            )
+        }
     }
 }
 

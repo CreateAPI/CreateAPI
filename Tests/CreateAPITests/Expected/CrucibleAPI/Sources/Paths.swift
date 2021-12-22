@@ -99,14 +99,9 @@ extension Paths.Candidates {
             /// A single tag or list of tags to be associated with the candidate. Updating a candidate with tags replaces all current tag data associated with the candidate
             public var tags: [String]?
             /// An arbitrary number of additional data fields that can be stored to the candidate. Any preexisting data will remain intact. Any new data mapping to preexisting data keys will be updated with new values. All new data will be added.
-            public var customData: CustomData?
+            public var customData: [String: AnyJSON]?
 
-            /// An arbitrary number of additional data fields that can be stored to the candidate. Any preexisting data will remain intact. Any new data mapping to preexisting data keys will be updated with new values. All new data will be added.
-            public struct CustomData: Encodable {
-                public init() {}
-            }
-
-            public init(number: String? = nil, clientID: String? = nil, tags: [String]? = nil, customData: CustomData? = nil) {
+            public init(number: String? = nil, clientID: String? = nil, tags: [String]? = nil, customData: [String: AnyJSON]? = nil) {
                 self.number = number
                 self.clientID = clientID
                 self.tags = tags
@@ -480,12 +475,8 @@ extension Paths.Stacks {
         /// Delete stack
         ///
         /// Delete a stack record. Must have 'Stacks Delete` permission to access
-        public var delete: Request<DeleteResponse> {
+        public var delete: Request<[String: AnyJSON]> {
             .delete(path)
-        }
-
-        public struct DeleteResponse: Decodable {
-            public init() {}
         }
     }
 }

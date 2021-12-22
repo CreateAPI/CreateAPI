@@ -1954,15 +1954,10 @@ public struct WorkflowSimpleCondition: Codable {
     /// The type of the transition rule.
     public var type: String
     /// EXPERIMENTAL. The configuration of the transition rule.
-    public var configuration: Configuration?
+    public var configuration: [String: AnyJSON]?
     public var nodeType: String
 
-    /// EXPERIMENTAL. The configuration of the transition rule.
-    public struct Configuration: Codable {
-        public init() {}
-    }
-
-    public init(type: String, configuration: Configuration? = nil, nodeType: String) {
+    public init(type: String, configuration: [String: AnyJSON]? = nil, nodeType: String) {
         self.type = type
         self.configuration = configuration
         self.nodeType = nodeType
@@ -4770,7 +4765,7 @@ public struct IssueEntityProperties: Codable {
 }
 
 public struct JSONNode: Codable {
-    public var elements: Elements?
+    public var elements: [String: AnyJSON]?
     public var isPojo: Bool?
     public var isNumber: Bool?
     public var isIntegralNumber: Bool?
@@ -4802,14 +4797,10 @@ public struct JSONNode: Codable {
     public var isValueAsBoolean: Bool?
     public var textValue: String?
     public var valueAsText: String?
-    public var fieldNames: FieldNames?
+    public var fieldNames: [String: AnyJSON]?
     public var isArray: Bool?
-    public var fields: Fields?
+    public var fields: [String: AnyJSON]?
     public var isNull: Bool?
-
-    public struct Elements: Codable {
-        public init() {}
-    }
 
     public enum NumberType: String, Codable, CaseIterable {
         case int = "INT"
@@ -4820,15 +4811,7 @@ public struct JSONNode: Codable {
         case bigDecimal = "BIG_DECIMAL"
     }
 
-    public struct FieldNames: Codable {
-        public init() {}
-    }
-
-    public struct Fields: Codable {
-        public init() {}
-    }
-
-    public init(elements: Elements? = nil, isPojo: Bool? = nil, isNumber: Bool? = nil, isIntegralNumber: Bool? = nil, isFloatingPointNumber: Bool? = nil, isInt: Bool? = nil, isLong: Bool? = nil, isDouble: Bool? = nil, isBigDecimal: Bool? = nil, isBigInteger: Bool? = nil, isTextual: Bool? = nil, isBoolean: Bool? = nil, isBinary: Bool? = nil, isContainerNode: Bool? = nil, isMissingNode: Bool? = nil, isObject: Bool? = nil, isValueNode: Bool? = nil, numberValue: Double? = nil, numberType: NumberType? = nil, intValue: Int? = nil, longValue: Int? = nil, bigIntegerValue: Int? = nil, doubleValue: Double? = nil, decimalValue: Double? = nil, isBooleanValue: Bool? = nil, binaryValue: [String]? = nil, valueAsInt: Int? = nil, valueAsLong: Int? = nil, valueAsDouble: Double? = nil, isValueAsBoolean: Bool? = nil, textValue: String? = nil, valueAsText: String? = nil, fieldNames: FieldNames? = nil, isArray: Bool? = nil, fields: Fields? = nil, isNull: Bool? = nil) {
+    public init(elements: [String: AnyJSON]? = nil, isPojo: Bool? = nil, isNumber: Bool? = nil, isIntegralNumber: Bool? = nil, isFloatingPointNumber: Bool? = nil, isInt: Bool? = nil, isLong: Bool? = nil, isDouble: Bool? = nil, isBigDecimal: Bool? = nil, isBigInteger: Bool? = nil, isTextual: Bool? = nil, isBoolean: Bool? = nil, isBinary: Bool? = nil, isContainerNode: Bool? = nil, isMissingNode: Bool? = nil, isObject: Bool? = nil, isValueNode: Bool? = nil, numberValue: Double? = nil, numberType: NumberType? = nil, intValue: Int? = nil, longValue: Int? = nil, bigIntegerValue: Int? = nil, doubleValue: Double? = nil, decimalValue: Double? = nil, isBooleanValue: Bool? = nil, binaryValue: [String]? = nil, valueAsInt: Int? = nil, valueAsLong: Int? = nil, valueAsDouble: Double? = nil, isValueAsBoolean: Bool? = nil, textValue: String? = nil, valueAsText: String? = nil, fieldNames: [String: AnyJSON]? = nil, isArray: Bool? = nil, fields: [String: AnyJSON]? = nil, isNull: Bool? = nil) {
         self.elements = elements
         self.isPojo = isPojo
         self.isNumber = isNumber
@@ -11682,14 +11665,9 @@ public struct JSONContextVariable: Codable {
     /// Type of custom context variable.
     public var type: String
     /// A JSON object containing custom content.
-    public var value: Value?
+    public var value: [String: AnyJSON]?
 
-    /// A JSON object containing custom content.
-    public struct Value: Codable {
-        public init() {}
-    }
-
-    public init(type: String, value: Value? = nil) {
+    public init(type: String, value: [String: AnyJSON]? = nil) {
         self.type = type
         self.value = value
     }
@@ -11984,37 +11962,11 @@ public struct ErrorMessage: Codable {
 public struct ConnectModules: Codable {
     /// A list of app modules in the same format as the `modules` property in the
     /// [app descriptor](https://developer.atlassian.com/cloud/jira/platform/app-descriptor/).
-    public var modules: [ConnectModule]
+    public var modules: [[String: AnyJSON]]
 
-    public init(modules: [ConnectModule]) {
+    public init(modules: [[String: AnyJSON]]) {
         self.modules = modules
     }
-}
-
-/// A [Connect module](https://developer.atlassian.com/cloud/jira/platform/about-jira-modules/) in the same format as in the
-/// [app descriptor](https://developer.atlassian.com/cloud/jira/platform/app-descriptor/).
-///
-/// Example:
-///
-/// {
-///   "description" : {
-///     "value" : "field with team"
-///   },
-///   "extractions" : [
-///     {
-///       "name" : "categoryName",
-///       "path" : "category",
-///       "type" : "text"
-///     }
-///   ],
-///   "key" : "team-field",
-///   "name" : {
-///     "value" : "Team"
-///   },
-///   "type" : "single_select"
-/// }
-public struct ConnectModule: Codable {
-    public init() {}
 }
 
 /// Details of the workflow and its transition rules.
