@@ -376,10 +376,7 @@ extension Generator {
     // MARK: - Enums
     
     func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
-        // TODO: null should be addressed differently
-        let values = (info.allowedValues ?? []).map(\.value)
-            .compactMap { $0 as? String }
-            .filter { $0 != "null" }
+        let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
         guard !values.isEmpty else {
             throw GeneratorError("Enum \"\(name)\" has no values")
         }
