@@ -109,7 +109,7 @@ final class GenerateOptionsTests: XCTestCase {
             "--config", config("""
             {
                 "paths": {
-                    "imports": ["APIClient", "HTTPHeaders", "CoreData"]
+                    "imports": ["Get", "HTTPHeaders", "CoreData"]
                 }
             }
             """)

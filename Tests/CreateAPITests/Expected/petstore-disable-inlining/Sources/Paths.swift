@@ -4,7 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
-import APIClient
+import Get
 import HTTPHeaders
 
 extension Paths {

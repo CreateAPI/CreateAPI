@@ -5,7 +5,7 @@
 
 import Foundation
 import NaiveDate
-import APIClient
+import Get
 
 extension Paths {
     public static var attachments: Attachments {

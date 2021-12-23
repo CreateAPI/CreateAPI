@@ -97,7 +97,7 @@ final class GenerateOptions {
             self.namespace = options?.namespace ?? "Paths"
             self.isGeneratingResponseHeaders = options?.isGeneratingResponseHeaders ?? true
             self.isAddingOperationIds = options?.isAddingOperationIds ?? false
-            self.imports = Set(options?.imports ?? ["APIClient"])
+            self.imports = Set(options?.imports ?? ["Get"])
             self.overrideResponses = options?.overrideResponses ?? [:]
             var queryParameterEncoders = makeDefaultParameterEncoders()
             for (key, value) in options?.queryParameterEncoders ?? [:] {

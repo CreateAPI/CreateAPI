@@ -5,7 +5,7 @@
 
 import Foundation
 import NaiveDate
-import APIClient
+import Get
 import HTTPHeaders
 
 extension Paths {

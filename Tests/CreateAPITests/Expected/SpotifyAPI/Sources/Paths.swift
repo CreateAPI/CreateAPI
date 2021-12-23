@@ -4,7 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
-import APIClient
+import Get
 
 extension Paths.Albums {
     public func id(_ id: String) -> WithID {

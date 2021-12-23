@@ -4,7 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
-import APIClient
+import Get
 
 extension Paths {
     public static var mobile: Mobile {
