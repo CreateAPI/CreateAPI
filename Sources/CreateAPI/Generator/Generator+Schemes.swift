@@ -385,11 +385,11 @@ extension Generator {
         }
 
         let caseNames: [PropertyName] = values.map {
-            if !options.rename.enumCaseNames.isEmpty {
-                if let name = options.rename.enumCaseNames["\(name.rawValue).\($0)"] {
+            if !options.rename.enumCases.isEmpty {
+                if let name = options.rename.enumCases["\(name.rawValue).\($0)"] {
                     return makePropertyName(name)
                 }
-                if let name = options.rename.enumCaseNames[$0] {
+                if let name = options.rename.enumCases[$0] {
                     return makePropertyName(name)
                 }
             }
@@ -402,7 +402,7 @@ extension Generator {
         let cases: [EnumOfStringsDeclaration.Case] = zip(values, caseNames).map { value, name in
             // TODO: This handles somescenarios but not all,
             // e.g "reaction+1", "reaction-1" will fail to compile. You can
-            // use `rename.enumCaseNames` to fix these scenarios.
+            // use `rename.enumCases` to fix these scenarios.
             let caseName = hasDuplicates ? value : name.rawValue
             return EnumOfStringsDeclaration.Case(name: caseName, key: value)
         }

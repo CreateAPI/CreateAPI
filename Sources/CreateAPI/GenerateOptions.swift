@@ -121,7 +121,7 @@ final class GenerateOptions {
     struct Rename {
         var properties: [String: String]
         var parameters: [String: String]
-        var enumCaseNames: [String: String]
+        var enumCases: [String: String]
         var entities: [String: String]
         var operations: [String: String]
         var collectionElements: [String: String]
@@ -129,7 +129,7 @@ final class GenerateOptions {
         init(_ options: GenerateOptionsSchema.Rename?) {
             self.properties = options?.properties ?? [:]
             self.parameters = options?.parameters ?? [:]
-            self.enumCaseNames = options?.enumCaseNames ?? [:]
+            self.enumCases = options?.enumCases ?? [:]
             self.entities = options?.entities ?? [:]
             self.operations = options?.operations ?? [:]
             self.collectionElements = options?.collectionElements ?? [:]
@@ -238,7 +238,7 @@ final class GenerateOptionsSchema: Decodable {
     struct Rename: Decodable {
         var properties: [String: String]?
         var parameters: [String: String]?
-        var enumCaseNames: [String: String]?
+        var enumCases: [String: String]?
         var entities: [String: String]?
         var operations: [String: String]?
         var collectionElements: [String: String]?

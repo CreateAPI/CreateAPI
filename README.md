@@ -8,9 +8,9 @@ A description of this package.
 
 ## Configuration
 
-// TODO: test that when you procide default options like this , it works
+CreateAPI supports a massive number of customization options with more to come. You can use either YAML or JSON as configuration files.
 
-You can use either YAML or JSON as configuration files. The default options the following:
+An example configuration file featuring all available options set to the default parameters.
 
 ```yaml
 # Modifier for all generated declarations
@@ -71,7 +71,7 @@ entities:
   # For `allOf` inline properties from references
   isInliningPropertiesFromReferencedSchemas: false
   # Changes how unspecified additional properties are interpreted
-  isAdditionalPropertiesOnByDefault: false
+  isAdditionalPropertiesOnByDefault: true
 
 paths:
   # Skipped paths, e.g. ["/gists/{gist_id}/commits"]
@@ -85,7 +85,7 @@ paths:
   # Generate response headers using https://github.com/kean/HTTPHeaders
   isGeneratingResponseHeaders: true
   # Add operation id to each request
-  isAddingOperationIds: true
+  isAddingOperationIds: false
   # The types to import, by default uses "Get" (https://github.com/kean/Get)
   imports: ["Get"]
   # Example, "- empty: Void"
@@ -107,8 +107,31 @@ rename:
   #   - name: firstName
   #   - SimpleUser.name: firstName
   properties: {}
-
+  # Rename query parameters
   parameters: {}
+  # Rename enum cases
+  enumCases: {}
+  # Rename entities
+  entities: {}
+  # Rename operation when "paths.style: operations" is used
+  operations: {}
+  # Rename anynomous collection elements. By default, use
+  # a singularized form of the property name
+  collectionElements: {}
+
+comments:
+  # Generate comments
+  isEnabled: true
+  # Generate titles
+  isAddingTitles: true
+  # Generate description 
+  isAddingDescription: true
+  # Generate examples
+  isAddingExamples: true
+  # Add links to the external documenatation
+  isAddingExternalDocumentation: true
+  # Auto-capitalizes comments
+  isCapitalizationEnabled: true
 ```
 
 ## Adding Specs

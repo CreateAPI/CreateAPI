@@ -28,7 +28,7 @@ final class GenerateTests: XCTestCase {
     func testEdgecases() throws {
         try testSpec(name: "edgecases", package: "edgecases-default")
     }
-
+    
     func testGenerateGitHub() throws {
         // GIVEN
         let command = try Generate.parse([
@@ -42,7 +42,7 @@ final class GenerateTests: XCTestCase {
               overrideResponses:
                 accepted: "Void"
             rename:
-              enumCaseNames:
+              enumCases:
                 reactions-+1: "reactionsPlusOne"
                 reactions--1: "reactionsMinusOne"
             """, ext: "yml")
@@ -165,7 +165,7 @@ final class GenerateTests: XCTestCase {
     func testSquare() throws {
         try testSpec(name: "square", package: "SquareAPI")
     }
-    
+        
     func testStackExchange() throws {
         try testSpec(name: "stackexchange", package: "StackExchangeAPI")
     }
