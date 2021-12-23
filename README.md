@@ -19,14 +19,14 @@ ARGUMENTS:
 
 OPTIONS:
   --output <output>       The output folder (default: ./.create-api/)
-  --config <config>       The path to generator configuration. If not present, the command will look for
-                          .createAPI file in the current folder. (default: /.create-api.yml)
+  --config <config>       The path to configuration. If not present, the command will look
+                          for .createAPI file in the current folder. (default: /.create-api.yml)
   -s, --split             Split output into separate files
   -v, --verbose           Print additional logging information
-  --strict                Throws an error if it fails to generate any of the constructs from the input
-                          spec
-  --watch                 Monitor changes to both the spec and the configuration file and automatically
-                          re-generated input
+  --strict                Throws an error if it fails to generate any of the constructs from
+                          the input spec
+  --watch                 Monitor changes to both the spec and the configuration file and
+                          automatically re-generated input
   --package <package>     Generates a complete package with a given name
   --module <module>       Use the following name as a module name
   --vendor <vendor>       Enabled vendor-specific logic (supported values: "github")
@@ -34,8 +34,8 @@ OPTIONS:
   --filename-template <filename-template>
                           Example: "%0.generated.swift" will produce files with the following names:
                           "Paths.generated.swift". (default: %0.swift)
-  --single-threaded       By default, saturates all available threads. Pass this option to turn all
-                          parallelization off.
+  --single-threaded       By default, saturates all available threads. Pass this option
+                          to turn all parallelization off.
   --measure               Measure performance of individual operations
   -h, --help              Show help information.
 ```
