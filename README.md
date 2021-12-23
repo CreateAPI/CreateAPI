@@ -2,9 +2,41 @@
 
 # CreateAPI
 
-A description of this package.
+Delightful code generation for OpenAPI specs for Swift written in Swift. 
+
+- **Fast**: processes specs with 100K lines of YAML in less than a second
+- **Smart**: generates Swift code that looks like it's written by hand
+- **Reliable**: tested on 500K lines of publically available OpenAPI specs  producing correct code every time
+- **Customizable**: offers a ton of customization options
 
 ## Arguments
+
+```
+ARGUMENTS:
+  <input>                 The OpenAPI spec input file in either JSON or YAML format
+
+OPTIONS:
+  --output <output>       The output folder (default: ./.create-api/)
+  --config <config>       The path to generator configuration. If not present, the command will look for
+                          .createAPI file in the current folder. (default: /.create-api.yml)
+  -s, --split             Split output into separate files
+  -v, --verbose           Print additional logging information
+  --strict                Throws an error if it fails to generate any of the constructs from the input
+                          spec
+  --watch                 Monitor changes to both the spec and the configuration file and automatically
+                          re-generated input
+  --package <package>     Generates a complete package with a given name
+  --module <module>       Use the following name as a module name
+  --vendor <vendor>       Enabled vendor-specific logic (supported values: "github")
+  --generate <generate>   Specifies what to generate (default: paths, entities)
+  --filename-template <filename-template>
+                          Example: "%0.generated.swift" will produce files with the following names:
+                          "Paths.generated.swift". (default: %0.swift)
+  --single-threaded       By default, saturates all available threads. Pass this option to turn all
+                          parallelization off.
+  --measure               Measure performance of individual operations
+  -h, --help              Show help information.
+```
 
 ## Configuration
 
@@ -136,12 +168,17 @@ comments:
 
 ## Adding Specs
 
-If you are using CreateAPI and want your spec to be part of the regression testing - add it to GenerateTest with your configuration.
+If you are using CreateAPI and want your spec to be part of the regression testing - open a PR adding it to `GenerateTests` test suite and provide your configuration.
 
 ## OpenAPI Support
 
-Create API supports 
+The following features are not suppored (yet):
 
 - External References
 - `allowReserved` and `allowEmptyValue` option in query parameters
 - `spaceDelimited`, `pipeDelimited`, and `deepObject` query parameters `style` values, form encoding only supports primitive types
+
+Upcoming:
+
+- An improved way to generate patch parameters. Support for [JSON Patch](http://jsonpatch.com).
+- OpenAPI 3.1 support.
