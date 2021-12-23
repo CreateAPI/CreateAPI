@@ -73,7 +73,7 @@ final class Generator {
     // MARK: Misc
     
     var fileHeader: String {
-        if let header = options.fileHeader.header {
+        if let header = options.fileHeader {
             return header
         }
         
@@ -82,7 +82,7 @@ final class Generator {
         // https://github.com/kean/CreateAPI
         """
         
-        if options.fileHeader.addSwiftLintDisabled {
+        if options.isSwiftLintDisabled {
             output += "\n"
             output += """
             //

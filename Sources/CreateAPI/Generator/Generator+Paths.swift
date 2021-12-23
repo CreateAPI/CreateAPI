@@ -393,7 +393,7 @@ extension Generator {
             let requestBody = try makeRequestBodyType(for: requestBody, method: method, nestedTypeName: makeNestedTypeName("Request"), context: context)
             // TODO: Refactor
             if requestBody.type.rawValue != "Void" {
-                if options.paths.isInliningSimpleRequestType,
+                if options.paths.isInliningSimpleRequests,
                    let entity = (requestBody.nested as? EntityDeclaration),
                    entity.properties.count == 1,
                    !entity.isForm,
@@ -764,7 +764,7 @@ extension Generator {
     // MARK: - Response Headers
 
     private func makeHeaders(for response: Response, name: String) throws -> String? {
-        guard options.paths.isAddingResponseHeaders, let headers = response.responseValue?.headers else {
+        guard options.paths.isGeneratingResponseHeaders, let headers = response.responseValue?.headers else {
             return nil
         }
         let contents: [String] = try headers.map { try makeHeader(key: $0, header: $1) }

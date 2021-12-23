@@ -424,7 +424,7 @@ final class Templates {
     // MARK: Method
 
     func methodOrProperty(name: String, parameters: [String] = [], returning type: String, contents: String, isStatic: Bool) -> String {
-        if parameters.isEmpty && options.paths.isUsingPropertiesForMethodsWithNoArguments {
+        if parameters.isEmpty {
             return property(name: name, returning: type, contents: contents, isStatic: isStatic)
         } else {
             return method(name: name, parameters: parameters, returning: type, contents: contents, isStatic: isStatic)

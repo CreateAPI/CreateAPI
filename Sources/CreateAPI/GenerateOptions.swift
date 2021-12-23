@@ -18,10 +18,11 @@ final class GenerateOptions {
     var isPluralizationEnabled: Bool
     var isNaiveDateEnabled: Bool
     var isUsingIntegersWithPredefinedCapacity: Bool
-
+    var isSwiftLintDisabled: Bool
+    var fileHeader: String?
+    
     var entities: Entities
     var paths: Paths
-    var fileHeader: FileHeader
     var rename: Rename
     var comments: Comments
     
@@ -74,19 +75,49 @@ final class GenerateOptions {
             self.skip = Set(options?.skip ?? [])
         }
     }
-
-    struct FileHeader {
-        var addSwiftLintDisabled: Bool
-        var addGetImport: Bool
-        var header: String?
+    
+    struct Paths {
+        var style: PathsStyle
+        var namespace: String
+        var isGeneratingResponseHeaders: Bool
+        var isAddingOperationIds: Bool
+        var imports: Set<String>
+        var overrideResponses: [String: String]
+        var queryParameterEncoders: [String: String]
+        var isInliningSimpleRequests: Bool
+        var isInliningSimpleQueryParameters: Bool
+        var simpleQueryParametersThreshold: Int
+        // TODO: Replace this with a better solution for patch params
+        var isMakingOptionalPatchParametersDoubleOptional: Bool
+        var isRemovingRedundantPaths: Bool
+        var skip: Set<String>
         
-        init(_ options: GenerateOptionsSchema.FileHeader?) {
-            self.addSwiftLintDisabled = options?.addSwiftLintDisabled ?? true
-            self.addGetImport = options?.addGetImport ?? true
-            self.header = options?.header
+        init(_ options: GenerateOptionsSchema.Paths?) {
+            self.style = options?.style ?? .rest
+            self.namespace = options?.namespace ?? "Paths"
+            self.isGeneratingResponseHeaders = options?.isGeneratingResponseHeaders ?? true
+            self.isAddingOperationIds = options?.isAddingOperationIds ?? false
+            self.imports = Set(options?.imports ?? ["APIClient"])
+            self.overrideResponses = options?.overrideResponses ?? [:]
+            var queryParameterEncoders = makeDefaultParameterEncoders()
+            for (key, value) in options?.queryParameterEncoders ?? [:] {
+                queryParameterEncoders[key] = value // Override default values
+            }
+            self.queryParameterEncoders = queryParameterEncoders
+            self.isInliningSimpleRequests = options?.isInliningSimpleRequests ?? true
+            self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
+            self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
+            self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? true
+            self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
+            self.skip = Set(options?.skip ?? [])
         }
     }
-        
+    
+    enum PathsStyle: String, Decodable {
+        case rest
+        case operations
+    }
+
     struct Rename {
         var properties: [String: String]
         var parameters: [String: String]
@@ -122,50 +153,7 @@ final class GenerateOptions {
             self.isCapitalizationEnabled = options?.isCapitalizationEnabled ?? true
         }
     }
-    
-    struct Paths {
-        var style: PathsStyle
-        var namespace: String
-        var isAddingResponseHeaders: Bool
-        var isAddingOperationIds: Bool
-        var imports: Set<String>
-        var overrideResponses: [String: String]
-        var queryParameterEncoders: [String: String]
-        var isUsingPropertiesForMethodsWithNoArguments: Bool
-        var isInliningSimpleRequestType: Bool
-        var isInliningSimpleQueryParameters: Bool
-        var simpleQueryParametersThreshold: Int
-        var isMakingOptionalPatchParametersDoubleOptional: Bool
-        var isRemovingRedundantPaths: Bool
-        var skip: Set<String>
-        
-        init(_ options: GenerateOptionsSchema.Paths?) {
-            self.style = options?.style ?? .rest
-            self.namespace = options?.namespace ?? "Paths"
-            self.isAddingResponseHeaders = options?.isAddingResponseHeaders ?? true
-            self.isAddingOperationIds = options?.isAddingOperationIds ?? false
-            self.imports = Set(options?.imports ?? ["APIClient"])
-            self.overrideResponses = options?.overrideResponses ?? [:]
-            var queryParameterEncoders = makeDefaultParameterEncoders()
-            for (key, value) in options?.queryParameterEncoders ?? [:] {
-                queryParameterEncoders[key] = value // Override default values
-            }
-            self.queryParameterEncoders = queryParameterEncoders
-            self.isUsingPropertiesForMethodsWithNoArguments = options?.isUsingPropertiesForMethodsWithNoArguments ?? true
-            self.isInliningSimpleRequestType = options?.isInliningSimpleRequestType ?? true
-            self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
-            self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
-            self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? true
-            self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
-            self.skip = Set(options?.skip ?? [])
-        }
-    }
-    
-    enum PathsStyle: String, Decodable {
-        case rest
-        case operations
-    }
- 
+
     init(_ options: GenerateOptionsSchema = .init()) {
         self.access = options.access ?? "public"
         self.paths = Paths(options.paths)
@@ -177,7 +165,6 @@ final class GenerateOptions {
         self.addedAcronyms = (options.addedAcronyms ?? []).map { $0.lowercased() }
         self.ignoredAcronyms = (options.ignoredAcronyms ?? []).map { $0.lowercased() }
         self.entities = Entities(options.entities)
-        self.fileHeader = FileHeader(options.fileHeader)
         self.rename = Rename(options.rename)
         self.comments = Comments(options.comments)
         self.indentation = options.indentation ?? .spaces
@@ -185,6 +172,8 @@ final class GenerateOptions {
         self.isPluralizationEnabled = options.isPluralizationEnabled ?? true
         self.isNaiveDateEnabled = options.isNaiveDateEnabled ?? true
         self.isUsingIntegersWithPredefinedCapacity = options.isUsingIntegersWithPredefinedCapacity ?? false
+        self.isSwiftLintDisabled = options.isSwiftLintDisabled ?? true
+        self.fileHeader = options.fileHeader
     }
 }
 
@@ -203,10 +192,11 @@ final class GenerateOptionsSchema: Decodable {
     var isAdditionalPropertiesOnByDefault: Bool?
     var isNaiveDateEnabled: Bool?
     var isUsingIntegersWithPredefinedCapacity: Bool?
+    var isSwiftLintDisabled: Bool?
+    var fileHeader: String?
     
     var entities: Entities?
     var paths: Paths?
-    var fileHeader: FileHeader?
     var rename: Rename?
     var comments: Comments?
     
@@ -229,12 +219,22 @@ final class GenerateOptionsSchema: Decodable {
         var skip: [String]?
     }
     
-    struct FileHeader: Decodable {
-        var addSwiftLintDisabled: Bool?
-        var addGetImport: Bool?
-        var header: String?
+    struct Paths: Decodable {
+        var style: GenerateOptions.PathsStyle?
+        var namespace: String?
+        var isGeneratingResponseHeaders: Bool?
+        var isAddingOperationIds: Bool?
+        var imports: [String]?
+        var overrideResponses: [String: String]?
+        var queryParameterEncoders: [String: String]?
+        var isInliningSimpleRequests: Bool?
+        var isInliningSimpleQueryParameters: Bool?
+        var simpleQueryParametersThreshold: Int?
+        var isMakingOptionalPatchParametersDoubleOptional: Bool?
+        var isRemovingRedundantPaths: Bool?
+        var skip: [String]?
     }
-    
+
     struct Rename: Decodable {
         var properties: [String: String]?
         var parameters: [String: String]?
@@ -251,23 +251,6 @@ final class GenerateOptionsSchema: Decodable {
         var isAddingExamples: Bool?
         var isAddingExternalDocumentation: Bool?
         var isCapitalizationEnabled: Bool?
-    }
-    
-    struct Paths: Decodable {
-        var style: GenerateOptions.PathsStyle?
-        var namespace: String?
-        var isAddingResponseHeaders: Bool?
-        var isAddingOperationIds: Bool?
-        var imports: [String]?
-        var overrideResponses: [String: String]?
-        var queryParameterEncoders: [String: String]?
-        var isUsingPropertiesForMethodsWithNoArguments: Bool?
-        var isInliningSimpleRequestType: Bool?
-        var isInliningSimpleQueryParameters: Bool?
-        var simpleQueryParametersThreshold: Int?
-        var isMakingOptionalPatchParametersDoubleOptional: Bool?
-        var isRemovingRedundantPaths: Bool?
-        var skip: [String]?
     }
 }
 

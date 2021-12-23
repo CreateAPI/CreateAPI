@@ -40,8 +40,14 @@ spaceWidth: 4
 isNaiveDateEnabled: true
 # If enabled, uses `Int64` or `Int32` when specified.
 isUsingIntegersWithPredefinedCapacity: false
+# Disableds SwiftLint
+isSwiftLintDisabled: true
+# Overrides file
+fileHeader: null
 
 entities:
+  # Skipped entities, e.g. ["SimpleUser"]
+  skip: []
   # Generates entities as structs
   isGeneratingStructs: true
   # Generate the following entities as classes
@@ -62,6 +68,47 @@ entities:
   isSortingPropertiesAlphabetically: false
   # Add defaults values for booleans and other types when specified
   isAddingDefaultValues: true
+  # For `allOf` inline properties from references
+  isInliningPropertiesFromReferencedSchemas: false
+  # Changes how unspecified additional properties are interpreted
+  isAdditionalPropertiesOnByDefault: false
+
+paths:
+  # Skipped paths, e.g. ["/gists/{gist_id}/commits"]
+  skip: []
+  # Available options:
+  #   - "rest" - generate structs to represent path components
+  #   - "operations" - generate a plain list of operatinos
+  style: rest
+  # Namespace for all generated paths
+  namespace: "Paths"
+  # Generate response headers using https://github.com/kean/HTTPHeaders
+  isGeneratingResponseHeaders: true
+  # Add operation id to each request
+  isAddingOperationIds: true
+  # The types to import, by default uses "Get" (https://github.com/kean/Get)
+  imports: ["Get"]
+  # Example, "- empty: Void"
+  overrideResponses: {}
+  # Overrides the query parameter encoders, example:
+  #   - Date: "ISO8601DateFormatter().string(from: self)"
+  queryParameterEncoders: null
+  # Inline simple requests, like the ones with a single parameter 
+  isInliningSimpleRequests: true
+  # Inline simple parametesr with few arguments.
+  isInliningSimpleQueryParameters: true
+  # Threshold from which to start inlining query parameters
+  simpleQueryParametersThreshold: 2
+  # Tries to remove redundant paths
+  isRemovingRedundantPaths: true
+
+rename:
+  # Rename properties, example:
+  #   - name: firstName
+  #   - SimpleUser.name: firstName
+  properties: {}
+
+  parameters: {}
 ```
 
 ## Adding Specs
