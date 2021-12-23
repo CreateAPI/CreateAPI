@@ -9,6 +9,8 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 - **Reliable**: tested on 500K lines of publically available OpenAPI specs  producing correct code every time
 - **Customizable**: offers a ton of customization options
 
+> Powered by [OpenAPIKit](https://github.com/mattpolzin/OpenAPIKit)
+
 ## Arguments
 
 ```
