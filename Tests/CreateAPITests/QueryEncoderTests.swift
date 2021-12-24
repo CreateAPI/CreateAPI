@@ -109,6 +109,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3%204%205")
+        XCTAssertEqual(query.asQuery()?.removingPercentEncoding, "id=3 4 5")
     }
     
     // MARK: Style: PipeDelimited
@@ -138,6 +139,22 @@ final class QueryEncoderTests: XCTestCase {
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3%7C4%7C5")
+        XCTAssertEqual(query.asQuery()?.removingPercentEncoding, "id=3|4|5")
+    }
+    
+    // MARK: Style: DeepObject
+    
+    func testStyleDeepObject() {
+        // GIVEN
+        let user = User(role: "admin", name: "kean")
+        
+        // WHEN
+        var query: [(String, String?)] = []
+        query.addDeepObject("id", user.asQuery())
+        
+        // THEN
+        XCTAssertEqual(query.asQuery(), "id%5Brole%5D=admin&id%5Bname%5D=kean")
+        XCTAssertEqual(query.asQuery()?.removingPercentEncoding, "id[role]=admin&id[name]=kean")
     }
 }
 
@@ -184,6 +201,12 @@ extension Array where Element == (String, String?) {
     mutating func addQueryItems(_ name: String, _ values: [QueryEncodable]) {
         for value in values {
             addQueryItem(name, value)
+        }
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
         }
     }
 
