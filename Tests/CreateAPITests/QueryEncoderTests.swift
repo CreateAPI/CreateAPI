@@ -81,6 +81,64 @@ final class QueryEncoderTests: XCTestCase {
         // THEN
         XCTAssertEqual(query.asQuery(), "id=role,admin,name,kean")
     }
+    
+    // MARK: Style: SpaceDelimited
+    
+    // The rest of the combinations are invalid (the tool need to validate for that)
+
+    // The same as "form"
+    func testStyleSpaceDelimitedExplodeTrue() {
+        // GIVEN
+        let ids = [3, 4, 5]
+        
+        // WHEN
+        var query: [(String, String?)] = []
+        query.addQueryItems("id", ids)
+        
+        // THEN
+        XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
+    }
+    
+    func testStyleSpaceDelimitedExplodeFalse() {
+        // GIVEN
+        let ids = [3, 4, 5]
+        
+        // WHEN
+        var query: [(String, String?)] = []
+        query.addQueryItem("id", ids.map(\.asQueryValue).joined(separator: " "))
+        
+        // THEN
+        XCTAssertEqual(query.asQuery(), "id=3%204%205")
+    }
+    
+    // MARK: Style: PipeDelimited
+    
+    // The rest of the combinations are invalid (the tool need to validate for that)
+
+    // The same as "form"
+    func testStylePipeDelimitedExplodeTrue() {
+        // GIVEN
+        let ids = [3, 4, 5]
+        
+        // WHEN
+        var query: [(String, String?)] = []
+        query.addQueryItems("id", ids)
+        
+        // THEN
+        XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
+    }
+    
+    func testStylePipeDelimitedExplodeFalse() {
+        // GIVEN
+        let ids = [3, 4, 5]
+        
+        // WHEN
+        var query: [(String, String?)] = []
+        query.addQueryItem("id", ids.map(\.asQueryValue).joined(separator: "|"))
+        
+        // THEN
+        XCTAssertEqual(query.asQuery(), "id=3%7C4%7C5")
+    }
 }
 
 struct User {
