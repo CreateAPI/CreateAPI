@@ -7,12 +7,12 @@ import Foundation
 import Get
 
 extension Paths {
-    public static var pets: Pets {
-        Pets(path: "/pets")
+    public static var testPrimitive: TestPrimitive {
+        TestPrimitive(path: "/form/test-primitive")
     }
 
-    public struct Pets {
-        /// Path: `/pets`
+    public struct TestPrimitive {
+        /// Path: `/form/test-primitive`
         public let path: String
 
         /// Test passing primitive query parameters
@@ -51,11 +51,6 @@ extension Paths {
             return query
         }
 
-        /// Form Object Explode
-        public var put: Request<Void> {
-            .put(path)
-        }
-
         /// Inlining more complex queries (with an enum)
         public func patch(type: `Type`) -> Request<Void> {
             .patch(path, query: makePatchQuery(type))
@@ -70,6 +65,55 @@ extension Paths {
         public enum `Type`: String, Codable, CaseIterable {
             case cat
             case dog
+        }
+    }
+}
+
+extension Paths {
+    public static var testArray: TestArray {
+        TestArray(path: "/form/test-array")
+    }
+
+    public struct TestArray {
+        /// Path: `/form/test-array`
+        public let path: String
+
+        /// Form Array Explode True
+        public func get(type: [String]) -> Request<Void> {
+            .get(path, query: makeGetQuery(type))
+        }
+
+        private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            type.forEach { query.addQueryItem("type", $0) }
+            return query
+        }
+
+        /// Form Array Explode False
+        public func post(type: [String]) -> Request<Void> {
+            .post(path, query: makePostQuery(type))
+        }
+
+        private func makePostQuery(_ type: [String]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("type", type.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+    }
+}
+
+extension Paths {
+    public static var testObject: TestObject {
+        TestObject(path: "/form/test-object")
+    }
+
+    public struct TestObject {
+        /// Path: `/form/test-object`
+        public let path: String
+
+        /// Form Object Explode
+        public var get: Request<Void> {
+            .get(path)
         }
     }
 }

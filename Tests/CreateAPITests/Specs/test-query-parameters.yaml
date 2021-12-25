@@ -7,7 +7,7 @@ info:
 servers:
   - url: https://example.com
 paths:
-  /pets:
+  /form/test-primitive:
     get:
       summary: Test passing primitive query parameters
       parameters:
@@ -19,14 +19,14 @@ paths:
             type: integer
         - name: id2
           in: query
-          description: Nullable
+          description: Required but nullable (nullable should be ignored)
           required: true
           schema:
             type: integer
             nullable: true
         - name: id3
           in: query
-          description: Required
+          description: Required and not nullable
           required: true
           schema:
             type: integer
@@ -58,12 +58,45 @@ paths:
       responses:
         '200':
           description: Empty response
-    put:
+  /form/test-array:
+    get:
+      summary: Form Array Explode True
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
+    post:
+      summary: Form Array Explode False
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
+  /form/test-object:
+    get:
       summary: Form Object Explode
       parameters:
         - name: type
           in: query
           required: true
+          style: form
           schema:
             type: object
             properties:

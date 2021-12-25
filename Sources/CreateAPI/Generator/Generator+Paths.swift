@@ -461,6 +461,8 @@ extension Generator {
     
     private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
         do {
+            var context = context
+            context.isFormEncoding = true
             guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
@@ -524,7 +526,10 @@ extension Generator {
                     return QueryItemType(type: .userDefined(name: enumTypeName), nested: nested)
                 }
                 return QueryItemType("String")
-            case .object: return nil
+            case .object:
+                let type = makeTypeName(parameter.name)
+                let nested = try makeDeclaration(name: type, schema: schema, context: context)
+                return QueryItemType(type: .userDefined(name: type), nested: nested)
             case .array(_, let details):
                 guard isTopLevel else {
                     return nil
@@ -536,13 +541,16 @@ extension Generator {
                     return QueryItemType(type: type.type.asArray(), nested: type.nested)
                 }
                 return nil
-            case .all, .one, .any, .not: return nil
+            case .all, .one, .any, .not:
+                throw GeneratorError("Unsupported query parameter type: \(parameter)")
             case .reference(let ref, _):
+                // TODO: This should generate a makeQuery method somewhere
                 guard let name = ref.name.map(makeTypeName), supportedTypes.contains(name.rawValue) else {
                     return nil
                 }
                 return QueryItemType(type: .userDefined(name: name))
-            case .fragment: return nil
+            case .fragment:
+                throw GeneratorError("Unsupported query parameter type: \(parameter)")
             }
         }
         

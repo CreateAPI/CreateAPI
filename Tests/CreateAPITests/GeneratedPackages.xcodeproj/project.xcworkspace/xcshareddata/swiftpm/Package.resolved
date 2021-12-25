@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Get",
+        "repositoryURL": "https://github.com/kean/Get",
+        "state": {
+          "branch": "main",
+          "revision": "e84025190a4d47f3c4535e9983ed7c75a5b2387f",
+          "version": null
+        }
+      },
+      {
+        "package": "HTTPHeaders",
+        "repositoryURL": "https://github.com/kean/HTTPHeaders",
+        "state": {
+          "branch": "main",
+          "revision": "0bdbd7a48041e319c1ca061d0fd2ebdcb30f02c2",
+          "version": null
+        }
+      },
+      {
+        "package": "NaiveDate",
+        "repositoryURL": "https://github.com/kean/NaiveDate",
+        "state": {
+          "branch": "master",
+          "revision": "e0810b3364ad3ac040bcf3ac7e5a21fec6a9d615",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
