@@ -281,7 +281,8 @@ extension Generator {
     private func makePath(job: JobOperation) throws -> String {
         let context = Context(parents: [], namespace: arguments.module.rawValue)
         // TODO: Add non-strict version
-        guard let entry = try makeOperation(job.path, job.item, job.operation, job.method, .operations, context) else {
+        var nestedTypeNames = Set<TypeName>()
+        guard let entry = try makeOperation(job.path, job.item, job.operation, job.method, .operations, context, &nestedTypeNames) else {
             throw GeneratorError("Failed to generate operation")
         }
         return templates.extensionOf("Paths", contents: entry)
@@ -290,14 +291,15 @@ extension Generator {
     // MARK: - Operations
 
     private func makeOperations(for path: OpenAPI.Path, item: OpenAPI.PathItem, style: GenerateOptions.PathsStyle, context: Context) throws -> [String] {
-        try item.allOperations.map { method, operation in
-            try makeOperation(path, item, operation, method, style, context)
+        var nestedTypeNames = Set<TypeName>()
+        return try item.allOperations.map { method, operation in
+            try makeOperation(path, item, operation, method, style, context, &nestedTypeNames)
         }.compactMap { $0 }
     }
 
-    private func makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context) throws -> String? {
+    private func makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String? {
         do {
-            return try _makeOperation(path, item, operation, method, style, context)
+            return try _makeOperation(path, item, operation, method, style, context, &nestedTypeNames)
         } catch {
             if arguments.isStrict {
                 throw error
@@ -308,13 +310,13 @@ extension Generator {
         }
     }
     
-    private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context) throws -> String {
+    private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String {
         let operationId = getOperationId(for: operation)
         if style == .operations, operationId.isEmpty {
             throw GeneratorError("OperationId is invalid or missing")
         }
         
-        var nested: [String] = []
+        var nested: [Declaration] = []
         var parameters: [String] = []
         var call: [String] = []
         
@@ -352,7 +354,7 @@ extension Generator {
             let responseValue = try makeResponse(for: response, nestedTypeName: makeNestedTypeName("Response"), context: context)
             responseType = responseValue.type.rawValue
             if let value = responseValue.nested {
-                nested.append(render(value))
+                nested.append(value)
             }
             responseHeaders = try? makeHeaders(for: response, name: makeNestedTypeName("ResponseHeaders").rawValue)
         } else {
@@ -377,13 +379,14 @@ extension Generator {
                 let initName = "make\(makeNestedTypeName("Query"))"
                 let initalizer = "\(initName)(\(initArgs))"
                 call.append("query: \(initalizer)")
-                nested.append(templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations))
-                nested += query.compactMap { $0.nested }.map(render)
+                nested.append(AnyDeclaration(name: TypeName(initName), rawValue: templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations)))
+                nested += query.compactMap { $0.nested }
             } else {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery")
-                nested.append(templates.entity(name: type, contents: contents, protocols: []))
+                // TODO: Use EntityDeclaration
+                nested.append(AnyDeclaration(name: type, rawValue: templates.entity(name: type, contents: contents, protocols: [])))
             }
             setNeedsQuery()
         }
@@ -414,7 +417,7 @@ extension Generator {
                         parameters.append("\(property.name): \(property.type.identifier(namespace: entity.name.rawValue))\(property.isOptional ? "? = nil" : "")")
                         call.append("body: \(entity.name)(\(property.name): \(property.name))")
                         if let value = requestBody.nested {
-                            nested.append(render(value))
+                            nested.append(value)
                         }
                     } else {
                         parameters.append("\(property.name): \(property.type)\(property.isOptional ? "? = nil" : "")")
@@ -429,7 +432,7 @@ extension Generator {
                         call.append("body: body")
                     }
                     if let value = requestBody.nested {
-                        nested.append(render(value))
+                        nested.append(value)
                     }
                 }
             }
@@ -450,9 +453,10 @@ extension Generator {
             output += headers
             setNeedsHTTPHeadersDependency()
         }
-        for value in nested {
+        for value in nested where !nestedTypeNames.contains(value.name) {
+            nestedTypeNames.insert(value.name)
             output += "\n\n"
-            output += value
+            output += render(value)
         }
         return output
     }
@@ -496,6 +500,7 @@ extension Generator {
         }
         
         let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
+        var isObject = false
         
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
             switch schema {
@@ -529,6 +534,7 @@ extension Generator {
             case .object:
                 let type = makeTypeName(parameter.name)
                 let nested = try makeDeclaration(name: type, schema: schema, context: context)
+                isObject = true
                 return QueryItemType(type: .userDefined(name: type), nested: nested)
             case .array(_, let details):
                 guard isTopLevel else {
@@ -569,7 +575,7 @@ extension Generator {
         }
     
         let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
-        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, metadata: .init(schema.coreContext), nested: type.nested)
+        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, isObject: isObject, metadata: .init(schema.coreContext), nested: type.nested)
     }
         
     // MARK: - Request Body

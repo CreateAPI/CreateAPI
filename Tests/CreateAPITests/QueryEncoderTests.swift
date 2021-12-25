@@ -38,7 +38,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query += user.asQuery()
+        query += user.asQuery
         
         // THEN
         XCTAssertEqual(query.asQuery(), "role=admin&name=kean")
@@ -76,7 +76,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query.addQueryItem("id", user.asQuery().asCompactQuery)
+        query.addQueryItem("id", user.asQuery.asCompactQuery)
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=role,admin,name,kean")
@@ -150,7 +150,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query.addDeepObject("id", user.asQuery())
+        query.addDeepObject("id", user.asQuery)
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id%5Brole%5D=admin&id%5Bname%5D=kean")
@@ -162,7 +162,7 @@ struct User {
     var role: String
     var name: String
     
-    func asQuery() -> [(String, String?)] {
+    var asQuery: [(String, String?)] {
         var query: [(String, String?)] = []
         query.addQueryItem("role", role)
         query.addQueryItem("name", name)

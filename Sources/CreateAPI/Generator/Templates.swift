@@ -113,15 +113,22 @@ final class Templates {
         
     func asQueryContents(properties: [Property]) -> String {
         let statements: [String] = properties.map {
-            let prefix = $0.name.rawValue == "query" ? "self." : ""
+            let getter = ($0.name.rawValue == "query" ? "self." : "") + $0.name.rawValue
+            let opt = $0.isOptional ? "?" : ""
             if case .array = $0.type {
                 if $0.explode {
-                    return "\(prefix)\($0.name)\($0.isOptional ? "?" : "").forEach { query.addQueryItem(\"\($0.key)\", $0) }"
+                    return "\(getter)\(opt).forEach { query.addQueryItem(\"\($0.key)\", $0) }"
                 } else {
-                    return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name)\($0.isOptional ? "?" : "").map(\\.asQueryValue).joined(separator: \",\"))"
+                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \",\"))"
+                }
+            } else if $0.isObject {
+                if $0.explode {
+                    return "query += \(getter)\(opt).asQuery"
+                } else {
+                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).asQuery.asCompactQuery)"
                 }
             } else {
-                return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name))"
+                return "query.addQueryItem(\"\($0.key)\", \(getter))"
             }
         }
         return """

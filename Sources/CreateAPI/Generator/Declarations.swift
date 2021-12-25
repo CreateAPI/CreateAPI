@@ -132,6 +132,7 @@ struct Protocols: ExpressibleByArrayLiteral {
     }
 }
 
+// TODO: Don't use this for QueryParameters?
 struct Property {
     // Example: "files"
     var name: PropertyName
@@ -140,8 +141,10 @@ struct Property {
     var isOptional: Bool
     // Key in the JSON
     var key: String
-    // This is currently only used for query parameters
+    // warning: - This is currently only used for query parameters
     var explode = true
+    // warning: - This is currently only used for query parameters
+    var isObject = false
     var defaultValue: String?
     var metadata: DeclarationMetadata?
     // A nested declaration required used as a property type
@@ -181,6 +184,11 @@ struct EntityDeclaration: Declaration {
         guard case .userDefined(let name) = type else { return false }
         return nested.contains { $0.name == name }
     }
+}
+
+struct AnyDeclaration: Declaration {
+    let name: TypeName
+    let rawValue: String
 }
 
 enum EntityType {

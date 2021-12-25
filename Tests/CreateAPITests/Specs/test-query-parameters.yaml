@@ -89,23 +89,44 @@ paths:
       responses:
         '200':
           description: Empty response
-  # /form/test-object:
-  #   get:
-  #     summary: Form Object Explode
-  #     parameters:
-  #       - name: type
-  #         in: query
-  #         required: true
-  #         style: form
-  #         schema:
-  #           type: object
-  #           properties:
-  #             id:
-  #               type: string
-  #             name:
-  #               type: string
-  #           required:
-  #             - id
-  #     responses:
-  #       '200':
-  #         description: Empty response
+  /form/test-object:
+    get:
+      summary: Form Object Explode True
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: form
+          explode: true # default
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+            required:
+              - id
+      responses:
+        '200':
+          description: Empty response
+    post:
+      summary: Form Object Explode False
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: form
+          explode: false # default
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+            required:
+              - id
+      responses:
+        '200':
+          description: Empty response
