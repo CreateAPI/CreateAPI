@@ -1,0 +1,78 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Test Query Parameters
+  license:
+    name: MIT
+servers:
+  - url: https://example.com
+paths:
+  /pets:
+    get:
+      summary: Test passing primitive query parameters
+      parameters:
+        - name: id
+          in: query
+          description: Not required
+          required: false
+          schema:
+            type: integer
+        - name: id2
+          in: query
+          description: Nullable
+          required: true
+          schema:
+            type: integer
+            nullable: true
+        - name: id3
+          in: query
+          description: Required
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Empty response
+    post:
+      summary: Inlining simple queries
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Empty response
+    patch:
+      summary: Inlining more complex queries (with an enum)
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - cat
+              - dog
+      responses:
+        '200':
+          description: Empty response
+    put:
+      summary: Form Object Explode
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+            required:
+              - id
+      responses:
+        '200':
+          description: Empty response

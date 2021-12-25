@@ -574,7 +574,7 @@ extension Paths.V1 {
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("withBalance", isWithBalance?.asQueryValue)
+            query.addQueryItem("withBalance", isWithBalance)
             return query
         }
     }
@@ -624,7 +624,7 @@ extension Paths.V1.Accounts {
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("withBalance", isWithBalance?.asQueryValue)
+            query.addQueryItem("withBalance", isWithBalance)
             return query
         }
     }
@@ -700,12 +700,12 @@ extension Paths.V1.Accounts.WithAccountID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("dateFrom", dateFrom?.asQueryValue)
-                query.addQueryItem("dateTo", dateTo?.asQueryValue)
-                query.addQueryItem("entryReferenceFrom", entryReferenceFrom?.asQueryValue)
-                query.addQueryItem("bookingStatus", bookingStatus.asQueryValue)
-                query.addQueryItem("deltaList", isDeltaList?.asQueryValue)
-                query.addQueryItem("withBalance", isWithBalance?.asQueryValue)
+                query.addQueryItem("dateFrom", dateFrom)
+                query.addQueryItem("dateTo", dateTo)
+                query.addQueryItem("entryReferenceFrom", entryReferenceFrom)
+                query.addQueryItem("bookingStatus", bookingStatus)
+                query.addQueryItem("deltaList", isDeltaList)
+                query.addQueryItem("withBalance", isWithBalance)
                 return query
             }
         }
@@ -1295,55 +1295,59 @@ extension Paths.V1.SigningBaskets.WithBasketID.Authorisations {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension NaiveDate {
+extension NaiveDate: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -1356,14 +1360,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

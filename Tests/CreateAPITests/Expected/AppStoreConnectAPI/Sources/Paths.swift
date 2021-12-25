@@ -84,9 +84,9 @@ extension Paths {
                 query.addQueryItem("filter[platforms]", filterPlatforms?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("exists[parent]", existsParent?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[subcategories]", limitSubcategories?.asQueryValue)
+                query.addQueryItem("limit[subcategories]", limitSubcategories)
                 return query
             }
         }
@@ -132,7 +132,7 @@ extension Paths.AppCategories {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[subcategories]", limitSubcategories?.asQueryValue)
+                query.addQueryItem("limit[subcategories]", limitSubcategories)
                 return query
             }
         }
@@ -182,7 +182,7 @@ extension Paths.AppCategories.WithID {
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -285,7 +285,7 @@ extension Paths {
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -618,7 +618,7 @@ extension Paths.AppInfos {
                 query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations?.asQueryValue)
+                query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations)
                 return query
             }
         }
@@ -732,7 +732,7 @@ extension Paths.AppInfos.WithID {
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -1028,7 +1028,7 @@ extension Paths.AppPreviewSets {
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appPreviews]", limitAppPreviews?.asQueryValue)
+                query.addQueryItem("limit[appPreviews]", limitAppPreviews)
                 return query
             }
         }
@@ -1093,7 +1093,7 @@ extension Paths.AppPreviewSets.WithID {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -1127,7 +1127,7 @@ extension Paths.AppPreviewSets.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -1251,7 +1251,7 @@ extension Paths {
                 query.addQueryItem("filter[priceTier]", filterPriceTier?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[territory]", filterTerritory?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -1385,10 +1385,10 @@ extension Paths {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[pricePoints]", limitPricePoints?.asQueryValue)
+                query.addQueryItem("limit[pricePoints]", limitPricePoints)
                 return query
             }
         }
@@ -1441,7 +1441,7 @@ extension Paths.AppPriceTiers {
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[pricePoints]", limitPricePoints?.asQueryValue)
+                query.addQueryItem("limit[pricePoints]", limitPricePoints)
                 return query
             }
         }
@@ -1464,7 +1464,7 @@ extension Paths.AppPriceTiers.WithID {
         private func makeGetQuery(_ fieldsAppPricePoints: [FieldsAppPricePoints]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -1590,7 +1590,7 @@ extension Paths.AppScreenshotSets {
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appScreenshots]", limitAppScreenshots?.asQueryValue)
+                query.addQueryItem("limit[appScreenshots]", limitAppScreenshots)
                 return query
             }
         }
@@ -1654,7 +1654,7 @@ extension Paths.AppScreenshotSets.WithID {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -1688,7 +1688,7 @@ extension Paths.AppScreenshotSets.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -1893,7 +1893,7 @@ extension Paths.AppStoreReviewDetails {
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreReviewAttachments]", limitAppStoreReviewAttachments?.asQueryValue)
+                query.addQueryItem("limit[appStoreReviewAttachments]", limitAppStoreReviewAttachments)
                 return query
             }
         }
@@ -1961,7 +1961,7 @@ extension Paths.AppStoreReviewDetails.WithID {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -2051,8 +2051,8 @@ extension Paths.AppStoreVersionLocalizations {
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appPreviewSets]", limitAppPreviewSets?.asQueryValue)
-                query.addQueryItem("limit[appScreenshotSets]", limitAppScreenshotSets?.asQueryValue)
+                query.addQueryItem("limit[appPreviewSets]", limitAppPreviewSets)
+                query.addQueryItem("limit[appScreenshotSets]", limitAppScreenshotSets)
                 return query
             }
         }
@@ -2159,7 +2159,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
                 query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -2268,7 +2268,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
                 query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -2536,7 +2536,7 @@ extension Paths.AppStoreVersions {
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations?.asQueryValue)
+                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
                 return query
             }
         }
@@ -2693,7 +2693,7 @@ extension Paths.AppStoreVersions.WithID {
         private func makeGetQuery(_ fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -3273,7 +3273,7 @@ extension Paths {
                 query.addQueryItem("exists[gameCenterEnabledVersions]", existsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
@@ -3290,16 +3290,16 @@ extension Paths {
                 query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appInfos]", limitAppInfos?.asQueryValue)
-                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions?.asQueryValue)
-                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories?.asQueryValue)
-                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations?.asQueryValue)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
-                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions?.asQueryValue)
-                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases?.asQueryValue)
-                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions?.asQueryValue)
-                query.addQueryItem("limit[prices]", limitPrices?.asQueryValue)
+                query.addQueryItem("limit[appInfos]", limitAppInfos)
+                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
+                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
+                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
+                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
+                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
+                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
+                query.addQueryItem("limit[prices]", limitPrices)
                 return query
             }
         }
@@ -3592,16 +3592,16 @@ extension Paths.Apps {
                 query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appInfos]", limitAppInfos?.asQueryValue)
-                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions?.asQueryValue)
-                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories?.asQueryValue)
-                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations?.asQueryValue)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
-                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions?.asQueryValue)
-                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases?.asQueryValue)
-                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions?.asQueryValue)
-                query.addQueryItem("limit[prices]", limitPrices?.asQueryValue)
+                query.addQueryItem("limit[appInfos]", limitAppInfos)
+                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
+                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
+                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
+                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
+                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
+                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
+                query.addQueryItem("limit[prices]", limitPrices)
                 return query
             }
         }
@@ -3739,7 +3739,7 @@ extension Paths.Apps.WithID {
                 query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -3994,7 +3994,7 @@ extension Paths.Apps.WithID {
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -4018,7 +4018,7 @@ extension Paths.Apps.WithID {
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -4044,7 +4044,7 @@ extension Paths.Apps.WithID {
         private func makeGetQuery(_ fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -4109,7 +4109,7 @@ extension Paths.Apps.WithID {
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -4172,7 +4172,7 @@ extension Paths.Apps.WithID {
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -4320,7 +4320,7 @@ extension Paths.Apps.WithID {
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -4422,7 +4422,7 @@ extension Paths.Apps.WithID {
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -4522,7 +4522,7 @@ extension Paths.Apps.WithID {
         private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -4608,7 +4608,7 @@ extension Paths.Apps.WithID {
                 query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -4717,7 +4717,7 @@ extension Paths {
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -4934,7 +4934,7 @@ extension Paths {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[app]", filterApp.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -5145,7 +5145,7 @@ extension Paths {
                 query.addQueryItem("filter[betaReviewState]", filterBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[build]", filterBuild.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -5337,7 +5337,7 @@ extension Paths {
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -5625,13 +5625,13 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaTesters]", limitBetaTesters?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[betaTesters]", limitBetaTesters)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -5761,8 +5761,8 @@ extension Paths.BetaGroups {
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaTesters]", limitBetaTesters?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[betaTesters]", limitBetaTesters)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -5840,7 +5840,7 @@ extension Paths.BetaGroups.WithID {
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -5872,7 +5872,7 @@ extension Paths.BetaGroups.WithID {
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -5927,7 +5927,7 @@ extension Paths.BetaGroups.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -5956,7 +5956,7 @@ extension Paths.BetaGroups.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6037,7 +6037,7 @@ extension Paths {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -6341,14 +6341,14 @@ extension Paths {
                 query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps?.asQueryValue)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[apps]", limitApps)
+                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -6480,9 +6480,9 @@ extension Paths.BetaTesters {
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps?.asQueryValue)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups?.asQueryValue)
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[apps]", limitApps)
+                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -6509,7 +6509,7 @@ extension Paths.BetaTesters.WithID {
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6557,7 +6557,7 @@ extension Paths.BetaTesters.WithID {
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6594,7 +6594,7 @@ extension Paths.BetaTesters.WithID {
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6649,7 +6649,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6674,7 +6674,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6703,7 +6703,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -6786,7 +6786,7 @@ extension Paths {
                 query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -7202,7 +7202,7 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
@@ -7215,9 +7215,9 @@ extension Paths {
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations?.asQueryValue)
-                query.addQueryItem("limit[icons]", limitIcons?.asQueryValue)
-                query.addQueryItem("limit[individualTesters]", limitIndividualTesters?.asQueryValue)
+                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
+                query.addQueryItem("limit[icons]", limitIcons)
+                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
                 return query
             }
         }
@@ -7441,9 +7441,9 @@ extension Paths.Builds {
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations?.asQueryValue)
-                query.addQueryItem("limit[icons]", limitIcons?.asQueryValue)
-                query.addQueryItem("limit[individualTesters]", limitIndividualTesters?.asQueryValue)
+                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
+                query.addQueryItem("limit[icons]", limitIcons)
+                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
                 return query
             }
         }
@@ -7623,7 +7623,7 @@ extension Paths.Builds.WithID {
         private func makeGetQuery(_ fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -7702,7 +7702,7 @@ extension Paths.Builds.WithID {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[diagnosticType]", filterDiagnosticType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -7725,7 +7725,7 @@ extension Paths.Builds.WithID {
         private func makeGetQuery(_ fieldsBuildIcons: [FieldsBuildIcons]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -7752,7 +7752,7 @@ extension Paths.Builds.WithID {
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -7909,7 +7909,7 @@ extension Paths.Builds.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -8092,13 +8092,13 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities?.asQueryValue)
-                query.addQueryItem("limit[profiles]", limitProfiles?.asQueryValue)
+                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities)
+                query.addQueryItem("limit[profiles]", limitProfiles)
                 return query
             }
         }
@@ -8210,8 +8210,8 @@ extension Paths.BundleIDs {
                 query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities?.asQueryValue)
-                query.addQueryItem("limit[profiles]", limitProfiles?.asQueryValue)
+                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities)
+                query.addQueryItem("limit[profiles]", limitProfiles)
                 return query
             }
         }
@@ -8289,7 +8289,7 @@ extension Paths.BundleIDs.WithID {
         private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -8317,7 +8317,7 @@ extension Paths.BundleIDs.WithID {
         private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -8411,7 +8411,7 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -8534,7 +8534,7 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -8617,7 +8617,7 @@ extension Paths.DiagnosticSignatures.WithID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
     }
@@ -8684,7 +8684,7 @@ extension Paths.EndUserLicenseAgreements {
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[territories]", limitTerritories?.asQueryValue)
+                query.addQueryItem("limit[territories]", limitTerritories)
                 return query
             }
         }
@@ -8715,7 +8715,7 @@ extension Paths.EndUserLicenseAgreements.WithID {
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -8885,7 +8885,7 @@ extension Paths.GameCenterEnabledVersions.WithID {
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
@@ -8919,7 +8919,7 @@ extension Paths.GameCenterEnabledVersions.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -9022,7 +9022,7 @@ extension Paths.InAppPurchases {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps?.asQueryValue)
+                query.addQueryItem("limit[apps]", limitApps)
                 return query
             }
         }
@@ -9162,11 +9162,11 @@ extension Paths {
                 query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -9268,7 +9268,7 @@ extension Paths.PreReleaseVersions {
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds?.asQueryValue)
+                query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
         }
@@ -9338,7 +9338,7 @@ extension Paths.PreReleaseVersions.WithID {
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -9503,13 +9503,13 @@ extension Paths {
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[certificates]", limitCertificates?.asQueryValue)
-                query.addQueryItem("limit[devices]", limitDevices?.asQueryValue)
+                query.addQueryItem("limit[certificates]", limitCertificates)
+                query.addQueryItem("limit[devices]", limitDevices)
                 return query
             }
         }
@@ -9610,8 +9610,8 @@ extension Paths.Profiles {
                 query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[certificates]", limitCertificates?.asQueryValue)
-                query.addQueryItem("limit[devices]", limitDevices?.asQueryValue)
+                query.addQueryItem("limit[certificates]", limitCertificates)
+                query.addQueryItem("limit[devices]", limitDevices)
                 return query
             }
         }
@@ -9669,7 +9669,7 @@ extension Paths.Profiles.WithID {
         private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -9702,7 +9702,7 @@ extension Paths.Profiles.WithID {
         private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -9859,7 +9859,7 @@ extension Paths {
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -9977,10 +9977,10 @@ extension Paths {
                 query.addQueryItem("filter[visibleApps]", filterVisibleApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[userInvitations]", fieldsUserInvitations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps?.asQueryValue)
+                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
                 return query
             }
         }
@@ -10063,7 +10063,7 @@ extension Paths.UserInvitations {
                 query.addQueryItem("fields[userInvitations]", fieldsUserInvitations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps?.asQueryValue)
+                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
                 return query
             }
         }
@@ -10090,7 +10090,7 @@ extension Paths.UserInvitations.WithID {
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -10229,10 +10229,10 @@ extension Paths {
                 query.addQueryItem("filter[visibleApps]", filterVisibleApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[users]", fieldsUsers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps?.asQueryValue)
+                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
                 return query
             }
         }
@@ -10310,7 +10310,7 @@ extension Paths.Users {
                 query.addQueryItem("fields[users]", fieldsUsers?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps?.asQueryValue)
+                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
                 return query
             }
         }
@@ -10351,7 +10351,7 @@ extension Paths.Users.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -10385,7 +10385,7 @@ extension Paths.Users.WithID {
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -10419,49 +10419,53 @@ extension Paths.Users.WithID {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -10474,14 +10478,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

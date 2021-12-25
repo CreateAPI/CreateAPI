@@ -60,9 +60,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("prefix", prefix?.asQueryValue)
-                query.addQueryItem("by", by?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("prefix", prefix)
+                query.addQueryItem("by", by)
                 return query
             }
         }
@@ -131,10 +131,10 @@ extension Paths.Channels.WithChannelID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("start", start?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("end", end?.asQueryValue)
-                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("start", start)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("end", end)
+                query.addQueryItem("direction", direction)
                 return query
             }
         }
@@ -204,9 +204,9 @@ extension Paths.Channels.WithChannelID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("clientId", clientID?.asQueryValue)
-                query.addQueryItem("connectionId", connectionID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("clientId", clientID)
+                query.addQueryItem("connectionId", connectionID)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -254,10 +254,10 @@ extension Paths.Channels.WithChannelID.Presence {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("start", start?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("end", end?.asQueryValue)
-                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("start", start)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("end", end)
+                query.addQueryItem("direction", direction)
                 return query
             }
         }
@@ -359,10 +359,10 @@ extension Paths.Push {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("deviceId", deviceID?.asQueryValue)
-                query.addQueryItem("clientId", clientID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("deviceId", deviceID)
+                query.addQueryItem("clientId", clientID)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -441,9 +441,9 @@ extension Paths.Push {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("deviceId", deviceID?.asQueryValue)
-                query.addQueryItem("clientId", clientID?.asQueryValue)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("deviceId", deviceID)
+                query.addQueryItem("clientId", clientID)
                 return query
             }
         }
@@ -497,9 +497,9 @@ extension Paths.Push {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("deviceId", deviceID?.asQueryValue)
-                query.addQueryItem("clientId", clientID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("deviceId", deviceID)
+                query.addQueryItem("clientId", clientID)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -520,8 +520,8 @@ extension Paths.Push {
 
         private func makeDeleteQuery(_ deviceID: String?, _ clientID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("deviceId", deviceID?.asQueryValue)
-            query.addQueryItem("clientId", clientID?.asQueryValue)
+            query.addQueryItem("deviceId", deviceID)
+            query.addQueryItem("clientId", clientID)
             return query
         }
     }
@@ -658,11 +658,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("start", start?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("end", end?.asQueryValue)
-                query.addQueryItem("direction", direction?.asQueryValue)
-                query.addQueryItem("unit", unit?.asQueryValue)
+                query.addQueryItem("start", start)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("end", end)
+                query.addQueryItem("direction", direction)
+                query.addQueryItem("unit", unit)
                 return query
             }
         }
@@ -689,49 +689,53 @@ extension Paths {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -744,14 +748,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

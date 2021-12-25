@@ -66,8 +66,8 @@ extension Paths.Geographies.WithGeoID.Media {
 
         private func makeGetQuery(_ count: Int?, _ minID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("count", count?.asQueryValue)
-            query.addQueryItem("min_id", minID?.asQueryValue)
+            query.addQueryItem("count", count)
+            query.addQueryItem("min_id", minID)
             return query
         }
     }
@@ -117,12 +117,12 @@ extension Paths.Locations {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("distance", distance?.asQueryValue)
-                query.addQueryItem("facebook_places_id", facebookPlacesID?.asQueryValue)
-                query.addQueryItem("foursquare_id", foursquareID?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lng", lng?.asQueryValue)
-                query.addQueryItem("foursquare_v2_id", foursquareV2ID?.asQueryValue)
+                query.addQueryItem("distance", distance)
+                query.addQueryItem("facebook_places_id", facebookPlacesID)
+                query.addQueryItem("foursquare_id", foursquareID)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lng", lng)
+                query.addQueryItem("foursquare_v2_id", foursquareV2ID)
                 return query
             }
         }
@@ -185,10 +185,10 @@ extension Paths.Locations.WithLocationID.Media {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("min_timestamp", minTimestamp?.asQueryValue)
-                query.addQueryItem("max_timestamp", maxTimestamp?.asQueryValue)
-                query.addQueryItem("min_id", minID?.asQueryValue)
-                query.addQueryItem("max_id", maxID?.asQueryValue)
+                query.addQueryItem("min_timestamp", minTimestamp)
+                query.addQueryItem("max_timestamp", maxTimestamp)
+                query.addQueryItem("min_id", minID)
+                query.addQueryItem("max_id", maxID)
                 return query
             }
         }
@@ -261,11 +261,11 @@ extension Paths.Media {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("lat", lat.asQueryValue)
-                query.addQueryItem("lng", lng.asQueryValue)
-                query.addQueryItem("min_timestamp", minTimestamp?.asQueryValue)
-                query.addQueryItem("max_timestamp", maxTimestamp?.asQueryValue)
-                query.addQueryItem("distance", distance?.asQueryValue)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lng", lng)
+                query.addQueryItem("min_timestamp", minTimestamp)
+                query.addQueryItem("max_timestamp", maxTimestamp)
+                query.addQueryItem("distance", distance)
                 return query
             }
         }
@@ -354,7 +354,7 @@ extension Paths.Media.WithMediaID {
 
         private func makePostQuery(_ text: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("text", text.asQueryValue)
+            query.addQueryItem("text", text)
             return query
         }
     }
@@ -435,7 +435,7 @@ extension Paths.Tags {
 
         private func makeGetQuery(_ q: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("q", q.asQueryValue)
+            query.addQueryItem("q", q)
             return query
         }
     }
@@ -498,9 +498,9 @@ extension Paths.Tags.WithTagName.Media {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("min_tag_id", minTagID?.asQueryValue)
-                query.addQueryItem("max_tag_id", maxTagID?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("min_tag_id", minTagID)
+                query.addQueryItem("max_tag_id", maxTagID)
                 return query
             }
         }
@@ -534,8 +534,8 @@ extension Paths.Users {
 
         private func makeGetQuery(_ q: String, _ count: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("q", q.asQueryValue)
-            query.addQueryItem("count", count?.asQueryValue)
+            query.addQueryItem("q", q)
+            query.addQueryItem("count", count)
             return query
         }
     }
@@ -584,9 +584,9 @@ extension Paths.Users.`Self` {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("min_id", minID?.asQueryValue)
-                query.addQueryItem("max_id", maxID?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("min_id", minID)
+                query.addQueryItem("max_id", maxID)
                 return query
             }
         }
@@ -624,8 +624,8 @@ extension Paths.Users.`Self`.Media {
 
         private func makeGetQuery(_ count: Int?, _ maxLikeID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("count", count?.asQueryValue)
-            query.addQueryItem("max_like_id", maxLikeID?.asQueryValue)
+            query.addQueryItem("count", count)
+            query.addQueryItem("max_like_id", maxLikeID)
             return query
         }
     }
@@ -753,11 +753,11 @@ extension Paths.Users.WithUserID.Media {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("max_timestamp", maxTimestamp?.asQueryValue)
-                query.addQueryItem("min_timestamp", minTimestamp?.asQueryValue)
-                query.addQueryItem("min_id", minID?.asQueryValue)
-                query.addQueryItem("max_id", maxID?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("max_timestamp", maxTimestamp)
+                query.addQueryItem("min_timestamp", minTimestamp)
+                query.addQueryItem("min_id", minID)
+                query.addQueryItem("max_id", maxID)
                 return query
             }
         }
@@ -785,7 +785,7 @@ extension Paths.Users.WithUserID {
 
         private func makePostQuery(_ action: Action) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("action", action.asQueryValue)
+            query.addQueryItem("action", action)
             return query
         }
 
@@ -802,49 +802,53 @@ extension Paths.Users.WithUserID {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -857,14 +861,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

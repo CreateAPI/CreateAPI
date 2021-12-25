@@ -5,7 +5,6 @@
 
 import Foundation
 import Get
-import HTTPHeaders
 
 extension Paths {
     public static var pets: Pets {
@@ -16,41 +15,61 @@ extension Paths {
         /// Path: `/pets`
         public let path: String
 
-        /// List all pets
-        public func get(limit: Int? = nil) -> Request<petstore_disable_inlining.Pets> {
-            .get(path, query: makeGetQuery(limit))
+        /// Test passing primitive query parameters
+        public func get(parameters: GetParameters) -> Request<Void> {
+            .get(path, query: parameters.asQuery())
         }
 
-        public enum GetResponseHeaders {
-            /// A link to the next page of responses
-            public static let next = HTTPHeader<String>(field: "x-next")
+        public struct GetParameters {
+            public var id: Int?
+            public var id2: Int
+            public var id3: Int
+
+            public init(id: Int? = nil, id2: Int, id3: Int) {
+                self.id = id
+                self.id2 = id2
+                self.id3 = id3
+            }
+
+            public func asQuery() -> [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("id", id)
+                query.addQueryItem("id2", id2)
+                query.addQueryItem("id3", id3)
+                return query
+            }
         }
 
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+        /// Inlining simple queries
+        public func post(name: String) -> Request<Void> {
+            .post(path, query: makePostQuery(name))
+        }
+
+        private func makePostQuery(_ name: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
+            query.addQueryItem("name", name)
             return query
         }
 
-        /// Create a pet
-        public var post: Request<Void> {
-            .post(path)
+        /// Form Object Explode
+        public var put: Request<Void> {
+            .put(path)
         }
-    }
-}
 
-extension Paths.Pets {
-    public func petID(_ petID: String) -> WithPetID {
-        WithPetID(path: "\(path)/\(petID)")
-    }
+        /// Inlining more complex queries (with an enum)
+        public func patch(type: `Type`) -> Request<Void> {
+            .patch(path, query: makePatchQuery(type))
+        }
 
-    public struct WithPetID {
-        /// Path: `/pets/{petId}`
-        public let path: String
+        private func makePatchQuery(_ type: `Type`) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("type", type)
+            return query
+        }
 
-        /// Info for a specific pet
-        public var get: Request<petstore_disable_inlining.Pet> {
-            .get(path)
+        public enum `Type`: String, Codable, CaseIterable {
+            case cat
+            case dog
         }
     }
 }

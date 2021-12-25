@@ -252,15 +252,15 @@ extension Paths.V1.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("begin_updated_at", beginUpdatedAt?.asQueryValue)
-                query.addQueryItem("end_updated_at", endUpdatedAt?.asQueryValue)
-                query.addQueryItem("begin_created_at", beginCreatedAt?.asQueryValue)
-                query.addQueryItem("end_created_at", endCreatedAt?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
-                query.addQueryItem("external_id", externalID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("begin_updated_at", beginUpdatedAt)
+                query.addQueryItem("end_updated_at", endUpdatedAt)
+                query.addQueryItem("begin_created_at", beginCreatedAt)
+                query.addQueryItem("end_created_at", endCreatedAt)
+                query.addQueryItem("status", status)
+                query.addQueryItem("external_id", externalID)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("batch_token", batchToken)
                 return query
             }
         }
@@ -333,9 +333,9 @@ extension Paths.V1.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("batch_token", batchToken)
                 return query
             }
         }
@@ -426,9 +426,9 @@ extension Paths.V1.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("batch_token", batchToken)
                 return query
             }
         }
@@ -505,12 +505,12 @@ extension Paths.V1.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
-                query.addQueryItem("include_partial", isIncludePartial?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("batch_token", batchToken)
+                query.addQueryItem("include_partial", isIncludePartial)
                 return query
             }
         }
@@ -568,11 +568,11 @@ extension Paths.V1.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("batch_token", batchToken)
                 return query
             }
         }
@@ -637,12 +637,12 @@ extension Paths.V1.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
-                query.addQueryItem("batch_token", batchToken?.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("status", status)
+                query.addQueryItem("batch_token", batchToken)
                 return query
             }
         }
@@ -760,9 +760,9 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("location_id", locationID)
                 return query
             }
         }
@@ -913,10 +913,10 @@ extension Paths.V2.Bookings {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("bookable_only", isBookableOnly?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
+                query.addQueryItem("bookable_only", isBookableOnly)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("location_id", locationID)
                 return query
             }
         }
@@ -1018,11 +1018,11 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("customer_id", customerID?.asQueryValue)
-                query.addQueryItem("include_disabled", isIncludeDisabled?.asQueryValue)
-                query.addQueryItem("reference_id", referenceID?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("customer_id", customerID)
+                query.addQueryItem("include_disabled", isIncludeDisabled)
+                query.addQueryItem("reference_id", referenceID)
+                query.addQueryItem("sort_order", sortOrder)
                 return query
             }
         }
@@ -1120,12 +1120,12 @@ extension Paths.V2.CashDrawers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("sort_order", sortOrder)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -1151,7 +1151,7 @@ extension Paths.V2.CashDrawers.Shifts {
 
         private func makeGetQuery(_ locationID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("location_id", locationID.asQueryValue)
+            query.addQueryItem("location_id", locationID)
             return query
         }
     }
@@ -1186,9 +1186,9 @@ extension Paths.V2.CashDrawers.Shifts.WithShiftID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -1338,9 +1338,9 @@ extension Paths.V2.Catalog {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("types", types?.asQueryValue)
-                query.addQueryItem("catalog_version", catalogVersion?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("types", types)
+                query.addQueryItem("catalog_version", catalogVersion)
                 return query
             }
         }
@@ -1389,8 +1389,8 @@ extension Paths.V2.Catalog.Object {
 
         private func makeGetQuery(_ isIncludeRelatedObjects: Bool?, _ catalogVersion: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("include_related_objects", isIncludeRelatedObjects?.asQueryValue)
-            query.addQueryItem("catalog_version", catalogVersion?.asQueryValue)
+            query.addQueryItem("include_related_objects", isIncludeRelatedObjects)
+            query.addQueryItem("catalog_version", catalogVersion)
             return query
         }
 
@@ -1537,10 +1537,10 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("sort_field", sortField?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("sort_field", sortField)
+                query.addQueryItem("sort_order", sortOrder)
                 return query
             }
         }
@@ -1581,8 +1581,8 @@ extension Paths.V2.Customers {
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor?.asQueryValue)
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("cursor", cursor)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -1673,8 +1673,8 @@ extension Paths.V2.Customers {
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor?.asQueryValue)
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("cursor", cursor)
+            query.addQueryItem("limit", limit)
             return query
         }
     }
@@ -1740,7 +1740,7 @@ extension Paths.V2.Customers {
 
         private func makeDeleteQuery(_ version: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("version", version?.asQueryValue)
+            query.addQueryItem("version", version)
             return query
         }
     }
@@ -1870,10 +1870,10 @@ extension Paths.V2.Devices {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("product_type", productType?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("product_type", productType)
+                query.addQueryItem("status", status)
                 return query
             }
         }
@@ -1935,9 +1935,9 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("states", states?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("states", states)
+                query.addQueryItem("location_id", locationID)
                 return query
             }
         }
@@ -2002,7 +2002,7 @@ extension Paths.V2.Disputes.WithDisputeID {
 
         private func makeGetQuery(_ cursor: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor?.asQueryValue)
+            query.addQueryItem("cursor", cursor)
             return query
         }
     }
@@ -2109,10 +2109,10 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("status", status)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -2169,11 +2169,11 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("type", type?.asQueryValue)
-                query.addQueryItem("state", state?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("customer_id", customerID?.asQueryValue)
+                query.addQueryItem("type", type)
+                query.addQueryItem("state", state)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("customer_id", customerID)
                 return query
             }
         }
@@ -2231,14 +2231,14 @@ extension Paths.V2.GiftCards {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("gift_card_id", giftCardID?.asQueryValue)
-                query.addQueryItem("type", type?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
+                query.addQueryItem("gift_card_id", giftCardID)
+                query.addQueryItem("type", type)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("sort_order", sortOrder)
                 return query
             }
         }
@@ -2691,8 +2691,8 @@ extension Paths.V2.Inventory {
 
         private func makeGetQuery(_ locationIDs: String?, _ cursor: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("location_ids", locationIDs?.asQueryValue)
-            query.addQueryItem("cursor", cursor?.asQueryValue)
+            query.addQueryItem("location_ids", locationIDs)
+            query.addQueryItem("cursor", cursor)
             return query
         }
     }
@@ -2728,8 +2728,8 @@ extension Paths.V2.Inventory.WithCatalogObjectID {
 
         private func makeGetQuery(_ locationIDs: String?, _ cursor: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("location_ids", locationIDs?.asQueryValue)
-            query.addQueryItem("cursor", cursor?.asQueryValue)
+            query.addQueryItem("location_ids", locationIDs)
+            query.addQueryItem("cursor", cursor)
             return query
         }
     }
@@ -2766,9 +2766,9 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -2847,7 +2847,7 @@ extension Paths.V2.Invoices {
 
         private func makeDeleteQuery(_ version: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("version", version?.asQueryValue)
+            query.addQueryItem("version", version)
             return query
         }
     }
@@ -2942,9 +2942,9 @@ extension Paths.V2.Labor {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -3034,9 +3034,9 @@ extension Paths.V2.Labor {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("employee_id", employeeID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("employee_id", employeeID)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -3194,9 +3194,9 @@ extension Paths.V2.Labor {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("team_member_id", teamMemberID?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("team_member_id", teamMemberID)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -3239,8 +3239,8 @@ extension Paths.V2.Labor {
 
         private func makeGetQuery(_ limit: Int?, _ cursor: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("cursor", cursor?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("cursor", cursor)
             return query
         }
     }
@@ -3380,10 +3380,10 @@ extension Paths.V2.Locations.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("sort_order", sortOrder)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -3426,10 +3426,10 @@ extension Paths.V2.Locations.WithLocationID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("sort_order", sortOrder)
+                query.addQueryItem("cursor", cursor)
                 return query
             }
         }
@@ -3915,7 +3915,7 @@ extension Paths.V2 {
 
         private func makeGetQuery(_ cursor: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor?.asQueryValue)
+            query.addQueryItem("cursor", cursor)
             return query
         }
     }
@@ -4151,15 +4151,15 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("total", total?.asQueryValue)
-                query.addQueryItem("last_4", last4?.asQueryValue)
-                query.addQueryItem("card_brand", cardBrand?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("sort_order", sortOrder)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("total", total)
+                query.addQueryItem("last_4", last4)
+                query.addQueryItem("card_brand", cardBrand)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -4318,14 +4318,14 @@ extension Paths.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("sort_order", sortOrder?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("location_id", locationID?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
-                query.addQueryItem("source_type", sourceType?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("begin_time", beginTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("sort_order", sortOrder)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("location_id", locationID)
+                query.addQueryItem("status", status)
+                query.addQueryItem("source_type", sourceType)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -4560,8 +4560,8 @@ extension Paths.V2.Subscriptions.WithSubscriptionID {
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor?.asQueryValue)
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("cursor", cursor)
+            query.addQueryItem("limit", limit)
             return query
         }
     }
@@ -4890,49 +4890,53 @@ extension Paths.V2.Terminals.Refunds.WithTerminalRefundID {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -4945,14 +4949,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

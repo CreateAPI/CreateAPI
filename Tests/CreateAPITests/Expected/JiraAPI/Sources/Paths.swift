@@ -70,7 +70,7 @@ extension Paths.API.__3.App.Field {
 
         private func makePostQuery(_ isGenerateChangelog: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("generateChangelog", isGenerateChangelog?.asQueryValue)
+            query.addQueryItem("generateChangelog", isGenerateChangelog)
             return query
         }
     }
@@ -148,20 +148,14 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey.Context {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
-                for value in contextID ?? [] {
-                    query.addQueryItem("contextId", value.asQueryValue)
-                }
-                for value in fieldContextID ?? [] {
-                    query.addQueryItem("fieldContextId", value.asQueryValue)
-                }
-                query.addQueryItem("issueId", issueID?.asQueryValue)
-                query.addQueryItem("projectKeyOrId", projectKeyOrID?.asQueryValue)
-                query.addQueryItem("issueTypeId", issueTypeID?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                id?.forEach { query.addQueryItem("id", $0) }
+                contextID?.forEach { query.addQueryItem("contextId", $0) }
+                fieldContextID?.forEach { query.addQueryItem("fieldContextId", $0) }
+                query.addQueryItem("issueId", issueID)
+                query.addQueryItem("projectKeyOrId", projectKeyOrID)
+                query.addQueryItem("issueTypeId", issueTypeID)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -197,7 +191,7 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey {
 
         private func makePutQuery(_ isGenerateChangelog: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("generateChangelog", isGenerateChangelog?.asQueryValue)
+            query.addQueryItem("generateChangelog", isGenerateChangelog)
             return query
         }
     }
@@ -236,9 +230,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("key", key?.asQueryValue)
-                query.addQueryItem("permissionLevel", permissionLevel?.asQueryValue)
-                query.addQueryItem("keyFilter", keyFilter?.asQueryValue)
+                query.addQueryItem("key", key)
+                query.addQueryItem("permissionLevel", permissionLevel)
+                query.addQueryItem("keyFilter", keyFilter)
                 return query
             }
         }
@@ -424,7 +418,7 @@ extension Paths.API.__3.Attachment.Content {
 
         private func makeGetQuery(_ isRedirect: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("redirect", isRedirect?.asQueryValue)
+            query.addQueryItem("redirect", isRedirect)
             return query
         }
     }
@@ -505,10 +499,10 @@ extension Paths.API.__3.Attachment.Thumbnail {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("redirect", isRedirect?.asQueryValue)
-                query.addQueryItem("fallbackToDefault", isFallbackToDefault?.asQueryValue)
-                query.addQueryItem("width", width?.asQueryValue)
-                query.addQueryItem("height", height?.asQueryValue)
+                query.addQueryItem("redirect", isRedirect)
+                query.addQueryItem("fallbackToDefault", isFallbackToDefault)
+                query.addQueryItem("width", width)
+                query.addQueryItem("height", height)
                 return query
             }
         }
@@ -681,11 +675,11 @@ extension Paths.API.__3.Auditing {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("from", from?.asQueryValue)
-                query.addQueryItem("to", to?.asQueryValue)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("from", from)
+                query.addQueryItem("to", to)
                 return query
             }
         }
@@ -773,7 +767,7 @@ extension Paths.API.__3.Comment {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -938,7 +932,7 @@ extension Paths.API.__3.Component {
 
         private func makeDeleteQuery(_ moveIssuesTo: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("moveIssuesTo", moveIssuesTo?.asQueryValue)
+            query.addQueryItem("moveIssuesTo", moveIssuesTo)
             return query
         }
     }
@@ -1142,9 +1136,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -1232,15 +1226,15 @@ extension Paths.API.__3.Dashboard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("dashboardName", dashboardName?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("owner", owner?.asQueryValue)
-                query.addQueryItem("groupname", groupname?.asQueryValue)
-                query.addQueryItem("projectId", projectID?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("dashboardName", dashboardName)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("owner", owner)
+                query.addQueryItem("groupname", groupname)
+                query.addQueryItem("projectId", projectID)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -1483,7 +1477,7 @@ extension Paths.API.__3.Expression {
 
         private func makePostQuery(_ check: Check?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("check", check?.asQueryValue)
+            query.addQueryItem("check", check)
             return query
         }
 
@@ -1541,7 +1535,7 @@ extension Paths.API.__3.Expression {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -1649,17 +1643,13 @@ extension Paths.API.__3.Field {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in type ?? [] {
-                    query.addQueryItem("type", value.asQueryValue)
-                }
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                type?.forEach { query.addQueryItem("type", $0) }
+                id?.forEach { query.addQueryItem("id", $0) }
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -1726,13 +1716,11 @@ extension Paths.API.__3.Field.WithFieldID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("isAnyIssueType", isAnyIssueType?.asQueryValue)
-                query.addQueryItem("isGlobalContext", isGlobalContext?.asQueryValue)
-                for value in contextID ?? [] {
-                    query.addQueryItem("contextId", value.asQueryValue)
-                }
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("isAnyIssueType", isAnyIssueType)
+                query.addQueryItem("isGlobalContext", isGlobalContext)
+                contextID?.forEach { query.addQueryItem("contextId", $0) }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -1801,11 +1789,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in contextID ?? [] {
-                    query.addQueryItem("contextId", value.asQueryValue)
-                }
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                contextID?.forEach { query.addQueryItem("contextId", $0) }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -1873,11 +1859,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in contextID ?? [] {
-                    query.addQueryItem("contextId", value.asQueryValue)
-                }
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                contextID?.forEach { query.addQueryItem("contextId", $0) }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -1910,8 +1894,8 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
         private func makePostQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -1948,11 +1932,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in contextID ?? [] {
-                    query.addQueryItem("contextId", value.asQueryValue)
-                }
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                contextID?.forEach { query.addQueryItem("contextId", $0) }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -2069,10 +2051,10 @@ extension Paths.API.__3.Field.WithFieldID.Context.WithContextID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("optionId", optionID?.asQueryValue)
-                query.addQueryItem("onlyOptions", isOnlyOptions?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("optionId", optionID)
+                query.addQueryItem("onlyOptions", isOnlyOptions)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -2218,8 +2200,8 @@ extension Paths.API.__3.Field.WithFieldID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -2256,9 +2238,9 @@ extension Paths.API.__3.Field.WithFieldID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -2298,8 +2280,8 @@ extension Paths.API.__3.Field.WithFieldKey {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
 
@@ -2360,9 +2342,9 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("projectId", projectID?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("projectId", projectID)
                 return query
             }
         }
@@ -2402,9 +2384,9 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("projectId", projectID?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("projectId", projectID)
                 return query
             }
         }
@@ -2494,10 +2476,10 @@ extension Paths.API.__3.Field.WithFieldKey.Option.WithOptionID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("replaceWith", replaceWith?.asQueryValue)
-                query.addQueryItem("jql", jql?.asQueryValue)
-                query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity?.asQueryValue)
-                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+                query.addQueryItem("replaceWith", replaceWith)
+                query.addQueryItem("jql", jql)
+                query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity)
+                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
                 return query
             }
         }
@@ -2607,13 +2589,11 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
-                query.addQueryItem("isDefault", isDefault?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
+                query.addQueryItem("isDefault", isDefault)
+                query.addQueryItem("query", self.query)
                 return query
             }
         }
@@ -2686,8 +2666,8 @@ extension Paths.API.__3.Fieldconfiguration.WithID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
 
@@ -2739,11 +2719,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
                 return query
             }
         }
@@ -2794,11 +2772,9 @@ extension Paths.API.__3.Fieldconfigurationscheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in fieldConfigurationSchemeID ?? [] {
-                    query.addQueryItem("fieldConfigurationSchemeId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                fieldConfigurationSchemeID?.forEach { query.addQueryItem("fieldConfigurationSchemeId", $0) }
                 return query
             }
         }
@@ -2840,11 +2816,9 @@ extension Paths.API.__3.Fieldconfigurationscheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in projectID {
-                    query.addQueryItem("projectId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                projectID.forEach { query.addQueryItem("projectId", $0) }
                 return query
             }
         }
@@ -2968,7 +2942,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -2983,7 +2957,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -3048,7 +3022,7 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -3082,8 +3056,8 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?, _ isIncludeFavourites: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
-            query.addQueryItem("includeFavourites", isIncludeFavourites?.asQueryValue)
+            query.addQueryItem("expand", expand)
+            query.addQueryItem("includeFavourites", isIncludeFavourites)
             return query
         }
     }
@@ -3169,18 +3143,16 @@ extension Paths.API.__3.Filter {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filterName", filterName?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("owner", owner?.asQueryValue)
-                query.addQueryItem("groupname", groupname?.asQueryValue)
-                query.addQueryItem("projectId", projectID?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("filterName", filterName)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("owner", owner)
+                query.addQueryItem("groupname", groupname)
+                query.addQueryItem("projectId", projectID)
+                id?.forEach { query.addQueryItem("id", $0) }
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -3215,7 +3187,7 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -3230,7 +3202,7 @@ extension Paths.API.__3.Filter {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -3333,7 +3305,7 @@ extension Paths.API.__3.Filter.WithID {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -3348,7 +3320,7 @@ extension Paths.API.__3.Filter.WithID {
 
         private func makeDeleteQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -3453,8 +3425,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ groupname: String, _ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("groupname", groupname.asQueryValue)
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("groupname", groupname)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -3478,8 +3450,8 @@ extension Paths.API.__3 {
 
         private func makeDeleteQuery(_ groupname: String, _ swapGroup: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("groupname", groupname.asQueryValue)
-            query.addQueryItem("swapGroup", swapGroup?.asQueryValue)
+            query.addQueryItem("groupname", groupname)
+            query.addQueryItem("swapGroup", swapGroup)
             return query
         }
     }
@@ -3519,14 +3491,10 @@ extension Paths.API.__3.Group {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in groupID ?? [] {
-                    query.addQueryItem("groupId", value.asQueryValue)
-                }
-                for value in groupName ?? [] {
-                    query.addQueryItem("groupName", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                groupID?.forEach { query.addQueryItem("groupId", $0) }
+                groupName?.forEach { query.addQueryItem("groupName", $0) }
                 return query
             }
         }
@@ -3568,10 +3536,10 @@ extension Paths.API.__3.Group {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("groupname", groupname.asQueryValue)
-                query.addQueryItem("includeInactiveUsers", isIncludeInactiveUsers?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("groupname", groupname)
+                query.addQueryItem("includeInactiveUsers", isIncludeInactiveUsers)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -3598,7 +3566,7 @@ extension Paths.API.__3.Group {
 
         private func makePostQuery(_ groupname: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("groupname", groupname.asQueryValue)
+            query.addQueryItem("groupname", groupname)
             return query
         }
 
@@ -3625,9 +3593,9 @@ extension Paths.API.__3.Group {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("groupname", groupname.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID.asQueryValue)
+                query.addQueryItem("groupname", groupname)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
                 return query
             }
         }
@@ -3687,13 +3655,11 @@ extension Paths.API.__3.Groups {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
-                for value in exclude ?? [] {
-                    query.addQueryItem("exclude", value.asQueryValue)
-                }
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("userName", userName?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("query", self.query)
+                exclude?.forEach { query.addQueryItem("exclude", $0) }
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("userName", userName)
                 return query
             }
         }
@@ -3787,19 +3753,15 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("showAvatar", isShowAvatar?.asQueryValue)
-                query.addQueryItem("fieldId", fieldID?.asQueryValue)
-                for value in projectID ?? [] {
-                    query.addQueryItem("projectId", value.asQueryValue)
-                }
-                for value in issueTypeID ?? [] {
-                    query.addQueryItem("issueTypeId", value.asQueryValue)
-                }
-                query.addQueryItem("avatarSize", avatarSize?.asQueryValue)
-                query.addQueryItem("caseInsensitive", isCaseInsensitive?.asQueryValue)
-                query.addQueryItem("excludeConnectAddons", excludeConnectAddons?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("showAvatar", isShowAvatar)
+                query.addQueryItem("fieldId", fieldID)
+                projectID?.forEach { query.addQueryItem("projectId", $0) }
+                issueTypeID?.forEach { query.addQueryItem("issueTypeId", $0) }
+                query.addQueryItem("avatarSize", avatarSize)
+                query.addQueryItem("caseInsensitive", isCaseInsensitive)
+                query.addQueryItem("excludeConnectAddons", excludeConnectAddons)
                 return query
             }
         }
@@ -3866,7 +3828,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ isUpdateHistory: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("updateHistory", isUpdateHistory?.asQueryValue)
+            query.addQueryItem("updateHistory", isUpdateHistory)
             return query
         }
     }
@@ -3938,19 +3900,11 @@ extension Paths.API.__3.Issue {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in projectIDs ?? [] {
-                    query.addQueryItem("projectIds", value.asQueryValue)
-                }
-                for value in projectKeys ?? [] {
-                    query.addQueryItem("projectKeys", value.asQueryValue)
-                }
-                for value in issuetypeIDs ?? [] {
-                    query.addQueryItem("issuetypeIds", value.asQueryValue)
-                }
-                for value in issuetypeNames ?? [] {
-                    query.addQueryItem("issuetypeNames", value.asQueryValue)
-                }
-                query.addQueryItem("expand", expand?.asQueryValue)
+                projectIDs?.forEach { query.addQueryItem("projectIds", $0) }
+                projectKeys?.forEach { query.addQueryItem("projectKeys", $0) }
+                issuetypeIDs?.forEach { query.addQueryItem("issuetypeIds", $0) }
+                issuetypeNames?.forEach { query.addQueryItem("issuetypeNames", $0) }
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -4002,12 +3956,12 @@ extension Paths.API.__3.Issue {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("currentJQL", currentJQL?.asQueryValue)
-                query.addQueryItem("currentIssueKey", currentIssueKey?.asQueryValue)
-                query.addQueryItem("currentProjectId", currentProjectID?.asQueryValue)
-                query.addQueryItem("showSubTasks", isShowSubTasks?.asQueryValue)
-                query.addQueryItem("showSubTaskParent", isShowSubTaskParent?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("currentJQL", currentJQL)
+                query.addQueryItem("currentIssueKey", currentIssueKey)
+                query.addQueryItem("currentProjectId", currentProjectID)
+                query.addQueryItem("showSubTasks", isShowSubTasks)
+                query.addQueryItem("showSubTaskParent", isShowSubTaskParent)
                 return query
             }
         }
@@ -4216,15 +4170,11 @@ extension Paths.API.__3.Issue {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in fields ?? [] {
-                    query.addQueryItem("fields", value.asQueryValue)
-                }
-                query.addQueryItem("fieldsByKeys", isFieldsByKeys?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
-                for value in properties ?? [] {
-                    query.addQueryItem("properties", value.asQueryValue)
-                }
-                query.addQueryItem("updateHistory", isUpdateHistory?.asQueryValue)
+                fields?.forEach { query.addQueryItem("fields", $0) }
+                query.addQueryItem("fieldsByKeys", isFieldsByKeys)
+                query.addQueryItem("expand", expand)
+                properties?.forEach { query.addQueryItem("properties", $0) }
+                query.addQueryItem("updateHistory", isUpdateHistory)
                 return query
             }
         }
@@ -4262,9 +4212,9 @@ extension Paths.API.__3.Issue {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("notifyUsers", isNotifyUsers?.asQueryValue)
-                query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity?.asQueryValue)
-                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+                query.addQueryItem("notifyUsers", isNotifyUsers)
+                query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity)
+                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
                 return query
             }
         }
@@ -4287,7 +4237,7 @@ extension Paths.API.__3.Issue {
 
         private func makeDeleteQuery(_ deleteSubtasks: DeleteSubtasks?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("deleteSubtasks", deleteSubtasks?.asQueryValue)
+            query.addQueryItem("deleteSubtasks", deleteSubtasks)
             return query
         }
 
@@ -4519,8 +4469,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -4596,10 +4546,10 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -4620,7 +4570,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -4652,7 +4602,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Comment {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -4674,7 +4624,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Comment {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -4726,8 +4676,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ isOverrideScreenSecurity: Bool?, _ isOverrideEditableFlag: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity?.asQueryValue)
-            query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+            query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity)
+            query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
             return query
         }
     }
@@ -4863,7 +4813,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ globalID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("globalId", globalID?.asQueryValue)
+            query.addQueryItem("globalId", globalID)
             return query
         }
 
@@ -4903,7 +4853,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeDeleteQuery(_ globalID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("globalId", globalID.asQueryValue)
+            query.addQueryItem("globalId", globalID)
             return query
         }
     }
@@ -5014,11 +4964,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("expand", expand?.asQueryValue)
-                query.addQueryItem("transitionId", transitionID?.asQueryValue)
-                query.addQueryItem("skipRemoteOnlyCondition", isSkipRemoteOnlyCondition?.asQueryValue)
-                query.addQueryItem("includeUnavailableTransitions", isIncludeUnavailableTransitions?.asQueryValue)
-                query.addQueryItem("sortByOpsBarAndStatus", isSortByOpsBarAndStatus?.asQueryValue)
+                query.addQueryItem("expand", expand)
+                query.addQueryItem("transitionId", transitionID)
+                query.addQueryItem("skipRemoteOnlyCondition", isSkipRemoteOnlyCondition)
+                query.addQueryItem("includeUnavailableTransitions", isIncludeUnavailableTransitions)
+                query.addQueryItem("sortByOpsBarAndStatus", isSortByOpsBarAndStatus)
                 return query
             }
         }
@@ -5156,8 +5106,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeDeleteQuery(_ username: String?, _ accountID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("username", username?.asQueryValue)
-            query.addQueryItem("accountId", accountID?.asQueryValue)
+            query.addQueryItem("username", username)
+            query.addQueryItem("accountId", accountID)
             return query
         }
     }
@@ -5206,11 +5156,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("startedAfter", startedAfter?.asQueryValue)
-                query.addQueryItem("startedBefore", startedBefore?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("startedAfter", startedAfter)
+                query.addQueryItem("startedBefore", startedBefore)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -5257,12 +5207,12 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("notifyUsers", isNotifyUsers?.asQueryValue)
-                query.addQueryItem("adjustEstimate", adjustEstimate?.asQueryValue)
-                query.addQueryItem("newEstimate", newEstimate?.asQueryValue)
-                query.addQueryItem("reduceBy", reduceBy?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
-                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+                query.addQueryItem("notifyUsers", isNotifyUsers)
+                query.addQueryItem("adjustEstimate", adjustEstimate)
+                query.addQueryItem("newEstimate", newEstimate)
+                query.addQueryItem("reduceBy", reduceBy)
+                query.addQueryItem("expand", expand)
+                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
                 return query
             }
         }
@@ -5297,7 +5247,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -5343,11 +5293,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("notifyUsers", isNotifyUsers?.asQueryValue)
-                query.addQueryItem("adjustEstimate", adjustEstimate?.asQueryValue)
-                query.addQueryItem("newEstimate", newEstimate?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
-                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+                query.addQueryItem("notifyUsers", isNotifyUsers)
+                query.addQueryItem("adjustEstimate", adjustEstimate)
+                query.addQueryItem("newEstimate", newEstimate)
+                query.addQueryItem("expand", expand)
+                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
                 return query
             }
         }
@@ -5394,11 +5344,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("notifyUsers", isNotifyUsers?.asQueryValue)
-                query.addQueryItem("adjustEstimate", adjustEstimate?.asQueryValue)
-                query.addQueryItem("newEstimate", newEstimate?.asQueryValue)
-                query.addQueryItem("increaseBy", increaseBy?.asQueryValue)
-                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag?.asQueryValue)
+                query.addQueryItem("notifyUsers", isNotifyUsers)
+                query.addQueryItem("adjustEstimate", adjustEstimate)
+                query.addQueryItem("newEstimate", newEstimate)
+                query.addQueryItem("increaseBy", increaseBy)
+                query.addQueryItem("overrideEditableFlag", isOverrideEditableFlag)
                 return query
             }
         }
@@ -5742,12 +5692,10 @@ extension Paths.API.__3.Issuesecurityschemes.WithIssueSecuritySchemeID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in issueSecurityLevelID ?? [] {
-                    query.addQueryItem("issueSecurityLevelId", value.asQueryValue)
-                }
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                issueSecurityLevelID?.forEach { query.addQueryItem("issueSecurityLevelId", $0) }
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -5810,8 +5758,8 @@ extension Paths.API.__3.Issuetype {
 
         private func makeGetQuery(_ projectID: Int, _ level: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("projectId", projectID.asQueryValue)
-            query.addQueryItem("level", level?.asQueryValue)
+            query.addQueryItem("projectId", projectID)
+            query.addQueryItem("level", level)
             return query
         }
     }
@@ -5857,7 +5805,7 @@ extension Paths.API.__3.Issuetype {
 
         private func makeDeleteQuery(_ alternativeIssueTypeID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("alternativeIssueTypeId", alternativeIssueTypeID?.asQueryValue)
+            query.addQueryItem("alternativeIssueTypeId", alternativeIssueTypeID)
             return query
         }
     }
@@ -5930,9 +5878,9 @@ extension Paths.API.__3.Issuetype.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("x", x?.asQueryValue)
-                query.addQueryItem("y", y?.asQueryValue)
-                query.addQueryItem("size", size.asQueryValue)
+                query.addQueryItem("x", x)
+                query.addQueryItem("y", y)
+                query.addQueryItem("size", size)
                 return query
             }
         }
@@ -6053,11 +6001,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
                 return query
             }
         }
@@ -6106,11 +6052,9 @@ extension Paths.API.__3.Issuetypescheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in issueTypeSchemeID ?? [] {
-                    query.addQueryItem("issueTypeSchemeId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                issueTypeSchemeID?.forEach { query.addQueryItem("issueTypeSchemeId", $0) }
                 return query
             }
         }
@@ -6150,11 +6094,9 @@ extension Paths.API.__3.Issuetypescheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in projectID {
-                    query.addQueryItem("projectId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                projectID.forEach { query.addQueryItem("projectId", $0) }
                 return query
             }
         }
@@ -6316,11 +6258,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
                 return query
             }
         }
@@ -6369,11 +6309,9 @@ extension Paths.API.__3.Issuetypescreenscheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in issueTypeScreenSchemeID ?? [] {
-                    query.addQueryItem("issueTypeScreenSchemeId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                issueTypeScreenSchemeID?.forEach { query.addQueryItem("issueTypeScreenSchemeId", $0) }
                 return query
             }
         }
@@ -6413,11 +6351,9 @@ extension Paths.API.__3.Issuetypescreenscheme {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in projectID {
-                    query.addQueryItem("projectId", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                projectID.forEach { query.addQueryItem("projectId", $0) }
                 return query
             }
         }
@@ -6546,8 +6482,8 @@ extension Paths.API.__3.Issuetypescreenscheme.WithIssueTypeScreenSchemeID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -6644,10 +6580,10 @@ extension Paths.API.__3.Jql.Autocompletedata {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fieldName", fieldName?.asQueryValue)
-                query.addQueryItem("fieldValue", fieldValue?.asQueryValue)
-                query.addQueryItem("predicateName", predicateName?.asQueryValue)
-                query.addQueryItem("predicateValue", predicateValue?.asQueryValue)
+                query.addQueryItem("fieldName", fieldName)
+                query.addQueryItem("fieldValue", fieldValue)
+                query.addQueryItem("predicateName", predicateName)
+                query.addQueryItem("predicateValue", predicateValue)
                 return query
             }
         }
@@ -6701,7 +6637,7 @@ extension Paths.API.__3.Jql {
 
         private func makePostQuery(_ validation: Validation?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("validation", validation?.asQueryValue)
+            query.addQueryItem("validation", validation)
             return query
         }
 
@@ -6753,8 +6689,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -6812,13 +6748,13 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("projectKey", projectKey?.asQueryValue)
-                query.addQueryItem("projectId", projectID?.asQueryValue)
-                query.addQueryItem("issueKey", issueKey?.asQueryValue)
-                query.addQueryItem("issueId", issueID?.asQueryValue)
-                query.addQueryItem("permissions", permissions?.asQueryValue)
-                query.addQueryItem("projectUuid", projectUUID?.asQueryValue)
-                query.addQueryItem("projectConfigurationUuid", projectConfigurationUUID?.asQueryValue)
+                query.addQueryItem("projectKey", projectKey)
+                query.addQueryItem("projectId", projectID)
+                query.addQueryItem("issueKey", issueKey)
+                query.addQueryItem("issueId", issueID)
+                query.addQueryItem("permissions", permissions)
+                query.addQueryItem("projectUuid", projectUUID)
+                query.addQueryItem("projectConfigurationUuid", projectConfigurationUUID)
                 return query
             }
         }
@@ -6852,7 +6788,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ key: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
+            query.addQueryItem("key", key)
             return query
         }
 
@@ -6880,7 +6816,7 @@ extension Paths.API.__3 {
 
         private func makePutQuery(_ key: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
+            query.addQueryItem("key", key)
             return query
         }
 
@@ -6902,7 +6838,7 @@ extension Paths.API.__3 {
 
         private func makeDeleteQuery(_ key: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
+            query.addQueryItem("key", key)
             return query
         }
     }
@@ -6976,7 +6912,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -7035,9 +6971,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -7064,7 +7000,7 @@ extension Paths.API.__3.Notificationscheme {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -7251,7 +7187,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7266,7 +7202,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -7292,7 +7228,7 @@ extension Paths.API.__3.Permissionscheme {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7315,7 +7251,7 @@ extension Paths.API.__3.Permissionscheme {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7350,7 +7286,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7365,7 +7301,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -7391,7 +7327,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID.Permission {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7480,11 +7416,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("expand", expand?.asQueryValue)
-                query.addQueryItem("recent", recent?.asQueryValue)
-                for value in properties ?? [] {
-                    query.addQueryItem("properties", value.asQueryValue)
-                }
+                query.addQueryItem("expand", expand)
+                query.addQueryItem("recent", recent)
+                properties?.forEach { query.addQueryItem("properties", $0) }
                 return query
             }
         }
@@ -7539,7 +7473,7 @@ extension Paths.API.__3.Project {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -7639,24 +7573,18 @@ extension Paths.API.__3.Project {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
-                for value in keys ?? [] {
-                    query.addQueryItem("keys", value.asQueryValue)
-                }
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("typeKey", typeKey?.asQueryValue)
-                query.addQueryItem("categoryId", categoryID?.asQueryValue)
-                query.addQueryItem("action", action?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
-                for value in status ?? [] {
-                    query.addQueryItem("status", value.asQueryValue)
-                }
-                query.addQueryItem("propertyQuery", propertyQuery?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("orderBy", orderBy)
+                id?.forEach { query.addQueryItem("id", $0) }
+                keys?.forEach { query.addQueryItem("keys", $0) }
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("typeKey", typeKey)
+                query.addQueryItem("categoryId", categoryID)
+                query.addQueryItem("action", action)
+                query.addQueryItem("expand", expand)
+                status?.forEach { query.addQueryItem("status", $0) }
+                query.addQueryItem("propertyQuery", propertyQuery)
                 return query
             }
         }
@@ -7767,10 +7695,8 @@ extension Paths.API.__3.Project {
 
         private func makeGetQuery(_ expand: String?, _ properties: [String]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
-            for value in properties ?? [] {
-                query.addQueryItem("properties", value.asQueryValue)
-            }
+            query.addQueryItem("expand", expand)
+            properties?.forEach { query.addQueryItem("properties", $0) }
             return query
         }
 
@@ -7787,7 +7713,7 @@ extension Paths.API.__3.Project {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -7804,7 +7730,7 @@ extension Paths.API.__3.Project {
 
         private func makeDeleteQuery(_ enableUndo: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("enableUndo", enableUndo?.asQueryValue)
+            query.addQueryItem("enableUndo", enableUndo)
             return query
         }
     }
@@ -7927,9 +7853,9 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("x", x?.asQueryValue)
-                query.addQueryItem("y", y?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
+                query.addQueryItem("x", x)
+                query.addQueryItem("y", y)
+                query.addQueryItem("size", size)
                 return query
             }
         }
@@ -8008,10 +7934,10 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("query", self.query)
                 return query
             }
         }
@@ -8274,8 +8200,8 @@ extension Paths.API.__3.Project.WithProjectIDOrKey.Role {
 
         private func makeDeleteQuery(_ user: String?, _ group: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("user", user?.asQueryValue)
-            query.addQueryItem("group", group?.asQueryValue)
+            query.addQueryItem("user", user)
+            query.addQueryItem("group", group)
             return query
         }
     }
@@ -8303,8 +8229,8 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
         private func makeGetQuery(_ isCurrentMember: Bool?, _ excludeConnectAddons: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("currentMember", isCurrentMember?.asQueryValue)
-            query.addQueryItem("excludeConnectAddons", excludeConnectAddons?.asQueryValue)
+            query.addQueryItem("currentMember", isCurrentMember)
+            query.addQueryItem("excludeConnectAddons", excludeConnectAddons)
             return query
         }
     }
@@ -8421,12 +8347,12 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("status", status?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("status", status)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -8455,7 +8381,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -8581,7 +8507,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -8607,7 +8533,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -8622,7 +8548,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -8748,7 +8674,7 @@ extension Paths.API.__3.Projectvalidate {
 
         private func makeGetQuery(_ key: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key?.asQueryValue)
+            query.addQueryItem("key", key)
             return query
         }
     }
@@ -8774,7 +8700,7 @@ extension Paths.API.__3.Projectvalidate {
 
         private func makeGetQuery(_ key: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key?.asQueryValue)
+            query.addQueryItem("key", key)
             return query
         }
     }
@@ -8800,7 +8726,7 @@ extension Paths.API.__3.Projectvalidate {
 
         private func makeGetQuery(_ name: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("name", name.asQueryValue)
+            query.addQueryItem("name", name)
             return query
         }
     }
@@ -8941,7 +8867,7 @@ extension Paths.API.__3.Role {
 
         private func makeDeleteQuery(_ swap: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("swap", swap?.asQueryValue)
+            query.addQueryItem("swap", swap)
             return query
         }
     }
@@ -8989,8 +8915,8 @@ extension Paths.API.__3.Role.WithID {
 
         private func makeDeleteQuery(_ user: String?, _ group: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("user", user?.asQueryValue)
-            query.addQueryItem("group", group?.asQueryValue)
+            query.addQueryItem("user", user)
+            query.addQueryItem("group", group)
             return query
         }
     }
@@ -9027,11 +8953,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
                 return query
             }
         }
@@ -9150,7 +9074,7 @@ extension Paths.API.__3.Screens.WithScreenID {
 
         private func makeGetQuery(_ projectKey: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("projectKey", projectKey?.asQueryValue)
+            query.addQueryItem("projectKey", projectKey)
             return query
         }
 
@@ -9217,7 +9141,7 @@ extension Paths.API.__3.Screens.WithScreenID.Tabs.WithTabID {
 
         private func makeGetQuery(_ projectKey: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("projectKey", projectKey?.asQueryValue)
+            query.addQueryItem("projectKey", projectKey)
             return query
         }
 
@@ -9338,11 +9262,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in id ?? [] {
-                    query.addQueryItem("id", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                id?.forEach { query.addQueryItem("id", $0) }
                 return query
             }
         }
@@ -9446,18 +9368,14 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("jql", jql?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("validateQuery", validateQuery?.asQueryValue)
-                for value in fields ?? [] {
-                    query.addQueryItem("fields", value.asQueryValue)
-                }
-                query.addQueryItem("expand", expand?.asQueryValue)
-                for value in properties ?? [] {
-                    query.addQueryItem("properties", value.asQueryValue)
-                }
-                query.addQueryItem("fieldsByKeys", isFieldsByKeys?.asQueryValue)
+                query.addQueryItem("jql", jql)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("validateQuery", validateQuery)
+                fields?.forEach { query.addQueryItem("fields", $0) }
+                query.addQueryItem("expand", expand)
+                properties?.forEach { query.addQueryItem("properties", $0) }
+                query.addQueryItem("fieldsByKeys", isFieldsByKeys)
                 return query
             }
         }
@@ -9847,9 +9765,9 @@ extension Paths.API.__3.UniversalAvatar.`Type`.WithType.Owner {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("x", x?.asQueryValue)
-                query.addQueryItem("y", y?.asQueryValue)
-                query.addQueryItem("size", size.asQueryValue)
+                query.addQueryItem("x", x)
+                query.addQueryItem("y", y)
+                query.addQueryItem("size", size)
                 return query
             }
         }
@@ -9942,8 +9860,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type` {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("size", size?.asQueryValue)
-            query.addQueryItem("format", format?.asQueryValue)
+            query.addQueryItem("size", size)
+            query.addQueryItem("format", format)
             return query
         }
 
@@ -9999,8 +9917,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Avatar {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("size", size?.asQueryValue)
-            query.addQueryItem("format", format?.asQueryValue)
+            query.addQueryItem("size", size)
+            query.addQueryItem("format", format)
             return query
         }
 
@@ -10056,8 +9974,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Owner {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("size", size?.asQueryValue)
-            query.addQueryItem("format", format?.asQueryValue)
+            query.addQueryItem("size", size)
+            query.addQueryItem("format", format)
             return query
         }
 
@@ -10110,10 +10028,10 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("key", key?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("username", username)
+                query.addQueryItem("key", key)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -10152,9 +10070,9 @@ extension Paths.API.__3 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("key", key?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("username", username)
+                query.addQueryItem("key", key)
                 return query
             }
         }
@@ -10214,12 +10132,12 @@ extension Paths.API.__3.User.Assignable {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("projectKeys", projectKeys.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("projectKeys", projectKeys)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -10280,16 +10198,16 @@ extension Paths.API.__3.User.Assignable {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("sessionId", sessionID?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("project", project?.asQueryValue)
-                query.addQueryItem("issueKey", issueKey?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("actionDescriptorId", actionDescriptorID?.asQueryValue)
-                query.addQueryItem("recommend", isRecommend?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("sessionId", sessionID)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("project", project)
+                query.addQueryItem("issueKey", issueKey)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("actionDescriptorId", actionDescriptorID)
+                query.addQueryItem("recommend", isRecommend)
                 return query
             }
         }
@@ -10332,15 +10250,11 @@ extension Paths.API.__3.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in username ?? [] {
-                    query.addQueryItem("username", value.asQueryValue)
-                }
-                for value in key ?? [] {
-                    query.addQueryItem("key", value.asQueryValue)
-                }
-                query.addQueryItem("accountId", accountID.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                username?.forEach { query.addQueryItem("username", $0) }
+                key?.forEach { query.addQueryItem("key", $0) }
+                query.addQueryItem("accountId", accountID)
                 return query
             }
         }
@@ -10380,14 +10294,10 @@ extension Paths.API.__3.User.Bulk {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in username ?? [] {
-                    query.addQueryItem("username", value.asQueryValue)
-                }
-                for value in key ?? [] {
-                    query.addQueryItem("key", value.asQueryValue)
-                }
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                username?.forEach { query.addQueryItem("username", $0) }
+                key?.forEach { query.addQueryItem("key", $0) }
                 return query
             }
         }
@@ -10417,8 +10327,8 @@ extension Paths.API.__3.User {
 
         private func makeGetQuery(_ accountID: String?, _ username: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID?.asQueryValue)
-            query.addQueryItem("username", username?.asQueryValue)
+            query.addQueryItem("accountId", accountID)
+            query.addQueryItem("username", username)
             return query
         }
 
@@ -10440,7 +10350,7 @@ extension Paths.API.__3.User {
 
         private func makePutQuery(_ accountID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID?.asQueryValue)
+            query.addQueryItem("accountId", accountID)
             return query
         }
 
@@ -10458,8 +10368,8 @@ extension Paths.API.__3.User {
 
         private func makeDeleteQuery(_ accountID: String?, _ username: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID?.asQueryValue)
-            query.addQueryItem("username", username?.asQueryValue)
+            query.addQueryItem("accountId", accountID)
+            query.addQueryItem("username", username)
             return query
         }
     }
@@ -10483,7 +10393,7 @@ extension Paths.API.__3.User {
 
         private func makeGetQuery(_ accountID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID.asQueryValue)
+            query.addQueryItem("accountId", accountID)
             return query
         }
     }
@@ -10507,7 +10417,7 @@ extension Paths.API.__3.User.Email {
 
         private func makeGetQuery(_ accountID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID.asQueryValue)
+            query.addQueryItem("accountId", accountID)
             return query
         }
     }
@@ -10545,9 +10455,9 @@ extension Paths.API.__3.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("key", key?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("username", username)
+                query.addQueryItem("key", key)
                 return query
             }
         }
@@ -10619,14 +10529,14 @@ extension Paths.API.__3.User.Permission {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("permissions", permissions.asQueryValue)
-                query.addQueryItem("issueKey", issueKey?.asQueryValue)
-                query.addQueryItem("projectKey", projectKey?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("permissions", permissions)
+                query.addQueryItem("issueKey", issueKey)
+                query.addQueryItem("projectKey", projectKey)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -10676,17 +10586,13 @@ extension Paths.API.__3.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("showAvatar", isShowAvatar?.asQueryValue)
-                for value in exclude ?? [] {
-                    query.addQueryItem("exclude", value.asQueryValue)
-                }
-                for value in excludeAccountIDs ?? [] {
-                    query.addQueryItem("excludeAccountIds", value.asQueryValue)
-                }
-                query.addQueryItem("avatarSize", avatarSize?.asQueryValue)
-                query.addQueryItem("excludeConnectUsers", excludeConnectUsers?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("showAvatar", isShowAvatar)
+                exclude?.forEach { query.addQueryItem("exclude", $0) }
+                excludeAccountIDs?.forEach { query.addQueryItem("excludeAccountIds", $0) }
+                query.addQueryItem("avatarSize", avatarSize)
+                query.addQueryItem("excludeConnectUsers", excludeConnectUsers)
                 return query
             }
         }
@@ -10730,9 +10636,9 @@ extension Paths.API.__3.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("userKey", userKey?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("userKey", userKey)
+                query.addQueryItem("username", username)
                 return query
             }
         }
@@ -10776,9 +10682,9 @@ extension Paths.API.__3.User.Properties {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("userKey", userKey?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("userKey", userKey)
+                query.addQueryItem("username", username)
                 return query
             }
         }
@@ -10811,9 +10717,9 @@ extension Paths.API.__3.User.Properties {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("userKey", userKey?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("userKey", userKey)
+                query.addQueryItem("username", username)
                 return query
             }
         }
@@ -10846,9 +10752,9 @@ extension Paths.API.__3.User.Properties {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("userKey", userKey?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("userKey", userKey)
+                query.addQueryItem("username", username)
                 return query
             }
         }
@@ -10897,12 +10803,12 @@ extension Paths.API.__3.User {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("property", property?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("property", property)
                 return query
             }
         }
@@ -10957,9 +10863,9 @@ extension Paths.API.__3.User.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -11014,9 +10920,9 @@ extension Paths.API.__3.User.Search.Query {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -11086,13 +10992,13 @@ extension Paths.API.__3.User.Viewissue {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("username", username?.asQueryValue)
-                query.addQueryItem("accountId", accountID?.asQueryValue)
-                query.addQueryItem("issueKey", issueKey?.asQueryValue)
-                query.addQueryItem("projectKey", projectKey?.asQueryValue)
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("username", username)
+                query.addQueryItem("accountId", accountID)
+                query.addQueryItem("issueKey", issueKey)
+                query.addQueryItem("projectKey", projectKey)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
                 return query
             }
         }
@@ -11119,8 +11025,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -11146,8 +11052,8 @@ extension Paths.API.__3.Users {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
     }
@@ -11197,7 +11103,7 @@ extension Paths.API.__3.Version {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
 
@@ -11230,8 +11136,8 @@ extension Paths.API.__3.Version {
 
         private func makeDeleteQuery(_ moveFixIssuesTo: String?, _ moveAffectedIssuesTo: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("moveFixIssuesTo", moveFixIssuesTo?.asQueryValue)
-            query.addQueryItem("moveAffectedIssuesTo", moveAffectedIssuesTo?.asQueryValue)
+            query.addQueryItem("moveFixIssuesTo", moveFixIssuesTo)
+            query.addQueryItem("moveAffectedIssuesTo", moveAffectedIssuesTo)
             return query
         }
     }
@@ -11386,8 +11292,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
 
@@ -11437,8 +11343,8 @@ extension Paths.API.__3.Webhook {
 
         private func makeGetQuery(_ maxResults: Int?, _ after: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
-            query.addQueryItem("after", after?.asQueryValue)
+            query.addQueryItem("maxResults", maxResults)
+            query.addQueryItem("after", after)
             return query
         }
     }
@@ -11489,7 +11395,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ workflowName: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName?.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
             return query
         }
 
@@ -12293,18 +12199,14 @@ extension Paths.API.__3.Workflow.Rule {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in types {
-                    query.addQueryItem("types", value.asQueryValue)
-                }
-                for value in keys ?? [] {
-                    query.addQueryItem("keys", value.asQueryValue)
-                }
-                query.addQueryItem("workflowNames", workflowNames?.asQueryValue)
-                query.addQueryItem("withTags", withTags?.asQueryValue)
-                query.addQueryItem("draft", isDraft?.asQueryValue)
-                query.addQueryItem("expand", expand?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                types.forEach { query.addQueryItem("types", $0) }
+                keys?.forEach { query.addQueryItem("keys", $0) }
+                query.addQueryItem("workflowNames", workflowNames)
+                query.addQueryItem("withTags", withTags)
+                query.addQueryItem("draft", isDraft)
+                query.addQueryItem("expand", expand)
                 return query
             }
         }
@@ -12412,15 +12314,13 @@ extension Paths.API.__3.Workflow {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startAt", startAt?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in workflowName ?? [] {
-                    query.addQueryItem("workflowName", value.asQueryValue)
-                }
-                query.addQueryItem("expand", expand?.asQueryValue)
-                query.addQueryItem("queryString", queryString?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("isActive", isActive?.asQueryValue)
+                query.addQueryItem("startAt", startAt)
+                query.addQueryItem("maxResults", maxResults)
+                workflowName?.forEach { query.addQueryItem("workflowName", $0) }
+                query.addQueryItem("expand", expand)
+                query.addQueryItem("queryString", queryString)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("isActive", isActive)
                 return query
             }
         }
@@ -12487,10 +12387,10 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("includeReservedKeys", isIncludeReservedKeys?.asQueryValue)
-                query.addQueryItem("key", key?.asQueryValue)
-                query.addQueryItem("workflowName", workflowName.asQueryValue)
-                query.addQueryItem("workflowMode", workflowMode?.asQueryValue)
+                query.addQueryItem("includeReservedKeys", isIncludeReservedKeys)
+                query.addQueryItem("key", key)
+                query.addQueryItem("workflowName", workflowName)
+                query.addQueryItem("workflowMode", workflowMode)
                 return query
             }
         }
@@ -12522,9 +12422,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("workflowName", workflowName.asQueryValue)
-                query.addQueryItem("workflowMode", workflowMode?.asQueryValue)
+                query.addQueryItem("key", key)
+                query.addQueryItem("workflowName", workflowName)
+                query.addQueryItem("workflowMode", workflowMode)
                 return query
             }
         }
@@ -12556,9 +12456,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("workflowName", workflowName.asQueryValue)
-                query.addQueryItem("workflowMode", workflowMode?.asQueryValue)
+                query.addQueryItem("key", key)
+                query.addQueryItem("workflowName", workflowName)
+                query.addQueryItem("workflowMode", workflowMode)
                 return query
             }
         }
@@ -12590,9 +12490,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("workflowName", workflowName.asQueryValue)
-                query.addQueryItem("workflowMode", workflowMode?.asQueryValue)
+                query.addQueryItem("key", key)
+                query.addQueryItem("workflowName", workflowName)
+                query.addQueryItem("workflowMode", workflowMode)
                 return query
             }
         }
@@ -12646,8 +12546,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("startAt", startAt?.asQueryValue)
-            query.addQueryItem("maxResults", maxResults?.asQueryValue)
+            query.addQueryItem("startAt", startAt)
+            query.addQueryItem("maxResults", maxResults)
             return query
         }
 
@@ -12684,9 +12584,7 @@ extension Paths.API.__3.Workflowscheme {
 
         private func makeGetQuery(_ projectID: [Int]) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            for value in projectID {
-                query.addQueryItem("projectId", value.asQueryValue)
-            }
+            projectID.forEach { query.addQueryItem("projectId", $0) }
             return query
         }
 
@@ -12723,7 +12621,7 @@ extension Paths.API.__3.Workflowscheme {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists?.asQueryValue)
+            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists)
             return query
         }
 
@@ -12787,7 +12685,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists?.asQueryValue)
+            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists)
             return query
         }
 
@@ -12815,7 +12713,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeDeleteQuery(_ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded?.asQueryValue)
+            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded)
             return query
         }
     }
@@ -12974,7 +12872,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makePostQuery(_ isValidateOnly: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("validateOnly", isValidateOnly?.asQueryValue)
+            query.addQueryItem("validateOnly", isValidateOnly)
             return query
         }
     }
@@ -13000,7 +12898,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makeGetQuery(_ workflowName: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName?.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
             return query
         }
 
@@ -13015,7 +12913,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makePutQuery(_ workflowName: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
             return query
         }
 
@@ -13030,7 +12928,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makeDeleteQuery(_ workflowName: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
             return query
         }
     }
@@ -13067,7 +12965,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Issuetype {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists?.asQueryValue)
+            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists)
             return query
         }
 
@@ -13095,7 +12993,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Issuetype {
 
         private func makeDeleteQuery(_ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded?.asQueryValue)
+            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded)
             return query
         }
     }
@@ -13121,8 +13019,8 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeGetQuery(_ workflowName: String?, _ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName?.asQueryValue)
-            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists?.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
+            query.addQueryItem("returnDraftIfExists", isReturnDraftIfExists)
             return query
         }
 
@@ -13139,7 +13037,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makePutQuery(_ workflowName: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
             return query
         }
 
@@ -13156,8 +13054,8 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeDeleteQuery(_ workflowName: String, _ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workflowName", workflowName.asQueryValue)
-            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded?.asQueryValue)
+            query.addQueryItem("workflowName", workflowName)
+            query.addQueryItem("updateDraftIfNeeded", isUpdateDraftIfNeeded)
             return query
         }
     }
@@ -13198,7 +13096,7 @@ extension Paths.API.__3.Worklog {
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("since", since?.asQueryValue)
+            query.addQueryItem("since", since)
             return query
         }
     }
@@ -13229,7 +13127,7 @@ extension Paths.API.__3.Worklog {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -13262,8 +13160,8 @@ extension Paths.API.__3.Worklog {
 
         private func makeGetQuery(_ since: Int?, _ expand: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("since", since?.asQueryValue)
-            query.addQueryItem("expand", expand?.asQueryValue)
+            query.addQueryItem("since", since)
+            query.addQueryItem("expand", expand)
             return query
         }
     }
@@ -13433,9 +13331,7 @@ extension Paths.AtlassianConnect.__1.App.Module {
 
         private func makeDeleteQuery(_ moduleKey: [String]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            for value in moduleKey ?? [] {
-                query.addQueryItem("moduleKey", value.asQueryValue)
-            }
+            moduleKey?.forEach { query.addQueryItem("moduleKey", $0) }
             return query
         }
     }
@@ -13544,49 +13440,53 @@ extension Paths.AtlassianConnect.__1.Migration.Workflow.Rule {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -13599,14 +13499,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

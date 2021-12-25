@@ -44,8 +44,8 @@ extension Paths.Search.WithVersionNumber {
 
         private func makeGetQuery(_ geometries: String, _ geometriesZoom: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("geometries", geometries.asQueryValue)
-            query.addQueryItem("geometriesZoom", geometriesZoom?.asQueryValue)
+            query.addQueryItem("geometries", geometries)
+            query.addQueryItem("geometriesZoom", geometriesZoom)
             return query
         }
     }
@@ -116,18 +116,18 @@ extension Paths.Search.WithVersionNumber.CS {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("idxSet", idxSet)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -198,18 +198,18 @@ extension Paths.Search.WithVersionNumber.CategorySearch {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -282,19 +282,19 @@ extension Paths.Search.WithVersionNumber.Geocode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("storeResult", isStoreResult?.asQueryValue)
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("storeResult", isStoreResult)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -317,8 +317,8 @@ extension Paths.Search.WithVersionNumber {
 
         private func makeGetQuery(_ geometryList: String, _ poiList: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("geometryList", geometryList.asQueryValue)
-            query.addQueryItem("poiList", poiList.asQueryValue)
+            query.addQueryItem("geometryList", geometryList)
+            query.addQueryItem("poiList", poiList)
             return query
         }
 
@@ -467,11 +467,11 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("geometryList", geometryList?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
+                query.addQueryItem("geometryList", geometryList)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("idxSet", idxSet)
                 return query
             }
         }
@@ -496,10 +496,10 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("idxSet", idxSet)
                 return query
             }
         }
@@ -621,20 +621,20 @@ extension Paths.Search.WithVersionNumber.NearbySearch {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("lat", lat.asQueryValue)
-                query.addQueryItem("lon", lon.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("minFuzzyLevel", minFuzzyLevel?.asQueryValue)
-                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("minFuzzyLevel", minFuzzyLevel)
+                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel)
+                query.addQueryItem("idxSet", idxSet)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -705,18 +705,18 @@ extension Paths.Search.WithVersionNumber.PoiSearch {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -776,11 +776,11 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode.CrossStreet {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("spatialKeys", isSpatialKeys?.asQueryValue)
-                query.addQueryItem("heading", heading?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("spatialKeys", isSpatialKeys)
+                query.addQueryItem("heading", heading)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("language", language)
                 return query
             }
         }
@@ -824,14 +824,14 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("spatialKeys", isSpatialKeys?.asQueryValue)
-                query.addQueryItem("returnSpeedLimit", isReturnSpeedLimit?.asQueryValue)
-                query.addQueryItem("heading", heading?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("number", number?.asQueryValue)
-                query.addQueryItem("returnRoadUse", returnRoadUse?.asQueryValue)
-                query.addQueryItem("roadUse", roadUse?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("spatialKeys", isSpatialKeys)
+                query.addQueryItem("returnSpeedLimit", isReturnSpeedLimit)
+                query.addQueryItem("heading", heading)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("number", number)
+                query.addQueryItem("returnRoadUse", returnRoadUse)
+                query.addQueryItem("roadUse", roadUse)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -877,8 +877,8 @@ extension Paths.Search.WithVersionNumber.RoutedFilter.WithPosition {
 
         private func makeGetQuery(_ poiList: String, _ routingTimeout: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("poiList", poiList.asQueryValue)
-            query.addQueryItem("routingTimeout", routingTimeout?.asQueryValue)
+            query.addQueryItem("poiList", poiList)
+            query.addQueryItem("routingTimeout", routingTimeout)
             return query
         }
 
@@ -890,7 +890,7 @@ extension Paths.Search.WithVersionNumber.RoutedFilter.WithPosition {
 
         private func makePostQuery(_ routingTimeout: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("routingTimeout", routingTimeout?.asQueryValue)
+            query.addQueryItem("routingTimeout", routingTimeout)
             return query
         }
 
@@ -1041,13 +1041,13 @@ extension Paths.Search.WithVersionNumber.RoutedSearch.WithQuery.WithPosition {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("multiplier", multiplier?.asQueryValue)
-                query.addQueryItem("routingTimeout", routingTimeout?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("multiplier", multiplier)
+                query.addQueryItem("routingTimeout", routingTimeout)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("idxSet", idxSet)
                 return query
             }
         }
@@ -1119,18 +1119,18 @@ extension Paths.Search.WithVersionNumber.S {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("idxSet", idxSet)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -1207,21 +1207,21 @@ extension Paths.Search.WithVersionNumber.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("countrySet", countrySet?.asQueryValue)
-                query.addQueryItem("lat", lat?.asQueryValue)
-                query.addQueryItem("lon", lon?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("topLeft", topLeft?.asQueryValue)
-                query.addQueryItem("btmRight", btmRight?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
-                query.addQueryItem("minFuzzyLevel", minFuzzyLevel?.asQueryValue)
-                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel?.asQueryValue)
-                query.addQueryItem("idxSet", idxSet?.asQueryValue)
-                query.addQueryItem("view", view?.asQueryValue)
+                query.addQueryItem("typeahead", isTypeahead)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("countrySet", countrySet)
+                query.addQueryItem("lat", lat)
+                query.addQueryItem("lon", lon)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("topLeft", topLeft)
+                query.addQueryItem("btmRight", btmRight)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
+                query.addQueryItem("minFuzzyLevel", minFuzzyLevel)
+                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel)
+                query.addQueryItem("idxSet", idxSet)
+                query.addQueryItem("view", view)
                 return query
             }
         }
@@ -1255,8 +1255,8 @@ extension Paths.Search.WithVersionNumber.SearchAlongRoute {
 
         private func makePostQuery(_ maxDetourTime: Int, _ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("maxDetourTime", maxDetourTime.asQueryValue)
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("maxDetourTime", maxDetourTime)
+            query.addQueryItem("limit", limit)
             return query
         }
 
@@ -1361,20 +1361,20 @@ extension Paths.Search.WithVersionNumber {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("countryCode", countryCode.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("ofs", ofs?.asQueryValue)
-                query.addQueryItem("streetNumber", streetNumber?.asQueryValue)
-                query.addQueryItem("streetName", streetName?.asQueryValue)
-                query.addQueryItem("crossStreet", crossStreet?.asQueryValue)
-                query.addQueryItem("municipality", municipality?.asQueryValue)
-                query.addQueryItem("municipalitySubdivision", municipalitySubdivision?.asQueryValue)
-                query.addQueryItem("countryTertiarySubdivision", countryTertiarySubdivision?.asQueryValue)
-                query.addQueryItem("countrySecondarySubdivision", countrySecondarySubdivision?.asQueryValue)
-                query.addQueryItem("countrySubdivision", countrySubdivision?.asQueryValue)
-                query.addQueryItem("postalCode", postalCode?.asQueryValue)
-                query.addQueryItem("language", language?.asQueryValue)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor?.asQueryValue)
+                query.addQueryItem("countryCode", countryCode)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("ofs", ofs)
+                query.addQueryItem("streetNumber", streetNumber)
+                query.addQueryItem("streetName", streetName)
+                query.addQueryItem("crossStreet", crossStreet)
+                query.addQueryItem("municipality", municipality)
+                query.addQueryItem("municipalitySubdivision", municipalitySubdivision)
+                query.addQueryItem("countryTertiarySubdivision", countryTertiarySubdivision)
+                query.addQueryItem("countrySecondarySubdivision", countrySecondarySubdivision)
+                query.addQueryItem("countrySubdivision", countrySubdivision)
+                query.addQueryItem("postalCode", postalCode)
+                query.addQueryItem("language", language)
+                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
                 return query
             }
         }
@@ -1383,49 +1383,53 @@ extension Paths.Search.WithVersionNumber {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -1438,14 +1442,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

@@ -6,21 +6,7 @@ import XCTest
 import OpenAPIKit30
 @testable import CreateAPI
 
-final class GenerateOptionsTests: XCTestCase {
-    var temp: TemporaryDirectory!
-    
-    override func setUp() {
-        super.setUp()
-        
-        temp = TemporaryDirectory()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-        
-        temp.remove()
-    }
-        
+final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreOnlySchemas() throws {
         // GIVEN
         let command = try Generate.parse([
@@ -545,17 +531,5 @@ final class GenerateOptionsTests: XCTestCase {
         
         // THEN
         try compare(package: "postman-operations")
-    }
-}
-
-extension GenerateOptionsTests {
-    func compare(package: String, file: StaticString = #file, line: UInt = #line) throws {
-        try CreateAPITests.compare(expected: package, actual: temp.path(for: package), file: file, line: line)
-    }
-    
-    func config(_ contents: String, ext: String = "json") -> String {
-        let url = URL(fileURLWithPath: temp.path(for: "config.\(ext)"))
-        try! contents.data(using: .utf8)!.write(to: url)
-        return url.path
     }
 }

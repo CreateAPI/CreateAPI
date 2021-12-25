@@ -50,10 +50,10 @@ extension Paths.AccessTokens {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -93,10 +93,10 @@ extension Paths.AccessTokens.WithAccessTokens {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -168,17 +168,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -254,17 +254,17 @@ extension Paths.Answers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -338,17 +338,17 @@ extension Paths.Answers.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -414,10 +414,10 @@ extension Paths.Apps.WithAccessTokens {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -490,18 +490,18 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -571,18 +571,18 @@ extension Paths.Badges {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -628,13 +628,13 @@ extension Paths.Badges {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -702,18 +702,18 @@ extension Paths.Badges {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -788,17 +788,17 @@ extension Paths.Badges {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -846,13 +846,13 @@ extension Paths.Badges.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -926,17 +926,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1010,17 +1010,17 @@ extension Paths.Comments {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1071,10 +1071,10 @@ extension Paths.Comments.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("preview", isPreview?.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("preview", isPreview)
                 return query
             }
         }
@@ -1116,11 +1116,11 @@ extension Paths.Comments.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("body", body?.asQueryValue)
-                query.addQueryItem("preview", isPreview?.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("body", body)
+                query.addQueryItem("preview", isPreview)
                 return query
             }
         }
@@ -1162,10 +1162,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -1241,12 +1241,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("since", since)
                 return query
             }
         }
@@ -1303,10 +1303,10 @@ extension Paths.Filters {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("base", base?.asQueryValue)
-                query.addQueryItem("exclude", exclude?.asQueryValue)
-                query.addQueryItem("include", include?.asQueryValue)
-                query.addQueryItem("unsafe", isUnsafe?.asQueryValue)
+                query.addQueryItem("base", base)
+                query.addQueryItem("exclude", exclude)
+                query.addQueryItem("include", include)
+                query.addQueryItem("unsafe", isUnsafe)
                 return query
             }
         }
@@ -1368,10 +1368,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -1413,11 +1413,11 @@ extension Paths.Inbox {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("since", since)
                 return query
             }
         }
@@ -1446,7 +1446,7 @@ extension Paths {
 
         private func makeGetQuery(_ site: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("site", site.asQueryValue)
+            query.addQueryItem("site", site)
             return query
         }
     }
@@ -1509,17 +1509,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1582,17 +1582,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1630,10 +1630,10 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -1696,17 +1696,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1768,17 +1768,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1840,17 +1840,17 @@ extension Paths.Me.Comments {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1914,17 +1914,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -1966,11 +1966,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2014,12 +2014,12 @@ extension Paths.Me.Inbox {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("since", since)
                 return query
             }
         }
@@ -2081,17 +2081,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2137,10 +2137,10 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -2182,11 +2182,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2228,11 +2228,11 @@ extension Paths.Me.Notifications {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2272,11 +2272,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2339,17 +2339,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2412,17 +2412,17 @@ extension Paths.Me.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2485,17 +2485,17 @@ extension Paths.Me.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2558,17 +2558,17 @@ extension Paths.Me.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2631,17 +2631,17 @@ extension Paths.Me.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2677,9 +2677,9 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2719,11 +2719,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2766,11 +2766,11 @@ extension Paths.Me.ReputationHistory {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2833,17 +2833,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2906,17 +2906,17 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -2990,17 +2990,17 @@ extension Paths.Me.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3067,17 +3067,17 @@ extension Paths.Me.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3121,13 +3121,13 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3167,11 +3167,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3211,11 +3211,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3259,11 +3259,11 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3303,10 +3303,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -3346,10 +3346,10 @@ extension Paths.Notifications {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -3425,17 +3425,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3511,17 +3511,17 @@ extension Paths.Posts {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3595,17 +3595,17 @@ extension Paths.Posts.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3651,13 +3651,13 @@ extension Paths.Posts.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3728,17 +3728,17 @@ extension Paths.Posts.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3802,11 +3802,11 @@ extension Paths.Posts.WithID.Comments {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("body", body?.asQueryValue)
-                query.addQueryItem("preview", isPreview?.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("body", body)
+                query.addQueryItem("preview", isPreview)
                 return query
             }
         }
@@ -3850,11 +3850,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -3939,18 +3939,18 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4024,18 +4024,18 @@ extension Paths.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4115,18 +4115,18 @@ extension Paths.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4208,18 +4208,18 @@ extension Paths.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4295,17 +4295,17 @@ extension Paths.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4381,17 +4381,17 @@ extension Paths.Questions.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4465,17 +4465,17 @@ extension Paths.Questions.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4555,17 +4555,17 @@ extension Paths.Questions.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4643,17 +4643,17 @@ extension Paths.Questions.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4703,13 +4703,13 @@ extension Paths.Questions.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4766,13 +4766,13 @@ extension Paths.Revisions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -4858,20 +4858,20 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("intitle", intitle?.asQueryValue)
-                query.addQueryItem("nottagged", nottagged?.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("intitle", intitle)
+                query.addQueryItem("nottagged", nottagged)
                 return query
             }
         }
@@ -5017,31 +5017,31 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("accepted", accepted?.asQueryValue)
-                query.addQueryItem("answers", answers?.asQueryValue)
-                query.addQueryItem("body", body?.asQueryValue)
-                query.addQueryItem("closed", closed?.asQueryValue)
-                query.addQueryItem("migrated", migrated?.asQueryValue)
-                query.addQueryItem("notice", notice?.asQueryValue)
-                query.addQueryItem("nottagged", nottagged?.asQueryValue)
-                query.addQueryItem("q", q?.asQueryValue)
-                query.addQueryItem("title", title?.asQueryValue)
-                query.addQueryItem("url", url?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("views", views?.asQueryValue)
-                query.addQueryItem("wiki", wiki?.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("accepted", accepted)
+                query.addQueryItem("answers", answers)
+                query.addQueryItem("body", body)
+                query.addQueryItem("closed", closed)
+                query.addQueryItem("migrated", migrated)
+                query.addQueryItem("notice", notice)
+                query.addQueryItem("nottagged", nottagged)
+                query.addQueryItem("q", q)
+                query.addQueryItem("title", title)
+                query.addQueryItem("url", url)
+                query.addQueryItem("user", user)
+                query.addQueryItem("views", views)
+                query.addQueryItem("wiki", wiki)
                 return query
             }
         }
@@ -5129,20 +5129,20 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("nottagged", nottagged?.asQueryValue)
-                query.addQueryItem("title", title?.asQueryValue)
+                query.addQueryItem("tagged", tagged)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("nottagged", nottagged)
+                query.addQueryItem("title", title)
                 return query
             }
         }
@@ -5184,10 +5184,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -5258,17 +5258,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5342,17 +5342,17 @@ extension Paths.SuggestedEdits {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5427,18 +5427,18 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5513,18 +5513,18 @@ extension Paths.Tags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5599,18 +5599,18 @@ extension Paths.Tags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5684,17 +5684,17 @@ extension Paths.Tags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5749,11 +5749,11 @@ extension Paths.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5826,17 +5826,17 @@ extension Paths.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5882,11 +5882,11 @@ extension Paths.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -5960,17 +5960,17 @@ extension Paths.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6014,11 +6014,11 @@ extension Paths.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6082,11 +6082,11 @@ extension Paths.Tags.WithTag.TopAnswerers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6139,11 +6139,11 @@ extension Paths.Tags.WithTag.TopAskers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6221,18 +6221,18 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname?.asQueryValue)
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("inname", inname)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6308,17 +6308,17 @@ extension Paths.Users {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6394,17 +6394,17 @@ extension Paths.Users.Moderators {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6482,17 +6482,17 @@ extension Paths.Users {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6566,17 +6566,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6616,10 +6616,10 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -6693,17 +6693,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6775,17 +6775,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6859,17 +6859,17 @@ extension Paths.Users.WithIDs.Comments {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -6947,17 +6947,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7029,17 +7029,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7085,10 +7085,10 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
                 return query
             }
         }
@@ -7162,17 +7162,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7246,17 +7246,17 @@ extension Paths.Users.WithIDs.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7332,17 +7332,17 @@ extension Paths.Users.WithIDs.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7418,17 +7418,17 @@ extension Paths.Users.WithIDs.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7506,17 +7506,17 @@ extension Paths.Users.WithIDs.Questions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7564,13 +7564,13 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7610,11 +7610,11 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7688,17 +7688,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7774,17 +7774,17 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7832,13 +7832,13 @@ extension Paths.Users.WithIDs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7895,11 +7895,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -7947,12 +7947,12 @@ extension Paths.Users.WithID.Inbox {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
+                query.addQueryItem("since", since)
                 return query
             }
         }
@@ -7994,11 +7994,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8040,11 +8040,11 @@ extension Paths.Users.WithID.Notifications {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8088,11 +8088,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8145,11 +8145,11 @@ extension Paths.Users.WithID.ReputationHistory {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8245,17 +8245,17 @@ extension Paths.Users.WithID.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8329,17 +8329,17 @@ extension Paths.Users.WithID.Tags.WithTags {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("order", order?.asQueryValue)
-                query.addQueryItem("max", max?.asQueryValue)
-                query.addQueryItem("min", min?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("fromdate", fromdate?.asQueryValue)
-                query.addQueryItem("todate", todate?.asQueryValue)
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("order", order)
+                query.addQueryItem("max", max)
+                query.addQueryItem("min", min)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("fromdate", fromdate)
+                query.addQueryItem("todate", todate)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8383,11 +8383,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8431,11 +8431,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8479,11 +8479,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("callback", callback?.asQueryValue)
-                query.addQueryItem("site", site.asQueryValue)
+                query.addQueryItem("pagesize", pagesize)
+                query.addQueryItem("page", page)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("callback", callback)
+                query.addQueryItem("site", site)
                 return query
             }
         }
@@ -8492,49 +8492,53 @@ extension Paths.Users.WithID {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -8547,14 +8551,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

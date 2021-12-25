@@ -490,8 +490,8 @@ extension Paths.Users.WithID {
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults?.asQueryValue)
-            query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+            query.addQueryItem("max_results", maxResults)
+            query.addQueryItem("pagination_token", paginationToken)
             return query
         }
 
@@ -591,8 +591,8 @@ extension Paths.Users.WithID {
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults?.asQueryValue)
-            query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+            query.addQueryItem("max_results", maxResults)
+            query.addQueryItem("pagination_token", paginationToken)
             return query
         }
 
@@ -623,8 +623,8 @@ extension Paths.Users.WithID {
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults?.asQueryValue)
-            query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+            query.addQueryItem("max_results", maxResults)
+            query.addQueryItem("pagination_token", paginationToken)
             return query
         }
     }
@@ -648,8 +648,8 @@ extension Paths.Users.WithID {
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults?.asQueryValue)
-            query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+            query.addQueryItem("max_results", maxResults)
+            query.addQueryItem("pagination_token", paginationToken)
             return query
         }
 
@@ -765,8 +765,8 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -875,8 +875,8 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -960,8 +960,8 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -1710,11 +1710,11 @@ extension Paths.Tweets.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("next_token", nextToken?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("next_token", nextToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -1876,11 +1876,11 @@ extension Paths.Tweets.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("next_token", nextToken?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("next_token", nextToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2039,7 +2039,7 @@ extension Paths.Tweets.Search {
                 query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("backfill_minutes", backfillMinutes?.asQueryValue)
+                query.addQueryItem("backfill_minutes", backfillMinutes)
                 return query
             }
         }
@@ -2074,8 +2074,8 @@ extension Paths.Tweets.Search.Stream {
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults?.asQueryValue)
-            query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+            query.addQueryItem("max_results", maxResults)
+            query.addQueryItem("pagination_token", paginationToken)
             return query
         }
 
@@ -2088,7 +2088,7 @@ extension Paths.Tweets.Search.Stream {
 
         private func makePostQuery(_ isDryRun: Bool?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("dry_run", isDryRun?.asQueryValue)
+            query.addQueryItem("dry_run", isDryRun)
             return query
         }
     }
@@ -2251,7 +2251,7 @@ extension Paths.Tweets.Sample {
                 query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("backfill_minutes", backfillMinutes?.asQueryValue)
+                query.addQueryItem("backfill_minutes", backfillMinutes)
                 return query
             }
         }
@@ -2432,11 +2432,11 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("exclude", exclude?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
+                query.addQueryItem("pagination_token", paginationToken)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2595,10 +2595,10 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2824,8 +2824,8 @@ extension Paths.Users.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2953,10 +2953,10 @@ extension Paths.Tweets.Counts {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("next_token", nextToken?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("next_token", nextToken)
                 return query
             }
         }
@@ -2995,10 +2995,10 @@ extension Paths.Tweets.Counts {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("start_time", startTime?.asQueryValue)
-                query.addQueryItem("end_time", endTime?.asQueryValue)
-                query.addQueryItem("next_token", nextToken?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("start_time", startTime)
+                query.addQueryItem("end_time", endTime)
+                query.addQueryItem("next_token", nextToken)
                 return query
             }
         }
@@ -3280,8 +3280,8 @@ extension Paths.Lists.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -3377,8 +3377,8 @@ extension Paths.Lists.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -3590,8 +3590,8 @@ extension Paths.Lists.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults?.asQueryValue)
-                query.addQueryItem("pagination_token", paginationToken?.asQueryValue)
+                query.addQueryItem("max_results", maxResults)
+                query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
@@ -3830,8 +3830,8 @@ extension Paths.Spaces {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("state", state?.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("state", state)
                 query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 return query
@@ -3883,49 +3883,53 @@ extension Paths.Spaces.WithID {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -3938,14 +3942,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

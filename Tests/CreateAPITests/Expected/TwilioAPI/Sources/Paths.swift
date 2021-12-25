@@ -77,9 +77,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Status", status)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -100,7 +100,7 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -194,10 +194,10 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CustomerName", customerName?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IsoCountry", isoCountry?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("CustomerName", customerName)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IsoCountry", isoCountry)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -241,15 +241,15 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress?.asQueryValue)
-                query.addQueryItem("City", city.asQueryValue)
-                query.addQueryItem("CustomerName", customerName.asQueryValue)
-                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IsoCountry", isoCountry.asQueryValue)
-                query.addQueryItem("PostalCode", postalCode.asQueryValue)
-                query.addQueryItem("Region", region.asQueryValue)
-                query.addQueryItem("Street", street.asQueryValue)
+                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
+                query.addQueryItem("City", city)
+                query.addQueryItem("CustomerName", customerName)
+                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IsoCountry", isoCountry)
+                query.addQueryItem("PostalCode", postalCode)
+                query.addQueryItem("Region", region)
+                query.addQueryItem("Street", street)
                 return query.asPercentEncodedQuery
             }
         }
@@ -330,7 +330,7 @@ extension Paths.Accounts.WithAccountSid.Addresses.WithAddressSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -385,14 +385,14 @@ extension Paths.Accounts.WithAccountSid.Addresses {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress?.asQueryValue)
-                query.addQueryItem("City", city?.asQueryValue)
-                query.addQueryItem("CustomerName", customerName?.asQueryValue)
-                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PostalCode", postalCode?.asQueryValue)
-                query.addQueryItem("Region", region?.asQueryValue)
-                query.addQueryItem("Street", street?.asQueryValue)
+                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
+                query.addQueryItem("City", city)
+                query.addQueryItem("CustomerName", customerName)
+                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PostalCode", postalCode)
+                query.addQueryItem("Region", region)
+                query.addQueryItem("Street", street)
                 return query.asPercentEncodedQuery
             }
         }
@@ -456,8 +456,8 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ friendlyName: String?, _ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("FriendlyName", friendlyName)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -569,21 +569,21 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("MessageStatusCallback", messageStatusCallback?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsStatusCallback", smsStatusCallback?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("MessageStatusCallback", messageStatusCallback)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsStatusCallback", smsStatusCallback)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -723,21 +723,21 @@ extension Paths.Accounts.WithAccountSid.Applications {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("MessageStatusCallback", messageStatusCallback?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsStatusCallback", smsStatusCallback?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("MessageStatusCallback", messageStatusCallback)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsStatusCallback", smsStatusCallback)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -802,7 +802,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -887,7 +887,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -1025,25 +1025,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1145,25 +1145,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1265,25 +1265,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1385,25 +1385,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1505,25 +1505,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1625,25 +1625,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1745,25 +1745,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("Contains", contains?.asQueryValue)
-                query.addQueryItem("SmsEnabled", isSmsEnabled?.asQueryValue)
-                query.addQueryItem("MmsEnabled", isMmsEnabled?.asQueryValue)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled?.asQueryValue)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired?.asQueryValue)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired?.asQueryValue)
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("NearNumber", nearNumber?.asQueryValue)
-                query.addQueryItem("NearLatLong", nearLatLong?.asQueryValue)
-                query.addQueryItem("Distance", distance?.asQueryValue)
-                query.addQueryItem("InPostalCode", inPostalCode?.asQueryValue)
-                query.addQueryItem("InRegion", inRegion?.asQueryValue)
-                query.addQueryItem("InRateCenter", inRateCenter?.asQueryValue)
-                query.addQueryItem("InLata", inLata?.asQueryValue)
-                query.addQueryItem("InLocality", inLocality?.asQueryValue)
-                query.addQueryItem("FaxEnabled", isFaxEnabled?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("Contains", contains)
+                query.addQueryItem("SmsEnabled", isSmsEnabled)
+                query.addQueryItem("MmsEnabled", isMmsEnabled)
+                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
+                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
+                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
+                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("NearNumber", nearNumber)
+                query.addQueryItem("NearLatLong", nearLatLong)
+                query.addQueryItem("Distance", distance)
+                query.addQueryItem("InPostalCode", inPostalCode)
+                query.addQueryItem("InRegion", inRegion)
+                query.addQueryItem("InRateCenter", inRateCenter)
+                query.addQueryItem("InLata", inLata)
+                query.addQueryItem("InLocality", inLocality)
+                query.addQueryItem("FaxEnabled", isFaxEnabled)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -1877,17 +1877,17 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("To", to?.asQueryValue)
-                query.addQueryItem("From", from?.asQueryValue)
-                query.addQueryItem("ParentCallSid", parentCallSid?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
-                query.addQueryItem("StartTime", startTime?.asQueryValue)
-                query.addQueryItem("StartTime<", startTimeLessThan?.asQueryValue)
-                query.addQueryItem("StartTime>", startTimeGreaterThan?.asQueryValue)
-                query.addQueryItem("EndTime", endTime?.asQueryValue)
-                query.addQueryItem("EndTime<", endTimeLessThan?.asQueryValue)
-                query.addQueryItem("EndTime>", endTimeGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("To", to)
+                query.addQueryItem("From", from)
+                query.addQueryItem("ParentCallSid", parentCallSid)
+                query.addQueryItem("Status", status)
+                query.addQueryItem("StartTime", startTime)
+                query.addQueryItem("StartTime<", startTimeLessThan)
+                query.addQueryItem("StartTime>", startTimeGreaterThan)
+                query.addQueryItem("EndTime", endTime)
+                query.addQueryItem("EndTime<", endTimeLessThan)
+                query.addQueryItem("EndTime>", endTimeGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -2060,45 +2060,41 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ApplicationSid", applicationSid?.asQueryValue)
-                query.addQueryItem("AsyncAmd", asyncAmd?.asQueryValue)
-                query.addQueryItem("AsyncAmdStatusCallback", asyncAmdStatusCallback?.asQueryValue)
-                query.addQueryItem("AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("Byoc", byoc?.asQueryValue)
-                query.addQueryItem("CallReason", callReason?.asQueryValue)
-                query.addQueryItem("CallToken", callToken?.asQueryValue)
-                query.addQueryItem("CallerId", callerID?.asQueryValue)
-                query.addQueryItem("FallbackMethod", fallbackMethod?.asQueryValue)
-                query.addQueryItem("FallbackUrl", fallbackURL?.asQueryValue)
-                query.addQueryItem("From", from.asQueryValue)
-                query.addQueryItem("MachineDetection", machineDetection?.asQueryValue)
-                query.addQueryItem("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout?.asQueryValue)
-                query.addQueryItem("MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold?.asQueryValue)
-                query.addQueryItem("MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold?.asQueryValue)
-                query.addQueryItem("MachineDetectionTimeout", machineDetectionTimeout?.asQueryValue)
-                query.addQueryItem("Method", method?.asQueryValue)
-                query.addQueryItem("Record", isRecord?.asQueryValue)
-                query.addQueryItem("RecordingChannels", recordingChannels?.asQueryValue)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback?.asQueryValue)
-                for value in recordingStatusCallbackEvent ?? [] {
-                    query.addQueryItem("RecordingStatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("RecordingTrack", recordingTrack?.asQueryValue)
-                query.addQueryItem("SendDigits", sendDigits?.asQueryValue)
-                query.addQueryItem("SipAuthPassword", sipAuthPassword?.asQueryValue)
-                query.addQueryItem("SipAuthUsername", sipAuthUsername?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                for value in statusCallbackEvent ?? [] {
-                    query.addQueryItem("StatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TimeLimit", timeLimit?.asQueryValue)
-                query.addQueryItem("Timeout", timeout?.asQueryValue)
-                query.addQueryItem("To", to.asQueryValue)
-                query.addQueryItem("Trim", trim?.asQueryValue)
-                query.addQueryItem("Twiml", twiml?.asQueryValue)
-                query.addQueryItem("Url", url?.asQueryValue)
+                query.addQueryItem("ApplicationSid", applicationSid)
+                query.addQueryItem("AsyncAmd", asyncAmd)
+                query.addQueryItem("AsyncAmdStatusCallback", asyncAmdStatusCallback)
+                query.addQueryItem("AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod)
+                query.addQueryItem("Byoc", byoc)
+                query.addQueryItem("CallReason", callReason)
+                query.addQueryItem("CallToken", callToken)
+                query.addQueryItem("CallerId", callerID)
+                query.addQueryItem("FallbackMethod", fallbackMethod)
+                query.addQueryItem("FallbackUrl", fallbackURL)
+                query.addQueryItem("From", from)
+                query.addQueryItem("MachineDetection", machineDetection)
+                query.addQueryItem("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout)
+                query.addQueryItem("MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold)
+                query.addQueryItem("MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold)
+                query.addQueryItem("MachineDetectionTimeout", machineDetectionTimeout)
+                query.addQueryItem("Method", method)
+                query.addQueryItem("Record", isRecord)
+                query.addQueryItem("RecordingChannels", recordingChannels)
+                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
+                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
+                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
+                query.addQueryItem("RecordingTrack", recordingTrack)
+                query.addQueryItem("SendDigits", sendDigits)
+                query.addQueryItem("SipAuthPassword", sipAuthPassword)
+                query.addQueryItem("SipAuthUsername", sipAuthUsername)
+                query.addQueryItem("StatusCallback", statusCallback)
+                statusCallbackEvent?.forEach { query.addQueryItem("StatusCallbackEvent", $0) }
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TimeLimit", timeLimit)
+                query.addQueryItem("Timeout", timeout)
+                query.addQueryItem("To", to)
+                query.addQueryItem("Trim", trim)
+                query.addQueryItem("Twiml", twiml)
+                query.addQueryItem("Url", url)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2163,11 +2159,11 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("EndDate", endDate.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("StartDate", startDate.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2270,7 +2266,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -2320,10 +2316,8 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                for value in issue ?? [] {
-                    query.addQueryItem("Issue", value.asQueryValue)
-                }
-                query.addQueryItem("QualityScore", qualityScore?.asQueryValue)
+                issue?.forEach { query.addQueryItem("Issue", $0) }
+                query.addQueryItem("QualityScore", qualityScore)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2397,11 +2391,11 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Log", log?.asQueryValue)
-                query.addQueryItem("MessageDate", messageDate?.asQueryValue)
-                query.addQueryItem("MessageDate<", messageDateLessThan?.asQueryValue)
-                query.addQueryItem("MessageDate>", messageDateGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Log", log)
+                query.addQueryItem("MessageDate", messageDate)
+                query.addQueryItem("MessageDate<", messageDateLessThan)
+                query.addQueryItem("MessageDate>", messageDateGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -2523,22 +2517,22 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("BankAccountType", bankAccountType?.asQueryValue)
-                query.addQueryItem("ChargeAmount", chargeAmount?.asQueryValue)
-                query.addQueryItem("Currency", currency?.asQueryValue)
-                query.addQueryItem("Description", description?.asQueryValue)
-                query.addQueryItem("IdempotencyKey", idempotencyKey.asQueryValue)
-                query.addQueryItem("Input", input?.asQueryValue)
-                query.addQueryItem("MinPostalCodeLength", minPostalCodeLength?.asQueryValue)
-                query.addQueryItem("Parameter", parameter?.asQueryValue)
-                query.addQueryItem("PaymentConnector", paymentConnector?.asQueryValue)
-                query.addQueryItem("PaymentMethod", paymentMethod?.asQueryValue)
-                query.addQueryItem("PostalCode", isPostalCode?.asQueryValue)
-                query.addQueryItem("SecurityCode", isSecurityCode?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback.asQueryValue)
-                query.addQueryItem("Timeout", timeout?.asQueryValue)
-                query.addQueryItem("TokenType", tokenType?.asQueryValue)
-                query.addQueryItem("ValidCardTypes", validCardTypes?.asQueryValue)
+                query.addQueryItem("BankAccountType", bankAccountType)
+                query.addQueryItem("ChargeAmount", chargeAmount)
+                query.addQueryItem("Currency", currency)
+                query.addQueryItem("Description", description)
+                query.addQueryItem("IdempotencyKey", idempotencyKey)
+                query.addQueryItem("Input", input)
+                query.addQueryItem("MinPostalCodeLength", minPostalCodeLength)
+                query.addQueryItem("Parameter", parameter)
+                query.addQueryItem("PaymentConnector", paymentConnector)
+                query.addQueryItem("PaymentMethod", paymentMethod)
+                query.addQueryItem("PostalCode", isPostalCode)
+                query.addQueryItem("SecurityCode", isSecurityCode)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("Timeout", timeout)
+                query.addQueryItem("TokenType", tokenType)
+                query.addQueryItem("ValidCardTypes", validCardTypes)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2606,10 +2600,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Capture", capture?.asQueryValue)
-                query.addQueryItem("IdempotencyKey", idempotencyKey.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback.asQueryValue)
+                query.addQueryItem("Capture", capture)
+                query.addQueryItem("IdempotencyKey", idempotencyKey)
+                query.addQueryItem("Status", status)
+                query.addQueryItem("StatusCallback", statusCallback)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2682,10 +2676,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated?.asQueryValue)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan?.asQueryValue)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("DateCreated", dateCreated)
+                query.addQueryItem("DateCreated<", dateCreatedLessThan)
+                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -2731,14 +2725,12 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("RecordingChannels", recordingChannels?.asQueryValue)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback?.asQueryValue)
-                for value in recordingStatusCallbackEvent ?? [] {
-                    query.addQueryItem("RecordingStatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("RecordingTrack", recordingTrack?.asQueryValue)
-                query.addQueryItem("Trim", trim?.asQueryValue)
+                query.addQueryItem("RecordingChannels", recordingChannels)
+                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
+                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
+                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
+                query.addQueryItem("RecordingTrack", recordingTrack)
+                query.addQueryItem("Trim", trim)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2799,8 +2791,8 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("PauseBehavior", pauseBehavior?.asQueryValue)
-                query.addQueryItem("Status", status.asQueryValue)
+                query.addQueryItem("PauseBehavior", pauseBehavior)
+                query.addQueryItem("Status", status)
                 return query.asPercentEncodedQuery
             }
         }
@@ -3460,209 +3452,209 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ConnectorName", connectorName?.asQueryValue)
-                query.addQueryItem("Name", name?.asQueryValue)
-                query.addQueryItem("Parameter1.Name", parameter1Name?.asQueryValue)
-                query.addQueryItem("Parameter1.Value", parameter1Value?.asQueryValue)
-                query.addQueryItem("Parameter10.Name", parameter10Name?.asQueryValue)
-                query.addQueryItem("Parameter10.Value", parameter10Value?.asQueryValue)
-                query.addQueryItem("Parameter11.Name", parameter11Name?.asQueryValue)
-                query.addQueryItem("Parameter11.Value", parameter11Value?.asQueryValue)
-                query.addQueryItem("Parameter12.Name", parameter12Name?.asQueryValue)
-                query.addQueryItem("Parameter12.Value", parameter12Value?.asQueryValue)
-                query.addQueryItem("Parameter13.Name", parameter13Name?.asQueryValue)
-                query.addQueryItem("Parameter13.Value", parameter13Value?.asQueryValue)
-                query.addQueryItem("Parameter14.Name", parameter14Name?.asQueryValue)
-                query.addQueryItem("Parameter14.Value", parameter14Value?.asQueryValue)
-                query.addQueryItem("Parameter15.Name", parameter15Name?.asQueryValue)
-                query.addQueryItem("Parameter15.Value", parameter15Value?.asQueryValue)
-                query.addQueryItem("Parameter16.Name", parameter16Name?.asQueryValue)
-                query.addQueryItem("Parameter16.Value", parameter16Value?.asQueryValue)
-                query.addQueryItem("Parameter17.Name", parameter17Name?.asQueryValue)
-                query.addQueryItem("Parameter17.Value", parameter17Value?.asQueryValue)
-                query.addQueryItem("Parameter18.Name", parameter18Name?.asQueryValue)
-                query.addQueryItem("Parameter18.Value", parameter18Value?.asQueryValue)
-                query.addQueryItem("Parameter19.Name", parameter19Name?.asQueryValue)
-                query.addQueryItem("Parameter19.Value", parameter19Value?.asQueryValue)
-                query.addQueryItem("Parameter2.Name", parameter2Name?.asQueryValue)
-                query.addQueryItem("Parameter2.Value", parameter2Value?.asQueryValue)
-                query.addQueryItem("Parameter20.Name", parameter20Name?.asQueryValue)
-                query.addQueryItem("Parameter20.Value", parameter20Value?.asQueryValue)
-                query.addQueryItem("Parameter21.Name", parameter21Name?.asQueryValue)
-                query.addQueryItem("Parameter21.Value", parameter21Value?.asQueryValue)
-                query.addQueryItem("Parameter22.Name", parameter22Name?.asQueryValue)
-                query.addQueryItem("Parameter22.Value", parameter22Value?.asQueryValue)
-                query.addQueryItem("Parameter23.Name", parameter23Name?.asQueryValue)
-                query.addQueryItem("Parameter23.Value", parameter23Value?.asQueryValue)
-                query.addQueryItem("Parameter24.Name", parameter24Name?.asQueryValue)
-                query.addQueryItem("Parameter24.Value", parameter24Value?.asQueryValue)
-                query.addQueryItem("Parameter25.Name", parameter25Name?.asQueryValue)
-                query.addQueryItem("Parameter25.Value", parameter25Value?.asQueryValue)
-                query.addQueryItem("Parameter26.Name", parameter26Name?.asQueryValue)
-                query.addQueryItem("Parameter26.Value", parameter26Value?.asQueryValue)
-                query.addQueryItem("Parameter27.Name", parameter27Name?.asQueryValue)
-                query.addQueryItem("Parameter27.Value", parameter27Value?.asQueryValue)
-                query.addQueryItem("Parameter28.Name", parameter28Name?.asQueryValue)
-                query.addQueryItem("Parameter28.Value", parameter28Value?.asQueryValue)
-                query.addQueryItem("Parameter29.Name", parameter29Name?.asQueryValue)
-                query.addQueryItem("Parameter29.Value", parameter29Value?.asQueryValue)
-                query.addQueryItem("Parameter3.Name", parameter3Name?.asQueryValue)
-                query.addQueryItem("Parameter3.Value", parameter3Value?.asQueryValue)
-                query.addQueryItem("Parameter30.Name", parameter30Name?.asQueryValue)
-                query.addQueryItem("Parameter30.Value", parameter30Value?.asQueryValue)
-                query.addQueryItem("Parameter31.Name", parameter31Name?.asQueryValue)
-                query.addQueryItem("Parameter31.Value", parameter31Value?.asQueryValue)
-                query.addQueryItem("Parameter32.Name", parameter32Name?.asQueryValue)
-                query.addQueryItem("Parameter32.Value", parameter32Value?.asQueryValue)
-                query.addQueryItem("Parameter33.Name", parameter33Name?.asQueryValue)
-                query.addQueryItem("Parameter33.Value", parameter33Value?.asQueryValue)
-                query.addQueryItem("Parameter34.Name", parameter34Name?.asQueryValue)
-                query.addQueryItem("Parameter34.Value", parameter34Value?.asQueryValue)
-                query.addQueryItem("Parameter35.Name", parameter35Name?.asQueryValue)
-                query.addQueryItem("Parameter35.Value", parameter35Value?.asQueryValue)
-                query.addQueryItem("Parameter36.Name", parameter36Name?.asQueryValue)
-                query.addQueryItem("Parameter36.Value", parameter36Value?.asQueryValue)
-                query.addQueryItem("Parameter37.Name", parameter37Name?.asQueryValue)
-                query.addQueryItem("Parameter37.Value", parameter37Value?.asQueryValue)
-                query.addQueryItem("Parameter38.Name", parameter38Name?.asQueryValue)
-                query.addQueryItem("Parameter38.Value", parameter38Value?.asQueryValue)
-                query.addQueryItem("Parameter39.Name", parameter39Name?.asQueryValue)
-                query.addQueryItem("Parameter39.Value", parameter39Value?.asQueryValue)
-                query.addQueryItem("Parameter4.Name", parameter4Name?.asQueryValue)
-                query.addQueryItem("Parameter4.Value", parameter4Value?.asQueryValue)
-                query.addQueryItem("Parameter40.Name", parameter40Name?.asQueryValue)
-                query.addQueryItem("Parameter40.Value", parameter40Value?.asQueryValue)
-                query.addQueryItem("Parameter41.Name", parameter41Name?.asQueryValue)
-                query.addQueryItem("Parameter41.Value", parameter41Value?.asQueryValue)
-                query.addQueryItem("Parameter42.Name", parameter42Name?.asQueryValue)
-                query.addQueryItem("Parameter42.Value", parameter42Value?.asQueryValue)
-                query.addQueryItem("Parameter43.Name", parameter43Name?.asQueryValue)
-                query.addQueryItem("Parameter43.Value", parameter43Value?.asQueryValue)
-                query.addQueryItem("Parameter44.Name", parameter44Name?.asQueryValue)
-                query.addQueryItem("Parameter44.Value", parameter44Value?.asQueryValue)
-                query.addQueryItem("Parameter45.Name", parameter45Name?.asQueryValue)
-                query.addQueryItem("Parameter45.Value", parameter45Value?.asQueryValue)
-                query.addQueryItem("Parameter46.Name", parameter46Name?.asQueryValue)
-                query.addQueryItem("Parameter46.Value", parameter46Value?.asQueryValue)
-                query.addQueryItem("Parameter47.Name", parameter47Name?.asQueryValue)
-                query.addQueryItem("Parameter47.Value", parameter47Value?.asQueryValue)
-                query.addQueryItem("Parameter48.Name", parameter48Name?.asQueryValue)
-                query.addQueryItem("Parameter48.Value", parameter48Value?.asQueryValue)
-                query.addQueryItem("Parameter49.Name", parameter49Name?.asQueryValue)
-                query.addQueryItem("Parameter49.Value", parameter49Value?.asQueryValue)
-                query.addQueryItem("Parameter5.Name", parameter5Name?.asQueryValue)
-                query.addQueryItem("Parameter5.Value", parameter5Value?.asQueryValue)
-                query.addQueryItem("Parameter50.Name", parameter50Name?.asQueryValue)
-                query.addQueryItem("Parameter50.Value", parameter50Value?.asQueryValue)
-                query.addQueryItem("Parameter51.Name", parameter51Name?.asQueryValue)
-                query.addQueryItem("Parameter51.Value", parameter51Value?.asQueryValue)
-                query.addQueryItem("Parameter52.Name", parameter52Name?.asQueryValue)
-                query.addQueryItem("Parameter52.Value", parameter52Value?.asQueryValue)
-                query.addQueryItem("Parameter53.Name", parameter53Name?.asQueryValue)
-                query.addQueryItem("Parameter53.Value", parameter53Value?.asQueryValue)
-                query.addQueryItem("Parameter54.Name", parameter54Name?.asQueryValue)
-                query.addQueryItem("Parameter54.Value", parameter54Value?.asQueryValue)
-                query.addQueryItem("Parameter55.Name", parameter55Name?.asQueryValue)
-                query.addQueryItem("Parameter55.Value", parameter55Value?.asQueryValue)
-                query.addQueryItem("Parameter56.Name", parameter56Name?.asQueryValue)
-                query.addQueryItem("Parameter56.Value", parameter56Value?.asQueryValue)
-                query.addQueryItem("Parameter57.Name", parameter57Name?.asQueryValue)
-                query.addQueryItem("Parameter57.Value", parameter57Value?.asQueryValue)
-                query.addQueryItem("Parameter58.Name", parameter58Name?.asQueryValue)
-                query.addQueryItem("Parameter58.Value", parameter58Value?.asQueryValue)
-                query.addQueryItem("Parameter59.Name", parameter59Name?.asQueryValue)
-                query.addQueryItem("Parameter59.Value", parameter59Value?.asQueryValue)
-                query.addQueryItem("Parameter6.Name", parameter6Name?.asQueryValue)
-                query.addQueryItem("Parameter6.Value", parameter6Value?.asQueryValue)
-                query.addQueryItem("Parameter60.Name", parameter60Name?.asQueryValue)
-                query.addQueryItem("Parameter60.Value", parameter60Value?.asQueryValue)
-                query.addQueryItem("Parameter61.Name", parameter61Name?.asQueryValue)
-                query.addQueryItem("Parameter61.Value", parameter61Value?.asQueryValue)
-                query.addQueryItem("Parameter62.Name", parameter62Name?.asQueryValue)
-                query.addQueryItem("Parameter62.Value", parameter62Value?.asQueryValue)
-                query.addQueryItem("Parameter63.Name", parameter63Name?.asQueryValue)
-                query.addQueryItem("Parameter63.Value", parameter63Value?.asQueryValue)
-                query.addQueryItem("Parameter64.Name", parameter64Name?.asQueryValue)
-                query.addQueryItem("Parameter64.Value", parameter64Value?.asQueryValue)
-                query.addQueryItem("Parameter65.Name", parameter65Name?.asQueryValue)
-                query.addQueryItem("Parameter65.Value", parameter65Value?.asQueryValue)
-                query.addQueryItem("Parameter66.Name", parameter66Name?.asQueryValue)
-                query.addQueryItem("Parameter66.Value", parameter66Value?.asQueryValue)
-                query.addQueryItem("Parameter67.Name", parameter67Name?.asQueryValue)
-                query.addQueryItem("Parameter67.Value", parameter67Value?.asQueryValue)
-                query.addQueryItem("Parameter68.Name", parameter68Name?.asQueryValue)
-                query.addQueryItem("Parameter68.Value", parameter68Value?.asQueryValue)
-                query.addQueryItem("Parameter69.Name", parameter69Name?.asQueryValue)
-                query.addQueryItem("Parameter69.Value", parameter69Value?.asQueryValue)
-                query.addQueryItem("Parameter7.Name", parameter7Name?.asQueryValue)
-                query.addQueryItem("Parameter7.Value", parameter7Value?.asQueryValue)
-                query.addQueryItem("Parameter70.Name", parameter70Name?.asQueryValue)
-                query.addQueryItem("Parameter70.Value", parameter70Value?.asQueryValue)
-                query.addQueryItem("Parameter71.Name", parameter71Name?.asQueryValue)
-                query.addQueryItem("Parameter71.Value", parameter71Value?.asQueryValue)
-                query.addQueryItem("Parameter72.Name", parameter72Name?.asQueryValue)
-                query.addQueryItem("Parameter72.Value", parameter72Value?.asQueryValue)
-                query.addQueryItem("Parameter73.Name", parameter73Name?.asQueryValue)
-                query.addQueryItem("Parameter73.Value", parameter73Value?.asQueryValue)
-                query.addQueryItem("Parameter74.Name", parameter74Name?.asQueryValue)
-                query.addQueryItem("Parameter74.Value", parameter74Value?.asQueryValue)
-                query.addQueryItem("Parameter75.Name", parameter75Name?.asQueryValue)
-                query.addQueryItem("Parameter75.Value", parameter75Value?.asQueryValue)
-                query.addQueryItem("Parameter76.Name", parameter76Name?.asQueryValue)
-                query.addQueryItem("Parameter76.Value", parameter76Value?.asQueryValue)
-                query.addQueryItem("Parameter77.Name", parameter77Name?.asQueryValue)
-                query.addQueryItem("Parameter77.Value", parameter77Value?.asQueryValue)
-                query.addQueryItem("Parameter78.Name", parameter78Name?.asQueryValue)
-                query.addQueryItem("Parameter78.Value", parameter78Value?.asQueryValue)
-                query.addQueryItem("Parameter79.Name", parameter79Name?.asQueryValue)
-                query.addQueryItem("Parameter79.Value", parameter79Value?.asQueryValue)
-                query.addQueryItem("Parameter8.Name", parameter8Name?.asQueryValue)
-                query.addQueryItem("Parameter8.Value", parameter8Value?.asQueryValue)
-                query.addQueryItem("Parameter80.Name", parameter80Name?.asQueryValue)
-                query.addQueryItem("Parameter80.Value", parameter80Value?.asQueryValue)
-                query.addQueryItem("Parameter81.Name", parameter81Name?.asQueryValue)
-                query.addQueryItem("Parameter81.Value", parameter81Value?.asQueryValue)
-                query.addQueryItem("Parameter82.Name", parameter82Name?.asQueryValue)
-                query.addQueryItem("Parameter82.Value", parameter82Value?.asQueryValue)
-                query.addQueryItem("Parameter83.Name", parameter83Name?.asQueryValue)
-                query.addQueryItem("Parameter83.Value", parameter83Value?.asQueryValue)
-                query.addQueryItem("Parameter84.Name", parameter84Name?.asQueryValue)
-                query.addQueryItem("Parameter84.Value", parameter84Value?.asQueryValue)
-                query.addQueryItem("Parameter85.Name", parameter85Name?.asQueryValue)
-                query.addQueryItem("Parameter85.Value", parameter85Value?.asQueryValue)
-                query.addQueryItem("Parameter86.Name", parameter86Name?.asQueryValue)
-                query.addQueryItem("Parameter86.Value", parameter86Value?.asQueryValue)
-                query.addQueryItem("Parameter87.Name", parameter87Name?.asQueryValue)
-                query.addQueryItem("Parameter87.Value", parameter87Value?.asQueryValue)
-                query.addQueryItem("Parameter88.Name", parameter88Name?.asQueryValue)
-                query.addQueryItem("Parameter88.Value", parameter88Value?.asQueryValue)
-                query.addQueryItem("Parameter89.Name", parameter89Name?.asQueryValue)
-                query.addQueryItem("Parameter89.Value", parameter89Value?.asQueryValue)
-                query.addQueryItem("Parameter9.Name", parameter9Name?.asQueryValue)
-                query.addQueryItem("Parameter9.Value", parameter9Value?.asQueryValue)
-                query.addQueryItem("Parameter90.Name", parameter90Name?.asQueryValue)
-                query.addQueryItem("Parameter90.Value", parameter90Value?.asQueryValue)
-                query.addQueryItem("Parameter91.Name", parameter91Name?.asQueryValue)
-                query.addQueryItem("Parameter91.Value", parameter91Value?.asQueryValue)
-                query.addQueryItem("Parameter92.Name", parameter92Name?.asQueryValue)
-                query.addQueryItem("Parameter92.Value", parameter92Value?.asQueryValue)
-                query.addQueryItem("Parameter93.Name", parameter93Name?.asQueryValue)
-                query.addQueryItem("Parameter93.Value", parameter93Value?.asQueryValue)
-                query.addQueryItem("Parameter94.Name", parameter94Name?.asQueryValue)
-                query.addQueryItem("Parameter94.Value", parameter94Value?.asQueryValue)
-                query.addQueryItem("Parameter95.Name", parameter95Name?.asQueryValue)
-                query.addQueryItem("Parameter95.Value", parameter95Value?.asQueryValue)
-                query.addQueryItem("Parameter96.Name", parameter96Name?.asQueryValue)
-                query.addQueryItem("Parameter96.Value", parameter96Value?.asQueryValue)
-                query.addQueryItem("Parameter97.Name", parameter97Name?.asQueryValue)
-                query.addQueryItem("Parameter97.Value", parameter97Value?.asQueryValue)
-                query.addQueryItem("Parameter98.Name", parameter98Name?.asQueryValue)
-                query.addQueryItem("Parameter98.Value", parameter98Value?.asQueryValue)
-                query.addQueryItem("Parameter99.Name", parameter99Name?.asQueryValue)
-                query.addQueryItem("Parameter99.Value", parameter99Value?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("Track", track?.asQueryValue)
+                query.addQueryItem("ConnectorName", connectorName)
+                query.addQueryItem("Name", name)
+                query.addQueryItem("Parameter1.Name", parameter1Name)
+                query.addQueryItem("Parameter1.Value", parameter1Value)
+                query.addQueryItem("Parameter10.Name", parameter10Name)
+                query.addQueryItem("Parameter10.Value", parameter10Value)
+                query.addQueryItem("Parameter11.Name", parameter11Name)
+                query.addQueryItem("Parameter11.Value", parameter11Value)
+                query.addQueryItem("Parameter12.Name", parameter12Name)
+                query.addQueryItem("Parameter12.Value", parameter12Value)
+                query.addQueryItem("Parameter13.Name", parameter13Name)
+                query.addQueryItem("Parameter13.Value", parameter13Value)
+                query.addQueryItem("Parameter14.Name", parameter14Name)
+                query.addQueryItem("Parameter14.Value", parameter14Value)
+                query.addQueryItem("Parameter15.Name", parameter15Name)
+                query.addQueryItem("Parameter15.Value", parameter15Value)
+                query.addQueryItem("Parameter16.Name", parameter16Name)
+                query.addQueryItem("Parameter16.Value", parameter16Value)
+                query.addQueryItem("Parameter17.Name", parameter17Name)
+                query.addQueryItem("Parameter17.Value", parameter17Value)
+                query.addQueryItem("Parameter18.Name", parameter18Name)
+                query.addQueryItem("Parameter18.Value", parameter18Value)
+                query.addQueryItem("Parameter19.Name", parameter19Name)
+                query.addQueryItem("Parameter19.Value", parameter19Value)
+                query.addQueryItem("Parameter2.Name", parameter2Name)
+                query.addQueryItem("Parameter2.Value", parameter2Value)
+                query.addQueryItem("Parameter20.Name", parameter20Name)
+                query.addQueryItem("Parameter20.Value", parameter20Value)
+                query.addQueryItem("Parameter21.Name", parameter21Name)
+                query.addQueryItem("Parameter21.Value", parameter21Value)
+                query.addQueryItem("Parameter22.Name", parameter22Name)
+                query.addQueryItem("Parameter22.Value", parameter22Value)
+                query.addQueryItem("Parameter23.Name", parameter23Name)
+                query.addQueryItem("Parameter23.Value", parameter23Value)
+                query.addQueryItem("Parameter24.Name", parameter24Name)
+                query.addQueryItem("Parameter24.Value", parameter24Value)
+                query.addQueryItem("Parameter25.Name", parameter25Name)
+                query.addQueryItem("Parameter25.Value", parameter25Value)
+                query.addQueryItem("Parameter26.Name", parameter26Name)
+                query.addQueryItem("Parameter26.Value", parameter26Value)
+                query.addQueryItem("Parameter27.Name", parameter27Name)
+                query.addQueryItem("Parameter27.Value", parameter27Value)
+                query.addQueryItem("Parameter28.Name", parameter28Name)
+                query.addQueryItem("Parameter28.Value", parameter28Value)
+                query.addQueryItem("Parameter29.Name", parameter29Name)
+                query.addQueryItem("Parameter29.Value", parameter29Value)
+                query.addQueryItem("Parameter3.Name", parameter3Name)
+                query.addQueryItem("Parameter3.Value", parameter3Value)
+                query.addQueryItem("Parameter30.Name", parameter30Name)
+                query.addQueryItem("Parameter30.Value", parameter30Value)
+                query.addQueryItem("Parameter31.Name", parameter31Name)
+                query.addQueryItem("Parameter31.Value", parameter31Value)
+                query.addQueryItem("Parameter32.Name", parameter32Name)
+                query.addQueryItem("Parameter32.Value", parameter32Value)
+                query.addQueryItem("Parameter33.Name", parameter33Name)
+                query.addQueryItem("Parameter33.Value", parameter33Value)
+                query.addQueryItem("Parameter34.Name", parameter34Name)
+                query.addQueryItem("Parameter34.Value", parameter34Value)
+                query.addQueryItem("Parameter35.Name", parameter35Name)
+                query.addQueryItem("Parameter35.Value", parameter35Value)
+                query.addQueryItem("Parameter36.Name", parameter36Name)
+                query.addQueryItem("Parameter36.Value", parameter36Value)
+                query.addQueryItem("Parameter37.Name", parameter37Name)
+                query.addQueryItem("Parameter37.Value", parameter37Value)
+                query.addQueryItem("Parameter38.Name", parameter38Name)
+                query.addQueryItem("Parameter38.Value", parameter38Value)
+                query.addQueryItem("Parameter39.Name", parameter39Name)
+                query.addQueryItem("Parameter39.Value", parameter39Value)
+                query.addQueryItem("Parameter4.Name", parameter4Name)
+                query.addQueryItem("Parameter4.Value", parameter4Value)
+                query.addQueryItem("Parameter40.Name", parameter40Name)
+                query.addQueryItem("Parameter40.Value", parameter40Value)
+                query.addQueryItem("Parameter41.Name", parameter41Name)
+                query.addQueryItem("Parameter41.Value", parameter41Value)
+                query.addQueryItem("Parameter42.Name", parameter42Name)
+                query.addQueryItem("Parameter42.Value", parameter42Value)
+                query.addQueryItem("Parameter43.Name", parameter43Name)
+                query.addQueryItem("Parameter43.Value", parameter43Value)
+                query.addQueryItem("Parameter44.Name", parameter44Name)
+                query.addQueryItem("Parameter44.Value", parameter44Value)
+                query.addQueryItem("Parameter45.Name", parameter45Name)
+                query.addQueryItem("Parameter45.Value", parameter45Value)
+                query.addQueryItem("Parameter46.Name", parameter46Name)
+                query.addQueryItem("Parameter46.Value", parameter46Value)
+                query.addQueryItem("Parameter47.Name", parameter47Name)
+                query.addQueryItem("Parameter47.Value", parameter47Value)
+                query.addQueryItem("Parameter48.Name", parameter48Name)
+                query.addQueryItem("Parameter48.Value", parameter48Value)
+                query.addQueryItem("Parameter49.Name", parameter49Name)
+                query.addQueryItem("Parameter49.Value", parameter49Value)
+                query.addQueryItem("Parameter5.Name", parameter5Name)
+                query.addQueryItem("Parameter5.Value", parameter5Value)
+                query.addQueryItem("Parameter50.Name", parameter50Name)
+                query.addQueryItem("Parameter50.Value", parameter50Value)
+                query.addQueryItem("Parameter51.Name", parameter51Name)
+                query.addQueryItem("Parameter51.Value", parameter51Value)
+                query.addQueryItem("Parameter52.Name", parameter52Name)
+                query.addQueryItem("Parameter52.Value", parameter52Value)
+                query.addQueryItem("Parameter53.Name", parameter53Name)
+                query.addQueryItem("Parameter53.Value", parameter53Value)
+                query.addQueryItem("Parameter54.Name", parameter54Name)
+                query.addQueryItem("Parameter54.Value", parameter54Value)
+                query.addQueryItem("Parameter55.Name", parameter55Name)
+                query.addQueryItem("Parameter55.Value", parameter55Value)
+                query.addQueryItem("Parameter56.Name", parameter56Name)
+                query.addQueryItem("Parameter56.Value", parameter56Value)
+                query.addQueryItem("Parameter57.Name", parameter57Name)
+                query.addQueryItem("Parameter57.Value", parameter57Value)
+                query.addQueryItem("Parameter58.Name", parameter58Name)
+                query.addQueryItem("Parameter58.Value", parameter58Value)
+                query.addQueryItem("Parameter59.Name", parameter59Name)
+                query.addQueryItem("Parameter59.Value", parameter59Value)
+                query.addQueryItem("Parameter6.Name", parameter6Name)
+                query.addQueryItem("Parameter6.Value", parameter6Value)
+                query.addQueryItem("Parameter60.Name", parameter60Name)
+                query.addQueryItem("Parameter60.Value", parameter60Value)
+                query.addQueryItem("Parameter61.Name", parameter61Name)
+                query.addQueryItem("Parameter61.Value", parameter61Value)
+                query.addQueryItem("Parameter62.Name", parameter62Name)
+                query.addQueryItem("Parameter62.Value", parameter62Value)
+                query.addQueryItem("Parameter63.Name", parameter63Name)
+                query.addQueryItem("Parameter63.Value", parameter63Value)
+                query.addQueryItem("Parameter64.Name", parameter64Name)
+                query.addQueryItem("Parameter64.Value", parameter64Value)
+                query.addQueryItem("Parameter65.Name", parameter65Name)
+                query.addQueryItem("Parameter65.Value", parameter65Value)
+                query.addQueryItem("Parameter66.Name", parameter66Name)
+                query.addQueryItem("Parameter66.Value", parameter66Value)
+                query.addQueryItem("Parameter67.Name", parameter67Name)
+                query.addQueryItem("Parameter67.Value", parameter67Value)
+                query.addQueryItem("Parameter68.Name", parameter68Name)
+                query.addQueryItem("Parameter68.Value", parameter68Value)
+                query.addQueryItem("Parameter69.Name", parameter69Name)
+                query.addQueryItem("Parameter69.Value", parameter69Value)
+                query.addQueryItem("Parameter7.Name", parameter7Name)
+                query.addQueryItem("Parameter7.Value", parameter7Value)
+                query.addQueryItem("Parameter70.Name", parameter70Name)
+                query.addQueryItem("Parameter70.Value", parameter70Value)
+                query.addQueryItem("Parameter71.Name", parameter71Name)
+                query.addQueryItem("Parameter71.Value", parameter71Value)
+                query.addQueryItem("Parameter72.Name", parameter72Name)
+                query.addQueryItem("Parameter72.Value", parameter72Value)
+                query.addQueryItem("Parameter73.Name", parameter73Name)
+                query.addQueryItem("Parameter73.Value", parameter73Value)
+                query.addQueryItem("Parameter74.Name", parameter74Name)
+                query.addQueryItem("Parameter74.Value", parameter74Value)
+                query.addQueryItem("Parameter75.Name", parameter75Name)
+                query.addQueryItem("Parameter75.Value", parameter75Value)
+                query.addQueryItem("Parameter76.Name", parameter76Name)
+                query.addQueryItem("Parameter76.Value", parameter76Value)
+                query.addQueryItem("Parameter77.Name", parameter77Name)
+                query.addQueryItem("Parameter77.Value", parameter77Value)
+                query.addQueryItem("Parameter78.Name", parameter78Name)
+                query.addQueryItem("Parameter78.Value", parameter78Value)
+                query.addQueryItem("Parameter79.Name", parameter79Name)
+                query.addQueryItem("Parameter79.Value", parameter79Value)
+                query.addQueryItem("Parameter8.Name", parameter8Name)
+                query.addQueryItem("Parameter8.Value", parameter8Value)
+                query.addQueryItem("Parameter80.Name", parameter80Name)
+                query.addQueryItem("Parameter80.Value", parameter80Value)
+                query.addQueryItem("Parameter81.Name", parameter81Name)
+                query.addQueryItem("Parameter81.Value", parameter81Value)
+                query.addQueryItem("Parameter82.Name", parameter82Name)
+                query.addQueryItem("Parameter82.Value", parameter82Value)
+                query.addQueryItem("Parameter83.Name", parameter83Name)
+                query.addQueryItem("Parameter83.Value", parameter83Value)
+                query.addQueryItem("Parameter84.Name", parameter84Name)
+                query.addQueryItem("Parameter84.Value", parameter84Value)
+                query.addQueryItem("Parameter85.Name", parameter85Name)
+                query.addQueryItem("Parameter85.Value", parameter85Value)
+                query.addQueryItem("Parameter86.Name", parameter86Name)
+                query.addQueryItem("Parameter86.Value", parameter86Value)
+                query.addQueryItem("Parameter87.Name", parameter87Name)
+                query.addQueryItem("Parameter87.Value", parameter87Value)
+                query.addQueryItem("Parameter88.Name", parameter88Name)
+                query.addQueryItem("Parameter88.Value", parameter88Value)
+                query.addQueryItem("Parameter89.Name", parameter89Name)
+                query.addQueryItem("Parameter89.Value", parameter89Value)
+                query.addQueryItem("Parameter9.Name", parameter9Name)
+                query.addQueryItem("Parameter9.Value", parameter9Value)
+                query.addQueryItem("Parameter90.Name", parameter90Name)
+                query.addQueryItem("Parameter90.Value", parameter90Value)
+                query.addQueryItem("Parameter91.Name", parameter91Name)
+                query.addQueryItem("Parameter91.Value", parameter91Value)
+                query.addQueryItem("Parameter92.Name", parameter92Name)
+                query.addQueryItem("Parameter92.Value", parameter92Value)
+                query.addQueryItem("Parameter93.Name", parameter93Name)
+                query.addQueryItem("Parameter93.Value", parameter93Value)
+                query.addQueryItem("Parameter94.Name", parameter94Name)
+                query.addQueryItem("Parameter94.Value", parameter94Value)
+                query.addQueryItem("Parameter95.Name", parameter95Name)
+                query.addQueryItem("Parameter95.Value", parameter95Value)
+                query.addQueryItem("Parameter96.Name", parameter96Name)
+                query.addQueryItem("Parameter96.Value", parameter96Value)
+                query.addQueryItem("Parameter97.Name", parameter97Name)
+                query.addQueryItem("Parameter97.Value", parameter97Value)
+                query.addQueryItem("Parameter98.Name", parameter98Name)
+                query.addQueryItem("Parameter98.Value", parameter98Value)
+                query.addQueryItem("Parameter99.Name", parameter99Name)
+                query.addQueryItem("Parameter99.Value", parameter99Value)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("Track", track)
                 return query.asPercentEncodedQuery
             }
         }
@@ -3710,7 +3702,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Status", status.asQueryValue)
+                query.addQueryItem("Status", status)
                 return query.asPercentEncodedQuery
             }
         }
@@ -3807,15 +3799,15 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FallbackMethod", fallbackMethod?.asQueryValue)
-                query.addQueryItem("FallbackUrl", fallbackURL?.asQueryValue)
-                query.addQueryItem("Method", method?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TimeLimit", timeLimit?.asQueryValue)
-                query.addQueryItem("Twiml", twiml?.asQueryValue)
-                query.addQueryItem("Url", url?.asQueryValue)
+                query.addQueryItem("FallbackMethod", fallbackMethod)
+                query.addQueryItem("FallbackUrl", fallbackURL)
+                query.addQueryItem("Method", method)
+                query.addQueryItem("Status", status)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TimeLimit", timeLimit)
+                query.addQueryItem("Twiml", twiml)
+                query.addQueryItem("Url", url)
                 return query.asPercentEncodedQuery
             }
         }
@@ -3909,15 +3901,15 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated?.asQueryValue)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan?.asQueryValue)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan?.asQueryValue)
-                query.addQueryItem("DateUpdated", dateUpdated?.asQueryValue)
-                query.addQueryItem("DateUpdated<", dateUpdatedLessThan?.asQueryValue)
-                query.addQueryItem("DateUpdated>", dateUpdatedGreaterThan?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("DateCreated", dateCreated)
+                query.addQueryItem("DateCreated<", dateCreatedLessThan)
+                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
+                query.addQueryItem("DateUpdated", dateUpdated)
+                query.addQueryItem("DateUpdated<", dateUpdatedLessThan)
+                query.addQueryItem("DateUpdated>", dateUpdatedGreaterThan)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Status", status)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -4012,10 +4004,10 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Muted", isMuted?.asQueryValue)
-                query.addQueryItem("Hold", isHold?.asQueryValue)
-                query.addQueryItem("Coaching", isCoaching?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Muted", isMuted)
+                query.addQueryItem("Hold", isHold)
+                query.addQueryItem("Coaching", isCoaching)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -4199,53 +4191,45 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Beep", beep?.asQueryValue)
-                query.addQueryItem("Byoc", byoc?.asQueryValue)
-                query.addQueryItem("CallReason", callReason?.asQueryValue)
-                query.addQueryItem("CallSidToCoach", callSidToCoach?.asQueryValue)
-                query.addQueryItem("CallerId", callerID?.asQueryValue)
-                query.addQueryItem("Coaching", isCoaching?.asQueryValue)
-                query.addQueryItem("ConferenceRecord", conferenceRecord?.asQueryValue)
-                query.addQueryItem("ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback?.asQueryValue)
-                for value in conferenceRecordingStatusCallbackEvent ?? [] {
-                    query.addQueryItem("ConferenceRecordingStatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("ConferenceStatusCallback", conferenceStatusCallback?.asQueryValue)
-                for value in conferenceStatusCallbackEvent ?? [] {
-                    query.addQueryItem("ConferenceStatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("ConferenceTrim", conferenceTrim?.asQueryValue)
-                query.addQueryItem("EarlyMedia", isEarlyMedia?.asQueryValue)
-                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit?.asQueryValue)
-                query.addQueryItem("From", from.asQueryValue)
-                query.addQueryItem("JitterBufferSize", jitterBufferSize?.asQueryValue)
-                query.addQueryItem("Label", label?.asQueryValue)
-                query.addQueryItem("MaxParticipants", maxParticipants?.asQueryValue)
-                query.addQueryItem("Muted", isMuted?.asQueryValue)
-                query.addQueryItem("Record", isRecord?.asQueryValue)
-                query.addQueryItem("RecordingChannels", recordingChannels?.asQueryValue)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback?.asQueryValue)
-                for value in recordingStatusCallbackEvent ?? [] {
-                    query.addQueryItem("RecordingStatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("RecordingTrack", recordingTrack?.asQueryValue)
-                query.addQueryItem("Region", region?.asQueryValue)
-                query.addQueryItem("SipAuthPassword", sipAuthPassword?.asQueryValue)
-                query.addQueryItem("SipAuthUsername", sipAuthUsername?.asQueryValue)
-                query.addQueryItem("StartConferenceOnEnter", isStartConferenceOnEnter?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                for value in statusCallbackEvent ?? [] {
-                    query.addQueryItem("StatusCallbackEvent", value.asQueryValue)
-                }
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TimeLimit", timeLimit?.asQueryValue)
-                query.addQueryItem("Timeout", timeout?.asQueryValue)
-                query.addQueryItem("To", to.asQueryValue)
-                query.addQueryItem("WaitMethod", waitMethod?.asQueryValue)
-                query.addQueryItem("WaitUrl", waitURL?.asQueryValue)
+                query.addQueryItem("Beep", beep)
+                query.addQueryItem("Byoc", byoc)
+                query.addQueryItem("CallReason", callReason)
+                query.addQueryItem("CallSidToCoach", callSidToCoach)
+                query.addQueryItem("CallerId", callerID)
+                query.addQueryItem("Coaching", isCoaching)
+                query.addQueryItem("ConferenceRecord", conferenceRecord)
+                query.addQueryItem("ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback)
+                conferenceRecordingStatusCallbackEvent?.forEach { query.addQueryItem("ConferenceRecordingStatusCallbackEvent", $0) }
+                query.addQueryItem("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod)
+                query.addQueryItem("ConferenceStatusCallback", conferenceStatusCallback)
+                conferenceStatusCallbackEvent?.forEach { query.addQueryItem("ConferenceStatusCallbackEvent", $0) }
+                query.addQueryItem("ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod)
+                query.addQueryItem("ConferenceTrim", conferenceTrim)
+                query.addQueryItem("EarlyMedia", isEarlyMedia)
+                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit)
+                query.addQueryItem("From", from)
+                query.addQueryItem("JitterBufferSize", jitterBufferSize)
+                query.addQueryItem("Label", label)
+                query.addQueryItem("MaxParticipants", maxParticipants)
+                query.addQueryItem("Muted", isMuted)
+                query.addQueryItem("Record", isRecord)
+                query.addQueryItem("RecordingChannels", recordingChannels)
+                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
+                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
+                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
+                query.addQueryItem("RecordingTrack", recordingTrack)
+                query.addQueryItem("Region", region)
+                query.addQueryItem("SipAuthPassword", sipAuthPassword)
+                query.addQueryItem("SipAuthUsername", sipAuthUsername)
+                query.addQueryItem("StartConferenceOnEnter", isStartConferenceOnEnter)
+                query.addQueryItem("StatusCallback", statusCallback)
+                statusCallbackEvent?.forEach { query.addQueryItem("StatusCallbackEvent", $0) }
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TimeLimit", timeLimit)
+                query.addQueryItem("Timeout", timeout)
+                query.addQueryItem("To", to)
+                query.addQueryItem("WaitMethod", waitMethod)
+                query.addQueryItem("WaitUrl", waitURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4356,18 +4340,18 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AnnounceMethod", announceMethod?.asQueryValue)
-                query.addQueryItem("AnnounceUrl", announceURL?.asQueryValue)
-                query.addQueryItem("BeepOnExit", isBeepOnExit?.asQueryValue)
-                query.addQueryItem("CallSidToCoach", callSidToCoach?.asQueryValue)
-                query.addQueryItem("Coaching", isCoaching?.asQueryValue)
-                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit?.asQueryValue)
-                query.addQueryItem("Hold", isHold?.asQueryValue)
-                query.addQueryItem("HoldMethod", holdMethod?.asQueryValue)
-                query.addQueryItem("HoldUrl", holdURL?.asQueryValue)
-                query.addQueryItem("Muted", isMuted?.asQueryValue)
-                query.addQueryItem("WaitMethod", waitMethod?.asQueryValue)
-                query.addQueryItem("WaitUrl", waitURL?.asQueryValue)
+                query.addQueryItem("AnnounceMethod", announceMethod)
+                query.addQueryItem("AnnounceUrl", announceURL)
+                query.addQueryItem("BeepOnExit", isBeepOnExit)
+                query.addQueryItem("CallSidToCoach", callSidToCoach)
+                query.addQueryItem("Coaching", isCoaching)
+                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit)
+                query.addQueryItem("Hold", isHold)
+                query.addQueryItem("HoldMethod", holdMethod)
+                query.addQueryItem("HoldUrl", holdURL)
+                query.addQueryItem("Muted", isMuted)
+                query.addQueryItem("WaitMethod", waitMethod)
+                query.addQueryItem("WaitUrl", waitURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4445,10 +4429,10 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated?.asQueryValue)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan?.asQueryValue)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("DateCreated", dateCreated)
+                query.addQueryItem("DateCreated<", dateCreatedLessThan)
+                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -4509,8 +4493,8 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("PauseBehavior", pauseBehavior?.asQueryValue)
-                query.addQueryItem("Status", status.asQueryValue)
+                query.addQueryItem("PauseBehavior", pauseBehavior)
+                query.addQueryItem("Status", status)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4572,9 +4556,9 @@ extension Paths.Accounts.WithAccountSid.Conferences {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AnnounceMethod", announceMethod?.asQueryValue)
-                query.addQueryItem("AnnounceUrl", announceURL?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
+                query.addQueryItem("AnnounceMethod", announceMethod)
+                query.addQueryItem("AnnounceUrl", announceURL)
+                query.addQueryItem("Status", status)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4634,7 +4618,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -4717,16 +4701,14 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AuthorizeRedirectUrl", authorizeRedirectURL?.asQueryValue)
-                query.addQueryItem("CompanyName", companyName?.asQueryValue)
-                query.addQueryItem("DeauthorizeCallbackMethod", deauthorizeCallbackMethod?.asQueryValue)
-                query.addQueryItem("DeauthorizeCallbackUrl", deauthorizeCallbackURL?.asQueryValue)
-                query.addQueryItem("Description", description?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("HomepageUrl", homepageURL?.asQueryValue)
-                for value in permissions ?? [] {
-                    query.addQueryItem("Permissions", value.asQueryValue)
-                }
+                query.addQueryItem("AuthorizeRedirectUrl", authorizeRedirectURL)
+                query.addQueryItem("CompanyName", companyName)
+                query.addQueryItem("DeauthorizeCallbackMethod", deauthorizeCallbackMethod)
+                query.addQueryItem("DeauthorizeCallbackUrl", deauthorizeCallbackURL)
+                query.addQueryItem("Description", description)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("HomepageUrl", homepageURL)
+                permissions?.forEach { query.addQueryItem("Permissions", $0) }
                 return query.asPercentEncodedQuery
             }
         }
@@ -4806,11 +4788,11 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("Origin", origin?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("Origin", origin)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -4962,30 +4944,30 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid?.asQueryValue)
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("AreaCode", areaCode?.asQueryValue)
-                query.addQueryItem("BundleSid", bundleSid?.asQueryValue)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid?.asQueryValue)
-                query.addQueryItem("EmergencyStatus", emergencyStatus?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IdentitySid", identitySid?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TrunkSid", trunkSid?.asQueryValue)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("AddressSid", addressSid)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("AreaCode", areaCode)
+                query.addQueryItem("BundleSid", bundleSid)
+                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
+                query.addQueryItem("EmergencyStatus", emergencyStatus)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IdentitySid", identitySid)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TrunkSid", trunkSid)
+                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -5070,11 +5052,11 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("Origin", origin?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("Origin", origin)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -5222,29 +5204,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid?.asQueryValue)
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("BundleSid", bundleSid?.asQueryValue)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid?.asQueryValue)
-                query.addQueryItem("EmergencyStatus", emergencyStatus?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IdentitySid", identitySid?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber.asQueryValue)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TrunkSid", trunkSid?.asQueryValue)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("AddressSid", addressSid)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("BundleSid", bundleSid)
+                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
+                query.addQueryItem("EmergencyStatus", emergencyStatus)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IdentitySid", identitySid)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TrunkSid", trunkSid)
+                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -5318,11 +5300,11 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("Origin", origin?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("Origin", origin)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -5470,29 +5452,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid?.asQueryValue)
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("BundleSid", bundleSid?.asQueryValue)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid?.asQueryValue)
-                query.addQueryItem("EmergencyStatus", emergencyStatus?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IdentitySid", identitySid?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber.asQueryValue)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TrunkSid", trunkSid?.asQueryValue)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("AddressSid", addressSid)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("BundleSid", bundleSid)
+                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
+                query.addQueryItem("EmergencyStatus", emergencyStatus)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IdentitySid", identitySid)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TrunkSid", trunkSid)
+                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -5566,11 +5548,11 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("Origin", origin?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Beta", isBeta)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("Origin", origin)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -5718,29 +5700,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid?.asQueryValue)
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("BundleSid", bundleSid?.asQueryValue)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid?.asQueryValue)
-                query.addQueryItem("EmergencyStatus", emergencyStatus?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IdentitySid", identitySid?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber.asQueryValue)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TrunkSid", trunkSid?.asQueryValue)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("AddressSid", addressSid)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("BundleSid", bundleSid)
+                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
+                query.addQueryItem("EmergencyStatus", emergencyStatus)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IdentitySid", identitySid)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TrunkSid", trunkSid)
+                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -5811,7 +5793,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -5831,7 +5813,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("InstalledAddOnSid", installedAddOnSid.asQueryValue)
+                query.addQueryItem("InstalledAddOnSid", installedAddOnSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -5913,7 +5895,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid.Ass
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -6125,29 +6107,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AccountSid", accountSid?.asQueryValue)
-                query.addQueryItem("AddressSid", addressSid?.asQueryValue)
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("BundleSid", bundleSid?.asQueryValue)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid?.asQueryValue)
-                query.addQueryItem("EmergencyStatus", emergencyStatus?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IdentitySid", identitySid?.asQueryValue)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
-                query.addQueryItem("TrunkSid", trunkSid?.asQueryValue)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid?.asQueryValue)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("AccountSid", accountSid)
+                query.addQueryItem("AddressSid", addressSid)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("BundleSid", bundleSid)
+                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
+                query.addQueryItem("EmergencyStatus", emergencyStatus)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IdentitySid", identitySid)
+                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
+                query.addQueryItem("TrunkSid", trunkSid)
+                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
+                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6211,7 +6193,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -6230,7 +6212,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6276,7 +6258,7 @@ extension Paths.Accounts.WithAccountSid.Keys {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6357,12 +6339,12 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("To", to?.asQueryValue)
-                query.addQueryItem("From", from?.asQueryValue)
-                query.addQueryItem("DateSent", dateSent?.asQueryValue)
-                query.addQueryItem("DateSent<", dateSentLessThan?.asQueryValue)
-                query.addQueryItem("DateSent>", dateSentGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("To", to)
+                query.addQueryItem("From", from)
+                query.addQueryItem("DateSent", dateSent)
+                query.addQueryItem("DateSent<", dateSentLessThan)
+                query.addQueryItem("DateSent>", dateSentGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -6441,27 +6423,23 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("AddressRetention", addressRetention?.asQueryValue)
-                query.addQueryItem("ApplicationSid", applicationSid?.asQueryValue)
-                query.addQueryItem("Attempt", attempt?.asQueryValue)
-                query.addQueryItem("Body", body?.asQueryValue)
-                query.addQueryItem("ContentRetention", contentRetention?.asQueryValue)
-                query.addQueryItem("ForceDelivery", isForceDelivery?.asQueryValue)
-                query.addQueryItem("From", from?.asQueryValue)
-                query.addQueryItem("MaxPrice", maxPrice?.asQueryValue)
-                for value in mediaURL ?? [] {
-                    query.addQueryItem("MediaUrl", value.asQueryValue)
-                }
-                query.addQueryItem("MessagingServiceSid", messagingServiceSid?.asQueryValue)
-                for value in persistentAction ?? [] {
-                    query.addQueryItem("PersistentAction", value.asQueryValue)
-                }
-                query.addQueryItem("ProvideFeedback", isProvideFeedback?.asQueryValue)
-                query.addQueryItem("SendAsMms", isSendAsMms?.asQueryValue)
-                query.addQueryItem("SmartEncoded", isSmartEncoded?.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("To", to.asQueryValue)
-                query.addQueryItem("ValidityPeriod", validityPeriod?.asQueryValue)
+                query.addQueryItem("AddressRetention", addressRetention)
+                query.addQueryItem("ApplicationSid", applicationSid)
+                query.addQueryItem("Attempt", attempt)
+                query.addQueryItem("Body", body)
+                query.addQueryItem("ContentRetention", contentRetention)
+                query.addQueryItem("ForceDelivery", isForceDelivery)
+                query.addQueryItem("From", from)
+                query.addQueryItem("MaxPrice", maxPrice)
+                mediaURL?.forEach { query.addQueryItem("MediaUrl", $0) }
+                query.addQueryItem("MessagingServiceSid", messagingServiceSid)
+                persistentAction?.forEach { query.addQueryItem("PersistentAction", $0) }
+                query.addQueryItem("ProvideFeedback", isProvideFeedback)
+                query.addQueryItem("SendAsMms", isSendAsMms)
+                query.addQueryItem("SmartEncoded", isSmartEncoded)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("To", to)
+                query.addQueryItem("ValidityPeriod", validityPeriod)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6520,7 +6498,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Outcome", outcome?.asQueryValue)
+                query.addQueryItem("Outcome", outcome)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6593,10 +6571,10 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated?.asQueryValue)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan?.asQueryValue)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("DateCreated", dateCreated)
+                query.addQueryItem("DateCreated<", dateCreatedLessThan)
+                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -6665,7 +6643,7 @@ extension Paths.Accounts.WithAccountSid.Messages {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Body", body?.asQueryValue)
+                query.addQueryItem("Body", body)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6745,11 +6723,11 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Log", log?.asQueryValue)
-                query.addQueryItem("MessageDate", messageDate?.asQueryValue)
-                query.addQueryItem("MessageDate<", messageDateLessThan?.asQueryValue)
-                query.addQueryItem("MessageDate>", messageDateGreaterThan?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Log", log)
+                query.addQueryItem("MessageDate", messageDate)
+                query.addQueryItem("MessageDate<", messageDateLessThan)
+                query.addQueryItem("MessageDate>", messageDateGreaterThan)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -6847,9 +6825,9 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("PhoneNumber", phoneNumber?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -6894,12 +6872,12 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CallDelay", callDelay?.asQueryValue)
-                query.addQueryItem("Extension", `extension`?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("PhoneNumber", phoneNumber.asQueryValue)
-                query.addQueryItem("StatusCallback", statusCallback?.asQueryValue)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod?.asQueryValue)
+                query.addQueryItem("CallDelay", callDelay)
+                query.addQueryItem("Extension", `extension`)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("PhoneNumber", phoneNumber)
+                query.addQueryItem("StatusCallback", statusCallback)
+                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
                 return query.asPercentEncodedQuery
             }
         }
@@ -6947,7 +6925,7 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7012,7 +6990,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -7035,8 +7013,8 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
-                query.addQueryItem("MaxSize", maxSize?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("MaxSize", maxSize)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7118,7 +7096,7 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -7178,8 +7156,8 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Method", method?.asQueryValue)
-                query.addQueryItem("Url", url.asQueryValue)
+                query.addQueryItem("Method", method)
+                query.addQueryItem("Url", url)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7219,8 +7197,8 @@ extension Paths.Accounts.WithAccountSid.Queues {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("MaxSize", maxSize?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("MaxSize", maxSize)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7302,12 +7280,12 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated?.asQueryValue)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan?.asQueryValue)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan?.asQueryValue)
-                query.addQueryItem("CallSid", callSid?.asQueryValue)
-                query.addQueryItem("ConferenceSid", conferenceSid?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("DateCreated", dateCreated)
+                query.addQueryItem("DateCreated<", dateCreatedLessThan)
+                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
+                query.addQueryItem("CallSid", callSid)
+                query.addQueryItem("ConferenceSid", conferenceSid)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -7388,7 +7366,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithRecordingSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -7488,7 +7466,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -7569,7 +7547,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid.AddOnResults
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -7713,7 +7691,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -7733,7 +7711,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7815,7 +7793,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -7838,8 +7816,8 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Password", password.asQueryValue)
-                query.addQueryItem("Username", username.asQueryValue)
+                query.addQueryItem("Password", password)
+                query.addQueryItem("Username", username)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7887,7 +7865,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Password", password?.asQueryValue)
+                query.addQueryItem("Password", password)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7929,7 +7907,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -7994,7 +7972,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8080,19 +8058,19 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ByocTrunkSid", byocTrunkSid?.asQueryValue)
-                query.addQueryItem("DomainName", domainName.asQueryValue)
-                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid?.asQueryValue)
-                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Secure", isSecure?.asQueryValue)
-                query.addQueryItem("SipRegistration", isSipRegistration?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("ByocTrunkSid", byocTrunkSid)
+                query.addQueryItem("DomainName", domainName)
+                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid)
+                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Secure", isSecure)
+                query.addQueryItem("SipRegistration", isSipRegistration)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
+                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8196,7 +8174,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8216,7 +8194,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid.asQueryValue)
+                query.addQueryItem("CredentialListSid", credentialListSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8308,7 +8286,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8328,7 +8306,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid.asQueryValue)
+                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8431,7 +8409,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8451,7 +8429,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid.asQueryValue)
+                query.addQueryItem("CredentialListSid", credentialListSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8543,7 +8521,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8563,7 +8541,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid.asQueryValue)
+                query.addQueryItem("CredentialListSid", credentialListSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8655,7 +8633,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8675,7 +8653,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid.asQueryValue)
+                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8810,19 +8788,19 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ByocTrunkSid", byocTrunkSid?.asQueryValue)
-                query.addQueryItem("DomainName", domainName?.asQueryValue)
-                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid?.asQueryValue)
-                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Secure", isSecure?.asQueryValue)
-                query.addQueryItem("SipRegistration", isSipRegistration?.asQueryValue)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceMethod", voiceMethod?.asQueryValue)
-                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod?.asQueryValue)
-                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL?.asQueryValue)
-                query.addQueryItem("VoiceUrl", voiceURL?.asQueryValue)
+                query.addQueryItem("ByocTrunkSid", byocTrunkSid)
+                query.addQueryItem("DomainName", domainName)
+                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid)
+                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Secure", isSecure)
+                query.addQueryItem("SipRegistration", isSipRegistration)
+                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
+                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
+                query.addQueryItem("VoiceMethod", voiceMethod)
+                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
+                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
+                query.addQueryItem("VoiceUrl", voiceURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8887,7 +8865,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -8907,7 +8885,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -8989,7 +8967,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -9015,9 +8993,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CidrPrefixLength", cidrPrefixLength?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
-                query.addQueryItem("IpAddress", ipAddress.asQueryValue)
+                query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IpAddress", ipAddress)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9071,9 +9049,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CidrPrefixLength", cidrPrefixLength?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("IpAddress", ipAddress?.asQueryValue)
+                query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("IpAddress", ipAddress)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9115,7 +9093,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9202,9 +9180,9 @@ extension Paths.Accounts.WithAccountSid.Sms {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("ShortCode", shortCode?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("ShortCode", shortCode)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -9287,12 +9265,12 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod?.asQueryValue)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL?.asQueryValue)
-                query.addQueryItem("SmsMethod", smsMethod?.asQueryValue)
-                query.addQueryItem("SmsUrl", smsURL?.asQueryValue)
+                query.addQueryItem("ApiVersion", apiVersion)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
+                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
+                query.addQueryItem("SmsMethod", smsMethod)
+                query.addQueryItem("SmsUrl", smsURL)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9351,7 +9329,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
 
@@ -9371,7 +9349,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9416,7 +9394,7 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9452,7 +9430,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Ttl", ttl?.asQueryValue)
+                query.addQueryItem("Ttl", ttl)
                 return query.asPercentEncodedQuery
             }
         }
@@ -9512,7 +9490,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize?.asQueryValue)
+            query.addQueryItem("PageSize", pageSize)
             return query
         }
     }
@@ -9872,11 +9850,11 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -10204,11 +10182,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -10525,11 +10503,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -10846,11 +10824,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -11167,11 +11145,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -11488,11 +11466,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -11809,11 +11787,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -12130,11 +12108,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -12451,11 +12429,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Category", category?.asQueryValue)
-                query.addQueryItem("StartDate", startDate?.asQueryValue)
-                query.addQueryItem("EndDate", endDate?.asQueryValue)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Category", category)
+                query.addQueryItem("StartDate", startDate)
+                query.addQueryItem("EndDate", endDate)
+                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -12784,10 +12762,10 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("Recurring", recurring?.asQueryValue)
-                query.addQueryItem("TriggerBy", triggerBy?.asQueryValue)
-                query.addQueryItem("UsageCategory", usageCategory?.asQueryValue)
-                query.addQueryItem("PageSize", pageSize?.asQueryValue)
+                query.addQueryItem("Recurring", recurring)
+                query.addQueryItem("TriggerBy", triggerBy)
+                query.addQueryItem("UsageCategory", usageCategory)
+                query.addQueryItem("PageSize", pageSize)
                 return query
             }
         }
@@ -13095,13 +13073,13 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CallbackMethod", callbackMethod?.asQueryValue)
-                query.addQueryItem("CallbackUrl", callbackURL.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Recurring", recurring?.asQueryValue)
-                query.addQueryItem("TriggerBy", triggerBy?.asQueryValue)
-                query.addQueryItem("TriggerValue", triggerValue.asQueryValue)
-                query.addQueryItem("UsageCategory", usageCategory.asQueryValue)
+                query.addQueryItem("CallbackMethod", callbackMethod)
+                query.addQueryItem("CallbackUrl", callbackURL)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Recurring", recurring)
+                query.addQueryItem("TriggerBy", triggerBy)
+                query.addQueryItem("TriggerValue", triggerValue)
+                query.addQueryItem("UsageCategory", usageCategory)
                 return query.asPercentEncodedQuery
             }
         }
@@ -13165,9 +13143,9 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("CallbackMethod", callbackMethod?.asQueryValue)
-                query.addQueryItem("CallbackUrl", callbackURL?.asQueryValue)
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
+                query.addQueryItem("CallbackMethod", callbackMethod)
+                query.addQueryItem("CallbackUrl", callbackURL)
+                query.addQueryItem("FriendlyName", friendlyName)
                 return query.asPercentEncodedQuery
             }
         }
@@ -13218,8 +13196,8 @@ extension Paths.Accounts {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName?.asQueryValue)
-                query.addQueryItem("Status", status?.asQueryValue)
+                query.addQueryItem("FriendlyName", friendlyName)
+                query.addQueryItem("Status", status)
                 return query.asPercentEncodedQuery
             }
         }
@@ -13228,55 +13206,59 @@ extension Paths.Accounts {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension NaiveDate {
+extension NaiveDate: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -13289,14 +13271,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

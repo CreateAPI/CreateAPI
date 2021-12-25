@@ -615,14 +615,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("portfolio", portfolio?.asQueryValue)
-                query.addQueryItem("project", project?.asQueryValue)
-                query.addQueryItem("is_workspace_level", isWorkspaceLevel?.asQueryValue)
-                query.addQueryItem("team", team?.asQueryValue)
-                query.addQueryItem("workspace", workspace?.asQueryValue)
-                for value in timePeriods ?? [] {
-                    query.addQueryItem("time_periods", value.asQueryValue)
-                }
+                query.addQueryItem("portfolio", portfolio)
+                query.addQueryItem("project", project)
+                query.addQueryItem("is_workspace_level", isWorkspaceLevel)
+                query.addQueryItem("team", team)
+                query.addQueryItem("workspace", workspace)
+                timePeriods?.forEach { query.addQueryItem("time_periods", $0) }
                 return query
             }
         }
@@ -1151,10 +1149,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("workspace", workspace.asQueryValue)
-                query.addQueryItem("owner", owner.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("workspace", workspace)
+                query.addQueryItem("owner", owner)
                 return query
             }
         }
@@ -1595,10 +1593,10 @@ extension Paths.Projects.WithProjectGid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("opt_pretty", isOptPretty?.asQueryValue)
+                query.addQueryItem("opt_pretty", isOptPretty)
                 query.addQueryItem("opt_fields", optFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -1663,11 +1661,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("workspace", workspace?.asQueryValue)
-                query.addQueryItem("team", team?.asQueryValue)
-                query.addQueryItem("archived", isArchived?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("workspace", workspace)
+                query.addQueryItem("team", team)
+                query.addQueryItem("archived", isArchived)
                 return query
             }
         }
@@ -1856,9 +1854,9 @@ extension Paths.Teams.WithTeamGid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("archived", isArchived?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("archived", isArchived)
                 return query
             }
         }
@@ -1920,9 +1918,9 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("archived", isArchived?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("archived", isArchived)
                 return query
             }
         }
@@ -2255,8 +2253,8 @@ extension Paths.Projects.WithProjectGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -2378,8 +2376,8 @@ extension Paths.Stories {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -2444,8 +2442,8 @@ extension Paths.Tasks.WithTaskGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -2507,9 +2505,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("workspace", workspace?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("workspace", workspace)
                 return query
             }
         }
@@ -2657,8 +2655,8 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -2736,14 +2734,14 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("assignee", assignee?.asQueryValue)
-                query.addQueryItem("project", project?.asQueryValue)
-                query.addQueryItem("section", section?.asQueryValue)
-                query.addQueryItem("workspace", workspace?.asQueryValue)
-                query.addQueryItem("completed_since", completedSince?.asQueryValue)
-                query.addQueryItem("modified_since", modifiedSince?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("assignee", assignee)
+                query.addQueryItem("project", project)
+                query.addQueryItem("section", section)
+                query.addQueryItem("workspace", workspace)
+                query.addQueryItem("completed_since", completedSince)
+                query.addQueryItem("modified_since", modifiedSince)
                 return query
             }
         }
@@ -3010,8 +3008,8 @@ extension Paths.Tasks.WithTaskGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -3526,9 +3524,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("team", team?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("workspace", workspace?.asQueryValue)
+                query.addQueryItem("team", team)
+                query.addQueryItem("user", user)
+                query.addQueryItem("workspace", workspace)
                 return query
             }
         }
@@ -3587,7 +3585,7 @@ extension Paths.Users.WithUserGid {
 
         private func makeGetQuery(_ workspace: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace.asQueryValue)
+            query.addQueryItem("workspace", workspace)
             return query
         }
     }
@@ -3837,9 +3835,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("start_on", startOn?.asQueryValue)
-                query.addQueryItem("end_on", endOn?.asQueryValue)
-                query.addQueryItem("workspace", workspace.asQueryValue)
+                query.addQueryItem("start_on", startOn)
+                query.addQueryItem("end_on", endOn)
+                query.addQueryItem("workspace", workspace)
                 return query
             }
         }
@@ -4130,10 +4128,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("workspace", workspace.asQueryValue)
-                query.addQueryItem("resource", resource?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("workspace", workspace)
+                query.addQueryItem("resource", resource)
                 return query
             }
         }
@@ -4484,55 +4482,59 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension NaiveDate {
+extension NaiveDate: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -4545,14 +4547,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

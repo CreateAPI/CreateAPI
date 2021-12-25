@@ -176,11 +176,17 @@ If you are using CreateAPI and want your spec to be part of the regression testi
 
 ## OpenAPI Support
 
-The following features are not suppored (yet):
+The goal is to completely cover OpenAPI 3.x spec. 
+
+Currency the following features are **note** supported:
 
 - External References
-- `allowReserved` and `allowEmptyValue` option in query parameters
 - `spaceDelimited`, `pipeDelimited`, and `deepObject` query parameters `style` values, form encoding only supports primitive types
+
+Some discrepancies with the OpenAPI spec are by design:
+
+- `allowReserved` keyword in parameters is ignored and all parameter values are percent-encoded
+- `allowEmptyValue` keyword in parameters is ignored as its not recommended to be used
 
 Upcoming:
 

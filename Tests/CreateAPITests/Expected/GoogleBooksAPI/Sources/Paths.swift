@@ -46,10 +46,10 @@ extension Paths.Cloudloading {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("drive_document_id", driveDocumentID?.asQueryValue)
-                query.addQueryItem("mime_type", mimeType?.asQueryValue)
-                query.addQueryItem("name", name?.asQueryValue)
-                query.addQueryItem("upload_client_token", uploadClientToken?.asQueryValue)
+                query.addQueryItem("drive_document_id", driveDocumentID)
+                query.addQueryItem("mime_type", mimeType)
+                query.addQueryItem("name", name)
+                query.addQueryItem("upload_client_token", uploadClientToken)
                 return query
             }
         }
@@ -72,7 +72,7 @@ extension Paths.Cloudloading {
 
         private func makePostQuery(_ volumeID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("volumeId", volumeID.asQueryValue)
+            query.addQueryItem("volumeId", volumeID)
             return query
         }
     }
@@ -121,7 +121,7 @@ extension Paths.Dictionary {
 
         private func makeGetQuery(_ cpksver: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("cpksver", cpksver.asQueryValue)
+            query.addQueryItem("cpksver", cpksver)
             return query
         }
     }
@@ -154,7 +154,7 @@ extension Paths.Familysharing {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -187,9 +187,9 @@ extension Paths.Familysharing {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("docId", docID?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("volumeId", volumeID?.asQueryValue)
+                query.addQueryItem("docId", docID)
+                query.addQueryItem("source", source)
+                query.addQueryItem("volumeId", volumeID)
                 return query
             }
         }
@@ -223,9 +223,9 @@ extension Paths.Familysharing {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("docId", docID?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("volumeId", volumeID?.asQueryValue)
+                query.addQueryItem("docId", docID)
+                query.addQueryItem("source", source)
+                query.addQueryItem("volumeId", volumeID)
                 return query
             }
         }
@@ -259,7 +259,7 @@ extension Paths.Myconfig {
 
         private func makeGetQuery(_ country: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("country", country?.asQueryValue)
+            query.addQueryItem("country", country)
             return query
         }
     }
@@ -294,12 +294,10 @@ extension Paths.Myconfig {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver.asQueryValue)
-                for value in volumeIDs {
-                    query.addQueryItem("volumeIds", value.asQueryValue)
-                }
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("cpksver", cpksver)
+                volumeIDs.forEach { query.addQueryItem("volumeIds", $0) }
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -346,12 +344,12 @@ extension Paths.Myconfig {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver.asQueryValue)
-                query.addQueryItem("nonce", nonce.asQueryValue)
-                query.addQueryItem("source", source.asQueryValue)
-                query.addQueryItem("volumeId", volumeID.asQueryValue)
-                query.addQueryItem("licenseTypes", licenseTypes?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
+                query.addQueryItem("cpksver", cpksver)
+                query.addQueryItem("nonce", nonce)
+                query.addQueryItem("source", source)
+                query.addQueryItem("volumeId", volumeID)
+                query.addQueryItem("licenseTypes", licenseTypes)
+                query.addQueryItem("locale", locale)
                 return query
             }
         }
@@ -400,18 +398,14 @@ extension Paths.Myconfig {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver.asQueryValue)
-                query.addQueryItem("nonce", nonce.asQueryValue)
-                query.addQueryItem("source", source.asQueryValue)
-                for value in features ?? [] {
-                    query.addQueryItem("features", value.asQueryValue)
-                }
-                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("showPreorders", isShowPreorders?.asQueryValue)
-                for value in volumeIDs ?? [] {
-                    query.addQueryItem("volumeIds", value.asQueryValue)
-                }
+                query.addQueryItem("cpksver", cpksver)
+                query.addQueryItem("nonce", nonce)
+                query.addQueryItem("source", source)
+                features?.forEach { query.addQueryItem("features", $0) }
+                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("showPreorders", isShowPreorders)
+                volumeIDs?.forEach { query.addQueryItem("volumeIds", $0) }
                 return query
             }
         }
@@ -486,18 +480,16 @@ extension Paths.Mylibrary {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion?.asQueryValue)
-                query.addQueryItem("layerId", layerID?.asQueryValue)
-                for value in layerIDs ?? [] {
-                    query.addQueryItem("layerIds", value.asQueryValue)
-                }
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("pageToken", pageToken?.asQueryValue)
-                query.addQueryItem("showDeleted", isShowDeleted?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("updatedMax", updatedMax?.asQueryValue)
-                query.addQueryItem("updatedMin", updatedMin?.asQueryValue)
-                query.addQueryItem("volumeId", volumeID?.asQueryValue)
+                query.addQueryItem("contentVersion", contentVersion)
+                query.addQueryItem("layerId", layerID)
+                layerIDs?.forEach { query.addQueryItem("layerIds", $0) }
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("pageToken", pageToken)
+                query.addQueryItem("showDeleted", isShowDeleted)
+                query.addQueryItem("source", source)
+                query.addQueryItem("updatedMax", updatedMax)
+                query.addQueryItem("updatedMin", updatedMin)
+                query.addQueryItem("volumeId", volumeID)
                 return query
             }
         }
@@ -522,10 +514,10 @@ extension Paths.Mylibrary {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("annotationId", annotationID?.asQueryValue)
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("showOnlySummaryInResponse", isShowOnlySummaryInResponse?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("annotationId", annotationID)
+                query.addQueryItem("country", country)
+                query.addQueryItem("showOnlySummaryInResponse", isShowOnlySummaryInResponse)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -548,10 +540,8 @@ extension Paths.Mylibrary.Annotations {
 
         private func makePostQuery(_ layerIDs: [String], _ volumeID: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            for value in layerIDs {
-                query.addQueryItem("layerIds", value.asQueryValue)
-            }
-            query.addQueryItem("volumeId", volumeID.asQueryValue)
+            layerIDs.forEach { query.addQueryItem("layerIds", $0) }
+            query.addQueryItem("volumeId", volumeID)
             return query
         }
     }
@@ -573,7 +563,7 @@ extension Paths.Mylibrary.Annotations {
 
         private func makePutQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
 
@@ -584,7 +574,7 @@ extension Paths.Mylibrary.Annotations {
 
         private func makeDeleteQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -606,7 +596,7 @@ extension Paths.Mylibrary {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -628,7 +618,7 @@ extension Paths.Mylibrary.Bookshelves {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -668,9 +658,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID.asQueryValue)
-                query.addQueryItem("reason", reason?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("volumeId", volumeID)
+                query.addQueryItem("reason", reason)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -693,7 +683,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         private func makePostQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -726,9 +716,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID.asQueryValue)
-                query.addQueryItem("volumePosition", volumePosition.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("volumeId", volumeID)
+                query.addQueryItem("volumePosition", volumePosition)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -767,9 +757,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID.asQueryValue)
-                query.addQueryItem("reason", reason?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("volumeId", volumeID)
+                query.addQueryItem("reason", reason)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -817,13 +807,13 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("projection", projection?.asQueryValue)
-                query.addQueryItem("q", q?.asQueryValue)
-                query.addQueryItem("showPreorders", isShowPreorders?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("projection", projection)
+                query.addQueryItem("q", q)
+                query.addQueryItem("showPreorders", isShowPreorders)
+                query.addQueryItem("source", source)
+                query.addQueryItem("startIndex", startIndex)
                 return query
             }
         }
@@ -857,8 +847,8 @@ extension Paths.Mylibrary.Readingpositions {
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("contentVersion", contentVersion?.asQueryValue)
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("contentVersion", contentVersion)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -907,12 +897,12 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("position", position.asQueryValue)
-                query.addQueryItem("timestamp", timestamp.asQueryValue)
-                query.addQueryItem("action", action?.asQueryValue)
-                query.addQueryItem("contentVersion", contentVersion?.asQueryValue)
-                query.addQueryItem("deviceCookie", deviceCookie?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("position", position)
+                query.addQueryItem("timestamp", timestamp)
+                query.addQueryItem("action", action)
+                query.addQueryItem("contentVersion", contentVersion)
+                query.addQueryItem("deviceCookie", deviceCookie)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -957,9 +947,9 @@ extension Paths.Notification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("notification_id", notificationID.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("notification_id", notificationID)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -993,7 +983,7 @@ extension Paths.Onboarding {
 
         private func makeGetQuery(_ locale: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
+            query.addQueryItem("locale", locale)
             return query
         }
     }
@@ -1036,13 +1026,11 @@ extension Paths.Onboarding {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in categoryID ?? [] {
-                    query.addQueryItem("categoryId", value.asQueryValue)
-                }
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating?.asQueryValue)
-                query.addQueryItem("pageSize", pageSize?.asQueryValue)
-                query.addQueryItem("pageToken", pageToken?.asQueryValue)
+                categoryID?.forEach { query.addQueryItem("categoryId", $0) }
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
+                query.addQueryItem("pageSize", pageSize)
+                query.addQueryItem("pageToken", pageToken)
                 return query
             }
         }
@@ -1093,9 +1081,9 @@ extension Paths.Personalizedstream {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -1150,14 +1138,14 @@ extension Paths.Promooffer {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID?.asQueryValue)
-                query.addQueryItem("device", device?.asQueryValue)
-                query.addQueryItem("manufacturer", manufacturer?.asQueryValue)
-                query.addQueryItem("model", model?.asQueryValue)
-                query.addQueryItem("offerId", offerID?.asQueryValue)
-                query.addQueryItem("product", product?.asQueryValue)
-                query.addQueryItem("serial", serial?.asQueryValue)
-                query.addQueryItem("volumeId", volumeID?.asQueryValue)
+                query.addQueryItem("androidId", androidID)
+                query.addQueryItem("device", device)
+                query.addQueryItem("manufacturer", manufacturer)
+                query.addQueryItem("model", model)
+                query.addQueryItem("offerId", offerID)
+                query.addQueryItem("product", product)
+                query.addQueryItem("serial", serial)
+                query.addQueryItem("volumeId", volumeID)
                 return query
             }
         }
@@ -1199,13 +1187,13 @@ extension Paths.Promooffer {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID?.asQueryValue)
-                query.addQueryItem("device", device?.asQueryValue)
-                query.addQueryItem("manufacturer", manufacturer?.asQueryValue)
-                query.addQueryItem("model", model?.asQueryValue)
-                query.addQueryItem("offerId", offerID?.asQueryValue)
-                query.addQueryItem("product", product?.asQueryValue)
-                query.addQueryItem("serial", serial?.asQueryValue)
+                query.addQueryItem("androidId", androidID)
+                query.addQueryItem("device", device)
+                query.addQueryItem("manufacturer", manufacturer)
+                query.addQueryItem("model", model)
+                query.addQueryItem("offerId", offerID)
+                query.addQueryItem("product", product)
+                query.addQueryItem("serial", serial)
                 return query
             }
         }
@@ -1245,12 +1233,12 @@ extension Paths.Promooffer {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID?.asQueryValue)
-                query.addQueryItem("device", device?.asQueryValue)
-                query.addQueryItem("manufacturer", manufacturer?.asQueryValue)
-                query.addQueryItem("model", model?.asQueryValue)
-                query.addQueryItem("product", product?.asQueryValue)
-                query.addQueryItem("serial", serial?.asQueryValue)
+                query.addQueryItem("androidId", androidID)
+                query.addQueryItem("device", device)
+                query.addQueryItem("manufacturer", manufacturer)
+                query.addQueryItem("model", model)
+                query.addQueryItem("product", product)
+                query.addQueryItem("serial", serial)
                 return query
             }
         }
@@ -1284,9 +1272,7 @@ extension Paths.Series {
 
         private func makeGetQuery(_ seriesID: [String]) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            for value in seriesID {
-                query.addQueryItem("series_id", value.asQueryValue)
-            }
+            seriesID.forEach { query.addQueryItem("series_id", $0) }
             return query
         }
     }
@@ -1330,9 +1316,9 @@ extension Paths.Series.Membership {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("series_id", seriesID.asQueryValue)
-                query.addQueryItem("page_size", pageSize?.asQueryValue)
-                query.addQueryItem("page_token", pageToken?.asQueryValue)
+                query.addQueryItem("series_id", seriesID)
+                query.addQueryItem("page_size", pageSize)
+                query.addQueryItem("page_token", pageToken)
                 return query
             }
         }
@@ -1377,7 +1363,7 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -1399,7 +1385,7 @@ extension Paths.Users.WithUserID.Bookshelves {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -1434,10 +1420,10 @@ extension Paths.Users.WithUserID.Bookshelves.WithShelf {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("showPreorders", isShowPreorders?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("showPreorders", isShowPreorders)
+                query.addQueryItem("source", source)
+                query.addQueryItem("startIndex", startIndex)
                 return query
             }
         }
@@ -1538,20 +1524,20 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("q", q.asQueryValue)
-                query.addQueryItem("download", download?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("langRestrict", langRestrict?.asQueryValue)
-                query.addQueryItem("libraryRestrict", libraryRestrict?.asQueryValue)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("orderBy", orderBy?.asQueryValue)
-                query.addQueryItem("partner", partner?.asQueryValue)
-                query.addQueryItem("printType", printType?.asQueryValue)
-                query.addQueryItem("projection", projection?.asQueryValue)
-                query.addQueryItem("showPreorders", isShowPreorders?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                query.addQueryItem("q", q)
+                query.addQueryItem("download", download)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("langRestrict", langRestrict)
+                query.addQueryItem("libraryRestrict", libraryRestrict)
+                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("orderBy", orderBy)
+                query.addQueryItem("partner", partner)
+                query.addQueryItem("printType", printType)
+                query.addQueryItem("projection", projection)
+                query.addQueryItem("showPreorders", isShowPreorders)
+                query.addQueryItem("source", source)
+                query.addQueryItem("startIndex", startIndex)
                 return query
             }
         }
@@ -1612,17 +1598,13 @@ extension Paths.Volumes {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                for value in acquireMethod ?? [] {
-                    query.addQueryItem("acquireMethod", value.asQueryValue)
-                }
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in processingState ?? [] {
-                    query.addQueryItem("processingState", value.asQueryValue)
-                }
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
+                acquireMethod?.forEach { query.addQueryItem("acquireMethod", $0) }
+                query.addQueryItem("country", country)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxResults", maxResults)
+                processingState?.forEach { query.addQueryItem("processingState", $0) }
+                query.addQueryItem("source", source)
+                query.addQueryItem("startIndex", startIndex)
                 return query
             }
         }
@@ -1662,9 +1644,9 @@ extension Paths.Volumes {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -1706,10 +1688,10 @@ extension Paths.Volumes.Recommended {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("rating", rating.asQueryValue)
-                query.addQueryItem("volumeId", volumeID.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("rating", rating)
+                query.addQueryItem("volumeId", volumeID)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -1756,16 +1738,12 @@ extension Paths.Volumes {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                for value in processingState ?? [] {
-                    query.addQueryItem("processingState", value.asQueryValue)
-                }
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
-                for value in volumeID ?? [] {
-                    query.addQueryItem("volumeId", value.asQueryValue)
-                }
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxResults", maxResults)
+                processingState?.forEach { query.addQueryItem("processingState", $0) }
+                query.addQueryItem("source", source)
+                query.addQueryItem("startIndex", startIndex)
+                volumeID?.forEach { query.addQueryItem("volumeId", $0) }
                 return query
             }
         }
@@ -1811,12 +1789,12 @@ extension Paths.Volumes {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries?.asQueryValue)
-                query.addQueryItem("partner", partner?.asQueryValue)
-                query.addQueryItem("projection", projection?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("user_library_consistent_read", isUserLibraryConsistentRead?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries)
+                query.addQueryItem("partner", partner)
+                query.addQueryItem("projection", projection)
+                query.addQueryItem("source", source)
+                query.addQueryItem("user_library_consistent_read", isUserLibraryConsistentRead)
                 return query
             }
         }
@@ -1865,10 +1843,10 @@ extension Paths.Volumes.WithVolumeID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("association", association?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("association", association)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -1933,19 +1911,19 @@ extension Paths.Volumes.WithVolumeID.Layers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion.asQueryValue)
-                query.addQueryItem("endOffset", endOffset?.asQueryValue)
-                query.addQueryItem("endPosition", endPosition?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("pageToken", pageToken?.asQueryValue)
-                query.addQueryItem("showDeleted", isShowDeleted?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("startOffset", startOffset?.asQueryValue)
-                query.addQueryItem("startPosition", startPosition?.asQueryValue)
-                query.addQueryItem("updatedMax", updatedMax?.asQueryValue)
-                query.addQueryItem("updatedMin", updatedMin?.asQueryValue)
-                query.addQueryItem("volumeAnnotationsVersion", volumeAnnotationsVersion?.asQueryValue)
+                query.addQueryItem("contentVersion", contentVersion)
+                query.addQueryItem("endOffset", endOffset)
+                query.addQueryItem("endPosition", endPosition)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("pageToken", pageToken)
+                query.addQueryItem("showDeleted", isShowDeleted)
+                query.addQueryItem("source", source)
+                query.addQueryItem("startOffset", startOffset)
+                query.addQueryItem("startPosition", startPosition)
+                query.addQueryItem("updatedMax", updatedMax)
+                query.addQueryItem("updatedMin", updatedMin)
+                query.addQueryItem("volumeAnnotationsVersion", volumeAnnotationsVersion)
                 return query
             }
         }
@@ -1979,8 +1957,8 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
 
         private func makeGetQuery(_ locale: String?, _ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -2029,19 +2007,17 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion.asQueryValue)
-                for value in annotationDataID ?? [] {
-                    query.addQueryItem("annotationDataId", value.asQueryValue)
-                }
-                query.addQueryItem("h", h?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("pageToken", pageToken?.asQueryValue)
-                query.addQueryItem("scale", scale?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("updatedMax", updatedMax?.asQueryValue)
-                query.addQueryItem("updatedMin", updatedMin?.asQueryValue)
-                query.addQueryItem("w", w?.asQueryValue)
+                query.addQueryItem("contentVersion", contentVersion)
+                annotationDataID?.forEach { query.addQueryItem("annotationDataId", $0) }
+                query.addQueryItem("h", h)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("pageToken", pageToken)
+                query.addQueryItem("scale", scale)
+                query.addQueryItem("source", source)
+                query.addQueryItem("updatedMax", updatedMax)
+                query.addQueryItem("updatedMin", updatedMin)
+                query.addQueryItem("w", w)
                 return query
             }
         }
@@ -2083,13 +2059,13 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion.asQueryValue)
-                query.addQueryItem("allowWebDefinitions", allowWebDefinitions?.asQueryValue)
-                query.addQueryItem("h", h?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("scale", scale?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("w", w?.asQueryValue)
+                query.addQueryItem("contentVersion", contentVersion)
+                query.addQueryItem("allowWebDefinitions", allowWebDefinitions)
+                query.addQueryItem("h", h)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("scale", scale)
+                query.addQueryItem("source", source)
+                query.addQueryItem("w", w)
                 return query
             }
         }
@@ -2125,10 +2101,10 @@ extension Paths.Volumes.WithVolumeID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion?.asQueryValue)
-                query.addQueryItem("maxResults", maxResults?.asQueryValue)
-                query.addQueryItem("pageToken", pageToken?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
+                query.addQueryItem("contentVersion", contentVersion)
+                query.addQueryItem("maxResults", maxResults)
+                query.addQueryItem("pageToken", pageToken)
+                query.addQueryItem("source", source)
                 return query
             }
         }
@@ -2151,8 +2127,8 @@ extension Paths.Volumes.WithVolumeID.Layersummary {
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("contentVersion", contentVersion?.asQueryValue)
-            query.addQueryItem("source", source?.asQueryValue)
+            query.addQueryItem("contentVersion", contentVersion)
+            query.addQueryItem("source", source)
             return query
         }
     }
@@ -2160,49 +2136,53 @@ extension Paths.Volumes.WithVolumeID.Layersummary {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -2215,14 +2195,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

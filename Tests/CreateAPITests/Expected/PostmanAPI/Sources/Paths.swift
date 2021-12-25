@@ -67,17 +67,17 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("workspace", workspace?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("until", until?.asQueryValue)
-                query.addQueryItem("createdBy", createdBy?.asQueryValue)
-                query.addQueryItem("updatedBy", updatedBy?.asQueryValue)
-                query.addQueryItem("isPublic", isPublic?.asQueryValue)
-                query.addQueryItem("name", name?.asQueryValue)
-                query.addQueryItem("summary", summary?.asQueryValue)
-                query.addQueryItem("description", description?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("direction", direction?.asQueryValue)
+                query.addQueryItem("workspace", workspace)
+                query.addQueryItem("since", since)
+                query.addQueryItem("until", until)
+                query.addQueryItem("createdBy", createdBy)
+                query.addQueryItem("updatedBy", updatedBy)
+                query.addQueryItem("isPublic", isPublic)
+                query.addQueryItem("name", name)
+                query.addQueryItem("summary", summary)
+                query.addQueryItem("description", description)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("direction", direction)
                 return query
             }
         }
@@ -132,7 +132,7 @@ extension Paths {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace?.asQueryValue)
+            query.addQueryItem("workspace", workspace)
             return query
         }
 
@@ -1729,7 +1729,7 @@ extension Paths.APIs.WithAPIID.Versions.WithAPIVersionID.Schemas.WithSchemaID {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace?.asQueryValue)
+            query.addQueryItem("workspace", workspace)
             return query
         }
 
@@ -2083,7 +2083,7 @@ extension Paths.Collections.Fork {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace?.asQueryValue)
+            query.addQueryItem("workspace", workspace)
             return query
         }
     }
@@ -4747,9 +4747,9 @@ extension Paths.Scim.V2 {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("startIndex", startIndex?.asQueryValue)
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
+                query.addQueryItem("startIndex", startIndex)
+                query.addQueryItem("count", count)
+                query.addQueryItem("filter", filter)
                 return query
             }
         }
@@ -5228,7 +5228,7 @@ extension Paths {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace?.asQueryValue)
+            query.addQueryItem("workspace", workspace)
             return query
         }
 
@@ -5630,49 +5630,53 @@ extension Paths.Workspaces {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -5685,14 +5689,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

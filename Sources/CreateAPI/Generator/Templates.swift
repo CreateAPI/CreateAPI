@@ -116,16 +116,12 @@ final class Templates {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
             if case .array = $0.type {
                 if $0.explode {
-                    return """
-                    for value in \(prefix)\($0.name)\($0.isOptional ? " ?? []" : "") {
-                        query.addQueryItem(\"\($0.key)\", value.asQueryValue)
-                    }
-                    """
+                    return "\(prefix)\($0.name)\($0.isOptional ? "?" : "").forEach { query.addQueryItem(\"\($0.key)\", $0) }"
                 } else {
                     return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name)\($0.isOptional ? "?" : "").map(\\.asQueryValue).joined(separator: \",\"))"
                 }
             } else {
-                return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name)\($0.isOptional ? "?" : "").asQueryValue)"
+                return "query.addQueryItem(\"\($0.key)\", \(prefix)\($0.name))"
             }
         }
         return """
@@ -551,36 +547,55 @@ final class Templates {
     }
     
     func queryParameterEncoders(_ encoders: [String: String], skipped: Set<String>) -> String {
-        var declarations = encoders.keys.sorted()
+        var declarations: [String] = []
+        declarations.append("""
+        protocol QueryEncodable {
+            var asQueryValue: String { get }
+        }
+        """)
+        declarations += encoders.keys.sorted()
             .filter { !skipped.contains($0) }
             .map { key in
                 """
-                extension \(key) {
+                extension \(key): QueryEncodable {
                     var asQueryValue: String {
                 \(encoders[key]!.indented(count: 2))
                     }
                 }
                 """
             }
-        // Encoding RawRepresentable
         declarations.append("""
         extension RawRepresentable where RawValue == String {
             var asQueryValue: String {
                 rawValue
             }
         }
-        """)
-        declarations.append("""
+
         extension Array where Element == (String, String?) {
-            mutating func addQueryItem(_ name: String, _ value: String?) {
-                guard let value = value, !value.isEmpty else { return }
+            mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+                addQueryItem(name, value?.rawValue)
+            }
+            
+            mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+                guard let value = value?.asQueryValue, !value.isEmpty else { return }
                 append((name, value))
             }
-        
+            
+            mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+                for (key, value) in query {
+                    addQueryItem(\("\"\\(name)[\\(key)]\""), value)
+                }
+            }
+
             var asPercentEncodedQuery: String {
                 var components = URLComponents()
                 components.queryItems = self.map(URLQueryItem.init)
                 return components.percentEncodedQuery ?? ""
+            }
+            
+            // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+            var asCompactQuery: String {
+                flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
             }
         }
         """)

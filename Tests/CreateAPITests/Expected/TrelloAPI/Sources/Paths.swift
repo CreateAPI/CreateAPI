@@ -56,15 +56,15 @@ extension Paths.Actions {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("display", display)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -76,8 +76,8 @@ extension Paths.Actions {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -88,8 +88,8 @@ extension Paths.Actions {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -122,9 +122,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -147,8 +147,8 @@ extension Paths.Actions.WithIDAction.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -181,9 +181,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -206,8 +206,8 @@ extension Paths.Actions.WithIDAction.Card {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -229,8 +229,8 @@ extension Paths.Actions.WithIDAction {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -252,8 +252,8 @@ extension Paths.Actions.WithIDAction {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -286,9 +286,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -311,8 +311,8 @@ extension Paths.Actions.WithIDAction.List {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -345,9 +345,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -370,8 +370,8 @@ extension Paths.Actions.WithIDAction.Member {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -404,9 +404,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -429,8 +429,8 @@ extension Paths.Actions.WithIDAction.MemberCreator {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -463,9 +463,9 @@ extension Paths.Actions.WithIDAction {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -488,8 +488,8 @@ extension Paths.Actions.WithIDAction.Organization {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -511,8 +511,8 @@ extension Paths.Actions.WithIDAction {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -534,8 +534,8 @@ extension Paths.Actions.WithIDAction {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -568,9 +568,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("urls", urls.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("urls", urls)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -593,8 +593,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -699,45 +699,45 @@ extension Paths.Boards {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_display", actionsDisplay?.asQueryValue)
-                query.addQueryItem("actions_format", actionsFormat?.asQueryValue)
-                query.addQueryItem("actions_since", actionsSince?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("action_member", actionMember?.asQueryValue)
-                query.addQueryItem("action_member_fields", actionMemberFields?.asQueryValue)
-                query.addQueryItem("action_memberCreator", actionMemberCreator?.asQueryValue)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields?.asQueryValue)
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("card_attachments", cardAttachments?.asQueryValue)
-                query.addQueryItem("card_attachment_fields", cardAttachmentFields?.asQueryValue)
-                query.addQueryItem("card_checklists", cardChecklists?.asQueryValue)
-                query.addQueryItem("card_stickers", cardStickers?.asQueryValue)
-                query.addQueryItem("boardStars", boardStars?.asQueryValue)
-                query.addQueryItem("labels", labels?.asQueryValue)
-                query.addQueryItem("label_fields", labelFields?.asQueryValue)
-                query.addQueryItem("labels_limit", labelsLimit?.asQueryValue)
-                query.addQueryItem("lists", lists?.asQueryValue)
-                query.addQueryItem("list_fields", listFields?.asQueryValue)
-                query.addQueryItem("memberships", memberships?.asQueryValue)
-                query.addQueryItem("memberships_member", membershipsMember?.asQueryValue)
-                query.addQueryItem("memberships_member_fields", membershipsMemberFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("membersInvited", membersInvited?.asQueryValue)
-                query.addQueryItem("membersInvited_fields", membersInvitedFields?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("checklist_fields", checklistFields?.asQueryValue)
-                query.addQueryItem("organization", organization?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("organization_memberships", organizationMemberships?.asQueryValue)
-                query.addQueryItem("myPrefs", myPrefs?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_display", actionsDisplay)
+                query.addQueryItem("actions_format", actionsFormat)
+                query.addQueryItem("actions_since", actionsSince)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("action_member", actionMember)
+                query.addQueryItem("action_member_fields", actionMemberFields)
+                query.addQueryItem("action_memberCreator", actionMemberCreator)
+                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("card_attachments", cardAttachments)
+                query.addQueryItem("card_attachment_fields", cardAttachmentFields)
+                query.addQueryItem("card_checklists", cardChecklists)
+                query.addQueryItem("card_stickers", cardStickers)
+                query.addQueryItem("boardStars", boardStars)
+                query.addQueryItem("labels", labels)
+                query.addQueryItem("label_fields", labelFields)
+                query.addQueryItem("labels_limit", labelsLimit)
+                query.addQueryItem("lists", lists)
+                query.addQueryItem("list_fields", listFields)
+                query.addQueryItem("memberships", memberships)
+                query.addQueryItem("memberships_member", membershipsMember)
+                query.addQueryItem("memberships_member_fields", membershipsMemberFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("membersInvited", membersInvited)
+                query.addQueryItem("membersInvited_fields", membersInvitedFields)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("checklist_fields", checklistFields)
+                query.addQueryItem("organization", organization)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("organization_memberships", organizationMemberships)
+                query.addQueryItem("myPrefs", myPrefs)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -749,8 +749,8 @@ extension Paths.Boards {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -809,22 +809,22 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("format", format?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("idModels", idModels?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("format", format)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("page", page)
+                query.addQueryItem("idModels", idModels)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -858,9 +858,9 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -894,8 +894,8 @@ extension Paths.Boards.WithIDBoard.CalendarKey {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -952,21 +952,21 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("stickers", stickers?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("stickers", stickers)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -989,8 +989,8 @@ extension Paths.Boards.WithIDBoard.Cards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1053,24 +1053,24 @@ extension Paths.Boards.WithIDBoard.Cards {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_display", actionsDisplay?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checkItemState_fields", checkItemStateFields?.asQueryValue)
-                query.addQueryItem("labels", labels?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("checklist_fields", checklistFields?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_display", actionsDisplay)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checkItemState_fields", checkItemStateFields)
+                query.addQueryItem("labels", labels)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("checklist_fields", checklistFields)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1114,14 +1114,14 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("checkItems", checkItems?.asQueryValue)
-                query.addQueryItem("checkItem_fields", checkItemFields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("checkItems", checkItems)
+                query.addQueryItem("checkItem_fields", checkItemFields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1133,8 +1133,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1156,8 +1156,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1192,10 +1192,10 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags.asQueryValue)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("tags", tags)
+                query.addQueryItem("ixLastUpdate", ixLastUpdate)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1218,8 +1218,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1252,8 +1252,8 @@ extension Paths.Boards.WithIDBoard.EmailKey {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1275,8 +1275,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1309,8 +1309,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1332,8 +1332,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1355,8 +1355,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1378,8 +1378,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1401,8 +1401,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1424,8 +1424,8 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1460,10 +1460,10 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1475,8 +1475,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1509,9 +1509,9 @@ extension Paths.Boards.WithIDBoard.Labels {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1551,12 +1551,12 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1568,8 +1568,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1591,8 +1591,8 @@ extension Paths.Boards.WithIDBoard.Lists {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1614,8 +1614,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1652,11 +1652,11 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("activity", activity?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("activity", activity)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1668,8 +1668,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1691,8 +1691,8 @@ extension Paths.Boards.WithIDBoard.Members {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1714,8 +1714,8 @@ extension Paths.Boards.WithIDBoard.Members {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -1726,8 +1726,8 @@ extension Paths.Boards.WithIDBoard.Members {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1784,21 +1784,21 @@ extension Paths.Boards.WithIDBoard.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("board", board?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("list", list?.asQueryValue)
-                query.addQueryItem("list_fields", listFields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("board", board)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("list", list)
+                query.addQueryItem("list_fields", listFields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1832,9 +1832,9 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1857,8 +1857,8 @@ extension Paths.Boards.WithIDBoard.MembersInvited {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1895,11 +1895,11 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1935,10 +1935,10 @@ extension Paths.Boards.WithIDBoard.Memberships {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -1950,8 +1950,8 @@ extension Paths.Boards.WithIDBoard.Memberships {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1973,8 +1973,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1996,8 +1996,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2019,8 +2019,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2042,8 +2042,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2065,8 +2065,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2088,8 +2088,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2111,8 +2111,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2134,8 +2134,8 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2157,8 +2157,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2191,9 +2191,9 @@ extension Paths.Boards.WithIDBoard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2216,8 +2216,8 @@ extension Paths.Boards.WithIDBoard.Organization {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2239,8 +2239,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2262,8 +2262,8 @@ extension Paths.Boards.WithIDBoard.PowerUps {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2296,8 +2296,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2319,8 +2319,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2342,8 +2342,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2365,8 +2365,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2388,8 +2388,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2411,8 +2411,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2434,8 +2434,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2457,8 +2457,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2480,8 +2480,8 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2503,8 +2503,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2526,8 +2526,8 @@ extension Paths.Boards.WithIDBoard {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2549,8 +2549,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2627,31 +2627,31 @@ extension Paths.Cards {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_display", actionsDisplay?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("membersVoted", membersVoted?.asQueryValue)
-                query.addQueryItem("memberVoted_fields", memberVotedFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checkItemState_fields", checkItemStateFields?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("checklist_fields", checklistFields?.asQueryValue)
-                query.addQueryItem("board", board?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("list", list?.asQueryValue)
-                query.addQueryItem("list_fields", listFields?.asQueryValue)
-                query.addQueryItem("stickers", stickers?.asQueryValue)
-                query.addQueryItem("sticker_fields", stickerFields?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_display", actionsDisplay)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("membersVoted", membersVoted)
+                query.addQueryItem("memberVoted_fields", memberVotedFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checkItemState_fields", checkItemStateFields)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("checklist_fields", checklistFields)
+                query.addQueryItem("board", board)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("list", list)
+                query.addQueryItem("list_fields", listFields)
+                query.addQueryItem("stickers", stickers)
+                query.addQueryItem("sticker_fields", stickerFields)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2663,8 +2663,8 @@ extension Paths.Cards {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -2675,8 +2675,8 @@ extension Paths.Cards {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2735,22 +2735,22 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("format", format?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("idModels", idModels?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("format", format)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("page", page)
+                query.addQueryItem("idModels", idModels)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2773,8 +2773,8 @@ extension Paths.Cards.WithIDCard.Actions {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2809,8 +2809,8 @@ extension Paths.Cards.WithIDCard.Actions.WithIDAction {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -2823,8 +2823,8 @@ extension Paths.Cards.WithIDCard.Actions.WithIDAction {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2859,10 +2859,10 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2874,8 +2874,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2908,9 +2908,9 @@ extension Paths.Cards.WithIDCard.Attachments {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2922,8 +2922,8 @@ extension Paths.Cards.WithIDCard.Attachments {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2956,9 +2956,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -2981,8 +2981,8 @@ extension Paths.Cards.WithIDCard.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3015,9 +3015,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3073,8 +3073,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklistCurrent.CheckItem {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3107,8 +3107,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3130,8 +3130,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3153,8 +3153,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3176,8 +3176,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3199,8 +3199,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3222,8 +3222,8 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3266,14 +3266,14 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("checkItems", checkItems?.asQueryValue)
-                query.addQueryItem("checkItem_fields", checkItemFields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("checkItems", checkItems)
+                query.addQueryItem("checkItem_fields", checkItemFields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3285,8 +3285,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3308,8 +3308,8 @@ extension Paths.Cards.WithIDCard.Checklists {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3331,8 +3331,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3354,8 +3354,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3377,8 +3377,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3400,8 +3400,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3423,8 +3423,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3446,8 +3446,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3469,8 +3469,8 @@ extension Paths.Cards.WithIDCard.IDLabels {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3492,8 +3492,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3515,8 +3515,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -3527,8 +3527,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3550,8 +3550,8 @@ extension Paths.Cards.WithIDCard.IDMembers {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3573,8 +3573,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -3585,8 +3585,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3608,8 +3608,8 @@ extension Paths.Cards.WithIDCard.Labels {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3642,9 +3642,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3667,8 +3667,8 @@ extension Paths.Cards.WithIDCard.List {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3690,8 +3690,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3724,9 +3724,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3760,9 +3760,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3774,8 +3774,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3797,8 +3797,8 @@ extension Paths.Cards.WithIDCard.MembersVoted {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3820,8 +3820,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3843,8 +3843,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3877,9 +3877,9 @@ extension Paths.Cards.WithIDCard {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3891,8 +3891,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3925,9 +3925,9 @@ extension Paths.Cards.WithIDCard.Stickers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -3939,8 +3939,8 @@ extension Paths.Cards.WithIDCard.Stickers {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -3951,8 +3951,8 @@ extension Paths.Cards.WithIDCard.Stickers {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3974,8 +3974,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3997,8 +3997,8 @@ extension Paths.Cards.WithIDCard {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4020,8 +4020,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4062,13 +4062,13 @@ extension Paths.Checklists {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("checkItems", checkItems?.asQueryValue)
-                query.addQueryItem("checkItem_fields", checkItemFields?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("checkItems", checkItems)
+                query.addQueryItem("checkItem_fields", checkItemFields)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4080,8 +4080,8 @@ extension Paths.Checklists {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -4092,8 +4092,8 @@ extension Paths.Checklists {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4126,9 +4126,9 @@ extension Paths.Checklists.WithIDChecklist {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4151,8 +4151,8 @@ extension Paths.Checklists.WithIDChecklist.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4209,21 +4209,21 @@ extension Paths.Checklists.WithIDChecklist {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("stickers", stickers?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("stickers", stickers)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4246,8 +4246,8 @@ extension Paths.Checklists.WithIDChecklist.Cards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4282,10 +4282,10 @@ extension Paths.Checklists.WithIDChecklist {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4297,8 +4297,8 @@ extension Paths.Checklists.WithIDChecklist {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4331,9 +4331,9 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4345,8 +4345,8 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4368,8 +4368,8 @@ extension Paths.Checklists.WithIDChecklist {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4391,8 +4391,8 @@ extension Paths.Checklists.WithIDChecklist {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4414,8 +4414,8 @@ extension Paths.Checklists.WithIDChecklist {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4437,8 +4437,8 @@ extension Paths.Checklists.WithIDChecklist {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4460,8 +4460,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4494,9 +4494,9 @@ extension Paths.Labels {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4508,8 +4508,8 @@ extension Paths.Labels {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -4520,8 +4520,8 @@ extension Paths.Labels {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4554,9 +4554,9 @@ extension Paths.Labels.WithIDLabel {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4579,8 +4579,8 @@ extension Paths.Labels.WithIDLabel.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4602,8 +4602,8 @@ extension Paths.Labels.WithIDLabel {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4625,8 +4625,8 @@ extension Paths.Labels.WithIDLabel {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4648,8 +4648,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4690,13 +4690,13 @@ extension Paths.Lists {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("board", board?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("board", board)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4708,8 +4708,8 @@ extension Paths.Lists {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4768,22 +4768,22 @@ extension Paths.Lists.WithIDList {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("format", format?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("idModels", idModels?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("format", format)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("page", page)
+                query.addQueryItem("idModels", idModels)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4806,8 +4806,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4840,9 +4840,9 @@ extension Paths.Lists.WithIDList {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4865,8 +4865,8 @@ extension Paths.Lists.WithIDList.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4923,21 +4923,21 @@ extension Paths.Lists.WithIDList {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("stickers", stickers?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("stickers", stickers)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -4949,8 +4949,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4972,8 +4972,8 @@ extension Paths.Lists.WithIDList.Cards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4995,8 +4995,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5018,8 +5018,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5041,8 +5041,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5064,8 +5064,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5087,8 +5087,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5110,8 +5110,8 @@ extension Paths.Lists.WithIDList {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5133,8 +5133,8 @@ extension Paths.Lists.WithIDList {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5282,60 +5282,60 @@ extension Paths.Members {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_display", actionsDisplay?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("action_since", actionSince?.asQueryValue)
-                query.addQueryItem("action_before", actionBefore?.asQueryValue)
-                query.addQueryItem("cards", cards?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("card_members", cardMembers?.asQueryValue)
-                query.addQueryItem("card_member_fields", cardMemberFields?.asQueryValue)
-                query.addQueryItem("card_attachments", cardAttachments?.asQueryValue)
-                query.addQueryItem("card_attachment_fields", cardAttachmentFields?.asQueryValue)
-                query.addQueryItem("card_stickers", cardStickers?.asQueryValue)
-                query.addQueryItem("boards", boards?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("board_actions", boardActions?.asQueryValue)
-                query.addQueryItem("board_actions_entities", boardActionsEntities?.asQueryValue)
-                query.addQueryItem("board_actions_display", boardActionsDisplay?.asQueryValue)
-                query.addQueryItem("board_actions_format", boardActionsFormat?.asQueryValue)
-                query.addQueryItem("board_actions_since", boardActionsSince?.asQueryValue)
-                query.addQueryItem("board_actions_limit", boardActionsLimit?.asQueryValue)
-                query.addQueryItem("board_action_fields", boardActionFields?.asQueryValue)
-                query.addQueryItem("board_lists", boardLists?.asQueryValue)
-                query.addQueryItem("board_memberships", boardMemberships?.asQueryValue)
-                query.addQueryItem("board_organization", boardOrganization?.asQueryValue)
-                query.addQueryItem("board_organization_fields", boardOrganizationFields?.asQueryValue)
-                query.addQueryItem("boardsInvited", boardsInvited?.asQueryValue)
-                query.addQueryItem("boardsInvited_fields", boardsInvitedFields?.asQueryValue)
-                query.addQueryItem("boardStars", boardStars?.asQueryValue)
-                query.addQueryItem("savedSearches", savedSearches?.asQueryValue)
-                query.addQueryItem("organizations", organizations?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("organization_paid_account", organizationPaidAccount?.asQueryValue)
-                query.addQueryItem("organizationsInvited", organizationsInvited?.asQueryValue)
-                query.addQueryItem("organizationsInvited_fields", organizationsInvitedFields?.asQueryValue)
-                query.addQueryItem("notifications", notifications?.asQueryValue)
-                query.addQueryItem("notifications_entities", notificationsEntities?.asQueryValue)
-                query.addQueryItem("notifications_display", notificationsDisplay?.asQueryValue)
-                query.addQueryItem("notifications_limit", notificationsLimit?.asQueryValue)
-                query.addQueryItem("notification_fields", notificationFields?.asQueryValue)
-                query.addQueryItem("notification_memberCreator", notificationMemberCreator?.asQueryValue)
-                query.addQueryItem("notification_memberCreator_fields", notificationMemberCreatorFields?.asQueryValue)
-                query.addQueryItem("notification_before", notificationBefore?.asQueryValue)
-                query.addQueryItem("notification_since", notificationSince?.asQueryValue)
-                query.addQueryItem("tokens", tokens?.asQueryValue)
-                query.addQueryItem("paid_account", paidAccount?.asQueryValue)
-                query.addQueryItem("boardBackgrounds", boardBackgrounds?.asQueryValue)
-                query.addQueryItem("customBoardBackgrounds", customBoardBackgrounds?.asQueryValue)
-                query.addQueryItem("customStickers", customStickers?.asQueryValue)
-                query.addQueryItem("customEmoji", customEmoji?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_display", actionsDisplay)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("action_since", actionSince)
+                query.addQueryItem("action_before", actionBefore)
+                query.addQueryItem("cards", cards)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("card_members", cardMembers)
+                query.addQueryItem("card_member_fields", cardMemberFields)
+                query.addQueryItem("card_attachments", cardAttachments)
+                query.addQueryItem("card_attachment_fields", cardAttachmentFields)
+                query.addQueryItem("card_stickers", cardStickers)
+                query.addQueryItem("boards", boards)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("board_actions", boardActions)
+                query.addQueryItem("board_actions_entities", boardActionsEntities)
+                query.addQueryItem("board_actions_display", boardActionsDisplay)
+                query.addQueryItem("board_actions_format", boardActionsFormat)
+                query.addQueryItem("board_actions_since", boardActionsSince)
+                query.addQueryItem("board_actions_limit", boardActionsLimit)
+                query.addQueryItem("board_action_fields", boardActionFields)
+                query.addQueryItem("board_lists", boardLists)
+                query.addQueryItem("board_memberships", boardMemberships)
+                query.addQueryItem("board_organization", boardOrganization)
+                query.addQueryItem("board_organization_fields", boardOrganizationFields)
+                query.addQueryItem("boardsInvited", boardsInvited)
+                query.addQueryItem("boardsInvited_fields", boardsInvitedFields)
+                query.addQueryItem("boardStars", boardStars)
+                query.addQueryItem("savedSearches", savedSearches)
+                query.addQueryItem("organizations", organizations)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("organization_paid_account", organizationPaidAccount)
+                query.addQueryItem("organizationsInvited", organizationsInvited)
+                query.addQueryItem("organizationsInvited_fields", organizationsInvitedFields)
+                query.addQueryItem("notifications", notifications)
+                query.addQueryItem("notifications_entities", notificationsEntities)
+                query.addQueryItem("notifications_display", notificationsDisplay)
+                query.addQueryItem("notifications_limit", notificationsLimit)
+                query.addQueryItem("notification_fields", notificationFields)
+                query.addQueryItem("notification_memberCreator", notificationMemberCreator)
+                query.addQueryItem("notification_memberCreator_fields", notificationMemberCreatorFields)
+                query.addQueryItem("notification_before", notificationBefore)
+                query.addQueryItem("notification_since", notificationSince)
+                query.addQueryItem("tokens", tokens)
+                query.addQueryItem("paid_account", paidAccount)
+                query.addQueryItem("boardBackgrounds", boardBackgrounds)
+                query.addQueryItem("customBoardBackgrounds", customBoardBackgrounds)
+                query.addQueryItem("customStickers", customStickers)
+                query.addQueryItem("customEmoji", customEmoji)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5347,8 +5347,8 @@ extension Paths.Members {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5407,22 +5407,22 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("format", format?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("idModels", idModels?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("format", format)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("page", page)
+                query.addQueryItem("idModels", idModels)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5445,8 +5445,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5468,8 +5468,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5491,8 +5491,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5525,9 +5525,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5539,8 +5539,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5573,9 +5573,9 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5587,8 +5587,8 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -5599,8 +5599,8 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5622,8 +5622,8 @@ extension Paths.Members.WithIDMember {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -5634,8 +5634,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5657,8 +5657,8 @@ extension Paths.Members.WithIDMember.BoardStars {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -5669,8 +5669,8 @@ extension Paths.Members.WithIDMember.BoardStars {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -5681,8 +5681,8 @@ extension Paths.Members.WithIDMember.BoardStars {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5704,8 +5704,8 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5727,8 +5727,8 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5783,20 +5783,20 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("actions_format", actionsFormat?.asQueryValue)
-                query.addQueryItem("actions_since", actionsSince?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("memberships", memberships?.asQueryValue)
-                query.addQueryItem("organization", organization?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("lists", lists?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("actions_format", actionsFormat)
+                query.addQueryItem("actions_since", actionsSince)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("memberships", memberships)
+                query.addQueryItem("organization", organization)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("lists", lists)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5819,8 +5819,8 @@ extension Paths.Members.WithIDMember.Boards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5853,9 +5853,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5878,8 +5878,8 @@ extension Paths.Members.WithIDMember.BoardsInvited {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -5936,21 +5936,21 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("stickers", stickers?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("stickers", stickers)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -5973,8 +5973,8 @@ extension Paths.Members.WithIDMember.Cards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6007,9 +6007,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6021,8 +6021,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6055,9 +6055,9 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6069,8 +6069,8 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -6081,8 +6081,8 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6117,9 +6117,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6131,8 +6131,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6165,9 +6165,9 @@ extension Paths.Members.WithIDMember.CustomEmoji {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6203,9 +6203,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6217,8 +6217,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6251,9 +6251,9 @@ extension Paths.Members.WithIDMember.CustomStickers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6265,8 +6265,8 @@ extension Paths.Members.WithIDMember.CustomStickers {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6301,10 +6301,10 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags.asQueryValue)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("tags", tags)
+                query.addQueryItem("ixLastUpdate", ixLastUpdate)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6327,8 +6327,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6350,8 +6350,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6406,19 +6406,19 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("read_filter", readFilter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("read_filter", readFilter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("page", page)
+                query.addQueryItem("before", before)
+                query.addQueryItem("since", since)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6441,8 +6441,8 @@ extension Paths.Members.WithIDMember.Notifications {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6464,8 +6464,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6502,11 +6502,11 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("paid_account", paidAccount?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("paid_account", paidAccount)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6529,8 +6529,8 @@ extension Paths.Members.WithIDMember.Organizations {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6563,9 +6563,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6588,8 +6588,8 @@ extension Paths.Members.WithIDMember.OrganizationsInvited {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6622,8 +6622,8 @@ extension Paths.Members.WithIDMember.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6645,8 +6645,8 @@ extension Paths.Members.WithIDMember.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6668,8 +6668,8 @@ extension Paths.Members.WithIDMember.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6691,8 +6691,8 @@ extension Paths.Members.WithIDMember {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -6703,8 +6703,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6726,8 +6726,8 @@ extension Paths.Members.WithIDMember.SavedSearches {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -6738,8 +6738,8 @@ extension Paths.Members.WithIDMember.SavedSearches {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -6750,8 +6750,8 @@ extension Paths.Members.WithIDMember.SavedSearches {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6773,8 +6773,8 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6796,8 +6796,8 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6819,8 +6819,8 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6853,9 +6853,9 @@ extension Paths.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -6878,8 +6878,8 @@ extension Paths.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6901,8 +6901,8 @@ extension Paths.Members.WithIDMember {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -6946,8 +6946,8 @@ extension Paths.Notifications.All {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7006,22 +7006,22 @@ extension Paths.Notifications {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("board", board?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("list", list?.asQueryValue)
-                query.addQueryItem("card", card?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("organization", organization?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("display", display)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("board", board)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("list", list)
+                query.addQueryItem("card", card)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("organization", organization)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7033,8 +7033,8 @@ extension Paths.Notifications {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7067,9 +7067,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7092,8 +7092,8 @@ extension Paths.Notifications.WithIDNotification.Board {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7126,9 +7126,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7151,8 +7151,8 @@ extension Paths.Notifications.WithIDNotification.Card {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7174,8 +7174,8 @@ extension Paths.Notifications.WithIDNotification {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7197,8 +7197,8 @@ extension Paths.Notifications.WithIDNotification {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7231,9 +7231,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7256,8 +7256,8 @@ extension Paths.Notifications.WithIDNotification.List {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7290,9 +7290,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7315,8 +7315,8 @@ extension Paths.Notifications.WithIDNotification.Member {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7349,9 +7349,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7374,8 +7374,8 @@ extension Paths.Notifications.WithIDNotification.MemberCreator {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7408,9 +7408,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7433,8 +7433,8 @@ extension Paths.Notifications.WithIDNotification.Organization {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7456,8 +7456,8 @@ extension Paths.Notifications.WithIDNotification {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7479,8 +7479,8 @@ extension Paths.Notifications.WithIDNotification {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7502,8 +7502,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7584,33 +7584,33 @@ extension Paths.Organizations {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_display", actionsDisplay?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("memberships", memberships?.asQueryValue)
-                query.addQueryItem("memberships_member", membershipsMember?.asQueryValue)
-                query.addQueryItem("memberships_member_fields", membershipsMemberFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("member_activity", memberActivity?.asQueryValue)
-                query.addQueryItem("membersInvited", membersInvited?.asQueryValue)
-                query.addQueryItem("membersInvited_fields", membersInvitedFields?.asQueryValue)
-                query.addQueryItem("boards", boards?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("board_actions", boardActions?.asQueryValue)
-                query.addQueryItem("board_actions_entities", boardActionsEntities?.asQueryValue)
-                query.addQueryItem("board_actions_display", boardActionsDisplay?.asQueryValue)
-                query.addQueryItem("board_actions_format", boardActionsFormat?.asQueryValue)
-                query.addQueryItem("board_actions_since", boardActionsSince?.asQueryValue)
-                query.addQueryItem("board_actions_limit", boardActionsLimit?.asQueryValue)
-                query.addQueryItem("board_action_fields", boardActionFields?.asQueryValue)
-                query.addQueryItem("board_lists", boardLists?.asQueryValue)
-                query.addQueryItem("paid_account", paidAccount?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_display", actionsDisplay)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("memberships", memberships)
+                query.addQueryItem("memberships_member", membershipsMember)
+                query.addQueryItem("memberships_member_fields", membershipsMemberFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("member_activity", memberActivity)
+                query.addQueryItem("membersInvited", membersInvited)
+                query.addQueryItem("membersInvited_fields", membersInvitedFields)
+                query.addQueryItem("boards", boards)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("board_actions", boardActions)
+                query.addQueryItem("board_actions_entities", boardActionsEntities)
+                query.addQueryItem("board_actions_display", boardActionsDisplay)
+                query.addQueryItem("board_actions_format", boardActionsFormat)
+                query.addQueryItem("board_actions_since", boardActionsSince)
+                query.addQueryItem("board_actions_limit", boardActionsLimit)
+                query.addQueryItem("board_action_fields", boardActionFields)
+                query.addQueryItem("board_lists", boardLists)
+                query.addQueryItem("paid_account", paidAccount)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7622,8 +7622,8 @@ extension Paths.Organizations {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -7634,8 +7634,8 @@ extension Paths.Organizations {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7694,22 +7694,22 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities?.asQueryValue)
-                query.addQueryItem("display", display?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("format", format?.asQueryValue)
-                query.addQueryItem("since", since?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("idModels", idModels?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("memberCreator", memberCreator?.asQueryValue)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("entities", entities)
+                query.addQueryItem("display", display)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("format", format)
+                query.addQueryItem("since", since)
+                query.addQueryItem("before", before)
+                query.addQueryItem("page", page)
+                query.addQueryItem("idModels", idModels)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("memberCreator", memberCreator)
+                query.addQueryItem("memberCreator_fields", memberCreatorFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7765,20 +7765,20 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("actions_entities", actionsEntities?.asQueryValue)
-                query.addQueryItem("actions_limit", actionsLimit?.asQueryValue)
-                query.addQueryItem("actions_format", actionsFormat?.asQueryValue)
-                query.addQueryItem("actions_since", actionsSince?.asQueryValue)
-                query.addQueryItem("action_fields", actionFields?.asQueryValue)
-                query.addQueryItem("memberships", memberships?.asQueryValue)
-                query.addQueryItem("organization", organization?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("lists", lists?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("actions_entities", actionsEntities)
+                query.addQueryItem("actions_limit", actionsLimit)
+                query.addQueryItem("actions_format", actionsFormat)
+                query.addQueryItem("actions_since", actionsSince)
+                query.addQueryItem("action_fields", actionFields)
+                query.addQueryItem("memberships", memberships)
+                query.addQueryItem("organization", organization)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("lists", lists)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7801,8 +7801,8 @@ extension Paths.Organizations.WithIDOrg.Boards {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7837,10 +7837,10 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags.asQueryValue)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("tags", tags)
+                query.addQueryItem("ixLastUpdate", ixLastUpdate)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7863,8 +7863,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7886,8 +7886,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7909,8 +7909,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -7921,8 +7921,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7959,11 +7959,11 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("activity", activity?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("activity", activity)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -7975,8 +7975,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -7998,8 +7998,8 @@ extension Paths.Organizations.WithIDOrg.Members {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8021,8 +8021,8 @@ extension Paths.Organizations.WithIDOrg.Members {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -8033,8 +8033,8 @@ extension Paths.Organizations.WithIDOrg.Members {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8056,8 +8056,8 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8114,21 +8114,21 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions?.asQueryValue)
-                query.addQueryItem("attachments", attachments?.asQueryValue)
-                query.addQueryItem("attachment_fields", attachmentFields?.asQueryValue)
-                query.addQueryItem("members", members?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("checkItemStates", checkItemStates?.asQueryValue)
-                query.addQueryItem("checklists", checklists?.asQueryValue)
-                query.addQueryItem("board", board?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("list", list?.asQueryValue)
-                query.addQueryItem("list_fields", listFields?.asQueryValue)
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("actions", actions)
+                query.addQueryItem("attachments", attachments)
+                query.addQueryItem("attachment_fields", attachmentFields)
+                query.addQueryItem("members", members)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("checkItemStates", checkItemStates)
+                query.addQueryItem("checklists", checklists)
+                query.addQueryItem("board", board)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("list", list)
+                query.addQueryItem("list_fields", listFields)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8151,8 +8151,8 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8185,9 +8185,9 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8210,8 +8210,8 @@ extension Paths.Organizations.WithIDOrg.MembersInvited {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8248,11 +8248,11 @@ extension Paths.Organizations.WithIDOrg {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter?.asQueryValue)
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("filter", filter)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8288,10 +8288,10 @@ extension Paths.Organizations.WithIDOrg.Memberships {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("member", member?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("member", member)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8303,8 +8303,8 @@ extension Paths.Organizations.WithIDOrg.Memberships {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8326,8 +8326,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8360,8 +8360,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -8372,8 +8372,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8406,8 +8406,8 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8429,8 +8429,8 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8452,8 +8452,8 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8475,8 +8475,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8498,8 +8498,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8521,8 +8521,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -8544,9 +8544,9 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("value", value.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("value", value)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8569,8 +8569,8 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8592,8 +8592,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8615,8 +8615,8 @@ extension Paths.Organizations.WithIDOrg {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8687,28 +8687,28 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("idBoards", idBoards?.asQueryValue)
-                query.addQueryItem("idOrganizations", idOrganizations.asQueryValue)
-                query.addQueryItem("idCards", idCards?.asQueryValue)
-                query.addQueryItem("modelTypes", modelTypes?.asQueryValue)
-                query.addQueryItem("board_fields", boardFields?.asQueryValue)
-                query.addQueryItem("boards_limit", boardsLimit?.asQueryValue)
-                query.addQueryItem("card_fields", cardFields?.asQueryValue)
-                query.addQueryItem("cards_limit", cardsLimit?.asQueryValue)
-                query.addQueryItem("cards_page", cardsPage?.asQueryValue)
-                query.addQueryItem("card_board", cardBoard?.asQueryValue)
-                query.addQueryItem("card_list", cardList?.asQueryValue)
-                query.addQueryItem("card_members", cardMembers?.asQueryValue)
-                query.addQueryItem("card_stickers", cardStickers?.asQueryValue)
-                query.addQueryItem("card_attachments", cardAttachments?.asQueryValue)
-                query.addQueryItem("organization_fields", organizationFields?.asQueryValue)
-                query.addQueryItem("organizations_limit", organizationsLimit?.asQueryValue)
-                query.addQueryItem("member_fields", memberFields?.asQueryValue)
-                query.addQueryItem("members_limit", membersLimit?.asQueryValue)
-                query.addQueryItem("partial", partial?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("idBoards", idBoards)
+                query.addQueryItem("idOrganizations", idOrganizations)
+                query.addQueryItem("idCards", idCards)
+                query.addQueryItem("modelTypes", modelTypes)
+                query.addQueryItem("board_fields", boardFields)
+                query.addQueryItem("boards_limit", boardsLimit)
+                query.addQueryItem("card_fields", cardFields)
+                query.addQueryItem("cards_limit", cardsLimit)
+                query.addQueryItem("cards_page", cardsPage)
+                query.addQueryItem("card_board", cardBoard)
+                query.addQueryItem("card_list", cardList)
+                query.addQueryItem("card_members", cardMembers)
+                query.addQueryItem("card_stickers", cardStickers)
+                query.addQueryItem("card_attachments", cardAttachments)
+                query.addQueryItem("organization_fields", organizationFields)
+                query.addQueryItem("organizations_limit", organizationsLimit)
+                query.addQueryItem("member_fields", memberFields)
+                query.addQueryItem("members_limit", membersLimit)
+                query.addQueryItem("partial", partial)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8750,13 +8750,13 @@ extension Paths.Search {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("idBoard", idBoard?.asQueryValue)
-                query.addQueryItem("idOrganization", idOrganization?.asQueryValue)
-                query.addQueryItem("onlyOrgMembers", onlyOrgMembers?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("idBoard", idBoard)
+                query.addQueryItem("idOrganization", idOrganization)
+                query.addQueryItem("onlyOrgMembers", onlyOrgMembers)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8779,8 +8779,8 @@ extension Paths {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8804,8 +8804,8 @@ extension Paths.Sessions {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8827,8 +8827,8 @@ extension Paths.Sessions {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8850,8 +8850,8 @@ extension Paths.Sessions.WithIDSession {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8897,10 +8897,10 @@ extension Paths.Tokens {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("webhooks", webhooks?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("webhooks", webhooks)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8912,8 +8912,8 @@ extension Paths.Tokens {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8946,9 +8946,9 @@ extension Paths.Tokens.WithToken {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("key", key.asQueryValue)
-                query.addQueryItem("token", token.asQueryValue)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("key", key)
+                query.addQueryItem("token", token)
                 return query
             }
         }
@@ -8971,8 +8971,8 @@ extension Paths.Tokens.WithToken.Member {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -8994,8 +8994,8 @@ extension Paths.Tokens.WithToken {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -9006,8 +9006,8 @@ extension Paths.Tokens.WithToken {
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -9018,8 +9018,8 @@ extension Paths.Tokens.WithToken {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9041,8 +9041,8 @@ extension Paths.Tokens.WithToken.Webhooks {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -9053,8 +9053,8 @@ extension Paths.Tokens.WithToken.Webhooks {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9076,8 +9076,8 @@ extension Paths.Tokens.WithToken {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9110,8 +9110,8 @@ extension Paths.Types {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9133,8 +9133,8 @@ extension Paths {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9156,8 +9156,8 @@ extension Paths.Webhooks {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -9168,8 +9168,8 @@ extension Paths.Webhooks {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
 
@@ -9180,8 +9180,8 @@ extension Paths.Webhooks {
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9203,8 +9203,8 @@ extension Paths.Webhooks.WithIDWebhook {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9226,8 +9226,8 @@ extension Paths.Webhooks.WithIDWebhook {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9249,8 +9249,8 @@ extension Paths.Webhooks.WithIDWebhook {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9272,8 +9272,8 @@ extension Paths.Webhooks.WithIDWebhook {
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9295,8 +9295,8 @@ extension Paths.Webhooks.WithIDWebhook {
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("key", key.asQueryValue)
-            query.addQueryItem("token", token.asQueryValue)
+            query.addQueryItem("key", key)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -9304,49 +9304,53 @@ extension Paths.Webhooks.WithIDWebhook {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -9359,14 +9363,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

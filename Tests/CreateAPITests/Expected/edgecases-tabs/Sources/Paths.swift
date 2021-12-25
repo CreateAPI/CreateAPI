@@ -77,9 +77,7 @@ extension Paths.Pet {
 
 		private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
 			var query: [(String, String?)] = []
-			for value in status ?? [] {
-				query.addQueryItem("status", value.asQueryValue)
-			}
+			status?.forEach { query.addQueryItem("status", $0) }
 			return query
 		}
 
@@ -149,8 +147,8 @@ extension Paths.Pet {
 
 			public func asQuery() -> String {
 				var query: [(String, String?)] = []
-				query.addQueryItem("name", name?.asQueryValue)
-				query.addQueryItem("status", status?.asQueryValue)
+				query.addQueryItem("name", name)
+				query.addQueryItem("status", status)
 				return query.asPercentEncodedQuery
 			}
 		}
@@ -322,8 +320,8 @@ extension Paths.User {
 
 		private func makeGetQuery(_ username: String, _ password: String) -> [(String, String?)] {
 			var query: [(String, String?)] = []
-			query.addQueryItem("username", username.asQueryValue)
-			query.addQueryItem("password", password.asQueryValue)
+			query.addQueryItem("username", username)
+			query.addQueryItem("password", password)
 			return query
 		}
 	}
@@ -413,11 +411,9 @@ extension Paths {
 
 			public func asQuery() -> [(String, String?)] {
 				var query: [(String, String?)] = []
-				for value in enumQueryStringArray ?? [] {
-					query.addQueryItem("enum_query_string_array", value.asQueryValue)
-				}
-				query.addQueryItem("enum_query_string", enumQueryString?.asQueryValue)
-				query.addQueryItem("enum_query_integer", enumQueryInteger?.asQueryValue)
+				enumQueryStringArray?.forEach { query.addQueryItem("enum_query_string_array", $0) }
+				query.addQueryItem("enum_query_string", enumQueryString)
+				query.addQueryItem("enum_query_integer", enumQueryInteger)
 				return query
 			}
 		}
@@ -476,20 +472,20 @@ extension Paths {
 
 			public func asQuery() -> String {
 				var query: [(String, String?)] = []
-				query.addQueryItem("integer", integer?.asQueryValue)
-				query.addQueryItem("int32", int32?.asQueryValue)
-				query.addQueryItem("int64", int64?.asQueryValue)
-				query.addQueryItem("number", number.asQueryValue)
-				query.addQueryItem("float", float?.asQueryValue)
-				query.addQueryItem("double", double.asQueryValue)
-				query.addQueryItem("string", string?.asQueryValue)
-				query.addQueryItem("pattern_without_delimiter", patternWithoutDelimiter.asQueryValue)
-				query.addQueryItem("byte", byte.asQueryValue)
-				query.addQueryItem("binary", binary?.asQueryValue)
-				query.addQueryItem("date", date?.asQueryValue)
-				query.addQueryItem("dateTime", dateTime?.asQueryValue)
-				query.addQueryItem("password", password?.asQueryValue)
-				query.addQueryItem("callback", callback?.asQueryValue)
+				query.addQueryItem("integer", integer)
+				query.addQueryItem("int32", int32)
+				query.addQueryItem("int64", int64)
+				query.addQueryItem("number", number)
+				query.addQueryItem("float", float)
+				query.addQueryItem("double", double)
+				query.addQueryItem("string", string)
+				query.addQueryItem("pattern_without_delimiter", patternWithoutDelimiter)
+				query.addQueryItem("byte", byte)
+				query.addQueryItem("binary", binary)
+				query.addQueryItem("date", date)
+				query.addQueryItem("dateTime", dateTime)
+				query.addQueryItem("password", password)
+				query.addQueryItem("callback", callback)
 				return query.asPercentEncodedQuery
 			}
 		}
@@ -503,55 +499,59 @@ extension Paths {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+	var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
 	var asQueryValue: String {
 		self ? "true" : "false"
 	}
 }
 
-extension Date {
+extension Date: QueryEncodable {
 	var asQueryValue: String {
 		ISO8601DateFormatter().string(from: self)
 	}
 }
 
-extension Double {
+extension Double: QueryEncodable {
 	var asQueryValue: String {
 		String(self)
 	}
 }
 
-extension Int {
+extension Int: QueryEncodable {
 	var asQueryValue: String {
 		String(self)
 	}
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
 	var asQueryValue: String {
 		String(self)
 	}
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
 	var asQueryValue: String {
 		String(self)
 	}
 }
 
-extension NaiveDate {
+extension NaiveDate: QueryEncodable {
 	var asQueryValue: String {
 		String(self)
 	}
 }
 
-extension String {
+extension String: QueryEncodable {
 	var asQueryValue: String {
 		self
 	}
 }
 
-extension URL {
+extension URL: QueryEncodable {
 	var asQueryValue: String {
 		absoluteString
 	}
@@ -564,14 +564,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-	mutating func addQueryItem(_ name: String, _ value: String?) {
-		guard let value = value, !value.isEmpty else { return }
+	mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+		addQueryItem(name, value?.rawValue)
+	}
+	
+	mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+		guard let value = value?.asQueryValue, !value.isEmpty else { return }
 		append((name, value))
+	}
+	
+	mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+		for (key, value) in query {
+			addQueryItem("\(name)[\(key)]", value)
+		}
 	}
 
 	var asPercentEncodedQuery: String {
 		var components = URLComponents()
 		components.queryItems = self.map(URLQueryItem.init)
 		return components.percentEncodedQuery ?? ""
+	}
+	
+	// [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+	var asCompactQuery: String {
+		flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
 	}
 }

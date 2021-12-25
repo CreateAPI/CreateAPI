@@ -28,7 +28,7 @@ extension Paths {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
+            query.addQueryItem("limit", limit)
             return query
         }
 

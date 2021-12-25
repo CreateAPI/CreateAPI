@@ -72,16 +72,16 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("keyword", keyword?.asQueryValue)
-                query.addQueryItem("id", id?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("includeTest", includeTest?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck?.asQueryValue)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("keyword", keyword)
+                query.addQueryItem("id", id)
+                query.addQueryItem("source", source)
+                query.addQueryItem("includeTest", includeTest)
+                query.addQueryItem("page", page)
+                query.addQueryItem("size", size)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("includeLicensedContent", includeLicensedContent)
+                query.addQueryItem("includeSpellcheck", includeSpellcheck)
                 return query
             }
         }
@@ -106,8 +106,8 @@ extension Paths.Attractions {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -184,16 +184,16 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("keyword", keyword?.asQueryValue)
-                query.addQueryItem("id", id?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("includeTest", includeTest?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck?.asQueryValue)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("keyword", keyword)
+                query.addQueryItem("id", id)
+                query.addQueryItem("source", source)
+                query.addQueryItem("includeTest", includeTest)
+                query.addQueryItem("page", page)
+                query.addQueryItem("size", size)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("includeLicensedContent", includeLicensedContent)
+                query.addQueryItem("includeSpellcheck", includeSpellcheck)
                 return query
             }
         }
@@ -229,8 +229,8 @@ extension Paths.Classifications.Genres {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -270,8 +270,8 @@ extension Paths.Classifications.Segments {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -311,8 +311,8 @@ extension Paths.Classifications.Subgenres {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -341,8 +341,8 @@ extension Paths.Classifications {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -484,40 +484,40 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("startDateTime", startDateTime?.asQueryValue)
-                query.addQueryItem("endDateTime", endDateTime?.asQueryValue)
-                query.addQueryItem("onsaleStartDateTime", onsaleStartDateTime?.asQueryValue)
-                query.addQueryItem("onsaleOnStartDate", onsaleOnStartDate?.asQueryValue)
-                query.addQueryItem("onsaleOnAfterStartDate", onsaleOnAfterStartDate?.asQueryValue)
-                query.addQueryItem("onsaleEndDateTime", onsaleEndDateTime?.asQueryValue)
-                query.addQueryItem("city", city?.asQueryValue)
-                query.addQueryItem("countryCode", countryCode?.asQueryValue)
-                query.addQueryItem("stateCode", stateCode?.asQueryValue)
-                query.addQueryItem("postalCode", postalCode?.asQueryValue)
-                query.addQueryItem("venueId", venueID?.asQueryValue)
-                query.addQueryItem("attractionId", attractionID?.asQueryValue)
-                query.addQueryItem("segmentId", segmentID?.asQueryValue)
-                query.addQueryItem("segmentName", segmentName?.asQueryValue)
-                query.addQueryItem("marketId", marketID?.asQueryValue)
-                query.addQueryItem("promoterId", promoterID?.asQueryValue)
-                query.addQueryItem("dmaId", dmaID?.asQueryValue)
-                query.addQueryItem("includeTBA", includeTBA?.asQueryValue)
-                query.addQueryItem("includeTBD", includeTBD?.asQueryValue)
-                query.addQueryItem("clientVisibility", clientVisibility?.asQueryValue)
-                query.addQueryItem("latlong", latlong?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("unit", unit?.asQueryValue)
-                query.addQueryItem("geoPoint", geoPoint?.asQueryValue)
-                query.addQueryItem("keyword", keyword?.asQueryValue)
-                query.addQueryItem("id", id?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("includeTest", includeTest?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck?.asQueryValue)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("startDateTime", startDateTime)
+                query.addQueryItem("endDateTime", endDateTime)
+                query.addQueryItem("onsaleStartDateTime", onsaleStartDateTime)
+                query.addQueryItem("onsaleOnStartDate", onsaleOnStartDate)
+                query.addQueryItem("onsaleOnAfterStartDate", onsaleOnAfterStartDate)
+                query.addQueryItem("onsaleEndDateTime", onsaleEndDateTime)
+                query.addQueryItem("city", city)
+                query.addQueryItem("countryCode", countryCode)
+                query.addQueryItem("stateCode", stateCode)
+                query.addQueryItem("postalCode", postalCode)
+                query.addQueryItem("venueId", venueID)
+                query.addQueryItem("attractionId", attractionID)
+                query.addQueryItem("segmentId", segmentID)
+                query.addQueryItem("segmentName", segmentName)
+                query.addQueryItem("marketId", marketID)
+                query.addQueryItem("promoterId", promoterID)
+                query.addQueryItem("dmaId", dmaID)
+                query.addQueryItem("includeTBA", includeTBA)
+                query.addQueryItem("includeTBD", includeTBD)
+                query.addQueryItem("clientVisibility", clientVisibility)
+                query.addQueryItem("latlong", latlong)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("unit", unit)
+                query.addQueryItem("geoPoint", geoPoint)
+                query.addQueryItem("keyword", keyword)
+                query.addQueryItem("id", id)
+                query.addQueryItem("source", source)
+                query.addQueryItem("includeTest", includeTest)
+                query.addQueryItem("page", page)
+                query.addQueryItem("size", size)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("includeLicensedContent", includeLicensedContent)
+                query.addQueryItem("includeSpellcheck", includeSpellcheck)
                 return query
             }
         }
@@ -542,8 +542,8 @@ extension Paths.Events {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -572,8 +572,8 @@ extension Paths.Events.WithID {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -678,22 +678,22 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("keyword", keyword?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("latlong", latlong?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("unit", unit?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
-                query.addQueryItem("includeFuzzy", includeFuzzy?.asQueryValue)
-                query.addQueryItem("clientVisibility", clientVisibility?.asQueryValue)
-                query.addQueryItem("countryCode", countryCode?.asQueryValue)
-                query.addQueryItem("includeTBA", includeTBA?.asQueryValue)
-                query.addQueryItem("includeTBD", includeTBD?.asQueryValue)
-                query.addQueryItem("segmentId", segmentID?.asQueryValue)
-                query.addQueryItem("geoPoint", geoPoint?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck?.asQueryValue)
+                query.addQueryItem("keyword", keyword)
+                query.addQueryItem("source", source)
+                query.addQueryItem("latlong", latlong)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("unit", unit)
+                query.addQueryItem("size", size)
+                query.addQueryItem("includeFuzzy", includeFuzzy)
+                query.addQueryItem("clientVisibility", clientVisibility)
+                query.addQueryItem("countryCode", countryCode)
+                query.addQueryItem("includeTBA", includeTBA)
+                query.addQueryItem("includeTBD", includeTBD)
+                query.addQueryItem("segmentId", segmentID)
+                query.addQueryItem("geoPoint", geoPoint)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("includeLicensedContent", includeLicensedContent)
+                query.addQueryItem("includeSpellcheck", includeSpellcheck)
                 return query
             }
         }
@@ -783,22 +783,22 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("stateCode", stateCode?.asQueryValue)
-                query.addQueryItem("countryCode", countryCode?.asQueryValue)
-                query.addQueryItem("latlong", latlong?.asQueryValue)
-                query.addQueryItem("radius", radius?.asQueryValue)
-                query.addQueryItem("unit", unit?.asQueryValue)
-                query.addQueryItem("geoPoint", geoPoint?.asQueryValue)
-                query.addQueryItem("keyword", keyword?.asQueryValue)
-                query.addQueryItem("id", id?.asQueryValue)
-                query.addQueryItem("source", source?.asQueryValue)
-                query.addQueryItem("includeTest", includeTest?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("size", size?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck?.asQueryValue)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("stateCode", stateCode)
+                query.addQueryItem("countryCode", countryCode)
+                query.addQueryItem("latlong", latlong)
+                query.addQueryItem("radius", radius)
+                query.addQueryItem("unit", unit)
+                query.addQueryItem("geoPoint", geoPoint)
+                query.addQueryItem("keyword", keyword)
+                query.addQueryItem("id", id)
+                query.addQueryItem("source", source)
+                query.addQueryItem("includeTest", includeTest)
+                query.addQueryItem("page", page)
+                query.addQueryItem("size", size)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("includeLicensedContent", includeLicensedContent)
+                query.addQueryItem("includeSpellcheck", includeSpellcheck)
                 return query
             }
         }
@@ -823,8 +823,8 @@ extension Paths.Venues {
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale?.asQueryValue)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent?.asQueryValue)
+            query.addQueryItem("locale", locale)
+            query.addQueryItem("includeLicensedContent", includeLicensedContent)
             return query
         }
 
@@ -837,49 +837,53 @@ extension Paths.Venues {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -892,14 +896,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

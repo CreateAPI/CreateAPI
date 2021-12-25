@@ -24,8 +24,8 @@ extension Paths {
 
         private func makeGetQuery(_ foo: String?, _ error: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("foo", foo?.asQueryValue)
-            query.addQueryItem("error", error?.asQueryValue)
+            query.addQueryItem("foo", foo)
+            query.addQueryItem("error", error)
             return query
         }
     }
@@ -49,7 +49,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -84,9 +84,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("scopes", scopes?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("trigger_id", triggerID?.asQueryValue)
+                query.addQueryItem("scopes", scopes)
+                query.addQueryItem("token", token)
+                query.addQueryItem("trigger_id", triggerID)
                 return query
             }
         }
@@ -122,9 +122,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -149,7 +149,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -173,8 +173,8 @@ extension Paths {
 
         private func makeGetQuery(_ isTest: Bool?, _ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("test", isTest?.asQueryValue)
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("test", isTest)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -216,8 +216,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ bot: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("bot", bot?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("bot", bot)
             return query
         }
     }
@@ -313,13 +313,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("unreads", isUnreads?.asQueryValue)
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("unreads", isUnreads)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("token", token)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -355,9 +355,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("include_locale", isIncludeLocale?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("include_locale", isIncludeLocale)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -510,11 +510,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("exclude_members", excludeMembers?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("exclude_archived", excludeArchived?.asQueryValue)
+                query.addQueryItem("exclude_members", excludeMembers)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("exclude_archived", excludeArchived)
                 return query
             }
         }
@@ -619,9 +619,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("thread_ts", threadTs)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -774,9 +774,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("message_ts", messageTs?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("message_ts", messageTs)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -1165,13 +1165,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -1207,9 +1207,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("include_locale", isIncludeLocale?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("include_locale", isIncludeLocale)
                 return query
             }
         }
@@ -1345,11 +1345,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("exclude_archived", excludeArchived?.asQueryValue)
-                query.addQueryItem("types", types?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("exclude_archived", excludeArchived)
+                query.addQueryItem("types", types)
                 return query
             }
         }
@@ -1387,10 +1387,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -1505,14 +1505,14 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("ts", ts?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("ts", ts)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -1615,8 +1615,8 @@ extension Paths {
 
         private func makeGetQuery(_ dialog: String?, _ triggerID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("dialog", dialog?.asQueryValue)
-            query.addQueryItem("trigger_id", triggerID?.asQueryValue)
+            query.addQueryItem("dialog", dialog)
+            query.addQueryItem("trigger_id", triggerID)
             return query
         }
     }
@@ -1676,8 +1676,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("user", user?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("user", user)
             return query
         }
     }
@@ -1712,8 +1712,8 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("num_minutes", numMinutes?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
+                query.addQueryItem("num_minutes", numMinutes)
+                query.addQueryItem("token", token)
                 return query.asPercentEncodedQuery
             }
         }
@@ -1738,8 +1738,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ users: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("users", users?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("users", users)
             return query
         }
     }
@@ -1763,7 +1763,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -1911,10 +1911,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("file", file?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("file", file)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -1960,14 +1960,14 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("ts_to", tsTo?.asQueryValue)
-                query.addQueryItem("ts_from", tsFrom?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("types", types?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("ts_to", tsTo)
+                query.addQueryItem("ts_from", tsFrom)
+                query.addQueryItem("token", token)
+                query.addQueryItem("user", user)
+                query.addQueryItem("page", page)
+                query.addQueryItem("types", types)
                 return query
             }
         }
@@ -2057,14 +2057,14 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("channels", channels?.asQueryValue)
-                query.addQueryItem("title", title?.asQueryValue)
-                query.addQueryItem("initial_comment", initialComment?.asQueryValue)
-                query.addQueryItem("filetype", filetype?.asQueryValue)
-                query.addQueryItem("filename", filename?.asQueryValue)
-                query.addQueryItem("content", content?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("file", file?.asQueryValue)
+                query.addQueryItem("channels", channels)
+                query.addQueryItem("title", title)
+                query.addQueryItem("initial_comment", initialComment)
+                query.addQueryItem("filetype", filetype)
+                query.addQueryItem("filename", filename)
+                query.addQueryItem("content", content)
+                query.addQueryItem("token", token)
+                query.addQueryItem("file", file)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2153,8 +2153,8 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
                 return query.asPercentEncodedQuery
             }
         }
@@ -2198,13 +2198,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("unreads", isUnreads?.asQueryValue)
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("unreads", isUnreads)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("token", token)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -2240,9 +2240,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("include_locale", isIncludeLocale?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("include_locale", isIncludeLocale)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -2356,9 +2356,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("exclude_members", excludeMembers?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("exclude_archived", excludeArchived?.asQueryValue)
+                query.addQueryItem("exclude_members", excludeMembers)
+                query.addQueryItem("token", token)
+                query.addQueryItem("exclude_archived", excludeArchived)
                 return query
             }
         }
@@ -2481,9 +2481,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("thread_ts", threadTs)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -2623,13 +2623,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("unreads", isUnreads?.asQueryValue)
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("unreads", isUnreads)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("token", token)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -2665,9 +2665,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -2772,9 +2772,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("thread_ts", threadTs)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -2810,9 +2810,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("to_old", isToOld?.asQueryValue)
-                query.addQueryItem("users", users?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("to_old", isToOld)
+                query.addQueryItem("users", users)
                 return query
             }
         }
@@ -2874,13 +2874,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("unreads", isUnreads?.asQueryValue)
-                query.addQueryItem("inclusive", isInclusive?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("oldest", oldest?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
-                query.addQueryItem("latest", latest?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("unreads", isUnreads)
+                query.addQueryItem("inclusive", isInclusive)
+                query.addQueryItem("token", token)
+                query.addQueryItem("oldest", oldest)
+                query.addQueryItem("channel", channel)
+                query.addQueryItem("latest", latest)
                 return query
             }
         }
@@ -2905,7 +2905,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -2988,9 +2988,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("thread_ts", threadTs)
+                query.addQueryItem("token", token)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -3030,11 +3030,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("client_secret", clientSecret?.asQueryValue)
-                query.addQueryItem("code", code?.asQueryValue)
-                query.addQueryItem("single_channel", isSingleChannel?.asQueryValue)
-                query.addQueryItem("client_id", clientID?.asQueryValue)
-                query.addQueryItem("redirect_uri", redirectUri?.asQueryValue)
+                query.addQueryItem("client_secret", clientSecret)
+                query.addQueryItem("code", code)
+                query.addQueryItem("single_channel", isSingleChannel)
+                query.addQueryItem("client_id", clientID)
+                query.addQueryItem("redirect_uri", redirectUri)
                 return query
             }
         }
@@ -3074,11 +3074,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("client_secret", clientSecret?.asQueryValue)
-                query.addQueryItem("code", code?.asQueryValue)
-                query.addQueryItem("single_channel", isSingleChannel?.asQueryValue)
-                query.addQueryItem("client_id", clientID?.asQueryValue)
-                query.addQueryItem("redirect_uri", redirectUri?.asQueryValue)
+                query.addQueryItem("client_secret", clientSecret)
+                query.addQueryItem("code", code)
+                query.addQueryItem("single_channel", isSingleChannel)
+                query.addQueryItem("client_id", clientID)
+                query.addQueryItem("redirect_uri", redirectUri)
                 return query
             }
         }
@@ -3146,8 +3146,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ channel: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("channel", channel?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("channel", channel)
             return query
         }
     }
@@ -3278,12 +3278,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("full", isFull?.asQueryValue)
-                query.addQueryItem("file_comment", fileComment?.asQueryValue)
-                query.addQueryItem("timestamp", timestamp?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("file", file?.asQueryValue)
-                query.addQueryItem("channel", channel?.asQueryValue)
+                query.addQueryItem("full", isFull)
+                query.addQueryItem("file_comment", fileComment)
+                query.addQueryItem("timestamp", timestamp)
+                query.addQueryItem("token", token)
+                query.addQueryItem("file", file)
+                query.addQueryItem("channel", channel)
                 return query
             }
         }
@@ -3323,11 +3323,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("full", isFull?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("full", isFull)
+                query.addQueryItem("user", user)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3468,8 +3468,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ reminder: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("reminder", reminder?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("reminder", reminder)
             return query
         }
     }
@@ -3493,7 +3493,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3528,9 +3528,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("presence_sub", isPresenceSub?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("batch_presence_aware", isBatchPresenceAware?.asQueryValue)
+                query.addQueryItem("presence_sub", isPresenceSub)
+                query.addQueryItem("token", token)
+                query.addQueryItem("batch_presence_aware", isBatchPresenceAware)
                 return query
             }
         }
@@ -3574,13 +3574,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("highlight", isHighlight?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("sort_dir", sortDir)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("highlight", isHighlight)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3624,13 +3624,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("highlight", isHighlight?.asQueryValue)
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("sort_dir", sortDir)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("highlight", isHighlight)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3674,13 +3674,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir?.asQueryValue)
-                query.addQueryItem("query", self.query?.asQueryValue)
-                query.addQueryItem("sort", sort?.asQueryValue)
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("highlight", isHighlight?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("sort_dir", sortDir)
+                query.addQueryItem("query", self.query)
+                query.addQueryItem("sort", sort)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("highlight", isHighlight)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3759,9 +3759,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3842,10 +3842,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("token", token)
+                query.addQueryItem("page", page)
+                query.addQueryItem("before", before)
                 return query
             }
         }
@@ -3870,8 +3870,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("user", user?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("user", user)
             return query
         }
     }
@@ -3895,7 +3895,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -3938,13 +3938,13 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("count", count?.asQueryValue)
-                query.addQueryItem("change_type", changeType?.asQueryValue)
-                query.addQueryItem("app_id", appID?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("service_id", serviceID?.asQueryValue)
-                query.addQueryItem("page", page?.asQueryValue)
+                query.addQueryItem("count", count)
+                query.addQueryItem("change_type", changeType)
+                query.addQueryItem("app_id", appID)
+                query.addQueryItem("token", token)
+                query.addQueryItem("user", user)
+                query.addQueryItem("service_id", serviceID)
+                query.addQueryItem("page", page)
                 return query
             }
         }
@@ -3969,8 +3969,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ visibility: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("visibility", visibility?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("visibility", visibility)
             return query
         }
     }
@@ -4124,10 +4124,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("include_users", isIncludeUsers?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("include_count", isIncludeCount?.asQueryValue)
-                query.addQueryItem("include_disabled", isIncludeDisabled?.asQueryValue)
+                query.addQueryItem("include_users", isIncludeUsers)
+                query.addQueryItem("token", token)
+                query.addQueryItem("include_count", isIncludeCount)
+                query.addQueryItem("include_disabled", isIncludeDisabled)
                 return query
             }
         }
@@ -4214,9 +4214,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("include_disabled", isIncludeDisabled?.asQueryValue)
-                query.addQueryItem("usergroup", usergroup?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("include_disabled", isIncludeDisabled)
+                query.addQueryItem("usergroup", usergroup)
                 return query
             }
         }
@@ -4297,12 +4297,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
-                query.addQueryItem("exclude_archived", excludeArchived?.asQueryValue)
-                query.addQueryItem("types", types?.asQueryValue)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("user", user)
+                query.addQueryItem("exclude_archived", excludeArchived)
+                query.addQueryItem("types", types)
                 return query
             }
         }
@@ -4335,7 +4335,7 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
+                query.addQueryItem("token", token)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4360,8 +4360,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("user", user?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("user", user)
             return query
         }
     }
@@ -4385,7 +4385,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
+            query.addQueryItem("token", token)
             return query
         }
     }
@@ -4420,9 +4420,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("include_locale", isIncludeLocale?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
+                query.addQueryItem("include_locale", isIncludeLocale)
+                query.addQueryItem("token", token)
+                query.addQueryItem("user", user)
                 return query
             }
         }
@@ -4462,11 +4462,11 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("presence", isPresence?.asQueryValue)
-                query.addQueryItem("cursor", cursor?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("include_locale", isIncludeLocale?.asQueryValue)
+                query.addQueryItem("presence", isPresence)
+                query.addQueryItem("cursor", cursor)
+                query.addQueryItem("token", token)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("include_locale", isIncludeLocale)
                 return query
             }
         }
@@ -4491,8 +4491,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ email: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("token", token?.asQueryValue)
-            query.addQueryItem("email", email?.asQueryValue)
+            query.addQueryItem("token", token)
+            query.addQueryItem("email", email)
             return query
         }
     }
@@ -4527,9 +4527,9 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("include_labels", isIncludeLabels?.asQueryValue)
-                query.addQueryItem("user", user?.asQueryValue)
+                query.addQueryItem("token", token)
+                query.addQueryItem("include_labels", isIncludeLabels)
+                query.addQueryItem("user", user)
                 return query
             }
         }
@@ -4628,11 +4628,11 @@ extension Paths {
 
             public func asQuery() -> String {
                 var query: [(String, String?)] = []
-                query.addQueryItem("image", image?.asQueryValue)
-                query.addQueryItem("crop_w", cropW?.asQueryValue)
-                query.addQueryItem("token", token?.asQueryValue)
-                query.addQueryItem("crop_y", cropY?.asQueryValue)
-                query.addQueryItem("crop_x", cropX?.asQueryValue)
+                query.addQueryItem("image", image)
+                query.addQueryItem("crop_w", cropW)
+                query.addQueryItem("token", token)
+                query.addQueryItem("crop_y", cropY)
+                query.addQueryItem("crop_x", cropX)
                 return query.asPercentEncodedQuery
             }
         }
@@ -4659,49 +4659,53 @@ extension Paths {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -4714,14 +4718,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

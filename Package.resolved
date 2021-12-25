@@ -11,12 +11,30 @@
         }
       },
       {
+        "package": "Get",
+        "repositoryURL": "https://github.com/kean/Get",
+        "state": {
+          "branch": "main",
+          "revision": "e84025190a4d47f3c4535e9983ed7c75a5b2387f",
+          "version": null
+        }
+      },
+      {
         "package": "GrammaticalNumber",
         "repositoryURL": "https://github.com/Cosmo/GrammaticalNumber",
         "state": {
           "branch": null,
           "revision": "3827665bd38a0fd5f215220b26c92df876539af0",
           "version": "0.0.3"
+        }
+      },
+      {
+        "package": "HTTPHeaders",
+        "repositoryURL": "https://github.com/kean/HTTPHeaders",
+        "state": {
+          "branch": "main",
+          "revision": "0bdbd7a48041e319c1ca061d0fd2ebdcb30f02c2",
+          "version": null
         }
       },
       {

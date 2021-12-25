@@ -6,21 +6,7 @@ import XCTest
 import OpenAPIKit30
 @testable import CreateAPI
 
-final class GenerateTests: XCTestCase {
-    var temp: TemporaryDirectory!
-    
-    override func setUp() {
-        super.setUp()
-        
-        temp = TemporaryDirectory()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-        
-        temp.remove()
-    }
-    
+final class GenerateTests: GenerateBaseTests {
     func testPestore() throws {
         try testSpec(name: "petstore", package: "petstore-default")
     }
@@ -198,34 +184,5 @@ final class GenerateTests: XCTestCase {
     // TODO: Fix nested types duplication and reenable
     func _testZoom() throws {
         try testSpec(name: "zoom", package: "ZoomAPI")
-    }
-    
-    func testSpec(name: String, package: String, config: String = "") throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: name),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", package,
-            "--config", self.config(config, ext: "yml")
-        ])
-
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: package)
-    }
-}
-
-extension GenerateTests {
-    func compare(package: String, file: StaticString = #file, line: UInt = #line) throws {
-        try CreateAPITests.compare(expected: package, actual: temp.path(for: package), file: file, line: line)
-    }
-    
-    func config(_ contents: String, ext: String = "json") -> String {
-        let url = URL(fileURLWithPath: temp.path(for: "config.\(ext)"))
-        try! contents.data(using: .utf8)!.write(to: url)
-        return url.path
     }
 }

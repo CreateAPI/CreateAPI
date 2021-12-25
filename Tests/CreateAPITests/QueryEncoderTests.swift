@@ -26,7 +26,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query.addQueryItems("id", ids)
+        ids.forEach { query.addQueryItem("id", $0) }
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
@@ -93,7 +93,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query.addQueryItems("id", ids)
+        ids.forEach { query.addQueryItem("id", $0) }
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
@@ -123,7 +123,7 @@ final class QueryEncoderTests: XCTestCase {
         
         // WHEN
         var query: [(String, String?)] = []
-        query.addQueryItems("id", ids)
+        ids.forEach { query.addQueryItem("id", $0) }
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
@@ -193,15 +193,13 @@ extension String: QueryEncodable {
 }
 
 extension Array where Element == (String, String?) {
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
     mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
         guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
-    }
-    
-    mutating func addQueryItems(_ name: String, _ values: [QueryEncodable]) {
-        for value in values {
-            addQueryItem(name, value)
-        }
     }
     
     mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {

@@ -26,7 +26,7 @@ extension Paths.Albums {
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -92,9 +92,9 @@ extension Paths.Albums.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -121,8 +121,8 @@ extension Paths {
 
         private func makeGetQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("ids", ids)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -209,10 +209,10 @@ extension Paths.Artists.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("include_groups", includeGroups?.asQueryValue)
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("include_groups", includeGroups)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -259,7 +259,7 @@ extension Paths.Artists.WithID {
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -285,7 +285,7 @@ extension Paths {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -333,9 +333,9 @@ extension Paths.Browse.Categories.WithCategoryID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -362,8 +362,8 @@ extension Paths.Browse.Categories {
 
         private func makeGetQuery(_ country: String?, _ locale: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("country", country?.asQueryValue)
-            query.addQueryItem("locale", locale?.asQueryValue)
+            query.addQueryItem("country", country)
+            query.addQueryItem("locale", locale)
             return query
         }
     }
@@ -402,10 +402,10 @@ extension Paths.Browse {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -447,11 +447,11 @@ extension Paths.Browse {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("locale", locale?.asQueryValue)
-                query.addQueryItem("timestamp", timestamp?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("locale", locale)
+                query.addQueryItem("timestamp", timestamp)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -489,9 +489,9 @@ extension Paths.Browse {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("country", country?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("country", country)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -637,53 +637,53 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("seed_artists", seedArtists.asQueryValue)
-                query.addQueryItem("seed_genres", seedGenres.asQueryValue)
-                query.addQueryItem("seed_tracks", seedTracks.asQueryValue)
-                query.addQueryItem("min_acousticness", minAcousticness?.asQueryValue)
-                query.addQueryItem("max_acousticness", maxAcousticness?.asQueryValue)
-                query.addQueryItem("target_acousticness", targetAcousticness?.asQueryValue)
-                query.addQueryItem("min_danceability", minDanceability?.asQueryValue)
-                query.addQueryItem("max_danceability", maxDanceability?.asQueryValue)
-                query.addQueryItem("target_danceability", targetDanceability?.asQueryValue)
-                query.addQueryItem("min_duration_ms", minDurationMs?.asQueryValue)
-                query.addQueryItem("max_duration_ms", maxDurationMs?.asQueryValue)
-                query.addQueryItem("target_duration_ms", targetDurationMs?.asQueryValue)
-                query.addQueryItem("min_energy", minEnergy?.asQueryValue)
-                query.addQueryItem("max_energy", maxEnergy?.asQueryValue)
-                query.addQueryItem("target_energy", targetEnergy?.asQueryValue)
-                query.addQueryItem("min_instrumentalness", minInstrumentalness?.asQueryValue)
-                query.addQueryItem("max_instrumentalness", maxInstrumentalness?.asQueryValue)
-                query.addQueryItem("target_instrumentalness", targetInstrumentalness?.asQueryValue)
-                query.addQueryItem("min_key", minKey?.asQueryValue)
-                query.addQueryItem("max_key", maxKey?.asQueryValue)
-                query.addQueryItem("target_key", targetKey?.asQueryValue)
-                query.addQueryItem("min_liveness", minLiveness?.asQueryValue)
-                query.addQueryItem("max_liveness", maxLiveness?.asQueryValue)
-                query.addQueryItem("target_liveness", targetLiveness?.asQueryValue)
-                query.addQueryItem("min_loudness", minLoudness?.asQueryValue)
-                query.addQueryItem("max_loudness", maxLoudness?.asQueryValue)
-                query.addQueryItem("target_loudness", targetLoudness?.asQueryValue)
-                query.addQueryItem("min_mode", minMode?.asQueryValue)
-                query.addQueryItem("max_mode", maxMode?.asQueryValue)
-                query.addQueryItem("target_mode", targetMode?.asQueryValue)
-                query.addQueryItem("min_popularity", minPopularity?.asQueryValue)
-                query.addQueryItem("max_popularity", maxPopularity?.asQueryValue)
-                query.addQueryItem("target_popularity", targetPopularity?.asQueryValue)
-                query.addQueryItem("min_speechiness", minSpeechiness?.asQueryValue)
-                query.addQueryItem("max_speechiness", maxSpeechiness?.asQueryValue)
-                query.addQueryItem("target_speechiness", targetSpeechiness?.asQueryValue)
-                query.addQueryItem("min_tempo", minTempo?.asQueryValue)
-                query.addQueryItem("max_tempo", maxTempo?.asQueryValue)
-                query.addQueryItem("target_tempo", targetTempo?.asQueryValue)
-                query.addQueryItem("min_time_signature", minTimeSignature?.asQueryValue)
-                query.addQueryItem("max_time_signature", maxTimeSignature?.asQueryValue)
-                query.addQueryItem("target_time_signature", targetTimeSignature?.asQueryValue)
-                query.addQueryItem("min_valence", minValence?.asQueryValue)
-                query.addQueryItem("max_valence", maxValence?.asQueryValue)
-                query.addQueryItem("target_valence", targetValence?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("market", market)
+                query.addQueryItem("seed_artists", seedArtists)
+                query.addQueryItem("seed_genres", seedGenres)
+                query.addQueryItem("seed_tracks", seedTracks)
+                query.addQueryItem("min_acousticness", minAcousticness)
+                query.addQueryItem("max_acousticness", maxAcousticness)
+                query.addQueryItem("target_acousticness", targetAcousticness)
+                query.addQueryItem("min_danceability", minDanceability)
+                query.addQueryItem("max_danceability", maxDanceability)
+                query.addQueryItem("target_danceability", targetDanceability)
+                query.addQueryItem("min_duration_ms", minDurationMs)
+                query.addQueryItem("max_duration_ms", maxDurationMs)
+                query.addQueryItem("target_duration_ms", targetDurationMs)
+                query.addQueryItem("min_energy", minEnergy)
+                query.addQueryItem("max_energy", maxEnergy)
+                query.addQueryItem("target_energy", targetEnergy)
+                query.addQueryItem("min_instrumentalness", minInstrumentalness)
+                query.addQueryItem("max_instrumentalness", maxInstrumentalness)
+                query.addQueryItem("target_instrumentalness", targetInstrumentalness)
+                query.addQueryItem("min_key", minKey)
+                query.addQueryItem("max_key", maxKey)
+                query.addQueryItem("target_key", targetKey)
+                query.addQueryItem("min_liveness", minLiveness)
+                query.addQueryItem("max_liveness", maxLiveness)
+                query.addQueryItem("target_liveness", targetLiveness)
+                query.addQueryItem("min_loudness", minLoudness)
+                query.addQueryItem("max_loudness", maxLoudness)
+                query.addQueryItem("target_loudness", targetLoudness)
+                query.addQueryItem("min_mode", minMode)
+                query.addQueryItem("max_mode", maxMode)
+                query.addQueryItem("target_mode", targetMode)
+                query.addQueryItem("min_popularity", minPopularity)
+                query.addQueryItem("max_popularity", maxPopularity)
+                query.addQueryItem("target_popularity", targetPopularity)
+                query.addQueryItem("min_speechiness", minSpeechiness)
+                query.addQueryItem("max_speechiness", maxSpeechiness)
+                query.addQueryItem("target_speechiness", targetSpeechiness)
+                query.addQueryItem("min_tempo", minTempo)
+                query.addQueryItem("max_tempo", maxTempo)
+                query.addQueryItem("target_tempo", targetTempo)
+                query.addQueryItem("min_time_signature", minTimeSignature)
+                query.addQueryItem("max_time_signature", maxTimeSignature)
+                query.addQueryItem("target_time_signature", targetTimeSignature)
+                query.addQueryItem("min_valence", minValence)
+                query.addQueryItem("max_valence", maxValence)
+                query.addQueryItem("target_valence", targetValence)
                 return query
             }
         }
@@ -711,7 +711,7 @@ extension Paths.Episodes {
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -737,8 +737,8 @@ extension Paths {
 
         private func makeGetQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("ids", ids)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -764,8 +764,8 @@ extension Paths.Me.Following {
 
         private func makeGetQuery(_ type: String, _ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("type", type.asQueryValue)
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("type", type)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -802,7 +802,7 @@ extension Paths.Playlists.WithPlaylistID.Followers {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -839,9 +839,9 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("type", type.asQueryValue)
-                query.addQueryItem("after", after?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
+                query.addQueryItem("type", type)
+                query.addQueryItem("after", after)
+                query.addQueryItem("limit", limit)
                 return query
             }
         }
@@ -857,8 +857,8 @@ extension Paths.Me {
 
         private func makePutQuery(_ type: String, _ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("type", type.asQueryValue)
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("type", type)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -882,8 +882,8 @@ extension Paths.Me {
 
         private func makeDeleteQuery(_ type: String, _ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("type", type.asQueryValue)
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("type", type)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -947,7 +947,7 @@ extension Paths.Me.Albums {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -975,7 +975,7 @@ extension Paths.Me.Episodes {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -1001,7 +1001,7 @@ extension Paths.Me.Shows {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -1027,7 +1027,7 @@ extension Paths.Me.Tracks {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -1092,9 +1092,9 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("market", market?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("market", market)
                 return query
             }
         }
@@ -1110,7 +1110,7 @@ extension Paths.Me {
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1135,7 +1135,7 @@ extension Paths.Me {
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1212,9 +1212,9 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -1232,7 +1232,7 @@ extension Paths.Me {
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1259,7 +1259,7 @@ extension Paths.Me {
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1323,8 +1323,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -1339,7 +1339,7 @@ extension Paths.Me {
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1364,8 +1364,8 @@ extension Paths.Me {
 
         private func makeDeleteQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("ids", ids)
+            query.addQueryItem("market", market)
             return query
         }
 
@@ -1440,9 +1440,9 @@ extension Paths.Me {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -1458,7 +1458,7 @@ extension Paths.Me {
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1483,7 +1483,7 @@ extension Paths.Me {
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
 
@@ -1605,9 +1605,9 @@ extension Paths.Me.Top {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("time_range", timeRange?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("time_range", timeRange)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -1634,8 +1634,8 @@ extension Paths.Me.Player {
 
         private func makePostQuery(_ uri: String, _ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("uri", uri.asQueryValue)
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("uri", uri)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1681,8 +1681,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ market: String?, _ additionalTypes: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
-            query.addQueryItem("additional_types", additionalTypes?.asQueryValue)
+            query.addQueryItem("market", market)
+            query.addQueryItem("additional_types", additionalTypes)
             return query
         }
 
@@ -1774,9 +1774,9 @@ extension Paths.Me.Player {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("after", after?.asQueryValue)
-                query.addQueryItem("before", before?.asQueryValue)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("after", after)
+                query.addQueryItem("before", before)
                 return query
             }
         }
@@ -1803,8 +1803,8 @@ extension Paths.Me.Player {
 
         private func makeGetQuery(_ market: String?, _ additionalTypes: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
-            query.addQueryItem("additional_types", additionalTypes?.asQueryValue)
+            query.addQueryItem("market", market)
+            query.addQueryItem("additional_types", additionalTypes)
             return query
         }
     }
@@ -1830,7 +1830,7 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1856,8 +1856,8 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ positionMs: Int, _ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("position_ms", positionMs.asQueryValue)
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("position_ms", positionMs)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1884,8 +1884,8 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ state: String, _ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("state", state.asQueryValue)
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("state", state)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1911,8 +1911,8 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ volumePercent: Int, _ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("volume_percent", volumePercent.asQueryValue)
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("volume_percent", volumePercent)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1938,7 +1938,7 @@ extension Paths.Me.Player {
 
         private func makePostQuery(_ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1964,7 +1964,7 @@ extension Paths.Me.Player {
 
         private func makePostQuery(_ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -1990,7 +1990,7 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
 
@@ -2041,8 +2041,8 @@ extension Paths.Me.Player {
 
         private func makePutQuery(_ isState: Bool, _ deviceID: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("state", isState.asQueryValue)
-            query.addQueryItem("device_id", deviceID?.asQueryValue)
+            query.addQueryItem("state", isState)
+            query.addQueryItem("device_id", deviceID)
             return query
         }
     }
@@ -2111,11 +2111,11 @@ extension Paths.Playlists.WithPlaylistID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("additional_types", additionalTypes?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("additional_types", additionalTypes)
                 return query
             }
         }
@@ -2131,8 +2131,8 @@ extension Paths.Playlists.WithPlaylistID {
 
         private func makePostQuery(_ position: Int?, _ uris: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("position", position?.asQueryValue)
-            query.addQueryItem("uris", uris?.asQueryValue)
+            query.addQueryItem("position", position)
+            query.addQueryItem("uris", uris)
             return query
         }
 
@@ -2167,7 +2167,7 @@ extension Paths.Playlists.WithPlaylistID {
 
         private func makePutQuery(_ uris: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("uris", uris?.asQueryValue)
+            query.addQueryItem("uris", uris)
             return query
         }
 
@@ -2267,9 +2267,9 @@ extension Paths.Playlists {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("fields", fields?.asQueryValue)
-                query.addQueryItem("additional_types", additionalTypes?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("fields", fields)
+                query.addQueryItem("additional_types", additionalTypes)
                 return query
             }
         }
@@ -2371,8 +2371,8 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
 
@@ -2462,8 +2462,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit?.asQueryValue)
-            query.addQueryItem("offset", offset?.asQueryValue)
+            query.addQueryItem("limit", limit)
+            query.addQueryItem("offset", offset)
             return query
         }
     }
@@ -2536,12 +2536,12 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("q", q.asQueryValue)
-                query.addQueryItem("type", type.asQueryValue)
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("include_external", includeExternal?.asQueryValue)
+                query.addQueryItem("q", q)
+                query.addQueryItem("type", type)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("include_external", includeExternal)
                 return query
             }
         }
@@ -2569,7 +2569,7 @@ extension Paths.Shows {
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -2634,9 +2634,9 @@ extension Paths.Shows.WithID {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("market", market?.asQueryValue)
-                query.addQueryItem("limit", limit?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
+                query.addQueryItem("market", market)
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("offset", offset)
                 return query
             }
         }
@@ -2663,8 +2663,8 @@ extension Paths {
 
         private func makeGetQuery(_ market: String?, _ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("market", market)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -2743,7 +2743,7 @@ extension Paths {
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -2769,8 +2769,8 @@ extension Paths {
 
         private func makeGetQuery(_ market: String?, _ ids: String) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
-            query.addQueryItem("ids", ids.asQueryValue)
+            query.addQueryItem("market", market)
+            query.addQueryItem("ids", ids)
             return query
         }
     }
@@ -2797,7 +2797,7 @@ extension Paths.Tracks {
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("market", market?.asQueryValue)
+            query.addQueryItem("market", market)
             return query
         }
     }
@@ -2846,49 +2846,53 @@ extension Paths.Users {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -2901,14 +2905,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }

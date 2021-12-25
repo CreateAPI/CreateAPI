@@ -196,13 +196,13 @@ extension Paths.Lists.BestSellers {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("age-group", ageGroup?.asQueryValue)
-                query.addQueryItem("author", author?.asQueryValue)
-                query.addQueryItem("contributor", contributor?.asQueryValue)
-                query.addQueryItem("isbn", isbn?.asQueryValue)
-                query.addQueryItem("price", price?.asQueryValue)
-                query.addQueryItem("publisher", publisher?.asQueryValue)
-                query.addQueryItem("title", title?.asQueryValue)
+                query.addQueryItem("age-group", ageGroup)
+                query.addQueryItem("author", author)
+                query.addQueryItem("contributor", contributor)
+                query.addQueryItem("isbn", isbn)
+                query.addQueryItem("price", price)
+                query.addQueryItem("publisher", publisher)
+                query.addQueryItem("title", title)
                 return query
             }
         }
@@ -397,16 +397,16 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("list", list?.asQueryValue)
-                query.addQueryItem("weeks-on-list", weeksOnList?.asQueryValue)
-                query.addQueryItem("bestsellers-date", bestsellersDate?.asQueryValue)
-                query.addQueryItem("date", date?.asQueryValue)
-                query.addQueryItem("isbn", isbn?.asQueryValue)
-                query.addQueryItem("published-date", publishedDate?.asQueryValue)
-                query.addQueryItem("rank", rank?.asQueryValue)
-                query.addQueryItem("rank-last-week", rankLastWeek?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("sort-order", sortOrder?.asQueryValue)
+                query.addQueryItem("list", list)
+                query.addQueryItem("weeks-on-list", weeksOnList)
+                query.addQueryItem("bestsellers-date", bestsellersDate)
+                query.addQueryItem("date", date)
+                query.addQueryItem("isbn", isbn)
+                query.addQueryItem("published-date", publishedDate)
+                query.addQueryItem("rank", rank)
+                query.addQueryItem("rank-last-week", rankLastWeek)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("sort-order", sortOrder)
                 return query
             }
         }
@@ -610,15 +610,15 @@ extension Paths.Lists.WithDate {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("isbn", isbn?.asQueryValue)
-                query.addQueryItem("list-name", listName?.asQueryValue)
-                query.addQueryItem("published-date", publishedDate?.asQueryValue)
-                query.addQueryItem("bestsellers-date", bestsellersDate?.asQueryValue)
-                query.addQueryItem("weeks-on-list", weeksOnList?.asQueryValue)
-                query.addQueryItem("rank", rank?.asQueryValue)
-                query.addQueryItem("rank-last-week", rankLastWeek?.asQueryValue)
-                query.addQueryItem("offset", offset?.asQueryValue)
-                query.addQueryItem("sort-order", sortOrder?.asQueryValue)
+                query.addQueryItem("isbn", isbn)
+                query.addQueryItem("list-name", listName)
+                query.addQueryItem("published-date", publishedDate)
+                query.addQueryItem("bestsellers-date", bestsellersDate)
+                query.addQueryItem("weeks-on-list", weeksOnList)
+                query.addQueryItem("rank", rank)
+                query.addQueryItem("rank-last-week", rankLastWeek)
+                query.addQueryItem("offset", offset)
+                query.addQueryItem("sort-order", sortOrder)
                 return query
             }
         }
@@ -755,8 +755,8 @@ extension Paths.Lists {
 
         private func makeGetQuery(_ publishedDate: String?, _ apiKey: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("published_date", publishedDate?.asQueryValue)
-            query.addQueryItem("api-key", apiKey?.asQueryValue)
+            query.addQueryItem("published_date", publishedDate)
+            query.addQueryItem("api-key", apiKey)
             return query
         }
     }
@@ -826,7 +826,7 @@ extension Paths.Lists {
 
         private func makeGetQuery(_ apiKey: String?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("api-key", apiKey?.asQueryValue)
+            query.addQueryItem("api-key", apiKey)
             return query
         }
     }
@@ -912,10 +912,10 @@ extension Paths {
 
             public func asQuery() -> [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("isbn", isbn?.asQueryValue)
-                query.addQueryItem("title", title?.asQueryValue)
-                query.addQueryItem("author", author?.asQueryValue)
-                query.addQueryItem("api-key", apiKey?.asQueryValue)
+                query.addQueryItem("isbn", isbn)
+                query.addQueryItem("title", title)
+                query.addQueryItem("author", author)
+                query.addQueryItem("api-key", apiKey)
                 return query
             }
         }
@@ -924,49 +924,53 @@ extension Paths {
 
 public enum Paths {}
 
-extension Bool {
+protocol QueryEncodable {
+    var asQueryValue: String { get }
+}
+
+extension Bool: QueryEncodable {
     var asQueryValue: String {
         self ? "true" : "false"
     }
 }
 
-extension Date {
+extension Date: QueryEncodable {
     var asQueryValue: String {
         ISO8601DateFormatter().string(from: self)
     }
 }
 
-extension Double {
+extension Double: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int {
+extension Int: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int32 {
+extension Int32: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension Int64 {
+extension Int64: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }
 }
 
-extension String {
+extension String: QueryEncodable {
     var asQueryValue: String {
         self
     }
 }
 
-extension URL {
+extension URL: QueryEncodable {
     var asQueryValue: String {
         absoluteString
     }
@@ -979,14 +983,29 @@ extension RawRepresentable where RawValue == String {
 }
 
 extension Array where Element == (String, String?) {
-    mutating func addQueryItem(_ name: String, _ value: String?) {
-        guard let value = value, !value.isEmpty else { return }
+    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
+        addQueryItem(name, value?.rawValue)
+    }
+    
+    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
+        guard let value = value?.asQueryValue, !value.isEmpty else { return }
         append((name, value))
+    }
+    
+    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
+        for (key, value) in query {
+            addQueryItem("\(name)[\(key)]", value)
+        }
     }
 
     var asPercentEncodedQuery: String {
         var components = URLComponents()
         components.queryItems = self.map(URLQueryItem.init)
         return components.percentEncodedQuery ?? ""
+    }
+    
+    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
+    var asCompactQuery: String {
+        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
     }
 }
