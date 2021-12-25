@@ -81,9 +81,9 @@ public struct ServerInformation: Codable {
 /// A list of JQL queries to parse.
 public struct JqlQueriesToParse: Codable {
     /// A list of queries to parse.
-    public var queries: String
+    public var queries: [String]
 
-    public init(queries: String) {
+    public init(queries: [String]) {
         self.queries = queries
     }
 }
@@ -468,9 +468,9 @@ public struct KeywordOperand: Codable {
 /// An operand that is a list of values.
 public struct ListOperand: Codable {
     /// The list of operand values.
-    public var values: String
+    public var values: [JqlQueryUnitaryOperand]
 
-    public init(values: String) {
+    public init(values: [JqlQueryUnitaryOperand]) {
         self.values = values
     }
 }
@@ -478,10 +478,26 @@ public struct ListOperand: Codable {
 /// A list of parsed JQL queries.
 public struct ParsedJqlQueries: Codable {
     /// A list of parsed JQL queries.
-    public var queries: String
+    public var queries: [ParsedJqlQuery]
 
-    public init(queries: String) {
+    public init(queries: [ParsedJqlQuery]) {
         self.queries = queries
+    }
+}
+
+/// Details of a parsed JQL query.
+public struct ParsedJqlQuery: Codable {
+    /// The JQL query that was parsed and validated.
+    public var query: String
+    /// The syntax tree of the query. Empty if the query was invalid.
+    public var structure: JqlQuery?
+    /// The list of syntax or validation errors.
+    public var errors: [String]?
+
+    public init(query: String, structure: JqlQuery? = nil, errors: [String]? = nil) {
+        self.query = query
+        self.structure = structure
+        self.errors = errors
     }
 }
 

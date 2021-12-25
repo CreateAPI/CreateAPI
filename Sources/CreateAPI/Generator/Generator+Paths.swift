@@ -253,7 +253,7 @@ extension Generator {
     
     private func getPathParameterType(for parameter: OpenAPI.Parameter) throws -> TypeName {
         let schema = try parameter.unwrapped(in: spec).schema.unwrapped(in: spec)
-        switch schema {
+        switch schema.value {
         case .integer: return TypeName("Int")
         default: return TypeName("String")
         }
@@ -510,7 +510,7 @@ extension Generator {
         var isObject = false
         
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
-            switch schema {
+            switch schema.value {
             case .boolean: return QueryItemType("Bool")
             case .number: return QueryItemType("Double")
             case .integer(let info, _):
@@ -655,7 +655,7 @@ extension Generator {
             return makeRequestType(TypeName("Data"))
         }
         if let (content, _) = firstContent(for: [.any]) {
-            if case .b(let schema) = content.schema, case .string = schema {
+            if case .b(let schema) = content.schema, case .string = schema.value {
                 return makeRequestType(TypeName("String"))
             }
             return makeRequestType(TypeName("Data"))
@@ -769,7 +769,7 @@ extension Generator {
             return GeneratedType(type: TypeName("Data"))
         }
         if let (content, _) = firstContent(for: [.any]) {
-            if case .b(let schema) = content.schema, case .string = schema {
+            if case .b(let schema) = content.schema, case .string = schema.value {
                 return GeneratedType(type: TypeName("String"))
             }
             return GeneratedType(type: TypeName("Data"))

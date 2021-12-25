@@ -159,8 +159,13 @@ extension Paths.Project.WithUsername.WithProject {
 
         /// Creates a new checkout key.
         /// Only usable with a user API token.
-        public func post(_ body: String? = nil) -> Request<CircleCIAPI.Key> {
+        public func post(_ body: PostRequest? = nil) -> Request<CircleCIAPI.Key> {
             .post(path, body: body)
+        }
+
+        public enum PostRequest: String, Codable, CaseIterable {
+            case deployKey = "deploy-key"
+            case githubUserKey = "github-user-key"
         }
     }
 }

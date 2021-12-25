@@ -30,8 +30,8 @@ extension Paths {
             public var id: String?
             public var source: Source?
             public var includeTest: IncludeTest?
-            public var page: Double?
-            public var size: Double?
+            public var page: String?
+            public var size: String?
             public var locale: String?
             public var includeLicensedContent: IncludeLicensedContent?
             public var includeSpellcheck: IncludeSpellcheck?
@@ -59,7 +59,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: String? = nil, size: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
                 self.classificationName = classificationName
                 self.classificationID = classificationID
@@ -146,8 +146,8 @@ extension Paths {
             public var id: String?
             public var source: Source?
             public var includeTest: IncludeTest?
-            public var page: Double?
-            public var size: Double?
+            public var page: String?
+            public var size: String?
             public var locale: String?
             public var includeLicensedContent: IncludeLicensedContent?
             public var includeSpellcheck: IncludeSpellcheck?
@@ -175,7 +175,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: String? = nil, size: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
                 self.keyword = keyword
                 self.id = id
@@ -407,8 +407,8 @@ extension Paths {
             public var id: String?
             public var source: Source?
             public var includeTest: IncludeTest?
-            public var page: Double?
-            public var size: Double?
+            public var page: String?
+            public var size: String?
             public var locale: String?
             public var includeLicensedContent: IncludeLicensedContent?
             public var includeSpellcheck: IncludeSpellcheck?
@@ -453,7 +453,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, startDateTime: String? = nil, endDateTime: String? = nil, onsaleStartDateTime: String? = nil, onsaleOnStartDate: String? = nil, onsaleOnAfterStartDate: String? = nil, onsaleEndDateTime: String? = nil, city: String? = nil, countryCode: String? = nil, stateCode: String? = nil, postalCode: String? = nil, venueID: String? = nil, attractionID: String? = nil, segmentID: String? = nil, segmentName: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, marketID: String? = nil, promoterID: String? = nil, dmaID: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, clientVisibility: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, startDateTime: String? = nil, endDateTime: String? = nil, onsaleStartDateTime: String? = nil, onsaleOnStartDate: String? = nil, onsaleOnAfterStartDate: String? = nil, onsaleEndDateTime: String? = nil, city: String? = nil, countryCode: String? = nil, stateCode: String? = nil, postalCode: String? = nil, venueID: String? = nil, attractionID: String? = nil, segmentID: String? = nil, segmentName: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, marketID: String? = nil, promoterID: String? = nil, dmaID: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, clientVisibility: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: String? = nil, size: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
                 self.startDateTime = startDateTime
                 self.endDateTime = endDateTime
@@ -618,7 +618,7 @@ extension Paths {
             public var latlong: String?
             public var radius: String?
             public var unit: Unit?
-            public var size: Double?
+            public var size: String?
             public var includeFuzzy: IncludeFuzzy?
             public var clientVisibility: String?
             public var countryCode: String?
@@ -669,7 +669,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(keyword: String? = nil, source: Source? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, size: Double? = nil, includeFuzzy: IncludeFuzzy? = nil, clientVisibility: String? = nil, countryCode: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, segmentID: String? = nil, geoPoint: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(keyword: String? = nil, source: Source? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, size: String? = nil, includeFuzzy: IncludeFuzzy? = nil, clientVisibility: String? = nil, countryCode: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, segmentID: String? = nil, geoPoint: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.keyword = keyword
                 self.source = source
                 self.latlong = latlong
@@ -740,8 +740,8 @@ extension Paths {
             public var id: String?
             public var source: Source?
             public var includeTest: IncludeTest?
-            public var page: Double?
-            public var size: Double?
+            public var page: String?
+            public var size: String?
             public var locale: String?
             public var includeLicensedContent: IncludeLicensedContent?
             public var includeSpellcheck: IncludeSpellcheck?
@@ -774,7 +774,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, stateCode: String? = nil, countryCode: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, stateCode: String? = nil, countryCode: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: String? = nil, size: String? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
                 self.stateCode = stateCode
                 self.countryCode = countryCode

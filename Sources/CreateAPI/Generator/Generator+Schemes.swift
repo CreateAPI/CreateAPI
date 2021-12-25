@@ -122,7 +122,7 @@ extension Generator {
     
     /// Recursively a type declaration: struct, class, enum, typealias, etc.
     func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
-        switch schema {
+        switch schema.value {
         case .boolean, .number, .integer:
             return nil // Always inline
         case .string(let info, _):
@@ -251,7 +251,7 @@ extension Generator {
             return property(type: type, info: info)
         }
 
-        switch schema {
+        switch schema.value {
         case .object(let info, let details): return try makeObject(info: info, details: details)
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
@@ -413,10 +413,10 @@ extension Generator {
     // MARK: - Misc
     
     // Anything that's not an object or a reference.
-    func getPrimitiveType(for json: JSONSchema, context: Context) throws -> MyType? {
+    func getPrimitiveType(for schema: JSONSchema, context: Context) throws -> MyType? {
         var context = context
         context.isInlinableTypeCheck = true
-        switch json {
+        switch schema.value {
         case .boolean: return .builtin("Bool")
         case .number: return .builtin("Double")
         case .integer(let info, _):
@@ -452,7 +452,7 @@ extension Generator {
             }
             return try getPrimitiveType(for: items, context: context)?.asArray()
         case .all, .one, .any, .not:
-            if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: json, context: context) as? TypealiasDeclaration, alias.nested == nil {
+            if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context) as? TypealiasDeclaration, alias.nested == nil {
                 return alias.type
             }
             return nil
@@ -544,14 +544,14 @@ extension Generator {
         let context = context.adding(name)
 
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
-            switch schema {
+            switch schema.value {
             case .object(_, let details):
                 // Inline properties for nested objects (different from other OpenAPI constructs)
                 return try makeProperties(for: name, object: details, context: context)
             case .reference(let info,_ ):
                 if options.entities.isInliningPropertiesFromReferencedSchemas,
                    let schema = try? info.dereferenced(in: spec.components),
-                   case .object(_, let details) = schema.jsonSchema {
+                   case .object(_, let details) = schema.jsonSchema.value {
                     return try makeProperties(for: name, object: details, context: context)
                 } else {
                     var context = context

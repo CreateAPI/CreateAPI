@@ -10238,9 +10238,9 @@ extension Paths.API.__3.User {
             public var username: [String]?
             public var key: [String]?
             /// Example: "5b10ac8d82e05b22cc7d4ef5"
-            public var accountID: String
+            public var accountID: [String]
 
-            public init(startAt: Int? = nil, maxResults: Int? = nil, username: [String]? = nil, key: [String]? = nil, accountID: String) {
+            public init(startAt: Int? = nil, maxResults: Int? = nil, username: [String]? = nil, key: [String]? = nil, accountID: [String]) {
                 self.startAt = startAt
                 self.maxResults = maxResults
                 self.username = username
@@ -10254,7 +10254,7 @@ extension Paths.API.__3.User {
                 query.addQueryItem("maxResults", maxResults)
                 username?.forEach { query.addQueryItem("username", $0) }
                 key?.forEach { query.addQueryItem("key", $0) }
-                query.addQueryItem("accountId", accountID)
+                accountID.forEach { query.addQueryItem("accountId", $0) }
                 return query
             }
         }
@@ -10411,13 +10411,13 @@ extension Paths.API.__3.User.Email {
         /// Get user email bulk
         ///
         /// Returns a user's email address. This API is only available to apps approved by Atlassian, according to these [guidelines](https://community.developer.atlassian.com/t/guidelines-for-requesting-access-to-email-address/27603).
-        public func get(accountID: String) -> Request<JiraAPI.UnrestrictedUserEmail> {
+        public func get(accountID: [String]) -> Request<JiraAPI.UnrestrictedUserEmail> {
             .get(path, query: makeGetQuery(accountID))
         }
 
-        private func makeGetQuery(_ accountID: String) -> [(String, String?)] {
+        private func makeGetQuery(_ accountID: [String]) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("accountId", accountID)
+            accountID.forEach { query.addQueryItem("accountId", $0) }
             return query
         }
     }
@@ -12175,8 +12175,8 @@ extension Paths.API.__3.Workflow.Rule {
             public var maxResults: Int?
             public var types: [Types]
             public var keys: [String]?
-            public var workflowNames: String?
-            public var withTags: String?
+            public var workflowNames: [String]?
+            public var withTags: [String]?
             public var isDraft: Bool?
             public var expand: String?
 
@@ -12186,7 +12186,7 @@ extension Paths.API.__3.Workflow.Rule {
                 case validator
             }
 
-            public init(startAt: Int? = nil, maxResults: Int? = nil, types: [Types], keys: [String]? = nil, workflowNames: String? = nil, withTags: String? = nil, isDraft: Bool? = nil, expand: String? = nil) {
+            public init(startAt: Int? = nil, maxResults: Int? = nil, types: [Types], keys: [String]? = nil, workflowNames: [String]? = nil, withTags: [String]? = nil, isDraft: Bool? = nil, expand: String? = nil) {
                 self.startAt = startAt
                 self.maxResults = maxResults
                 self.types = types
@@ -12203,8 +12203,8 @@ extension Paths.API.__3.Workflow.Rule {
                 query.addQueryItem("maxResults", maxResults)
                 types.forEach { query.addQueryItem("types", $0) }
                 keys?.forEach { query.addQueryItem("keys", $0) }
-                query.addQueryItem("workflowNames", workflowNames)
-                query.addQueryItem("withTags", withTags)
+                workflowNames?.forEach { query.addQueryItem("workflowNames", $0) }
+                withTags?.forEach { query.addQueryItem("withTags", $0) }
                 query.addQueryItem("draft", isDraft)
                 query.addQueryItem("expand", expand)
                 return query
