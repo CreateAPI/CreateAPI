@@ -39,7 +39,7 @@ extension Paths.Lists.BestSellers {
 
         /// Best Seller History List
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -194,7 +194,7 @@ extension Paths.Lists.BestSellers {
                 self.title = title
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("age-group", ageGroup)
                 query.addQueryItem("author", author)
@@ -220,7 +220,7 @@ extension Paths {
 
         /// Best Seller List
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -395,7 +395,7 @@ extension Paths {
                 self.sortOrder = sortOrder
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("list", list)
                 query.addQueryItem("weeks-on-list", weeksOnList)
@@ -435,7 +435,7 @@ extension Paths.Lists.WithDate {
 
         /// Best Seller List by Date
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -608,7 +608,7 @@ extension Paths.Lists.WithDate {
                 self.sortOrder = sortOrder
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("isbn", isbn)
                 query.addQueryItem("list-name", listName)
@@ -843,7 +843,7 @@ extension Paths {
 
         /// Reviews
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -910,7 +910,7 @@ extension Paths {
                 self.apiKey = apiKey
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("isbn", isbn)
                 query.addQueryItem("title", title)

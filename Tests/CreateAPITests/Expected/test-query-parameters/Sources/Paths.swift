@@ -17,7 +17,7 @@ extension Paths {
 
         /// Test passing primitive query parameters
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -31,7 +31,7 @@ extension Paths {
                 self.id3 = id3
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("id", id)
                 query.addQueryItem("id2", id2)
@@ -98,22 +98,6 @@ extension Paths {
             var query: [(String, String?)] = []
             query.addQueryItem("type", type.map(\.asQueryValue).joined(separator: ","))
             return query
-        }
-    }
-}
-
-extension Paths {
-    public static var testObject: TestObject {
-        TestObject(path: "/form/test-object")
-    }
-
-    public struct TestObject {
-        /// Path: `/form/test-object`
-        public let path: String
-
-        /// Form Object Explode
-        public var get: Request<Void> {
-            .get(path)
         }
     }
 }

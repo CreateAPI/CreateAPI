@@ -18,7 +18,7 @@ extension Paths {
 
         /// Enumerate all active channels of the application
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -58,7 +58,7 @@ extension Paths {
                 self.by = by
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("prefix", prefix)
@@ -101,7 +101,7 @@ extension Paths.Channels.WithChannelID {
 
         /// Get message history for a channel
         public func get(parameters: GetParameters? = nil) -> Request<[PlatformAPI.Message]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -129,7 +129,7 @@ extension Paths.Channels.WithChannelID {
                 self.direction = direction
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("start", start)
                 query.addQueryItem("limit", limit)
@@ -181,7 +181,7 @@ extension Paths.Channels.WithChannelID {
         ///
         /// Get presence on a channel
         public func get(parameters: GetParameters? = nil) -> Request<[PlatformAPI.PresenceMessage]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -202,7 +202,7 @@ extension Paths.Channels.WithChannelID {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("clientId", clientID)
                 query.addQueryItem("connectionId", connectionID)
@@ -226,7 +226,7 @@ extension Paths.Channels.WithChannelID.Presence {
         ///
         /// Get presence on a channel
         public func get(parameters: GetParameters? = nil) -> Request<[PlatformAPI.PresenceMessage]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -252,7 +252,7 @@ extension Paths.Channels.WithChannelID.Presence {
                 self.direction = direction
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("start", start)
                 query.addQueryItem("limit", limit)
@@ -341,7 +341,7 @@ extension Paths.Push {
         ///
         /// Get a list of push notification subscriptions to channels.
         public func get(parameters: GetParameters? = nil) -> Request<PlatformAPI.DeviceDetails> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -357,7 +357,7 @@ extension Paths.Push {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("channel", channel)
                 query.addQueryItem("deviceId", deviceID)
@@ -425,7 +425,7 @@ extension Paths.Push {
         ///
         /// Delete a device details object.
         public func delete(parameters: DeleteParameters? = nil) -> Request<Void> {
-            .delete(path, query: parameters?.asQuery())
+            .delete(path, query: parameters?.asQuery)
         }
 
         public struct DeleteParameters {
@@ -439,7 +439,7 @@ extension Paths.Push {
                 self.clientID = clientID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("channel", channel)
                 query.addQueryItem("deviceId", deviceID)
@@ -481,7 +481,7 @@ extension Paths.Push {
         ///
         /// List of device details of devices registed for push notifications.
         public func get(parameters: GetParameters? = nil) -> Request<PlatformAPI.DeviceDetails> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -495,7 +495,7 @@ extension Paths.Push {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("deviceId", deviceID)
                 query.addQueryItem("clientId", clientID)
@@ -626,7 +626,7 @@ extension Paths {
         ///
         /// The Ably system can be queried to obtain usage statistics for a given application, and results are provided aggregated across all channels in use in the application in the specified period. Stats may be used to track usage against account quotas.
         public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -656,7 +656,7 @@ extension Paths {
                 self.unit = unit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("start", start)
                 query.addQueryItem("limit", limit)

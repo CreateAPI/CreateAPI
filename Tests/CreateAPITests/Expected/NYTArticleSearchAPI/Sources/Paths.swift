@@ -19,7 +19,7 @@ extension Paths {
         ///
         /// Article Search requests use the following URI structure:
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -82,7 +82,7 @@ extension Paths {
                 self.isFacetFilter = isFacetFilter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("fq", fq)

@@ -68,7 +68,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.request)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -82,7 +82,7 @@ extension Paths {
                 self.triggerID = triggerID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("scopes", scopes)
                 query.addQueryItem("token", token)
@@ -106,7 +106,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/apps.permissions.resources.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -120,7 +120,7 @@ extension Paths {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("token", token)
@@ -289,7 +289,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.history)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -311,7 +311,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("unreads", isUnreads)
@@ -339,7 +339,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.info)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -353,7 +353,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("include_locale", isIncludeLocale)
@@ -490,7 +490,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -508,7 +508,7 @@ extension Paths {
                 self.excludeArchived = excludeArchived
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("exclude_members", excludeMembers)
                 query.addQueryItem("cursor", cursor)
@@ -603,7 +603,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/channels.replies)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -617,7 +617,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("thread_ts", threadTs)
                 query.addQueryItem("token", token)
@@ -758,7 +758,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/chat.getPermalink)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -772,7 +772,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("message_ts", messageTs)
@@ -1141,7 +1141,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.history)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1163,7 +1163,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inclusive", isInclusive)
                 query.addQueryItem("cursor", cursor)
@@ -1191,7 +1191,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.info)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1205,7 +1205,7 @@ extension Paths {
                 self.isIncludeLocale = isIncludeLocale
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("channel", channel)
@@ -1325,7 +1325,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1343,7 +1343,7 @@ extension Paths {
                 self.types = types
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("token", token)
@@ -1369,7 +1369,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.members)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1385,7 +1385,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("token", token)
@@ -1479,7 +1479,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/conversations.replies)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1503,7 +1503,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inclusive", isInclusive)
                 query.addQueryItem("ts", ts)
@@ -1696,7 +1696,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.setSnooze)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -1710,11 +1710,11 @@ extension Paths {
                 self.token = token
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("num_minutes", numMinutes)
                 query.addQueryItem("token", token)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -1893,7 +1893,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/files.info)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1909,7 +1909,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("token", token)
@@ -1934,7 +1934,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/files.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1958,7 +1958,7 @@ extension Paths {
                 self.types = types
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("channel", channel)
@@ -2023,7 +2023,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/files.upload)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -2055,7 +2055,7 @@ extension Paths {
                 self.file = file
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("channels", channels)
                 query.addQueryItem("title", title)
@@ -2065,7 +2065,7 @@ extension Paths {
                 query.addQueryItem("content", content)
                 query.addQueryItem("token", token)
                 query.addQueryItem("file", file)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2137,7 +2137,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.createChild)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -2151,11 +2151,11 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("channel", channel)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2174,7 +2174,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.history)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2196,7 +2196,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("unreads", isUnreads)
@@ -2224,7 +2224,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.info)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2238,7 +2238,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("include_locale", isIncludeLocale)
@@ -2340,7 +2340,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2354,7 +2354,7 @@ extension Paths {
                 self.excludeArchived = excludeArchived
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("exclude_members", excludeMembers)
                 query.addQueryItem("token", token)
@@ -2465,7 +2465,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.replies)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2479,7 +2479,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("thread_ts", threadTs)
                 query.addQueryItem("token", token)
@@ -2599,7 +2599,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/im.history)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2621,7 +2621,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("unreads", isUnreads)
@@ -2649,7 +2649,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/im.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2663,7 +2663,7 @@ extension Paths {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("token", token)
@@ -2756,7 +2756,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/im.replies)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2770,7 +2770,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("thread_ts", threadTs)
                 query.addQueryItem("token", token)
@@ -2794,7 +2794,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/migration.exchange)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2808,7 +2808,7 @@ extension Paths {
                 self.users = users
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("to_old", isToOld)
@@ -2850,7 +2850,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.history)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2872,7 +2872,7 @@ extension Paths {
                 self.latest = latest
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("unreads", isUnreads)
@@ -2972,7 +2972,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/mpim.replies)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2986,7 +2986,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("thread_ts", threadTs)
                 query.addQueryItem("token", token)
@@ -3010,7 +3010,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/oauth.access)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3028,7 +3028,7 @@ extension Paths {
                 self.redirectUri = redirectUri
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("client_secret", clientSecret)
                 query.addQueryItem("code", code)
@@ -3054,7 +3054,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/oauth.token)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3072,7 +3072,7 @@ extension Paths {
                 self.redirectUri = redirectUri
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("client_secret", clientSecret)
                 query.addQueryItem("code", code)
@@ -3256,7 +3256,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.get)
         public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3276,7 +3276,7 @@ extension Paths {
                 self.channel = channel
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("full", isFull)
                 query.addQueryItem("file_comment", fileComment)
@@ -3303,7 +3303,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/reactions.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3321,7 +3321,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("token", token)
@@ -3512,7 +3512,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/rtm.connect)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3526,7 +3526,7 @@ extension Paths {
                 self.isBatchPresenceAware = isBatchPresenceAware
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("presence_sub", isPresenceSub)
                 query.addQueryItem("token", token)
@@ -3550,7 +3550,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/search.all)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3572,7 +3572,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort_dir", sortDir)
                 query.addQueryItem("query", self.query)
@@ -3600,7 +3600,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/search.files)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3622,7 +3622,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort_dir", sortDir)
                 query.addQueryItem("query", self.query)
@@ -3650,7 +3650,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/search.messages)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3672,7 +3672,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort_dir", sortDir)
                 query.addQueryItem("query", self.query)
@@ -3743,7 +3743,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/stars.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3757,7 +3757,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("token", token)
@@ -3824,7 +3824,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/team.accessLogs)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3840,7 +3840,7 @@ extension Paths {
                 self.before = before
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("token", token)
@@ -3914,7 +3914,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/team.integrationLogs)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3936,7 +3936,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("change_type", changeType)
@@ -4106,7 +4106,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4122,7 +4122,7 @@ extension Paths {
                 self.isIncludeDisabled = isIncludeDisabled
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("include_users", isIncludeUsers)
                 query.addQueryItem("token", token)
@@ -4198,7 +4198,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/usergroups.users.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4212,7 +4212,7 @@ extension Paths {
                 self.usergroup = usergroup
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("include_disabled", isIncludeDisabled)
@@ -4275,7 +4275,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.conversations)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4295,7 +4295,7 @@ extension Paths {
                 self.types = types
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("token", token)
@@ -4322,7 +4322,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.deletePhoto)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -4333,10 +4333,10 @@ extension Paths {
                 self.token = token
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -4404,7 +4404,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.info)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4418,7 +4418,7 @@ extension Paths {
                 self.user = user
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("include_locale", isIncludeLocale)
                 query.addQueryItem("token", token)
@@ -4442,7 +4442,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.list)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4460,7 +4460,7 @@ extension Paths {
                 self.isIncludeLocale = isIncludeLocale
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("presence", isPresence)
                 query.addQueryItem("cursor", cursor)
@@ -4511,7 +4511,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.profile.get)
         public func get(parameters: GetParameters? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4525,7 +4525,7 @@ extension Paths {
                 self.user = user
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("token", token)
                 query.addQueryItem("include_labels", isIncludeLabels)
@@ -4603,7 +4603,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.setPhoto)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -4626,14 +4626,14 @@ extension Paths {
                 self.cropX = cropX
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("image", image)
                 query.addQueryItem("crop_w", cropW)
                 query.addQueryItem("token", token)
                 query.addQueryItem("crop_y", cropY)
                 query.addQueryItem("crop_x", cropX)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }

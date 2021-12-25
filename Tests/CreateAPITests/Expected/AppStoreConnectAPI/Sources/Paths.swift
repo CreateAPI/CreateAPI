@@ -42,7 +42,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppCategoriesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -79,7 +79,7 @@ extension Paths {
                 self.limitSubcategories = limitSubcategories
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[platforms]", filterPlatforms?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("exists[parent]", existsParent?.map(\.asQueryValue).joined(separator: ","))
@@ -103,7 +103,7 @@ extension Paths.AppCategories {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -128,7 +128,7 @@ extension Paths.AppCategories {
                 self.limitSubcategories = limitSubcategories
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -204,7 +204,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppEncryptionDeclarationsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -279,7 +279,7 @@ extension Paths {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
@@ -304,7 +304,7 @@ extension Paths.AppEncryptionDeclarations {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppEncryptionDeclarationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -365,7 +365,7 @@ extension Paths.AppEncryptionDeclarations {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -528,7 +528,7 @@ extension Paths.AppInfos {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfoResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -611,7 +611,7 @@ extension Paths.AppInfos {
                 self.limitAppInfoLocalizations = limitAppInfoLocalizations
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -680,7 +680,7 @@ extension Paths.AppInfos.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfoLocalizationsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -727,7 +727,7 @@ extension Paths.AppInfos.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
@@ -982,7 +982,7 @@ extension Paths.AppPreviewSets {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1023,7 +1023,7 @@ extension Paths.AppPreviewSets {
                 self.limitAppPreviews = limitAppPreviews
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -1049,7 +1049,7 @@ extension Paths.AppPreviewSets.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1089,7 +1089,7 @@ extension Paths.AppPreviewSets.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
@@ -1210,7 +1210,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPricePointsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1246,7 +1246,7 @@ extension Paths {
                 self.fieldsTerritories = fieldsTerritories
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[priceTier]", filterPriceTier?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[territory]", filterTerritory?.map(\.asQueryValue).joined(separator: ","))
@@ -1270,7 +1270,7 @@ extension Paths.AppPricePoints {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPricePointResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1300,7 +1300,7 @@ extension Paths.AppPricePoints {
                 self.fieldsTerritories = fieldsTerritories
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -1346,7 +1346,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPriceTiersResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1381,7 +1381,7 @@ extension Paths {
                 self.limitPricePoints = limitPricePoints
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
@@ -1405,7 +1405,7 @@ extension Paths.AppPriceTiers {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPriceTierResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1436,7 +1436,7 @@ extension Paths.AppPriceTiers {
                 self.limitPricePoints = limitPricePoints
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -1545,7 +1545,7 @@ extension Paths.AppScreenshotSets {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1585,7 +1585,7 @@ extension Paths.AppScreenshotSets {
                 self.limitAppScreenshots = limitAppScreenshots
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -1611,7 +1611,7 @@ extension Paths.AppScreenshotSets.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1650,7 +1650,7 @@ extension Paths.AppScreenshotSets.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
@@ -1844,7 +1844,7 @@ extension Paths.AppStoreReviewDetails {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewDetailResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1888,7 +1888,7 @@ extension Paths.AppStoreReviewDetails {
                 self.limitAppStoreReviewAttachments = limitAppStoreReviewAttachments
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -1914,7 +1914,7 @@ extension Paths.AppStoreReviewDetails.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewAttachmentsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1957,7 +1957,7 @@ extension Paths.AppStoreReviewDetails.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
@@ -1994,7 +1994,7 @@ extension Paths.AppStoreVersionLocalizations {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionLocalizationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2045,7 +2045,7 @@ extension Paths.AppStoreVersionLocalizations {
                 self.limitAppScreenshotSets = limitAppScreenshotSets
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -2077,7 +2077,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2153,7 +2153,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[previewType]", filterPreviewType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
@@ -2177,7 +2177,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2262,7 +2262,7 @@ extension Paths.AppStoreVersionLocalizations.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[screenshotDisplayType]", filterScreenshotDisplayType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
@@ -2365,7 +2365,7 @@ extension Paths.AppStoreVersions {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2524,7 +2524,7 @@ extension Paths.AppStoreVersions {
                 self.limitAppStoreVersionLocalizations = limitAppStoreVersionLocalizations
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -2600,7 +2600,7 @@ extension Paths.AppStoreVersions.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewDetailResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2665,7 +2665,7 @@ extension Paths.AppStoreVersions.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
@@ -2751,7 +2751,7 @@ extension Paths.AppStoreVersions.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionSubmissionResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2794,7 +2794,7 @@ extension Paths.AppStoreVersions.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
@@ -2949,7 +2949,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3261,7 +3261,7 @@ extension Paths {
                 self.limitPrices = limitPrices
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[appStoreVersions.appStoreState]", filterAppStoreVersionsAppStoreState?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[appStoreVersions.platform]", filterAppStoreVersionsPlatform?.map(\.asQueryValue).joined(separator: ","))
@@ -3316,7 +3316,7 @@ extension Paths.Apps {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3573,7 +3573,7 @@ extension Paths.Apps {
                 self.limitPrices = limitPrices
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -3622,7 +3622,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfosResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3732,7 +3732,7 @@ extension Paths.Apps.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
@@ -3757,7 +3757,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3978,7 +3978,7 @@ extension Paths.Apps.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[appStoreState]", filterAppStoreState?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
@@ -4238,7 +4238,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4312,7 +4312,7 @@ extension Paths.Apps.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
@@ -4338,7 +4338,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.InAppPurchasesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4415,7 +4415,7 @@ extension Paths.Apps.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[inAppPurchaseType]", filterInAppPurchaseType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[canBeSubmitted]", filterCanBeSubmitted?.map(\.asQueryValue).joined(separator: ","))
@@ -4440,7 +4440,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4468,7 +4468,7 @@ extension Paths.Apps.WithID {
                 self.filterPlatform = filterPlatform
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
@@ -4545,7 +4545,7 @@ extension Paths.Apps.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPricesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4603,7 +4603,7 @@ extension Paths.Apps.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
@@ -4652,7 +4652,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppLocalizationsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4712,7 +4712,7 @@ extension Paths {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
@@ -4740,7 +4740,7 @@ extension Paths.BetaAppLocalizations {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppLocalizationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4794,7 +4794,7 @@ extension Paths.BetaAppLocalizations {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -4870,7 +4870,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters) -> Request<AppStoreConnectAPI.BetaAppReviewDetailsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4930,7 +4930,7 @@ extension Paths {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[app]", filterApp.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
@@ -4953,7 +4953,7 @@ extension Paths.BetaAppReviewDetails {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewDetailResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5009,7 +5009,7 @@ extension Paths.BetaAppReviewDetails {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -5081,7 +5081,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters) -> Request<AppStoreConnectAPI.BetaAppReviewSubmissionsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5140,7 +5140,7 @@ extension Paths {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[betaReviewState]", filterBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[build]", filterBuild.map(\.asQueryValue).joined(separator: ","))
@@ -5168,7 +5168,7 @@ extension Paths.BetaAppReviewSubmissions {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewSubmissionResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5214,7 +5214,7 @@ extension Paths.BetaAppReviewSubmissions {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -5279,7 +5279,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaBuildLocalizationsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5332,7 +5332,7 @@ extension Paths {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
@@ -5360,7 +5360,7 @@ extension Paths.BetaBuildLocalizations {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaBuildLocalizationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5407,7 +5407,7 @@ extension Paths.BetaBuildLocalizations {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -5480,7 +5480,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaGroupsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5613,7 +5613,7 @@ extension Paths {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[isInternalGroup]", filterIsInternalGroup?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
@@ -5652,7 +5652,7 @@ extension Paths.BetaGroups {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaGroupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5754,7 +5754,7 @@ extension Paths.BetaGroups {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -5980,7 +5980,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaLicenseAgreementsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6033,7 +6033,7 @@ extension Paths {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
@@ -6056,7 +6056,7 @@ extension Paths.BetaLicenseAgreements {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaLicenseAgreementResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6105,7 +6105,7 @@ extension Paths.BetaLicenseAgreements {
                 self.fieldsApps = fieldsApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -6192,7 +6192,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaTestersResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6330,7 +6330,7 @@ extension Paths {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[email]", filterEmail?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[firstName]", filterFirstName?.map(\.asQueryValue).joined(separator: ","))
@@ -6369,7 +6369,7 @@ extension Paths.BetaTesters {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaTesterResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6473,7 +6473,7 @@ extension Paths.BetaTesters {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -6727,7 +6727,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BuildBetaDetailsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6781,7 +6781,7 @@ extension Paths {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
@@ -6805,7 +6805,7 @@ extension Paths.BuildBetaDetails {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BuildBetaDetailResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6853,7 +6853,7 @@ extension Paths.BuildBetaDetails {
                 self.fieldsBuilds = fieldsBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -6937,7 +6937,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7186,7 +7186,7 @@ extension Paths {
                 self.limitIndividualTesters = limitIndividualTesters
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[betaAppReviewSubmission.betaReviewState]", filterBetaAppReviewSubmissionBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[expired]", filterExpired?.map(\.asQueryValue).joined(separator: ","))
@@ -7234,7 +7234,7 @@ extension Paths.Builds {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7426,7 +7426,7 @@ extension Paths.Builds {
                 self.limitIndividualTesters = limitIndividualTesters
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -7673,7 +7673,7 @@ extension Paths.Builds.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.DiagnosticSignaturesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7698,7 +7698,7 @@ extension Paths.Builds.WithID {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[diagnosticType]", filterDiagnosticType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
@@ -7778,7 +7778,7 @@ extension Paths.Builds.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7806,7 +7806,7 @@ extension Paths.Builds.WithID {
                 self.filterPlatform = filterPlatform
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
@@ -7967,7 +7967,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BundleIDsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8083,7 +8083,7 @@ extension Paths {
                 self.limitProfiles = limitProfiles
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[identifier]", filterIdentifier?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
@@ -8119,7 +8119,7 @@ extension Paths.BundleIDs {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BundleIDResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8203,7 +8203,7 @@ extension Paths.BundleIDs {
                 self.limitProfiles = limitProfiles
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -8347,7 +8347,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CertificatesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8403,7 +8403,7 @@ extension Paths {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[certificateType]", filterCertificateType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[displayName]", filterDisplayName?.map(\.asQueryValue).joined(separator: ","))
@@ -8468,7 +8468,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.DevicesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8525,7 +8525,7 @@ extension Paths {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
@@ -8648,7 +8648,7 @@ extension Paths.EndUserLicenseAgreements {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.EndUserLicenseAgreementResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8679,7 +8679,7 @@ extension Paths.EndUserLicenseAgreements {
                 self.limitTerritories = limitTerritories
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -8735,7 +8735,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8756,7 +8756,7 @@ extension Paths {
                 self.filterVendorNumber = filterVendorNumber
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[regionCode]", filterRegionCode.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[reportDate]", filterReportDate.map(\.asQueryValue).joined(separator: ","))
@@ -8800,7 +8800,7 @@ extension Paths.GameCenterEnabledVersions.WithID {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8876,7 +8876,7 @@ extension Paths.GameCenterEnabledVersions.WithID {
                 self.include = include
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
@@ -8992,7 +8992,7 @@ extension Paths.InAppPurchases {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.InAppPurchaseResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9018,7 +9018,7 @@ extension Paths.InAppPurchases {
                 self.limitApps = limitApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -9039,7 +9039,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PreReleaseVersionsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9152,7 +9152,7 @@ extension Paths {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[builds.expired]", filterBuildsExpired?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[builds.processingState]", filterBuildsProcessingState?.map(\.asQueryValue).joined(separator: ","))
@@ -9183,7 +9183,7 @@ extension Paths.PreReleaseVersions {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PrereleaseVersionResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9262,7 +9262,7 @@ extension Paths.PreReleaseVersions {
                 self.limitBuilds = limitBuilds
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -9377,7 +9377,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ProfilesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9495,7 +9495,7 @@ extension Paths {
                 self.limitDevices = limitDevices
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[profileState]", filterProfileState?.map(\.asQueryValue).joined(separator: ","))
@@ -9530,7 +9530,7 @@ extension Paths.Profiles {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ProfileResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9603,7 +9603,7 @@ extension Paths.Profiles {
                 self.limitDevices = limitDevices
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -9787,7 +9787,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -9829,7 +9829,7 @@ extension Paths {
                 self.filterVersion = filterVersion
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[frequency]", filterFrequency.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[reportDate]", filterReportDate?.map(\.asQueryValue).joined(separator: ","))
@@ -9879,7 +9879,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.UserInvitationsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9970,7 +9970,7 @@ extension Paths {
                 self.limitVisibleApps = limitVisibleApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[email]", filterEmail?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[roles]", filterRoles?.map(\.asQueryValue).joined(separator: ","))
@@ -10001,7 +10001,7 @@ extension Paths.UserInvitations {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.UserInvitationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10058,7 +10058,7 @@ extension Paths.UserInvitations {
                 self.limitVisibleApps = limitVisibleApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[userInvitations]", fieldsUserInvitations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
@@ -10132,7 +10132,7 @@ extension Paths {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.UsersResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10222,7 +10222,7 @@ extension Paths {
                 self.limitVisibleApps = limitVisibleApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[roles]", filterRoles?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[username]", filterUsername?.map(\.asQueryValue).joined(separator: ","))
@@ -10249,7 +10249,7 @@ extension Paths.Users {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.UserResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10305,7 +10305,7 @@ extension Paths.Users {
                 self.limitVisibleApps = limitVisibleApps
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[users]", fieldsUsers?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))

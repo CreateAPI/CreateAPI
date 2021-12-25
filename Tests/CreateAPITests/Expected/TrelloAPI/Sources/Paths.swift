@@ -28,7 +28,7 @@ extension Paths.Actions {
 
         /// GetActionsByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -54,7 +54,7 @@ extension Paths.Actions {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("display", display)
                 query.addQueryItem("entities", entities)
@@ -106,7 +106,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsBoardByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -120,7 +120,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -165,7 +165,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsCardByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -179,7 +179,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -270,7 +270,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsListByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -284,7 +284,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -329,7 +329,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsMemberByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -343,7 +343,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -388,7 +388,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsMemberCreatorByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -402,7 +402,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -447,7 +447,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsOrganizationByIdAction()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -461,7 +461,7 @@ extension Paths.Actions.WithIDAction {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -552,7 +552,7 @@ extension Paths {
 
         /// GetBatch()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -566,7 +566,7 @@ extension Paths {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("urls", urls)
                 query.addQueryItem("key", key)
@@ -611,7 +611,7 @@ extension Paths.Boards {
 
         /// GetBoardsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -697,7 +697,7 @@ extension Paths.Boards {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("actions_entities", actionsEntities)
@@ -767,7 +767,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsActionsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -807,7 +807,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -842,7 +842,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsBoardStarsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -856,7 +856,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -912,7 +912,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsCardsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -950,7 +950,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -1007,7 +1007,7 @@ extension Paths.Boards.WithIDBoard.Cards {
 
         /// GetBoardsCardsByIdBoardByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1051,7 +1051,7 @@ extension Paths.Boards.WithIDBoard.Cards {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("attachments", attachments)
                 query.addQueryItem("attachment_fields", attachmentFields)
@@ -1088,7 +1088,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsChecklistsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1112,7 +1112,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cards", cards)
                 query.addQueryItem("card_fields", cardFields)
@@ -1174,7 +1174,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsDeltasByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1190,7 +1190,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tags", tags)
                 query.addQueryItem("ixLastUpdate", ixLastUpdate)
@@ -1442,7 +1442,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsLabelsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1458,7 +1458,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("limit", limit)
@@ -1493,7 +1493,7 @@ extension Paths.Boards.WithIDBoard.Labels {
 
         /// GetBoardsLabelsByIdBoardByIdLabel()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1507,7 +1507,7 @@ extension Paths.Boards.WithIDBoard.Labels {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -1529,7 +1529,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsListsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1549,7 +1549,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cards", cards)
                 query.addQueryItem("card_fields", cardFields)
@@ -1632,7 +1632,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsMembersByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1650,7 +1650,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -1744,7 +1744,7 @@ extension Paths.Boards.WithIDBoard.Members.WithIDMember {
 
         /// GetBoardsMembersCardsByIdBoardByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1782,7 +1782,7 @@ extension Paths.Boards.WithIDBoard.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -1816,7 +1816,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsMembersInvitedByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1830,7 +1830,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -1875,7 +1875,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsMembershipsByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1893,7 +1893,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("member", member)
@@ -1917,7 +1917,7 @@ extension Paths.Boards.WithIDBoard.Memberships {
 
         /// GetBoardsMembershipsByIdBoardByIdMembership()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1933,7 +1933,7 @@ extension Paths.Boards.WithIDBoard.Memberships {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("member", member)
                 query.addQueryItem("member_fields", memberFields)
@@ -2175,7 +2175,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsOrganizationByIdBoard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2189,7 +2189,7 @@ extension Paths.Boards.WithIDBoard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -2567,7 +2567,7 @@ extension Paths.Cards {
 
         /// GetCardsByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2625,7 +2625,7 @@ extension Paths.Cards {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("actions_entities", actionsEntities)
@@ -2693,7 +2693,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsActionsByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2733,7 +2733,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -2841,7 +2841,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsAttachmentsByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2857,7 +2857,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("filter", filter)
@@ -2892,7 +2892,7 @@ extension Paths.Cards.WithIDCard.Attachments {
 
         /// GetCardsAttachmentsByIdCardByIdAttachment()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2906,7 +2906,7 @@ extension Paths.Cards.WithIDCard.Attachments {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -2940,7 +2940,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsBoardByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2954,7 +2954,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -2999,7 +2999,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsCheckItemStatesByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3013,7 +3013,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -3240,7 +3240,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsChecklistsByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3264,7 +3264,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cards", cards)
                 query.addQueryItem("card_fields", cardFields)
@@ -3626,7 +3626,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsListByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3640,7 +3640,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -3708,7 +3708,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsMembersByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3722,7 +3722,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -3744,7 +3744,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsMembersVotedByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3758,7 +3758,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -3861,7 +3861,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsStickersByIdCard()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3875,7 +3875,7 @@ extension Paths.Cards.WithIDCard {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -3909,7 +3909,7 @@ extension Paths.Cards.WithIDCard.Stickers {
 
         /// GetCardsStickersByIdCardByIdSticker()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3923,7 +3923,7 @@ extension Paths.Cards.WithIDCard.Stickers {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4038,7 +4038,7 @@ extension Paths.Checklists {
 
         /// GetChecklistsByIdChecklist()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4060,7 +4060,7 @@ extension Paths.Checklists {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cards", cards)
                 query.addQueryItem("card_fields", cardFields)
@@ -4110,7 +4110,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// GetChecklistsBoardByIdChecklist()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4124,7 +4124,7 @@ extension Paths.Checklists.WithIDChecklist {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4169,7 +4169,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// GetChecklistsCardsByIdChecklist()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4207,7 +4207,7 @@ extension Paths.Checklists.WithIDChecklist {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -4264,7 +4264,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// GetChecklistsCheckItemsByIdChecklist()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4280,7 +4280,7 @@ extension Paths.Checklists.WithIDChecklist {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -4315,7 +4315,7 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
 
         /// GetChecklistsCheckItemsByIdChecklistByIdCheckItem()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4329,7 +4329,7 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4478,7 +4478,7 @@ extension Paths.Labels {
 
         /// GetLabelsByIdLabel()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4492,7 +4492,7 @@ extension Paths.Labels {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4538,7 +4538,7 @@ extension Paths.Labels.WithIDLabel {
 
         /// GetLabelsBoardByIdLabel()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4552,7 +4552,7 @@ extension Paths.Labels.WithIDLabel {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4666,7 +4666,7 @@ extension Paths.Lists {
 
         /// GetListsByIdList()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4688,7 +4688,7 @@ extension Paths.Lists {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cards", cards)
                 query.addQueryItem("card_fields", cardFields)
@@ -4726,7 +4726,7 @@ extension Paths.Lists.WithIDList {
 
         /// GetListsActionsByIdList()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4766,7 +4766,7 @@ extension Paths.Lists.WithIDList {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -4824,7 +4824,7 @@ extension Paths.Lists.WithIDList {
 
         /// GetListsBoardByIdList()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4838,7 +4838,7 @@ extension Paths.Lists.WithIDList {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -4883,7 +4883,7 @@ extension Paths.Lists.WithIDList {
 
         /// GetListsCardsByIdList()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4921,7 +4921,7 @@ extension Paths.Lists.WithIDList {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -5164,7 +5164,7 @@ extension Paths.Members {
         ///
         /// If you specify 'me' as the username, this call will respond as if you had supplied the username associated with the supplied token
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5280,7 +5280,7 @@ extension Paths.Members {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("actions_entities", actionsEntities)
@@ -5365,7 +5365,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersActionsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5405,7 +5405,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -5509,7 +5509,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersBoardBackgroundsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5523,7 +5523,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -5557,7 +5557,7 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
 
         /// GetMembersBoardBackgroundsByIdMemberByIdBoardBackground()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5571,7 +5571,7 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -5745,7 +5745,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersBoardsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5781,7 +5781,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -5837,7 +5837,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersBoardsInvitedByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5851,7 +5851,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -5896,7 +5896,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersCardsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5934,7 +5934,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -5991,7 +5991,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersCustomBoardBackgroundsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6005,7 +6005,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -6039,7 +6039,7 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
 
         /// GetMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6053,7 +6053,7 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -6101,7 +6101,7 @@ extension Paths.Members.WithIDMember {
         ///
         /// This gets the list of all of the userâ€™s uploaded emoji
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6115,7 +6115,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -6149,7 +6149,7 @@ extension Paths.Members.WithIDMember.CustomEmoji {
 
         /// GetMembersCustomEmojiByIdMemberByIdCustomEmoji()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6163,7 +6163,7 @@ extension Paths.Members.WithIDMember.CustomEmoji {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -6187,7 +6187,7 @@ extension Paths.Members.WithIDMember {
         ///
         /// This gets a list of all of the userâ€™s uploaded stickers
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6201,7 +6201,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -6235,7 +6235,7 @@ extension Paths.Members.WithIDMember.CustomStickers {
 
         /// GetMembersCustomStickersByIdMemberByIdCustomSticker()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6249,7 +6249,7 @@ extension Paths.Members.WithIDMember.CustomStickers {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -6283,7 +6283,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersDeltasByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6299,7 +6299,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tags", tags)
                 query.addQueryItem("ixLastUpdate", ixLastUpdate)
@@ -6370,7 +6370,7 @@ extension Paths.Members.WithIDMember {
         ///
         /// You can only read the notifications for the member associated with the supplied token
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6404,7 +6404,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -6482,7 +6482,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersOrganizationsByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6500,7 +6500,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -6547,7 +6547,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersOrganizationsInvitedByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6561,7 +6561,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -6837,7 +6837,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersTokensByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6851,7 +6851,7 @@ extension Paths.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("key", key)
@@ -6964,7 +6964,7 @@ extension Paths.Notifications {
 
         /// GetNotificationsByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7004,7 +7004,7 @@ extension Paths.Notifications {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("display", display)
                 query.addQueryItem("entities", entities)
@@ -7051,7 +7051,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsBoardByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7065,7 +7065,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7110,7 +7110,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsCardByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7124,7 +7124,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7215,7 +7215,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsListByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7229,7 +7229,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7274,7 +7274,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsMemberByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7288,7 +7288,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7333,7 +7333,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsMemberCreatorByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7347,7 +7347,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7392,7 +7392,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsOrganizationByIdNotification()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7406,7 +7406,7 @@ extension Paths.Notifications.WithIDNotification {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -7520,7 +7520,7 @@ extension Paths.Organizations {
 
         /// GetOrganizationsByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7582,7 +7582,7 @@ extension Paths.Organizations {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("actions_entities", actionsEntities)
@@ -7652,7 +7652,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsActionsByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7692,7 +7692,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("entities", entities)
                 query.addQueryItem("display", display)
@@ -7727,7 +7727,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsBoardsByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7763,7 +7763,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -7819,7 +7819,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsDeltasByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7835,7 +7835,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tags", tags)
                 query.addQueryItem("ixLastUpdate", ixLastUpdate)
@@ -7939,7 +7939,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsMembersByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7957,7 +7957,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("fields", fields)
@@ -8074,7 +8074,7 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
         /// GetOrganizationsMembersCardsByIdOrgByIdMember()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8112,7 +8112,7 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actions", actions)
                 query.addQueryItem("attachments", attachments)
@@ -8169,7 +8169,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsMembersInvitedByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8183,7 +8183,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)
@@ -8228,7 +8228,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsMembershipsByIdOrg()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8246,7 +8246,7 @@ extension Paths.Organizations.WithIDOrg {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("member", member)
@@ -8270,7 +8270,7 @@ extension Paths.Organizations.WithIDOrg.Memberships {
 
         /// GetOrganizationsMembershipsByIdOrgByIdMembership()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8286,7 +8286,7 @@ extension Paths.Organizations.WithIDOrg.Memberships {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("member", member)
                 query.addQueryItem("member_fields", memberFields)
@@ -8528,7 +8528,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// DeleteOrganizationsPrefsOrgInviteRestrictByIdOrg()
         public func delete(parameters: DeleteParameters) -> Request<Void> {
-            .delete(path, query: parameters.asQuery())
+            .delete(path, query: parameters.asQuery)
         }
 
         public struct DeleteParameters {
@@ -8542,7 +8542,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("value", value)
                 query.addQueryItem("key", key)
@@ -8633,7 +8633,7 @@ extension Paths {
 
         /// GetSearch()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8685,7 +8685,7 @@ extension Paths {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("idBoards", idBoards)
@@ -8726,7 +8726,7 @@ extension Paths.Search {
 
         /// GetSearchMembers()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8748,7 +8748,7 @@ extension Paths.Search {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("limit", limit)
@@ -8879,7 +8879,7 @@ extension Paths.Tokens {
 
         /// GetTokensByToken()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8895,7 +8895,7 @@ extension Paths.Tokens {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("webhooks", webhooks)
@@ -8930,7 +8930,7 @@ extension Paths.Tokens.WithToken {
 
         /// GetTokensMemberByToken()
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8944,7 +8944,7 @@ extension Paths.Tokens.WithToken {
                 self.token = token
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields", fields)
                 query.addQueryItem("key", key)

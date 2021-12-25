@@ -28,7 +28,7 @@ extension Paths.Cloudloading {
 
         /// Add a user-upload volume and triggers processing.
         public func post(parameters: PostParameters? = nil) -> Request<GoogleBooksAPI.BooksCloudloadingResource> {
-            .post(path, query: parameters?.asQuery())
+            .post(path, query: parameters?.asQuery)
         }
 
         public struct PostParameters {
@@ -44,7 +44,7 @@ extension Paths.Cloudloading {
                 self.uploadClientToken = uploadClientToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("drive_document_id", driveDocumentID)
                 query.addQueryItem("mime_type", mimeType)
@@ -171,7 +171,7 @@ extension Paths.Familysharing {
 
         /// Initiates sharing of the content with the user's family. Empty response indicates success.
         public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters?.asQuery())
+            .post(path, query: parameters?.asQuery)
         }
 
         public struct PostParameters {
@@ -185,7 +185,7 @@ extension Paths.Familysharing {
                 self.volumeID = volumeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("docId", docID)
                 query.addQueryItem("source", source)
@@ -207,7 +207,7 @@ extension Paths.Familysharing {
 
         /// Initiates revoking content that has already been shared with the user's family. Empty response indicates success.
         public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters?.asQuery())
+            .post(path, query: parameters?.asQuery)
         }
 
         public struct PostParameters {
@@ -221,7 +221,7 @@ extension Paths.Familysharing {
                 self.volumeID = volumeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("docId", docID)
                 query.addQueryItem("source", source)
@@ -276,7 +276,7 @@ extension Paths.Myconfig {
 
         /// Release downloaded content access restriction.
         public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.DownloadAccesses> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -292,7 +292,7 @@ extension Paths.Myconfig {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cpksver", cpksver)
                 volumeIDs.forEach { query.addQueryItem("volumeIds", $0) }
@@ -315,7 +315,7 @@ extension Paths.Myconfig {
 
         /// Request concurrent and download access restrictions.
         public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.RequestAccessData> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -342,7 +342,7 @@ extension Paths.Myconfig {
                 self.locale = locale
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cpksver", cpksver)
                 query.addQueryItem("nonce", nonce)
@@ -367,7 +367,7 @@ extension Paths.Myconfig {
 
         /// Request downloaded content access for specified volumes on the My eBooks shelf.
         public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.Volumes> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -396,7 +396,7 @@ extension Paths.Myconfig {
                 self.volumeIDs = volumeIDs
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cpksver", cpksver)
                 query.addQueryItem("nonce", nonce)
@@ -450,7 +450,7 @@ extension Paths.Mylibrary {
 
         /// Retrieves a list of annotations, possibly filtered.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Annotations> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -478,7 +478,7 @@ extension Paths.Mylibrary {
                 self.volumeID = volumeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("contentVersion", contentVersion)
                 query.addQueryItem("layerId", layerID)
@@ -496,7 +496,7 @@ extension Paths.Mylibrary {
 
         /// Inserts a new annotation.
         public func post(parameters: PostParameters? = nil, _ body: GoogleBooksAPI.Annotation? = nil) -> Request<GoogleBooksAPI.Annotation> {
-            .post(path, query: parameters?.asQuery(), body: body)
+            .post(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -512,7 +512,7 @@ extension Paths.Mylibrary {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("annotationId", annotationID)
                 query.addQueryItem("country", country)
@@ -635,7 +635,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         /// Adds a volume to a bookshelf.
         public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -656,7 +656,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("volumeId", volumeID)
                 query.addQueryItem("reason", reason)
@@ -700,7 +700,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         /// Moves a volume within a bookshelf.
         public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -714,7 +714,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("volumeId", volumeID)
                 query.addQueryItem("volumePosition", volumePosition)
@@ -736,7 +736,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         /// Removes a volume from a bookshelf.
         public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -755,7 +755,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("volumeId", volumeID)
                 query.addQueryItem("reason", reason)
@@ -777,7 +777,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         /// Gets volume information for volumes on a bookshelf.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -805,7 +805,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
                 self.startIndex = startIndex
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("maxResults", maxResults)
@@ -865,7 +865,7 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
 
         /// Sets my reading position information for a volume.
         public func post(parameters: PostParameters) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -895,7 +895,7 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("position", position)
                 query.addQueryItem("timestamp", timestamp)
@@ -931,7 +931,7 @@ extension Paths.Notification {
 
         /// Returns notification details for a given notification id.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Notification> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -945,7 +945,7 @@ extension Paths.Notification {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("notification_id", notificationID)
                 query.addQueryItem("locale", locale)
@@ -1000,7 +1000,7 @@ extension Paths.Onboarding {
 
         /// List available volumes under categories for onboarding experience.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volume2> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1024,7 +1024,7 @@ extension Paths.Onboarding {
                 self.pageToken = pageToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 categoryID?.forEach { query.addQueryItem("categoryId", $0) }
                 query.addQueryItem("locale", locale)
@@ -1059,7 +1059,7 @@ extension Paths.Personalizedstream {
 
         /// Returns a stream of personalized book clusters
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Discoveryclusters> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1079,7 +1079,7 @@ extension Paths.Personalizedstream {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("locale", locale)
                 query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
@@ -1112,7 +1112,7 @@ extension Paths.Promooffer {
 
         /// Accepts the promo offer.
         public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters?.asQuery())
+            .post(path, query: parameters?.asQuery)
         }
 
         public struct PostParameters {
@@ -1136,7 +1136,7 @@ extension Paths.Promooffer {
                 self.volumeID = volumeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("androidId", androidID)
                 query.addQueryItem("device", device)
@@ -1163,7 +1163,7 @@ extension Paths.Promooffer {
 
         /// Marks the promo offer as dismissed.
         public func post(parameters: PostParameters? = nil) -> Request<[String: AnyJSON]> {
-            .post(path, query: parameters?.asQuery())
+            .post(path, query: parameters?.asQuery)
         }
 
         public struct PostParameters {
@@ -1185,7 +1185,7 @@ extension Paths.Promooffer {
                 self.serial = serial
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("androidId", androidID)
                 query.addQueryItem("device", device)
@@ -1211,7 +1211,7 @@ extension Paths.Promooffer {
 
         /// Returns a list of promo offers available to the user
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Offers> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1231,7 +1231,7 @@ extension Paths.Promooffer {
                 self.serial = serial
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("androidId", androidID)
                 query.addQueryItem("device", device)
@@ -1300,7 +1300,7 @@ extension Paths.Series.Membership {
 
         /// Returns Series membership data given the series id.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Seriesmembership> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1314,7 +1314,7 @@ extension Paths.Series.Membership {
                 self.pageToken = pageToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("series_id", seriesID)
                 query.addQueryItem("page_size", pageSize)
@@ -1402,7 +1402,7 @@ extension Paths.Users.WithUserID.Bookshelves.WithShelf {
 
         /// Retrieves volumes in a specific bookshelf for the specified user.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1418,7 +1418,7 @@ extension Paths.Users.WithUserID.Bookshelves.WithShelf {
                 self.startIndex = startIndex
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("maxResults", maxResults)
                 query.addQueryItem("showPreorders", isShowPreorders)
@@ -1441,7 +1441,7 @@ extension Paths {
 
         /// Performs a book search.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1522,7 +1522,7 @@ extension Paths {
                 self.startIndex = startIndex
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("download", download)
@@ -1555,7 +1555,7 @@ extension Paths.Volumes {
 
         /// Return a list of books in My Library.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1596,7 +1596,7 @@ extension Paths.Volumes {
                 self.startIndex = startIndex
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 acquireMethod?.forEach { query.addQueryItem("acquireMethod", $0) }
                 query.addQueryItem("country", country)
@@ -1622,7 +1622,7 @@ extension Paths.Volumes {
 
         /// Return a list of recommended books for the current user.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1642,7 +1642,7 @@ extension Paths.Volumes {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("locale", locale)
                 query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
@@ -1664,7 +1664,7 @@ extension Paths.Volumes.Recommended {
 
         /// Rate a recommended book for the current user.
         public func post(parameters: PostParameters) -> Request<GoogleBooksAPI.BooksVolumesRecommendedRateResponse> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -1686,7 +1686,7 @@ extension Paths.Volumes.Recommended {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("rating", rating)
                 query.addQueryItem("volumeId", volumeID)
@@ -1709,7 +1709,7 @@ extension Paths.Volumes {
 
         /// Return a list of books uploaded by the current user.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1736,7 +1736,7 @@ extension Paths.Volumes {
                 self.volumeID = volumeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("locale", locale)
                 query.addQueryItem("maxResults", maxResults)
@@ -1761,7 +1761,7 @@ extension Paths.Volumes {
 
         /// Gets volume information for a single volume.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volume> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1787,7 +1787,7 @@ extension Paths.Volumes {
                 self.isUserLibraryConsistentRead = isUserLibraryConsistentRead
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries)
@@ -1812,7 +1812,7 @@ extension Paths.Volumes.WithVolumeID {
 
         /// Return a list of associated books.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Volumes> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1841,7 +1841,7 @@ extension Paths.Volumes.WithVolumeID {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("association", association)
                 query.addQueryItem("locale", locale)
@@ -1875,7 +1875,7 @@ extension Paths.Volumes.WithVolumeID.Layers {
 
         /// Gets the volume annotations for a volume and layer.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Volumeannotations> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1909,7 +1909,7 @@ extension Paths.Volumes.WithVolumeID.Layers {
                 self.volumeAnnotationsVersion = volumeAnnotationsVersion
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("contentVersion", contentVersion)
                 query.addQueryItem("endOffset", endOffset)
@@ -1975,7 +1975,7 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
 
         /// Gets the annotation data for a volume and layer.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.Annotationsdata> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2005,7 +2005,7 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
                 self.w = w
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("contentVersion", contentVersion)
                 annotationDataID?.forEach { query.addQueryItem("annotationDataId", $0) }
@@ -2035,7 +2035,7 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
 
         /// Gets the annotation data.
         public func get(parameters: GetParameters) -> Request<GoogleBooksAPI.DictionaryAnnotationdata> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2057,7 +2057,7 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
                 self.w = w
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("contentVersion", contentVersion)
                 query.addQueryItem("allowWebDefinitions", allowWebDefinitions)
@@ -2083,7 +2083,7 @@ extension Paths.Volumes.WithVolumeID {
 
         /// List the layer summaries for a volume.
         public func get(parameters: GetParameters? = nil) -> Request<GoogleBooksAPI.Layersummaries> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2099,7 +2099,7 @@ extension Paths.Volumes.WithVolumeID {
                 self.source = source
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("contentVersion", contentVersion)
                 query.addQueryItem("maxResults", maxResults)

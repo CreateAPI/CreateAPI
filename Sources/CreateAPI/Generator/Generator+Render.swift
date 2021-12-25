@@ -42,7 +42,7 @@ extension Generator {
         switch decl.type {
         case .object:
             if decl.isForm {
-                contents.append(templates.asQueryString(properties: properties))
+                contents.append(templates.asQuery(properties: properties))
             } else {
                 if options.entities.isGeneratingCustomCodingKeys {
                     if let keys = templates.codingKeys(for: properties) {

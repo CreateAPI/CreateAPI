@@ -399,7 +399,7 @@ extension Paths.App {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Installation]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -419,7 +419,7 @@ extension Paths.App {
                 self.outdated = outdated
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -582,7 +582,7 @@ extension Paths.Applications {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ApplicationGrant]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -600,7 +600,7 @@ extension Paths.Applications {
                 self.clientID = clientID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -833,7 +833,7 @@ extension Paths {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Authorization]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -851,7 +851,7 @@ extension Paths {
                 self.clientID = clientID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -2081,7 +2081,7 @@ extension Paths.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2114,7 +2114,7 @@ extension Paths.Enterprises.WithEnterprise {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("phrase", phrase)
                 query.addQueryItem("include", include)
@@ -2323,7 +2323,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2341,7 +2341,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("since", since)
                 query.addQueryItem("per_page", perPage)
@@ -2442,7 +2442,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-public-gists)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2460,7 +2460,7 @@ extension Paths.Gists {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("since", since)
                 query.addQueryItem("per_page", perPage)
@@ -2486,7 +2486,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-starred-gists)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2504,7 +2504,7 @@ extension Paths.Gists {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("since", since)
                 query.addQueryItem("per_page", perPage)
@@ -2941,7 +2941,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3003,7 +3003,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("state", state)
@@ -3036,7 +3036,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.LicenseSimple]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3050,7 +3050,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("featured", isFeatured)
                 query.addQueryItem("per_page", perPage)
@@ -3257,7 +3257,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MarketplacePurchase]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3287,7 +3287,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -3404,7 +3404,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MarketplacePurchase]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3434,7 +3434,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -3541,7 +3541,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3565,7 +3565,7 @@ extension Paths {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("all", isAll)
                 query.addQueryItem("participating", isParticipating)
@@ -5185,7 +5185,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-audit-log)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5216,7 +5216,7 @@ extension Paths.Orgs.WithOrg {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("phrase", phrase)
                 query.addQueryItem("include", include)
@@ -5401,7 +5401,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ExternalGroups> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -5419,7 +5419,7 @@ extension Paths.Orgs.WithOrg {
                 self.displayName = displayName
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -6092,7 +6092,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6146,7 +6146,7 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("state", state)
@@ -6177,7 +6177,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-members)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6208,7 +6208,7 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("role", role)
@@ -6342,7 +6342,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-organization-migrations)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Migration]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6367,7 +6367,7 @@ extension Paths.Orgs.WithOrg {
                 self.exclude = exclude
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -6588,7 +6588,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6611,7 +6611,7 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("per_page", perPage)
@@ -6795,7 +6795,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PackageVersion]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6814,7 +6814,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
                 self.state = state
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("page", page)
                 query.addQueryItem("per_page", perPage)
@@ -6904,7 +6904,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-organization-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6928,7 +6928,7 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("per_page", perPage)
@@ -7042,7 +7042,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-organization-repositories)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7086,7 +7086,7 @@ extension Paths.Orgs.WithOrg {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("type", type)
                 query.addQueryItem("sort", sort)
@@ -7236,7 +7236,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrganizationSecretScanningAlert]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7263,7 +7263,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("secret_type", secretType)
@@ -7676,7 +7676,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7701,7 +7701,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.pinned = pinned
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("direction", direction)
                 query.addQueryItem("per_page", perPage)
@@ -7820,7 +7820,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7843,7 +7843,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("direction", direction)
                 query.addQueryItem("per_page", perPage)
@@ -7928,7 +7928,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7957,7 +7957,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -8039,7 +8039,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8068,7 +8068,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -8216,7 +8216,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8240,7 +8240,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("role", role)
                 query.addQueryItem("per_page", perPage)
@@ -8854,7 +8854,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-cards)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ProjectCard]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8878,7 +8878,7 @@ extension Paths.Projects.Columns.WithColumnID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("archived_state", archivedState)
                 query.addQueryItem("per_page", perPage)
@@ -9055,7 +9055,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-collaborators)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -9079,7 +9079,7 @@ extension Paths.Projects.WithProjectID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("affiliation", affiliation)
                 query.addQueryItem("per_page", perPage)
@@ -10041,7 +10041,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -10100,7 +10100,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actor", actor)
                 query.addQueryItem("branch", branch)
@@ -10385,7 +10385,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -10423,7 +10423,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("per_page", perPage)
@@ -10935,7 +10935,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -10994,7 +10994,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 self.excludePullRequests = excludePullRequests
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("actor", actor)
                 query.addQueryItem("branch", branch)
@@ -11220,7 +11220,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ShortBranch]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -11238,7 +11238,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("protected", isProtected)
                 query.addQueryItem("per_page", perPage)
@@ -12791,7 +12791,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -12839,7 +12839,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("check_name", checkName)
                 query.addQueryItem("status", status)
@@ -12909,7 +12909,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertItems]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -12936,7 +12936,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.sort = sort
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("page", page)
                 query.addQueryItem("per_page", perPage)
@@ -13429,7 +13429,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-collaborators)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Collaborator]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13453,7 +13453,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("affiliation", affiliation)
                 query.addQueryItem("per_page", perPage)
@@ -13649,7 +13649,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13678,7 +13678,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -13783,7 +13783,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commits)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Commit]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13809,7 +13809,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sha", sha)
                 query.addQueryItem("path", path)
@@ -14031,7 +14031,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14081,7 +14081,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.appID = appID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("check_name", checkName)
                 query.addQueryItem("status", status)
@@ -14112,7 +14112,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14147,7 +14147,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("app_id", appID)
                 query.addQueryItem("check_name", checkName)
@@ -14579,7 +14579,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-contributors)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Contributor]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14597,7 +14597,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("anon", anon)
                 query.addQueryItem("per_page", perPage)
@@ -14623,7 +14623,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Deployment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14647,7 +14647,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sha", sha)
                 query.addQueryItem("ref", ref)
@@ -15131,7 +15131,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-forks)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -15156,7 +15156,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("per_page", perPage)
@@ -16649,7 +16649,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-repository-issues)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -16700,7 +16700,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("milestone", milestone)
                 query.addQueryItem("state", state)
@@ -16826,7 +16826,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -16858,7 +16858,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -16918,7 +16918,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -16947,7 +16947,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -17226,7 +17226,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -17244,7 +17244,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("since", since)
                 query.addQueryItem("per_page", perPage)
@@ -17548,7 +17548,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -17577,7 +17577,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -18008,7 +18008,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-milestones)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Milestone]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18046,7 +18046,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("sort", sort)
@@ -18208,7 +18208,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18232,7 +18232,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("all", isAll)
                 query.addQueryItem("participating", isParticipating)
@@ -18520,7 +18520,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-repository-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18544,7 +18544,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("per_page", perPage)
@@ -18591,7 +18591,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestSimple]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18635,7 +18635,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("head", head)
@@ -18720,7 +18720,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18753,7 +18753,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -18819,7 +18819,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18848,7 +18848,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -19053,7 +19053,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -19085,7 +19085,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -20200,7 +20200,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SecretScanningAlert]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -20223,7 +20223,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
                 self.perPage = perPage
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("secret_type", secretType)
@@ -21405,7 +21405,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimGroupListEnterprise> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -21421,7 +21421,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.excludedAttributes = excludedAttributes
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startIndex", startIndex)
                 query.addQueryItem("count", count)
@@ -21618,7 +21618,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimUserListEnterprise> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -21632,7 +21632,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.filter = filter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startIndex", startIndex)
                 query.addQueryItem("count", count)
@@ -21917,7 +21917,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#list-scim-provisioned-identities)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimUserList> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -21931,7 +21931,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                 self.filter = filter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startIndex", startIndex)
                 query.addQueryItem("count", count)
@@ -22345,7 +22345,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-code)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22390,7 +22390,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("sort", sort)
@@ -22425,7 +22425,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-commits)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22471,7 +22471,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("sort", sort)
@@ -22510,7 +22510,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-issues-and-pull-requests)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22565,7 +22565,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("sort", sort)
@@ -22601,7 +22601,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-labels)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22649,7 +22649,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("repository_id", repositoryID)
                 query.addQueryItem("q", q)
@@ -22686,7 +22686,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-repositories)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22734,7 +22734,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("sort", sort)
@@ -22770,7 +22770,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-topics)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22802,7 +22802,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("per_page", perPage)
@@ -22836,7 +22836,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-users)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22883,7 +22883,7 @@ extension Paths.Search {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("sort", sort)
@@ -23032,7 +23032,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23055,7 +23055,7 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("direction", direction)
                 query.addQueryItem("per_page", perPage)
@@ -23178,7 +23178,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23201,7 +23201,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("direction", direction)
                 query.addQueryItem("per_page", perPage)
@@ -23291,7 +23291,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23320,7 +23320,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -23382,7 +23382,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23411,7 +23411,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("content", content)
                 query.addQueryItem("per_page", perPage)
@@ -23507,7 +23507,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23531,7 +23531,7 @@ extension Paths.Teams.WithTeamID {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("role", role)
                 query.addQueryItem("per_page", perPage)
@@ -24227,7 +24227,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -24256,7 +24256,7 @@ extension Paths.User {
                 self.repositoryID = repositoryID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("per_page", perPage)
                 query.addQueryItem("page", page)
@@ -25334,7 +25334,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -25388,7 +25388,7 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("state", state)
@@ -25573,7 +25573,7 @@ extension Paths.User.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrgMembership]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -25596,7 +25596,7 @@ extension Paths.User.Memberships {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("per_page", perPage)
@@ -26066,7 +26066,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PackageVersion]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -26085,7 +26085,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
                 self.state = state
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("page", page)
                 query.addQueryItem("per_page", perPage)
@@ -26239,7 +26239,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -26291,7 +26291,7 @@ extension Paths.User {
                 self.before = before
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("visibility", visibility)
                 query.addQueryItem("affiliation", affiliation)
@@ -26508,7 +26508,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -26538,7 +26538,7 @@ extension Paths.User {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)
@@ -26917,7 +26917,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -26935,7 +26935,7 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("since", since)
                 query.addQueryItem("per_page", perPage)
@@ -27330,7 +27330,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-user-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27354,7 +27354,7 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("state", state)
                 query.addQueryItem("per_page", perPage)
@@ -27432,7 +27432,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27472,7 +27472,7 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("type", type)
                 query.addQueryItem("sort", sort)
@@ -27596,7 +27596,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27642,7 +27642,7 @@ extension Paths.Users.WithUsername {
                 self.page = page
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("direction", direction)

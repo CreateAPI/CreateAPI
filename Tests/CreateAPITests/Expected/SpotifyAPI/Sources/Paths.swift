@@ -48,7 +48,7 @@ extension Paths.Albums.WithID {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-albums-tracks)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -90,7 +90,7 @@ extension Paths.Albums.WithID {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("limit", limit)
@@ -163,7 +163,7 @@ extension Paths.Artists.WithID {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artists-albums)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -207,7 +207,7 @@ extension Paths.Artists.WithID {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("include_groups", includeGroups)
                 query.addQueryItem("market", market)
@@ -317,7 +317,7 @@ extension Paths.Browse.Categories.WithCategoryID {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-categories-playlists)
         public func get(parameters: GetParameters? = nil) -> Request<SpotifyAPI.PlaylistPagingObject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -331,7 +331,7 @@ extension Paths.Browse.Categories.WithCategoryID {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("limit", limit)
@@ -384,7 +384,7 @@ extension Paths.Browse {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-categories)
         public func get(parameters: GetParameters? = nil) -> Request<SpotifyAPI.CategoriesObject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -400,7 +400,7 @@ extension Paths.Browse {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("locale", locale)
@@ -427,7 +427,7 @@ extension Paths.Browse {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-featured-playlists)
         public func get(parameters: GetParameters? = nil) -> Request<SpotifyAPI.FeaturedPlaylistObject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -445,7 +445,7 @@ extension Paths.Browse {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("locale", locale)
@@ -473,7 +473,7 @@ extension Paths.Browse {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-new-releases)
         public func get(parameters: GetParameters? = nil) -> Request<SpotifyAPI.NewReleasesObject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -487,7 +487,7 @@ extension Paths.Browse {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("country", country)
                 query.addQueryItem("limit", limit)
@@ -533,7 +533,7 @@ extension Paths {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations)
         public func get(parameters: GetParameters) -> Request<SpotifyAPI.RecommendationsObject> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -635,7 +635,7 @@ extension Paths {
                 self.targetValence = targetValence
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("market", market)
@@ -823,7 +823,7 @@ extension Paths.Me {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-followed)
         public func get(parameters: GetParameters) -> Request<SpotifyAPI.FollowingArtistsObject> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -837,7 +837,7 @@ extension Paths.Me {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("type", type)
                 query.addQueryItem("after", after)
@@ -1048,7 +1048,7 @@ extension Paths.Me {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-albums)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -1090,7 +1090,7 @@ extension Paths.Me {
                 self.market = market
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -1168,7 +1168,7 @@ extension Paths.Me {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -1210,7 +1210,7 @@ extension Paths.Me {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("limit", limit)
@@ -1396,7 +1396,7 @@ extension Paths.Me {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-tracks)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -1438,7 +1438,7 @@ extension Paths.Me {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("limit", limit)
@@ -1545,7 +1545,7 @@ extension Paths.Me.Top {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -1603,7 +1603,7 @@ extension Paths.Me.Top {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("time_range", timeRange)
                 query.addQueryItem("limit", limit)
@@ -1733,7 +1733,7 @@ extension Paths.Me.Player {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-cursorpagingobject)
@@ -1772,7 +1772,7 @@ extension Paths.Me.Player {
                 self.before = before
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("after", after)
@@ -2063,7 +2063,7 @@ extension Paths.Playlists.WithPlaylistID {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -2109,7 +2109,7 @@ extension Paths.Playlists.WithPlaylistID {
                 self.additionalTypes = additionalTypes
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("fields", fields)
@@ -2251,7 +2251,7 @@ extension Paths.Playlists {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlist)
         public func get(parameters: GetParameters? = nil) -> Request<SpotifyAPI.PlaylistObject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2265,7 +2265,7 @@ extension Paths.Playlists {
                 self.additionalTypes = additionalTypes
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("fields", fields)
@@ -2514,7 +2514,7 @@ extension Paths {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-search)
         public func get(parameters: GetParameters) -> Request<SpotifyAPI.SearchResponseObject> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2534,7 +2534,7 @@ extension Paths {
                 self.includeExternal = includeExternal
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("q", q)
                 query.addQueryItem("type", type)
@@ -2590,7 +2590,7 @@ extension Paths.Shows.WithID {
         ///
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// [Find more info on the official Spotify Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)
@@ -2632,7 +2632,7 @@ extension Paths.Shows.WithID {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("market", market)
                 query.addQueryItem("limit", limit)

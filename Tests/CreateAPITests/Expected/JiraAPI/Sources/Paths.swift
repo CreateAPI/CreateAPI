@@ -122,7 +122,7 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey.Context {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg). Jira permissions are not required for the Forge app that created the custom field.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanContextualConfiguration> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -146,7 +146,7 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey.Context {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 id?.forEach { query.addQueryItem("id", $0) }
                 contextID?.forEach { query.addQueryItem("contextId", $0) }
@@ -214,7 +214,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.ApplicationProperty]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -228,7 +228,7 @@ extension Paths.API.__3 {
                 self.keyFilter = keyFilter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("key", key)
                 query.addQueryItem("permissionLevel", permissionLevel)
@@ -481,7 +481,7 @@ extension Paths.API.__3.Attachment.Thumbnail {
         ///  *  *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         public func get(parameters: GetParameters? = nil) -> Request<[String: AnyJSON]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -497,7 +497,7 @@ extension Paths.API.__3.Attachment.Thumbnail {
                 self.height = height
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("redirect", isRedirect)
                 query.addQueryItem("fallbackToDefault", isFallbackToDefault)
@@ -655,7 +655,7 @@ extension Paths.API.__3.Auditing {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.AuditRecords> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -673,7 +673,7 @@ extension Paths.API.__3.Auditing {
                 self.to = to
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("offset", offset)
                 query.addQueryItem("limit", limit)
@@ -1115,7 +1115,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageOfDashboards> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1134,7 +1134,7 @@ extension Paths.API.__3 {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("startAt", startAt)
@@ -1177,7 +1177,7 @@ extension Paths.API.__3.Dashboard {
         ///  *  Dashboards shared with a public project.
         ///  *  Dashboards shared with the public.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanDashboard> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1224,7 +1224,7 @@ extension Paths.API.__3.Dashboard {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("dashboardName", dashboardName)
                 query.addQueryItem("accountId", accountID)
@@ -1599,7 +1599,7 @@ extension Paths.API.__3.Field {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanField> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1641,7 +1641,7 @@ extension Paths.API.__3.Field {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -1696,7 +1696,7 @@ extension Paths.API.__3.Field.WithFieldID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanCustomFieldContext> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1714,7 +1714,7 @@ extension Paths.API.__3.Field.WithFieldID {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("isAnyIssueType", isAnyIssueType)
                 query.addQueryItem("isGlobalContext", isGlobalContext)
@@ -1773,7 +1773,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanCustomFieldContextDefaultValue> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1787,7 +1787,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 contextID?.forEach { query.addQueryItem("contextId", $0) }
                 query.addQueryItem("startAt", startAt)
@@ -1843,7 +1843,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueTypeToContextMapping> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1857,7 +1857,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 contextID?.forEach { query.addQueryItem("contextId", $0) }
                 query.addQueryItem("startAt", startAt)
@@ -1916,7 +1916,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanCustomFieldContextProjectMapping> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1930,7 +1930,7 @@ extension Paths.API.__3.Field.WithFieldID.Context {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 contextID?.forEach { query.addQueryItem("contextId", $0) }
                 query.addQueryItem("startAt", startAt)
@@ -2033,7 +2033,7 @@ extension Paths.API.__3.Field.WithFieldID.Context.WithContextID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanCustomFieldContextOption> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2049,7 +2049,7 @@ extension Paths.API.__3.Field.WithFieldID.Context.WithContextID {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("optionId", optionID)
                 query.addQueryItem("onlyOptions", isOnlyOptions)
@@ -2222,7 +2222,7 @@ extension Paths.API.__3.Field.WithFieldID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanScreenWithTab> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2236,7 +2236,7 @@ extension Paths.API.__3.Field.WithFieldID {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2326,7 +2326,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueFieldOption> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2340,7 +2340,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
                 self.projectID = projectID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2368,7 +2368,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueFieldOption> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2382,7 +2382,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
                 self.projectID = projectID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2458,7 +2458,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.WithOptionID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg). Jira permissions are not required for the app providing the field.
         public func delete(parameters: DeleteParameters? = nil) -> Request<Void> {
-            .delete(path, query: parameters?.asQuery())
+            .delete(path, query: parameters?.asQuery)
         }
 
         public struct DeleteParameters {
@@ -2474,7 +2474,7 @@ extension Paths.API.__3.Field.WithFieldKey.Option.WithOptionID {
                 self.isOverrideEditableFlag = isOverrideEditableFlag
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("replaceWith", replaceWith)
                 query.addQueryItem("jql", jql)
@@ -2569,7 +2569,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanFieldConfigurationDetails> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2587,7 +2587,7 @@ extension Paths.API.__3 {
                 self.query = query
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2703,7 +2703,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanFieldConfigurationScheme> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2717,7 +2717,7 @@ extension Paths.API.__3 {
                 self.id = id
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2756,7 +2756,7 @@ extension Paths.API.__3.Fieldconfigurationscheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanFieldConfigurationIssueTypeItem> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2770,7 +2770,7 @@ extension Paths.API.__3.Fieldconfigurationscheme {
                 self.fieldConfigurationSchemeID = fieldConfigurationSchemeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -2800,7 +2800,7 @@ extension Paths.API.__3.Fieldconfigurationscheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanFieldConfigurationSchemeProjects> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2814,7 +2814,7 @@ extension Paths.API.__3.Fieldconfigurationscheme {
                 self.projectID = projectID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -3089,7 +3089,7 @@ extension Paths.API.__3.Filter {
         ///  *  filters shared with a public project.
         ///  *  filters shared with the public.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanFilterDetails> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3141,7 +3141,7 @@ extension Paths.API.__3.Filter {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filterName", filterName)
                 query.addQueryItem("accountId", accountID)
@@ -3472,7 +3472,7 @@ extension Paths.API.__3.Group {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanGroupDetails> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3489,7 +3489,7 @@ extension Paths.API.__3.Group {
                 self.groupName = groupName
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -3518,7 +3518,7 @@ extension Paths.API.__3.Group {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanUserDetails> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3534,7 +3534,7 @@ extension Paths.API.__3.Group {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("groupname", groupname)
                 query.addQueryItem("includeInactiveUsers", isIncludeInactiveUsers)
@@ -3576,7 +3576,7 @@ extension Paths.API.__3.Group {
         /// 
         /// **[Permissions](#permissions) required:** Site administration (that is, member of the *site-admin* [group](https://confluence.atlassian.com/x/24xjL)).
         public func delete(parameters: DeleteParameters) -> Request<Void> {
-            .delete(path, query: parameters.asQuery())
+            .delete(path, query: parameters.asQuery)
         }
 
         public struct DeleteParameters {
@@ -3591,7 +3591,7 @@ extension Paths.API.__3.Group {
                 self.accountID = accountID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("groupname", groupname)
                 query.addQueryItem("username", username)
@@ -3634,7 +3634,7 @@ extension Paths.API.__3.Groups {
         /// 
         /// **[Permissions](#permissions) required:** *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg). Anonymous calls and calls by users without the required permission return an empty list.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.FoundGroups> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3653,7 +3653,7 @@ extension Paths.API.__3.Groups {
                 self.userName = userName
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("query", self.query)
@@ -3701,7 +3701,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/yodKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.FoundUsersAndGroups> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3751,7 +3751,7 @@ extension Paths.API.__3 {
                 self.excludeConnectAddons = excludeConnectAddons
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("maxResults", maxResults)
@@ -3880,7 +3880,7 @@ extension Paths.API.__3.Issue {
         /// 
         /// **[Permissions](#permissions) required:** *Create issues* [project permission](https://confluence.atlassian.com/x/yodKLg) in the requested projects.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.IssueCreateMetadata> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3898,7 +3898,7 @@ extension Paths.API.__3.Issue {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 projectIDs?.forEach { query.addQueryItem("projectIds", $0) }
                 projectKeys?.forEach { query.addQueryItem("projectKeys", $0) }
@@ -3933,7 +3933,7 @@ extension Paths.API.__3.Issue {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.IssuePickerSuggestions> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3954,7 +3954,7 @@ extension Paths.API.__3.Issue {
                 self.isShowSubTaskParent = isShowSubTaskParent
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("currentJQL", currentJQL)
@@ -4150,7 +4150,7 @@ extension Paths.API.__3.Issue {
         ///  *  *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.IssueBean> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4168,7 +4168,7 @@ extension Paths.API.__3.Issue {
                 self.isUpdateHistory = isUpdateHistory
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 fields?.forEach { query.addQueryItem("fields", $0) }
                 query.addQueryItem("fieldsByKeys", isFieldsByKeys)
@@ -4196,7 +4196,7 @@ extension Paths.API.__3.Issue {
         ///  *  *Browse projects* and *Edit issues* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         public func put(parameters: PutParameters? = nil, _ body: JiraAPI.IssueUpdateDetails) -> Request<AnyJSON> {
-            .put(path, query: parameters?.asQuery(), body: body)
+            .put(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PutParameters {
@@ -4210,7 +4210,7 @@ extension Paths.API.__3.Issue {
                 self.isOverrideEditableFlag = isOverrideEditableFlag
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("notifyUsers", isNotifyUsers)
                 query.addQueryItem("overrideScreenSecurity", isOverrideScreenSecurity)
@@ -4522,7 +4522,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         ///  *  If the comment has visibility restrictions, belongs to the group or has the role visibility is role visibility is restricted to.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageOfComments> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4544,7 +4544,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -4944,7 +4944,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
         /// 
         /// However, if the user does not have the *Transition issues* [ project permission](https://confluence.atlassian.com/x/yodKLg) the response will not list any transitions.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.Transitions> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4962,7 +4962,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
                 self.isSortByOpsBarAndStatus = isSortByOpsBarAndStatus
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expand", expand)
                 query.addQueryItem("transitionId", transitionID)
@@ -5136,7 +5136,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         ///  *  If the worklog has visibility restrictions, belongs to the group or has the role visibility is restricted to.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageOfWorklogs> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5154,7 +5154,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -5178,7 +5178,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
         ///  *  *Browse projects* and *Work on issues* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         public func post(parameters: PostParameters? = nil, _ body: JiraAPI.Worklog) -> Request<JiraAPI.Worklog> {
-            .post(path, query: parameters?.asQuery(), body: body)
+            .post(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -5205,7 +5205,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
                 self.isOverrideEditableFlag = isOverrideEditableFlag
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("notifyUsers", isNotifyUsers)
                 query.addQueryItem("adjustEstimate", adjustEstimate)
@@ -5266,7 +5266,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
         ///  *  *Edit all worklogs*[ project permission](https://confluence.atlassian.com/x/yodKLg) to update any worklog or *Edit own worklogs* to update worklogs created by the user.
         ///  *  If the worklog has visibility restrictions, belongs to the group or has the role visibility is restricted to.
         public func put(parameters: PutParameters? = nil, _ body: JiraAPI.Worklog) -> Request<JiraAPI.Worklog> {
-            .put(path, query: parameters?.asQuery(), body: body)
+            .put(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PutParameters {
@@ -5291,7 +5291,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
                 self.isOverrideEditableFlag = isOverrideEditableFlag
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("notifyUsers", isNotifyUsers)
                 query.addQueryItem("adjustEstimate", adjustEstimate)
@@ -5317,7 +5317,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
         ///  *  *Delete all worklogs*[ project permission](https://confluence.atlassian.com/x/yodKLg) to delete any worklog or *Delete own worklogs* to delete worklogs created by the user,
         ///  *  If the worklog has visibility restrictions, belongs to the group or has the role visibility is restricted to.
         public func delete(parameters: DeleteParameters? = nil) -> Request<Void> {
-            .delete(path, query: parameters?.asQuery())
+            .delete(path, query: parameters?.asQuery)
         }
 
         public struct DeleteParameters {
@@ -5342,7 +5342,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
                 self.isOverrideEditableFlag = isOverrideEditableFlag
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("notifyUsers", isNotifyUsers)
                 query.addQueryItem("adjustEstimate", adjustEstimate)
@@ -5674,7 +5674,7 @@ extension Paths.API.__3.Issuesecurityschemes.WithIssueSecuritySchemeID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueSecurityLevelMember> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5690,7 +5690,7 @@ extension Paths.API.__3.Issuesecurityschemes.WithIssueSecuritySchemeID {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -5862,7 +5862,7 @@ extension Paths.API.__3.Issuetype.WithID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func post(parameters: PostParameters, _ body: Data) -> Request<JiraAPI.Avatar> {
-            .post(path, query: parameters.asQuery(), body: body)
+            .post(path, query: parameters.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -5876,7 +5876,7 @@ extension Paths.API.__3.Issuetype.WithID {
                 self.size = size
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("x", x)
                 query.addQueryItem("y", y)
@@ -5985,7 +5985,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueTypeScheme> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5999,7 +5999,7 @@ extension Paths.API.__3 {
                 self.id = id
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6036,7 +6036,7 @@ extension Paths.API.__3.Issuetypescheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueTypeSchemeMapping> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6050,7 +6050,7 @@ extension Paths.API.__3.Issuetypescheme {
                 self.issueTypeSchemeID = issueTypeSchemeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6078,7 +6078,7 @@ extension Paths.API.__3.Issuetypescheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanIssueTypeSchemeProjects> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6092,7 +6092,7 @@ extension Paths.API.__3.Issuetypescheme {
                 self.projectID = projectID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6242,7 +6242,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueTypeScreenScheme> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6256,7 +6256,7 @@ extension Paths.API.__3 {
                 self.id = id
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6293,7 +6293,7 @@ extension Paths.API.__3.Issuetypescreenscheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanIssueTypeScreenSchemeItem> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6307,7 +6307,7 @@ extension Paths.API.__3.Issuetypescreenscheme {
                 self.issueTypeScreenSchemeID = issueTypeScreenSchemeID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6335,7 +6335,7 @@ extension Paths.API.__3.Issuetypescreenscheme {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanIssueTypeScreenSchemesProjects> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6349,7 +6349,7 @@ extension Paths.API.__3.Issuetypescreenscheme {
                 self.projectID = projectID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -6561,7 +6561,7 @@ extension Paths.API.__3.Jql.Autocompletedata {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.AutoCompleteSuggestions> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6578,7 +6578,7 @@ extension Paths.API.__3.Jql.Autocompletedata {
                 self.predicateValue = predicateValue
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fieldName", fieldName)
                 query.addQueryItem("fieldValue", fieldValue)
@@ -6723,7 +6723,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.Permissions> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6746,7 +6746,7 @@ extension Paths.API.__3 {
                 self.projectConfigurationUUID = projectConfigurationUUID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("projectKey", projectKey)
                 query.addQueryItem("projectId", projectID)
@@ -6955,7 +6955,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira, however the user must have permission to administer at least one project associated with a notification scheme for it to be returned.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanNotificationScheme> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6969,7 +6969,7 @@ extension Paths.API.__3 {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -7400,7 +7400,7 @@ extension Paths.API.__3 {
         /// **[Permissions](#permissions) required:** Projects are returned only where the user has *Browse Projects* or *Administer projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.Project]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7414,7 +7414,7 @@ extension Paths.API.__3 {
                 self.properties = properties
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expand", expand)
                 query.addQueryItem("recent", recent)
@@ -7500,7 +7500,7 @@ extension Paths.API.__3.Project {
         ///  *  *Administer Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanProject> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7571,7 +7571,7 @@ extension Paths.API.__3.Project {
                 self.propertyQuery = propertyQuery
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -7837,7 +7837,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
         /// 
         /// **[Permissions](#permissions) required:** *Administer projects* [project permission](https://confluence.atlassian.com/x/yodKLg).
         public func post(parameters: PostParameters? = nil, _ body: Data) -> Request<JiraAPI.Avatar> {
-            .post(path, query: parameters?.asQuery(), body: body)
+            .post(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -7851,7 +7851,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
                 self.size = size
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("x", x)
                 query.addQueryItem("y", y)
@@ -7901,7 +7901,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
         /// 
         /// **[Permissions](#permissions) required:** *Browse Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanComponentWithIssueCount> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7932,7 +7932,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
                 self.query = query
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -8307,7 +8307,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
         /// 
         /// **[Permissions](#permissions) required:** *Browse Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanVersion> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8345,7 +8345,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -8937,7 +8937,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanScreen> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -8951,7 +8951,7 @@ extension Paths.API.__3 {
                 self.id = id
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -9246,7 +9246,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanScreenScheme> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9260,7 +9260,7 @@ extension Paths.API.__3 {
                 self.id = id
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -9333,7 +9333,7 @@ extension Paths.API.__3 {
         ///  *  *Browse projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project containing the issue.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is configured, issue-level security permission to view the issue.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.SearchResults> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -9366,7 +9366,7 @@ extension Paths.API.__3 {
                 self.isFieldsByKeys = isFieldsByKeys
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("jql", jql)
                 query.addQueryItem("startAt", startAt)
@@ -9749,7 +9749,7 @@ extension Paths.API.__3.UniversalAvatar.`Type`.WithType.Owner {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func post(parameters: PostParameters, _ body: Data) -> Request<JiraAPI.Avatar> {
-            .post(path, query: parameters.asQuery(), body: body)
+            .post(path, query: parameters.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -9763,7 +9763,7 @@ extension Paths.API.__3.UniversalAvatar.`Type`.WithType.Owner {
                 self.size = size
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("x", x)
                 query.addQueryItem("y", y)
@@ -10009,7 +10009,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.User> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10026,7 +10026,7 @@ extension Paths.API.__3 {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("username", username)
@@ -10053,7 +10053,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** Site administration (that is, membership of the *site-admin* [group](https://confluence.atlassian.com/x/24xjL)).
         public func delete(parameters: DeleteParameters) -> Request<Void> {
-            .delete(path, query: parameters.asQuery())
+            .delete(path, query: parameters.asQuery)
         }
 
         public struct DeleteParameters {
@@ -10068,7 +10068,7 @@ extension Paths.API.__3 {
                 self.key = key
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("username", username)
@@ -10109,7 +10109,7 @@ extension Paths.API.__3.User.Assignable {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(parameters: GetParameters) -> Request<[JiraAPI.User]> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10130,7 +10130,7 @@ extension Paths.API.__3.User.Assignable {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("username", username)
@@ -10167,7 +10167,7 @@ extension Paths.API.__3.User.Assignable {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.User]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10196,7 +10196,7 @@ extension Paths.API.__3.User.Assignable {
                 self.isRecommend = isRecommend
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("sessionId", sessionID)
@@ -10229,7 +10229,7 @@ extension Paths.API.__3.User {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanUser> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10248,7 +10248,7 @@ extension Paths.API.__3.User {
                 self.accountID = accountID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -10276,7 +10276,7 @@ extension Paths.API.__3.User.Bulk {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.UserMigrationBean]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10292,7 +10292,7 @@ extension Paths.API.__3.User.Bulk {
                 self.key = key
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -10438,7 +10438,7 @@ extension Paths.API.__3.User {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<[JiraAPI.GroupName]> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10453,7 +10453,7 @@ extension Paths.API.__3.User {
                 self.key = key
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("username", username)
@@ -10502,7 +10502,7 @@ extension Paths.API.__3.User.Permission {
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg), to get users for any project.
         ///  *  *Administer Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for a project, to get users for that project.
         public func get(parameters: GetParameters) -> Request<[JiraAPI.User]> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10527,7 +10527,7 @@ extension Paths.API.__3.User.Permission {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("username", username)
@@ -10562,7 +10562,7 @@ extension Paths.API.__3.User {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg). Anonymous calls and calls by users without the required permission return search results for an exact name match only.
         public func get(parameters: GetParameters) -> Request<JiraAPI.FoundUsers> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10584,7 +10584,7 @@ extension Paths.API.__3.User {
                 self.excludeConnectUsers = excludeConnectUsers
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("maxResults", maxResults)
@@ -10619,7 +10619,7 @@ extension Paths.API.__3.User {
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg), to access the property keys on any user.
         ///  *  Access to Jira, to access the calling user's property keys.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PropertyKeys> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10634,7 +10634,7 @@ extension Paths.API.__3.User {
                 self.username = username
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("userKey", userKey)
@@ -10665,7 +10665,7 @@ extension Paths.API.__3.User.Properties {
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg), to get a property from any user.
         ///  *  Access to Jira, to get a property from the calling user's record.
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.EntityProperty> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10680,7 +10680,7 @@ extension Paths.API.__3.User.Properties {
                 self.username = username
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("userKey", userKey)
@@ -10700,7 +10700,7 @@ extension Paths.API.__3.User.Properties {
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg), to set a property on any user.
         ///  *  Access to Jira, to set a property on the calling user's record.
         public func put(parameters: PutParameters? = nil, _ body: AnyJSON) -> Request<AnyJSON> {
-            .put(path, query: parameters?.asQuery(), body: body)
+            .put(path, query: parameters?.asQuery, body: body)
         }
 
         public struct PutParameters {
@@ -10715,7 +10715,7 @@ extension Paths.API.__3.User.Properties {
                 self.username = username
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("userKey", userKey)
@@ -10735,7 +10735,7 @@ extension Paths.API.__3.User.Properties {
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg), to delete a property from any user.
         ///  *  Access to Jira, to delete a property from the calling user's record.
         public func delete(parameters: DeleteParameters? = nil) -> Request<Void> {
-            .delete(path, query: parameters?.asQuery())
+            .delete(path, query: parameters?.asQuery)
         }
 
         public struct DeleteParameters {
@@ -10750,7 +10750,7 @@ extension Paths.API.__3.User.Properties {
                 self.username = username
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("accountId", accountID)
                 query.addQueryItem("userKey", userKey)
@@ -10780,7 +10780,7 @@ extension Paths.API.__3.User {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg). Anonymous calls or calls by users without the required permission return empty search results.
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.User]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10801,7 +10801,7 @@ extension Paths.API.__3.User {
                 self.property = property
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("username", username)
@@ -10847,7 +10847,7 @@ extension Paths.API.__3.User.Search {
         /// 
         /// `is assignee of PROJ AND [propertyKey].entity.property.path is "property value"`
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanUser> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10861,7 +10861,7 @@ extension Paths.API.__3.User.Search {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("startAt", startAt)
@@ -10904,7 +10904,7 @@ extension Paths.API.__3.User.Search.Query {
         /// 
         /// `is assignee of PROJ AND [propertyKey].entity.property.path is "property value"`
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanUserKey> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -10918,7 +10918,7 @@ extension Paths.API.__3.User.Search.Query {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("startAt", startAt)
@@ -10967,7 +10967,7 @@ extension Paths.API.__3.User.Viewissue {
         /// 
         /// **[Permissions](#permissions) required:** *Browse users and groups* [global permission](https://confluence.atlassian.com/x/x4dKLg). Anonymous calls and calls by users without the required permission return empty search results.
         public func get(parameters: GetParameters? = nil) -> Request<[JiraAPI.User]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -10990,7 +10990,7 @@ extension Paths.API.__3.User.Viewissue {
                 self.maxResults = maxResults
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("username", username)
@@ -12167,7 +12167,7 @@ extension Paths.API.__3.Workflow.Rule {
         /// 
         /// **[Permissions](#permissions) required:** Only Connect apps can use this operation.
         public func get(parameters: GetParameters) -> Request<JiraAPI.PageBeanWorkflowTransitionRules> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -12197,7 +12197,7 @@ extension Paths.API.__3.Workflow.Rule {
                 self.expand = expand
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -12278,7 +12278,7 @@ extension Paths.API.__3.Workflow {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters? = nil) -> Request<JiraAPI.PageBeanWorkflow> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -12312,7 +12312,7 @@ extension Paths.API.__3.Workflow {
                 self.isActive = isActive
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startAt", startAt)
                 query.addQueryItem("maxResults", maxResults)
@@ -12364,7 +12364,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func get(parameters: GetParameters) -> Request<JiraAPI.WorkflowTransitionProperty> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -12385,7 +12385,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
                 self.workflowMode = workflowMode
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("includeReservedKeys", isIncludeReservedKeys)
                 query.addQueryItem("key", key)
@@ -12401,7 +12401,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func post(parameters: PostParameters, _ body: JiraAPI.WorkflowTransitionProperty) -> Request<JiraAPI.WorkflowTransitionProperty> {
-            .post(path, query: parameters.asQuery(), body: body)
+            .post(path, query: parameters.asQuery, body: body)
         }
 
         public struct PostParameters {
@@ -12420,7 +12420,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
                 self.workflowMode = workflowMode
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("key", key)
                 query.addQueryItem("workflowName", workflowName)
@@ -12435,7 +12435,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func put(parameters: PutParameters, _ body: JiraAPI.WorkflowTransitionProperty) -> Request<JiraAPI.WorkflowTransitionProperty> {
-            .put(path, query: parameters.asQuery(), body: body)
+            .put(path, query: parameters.asQuery, body: body)
         }
 
         public struct PutParameters {
@@ -12454,7 +12454,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
                 self.workflowMode = workflowMode
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("key", key)
                 query.addQueryItem("workflowName", workflowName)
@@ -12469,7 +12469,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func delete(parameters: DeleteParameters) -> Request<Void> {
-            .delete(path, query: parameters.asQuery())
+            .delete(path, query: parameters.asQuery)
         }
 
         public struct DeleteParameters {
@@ -12488,7 +12488,7 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
                 self.workflowMode = workflowMode
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("key", key)
                 query.addQueryItem("workflowName", workflowName)

@@ -56,7 +56,7 @@ extension Paths.Project.WithUsername {
 
         /// Build summary for each of the last 30 builds for a single git repo.
         public func get(parameters: GetParameters? = nil) -> Request<[CircleCIAPI.Build]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -77,7 +77,7 @@ extension Paths.Project.WithUsername {
                 self.filter = filter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)

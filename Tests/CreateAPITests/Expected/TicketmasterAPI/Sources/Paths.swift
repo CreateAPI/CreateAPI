@@ -19,7 +19,7 @@ extension Paths {
         ///
         /// Find attractions (artists, sports, packages, plays and so on) and filter your search by name, and much more.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -70,7 +70,7 @@ extension Paths {
                 self.includeSpellcheck = includeSpellcheck
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("keyword", keyword)
@@ -131,7 +131,7 @@ extension Paths {
         ///
         /// Find classifications and filter your search by name, and much more. Classifications help define the nature of attractions and events.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -182,7 +182,7 @@ extension Paths {
                 self.includeSpellcheck = includeSpellcheck
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("keyword", keyword)
@@ -366,7 +366,7 @@ extension Paths {
         ///
         /// Find events and filter your search by location, date, availability, and much more.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -482,7 +482,7 @@ extension Paths {
                 self.includeSpellcheck = includeSpellcheck
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("startDateTime", startDateTime)
@@ -597,7 +597,7 @@ extension Paths {
         ///
         /// Find search suggestions and filter your suggestions by location, source, etc.
         public func get(parameters: GetParameters? = nil) -> Request<String> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -676,7 +676,7 @@ extension Paths {
                 self.includeSpellcheck = includeSpellcheck
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("keyword", keyword)
                 query.addQueryItem("source", source)
@@ -713,7 +713,7 @@ extension Paths {
         ///
         /// Find venues and filter your search by name, and much more.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -781,7 +781,7 @@ extension Paths {
                 self.includeSpellcheck = includeSpellcheck
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
                 query.addQueryItem("stateCode", stateCode)

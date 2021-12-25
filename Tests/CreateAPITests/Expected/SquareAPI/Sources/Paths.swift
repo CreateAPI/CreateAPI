@@ -224,7 +224,7 @@ extension Paths.V1.Me {
         ///
         /// Provides summary information for all of a business's employees.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1Employee]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -250,7 +250,7 @@ extension Paths.V1.Me {
                 self.batchToken = batchToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("begin_updated_at", beginUpdatedAt)
@@ -317,7 +317,7 @@ extension Paths.V1.Me {
         ///
         /// Provides summary information for all of a business's employee roles.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1EmployeeRole]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -331,7 +331,7 @@ extension Paths.V1.Me {
                 self.batchToken = batchToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("limit", limit)
@@ -410,7 +410,7 @@ extension Paths.V1.WithLocationID {
         ///
         /// Provides summary information for a merchant's online store orders.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1Order]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -424,7 +424,7 @@ extension Paths.V1.WithLocationID {
                 self.batchToken = batchToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("limit", limit)
@@ -483,7 +483,7 @@ extension Paths.V1.WithLocationID {
         /// list an offline payment chronologically between online payments that
         /// were seen in a previous request.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1Payment]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -503,7 +503,7 @@ extension Paths.V1.WithLocationID {
                 self.isIncludePartial = isIncludePartial
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("begin_time", beginTime)
@@ -548,7 +548,7 @@ extension Paths.V1.WithLocationID {
         ///
         /// Provides the details for all refunds initiated by a merchant or any of the merchant's mobile staff during a date range. Date ranges cannot exceed one year in length.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1Refund]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -566,7 +566,7 @@ extension Paths.V1.WithLocationID {
                 self.batchToken = batchToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("begin_time", beginTime)
@@ -615,7 +615,7 @@ extension Paths.V1.WithLocationID {
         /// *Note**: the ListSettlements endpoint does not provide entry
         /// information.
         public func get(parameters: GetParameters? = nil) -> Request<[SquareAPI.V1Settlement]> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -635,7 +635,7 @@ extension Paths.V1.WithLocationID {
                 self.batchToken = batchToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("begin_time", beginTime)
@@ -744,7 +744,7 @@ extension Paths.V2 {
         ///
         /// Returns a list of [BankAccount](https://developer.squareup.com/reference/square_2021-08-18/objects/BankAccount) objects linked to a Square account.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListBankAccountsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -758,7 +758,7 @@ extension Paths.V2 {
                 self.locationID = locationID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("limit", limit)
@@ -895,7 +895,7 @@ extension Paths.V2.Bookings {
         ///
         /// Lists booking profiles for team members.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListTeamMemberBookingProfilesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -911,7 +911,7 @@ extension Paths.V2.Bookings {
                 self.locationID = locationID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("bookable_only", isBookableOnly)
                 query.addQueryItem("limit", limit)
@@ -998,7 +998,7 @@ extension Paths.V2 {
         /// Retrieves a list of cards owned by the account making the request.
         /// A max of 25 cards will be returned.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListCardsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1016,7 +1016,7 @@ extension Paths.V2 {
                 self.sortOrder = sortOrder
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("customer_id", customerID)
@@ -1098,7 +1098,7 @@ extension Paths.V2.CashDrawers {
         /// Provides the details for all of the cash drawer shifts for a location
         /// in a date range.
         public func get(parameters: GetParameters) -> Request<SquareAPI.ListCashDrawerShiftsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1118,7 +1118,7 @@ extension Paths.V2.CashDrawers {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("location_id", locationID)
                 query.addQueryItem("sort_order", sortOrder)
@@ -1170,7 +1170,7 @@ extension Paths.V2.CashDrawers.Shifts.WithShiftID {
         ///
         /// Provides a paginated list of events for a single cash drawer shift.
         public func get(parameters: GetParameters) -> Request<SquareAPI.ListCashDrawerShiftEventsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1184,7 +1184,7 @@ extension Paths.V2.CashDrawers.Shifts.WithShiftID {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("location_id", locationID)
                 query.addQueryItem("limit", limit)
@@ -1322,7 +1322,7 @@ extension Paths.V2.Catalog {
         /// deleted catalog items, use [SearchCatalogObjects](https://developer.squareup.com/reference/square_2021-08-18/catalog-api/search-catalog-objects)
         /// and set the `include_deleted_objects` attribute value to `true`.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListCatalogResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1336,7 +1336,7 @@ extension Paths.V2.Catalog {
                 self.catalogVersion = catalogVersion
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("types", types)
@@ -1519,7 +1519,7 @@ extension Paths.V2 {
         /// for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated
         /// profiles can take closer to one minute or longer, especially during network incidents and outages.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListCustomersResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1535,7 +1535,7 @@ extension Paths.V2 {
                 self.sortOrder = sortOrder
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("limit", limit)
@@ -1852,7 +1852,7 @@ extension Paths.V2.Devices {
         ///
         /// Lists all DeviceCodes associated with the merchant.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListDeviceCodesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1868,7 +1868,7 @@ extension Paths.V2.Devices {
                 self.status = status
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("location_id", locationID)
@@ -1919,7 +1919,7 @@ extension Paths.V2 {
         ///
         /// Returns a list of disputes associated with a particular account.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListDisputesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1933,7 +1933,7 @@ extension Paths.V2 {
                 self.locationID = locationID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("cursor", cursor)
                 query.addQueryItem("states", states)
@@ -2091,7 +2091,7 @@ extension Paths.V2 {
 
         /// ListEmployees
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListEmployeesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2107,7 +2107,7 @@ extension Paths.V2 {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("location_id", locationID)
                 query.addQueryItem("status", status)
@@ -2149,7 +2149,7 @@ extension Paths.V2 {
         /// Lists all gift cards. You can specify optional filters to retrieve
         /// a subset of the gift cards.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListGiftCardsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2167,7 +2167,7 @@ extension Paths.V2 {
                 self.customerID = customerID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("type", type)
                 query.addQueryItem("state", state)
@@ -2205,7 +2205,7 @@ extension Paths.V2.GiftCards {
         /// filter the list. For example, you can get a list of gift card activities for a gift card,
         /// for all gift cards in a specific region, or for activities within a time window.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListGiftCardActivitiesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2229,7 +2229,7 @@ extension Paths.V2.GiftCards {
                 self.sortOrder = sortOrder
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("gift_card_id", giftCardID)
                 query.addQueryItem("type", type)
@@ -2750,7 +2750,7 @@ extension Paths.V2 {
         /// is paginated. If truncated, the response includes a `cursor` that you
         /// use in a subsequent request to retrieve the next set of invoices.
         public func get(parameters: GetParameters) -> Request<SquareAPI.ListInvoicesResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2764,7 +2764,7 @@ extension Paths.V2 {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("location_id", locationID)
                 query.addQueryItem("cursor", cursor)
@@ -2926,7 +2926,7 @@ extension Paths.V2.Labor {
         ///
         /// Returns a paginated list of `BreakType` instances for a business.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListBreakTypesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2940,7 +2940,7 @@ extension Paths.V2.Labor {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("location_id", locationID)
                 query.addQueryItem("limit", limit)
@@ -3018,7 +3018,7 @@ extension Paths.V2.Labor {
         ///
         /// Returns a paginated list of `EmployeeWage` instances for a business.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListEmployeeWagesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3032,7 +3032,7 @@ extension Paths.V2.Labor {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("employee_id", employeeID)
                 query.addQueryItem("limit", limit)
@@ -3178,7 +3178,7 @@ extension Paths.V2.Labor {
         ///
         /// Returns a paginated list of `TeamMemberWage` instances for a business.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListTeamMemberWagesResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3192,7 +3192,7 @@ extension Paths.V2.Labor {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("team_member_id", teamMemberID)
                 query.addQueryItem("limit", limit)
@@ -3362,7 +3362,7 @@ extension Paths.V2.Locations.WithLocationID {
         /// 
         /// Max results per [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListRefundsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3378,7 +3378,7 @@ extension Paths.V2.Locations.WithLocationID {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("begin_time", beginTime)
                 query.addQueryItem("end_time", endTime)
@@ -3408,7 +3408,7 @@ extension Paths.V2.Locations.WithLocationID {
         /// 
         /// Max results per [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListTransactionsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3424,7 +3424,7 @@ extension Paths.V2.Locations.WithLocationID {
                 self.cursor = cursor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("begin_time", beginTime)
                 query.addQueryItem("end_time", endTime)
@@ -4123,7 +4123,7 @@ extension Paths.V2 {
         /// 
         /// The maximum results per page is 100.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListPaymentsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4149,7 +4149,7 @@ extension Paths.V2 {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("begin_time", beginTime)
                 query.addQueryItem("end_time", endTime)
@@ -4292,7 +4292,7 @@ extension Paths.V2 {
         /// 
         /// The maximum results per page is 100.
         public func get(parameters: GetParameters? = nil) -> Request<SquareAPI.ListPaymentRefundsResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -4316,7 +4316,7 @@ extension Paths.V2 {
                 self.limit = limit
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("begin_time", beginTime)
                 query.addQueryItem("end_time", endTime)

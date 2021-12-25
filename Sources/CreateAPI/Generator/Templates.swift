@@ -105,13 +105,13 @@ final class Templates {
     
     func asQuery(properties: [Property]) -> String {
         """
-        \(access)func asQuery() -> [(String, String?)] {
+        \(access)var asQuery: [(String, String?)] {
         \(asQueryContents(properties: properties).indented)
         }
         """
     }
         
-    func asQueryContents(properties: [Property], asString: Bool = false) -> String {
+    func asQueryContents(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             let prefix = $0.name.rawValue == "query" ? "self." : ""
             if case .array = $0.type {
@@ -127,7 +127,7 @@ final class Templates {
         return """
         var query: [(String, String?)] = []
         \(statements.joined(separator: "\n"))
-        return query\(asString ? ".asPercentEncodedQuery" : "")
+        return query
         """
     }
     
@@ -141,14 +141,6 @@ final class Templates {
         return """
         private \(isStatic ? "static " : "" )func \(name)(\(arguments)) -> [(String, String?)] {
         \(asQueryContents(properties: properties).indented)
-        }
-        """
-    }
-    
-    func asQueryString(properties: [Property]) -> String {
-        """
-        \(access)func asQuery() -> String {
-        \(asQueryContents(properties: properties, asString: true).indented)
         }
         """
     }

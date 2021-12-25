@@ -18,7 +18,7 @@ extension Paths {
 
         /// Retrieves a collection of Accounts belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAccountResponse
@@ -75,7 +75,7 @@ extension Paths {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("Status", status)
@@ -86,7 +86,7 @@ extension Paths {
 
         /// Create a new Twilio Subaccount from the account making the request
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010Account> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateAccountRequest
@@ -98,10 +98,10 @@ extension Paths {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -139,7 +139,7 @@ extension Paths.Accounts.WithAccountSid {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAddressResponse
@@ -192,7 +192,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CustomerName", customerName)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -203,7 +203,7 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountAddress> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateAddressRequest
@@ -239,7 +239,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.street = street
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
                 query.addQueryItem("City", city)
@@ -250,7 +250,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("PostalCode", postalCode)
                 query.addQueryItem("Region", region)
                 query.addQueryItem("Street", street)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -350,7 +350,7 @@ extension Paths.Accounts.WithAccountSid.Addresses {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountAddress> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateAddressRequest
@@ -383,7 +383,7 @@ extension Paths.Accounts.WithAccountSid.Addresses {
                 self.street = street
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
                 query.addQueryItem("City", city)
@@ -393,7 +393,7 @@ extension Paths.Accounts.WithAccountSid.Addresses {
                 query.addQueryItem("PostalCode", postalCode)
                 query.addQueryItem("Region", region)
                 query.addQueryItem("Street", street)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -463,7 +463,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a new application within your account
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountApplication> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateApplicationRequest
@@ -567,7 +567,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ApiVersion", apiVersion)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -584,7 +584,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -617,7 +617,7 @@ extension Paths.Accounts.WithAccountSid.Applications {
 
         /// Updates the application's properties
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountApplication> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateApplicationRequest
@@ -721,7 +721,7 @@ extension Paths.Accounts.WithAccountSid.Applications {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ApiVersion", apiVersion)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -738,7 +738,7 @@ extension Paths.Accounts.WithAccountSid.Applications {
                 query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -940,7 +940,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberLocalResponse
@@ -1023,7 +1023,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1060,7 +1060,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberMachineToMachineResponse
@@ -1143,7 +1143,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1180,7 +1180,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberMobileResponse
@@ -1263,7 +1263,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1300,7 +1300,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberNationalResponse
@@ -1383,7 +1383,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1420,7 +1420,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberSharedCostResponse
@@ -1503,7 +1503,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1540,7 +1540,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberTollFreeResponse
@@ -1623,7 +1623,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1660,7 +1660,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListAvailablePhoneNumberVoipResponse
@@ -1743,7 +1743,7 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AreaCode", areaCode)
                 query.addQueryItem("Contains", contains)
@@ -1797,7 +1797,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieves a collection of calls made to and from your account
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListCallResponse
@@ -1875,7 +1875,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("To", to)
                 query.addQueryItem("From", from)
@@ -1894,7 +1894,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCall> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateCallRequest
@@ -2058,7 +2058,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.url = url
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ApplicationSid", applicationSid)
                 query.addQueryItem("AsyncAmd", asyncAmd)
@@ -2095,7 +2095,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("Trim", trim)
                 query.addQueryItem("Twiml", twiml)
                 query.addQueryItem("Url", url)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2123,7 +2123,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
         /// Create a FeedbackSummary resource for a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallFeedbackSummary> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateCallFeedbackSummaryRequest
@@ -2157,14 +2157,14 @@ extension Paths.Accounts.WithAccountSid.Calls {
                 self.statusCallbackMethod = statusCallbackMethod
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("EndDate", endDate)
                 query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
                 query.addQueryItem("StartDate", startDate)
                 query.addQueryItem("StatusCallback", statusCallback)
                 query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2288,7 +2288,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Update a Feedback resource for a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallFeedback> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateCallFeedbackRequest
@@ -2314,11 +2314,11 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.qualityScore = qualityScore
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 issue?.forEach { query.addQueryItem("Issue", $0) }
                 query.addQueryItem("QualityScore", qualityScore)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2334,7 +2334,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListCallNotificationResponse
@@ -2389,7 +2389,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Log", log)
                 query.addQueryItem("MessageDate", messageDate)
@@ -2439,7 +2439,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Create an instance of payments. This will start a new payments session
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallPayments> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreatePaymentsRequest
@@ -2515,7 +2515,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.validCardTypes = validCardTypes
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("BankAccountType", bankAccountType)
                 query.addQueryItem("ChargeAmount", chargeAmount)
@@ -2533,7 +2533,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 query.addQueryItem("Timeout", timeout)
                 query.addQueryItem("TokenType", tokenType)
                 query.addQueryItem("ValidCardTypes", validCardTypes)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2561,7 +2561,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
 
         /// Update an instance of payments with different phases of payment flows.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallPayments> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdatePaymentsRequest
@@ -2598,13 +2598,13 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
                 self.statusCallback = statusCallback
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Capture", capture)
                 query.addQueryItem("IdempotencyKey", idempotencyKey)
                 query.addQueryItem("Status", status)
                 query.addQueryItem("StatusCallback", statusCallback)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2621,7 +2621,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Retrieve a list of recordings belonging to the call used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListCallRecordingResponse
@@ -2674,7 +2674,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("DateCreated", dateCreated)
                 query.addQueryItem("DateCreated<", dateCreatedLessThan)
@@ -2686,7 +2686,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Create a recording for the call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallRecording> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateCallRecordingRequest
@@ -2723,7 +2723,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.trim = trim
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("RecordingChannels", recordingChannels)
                 query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
@@ -2731,7 +2731,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
                 query.addQueryItem("RecordingTrack", recordingTrack)
                 query.addQueryItem("Trim", trim)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -2764,7 +2764,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
 
         /// Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallRecording> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateCallRecordingRequest
@@ -2789,11 +2789,11 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
                 self.status = status
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("PauseBehavior", pauseBehavior)
                 query.addQueryItem("Status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -2815,7 +2815,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Create a Siprec
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallSiprec> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSiprecRequest
@@ -3450,7 +3450,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 self.track = track
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ConnectorName", connectorName)
                 query.addQueryItem("Name", name)
@@ -3655,7 +3655,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
                 query.addQueryItem("StatusCallback", statusCallback)
                 query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
                 query.addQueryItem("Track", track)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -3683,7 +3683,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
 
         /// Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallSiprec> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSiprecRequest
@@ -3700,10 +3700,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
                 self.status = status
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -3725,7 +3725,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
         /// Initiates a call redirect or terminates a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCall> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateCallRequest
@@ -3797,7 +3797,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
                 self.url = url
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FallbackMethod", fallbackMethod)
                 query.addQueryItem("FallbackUrl", fallbackURL)
@@ -3808,7 +3808,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
                 query.addQueryItem("TimeLimit", timeLimit)
                 query.addQueryItem("Twiml", twiml)
                 query.addQueryItem("Url", url)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -3830,7 +3830,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of conferences belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListConferenceResponse
@@ -3899,7 +3899,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("DateCreated", dateCreated)
                 query.addQueryItem("DateCreated<", dateCreatedLessThan)
@@ -3949,7 +3949,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
         /// Retrieve a list of participants belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListParticipantResponse
@@ -4002,7 +4002,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Muted", isMuted)
                 query.addQueryItem("Hold", isHold)
@@ -4013,7 +4013,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceParticipant> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateParticipantRequest
@@ -4189,7 +4189,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
                 self.waitURL = waitURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Beep", beep)
                 query.addQueryItem("Byoc", byoc)
@@ -4230,7 +4230,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
                 query.addQueryItem("To", to)
                 query.addQueryItem("WaitMethod", waitMethod)
                 query.addQueryItem("WaitUrl", waitURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -4263,7 +4263,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
 
         /// Update the properties of the participant
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceParticipant> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateParticipantRequest
@@ -4338,7 +4338,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
                 self.waitURL = waitURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AnnounceMethod", announceMethod)
                 query.addQueryItem("AnnounceUrl", announceURL)
@@ -4352,7 +4352,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
                 query.addQueryItem("Muted", isMuted)
                 query.addQueryItem("WaitMethod", waitMethod)
                 query.addQueryItem("WaitUrl", waitURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -4374,7 +4374,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
         /// Retrieve a list of recordings belonging to the call used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListConferenceRecordingResponse
@@ -4427,7 +4427,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("DateCreated", dateCreated)
                 query.addQueryItem("DateCreated<", dateCreatedLessThan)
@@ -4466,7 +4466,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
 
         /// Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceConferenceRecording> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateConferenceRecordingRequest
@@ -4491,11 +4491,11 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
                 self.status = status
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("PauseBehavior", pauseBehavior)
                 query.addQueryItem("Status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -4521,7 +4521,7 @@ extension Paths.Accounts.WithAccountSid.Conferences {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConference> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateConferenceRequest
@@ -4554,12 +4554,12 @@ extension Paths.Accounts.WithAccountSid.Conferences {
                 self.status = status
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AnnounceMethod", announceMethod)
                 query.addQueryItem("AnnounceUrl", announceURL)
                 query.addQueryItem("Status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -4651,7 +4651,7 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
 
         /// Update a connect-app with the specified parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConnectApp> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateConnectAppRequest
@@ -4699,7 +4699,7 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
                 self.permissions = permissions
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AuthorizeRedirectUrl", authorizeRedirectURL)
                 query.addQueryItem("CompanyName", companyName)
@@ -4709,7 +4709,7 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("HomepageUrl", homepageURL)
                 permissions?.forEach { query.addQueryItem("Permissions", $0) }
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -4731,7 +4731,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListIncomingPhoneNumberResponse
@@ -4786,7 +4786,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Beta", isBeta)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -4799,7 +4799,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Purchase a phone-number for the account.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumber> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberRequest
@@ -4942,7 +4942,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AddressSid", addressSid)
                 query.addQueryItem("ApiVersion", apiVersion)
@@ -4968,7 +4968,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -4995,7 +4995,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListIncomingPhoneNumberLocalResponse
@@ -5050,7 +5050,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Beta", isBeta)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -5062,7 +5062,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberLocalRequest
@@ -5202,7 +5202,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AddressSid", addressSid)
                 query.addQueryItem("ApiVersion", apiVersion)
@@ -5227,7 +5227,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -5243,7 +5243,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListIncomingPhoneNumberMobileResponse
@@ -5298,7 +5298,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Beta", isBeta)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -5310,7 +5310,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberMobileRequest
@@ -5450,7 +5450,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AddressSid", addressSid)
                 query.addQueryItem("ApiVersion", apiVersion)
@@ -5475,7 +5475,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -5491,7 +5491,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListIncomingPhoneNumberTollFreeResponse
@@ -5546,7 +5546,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Beta", isBeta)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -5558,7 +5558,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberTollFreeRequest
@@ -5698,7 +5698,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AddressSid", addressSid)
                 query.addQueryItem("ApiVersion", apiVersion)
@@ -5723,7 +5723,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -5799,7 +5799,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
 
         /// Assign an Add-on installation to the Number specified.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberAssignedAddOnRequest
@@ -5811,10 +5811,10 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
                 self.installedAddOnSid = installedAddOnSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("InstalledAddOnSid", installedAddOnSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -5965,7 +5965,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
         /// Update an incoming-phone-number instance.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumber> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateIncomingPhoneNumberRequest
@@ -6105,7 +6105,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AccountSid", accountSid)
                 query.addQueryItem("AddressSid", addressSid)
@@ -6130,7 +6130,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
                 query.addQueryItem("VoiceMethod", voiceMethod)
                 query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -6198,7 +6198,7 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountNewKey> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateNewKeyRequest
@@ -6210,10 +6210,10 @@ extension Paths.Accounts.WithAccountSid {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -6244,7 +6244,7 @@ extension Paths.Accounts.WithAccountSid.Keys {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountKey> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateKeyRequest
@@ -6256,10 +6256,10 @@ extension Paths.Accounts.WithAccountSid.Keys {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -6280,7 +6280,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of messages belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListMessageResponse
@@ -6337,7 +6337,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("To", to)
                 query.addQueryItem("From", from)
@@ -6351,7 +6351,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Send a message from the account used to make the request
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessage> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateMessageRequest
@@ -6421,7 +6421,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.validityPeriod = validityPeriod
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("AddressRetention", addressRetention)
                 query.addQueryItem("ApplicationSid", applicationSid)
@@ -6440,7 +6440,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("StatusCallback", statusCallback)
                 query.addQueryItem("To", to)
                 query.addQueryItem("ValidityPeriod", validityPeriod)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -6478,7 +6478,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
         public let path: String
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessageMessageFeedback> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateMessageFeedbackRequest
@@ -6496,10 +6496,10 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
                 self.outcome = outcome
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Outcome", outcome)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -6516,7 +6516,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
 
         /// Retrieve a list of Media resources belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListMediaResponse
@@ -6569,7 +6569,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("DateCreated", dateCreated)
                 query.addQueryItem("DateCreated<", dateCreatedLessThan)
@@ -6629,7 +6629,7 @@ extension Paths.Accounts.WithAccountSid.Messages {
 
         /// To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessage> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateMessageRequest
@@ -6641,10 +6641,10 @@ extension Paths.Accounts.WithAccountSid.Messages {
                 self.body = body
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Body", body)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -6666,7 +6666,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of notifications belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListNotificationResponse
@@ -6721,7 +6721,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Log", log)
                 query.addQueryItem("MessageDate", messageDate)
@@ -6772,7 +6772,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListOutgoingCallerIdResponse
@@ -6823,7 +6823,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("PhoneNumber", phoneNumber)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -6833,7 +6833,7 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountValidationRequest> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateValidationRequestRequest
@@ -6870,7 +6870,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.statusCallbackMethod = statusCallbackMethod
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CallDelay", callDelay)
                 query.addQueryItem("Extension", `extension`)
@@ -6878,7 +6878,7 @@ extension Paths.Accounts.WithAccountSid {
                 query.addQueryItem("PhoneNumber", phoneNumber)
                 query.addQueryItem("StatusCallback", statusCallback)
                 query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -6911,7 +6911,7 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
 
         /// Updates the caller-id
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountOutgoingCallerID> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateOutgoingCallerIdRequest
@@ -6923,10 +6923,10 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -6996,7 +6996,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a queue
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueue> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateQueueRequest
@@ -7011,11 +7011,11 @@ extension Paths.Accounts.WithAccountSid {
                 self.maxSize = maxSize
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("MaxSize", maxSize)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -7129,7 +7129,7 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
 
         /// Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueueMember> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateMemberRequest
@@ -7154,11 +7154,11 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
                 self.url = url
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Method", method)
                 query.addQueryItem("Url", url)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -7180,7 +7180,7 @@ extension Paths.Accounts.WithAccountSid.Queues {
 
         /// Update the queue with the new parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueue> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateQueueRequest
@@ -7195,11 +7195,11 @@ extension Paths.Accounts.WithAccountSid.Queues {
                 self.maxSize = maxSize
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("MaxSize", maxSize)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -7221,7 +7221,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Retrieve a list of recordings belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListRecordingResponse
@@ -7278,7 +7278,7 @@ extension Paths.Accounts.WithAccountSid {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("DateCreated", dateCreated)
                 query.addQueryItem("DateCreated<", dateCreatedLessThan)
@@ -7697,7 +7697,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         /// Create a Credential List
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialList> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipCredentialListRequest
@@ -7709,10 +7709,10 @@ extension Paths.Accounts.WithAccountSid.Sip {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -7799,7 +7799,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
         /// Create a new credential resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialListSipCredential> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipCredentialRequest
@@ -7814,11 +7814,11 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
                 self.username = username
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Password", password)
                 query.addQueryItem("Username", username)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -7851,7 +7851,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
         /// Update a credential resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialListSipCredential> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSipCredentialRequest
@@ -7863,10 +7863,10 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
                 self.password = password
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Password", password)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -7893,7 +7893,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
 
         /// Update a Credential List
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialList> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSipCredentialListRequest
@@ -7905,10 +7905,10 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -7978,7 +7978,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         /// Create a new Domain
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomain> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipDomainRequest
@@ -8056,7 +8056,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ByocTrunkSid", byocTrunkSid)
                 query.addQueryItem("DomainName", domainName)
@@ -8071,7 +8071,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
                 query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
                 query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8180,7 +8180,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         /// Create a new credential list mapping resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipAuthCallsCredentialListMappingRequest
@@ -8192,10 +8192,10 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
                 self.credentialListSid = credentialListSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CredentialListSid", credentialListSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8292,7 +8292,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         /// Create a new IP Access Control List mapping
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipAuthCallsIpAccessControlListMappingRequest
@@ -8304,10 +8304,10 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
                 self.ipAccessControlListSid = ipAccessControlListSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8415,7 +8415,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
 
         /// Create a new credential list mapping resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipAuthRegistrationsCredentialListMappingRequest
@@ -8427,10 +8427,10 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
                 self.credentialListSid = credentialListSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CredentialListSid", credentialListSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8527,7 +8527,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         /// Create a CredentialListMapping resource for an account.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipCredentialListMapping> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipCredentialListMappingRequest
@@ -8539,10 +8539,10 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
                 self.credentialListSid = credentialListSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CredentialListSid", credentialListSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8639,7 +8639,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         /// Create a new IpAccessControlListMapping resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipIpAccessControlListMapping> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipIpAccessControlListMappingRequest
@@ -8651,10 +8651,10 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
                 self.ipAccessControlListSid = ipAccessControlListSid
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8708,7 +8708,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
 
         /// Update the attributes of a domain
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomain> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSipDomainRequest
@@ -8786,7 +8786,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
                 self.voiceURL = voiceURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ByocTrunkSid", byocTrunkSid)
                 query.addQueryItem("DomainName", domainName)
@@ -8801,7 +8801,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
                 query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
                 query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
                 query.addQueryItem("VoiceUrl", voiceURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -8871,7 +8871,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         /// Create a new IpAccessControlList resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlList> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipIpAccessControlListRequest
@@ -8883,10 +8883,10 @@ extension Paths.Accounts.WithAccountSid.Sip {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -8973,7 +8973,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
         /// Create a new IpAddress resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlListSipIpAddress> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateSipIpAddressRequest
@@ -8991,12 +8991,12 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
                 self.ipAddress = ipAddress
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("IpAddress", ipAddress)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -9029,7 +9029,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
         /// Update an IpAddress resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlListSipIpAddress> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSipIpAddressRequest
@@ -9047,12 +9047,12 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
                 self.ipAddress = ipAddress
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("IpAddress", ipAddress)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -9079,7 +9079,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
 
         /// Rename an IpAccessControlList
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlList> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSipIpAccessControlListRequest
@@ -9091,10 +9091,10 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -9127,7 +9127,7 @@ extension Paths.Accounts.WithAccountSid.Sms {
 
         /// Retrieve a list of short-codes belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListShortCodeResponse
@@ -9178,7 +9178,7 @@ extension Paths.Accounts.WithAccountSid.Sms {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("ShortCode", shortCode)
@@ -9216,7 +9216,7 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
 
         /// Update a short code with the following parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountShortCode> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateShortCodeRequest
@@ -9263,7 +9263,7 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
                 self.smsURL = smsURL
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("ApiVersion", apiVersion)
                 query.addQueryItem("FriendlyName", friendlyName)
@@ -9271,7 +9271,7 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
                 query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
                 query.addQueryItem("SmsMethod", smsMethod)
                 query.addQueryItem("SmsUrl", smsURL)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -9335,7 +9335,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a new Signing Key for the account making the request.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountNewSigningKey> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateNewSigningKeyRequest
@@ -9347,10 +9347,10 @@ extension Paths.Accounts.WithAccountSid {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -9381,7 +9381,7 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSigningKey> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateSigningKeyRequest
@@ -9392,10 +9392,10 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -9416,7 +9416,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a new token for ICE servers
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountToken> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateTokenRequest
@@ -9428,10 +9428,10 @@ extension Paths.Accounts.WithAccountSid {
                 self.ttl = ttl
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Ttl", ttl)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -9550,7 +9550,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
         /// Retrieve a list of usage-records belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordResponse
@@ -9848,7 +9848,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -9882,7 +9882,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordAllTimeResponse
@@ -10180,7 +10180,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -10203,7 +10203,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordDailyResponse
@@ -10501,7 +10501,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -10524,7 +10524,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordLastMonthResponse
@@ -10822,7 +10822,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -10845,7 +10845,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordMonthlyResponse
@@ -11143,7 +11143,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -11166,7 +11166,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordThisMonthResponse
@@ -11464,7 +11464,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -11487,7 +11487,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordTodayResponse
@@ -11785,7 +11785,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -11808,7 +11808,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordYearlyResponse
@@ -12106,7 +12106,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -12129,7 +12129,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
         public let path: String
 
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageRecordYesterdayResponse
@@ -12427,7 +12427,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Category", category)
                 query.addQueryItem("StartDate", startDate)
@@ -12451,7 +12451,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
         /// Retrieve a list of usage-triggers belonging to the account used to make the request
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         /// ListUsageTriggerResponse
@@ -12760,7 +12760,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
                 self.pageSize = pageSize
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("Recurring", recurring)
                 query.addQueryItem("TriggerBy", triggerBy)
@@ -12772,7 +12772,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
         /// Create a new UsageTrigger
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountUsageUsageTrigger> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// CreateUsageTriggerRequest
@@ -13071,7 +13071,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
                 self.usageCategory = usageCategory
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CallbackMethod", callbackMethod)
                 query.addQueryItem("CallbackUrl", callbackURL)
@@ -13080,7 +13080,7 @@ extension Paths.Accounts.WithAccountSid.Usage {
                 query.addQueryItem("TriggerBy", triggerBy)
                 query.addQueryItem("TriggerValue", triggerValue)
                 query.addQueryItem("UsageCategory", usageCategory)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }
@@ -13113,7 +13113,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
 
         /// Update an instance of a usage trigger
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountUsageUsageTrigger> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateUsageTriggerRequest
@@ -13141,12 +13141,12 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
                 self.friendlyName = friendlyName
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("CallbackMethod", callbackMethod)
                 query.addQueryItem("CallbackUrl", callbackURL)
                 query.addQueryItem("FriendlyName", friendlyName)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -13172,7 +13172,7 @@ extension Paths.Accounts {
 
         /// Modify the properties of a given Account
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010Account> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
         /// UpdateAccountRequest
@@ -13194,11 +13194,11 @@ extension Paths.Accounts {
                 self.status = status
             }
 
-            public func asQuery() -> String {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("FriendlyName", friendlyName)
                 query.addQueryItem("Status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
     }

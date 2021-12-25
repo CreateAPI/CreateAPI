@@ -19,7 +19,7 @@ extension Paths {
         ///
         /// This endpoint returns information about users. Specify users by their ID.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiUserLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -86,7 +86,7 @@ extension Paths {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -110,7 +110,7 @@ extension Paths.Users {
         ///
         /// This endpoint returns information about a user. Specify user by ID.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.SingleUserLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -177,7 +177,7 @@ extension Paths.Users {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -201,7 +201,7 @@ extension Paths.Users {
         ///
         /// This endpoint returns information about users. Specify users by their username.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiUserLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -268,7 +268,7 @@ extension Paths.Users {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -292,7 +292,7 @@ extension Paths.Users {
         ///
         /// This endpoint returns information about the requesting user.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.SingleUserLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -359,7 +359,7 @@ extension Paths.Users {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -394,7 +394,7 @@ extension Paths.Users.By.Username {
         ///
         /// This endpoint returns information about a user. Specify user by username.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.SingleUserLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -461,7 +461,7 @@ extension Paths.Users.By.Username {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -704,7 +704,7 @@ extension Paths.Users.WithID {
         ///
         /// Returns a user's followed Lists.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -763,7 +763,7 @@ extension Paths.Users.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -814,7 +814,7 @@ extension Paths.Users.WithID {
         ///
         /// Get a User's List Memberships.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -873,7 +873,7 @@ extension Paths.Users.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -899,7 +899,7 @@ extension Paths.Users.WithID {
         ///
         /// Get a User's Owned Lists.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -958,7 +958,7 @@ extension Paths.Users.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -984,7 +984,7 @@ extension Paths.Users.WithID {
         ///
         /// Get a User's Pinned Lists.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiListNoPaginationResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1039,7 +1039,7 @@ extension Paths.Users.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
@@ -1088,7 +1088,7 @@ extension Paths {
         ///
         /// Returns a variety of information about the Tweet specified by the requested ID.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiTweetLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1211,7 +1211,7 @@ extension Paths {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -1368,7 +1368,7 @@ extension Paths.Tweets {
         ///
         /// Returns a variety of information about the Tweet specified by the requested ID.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.SingleTweetLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1491,7 +1491,7 @@ extension Paths.Tweets {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -1574,7 +1574,7 @@ extension Paths.Tweets.Search {
         ///
         /// Returns Tweets from the last 7 days that match a search query.
         public func get(parameters: GetParameters) -> Request<TwitterAPI.TweetSearchResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1708,7 +1708,7 @@ extension Paths.Tweets.Search {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
@@ -1740,7 +1740,7 @@ extension Paths.Tweets.Search {
         ///
         /// Returns Tweets that match a search query.
         public func get(parameters: GetParameters) -> Request<TwitterAPI.TweetSearchResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1874,7 +1874,7 @@ extension Paths.Tweets.Search {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
@@ -1906,7 +1906,7 @@ extension Paths.Tweets.Search {
         ///
         /// Streams Tweets matching the stream's active rule set.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.FilteredStreamingTweet> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2031,7 +2031,7 @@ extension Paths.Tweets.Search {
                 self.backfillMinutes = backfillMinutes
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2118,7 +2118,7 @@ extension Paths.Tweets.Sample {
         ///
         /// Streams a deterministic 1% of public Tweets.
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.StreamingTweet> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2243,7 +2243,7 @@ extension Paths.Tweets.Sample {
                 self.backfillMinutes = backfillMinutes
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
@@ -2289,7 +2289,7 @@ extension Paths.Users.WithID {
         ///
         /// Returns a list of Tweets authored by the provided User ID
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.GenericTweetsTimelineResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2430,7 +2430,7 @@ extension Paths.Users.WithID {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("exclude", exclude?.map(\.asQueryValue).joined(separator: ","))
@@ -2462,7 +2462,7 @@ extension Paths.Users.WithID {
         ///
         /// Returns Tweet objects that mention username associated to the provided User ID
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.GenericTweetsTimelineResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2593,7 +2593,7 @@ extension Paths.Users.WithID {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -2660,7 +2660,7 @@ extension Paths.Users.WithID {
         ///
         /// Returns a list of Tweets liked by the provided User ID
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -2822,7 +2822,7 @@ extension Paths.Users.WithID {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -2934,7 +2934,7 @@ extension Paths.Tweets.Counts {
         ///
         /// Returns Tweet Counts from the last 7 days that match a search query.
         public func get(parameters: GetParameters) -> Request<TwitterAPI.TweetCountsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2951,7 +2951,7 @@ extension Paths.Tweets.Counts {
                 self.nextToken = nextToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
@@ -2976,7 +2976,7 @@ extension Paths.Tweets.Counts {
         ///
         /// Returns Tweet Counts that match a search query.
         public func get(parameters: GetParameters) -> Request<TwitterAPI.TweetCountsResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2993,7 +2993,7 @@ extension Paths.Tweets.Counts {
                 self.nextToken = nextToken
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
@@ -3114,7 +3114,7 @@ extension Paths.Lists {
         ///
         /// Returns a List
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.SingleListLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3169,7 +3169,7 @@ extension Paths.Lists {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
@@ -3207,7 +3207,7 @@ extension Paths.Lists.WithID {
         ///
         /// Returns a list of users that follow a List by the provided List ID
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.ListLookupMultipleUsersLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3278,7 +3278,7 @@ extension Paths.Lists.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -3304,7 +3304,7 @@ extension Paths.Lists.WithID {
         ///
         /// Returns a list of users that are members of a List by the provided List ID
         public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.ListLookupMultipleUsersLookupResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3375,7 +3375,7 @@ extension Paths.Lists.WithID {
                 self.userFields = userFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -3426,7 +3426,7 @@ extension Paths.Lists.WithID {
         ///
         /// Returns a list of Tweets associated with the provided List ID
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -3588,7 +3588,7 @@ extension Paths.Lists.WithID {
                 self.pollFields = pollFields
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
@@ -3769,7 +3769,7 @@ extension Paths.Spaces {
         ///
         /// Returns Spaces that match the provided query.
         public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiSpaceLookupResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3828,7 +3828,7 @@ extension Paths.Spaces {
                 self.expansions = expansions
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("state", state)

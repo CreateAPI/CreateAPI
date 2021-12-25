@@ -17,7 +17,7 @@ extension Paths {
 
         /// This method is used to retrieve the details of one or more seller payouts. By using the filter query parameter, users can retrieve payouts processed within a specific date range, and/or they can retrieve payouts in a specific state. There are also pagination and sort query parameters that allow users to control the payouts that are returned in the response. If no payouts match the input criteria, an empty payload is returned.
         public func get(parameters: GetParameters? = nil) -> Request<EbayFinancesAPI.Payouts> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -33,7 +33,7 @@ extension Paths {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("sort", sort)
@@ -110,7 +110,7 @@ extension Paths {
 
         /// This method allows a seller to retrieve one or monetary transactions. In this case, 'monetary transactions' include sales orders, buyer refunds, seller credits, buyer-initiated payment disputes, eBay shipping label purchases, and transfers. There are numerous input filters available for use, including filters to retrieve specific types of monetary transactions, to retrieve monetary transactions processed within a specific date range, or to retrieve monetary transactions in a specific state. See the filter field for more information on each filter, and how each one is used. There are also pagination and sort query parameters that allow users to further control the monetary transactions that are returned in the response. If no monetary transactions match the input criteria, an http status code of 204 No Content is returned with no response payload.
         public func get(parameters: GetParameters? = nil) -> Request<EbayFinancesAPI.Transactions> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -126,7 +126,7 @@ extension Paths {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("sort", sort)

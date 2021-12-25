@@ -95,7 +95,7 @@ extension Paths.Locations {
 
         /// Search for a location by geographic coordinate.
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.LocationSearchResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -115,7 +115,7 @@ extension Paths.Locations {
                 self.foursquareV2ID = foursquareV2ID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("distance", distance)
                 query.addQueryItem("facebook_places_id", facebookPlacesID)
@@ -167,7 +167,7 @@ extension Paths.Locations.WithLocationID.Media {
 
         /// Get a list of recent media objects from a given location.
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.MediaListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -183,7 +183,7 @@ extension Paths.Locations.WithLocationID.Media {
                 self.maxID = maxID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("min_timestamp", minTimestamp)
                 query.addQueryItem("max_timestamp", maxTimestamp)
@@ -241,7 +241,7 @@ extension Paths.Media {
         /// Search for media in a given area. The default time span is set to 5 days. The time span must not exceed 7 days.
         /// Defaults time stamps cover the last 5 days. Can return mix of `image` and `video` types.
         public func get(parameters: GetParameters) -> Request<InstagramAPI.MediaSearchResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -259,7 +259,7 @@ extension Paths.Media {
                 self.distance = distance
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("lat", lat)
                 query.addQueryItem("lng", lng)
@@ -482,7 +482,7 @@ extension Paths.Tags.WithTagName.Media {
         /// Get a list of recently tagged media. Use the `max_tag_id` and `min_tag_id` parameters in the pagination
         /// response to paginate through these objects.
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.TagMediaListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -496,7 +496,7 @@ extension Paths.Tags.WithTagName.Media {
                 self.maxTagID = maxTagID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("min_tag_id", minTagID)
@@ -568,7 +568,7 @@ extension Paths.Users.`Self` {
         /// **Warning:** [Deprecated](http://instagram.com/developer/changelog/) for Apps created **on or after** Nov 17, 2015
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.MediaListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -582,7 +582,7 @@ extension Paths.Users.`Self` {
                 self.maxID = maxID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("min_id", minID)
@@ -733,7 +733,7 @@ extension Paths.Users.WithUserID.Media {
         /// 
         /// Security scope `public_content` is required to read information about other users.
         public func get(parameters: GetParameters? = nil) -> Request<InstagramAPI.MediaListResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -751,7 +751,7 @@ extension Paths.Users.WithUserID.Media {
                 self.maxID = maxID
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("count", count)
                 query.addQueryItem("max_timestamp", maxTimestamp)

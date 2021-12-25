@@ -74,7 +74,7 @@ extension Paths.Search.WithVersionNumber.CS {
         /// Low Bandwith Category Search
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -114,7 +114,7 @@ extension Paths.Search.WithVersionNumber.CS {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -156,7 +156,7 @@ extension Paths.Search.WithVersionNumber.CategorySearch {
 
         /// Category Search
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -196,7 +196,7 @@ extension Paths.Search.WithVersionNumber.CategorySearch {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -238,7 +238,7 @@ extension Paths.Search.WithVersionNumber.Geocode {
 
         /// Geocode
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -280,7 +280,7 @@ extension Paths.Search.WithVersionNumber.Geocode {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("storeResult", isStoreResult)
                 query.addQueryItem("typeahead", isTypeahead)
@@ -447,7 +447,7 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
 
         /// Geometry Search
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -465,7 +465,7 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
                 self.idxSet = idxSet
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("geometryList", geometryList)
                 query.addQueryItem("limit", limit)
@@ -478,7 +478,7 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
 
         /// Geometry Search
         public func post(parameters: PostParameters? = nil, geometryList: [PostRequest.GeometryListItem]? = nil) -> Request<Void> {
-            .post(path, query: parameters?.asQuery(), body: PostRequest(geometryList: geometryList))
+            .post(path, query: parameters?.asQuery, body: PostRequest(geometryList: geometryList))
         }
 
         public struct PostParameters {
@@ -494,7 +494,7 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
                 self.idxSet = idxSet
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("language", language)
@@ -575,7 +575,7 @@ extension Paths.Search.WithVersionNumber.NearbySearch {
 
         /// Nearby Search
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -619,7 +619,7 @@ extension Paths.Search.WithVersionNumber.NearbySearch {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("lat", lat)
                 query.addQueryItem("lon", lon)
@@ -663,7 +663,7 @@ extension Paths.Search.WithVersionNumber.PoiSearch {
 
         /// Points of Interest Search
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -703,7 +703,7 @@ extension Paths.Search.WithVersionNumber.PoiSearch {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -756,7 +756,7 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode.CrossStreet {
 
         /// Cross Street lookup
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -774,7 +774,7 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode.CrossStreet {
                 self.language = language
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("spatialKeys", isSpatialKeys)
@@ -798,7 +798,7 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode {
 
         /// Reverse Geocode
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -822,7 +822,7 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("spatialKeys", isSpatialKeys)
                 query.addQueryItem("returnSpeedLimit", isReturnSpeedLimit)
@@ -1017,7 +1017,7 @@ extension Paths.Search.WithVersionNumber.RoutedSearch.WithQuery.WithPosition {
         /// Routed Search
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1039,7 +1039,7 @@ extension Paths.Search.WithVersionNumber.RoutedSearch.WithQuery.WithPosition {
                 self.idxSet = idxSet
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -1077,7 +1077,7 @@ extension Paths.Search.WithVersionNumber.S {
         /// Low bandwith Search
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1117,7 +1117,7 @@ extension Paths.Search.WithVersionNumber.S {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -1159,7 +1159,7 @@ extension Paths.Search.WithVersionNumber.Search {
 
         /// Fuzzy Search
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1205,7 +1205,7 @@ extension Paths.Search.WithVersionNumber.Search {
                 self.view = view
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("typeahead", isTypeahead)
                 query.addQueryItem("limit", limit)
@@ -1323,7 +1323,7 @@ extension Paths.Search.WithVersionNumber {
 
         /// Structured Geocode
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1359,7 +1359,7 @@ extension Paths.Search.WithVersionNumber {
                 self.extendedPostalCodesFor = extendedPostalCodesFor
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("countryCode", countryCode)
                 query.addQueryItem("limit", limit)

@@ -671,7 +671,7 @@ extension Paths.V1.Accounts.WithAccountID {
         /// For a given account, additional parameters are e.g. the attributes "dateFrom" and "dateTo".
         /// The ASPSP might add balance information, if transaction lists without balances are not supported.
         public func get(parameters: GetParameters) -> Request<OpenBankingAPI.TransactionsResponse200JSON> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -698,7 +698,7 @@ extension Paths.V1.Accounts.WithAccountID {
                 self.isWithBalance = isWithBalance
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("dateFrom", dateFrom)
                 query.addQueryItem("dateTo", dateTo)

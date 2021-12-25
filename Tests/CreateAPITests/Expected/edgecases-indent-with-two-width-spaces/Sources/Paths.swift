@@ -131,7 +131,7 @@ extension Paths.Pet {
 
     /// Updates a pet in the store with form data
     public func post(_ body: PostRequest? = nil) -> Request<Void> {
-      .post(path, body: body?.asQuery())
+      .post(path, body: body?.asQuery.asPercentEncodedQuery)
     }
 
     public struct PostRequest: Encodable {
@@ -145,11 +145,11 @@ extension Paths.Pet {
         self.status = status
       }
 
-      public func asQuery() -> String {
+      public var asQuery: [(String, String?)] {
         var query: [(String, String?)] = []
         query.addQueryItem("name", name)
         query.addQueryItem("status", status)
-        return query.asPercentEncodedQuery
+        return query
       }
     }
 
@@ -384,7 +384,7 @@ extension Paths {
 
     /// To test enum parameters
     public func get(parameters: GetParameters? = nil) -> Request<Void> {
-      .get(path, query: parameters?.asQuery())
+      .get(path, query: parameters?.asQuery)
     }
 
     public struct GetParameters {
@@ -409,7 +409,7 @@ extension Paths {
         self.enumQueryInteger = enumQueryInteger
       }
 
-      public func asQuery() -> [(String, String?)] {
+      public var asQuery: [(String, String?)] {
         var query: [(String, String?)] = []
         enumQueryStringArray?.forEach { query.addQueryItem("enum_query_string_array", $0) }
         query.addQueryItem("enum_query_string", enumQueryString)
@@ -420,7 +420,7 @@ extension Paths {
 
     /// Fake endpoint for testing various parameters
     public func post(_ body: PostRequest? = nil) -> Request<Void> {
-      .post(path, body: body?.asQuery())
+      .post(path, body: body?.asQuery.asPercentEncodedQuery)
     }
 
     public struct PostRequest: Encodable {
@@ -470,7 +470,7 @@ extension Paths {
         self.callback = callback
       }
 
-      public func asQuery() -> String {
+      public var asQuery: [(String, String?)] {
         var query: [(String, String?)] = []
         query.addQueryItem("integer", integer)
         query.addQueryItem("int32", int32)
@@ -486,7 +486,7 @@ extension Paths {
         query.addQueryItem("dateTime", dateTime)
         query.addQueryItem("password", password)
         query.addQueryItem("callback", callback)
-        return query.asPercentEncodedQuery
+        return query
       }
     }
 

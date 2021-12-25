@@ -32,7 +32,7 @@ extension Paths.AccessTokens {
         ///  
         /// This method returns a list of access_tokens.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -48,7 +48,7 @@ extension Paths.AccessTokens {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -75,7 +75,7 @@ extension Paths.AccessTokens.WithAccessTokens {
         ///  
         /// This method returns a list of access_tokens.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -91,7 +91,7 @@ extension Paths.AccessTokens.WithAccessTokens {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -125,7 +125,7 @@ extension Paths {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -166,7 +166,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -211,7 +211,7 @@ extension Paths.Answers {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -252,7 +252,7 @@ extension Paths.Answers {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -296,7 +296,7 @@ extension Paths.Answers.WithIDs {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -336,7 +336,7 @@ extension Paths.Answers.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -396,7 +396,7 @@ extension Paths.Apps.WithAccessTokens {
         ///  
         /// This method returns a list of access_tokens.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -412,7 +412,7 @@ extension Paths.Apps.WithAccessTokens {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -445,7 +445,7 @@ extension Paths {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -488,7 +488,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -527,7 +527,7 @@ extension Paths.Badges {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -569,7 +569,7 @@ extension Paths.Badges {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -604,7 +604,7 @@ extension Paths.Badges {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -626,7 +626,7 @@ extension Paths.Badges {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -658,7 +658,7 @@ extension Paths.Badges {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -700,7 +700,7 @@ extension Paths.Badges {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -745,7 +745,7 @@ extension Paths.Badges {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -786,7 +786,7 @@ extension Paths.Badges {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -822,7 +822,7 @@ extension Paths.Badges.WithIDs {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -844,7 +844,7 @@ extension Paths.Badges.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -884,7 +884,7 @@ extension Paths {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -924,7 +924,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -968,7 +968,7 @@ extension Paths.Comments {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1008,7 +1008,7 @@ extension Paths.Comments {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1053,7 +1053,7 @@ extension Paths.Comments.WithID {
         ///  
         /// In practice, this method will never return an object.
         public func post(parameters: PostParameters) -> Request<Void> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -1069,7 +1069,7 @@ extension Paths.Comments.WithID {
                 self.isPreview = isPreview
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("callback", callback)
@@ -1096,7 +1096,7 @@ extension Paths.Comments.WithID {
         ///  
         /// This method return the created comment.
         public func post(parameters: PostParameters) -> Request<Data> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -1114,7 +1114,7 @@ extension Paths.Comments.WithID {
                 self.isPreview = isPreview
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("callback", callback)
@@ -1144,7 +1144,7 @@ extension Paths {
         ///  
         /// This method returns a list of errors.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1160,7 +1160,7 @@ extension Paths {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1219,7 +1219,7 @@ extension Paths {
         ///  
         /// This method returns a list of events.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1239,7 +1239,7 @@ extension Paths {
                 self.since = since
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1285,7 +1285,7 @@ extension Paths.Filters {
         ///  
         /// This method returns a single filter.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1301,7 +1301,7 @@ extension Paths.Filters {
                 self.isUnsafe = isUnsafe
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("base", base)
                 query.addQueryItem("exclude", exclude)
@@ -1350,7 +1350,7 @@ extension Paths {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1366,7 +1366,7 @@ extension Paths {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1393,7 +1393,7 @@ extension Paths.Inbox {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1411,7 +1411,7 @@ extension Paths.Inbox {
                 self.since = since
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1465,7 +1465,7 @@ extension Paths {
         ///  
         /// This method returns a user.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1507,7 +1507,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1539,7 +1539,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1580,7 +1580,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1612,7 +1612,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of network users.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -1628,7 +1628,7 @@ extension Paths.Me {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1653,7 +1653,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1694,7 +1694,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1726,7 +1726,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1766,7 +1766,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1798,7 +1798,7 @@ extension Paths.Me.Comments {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1838,7 +1838,7 @@ extension Paths.Me.Comments {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1870,7 +1870,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1912,7 +1912,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -1946,7 +1946,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -1964,7 +1964,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -1992,7 +1992,7 @@ extension Paths.Me.Inbox {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2012,7 +2012,7 @@ extension Paths.Me.Inbox {
                 self.since = since
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2039,7 +2039,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2079,7 +2079,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2119,7 +2119,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of account_merge.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2135,7 +2135,7 @@ extension Paths.Me {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2162,7 +2162,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2180,7 +2180,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2208,7 +2208,7 @@ extension Paths.Me.Notifications {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2226,7 +2226,7 @@ extension Paths.Me.Notifications {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2252,7 +2252,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of privileges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2270,7 +2270,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2296,7 +2296,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2337,7 +2337,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2369,7 +2369,7 @@ extension Paths.Me.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2410,7 +2410,7 @@ extension Paths.Me.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2442,7 +2442,7 @@ extension Paths.Me.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2483,7 +2483,7 @@ extension Paths.Me.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2515,7 +2515,7 @@ extension Paths.Me.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2556,7 +2556,7 @@ extension Paths.Me.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2588,7 +2588,7 @@ extension Paths.Me.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2629,7 +2629,7 @@ extension Paths.Me.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2661,7 +2661,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of reputation changes.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2675,7 +2675,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("callback", callback)
@@ -2699,7 +2699,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of reputation_history.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2717,7 +2717,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2746,7 +2746,7 @@ extension Paths.Me.ReputationHistory {
         ///  
         /// This method returns a list of reputation_history.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2764,7 +2764,7 @@ extension Paths.Me.ReputationHistory {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -2790,7 +2790,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of suggested-edits.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2831,7 +2831,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2863,7 +2863,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of tags.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2904,7 +2904,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -2947,7 +2947,7 @@ extension Paths.Me.Tags.WithTags {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -2988,7 +2988,7 @@ extension Paths.Me.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3020,7 +3020,7 @@ extension Paths.Me.Tags.WithTags {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3065,7 +3065,7 @@ extension Paths.Me.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3097,7 +3097,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of user timeline objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3119,7 +3119,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -3147,7 +3147,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of top tag objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3165,7 +3165,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3191,7 +3191,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of top tag objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3209,7 +3209,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3239,7 +3239,7 @@ extension Paths.Me {
         ///  
         /// This method returns a list of write_permissions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3257,7 +3257,7 @@ extension Paths.Me {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3285,7 +3285,7 @@ extension Paths {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3301,7 +3301,7 @@ extension Paths {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3328,7 +3328,7 @@ extension Paths.Notifications {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3344,7 +3344,7 @@ extension Paths.Notifications {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3382,7 +3382,7 @@ extension Paths {
         ///  
         /// This method returns a list of posts.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3423,7 +3423,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3468,7 +3468,7 @@ extension Paths.Posts {
         ///  
         /// This method returns a list of posts.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3509,7 +3509,7 @@ extension Paths.Posts {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3553,7 +3553,7 @@ extension Paths.Posts.WithIDs {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3593,7 +3593,7 @@ extension Paths.Posts.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3627,7 +3627,7 @@ extension Paths.Posts.WithIDs {
         ///  
         /// This method returns a list of revisions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3649,7 +3649,7 @@ extension Paths.Posts.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -3685,7 +3685,7 @@ extension Paths.Posts.WithIDs {
         ///  
         /// This method returns a list of suggested-edits.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3726,7 +3726,7 @@ extension Paths.Posts.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -3782,7 +3782,7 @@ extension Paths.Posts.WithID.Comments {
         ///  
         /// This method returns the created comment.
         public func post(parameters: PostParameters) -> Request<Data> {
-            .post(path, query: parameters.asQuery())
+            .post(path, query: parameters.asQuery)
         }
 
         public struct PostParameters {
@@ -3800,7 +3800,7 @@ extension Paths.Posts.WithID.Comments {
                 self.isPreview = isPreview
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter", filter)
                 query.addQueryItem("callback", callback)
@@ -3830,7 +3830,7 @@ extension Paths {
         ///  
         /// This method returns a list of privileges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3848,7 +3848,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -3890,7 +3890,7 @@ extension Paths {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -3937,7 +3937,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -3979,7 +3979,7 @@ extension Paths.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4022,7 +4022,7 @@ extension Paths.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -4070,7 +4070,7 @@ extension Paths.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4113,7 +4113,7 @@ extension Paths.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -4163,7 +4163,7 @@ extension Paths.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4206,7 +4206,7 @@ extension Paths.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -4252,7 +4252,7 @@ extension Paths.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4293,7 +4293,7 @@ extension Paths.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -4338,7 +4338,7 @@ extension Paths.Questions.WithIDs {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4379,7 +4379,7 @@ extension Paths.Questions.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -4423,7 +4423,7 @@ extension Paths.Questions.WithIDs {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4463,7 +4463,7 @@ extension Paths.Questions.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -4511,7 +4511,7 @@ extension Paths.Questions.WithIDs {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4553,7 +4553,7 @@ extension Paths.Questions.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -4599,7 +4599,7 @@ extension Paths.Questions.WithIDs {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4641,7 +4641,7 @@ extension Paths.Questions.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -4679,7 +4679,7 @@ extension Paths.Questions.WithIDs {
         ///  
         /// This method returns a list of question timeline events.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4701,7 +4701,7 @@ extension Paths.Questions.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -4742,7 +4742,7 @@ extension Paths.Revisions {
         ///  
         /// This method returns a list of revisions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4764,7 +4764,7 @@ extension Paths.Revisions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -4808,7 +4808,7 @@ extension Paths {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -4856,7 +4856,7 @@ extension Paths {
                 self.nottagged = nottagged
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -4920,7 +4920,7 @@ extension Paths.Search {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5015,7 +5015,7 @@ extension Paths.Search {
                 self.wiki = wiki
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -5079,7 +5079,7 @@ extension Paths {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5127,7 +5127,7 @@ extension Paths {
                 self.title = title
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("tagged", tagged)
                 query.addQueryItem("order", order)
@@ -5166,7 +5166,7 @@ extension Paths {
         ///  
         /// This method returns a list of sites.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5182,7 +5182,7 @@ extension Paths {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -5215,7 +5215,7 @@ extension Paths {
         ///  
         ///  It is possible to create moderately complex queries using sort, min, max, fromdate, and todate.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5256,7 +5256,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -5299,7 +5299,7 @@ extension Paths.SuggestedEdits {
         ///  
         /// This method returns a list of suggested-edits.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5340,7 +5340,7 @@ extension Paths.SuggestedEdits {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -5382,7 +5382,7 @@ extension Paths {
         ///  
         ///  It is possible to create moderately complex queries using sort, min, max, fromdate, and todate.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5425,7 +5425,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -5468,7 +5468,7 @@ extension Paths.Tags {
         ///  
         ///  It is possible to create moderately complex queries using sort, min, max, fromdate, and todate.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5511,7 +5511,7 @@ extension Paths.Tags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -5554,7 +5554,7 @@ extension Paths.Tags {
         ///  
         ///  It is possible to create moderately complex queries using sort, min, max, fromdate, and todate.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5597,7 +5597,7 @@ extension Paths.Tags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -5641,7 +5641,7 @@ extension Paths.Tags {
         ///  
         /// This method returns a list of tag_synonyms.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5682,7 +5682,7 @@ extension Paths.Tags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -5729,7 +5729,7 @@ extension Paths.Tags.WithTags {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5747,7 +5747,7 @@ extension Paths.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -5783,7 +5783,7 @@ extension Paths.Tags.WithTags {
         ///  
         ///  It is possible to create moderately complex queries using sort, min, max, fromdate, and todate.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5824,7 +5824,7 @@ extension Paths.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -5862,7 +5862,7 @@ extension Paths.Tags.WithTags {
         ///  
         /// This method returns a list of tags.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5880,7 +5880,7 @@ extension Paths.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -5917,7 +5917,7 @@ extension Paths.Tags.WithTags {
         ///  
         /// This method returns a list of tag synonyms.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -5958,7 +5958,7 @@ extension Paths.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -5994,7 +5994,7 @@ extension Paths.Tags.WithTags {
         ///  
         /// This method returns a list of tag wikis.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6012,7 +6012,7 @@ extension Paths.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -6062,7 +6062,7 @@ extension Paths.Tags.WithTag.TopAnswerers {
         ///  
         /// This method returns a list of tag score objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6080,7 +6080,7 @@ extension Paths.Tags.WithTag.TopAnswerers {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -6119,7 +6119,7 @@ extension Paths.Tags.WithTag.TopAskers {
         ///  
         /// This method returns a list of tag score objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6137,7 +6137,7 @@ extension Paths.Tags.WithTag.TopAskers {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -6175,7 +6175,7 @@ extension Paths {
         ///  
         /// The inname parameter lets consumers filter the results down to just those users with a certain substring in their display name. For example, inname=kevin will return all users with both users named simply "Kevin" or those with Kevin as one of (or part of) their names; such as "Kevin Montrose".
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6219,7 +6219,7 @@ extension Paths {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("inname", inname)
                 query.addQueryItem("order", order)
@@ -6264,7 +6264,7 @@ extension Paths.Users {
         ///  
         /// This method returns a list of users.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6306,7 +6306,7 @@ extension Paths.Users {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6350,7 +6350,7 @@ extension Paths.Users.Moderators {
         ///  
         /// This method returns a list of users.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6392,7 +6392,7 @@ extension Paths.Users.Moderators {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6438,7 +6438,7 @@ extension Paths.Users {
         ///  
         /// This method returns a list of users.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6480,7 +6480,7 @@ extension Paths.Users {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6523,7 +6523,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6564,7 +6564,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6598,7 +6598,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of network_users.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6614,7 +6614,7 @@ extension Paths.Users.WithIDs {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -6649,7 +6649,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of badges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6691,7 +6691,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6733,7 +6733,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6773,7 +6773,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6817,7 +6817,7 @@ extension Paths.Users.WithIDs.Comments {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6857,7 +6857,7 @@ extension Paths.Users.WithIDs.Comments {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6903,7 +6903,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -6945,7 +6945,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -6987,7 +6987,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of comments.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7027,7 +7027,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7067,7 +7067,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of account_merge.
         public func get(parameters: GetParameters? = nil) -> Request<Data> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -7083,7 +7083,7 @@ extension Paths.Users.WithIDs {
                 self.callback = callback
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -7119,7 +7119,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7160,7 +7160,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7203,7 +7203,7 @@ extension Paths.Users.WithIDs.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7244,7 +7244,7 @@ extension Paths.Users.WithIDs.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7289,7 +7289,7 @@ extension Paths.Users.WithIDs.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7330,7 +7330,7 @@ extension Paths.Users.WithIDs.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7375,7 +7375,7 @@ extension Paths.Users.WithIDs.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7416,7 +7416,7 @@ extension Paths.Users.WithIDs.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7463,7 +7463,7 @@ extension Paths.Users.WithIDs.Questions {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7504,7 +7504,7 @@ extension Paths.Users.WithIDs.Questions {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7540,7 +7540,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of reputation objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7562,7 +7562,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -7590,7 +7590,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of reputation_history.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7608,7 +7608,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -7645,7 +7645,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of suggested-edits.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7686,7 +7686,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7731,7 +7731,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of tags.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7772,7 +7772,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -7808,7 +7808,7 @@ extension Paths.Users.WithIDs {
         ///  
         /// This method returns a list of user timeline objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7830,7 +7830,7 @@ extension Paths.Users.WithIDs {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fromdate", fromdate)
                 query.addQueryItem("todate", todate)
@@ -7875,7 +7875,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7893,7 +7893,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -7925,7 +7925,7 @@ extension Paths.Users.WithID.Inbox {
         ///  
         /// This method returns a list of inbox items.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7945,7 +7945,7 @@ extension Paths.Users.WithID.Inbox {
                 self.since = since
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -7974,7 +7974,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -7992,7 +7992,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8020,7 +8020,7 @@ extension Paths.Users.WithID.Notifications {
         ///  
         /// This method returns a list of notifications.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8038,7 +8038,7 @@ extension Paths.Users.WithID.Notifications {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8068,7 +8068,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of privileges.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8086,7 +8086,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8125,7 +8125,7 @@ extension Paths.Users.WithID.ReputationHistory {
         ///  
         /// This method returns a list of reputation_history.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8143,7 +8143,7 @@ extension Paths.Users.WithID.ReputationHistory {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8202,7 +8202,7 @@ extension Paths.Users.WithID.Tags.WithTags {
         ///  
         /// This method returns a list of answers.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8243,7 +8243,7 @@ extension Paths.Users.WithID.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -8286,7 +8286,7 @@ extension Paths.Users.WithID.Tags.WithTags {
         ///  
         /// This method returns a list of questions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8327,7 +8327,7 @@ extension Paths.Users.WithID.Tags.WithTags {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("order", order)
                 query.addQueryItem("max", max)
@@ -8363,7 +8363,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of top_tag objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8381,7 +8381,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8411,7 +8411,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of top_tag objects.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8429,7 +8429,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)
@@ -8459,7 +8459,7 @@ extension Paths.Users.WithID {
         ///  
         /// This method returns a list of write_permissions.
         public func get(parameters: GetParameters) -> Request<Data> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -8477,7 +8477,7 @@ extension Paths.Users.WithID {
                 self.site = site
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("pagesize", pagesize)
                 query.addQueryItem("page", page)

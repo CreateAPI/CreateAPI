@@ -131,7 +131,7 @@ extension Paths.Pet {
 
         /// Updates a pet in the store with form data
         func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
          struct PostRequest: Encodable {
@@ -145,11 +145,11 @@ extension Paths.Pet {
                 self.status = status
             }
 
-            func asQuery() -> String {
+            var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("name", name)
                 query.addQueryItem("status", status)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 
@@ -384,7 +384,7 @@ extension Paths {
 
         /// To test enum parameters
         func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
          struct GetParameters {
@@ -409,7 +409,7 @@ extension Paths {
                 self.enumQueryInteger = enumQueryInteger
             }
 
-            func asQuery() -> [(String, String?)] {
+            var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 enumQueryStringArray?.forEach { query.addQueryItem("enum_query_string_array", $0) }
                 query.addQueryItem("enum_query_string", enumQueryString)
@@ -420,7 +420,7 @@ extension Paths {
 
         /// Fake endpoint for testing various parameters
         func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body?.asQuery())
+            .post(path, body: body?.asQuery.asPercentEncodedQuery)
         }
 
          struct PostRequest: Encodable {
@@ -470,7 +470,7 @@ extension Paths {
                 self.callback = callback
             }
 
-            func asQuery() -> String {
+            var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("integer", integer)
                 query.addQueryItem("int32", int32)
@@ -486,7 +486,7 @@ extension Paths {
                 query.addQueryItem("dateTime", dateTime)
                 query.addQueryItem("password", password)
                 query.addQueryItem("callback", callback)
-                return query.asPercentEncodedQuery
+                return query
             }
         }
 

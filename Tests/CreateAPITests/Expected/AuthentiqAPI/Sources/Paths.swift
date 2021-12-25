@@ -42,7 +42,7 @@ extension Paths {
         /// will be sent by email. Do a second call adding `code` to
         /// complete the revocation.
         public func delete(parameters: DeleteParameters) -> Request<DeleteResponse> {
-            .delete(path, query: parameters.asQuery())
+            .delete(path, query: parameters.asQuery)
         }
 
         public struct DeleteResponse: Decodable {
@@ -65,7 +65,7 @@ extension Paths {
                 self.code = code
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("email", email)
                 query.addQueryItem("phone", phone)

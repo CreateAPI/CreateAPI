@@ -16,7 +16,7 @@ extension Paths {
     /// 
     /// > Requires <a href="#authentication">API Key</a> as `X-Api-Key` request header or `apikey` URL query parameter.
     static public func getAllAPIs(parameters: GetAllAPIsParameters? = nil) -> Request<Void> {
-        .get("/apis", query: parameters?.asQuery())
+        .get("/apis", query: parameters?.asQuery)
     }
 
     public struct GetAllAPIsParameters {
@@ -57,7 +57,7 @@ extension Paths {
             self.direction = direction
         }
 
-        public func asQuery() -> [(String, String?)] {
+        public var asQuery: [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("workspace", workspace)
             query.addQueryItem("since", since)
@@ -4373,7 +4373,7 @@ extension Paths {
     /// 
     /// Note: By default, this endpoint will return a list of hundred users. To overwrite the default setting, update the 'startIndex=1&count=100' value in the request.
     static public func fetchAllUserResource(parameters: FetchAllUserResourceParameters? = nil) -> Request<FetchAllUserResourceResponse> {
-        .get("/scim/v2/Users", query: parameters?.asQuery())
+        .get("/scim/v2/Users", query: parameters?.asQuery)
     }
 
     public struct FetchAllUserResourceResponse: Decodable {
@@ -4414,7 +4414,7 @@ extension Paths {
             self.filter = filter
         }
 
-        public func asQuery() -> [(String, String?)] {
+        public var asQuery: [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("startIndex", startIndex)
             query.addQueryItem("count", count)

@@ -24,7 +24,7 @@ extension Paths {
         /// 
         /// > Requires <a href="#authentication">API Key</a> as `X-Api-Key` request header or `apikey` URL query parameter.
         public func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -65,7 +65,7 @@ extension Paths {
                 self.direction = direction
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("workspace", workspace)
                 query.addQueryItem("since", since)
@@ -4704,7 +4704,7 @@ extension Paths.Scim.V2 {
         /// 
         /// Note: By default, this endpoint will return a list of hundred users. To overwrite the default setting, update the 'startIndex=1&count=100' value in the request.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -4745,7 +4745,7 @@ extension Paths.Scim.V2 {
                 self.filter = filter
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("startIndex", startIndex)
                 query.addQueryItem("count", count)

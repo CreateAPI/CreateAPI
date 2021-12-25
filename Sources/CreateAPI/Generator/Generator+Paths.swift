@@ -382,7 +382,7 @@ extension Generator {
             } else {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
-                call.append("query: parameters\(isOptional ? "?" : "").asQuery()")
+                call.append("query: parameters\(isOptional ? "?" : "").asQuery")
                 nested.append(templates.entity(name: type, contents: contents, protocols: []))
             }
             setNeedsQuery()
@@ -424,7 +424,7 @@ extension Generator {
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
                     if let entity = (requestBody.nested as? EntityDeclaration), entity.isForm {
-                        call.append("body: body\(requestBody.isOptional ? "?" : "").asQuery()")
+                        call.append("body: body\(requestBody.isOptional ? "?" : "").asQuery.asPercentEncodedQuery")
                     } else {
                         call.append("body: body")
                     }

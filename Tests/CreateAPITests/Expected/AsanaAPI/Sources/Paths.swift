@@ -585,7 +585,7 @@ extension Paths {
         ///
         /// Returns compact goal records.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -613,7 +613,7 @@ extension Paths {
                 self.timePeriods = timePeriods
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("portfolio", portfolio)
                 query.addQueryItem("project", project)
@@ -1123,7 +1123,7 @@ extension Paths {
         ///
         /// Returns a list of the portfolios in compact representation that are owned by the current API user.
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -1147,7 +1147,7 @@ extension Paths {
                 self.owner = owner
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -1567,7 +1567,7 @@ extension Paths.Projects.WithProjectGid {
         ///
         /// Returns the compact project status update records for all updates on the project.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -1591,7 +1591,7 @@ extension Paths.Projects.WithProjectGid {
                 self.offset = offset
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("opt_pretty", isOptPretty)
                 query.addQueryItem("opt_fields", optFields?.map(\.asQueryValue).joined(separator: ","))
@@ -1633,7 +1633,7 @@ extension Paths {
         /// Returns the compact project records for some filtered set of projects. Use one or more of the parameters provided to filter the projects returned.
         /// *Note: This endpoint may timeout for large domains. Try filtering by team!*
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -1659,7 +1659,7 @@ extension Paths {
                 self.isArchived = isArchived
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -1830,7 +1830,7 @@ extension Paths.Teams.WithTeamGid {
         ///
         /// Returns the compact project records for all projects in the team.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -1852,7 +1852,7 @@ extension Paths.Teams.WithTeamGid {
                 self.isArchived = isArchived
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -1894,7 +1894,7 @@ extension Paths.Workspaces.WithWorkspaceGid {
         /// Returns the compact project records for all projects in the workspace.
         /// *Note: This endpoint may timeout for large domains. Prefer the `/teams/{team_gid}/projects` endpoint.*
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -1916,7 +1916,7 @@ extension Paths.Workspaces.WithWorkspaceGid {
                 self.isArchived = isArchived
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -2481,7 +2481,7 @@ extension Paths {
         ///
         /// Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -2503,7 +2503,7 @@ extension Paths {
                 self.workspace = workspace
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -2699,7 +2699,7 @@ extension Paths {
         /// 
         /// For more complex task retrieval, use [workspaces/{workspace_gid}/tasks/search](/docs/search-tasks-in-a-workspace).
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -2732,7 +2732,7 @@ extension Paths {
                 self.modifiedSince = modifiedSince
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)
@@ -3500,7 +3500,7 @@ extension Paths {
         ///
         /// Returns compact team membership records.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -3522,7 +3522,7 @@ extension Paths {
                 self.workspace = workspace
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("team", team)
                 query.addQueryItem("user", user)
@@ -3811,7 +3811,7 @@ extension Paths {
         ///
         /// Returns compact time period records.
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -3833,7 +3833,7 @@ extension Paths {
                 self.workspace = workspace
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("start_on", startOn)
                 query.addQueryItem("end_on", endOn)
@@ -4102,7 +4102,7 @@ extension Paths {
         ///
         /// Get the compact representation of all webhooks your app has registered for the authenticated user in the given workspace.
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery())
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -4126,7 +4126,7 @@ extension Paths {
                 self.resource = resource
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("offset", offset)

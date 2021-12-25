@@ -20,7 +20,7 @@ extension Paths {
         ///
         /// Get candidates based on specified filters.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -49,7 +49,7 @@ extension Paths {
                 self.sortDir = sortDir
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("limit", limit)
@@ -192,7 +192,7 @@ extension Paths {
         ///
         /// Get evaluations based on specified filters.
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery())
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -214,7 +214,7 @@ extension Paths {
                 self.endDate = endDate
             }
 
-            public func asQuery() -> [(String, String?)] {
+            public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("examiner_tag", examinerTag)
                 query.addQueryItem("start_date", startDate)
