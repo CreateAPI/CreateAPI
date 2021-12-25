@@ -252,7 +252,7 @@ extension Generator {
     }
     
     private func getPathParameterType(for parameter: OpenAPI.Parameter) throws -> TypeName {
-        let (schema, _ ) = try parameter.unwrapped(in: spec)
+        let schema = try parameter.unwrapped(in: spec).schema.unwrapped(in: spec)
         switch schema {
         case .integer: return TypeName("Int")
         default: return TypeName("String")
@@ -483,7 +483,8 @@ extension Generator {
         guard parameter.context.inQuery else {
             return nil
         }
-        let (schema, explode) = try parameter.unwrapped(in: spec)
+        let schemaContext = try parameter.unwrapped(in: spec)
+        let schema = try schemaContext.schema.unwrapped(in: spec)
         
         struct QueryItemType {
             var type: MyType
@@ -573,9 +574,9 @@ extension Generator {
             }
             return name
         }
-    
+
         let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
-        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: explode, isObject: isObject, metadata: .init(schema.coreContext), nested: type.nested)
+        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: schemaContext.explode, isObject: isObject, style: schemaContext.style, metadata: .init(schema.coreContext), nested: type.nested)
     }
         
     // MARK: - Request Body

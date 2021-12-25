@@ -5,6 +5,17 @@
 import Foundation
 import OpenAPIKit30
 
+extension Either where A == JSONReference<JSONSchema>, B == JSONSchema {
+    func unwrapped(in spec: OpenAPI.Document) throws -> JSONSchema {
+        switch self {
+        case .a(let reference):
+            return try reference.dereferenced(in: spec.components).jsonSchema
+        case .b(let schema):
+            return schema
+        }
+    }
+}
+
 extension Either where A == JSONReference<OpenAPI.Parameter>, B == OpenAPI.Parameter {
     func unwrapped(in spec: OpenAPI.Document) throws -> OpenAPI.Parameter {
         switch self {
@@ -34,22 +45,13 @@ extension Either where A == JSONReference<OpenAPI.Request>, B == OpenAPI.Request
 }
 
 extension OpenAPI.Parameter {
-    func unwrapped(in spec: OpenAPI.Document) throws -> (JSONSchema, Bool) {
-        let schema: JSONSchema
-        var explode = true
+    func unwrapped(in spec: OpenAPI.Document) throws -> OpenAPI.Parameter.SchemaContext {
         switch schemaOrContent {
         case .a(let schemaContext):
-            explode = schemaContext.explode
-            switch schemaContext.schema {
-            case .a(let reference):
-                schema = JSONSchema.reference(reference)
-            case .b(let value):
-                schema = value
-            }
+            return schemaContext
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(name)")
         }
-        return (schema, explode)
     }
 }
 

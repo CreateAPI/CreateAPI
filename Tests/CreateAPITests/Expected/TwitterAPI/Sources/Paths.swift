@@ -1582,6 +1582,14 @@ extension Paths.Tweets.Search {
             public var query: String
             public var startTime: Date?
             public var endTime: Date?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var maxResults: Int?
             public var nextToken: String?
             /// The list of fields you can expand for a [Tweet](#Tweet) object. If the field has an ID, it can be expanded into a full object.
@@ -1694,10 +1702,12 @@ extension Paths.Tweets.Search {
                 case durationMinutes = "duration_minutes"
             }
 
-            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, maxResults: Int? = nil, nextToken: String? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, sinceID: String? = nil, untilID: String? = nil, maxResults: Int? = nil, nextToken: String? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
                 self.query = query
                 self.startTime = startTime
                 self.endTime = endTime
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.maxResults = maxResults
                 self.nextToken = nextToken
                 self.expansions = expansions
@@ -1713,6 +1723,8 @@ extension Paths.Tweets.Search {
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
                 query.addQueryItem("end_time", endTime)
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("next_token", nextToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
@@ -1748,6 +1760,14 @@ extension Paths.Tweets.Search {
             public var query: String
             public var startTime: Date?
             public var endTime: Date?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var maxResults: Int?
             public var nextToken: String?
             /// The list of fields you can expand for a [Tweet](#Tweet) object. If the field has an ID, it can be expanded into a full object.
@@ -1860,10 +1880,12 @@ extension Paths.Tweets.Search {
                 case durationMinutes = "duration_minutes"
             }
 
-            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, maxResults: Int? = nil, nextToken: String? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, sinceID: String? = nil, untilID: String? = nil, maxResults: Int? = nil, nextToken: String? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
                 self.query = query
                 self.startTime = startTime
                 self.endTime = endTime
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.maxResults = maxResults
                 self.nextToken = nextToken
                 self.expansions = expansions
@@ -1879,6 +1901,8 @@ extension Paths.Tweets.Search {
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
                 query.addQueryItem("end_time", endTime)
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("next_token", nextToken)
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
@@ -2293,6 +2317,14 @@ extension Paths.Users.WithID {
         }
 
         public struct GetParameters {
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var maxResults: Int?
             /// The set of entities to exclude (e.g. 'replies' or 'retweets')
             ///
@@ -2416,7 +2448,9 @@ extension Paths.Users.WithID {
                 case durationMinutes = "duration_minutes"
             }
 
-            public init(maxResults: Int? = nil, exclude: [Exclude]? = nil, paginationToken: String? = nil, startTime: Date? = nil, endTime: Date? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+            public init(sinceID: String? = nil, untilID: String? = nil, maxResults: Int? = nil, exclude: [Exclude]? = nil, paginationToken: String? = nil, startTime: Date? = nil, endTime: Date? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.maxResults = maxResults
                 self.exclude = exclude
                 self.paginationToken = paginationToken
@@ -2432,6 +2466,8 @@ extension Paths.Users.WithID {
 
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("exclude", exclude?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("pagination_token", paginationToken)
@@ -2466,6 +2502,14 @@ extension Paths.Users.WithID {
         }
 
         public struct GetParameters {
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var maxResults: Int?
             public var paginationToken: String?
             public var startTime: Date?
@@ -2580,7 +2624,9 @@ extension Paths.Users.WithID {
                 case durationMinutes = "duration_minutes"
             }
 
-            public init(maxResults: Int? = nil, paginationToken: String? = nil, startTime: Date? = nil, endTime: Date? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+            public init(sinceID: String? = nil, untilID: String? = nil, maxResults: Int? = nil, paginationToken: String? = nil, startTime: Date? = nil, endTime: Date? = nil, expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.maxResults = maxResults
                 self.paginationToken = paginationToken
                 self.startTime = startTime
@@ -2595,6 +2641,8 @@ extension Paths.Users.WithID {
 
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("pagination_token", paginationToken)
                 query.addQueryItem("start_time", startTime)
@@ -2942,13 +2990,31 @@ extension Paths.Tweets.Counts {
             public var query: String
             public var startTime: Date?
             public var endTime: Date?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var nextToken: String?
+            public var granularity: Granularity?
 
-            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, nextToken: String? = nil) {
+            public enum Granularity: String, Codable, CaseIterable {
+                case minute
+                case hour
+                case day
+            }
+
+            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, sinceID: String? = nil, untilID: String? = nil, nextToken: String? = nil, granularity: Granularity? = nil) {
                 self.query = query
                 self.startTime = startTime
                 self.endTime = endTime
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.nextToken = nextToken
+                self.granularity = granularity
             }
 
             public var asQuery: [(String, String?)] {
@@ -2956,7 +3022,10 @@ extension Paths.Tweets.Counts {
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
                 query.addQueryItem("end_time", endTime)
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("next_token", nextToken)
+                query.addQueryItem("granularity", granularity)
                 return query
             }
         }
@@ -2984,13 +3053,31 @@ extension Paths.Tweets.Counts {
             public var query: String
             public var startTime: Date?
             public var endTime: Date?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var sinceID: String?
+            /// Unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.
+            ///
+            /// Example: "1346889436626259968"
+            public var untilID: String?
             public var nextToken: String?
+            public var granularity: Granularity?
 
-            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, nextToken: String? = nil) {
+            public enum Granularity: String, Codable, CaseIterable {
+                case minute
+                case hour
+                case day
+            }
+
+            public init(query: String, startTime: Date? = nil, endTime: Date? = nil, sinceID: String? = nil, untilID: String? = nil, nextToken: String? = nil, granularity: Granularity? = nil) {
                 self.query = query
                 self.startTime = startTime
                 self.endTime = endTime
+                self.sinceID = sinceID
+                self.untilID = untilID
                 self.nextToken = nextToken
+                self.granularity = granularity
             }
 
             public var asQuery: [(String, String?)] {
@@ -2998,7 +3085,10 @@ extension Paths.Tweets.Counts {
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("start_time", startTime)
                 query.addQueryItem("end_time", endTime)
+                query.addQueryItem("since_id", sinceID)
+                query.addQueryItem("until_id", untilID)
                 query.addQueryItem("next_token", nextToken)
+                query.addQueryItem("granularity", granularity)
                 return query
             }
         }
@@ -3028,8 +3118,29 @@ extension Paths.Compliance {
         /// List compliance jobs
         ///
         /// Returns recent compliance jobs for a given job type and optional job status
-        public var get: Request<TwitterAPI.MultiComplianceJobResponse> {
-            .get(path)
+        public func get(type: `Type`, status: Status? = nil) -> Request<TwitterAPI.MultiComplianceJobResponse> {
+            .get(path, query: makeGetQuery(type, status))
+        }
+
+        private func makeGetQuery(_ type: `Type`, _ status: Status?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("type", type)
+            query.addQueryItem("status", status)
+            return query
+        }
+
+        /// Type of compliance job to list.
+        public enum `Type`: String, Codable, CaseIterable {
+            case tweets
+            case users
+        }
+
+        /// Status of a compliance job
+        public enum Status: String, Codable, CaseIterable {
+            case created
+            case inProgress = "in_progress"
+            case failed
+            case complete
         }
 
         /// Create compliance job
@@ -3781,6 +3892,10 @@ extension Paths.Spaces {
             ///
             /// Example: "live"
             public var state: State?
+            /// The number of results to return
+            ///
+            /// Example: 25
+            public var maxResults: Int?
             /// The fields available for a Space object.
             ///
             /// Example: ["created_at", "creator_id", "host_ids", "invited_user_ids", "is_ticketed", "lang", "participant_count", "scheduled_start", "speaker_ids", "started_at", "title", "updated_at"]
@@ -3821,9 +3936,10 @@ extension Paths.Spaces {
                 case speakerIDs = "speaker_ids"
             }
 
-            public init(query: String, state: State? = nil, spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) {
+            public init(query: String, state: State? = nil, maxResults: Int? = nil, spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) {
                 self.query = query
                 self.state = state
+                self.maxResults = maxResults
                 self.spaceFields = spaceFields
                 self.expansions = expansions
             }
@@ -3832,6 +3948,7 @@ extension Paths.Spaces {
                 var query: [(String, String?)] = []
                 query.addQueryItem("query", self.query)
                 query.addQueryItem("state", state)
+                query.addQueryItem("max_results", maxResults)
                 query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
                 return query

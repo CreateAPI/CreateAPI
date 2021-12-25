@@ -12913,10 +12913,19 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         }
 
         public struct GetParameters {
+            /// The name of the tool used to generate the code scanning analysis.
+            public var toolName: String?
+            /// The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data.
+            public var toolGuid: String?
             public var page: Int?
             public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
+            public var ref: String?
             public var direction: Direction?
             public var sort: Sort?
+            /// State of a code scanning alert.
+            public var state: State?
 
             public enum Direction: String, Codable, CaseIterable {
                 case asc
@@ -12929,19 +12938,35 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 case number
             }
 
-            public init(page: Int? = nil, perPage: Int? = nil, direction: Direction? = nil, sort: Sort? = nil) {
+            /// State of a code scanning alert.
+            public enum State: String, Codable, CaseIterable {
+                case `open`
+                case closed
+                case dismissed
+                case fixed
+            }
+
+            public init(toolName: String? = nil, toolGuid: String? = nil, page: Int? = nil, perPage: Int? = nil, ref: String? = nil, direction: Direction? = nil, sort: Sort? = nil, state: State? = nil) {
+                self.toolName = toolName
+                self.toolGuid = toolGuid
                 self.page = page
                 self.perPage = perPage
+                self.ref = ref
                 self.direction = direction
                 self.sort = sort
+                self.state = state
             }
 
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
+                query.addQueryItem("tool_name", toolName)
+                query.addQueryItem("tool_guid", toolGuid)
                 query.addQueryItem("page", page)
                 query.addQueryItem("per_page", perPage)
+                query.addQueryItem("ref", ref)
                 query.addQueryItem("direction", direction)
                 query.addQueryItem("sort", sort)
+                query.addQueryItem("state", state)
                 return query
             }
         }
@@ -12949,7 +12974,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
 }
 
 extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
-    public func alertNumber(_ alertNumber: String) -> WithAlertNumber {
+    public func alertNumber(_ alertNumber: Int) -> WithAlertNumber {
         WithAlertNumber(path: "\(path)/\(alertNumber)")
     }
 
@@ -13014,15 +13039,30 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         /// GitHub Apps must have the `security_events` read permission to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
-        public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.CodeScanningAlertInstance]> {
-            .get(path, query: makeGetQuery(page, perPage))
+        public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertInstance]> {
+            .get(path, query: parameters?.asQuery)
         }
 
-        private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("page", page)
-            query.addQueryItem("per_page", perPage)
-            return query
+        public struct GetParameters {
+            public var page: Int?
+            public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
+            public var ref: String?
+
+            public init(page: Int? = nil, perPage: Int? = nil, ref: String? = nil) {
+                self.page = page
+                self.perPage = perPage
+                self.ref = ref
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("page", page)
+                query.addQueryItem("per_page", perPage)
+                query.addQueryItem("ref", ref)
+                return query
+            }
         }
     }
 }
@@ -13057,15 +13097,44 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         /// The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository)
-        public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.CodeScanningAnalysis]> {
-            .get(path, query: makeGetQuery(page, perPage))
+        public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAnalysis]> {
+            .get(path, query: parameters?.asQuery)
         }
 
-        private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("page", page)
-            query.addQueryItem("per_page", perPage)
-            return query
+        public struct GetParameters {
+            /// The name of the tool used to generate the code scanning analysis.
+            public var toolName: String?
+            /// The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data.
+            public var toolGuid: String?
+            public var page: Int?
+            public var perPage: Int?
+            /// The full Git reference, formatted as `refs/heads/<branch name>`,
+            /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
+            public var ref: String?
+            /// An identifier for the upload.
+            ///
+            /// Example: "6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53"
+            public var sarifID: String?
+
+            public init(toolName: String? = nil, toolGuid: String? = nil, page: Int? = nil, perPage: Int? = nil, ref: String? = nil, sarifID: String? = nil) {
+                self.toolName = toolName
+                self.toolGuid = toolGuid
+                self.page = page
+                self.perPage = perPage
+                self.ref = ref
+                self.sarifID = sarifID
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("tool_name", toolName)
+                query.addQueryItem("tool_guid", toolGuid)
+                query.addQueryItem("page", page)
+                query.addQueryItem("per_page", perPage)
+                query.addQueryItem("ref", ref)
+                query.addQueryItem("sarif_id", sarifID)
+                return query
+            }
         }
     }
 }
@@ -20237,7 +20306,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
 }
 
 extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
-    public func alertNumber(_ alertNumber: String) -> WithAlertNumber {
+    public func alertNumber(_ alertNumber: Int) -> WithAlertNumber {
         WithAlertNumber(path: "\(path)/\(alertNumber)")
     }
 
