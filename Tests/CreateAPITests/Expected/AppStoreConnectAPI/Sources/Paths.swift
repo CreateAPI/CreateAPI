@@ -139,57 +139,525 @@ extension Paths.AppCategories {
     }
 }
 
-extension Paths.AppCategories.WithID {
-    public var parent: Parent {
-        Parent(path: path + "/parent")
+extension Paths {
+    public static var appClipAdvancedExperienceImages: AppClipAdvancedExperienceImages {
+        AppClipAdvancedExperienceImages(path: "/v1/appClipAdvancedExperienceImages")
     }
 
-    public struct Parent {
-        /// Path: `/v1/appCategories/{id}/parent`
+    public struct AppClipAdvancedExperienceImages {
+        /// Path: `/v1/appClipAdvancedExperienceImages`
         public let path: String
 
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
+        public func post(_ body: AppStoreConnectAPI.AppClipAdvancedExperienceImageCreateRequest) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceImageResponse> {
+            .post(path, body: body)
         }
     }
 }
 
-extension Paths.AppCategories.WithID {
-    public var subcategories: Subcategories {
-        Subcategories(path: path + "/subcategories")
+extension Paths.AppClipAdvancedExperienceImages {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
     }
 
-    public struct Subcategories {
-        /// Path: `/v1/appCategories/{id}/subcategories`
+    public struct WithID {
+        /// Path: `/v1/appClipAdvancedExperienceImages/{id}`
         public let path: String
 
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppCategoriesResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories, limit))
+        public func get(fieldsAppClipAdvancedExperienceImages: [FieldsAppClipAdvancedExperienceImages]? = nil) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceImageResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipAdvancedExperienceImages))
         }
 
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?, _ limit: Int?) -> [(String, String?)] {
+        private func makeGetQuery(_ fieldsAppClipAdvancedExperienceImages: [FieldsAppClipAdvancedExperienceImages]?) -> [(String, String?)] {
             var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
+            query.addQueryItem("fields[appClipAdvancedExperienceImages]", fieldsAppClipAdvancedExperienceImages?.map(\.asQueryValue).joined(separator: ","))
             return query
         }
 
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
+        public enum FieldsAppClipAdvancedExperienceImages: String, Codable, CaseIterable {
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case imageAsset
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipAdvancedExperienceImageUpdateRequest) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceImageResponse> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClipAdvancedExperiences: AppClipAdvancedExperiences {
+        AppClipAdvancedExperiences(path: "/v1/appClipAdvancedExperiences")
+    }
+
+    public struct AppClipAdvancedExperiences {
+        /// Path: `/v1/appClipAdvancedExperiences`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppClipAdvancedExperienceCreateRequest) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipAdvancedExperiences {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClipAdvancedExperiences/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]?
+            public var include: [Include]?
+            public var limitLocalizations: Int?
+
+            public enum FieldsAppClipAdvancedExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case businessCategory
+                case defaultLanguage
+                case headerImage
+                case isPoweredBy
+                case link
+                case localizations
+                case place
+                case placeStatus
+                case removed
+                case status
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClip
+                case headerImage
+                case localizations
+            }
+
+            public init(fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]? = nil, include: [Include]? = nil, limitLocalizations: Int? = nil) {
+                self.fieldsAppClipAdvancedExperiences = fieldsAppClipAdvancedExperiences
+                self.include = include
+                self.limitLocalizations = limitLocalizations
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[localizations]", limitLocalizations)
+                return query
+            }
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipAdvancedExperienceUpdateRequest) -> Request<AppStoreConnectAPI.AppClipAdvancedExperienceResponse> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClipAppStoreReviewDetails: AppClipAppStoreReviewDetails {
+        AppClipAppStoreReviewDetails(path: "/v1/appClipAppStoreReviewDetails")
+    }
+
+    public struct AppClipAppStoreReviewDetails {
+        /// Path: `/v1/appClipAppStoreReviewDetails`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppClipAppStoreReviewDetailCreateRequest) -> Request<AppStoreConnectAPI.AppClipAppStoreReviewDetailResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipAppStoreReviewDetails {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClipAppStoreReviewDetails/{id}`
+        public let path: String
+
+        public func get(fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]? = nil, include: [Include]? = nil) -> Request<AppStoreConnectAPI.AppClipAppStoreReviewDetailResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipAppStoreReviewDetails, include))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?, _ include: [Include]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipAppStoreReviewDetails: String, Codable, CaseIterable {
+            case appClipDefaultExperience
+            case invocationURLs = "invocationUrls"
+        }
+
+        public enum Include: String, Codable, CaseIterable {
+            case appClipDefaultExperience
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipAppStoreReviewDetailUpdateRequest) -> Request<AppStoreConnectAPI.AppClipAppStoreReviewDetailResponse> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClipDefaultExperienceLocalizations: AppClipDefaultExperienceLocalizations {
+        AppClipDefaultExperienceLocalizations(path: "/v1/appClipDefaultExperienceLocalizations")
+    }
+
+    public struct AppClipDefaultExperienceLocalizations {
+        /// Path: `/v1/appClipDefaultExperienceLocalizations`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppClipDefaultExperienceLocalizationCreateRequest) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceLocalizationResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperienceLocalizations {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClipDefaultExperienceLocalizations/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceLocalizationResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]?
+            public var include: [Include]?
+            public var fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?
+
+            public enum FieldsAppClipDefaultExperienceLocalizations: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+                case locale
+                case subtitle
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+            }
+
+            public enum FieldsAppClipHeaderImages: String, Codable, CaseIterable {
+                case appClipDefaultExperienceLocalization
+                case assetDeliveryState
+                case fileName
+                case fileSize
+                case imageAsset
+                case sourceFileChecksum
+                case uploadOperations
+                case uploaded
+            }
+
+            public init(fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]? = nil, include: [Include]? = nil, fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]? = nil) {
+                self.fieldsAppClipDefaultExperienceLocalizations = fieldsAppClipDefaultExperienceLocalizations
+                self.include = include
+                self.fieldsAppClipHeaderImages = fieldsAppClipHeaderImages
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipDefaultExperienceLocalizationUpdateRequest) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceLocalizationResponse> {
+            .patch(path, body: body)
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClipDefaultExperiences: AppClipDefaultExperiences {
+        AppClipDefaultExperiences(path: "/v1/appClipDefaultExperiences")
+    }
+
+    public struct AppClipDefaultExperiences {
+        /// Path: `/v1/appClipDefaultExperiences`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppClipDefaultExperienceCreateRequest) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperiences {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClipDefaultExperiences/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var include: [Include]?
+            public var fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]?
+            public var limitAppClipDefaultExperienceLocalizations: Int?
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case releaseWithAppStoreVersion
+            }
+
+            public enum FieldsAppClipAppStoreReviewDetails: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case invocationURLs = "invocationUrls"
+            }
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsAppClipDefaultExperienceLocalizations: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+                case locale
+                case subtitle
+            }
+
+            public init(fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, include: [Include]? = nil, fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]? = nil, limitAppClipDefaultExperienceLocalizations: Int? = nil) {
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.include = include
+                self.fieldsAppClipAppStoreReviewDetails = fieldsAppClipAppStoreReviewDetails
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsAppClipDefaultExperienceLocalizations = fieldsAppClipDefaultExperienceLocalizations
+                self.limitAppClipDefaultExperienceLocalizations = limitAppClipDefaultExperienceLocalizations
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
+                return query
+            }
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipDefaultExperienceUpdateRequest) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceResponse> {
+            .patch(path, body: body)
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClipHeaderImages: AppClipHeaderImages {
+        AppClipHeaderImages(path: "/v1/appClipHeaderImages")
+    }
+
+    public struct AppClipHeaderImages {
+        /// Path: `/v1/appClipHeaderImages`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppClipHeaderImageCreateRequest) -> Request<AppStoreConnectAPI.AppClipHeaderImageResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipHeaderImages {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClipHeaderImages/{id}`
+        public let path: String
+
+        public func get(fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]? = nil, include: [Include]? = nil) -> Request<AppStoreConnectAPI.AppClipHeaderImageResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipHeaderImages, include))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?, _ include: [Include]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipHeaderImages: String, Codable, CaseIterable {
+            case appClipDefaultExperienceLocalization
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case imageAsset
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+
+        public enum Include: String, Codable, CaseIterable {
+            case appClipDefaultExperienceLocalization
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipHeaderImageUpdateRequest) -> Request<AppStoreConnectAPI.AppClipHeaderImageResponse> {
+            .patch(path, body: body)
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var appClips: AppClips {
+        AppClips(path: "/v1/appClips")
+    }
+
+    public struct AppClips {
+        /// Path: `/v1/appClips`
+        public let path: String
+    }
+}
+
+extension Paths.AppClips {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/appClips/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppClips: [FieldsAppClips]?
+            public var include: [Include]?
+            public var fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]?
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var limitAppClipDefaultExperiences: Int?
+
+            public enum FieldsAppClips: String, Codable, CaseIterable {
+                case app
+                case appClipAdvancedExperiences
+                case appClipDefaultExperiences
+                case bundleID = "bundleId"
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case app
+                case appClipDefaultExperiences
+            }
+
+            public enum FieldsAppClipAdvancedExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case businessCategory
+                case defaultLanguage
+                case headerImage
+                case isPoweredBy
+                case link
+                case localizations
+                case place
+                case placeStatus
+                case removed
+                case status
+                case version
+            }
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public init(fieldsAppClips: [FieldsAppClips]? = nil, include: [Include]? = nil, fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]? = nil, fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, limitAppClipDefaultExperiences: Int? = nil) {
+                self.fieldsAppClips = fieldsAppClips
+                self.include = include
+                self.fieldsAppClipAdvancedExperiences = fieldsAppClipAdvancedExperiences
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.limitAppClipDefaultExperiences = limitAppClipDefaultExperiences
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appClipDefaultExperiences]", limitAppClipDefaultExperiences)
+                return query
+            }
         }
     }
 }
@@ -244,6 +712,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -255,6 +724,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -334,6 +804,7 @@ extension Paths.AppEncryptionDeclarations {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -345,6 +816,7 @@ extension Paths.AppEncryptionDeclarations {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -372,79 +844,6 @@ extension Paths.AppEncryptionDeclarations {
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
-        }
-    }
-}
-
-extension Paths.AppEncryptionDeclarations.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/appEncryptionDeclarations/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.AppEncryptionDeclarations.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/appEncryptionDeclarations/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.AppEncryptionDeclarations.WithID.Relationships {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/appEncryptionDeclarations/{id}/relationships/builds`
-        public let path: String
-
-        public func post(_ body: AppStoreConnectAPI.AppEncryptionDeclarationBuildsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
         }
     }
 }
@@ -488,6 +887,7 @@ extension Paths.AppInfoLocalizations {
             case appInfo
             case locale
             case name
+            case privacyChoicesURL = "privacyChoicesUrl"
             case privacyPolicyText
             case privacyPolicyURL = "privacyPolicyUrl"
             case subtitle
@@ -535,8 +935,8 @@ extension Paths.AppInfos {
             public var fieldsAppInfos: [FieldsAppInfos]?
             public var include: [Include]?
             public var fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?
-            public var fieldsAppCategories: [FieldsAppCategories]?
             public var fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?
+            public var fieldsAppCategories: [FieldsAppCategories]?
             public var limitAppInfoLocalizations: Int?
 
             public enum FieldsAppInfos: String, Codable, CaseIterable {
@@ -587,27 +987,28 @@ extension Paths.AppInfos {
                 case violenceRealisticProlongedGraphicOrSadistic
             }
 
+            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
+                case appInfo
+                case locale
+                case name
+                case privacyChoicesURL = "privacyChoicesUrl"
+                case privacyPolicyText
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case subtitle
+            }
+
             public enum FieldsAppCategories: String, Codable, CaseIterable {
                 case parent
                 case platforms
                 case subcategories
             }
 
-            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
-                case appInfo
-                case locale
-                case name
-                case privacyPolicyText
-                case privacyPolicyURL = "privacyPolicyUrl"
-                case subtitle
-            }
-
-            public init(fieldsAppInfos: [FieldsAppInfos]? = nil, include: [Include]? = nil, fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppCategories: [FieldsAppCategories]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, limitAppInfoLocalizations: Int? = nil) {
+            public init(fieldsAppInfos: [FieldsAppInfos]? = nil, include: [Include]? = nil, fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, fieldsAppCategories: [FieldsAppCategories]? = nil, limitAppInfoLocalizations: Int? = nil) {
                 self.fieldsAppInfos = fieldsAppInfos
                 self.include = include
                 self.fieldsAgeRatingDeclarations = fieldsAgeRatingDeclarations
-                self.fieldsAppCategories = fieldsAppCategories
                 self.fieldsAppInfoLocalizations = fieldsAppInfoLocalizations
+                self.fieldsAppCategories = fieldsAppCategories
                 self.limitAppInfoLocalizations = limitAppInfoLocalizations
             }
 
@@ -616,8 +1017,8 @@ extension Paths.AppInfos {
                 query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations)
                 return query
             }
@@ -625,279 +1026,6 @@ extension Paths.AppInfos {
 
         public func patch(_ body: AppStoreConnectAPI.AppInfoUpdateRequest) -> Request<AppStoreConnectAPI.AppInfoResponse> {
             .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var ageRatingDeclaration: AgeRatingDeclaration {
-        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
-    }
-
-    public struct AgeRatingDeclaration {
-        /// Path: `/v1/appInfos/{id}/ageRatingDeclaration`
-        public let path: String
-
-        public func get(fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil) -> Request<AppStoreConnectAPI.AgeRatingDeclarationResponse> {
-            .get(path, query: makeGetQuery(fieldsAgeRatingDeclarations))
-        }
-
-        private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
-            case alcoholTobaccoOrDrugUseOrReferences
-            case contests
-            case gambling
-            case gamblingAndContests
-            case gamblingSimulated
-            case horrorOrFearThemes
-            case kidsAgeBand
-            case matureOrSuggestiveThemes
-            case medicalOrTreatmentInformation
-            case profanityOrCrudeHumor
-            case seventeenPlus
-            case sexualContentGraphicAndNudity
-            case sexualContentOrNudity
-            case unrestrictedWebAccess
-            case violenceCartoonOrFantasy
-            case violenceRealistic
-            case violenceRealisticProlongedGraphicOrSadistic
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var appInfoLocalizations: AppInfoLocalizations {
-        AppInfoLocalizations(path: path + "/appInfoLocalizations")
-    }
-
-    public struct AppInfoLocalizations {
-        /// Path: `/v1/appInfos/{id}/appInfoLocalizations`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfoLocalizationsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterLocale: [String]?
-            public var fieldsAppInfos: [FieldsAppInfos]?
-            public var fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FieldsAppInfos: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appInfoLocalizations
-                case appStoreAgeRating
-                case appStoreState
-                case brazilAgeRating
-                case kidsAgeBand
-                case primaryCategory
-                case primarySubcategoryOne
-                case primarySubcategoryTwo
-                case secondaryCategory
-                case secondarySubcategoryOne
-                case secondarySubcategoryTwo
-            }
-
-            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
-                case appInfo
-                case locale
-                case name
-                case privacyPolicyText
-                case privacyPolicyURL = "privacyPolicyUrl"
-                case subtitle
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appInfo
-            }
-
-            public init(filterLocale: [String]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterLocale = filterLocale
-                self.fieldsAppInfos = fieldsAppInfos
-                self.fieldsAppInfoLocalizations = fieldsAppInfoLocalizations
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var primaryCategory: PrimaryCategory {
-        PrimaryCategory(path: path + "/primaryCategory")
-    }
-
-    public struct PrimaryCategory {
-        /// Path: `/v1/appInfos/{id}/primaryCategory`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var primarySubcategoryOne: PrimarySubcategoryOne {
-        PrimarySubcategoryOne(path: path + "/primarySubcategoryOne")
-    }
-
-    public struct PrimarySubcategoryOne {
-        /// Path: `/v1/appInfos/{id}/primarySubcategoryOne`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var primarySubcategoryTwo: PrimarySubcategoryTwo {
-        PrimarySubcategoryTwo(path: path + "/primarySubcategoryTwo")
-    }
-
-    public struct PrimarySubcategoryTwo {
-        /// Path: `/v1/appInfos/{id}/primarySubcategoryTwo`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var secondaryCategory: SecondaryCategory {
-        SecondaryCategory(path: path + "/secondaryCategory")
-    }
-
-    public struct SecondaryCategory {
-        /// Path: `/v1/appInfos/{id}/secondaryCategory`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var secondarySubcategoryOne: SecondarySubcategoryOne {
-        SecondarySubcategoryOne(path: path + "/secondarySubcategoryOne")
-    }
-
-    public struct SecondarySubcategoryOne {
-        /// Path: `/v1/appInfos/{id}/secondarySubcategoryOne`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
-        }
-    }
-}
-
-extension Paths.AppInfos.WithID {
-    public var secondarySubcategoryTwo: SecondarySubcategoryTwo {
-        SecondarySubcategoryTwo(path: path + "/secondarySubcategoryTwo")
-    }
-
-    public struct SecondarySubcategoryTwo {
-        /// Path: `/v1/appInfos/{id}/secondarySubcategoryTwo`
-        public let path: String
-
-        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
-            .get(path, query: makeGetQuery(fieldsAppCategories))
-        }
-
-        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppCategories: String, Codable, CaseIterable {
-            case parent
-            case platforms
-            case subcategories
         }
     }
 }
@@ -1035,104 +1163,6 @@ extension Paths.AppPreviewSets {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.AppPreviewSets.WithID {
-    public var appPreviews: AppPreviews {
-        AppPreviews(path: path + "/appPreviews")
-    }
-
-    public struct AppPreviews {
-        /// Path: `/v1/appPreviewSets/{id}/appPreviews`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppPreviews: [FieldsAppPreviews]?
-            public var fieldsAppPreviewSets: [FieldsAppPreviewSets]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FieldsAppPreviews: String, Codable, CaseIterable {
-                case appPreviewSet
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case mimeType
-                case previewFrameTimeCode
-                case previewImage
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-                case videoURL = "videoUrl"
-            }
-
-            public enum FieldsAppPreviewSets: String, Codable, CaseIterable {
-                case appPreviews
-                case appStoreVersionLocalization
-                case previewType
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appPreviewSet
-            }
-
-            public init(fieldsAppPreviews: [FieldsAppPreviews]? = nil, fieldsAppPreviewSets: [FieldsAppPreviewSets]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.fieldsAppPreviews = fieldsAppPreviews
-                self.fieldsAppPreviewSets = fieldsAppPreviewSets
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppPreviewSets.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/appPreviewSets/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.AppPreviewSets.WithID.Relationships {
-    public var appPreviews: AppPreviews {
-        AppPreviews(path: path + "/appPreviews")
-    }
-
-    public struct AppPreviews {
-        /// Path: `/v1/appPreviewSets/{id}/relationships/appPreviews`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetAppPreviewsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func patch(_ body: AppStoreConnectAPI.AppPreviewSetAppPreviewsLinkagesRequest) -> Request<Void> {
-            .patch(path, body: body)
         }
     }
 }
@@ -1311,31 +1341,6 @@ extension Paths.AppPricePoints {
     }
 }
 
-extension Paths.AppPricePoints.WithID {
-    public var territory: Territory {
-        Territory(path: path + "/territory")
-    }
-
-    public struct Territory {
-        /// Path: `/v1/appPricePoints/{id}/territory`
-        public let path: String
-
-        public func get(fieldsTerritories: [FieldsTerritories]? = nil) -> Request<AppStoreConnectAPI.TerritoryResponse> {
-            .get(path, query: makeGetQuery(fieldsTerritories))
-        }
-
-        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsTerritories: String, Codable, CaseIterable {
-            case currency
-        }
-    }
-}
-
 extension Paths {
     public static var appPriceTiers: AppPriceTiers {
         AppPriceTiers(path: "/v1/appPriceTiers")
@@ -1444,35 +1449,6 @@ extension Paths.AppPriceTiers {
                 query.addQueryItem("limit[pricePoints]", limitPricePoints)
                 return query
             }
-        }
-    }
-}
-
-extension Paths.AppPriceTiers.WithID {
-    public var pricePoints: PricePoints {
-        PricePoints(path: path + "/pricePoints")
-    }
-
-    public struct PricePoints {
-        /// Path: `/v1/appPriceTiers/{id}/pricePoints`
-        public let path: String
-
-        public func get(fieldsAppPricePoints: [FieldsAppPricePoints]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPricePointsResponse> {
-            .get(path, query: makeGetQuery(fieldsAppPricePoints, limit))
-        }
-
-        private func makeGetQuery(_ fieldsAppPricePoints: [FieldsAppPricePoints]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsAppPricePoints: String, Codable, CaseIterable {
-            case customerPrice
-            case priceTier
-            case proceeds
-            case territory
         }
     }
 }
@@ -1597,103 +1573,6 @@ extension Paths.AppScreenshotSets {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.AppScreenshotSets.WithID {
-    public var appScreenshots: AppScreenshots {
-        AppScreenshots(path: path + "/appScreenshots")
-    }
-
-    public struct AppScreenshots {
-        /// Path: `/v1/appScreenshotSets/{id}/appScreenshots`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppScreenshotSets: [FieldsAppScreenshotSets]?
-            public var fieldsAppScreenshots: [FieldsAppScreenshots]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FieldsAppScreenshotSets: String, Codable, CaseIterable {
-                case appScreenshots
-                case appStoreVersionLocalization
-                case screenshotDisplayType
-            }
-
-            public enum FieldsAppScreenshots: String, Codable, CaseIterable {
-                case appScreenshotSet
-                case assetDeliveryState
-                case assetToken
-                case assetType
-                case fileName
-                case fileSize
-                case imageAsset
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appScreenshotSet
-            }
-
-            public init(fieldsAppScreenshotSets: [FieldsAppScreenshotSets]? = nil, fieldsAppScreenshots: [FieldsAppScreenshots]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.fieldsAppScreenshotSets = fieldsAppScreenshotSets
-                self.fieldsAppScreenshots = fieldsAppScreenshots
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppScreenshotSets.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/appScreenshotSets/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.AppScreenshotSets.WithID.Relationships {
-    public var appScreenshots: AppScreenshots {
-        AppScreenshots(path: path + "/appScreenshots")
-    }
-
-    public struct AppScreenshots {
-        /// Path: `/v1/appScreenshotSets/{id}/relationships/appScreenshots`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetAppScreenshotsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func patch(_ body: AppStoreConnectAPI.AppScreenshotSetAppScreenshotsLinkagesRequest) -> Request<Void> {
-            .patch(path, body: body)
         }
     }
 }
@@ -1904,71 +1783,6 @@ extension Paths.AppStoreReviewDetails {
     }
 }
 
-extension Paths.AppStoreReviewDetails.WithID {
-    public var appStoreReviewAttachments: AppStoreReviewAttachments {
-        AppStoreReviewAttachments(path: path + "/appStoreReviewAttachments")
-    }
-
-    public struct AppStoreReviewAttachments {
-        /// Path: `/v1/appStoreReviewDetails/{id}/appStoreReviewAttachments`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewAttachmentsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]?
-            public var fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FieldsAppStoreReviewDetails: String, Codable, CaseIterable {
-                case appStoreReviewAttachments
-                case appStoreVersion
-                case contactEmail
-                case contactFirstName
-                case contactLastName
-                case contactPhone
-                case demoAccountName
-                case demoAccountPassword
-                case demoAccountRequired
-                case notes
-            }
-
-            public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
-                case appStoreReviewDetail
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appStoreReviewDetail
-            }
-
-            public init(fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.fieldsAppStoreReviewDetails = fieldsAppStoreReviewDetails
-                self.fieldsAppStoreReviewAttachments = fieldsAppStoreReviewAttachments
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
 extension Paths {
     public static var appStoreVersionLocalizations: AppStoreVersionLocalizations {
         AppStoreVersionLocalizations(path: "/v1/appStoreVersionLocalizations")
@@ -2067,215 +1881,6 @@ extension Paths.AppStoreVersionLocalizations {
     }
 }
 
-extension Paths.AppStoreVersionLocalizations.WithID {
-    public var appPreviewSets: AppPreviewSets {
-        AppPreviewSets(path: path + "/appPreviewSets")
-    }
-
-    public struct AppPreviewSets {
-        /// Path: `/v1/appStoreVersionLocalizations/{id}/appPreviewSets`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterPreviewType: [FilterPreviewType]?
-            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
-            public var fieldsAppPreviews: [FieldsAppPreviews]?
-            public var fieldsAppPreviewSets: [FieldsAppPreviewSets]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterPreviewType: String, Codable, CaseIterable {
-                case iphone65 = "IPHONE_65"
-                case iphone58 = "IPHONE_58"
-                case iphone55 = "IPHONE_55"
-                case iphone47 = "IPHONE_47"
-                case iphone40 = "IPHONE_40"
-                case iphone35 = "IPHONE_35"
-                case ipadPro3gen129 = "IPAD_PRO_3GEN_129"
-                case ipadPro3gen11 = "IPAD_PRO_3GEN_11"
-                case ipadPro129 = "IPAD_PRO_129"
-                case ipad105 = "IPAD_105"
-                case ipad97 = "IPAD_97"
-                case desktop = "DESKTOP"
-                case watchSeries4 = "WATCH_SERIES_4"
-                case watchSeries3 = "WATCH_SERIES_3"
-                case appleTv = "APPLE_TV"
-            }
-
-            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
-                case appPreviewSets
-                case appScreenshotSets
-                case appStoreVersion
-                case description
-                case keywords
-                case locale
-                case marketingURL = "marketingUrl"
-                case promotionalText
-                case supportURL = "supportUrl"
-                case whatsNew
-            }
-
-            public enum FieldsAppPreviews: String, Codable, CaseIterable {
-                case appPreviewSet
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case mimeType
-                case previewFrameTimeCode
-                case previewImage
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-                case videoURL = "videoUrl"
-            }
-
-            public enum FieldsAppPreviewSets: String, Codable, CaseIterable {
-                case appPreviews
-                case appStoreVersionLocalization
-                case previewType
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appPreviews
-                case appStoreVersionLocalization
-            }
-
-            public init(filterPreviewType: [FilterPreviewType]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, fieldsAppPreviews: [FieldsAppPreviews]? = nil, fieldsAppPreviewSets: [FieldsAppPreviewSets]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterPreviewType = filterPreviewType
-                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
-                self.fieldsAppPreviews = fieldsAppPreviews
-                self.fieldsAppPreviewSets = fieldsAppPreviewSets
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[previewType]", filterPreviewType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppStoreVersionLocalizations.WithID {
-    public var appScreenshotSets: AppScreenshotSets {
-        AppScreenshotSets(path: path + "/appScreenshotSets")
-    }
-
-    public struct AppScreenshotSets {
-        /// Path: `/v1/appStoreVersionLocalizations/{id}/appScreenshotSets`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterScreenshotDisplayType: [FilterScreenshotDisplayType]?
-            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
-            public var fieldsAppScreenshotSets: [FieldsAppScreenshotSets]?
-            public var fieldsAppScreenshots: [FieldsAppScreenshots]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterScreenshotDisplayType: String, Codable, CaseIterable {
-                case appIphone65 = "APP_IPHONE_65"
-                case appIphone58 = "APP_IPHONE_58"
-                case appIphone55 = "APP_IPHONE_55"
-                case appIphone47 = "APP_IPHONE_47"
-                case appIphone40 = "APP_IPHONE_40"
-                case appIphone35 = "APP_IPHONE_35"
-                case appIpadPro3gen129 = "APP_IPAD_PRO_3GEN_129"
-                case appIpadPro3gen11 = "APP_IPAD_PRO_3GEN_11"
-                case appIpadPro129 = "APP_IPAD_PRO_129"
-                case appIpad105 = "APP_IPAD_105"
-                case appIpad97 = "APP_IPAD_97"
-                case appDesktop = "APP_DESKTOP"
-                case appWatchSeries4 = "APP_WATCH_SERIES_4"
-                case appWatchSeries3 = "APP_WATCH_SERIES_3"
-                case appAppleTv = "APP_APPLE_TV"
-                case imessageAppIphone65 = "IMESSAGE_APP_IPHONE_65"
-                case imessageAppIphone58 = "IMESSAGE_APP_IPHONE_58"
-                case imessageAppIphone55 = "IMESSAGE_APP_IPHONE_55"
-                case imessageAppIphone47 = "IMESSAGE_APP_IPHONE_47"
-                case imessageAppIphone40 = "IMESSAGE_APP_IPHONE_40"
-                case imessageAppIpadPro3gen129 = "IMESSAGE_APP_IPAD_PRO_3GEN_129"
-                case imessageAppIpadPro3gen11 = "IMESSAGE_APP_IPAD_PRO_3GEN_11"
-                case imessageAppIpadPro129 = "IMESSAGE_APP_IPAD_PRO_129"
-                case imessageAppIpad105 = "IMESSAGE_APP_IPAD_105"
-                case imessageAppIpad97 = "IMESSAGE_APP_IPAD_97"
-            }
-
-            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
-                case appPreviewSets
-                case appScreenshotSets
-                case appStoreVersion
-                case description
-                case keywords
-                case locale
-                case marketingURL = "marketingUrl"
-                case promotionalText
-                case supportURL = "supportUrl"
-                case whatsNew
-            }
-
-            public enum FieldsAppScreenshotSets: String, Codable, CaseIterable {
-                case appScreenshots
-                case appStoreVersionLocalization
-                case screenshotDisplayType
-            }
-
-            public enum FieldsAppScreenshots: String, Codable, CaseIterable {
-                case appScreenshotSet
-                case assetDeliveryState
-                case assetToken
-                case assetType
-                case fileName
-                case fileSize
-                case imageAsset
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appScreenshots
-                case appStoreVersionLocalization
-            }
-
-            public init(filterScreenshotDisplayType: [FilterScreenshotDisplayType]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, fieldsAppScreenshotSets: [FieldsAppScreenshotSets]? = nil, fieldsAppScreenshots: [FieldsAppScreenshots]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterScreenshotDisplayType = filterScreenshotDisplayType
-                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
-                self.fieldsAppScreenshotSets = fieldsAppScreenshotSets
-                self.fieldsAppScreenshots = fieldsAppScreenshots
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[screenshotDisplayType]", filterScreenshotDisplayType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
 extension Paths {
     public static var appStoreVersionPhasedReleases: AppStoreVersionPhasedReleases {
         AppStoreVersionPhasedReleases(path: "/v1/appStoreVersionPhasedReleases")
@@ -2306,6 +1911,21 @@ extension Paths.AppStoreVersionPhasedReleases {
 
         public var delete: Request<Void> {
             .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var appStoreVersionReleaseRequests: AppStoreVersionReleaseRequests {
+        AppStoreVersionReleaseRequests(path: "/v1/appStoreVersionReleaseRequests")
+    }
+
+    public struct AppStoreVersionReleaseRequests {
+        /// Path: `/v1/appStoreVersionReleaseRequests`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppStoreVersionReleaseRequestCreateRequest) -> Request<AppStoreConnectAPI.AppStoreVersionReleaseRequestResponse> {
+            .post(path, body: body)
         }
     }
 }
@@ -2371,19 +1991,21 @@ extension Paths.AppStoreVersions {
         public struct GetParameters {
             public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
             public var include: [Include]?
-            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
-            public var fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?
-            public var fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?
-            public var fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?
+            public var fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?
             public var fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?
             public var fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]?
+            public var fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?
+            public var fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?
             public var fieldsBuilds: [FieldsBuilds]?
-            public var fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?
+            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
             public var limitAppStoreVersionLocalizations: Int?
 
             public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
                 case ageRatingDeclaration
                 case app
+                case appClipDefaultExperience
                 case appStoreReviewDetail
                 case appStoreState
                 case appStoreVersionLocalizations
@@ -2405,6 +2027,7 @@ extension Paths.AppStoreVersions {
             public enum Include: String, Codable, CaseIterable {
                 case ageRatingDeclaration
                 case app
+                case appClipDefaultExperience
                 case appStoreReviewDetail
                 case appStoreVersionLocalizations
                 case appStoreVersionPhasedRelease
@@ -2414,47 +2037,14 @@ extension Paths.AppStoreVersions {
                 case routingAppCoverage
             }
 
-            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
-                case appPreviewSets
-                case appScreenshotSets
+            public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
                 case appStoreVersion
-                case description
-                case keywords
-                case locale
-                case marketingURL = "marketingUrl"
-                case promotionalText
-                case supportURL = "supportUrl"
-                case whatsNew
-            }
-
-            public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
-                case appStoreVersion
-                case attributesActionWithPreviousAd
-                case attributesAppInstallationToPreviousAd
-                case honorsLimitedAdTracking
-                case servesAds
-            }
-
-            public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
-                case appStoreVersion
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
-                case appStoreVersion
-                case currentDayNumber
-                case phasedReleaseState
-                case startDate
-                case totalPauseDuration
             }
 
             public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
                 case alcoholTobaccoOrDrugUseOrReferences
+                case contests
+                case gambling
                 case gamblingAndContests
                 case gamblingSimulated
                 case horrorOrFearThemes
@@ -2462,6 +2052,7 @@ extension Paths.AppStoreVersions {
                 case matureOrSuggestiveThemes
                 case medicalOrTreatmentInformation
                 case profanityOrCrudeHumor
+                case seventeenPlus
                 case sexualContentGraphicAndNudity
                 case sexualContentOrNudity
                 case unrestrictedWebAccess
@@ -2483,6 +2074,41 @@ extension Paths.AppStoreVersions {
                 case notes
             }
 
+            public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
+                case appStoreVersion
+                case attributesActionWithPreviousAd
+                case attributesAppInstallationToPreviousAd
+                case honorsLimitedAdTracking
+                case servesAds
+            }
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
+                case appStoreVersion
+                case assetDeliveryState
+                case fileName
+                case fileSize
+                case sourceFileChecksum
+                case uploadOperations
+                case uploaded
+            }
+
+            public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
+                case appStoreVersion
+                case currentDayNumber
+                case phasedReleaseState
+                case startDate
+                case totalPauseDuration
+            }
+
             public enum FieldsBuilds: String, Codable, CaseIterable {
                 case app
                 case appEncryptionDeclaration
@@ -2490,13 +2116,17 @@ extension Paths.AppStoreVersions {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -2506,21 +2136,31 @@ extension Paths.AppStoreVersions {
                 case version
             }
 
-            public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
+            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
+                case appPreviewSets
+                case appScreenshotSets
                 case appStoreVersion
+                case description
+                case keywords
+                case locale
+                case marketingURL = "marketingUrl"
+                case promotionalText
+                case supportURL = "supportUrl"
+                case whatsNew
             }
 
-            public init(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, include: [Include]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, fieldsIdfaDeclarations: [FieldsIdfaDeclarations]? = nil, fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]? = nil, fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]? = nil, fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]? = nil, limitAppStoreVersionLocalizations: Int? = nil) {
+            public init(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, include: [Include]? = nil, fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]? = nil, fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsIdfaDeclarations: [FieldsIdfaDeclarations]? = nil, fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]? = nil, fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, limitAppStoreVersionLocalizations: Int? = nil) {
                 self.fieldsAppStoreVersions = fieldsAppStoreVersions
                 self.include = include
-                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
-                self.fieldsIdfaDeclarations = fieldsIdfaDeclarations
-                self.fieldsRoutingAppCoverages = fieldsRoutingAppCoverages
-                self.fieldsAppStoreVersionPhasedReleases = fieldsAppStoreVersionPhasedReleases
+                self.fieldsAppStoreVersionSubmissions = fieldsAppStoreVersionSubmissions
                 self.fieldsAgeRatingDeclarations = fieldsAgeRatingDeclarations
                 self.fieldsAppStoreReviewDetails = fieldsAppStoreReviewDetails
+                self.fieldsIdfaDeclarations = fieldsIdfaDeclarations
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.fieldsRoutingAppCoverages = fieldsRoutingAppCoverages
+                self.fieldsAppStoreVersionPhasedReleases = fieldsAppStoreVersionPhasedReleases
                 self.fieldsBuilds = fieldsBuilds
-                self.fieldsAppStoreVersionSubmissions = fieldsAppStoreVersionSubmissions
+                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
                 self.limitAppStoreVersionLocalizations = limitAppStoreVersionLocalizations
             }
 
@@ -2528,14 +2168,15 @@ extension Paths.AppStoreVersions {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
                 return query
             }
@@ -2547,394 +2188,6 @@ extension Paths.AppStoreVersions {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var ageRatingDeclaration: AgeRatingDeclaration {
-        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
-    }
-
-    public struct AgeRatingDeclaration {
-        /// Path: `/v1/appStoreVersions/{id}/ageRatingDeclaration`
-        public let path: String
-
-        @available(*, deprecated, message: "Deprecated")
-        public func get(fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil) -> Request<AppStoreConnectAPI.AgeRatingDeclarationResponse> {
-            .get(path, query: makeGetQuery(fieldsAgeRatingDeclarations))
-        }
-
-        private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
-            case alcoholTobaccoOrDrugUseOrReferences
-            case gamblingAndContests
-            case gamblingSimulated
-            case horrorOrFearThemes
-            case kidsAgeBand
-            case matureOrSuggestiveThemes
-            case medicalOrTreatmentInformation
-            case profanityOrCrudeHumor
-            case sexualContentGraphicAndNudity
-            case sexualContentOrNudity
-            case unrestrictedWebAccess
-            case violenceCartoonOrFantasy
-            case violenceRealistic
-            case violenceRealisticProlongedGraphicOrSadistic
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var appStoreReviewDetail: AppStoreReviewDetail {
-        AppStoreReviewDetail(path: path + "/appStoreReviewDetail")
-    }
-
-    public struct AppStoreReviewDetail {
-        /// Path: `/v1/appStoreVersions/{id}/appStoreReviewDetail`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewDetailResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
-            public var fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?
-            public var include: [Include]?
-
-            public enum FieldsAppStoreReviewDetails: String, Codable, CaseIterable {
-                case appStoreReviewAttachments
-                case appStoreVersion
-                case contactEmail
-                case contactFirstName
-                case contactLastName
-                case contactPhone
-                case demoAccountName
-                case demoAccountPassword
-                case demoAccountRequired
-                case notes
-            }
-
-            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreState
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case copyright
-                case createdDate
-                case downloadable
-                case earliestReleaseDate
-                case idfaDeclaration
-                case platform
-                case releaseType
-                case routingAppCoverage
-                case usesIdfa
-                case versionString
-            }
-
-            public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
-                case appStoreReviewDetail
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appStoreReviewAttachments
-                case appStoreVersion
-            }
-
-            public init(fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]? = nil, include: [Include]? = nil) {
-                self.fieldsAppStoreReviewDetails = fieldsAppStoreReviewDetails
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
-                self.fieldsAppStoreReviewAttachments = fieldsAppStoreReviewAttachments
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var appStoreVersionLocalizations: AppStoreVersionLocalizations {
-        AppStoreVersionLocalizations(path: path + "/appStoreVersionLocalizations")
-    }
-
-    public struct AppStoreVersionLocalizations {
-        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionLocalizations`
-        public let path: String
-
-        public func get(fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionLocalizationsResponse> {
-            .get(path, query: makeGetQuery(fieldsAppStoreVersionLocalizations, limit))
-        }
-
-        private func makeGetQuery(_ fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
-            case appPreviewSets
-            case appScreenshotSets
-            case appStoreVersion
-            case description
-            case keywords
-            case locale
-            case marketingURL = "marketingUrl"
-            case promotionalText
-            case supportURL = "supportUrl"
-            case whatsNew
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var appStoreVersionPhasedRelease: AppStoreVersionPhasedRelease {
-        AppStoreVersionPhasedRelease(path: path + "/appStoreVersionPhasedRelease")
-    }
-
-    public struct AppStoreVersionPhasedRelease {
-        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionPhasedRelease`
-        public let path: String
-
-        public func get(fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionPhasedReleaseResponse> {
-            .get(path, query: makeGetQuery(fieldsAppStoreVersionPhasedReleases))
-        }
-
-        private func makeGetQuery(_ fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
-            case appStoreVersion
-            case currentDayNumber
-            case phasedReleaseState
-            case startDate
-            case totalPauseDuration
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var appStoreVersionSubmission: AppStoreVersionSubmission {
-        AppStoreVersionSubmission(path: path + "/appStoreVersionSubmission")
-    }
-
-    public struct AppStoreVersionSubmission {
-        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionSubmission`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionSubmissionResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
-            public var fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?
-            public var include: [Include]?
-
-            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreState
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case copyright
-                case createdDate
-                case downloadable
-                case earliestReleaseDate
-                case idfaDeclaration
-                case platform
-                case releaseType
-                case routingAppCoverage
-                case usesIdfa
-                case versionString
-            }
-
-            public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
-                case appStoreVersion
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case appStoreVersion
-            }
-
-            public init(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]? = nil, include: [Include]? = nil) {
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
-                self.fieldsAppStoreVersionSubmissions = fieldsAppStoreVersionSubmissions
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var build: Build {
-        Build(path: path + "/build")
-    }
-
-    public struct Build {
-        /// Path: `/v1/appStoreVersions/{id}/build`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var idfaDeclaration: IdfaDeclaration {
-        IdfaDeclaration(path: path + "/idfaDeclaration")
-    }
-
-    public struct IdfaDeclaration {
-        /// Path: `/v1/appStoreVersions/{id}/idfaDeclaration`
-        public let path: String
-
-        public func get(fieldsIdfaDeclarations: [FieldsIdfaDeclarations]? = nil) -> Request<AppStoreConnectAPI.IdfaDeclarationResponse> {
-            .get(path, query: makeGetQuery(fieldsIdfaDeclarations))
-        }
-
-        private func makeGetQuery(_ fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
-            case appStoreVersion
-            case attributesActionWithPreviousAd
-            case attributesAppInstallationToPreviousAd
-            case honorsLimitedAdTracking
-            case servesAds
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/appStoreVersions/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.AppStoreVersions.WithID.Relationships {
-    public var build: Build {
-        Build(path: path + "/build")
-    }
-
-    public struct Build {
-        /// Path: `/v1/appStoreVersions/{id}/relationships/build`
-        public let path: String
-
-        public var get: Request<AppStoreConnectAPI.AppStoreVersionBuildLinkageResponse> {
-            .get(path)
-        }
-
-        public func patch(_ body: AppStoreConnectAPI.AppStoreVersionBuildLinkageRequest) -> Request<Void> {
-            .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.AppStoreVersions.WithID {
-    public var routingAppCoverage: RoutingAppCoverage {
-        RoutingAppCoverage(path: path + "/routingAppCoverage")
-    }
-
-    public struct RoutingAppCoverage {
-        /// Path: `/v1/appStoreVersions/{id}/routingAppCoverage`
-        public let path: String
-
-        public func get(fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]? = nil) -> Request<AppStoreConnectAPI.RoutingAppCoverageResponse> {
-            .get(path, query: makeGetQuery(fieldsRoutingAppCoverages))
-        }
-
-        private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
-            case appStoreVersion
-            case assetDeliveryState
-            case fileName
-            case fileSize
-            case sourceFileChecksum
-            case uploadOperations
-            case uploaded
         }
     }
 }
@@ -2965,21 +2218,24 @@ extension Paths {
             public var fieldsApps: [FieldsApps]?
             public var limit: Int?
             public var include: [Include]?
-            public var fieldsBetaGroups: [FieldsBetaGroups]?
-            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
-            public var fieldsAppInfos: [FieldsAppInfos]?
-            public var fieldsAppPreOrders: [FieldsAppPreOrders]?
-            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
-            public var fieldsAppPrices: [FieldsAppPrices]?
-            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
-            public var fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?
-            public var fieldsTerritories: [FieldsTerritories]?
-            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
-            public var fieldsBuilds: [FieldsBuilds]?
-            public var fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?
             public var fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?
+            public var fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?
+            public var fieldsAppClips: [FieldsAppClips]?
+            public var fieldsAppInfos: [FieldsAppInfos]?
+            public var fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?
+            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
+            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
+            public var fieldsCiProducts: [FieldsCiProducts]?
+            public var fieldsAppPrices: [FieldsAppPrices]?
+            public var fieldsAppPreOrders: [FieldsAppPreOrders]?
+            public var fieldsBetaGroups: [FieldsBetaGroups]?
+            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
             public var fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsTerritories: [FieldsTerritories]?
+            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limitAppClips: Int?
             public var limitAppInfos: Int?
             public var limitAppStoreVersions: Int?
             public var limitAvailableTerritories: Int?
@@ -3027,6 +2283,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -3038,6 +2295,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -3053,6 +2311,7 @@ extension Paths {
             }
 
             public enum Include: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableTerritories
@@ -3061,6 +2320,7 @@ extension Paths {
                 case betaGroups
                 case betaLicenseAgreement
                 case builds
+                case ciProduct
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
                 case inAppPurchases
@@ -3069,25 +2329,28 @@ extension Paths {
                 case prices
             }
 
-            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+            public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
+                case agreementText
                 case app
-                case betaTesters
-                case builds
-                case createdDate
-                case feedbackEnabled
-                case isInternalGroup
-                case name
-                case publicLink
-                case publicLinkEnabled
-                case publicLinkID = "publicLinkId"
-                case publicLinkLimit
-                case publicLinkLimitEnabled
             }
 
-            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
-                case deviceType
-                case metricType
-                case platform
+            public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
+                case app
+                case contactEmail
+                case contactFirstName
+                case contactLastName
+                case contactPhone
+                case demoAccountName
+                case demoAccountPassword
+                case demoAccountRequired
+                case notes
+            }
+
+            public enum FieldsAppClips: String, Codable, CaseIterable {
+                case app
+                case appClipAdvancedExperiences
+                case appClipDefaultExperiences
+                case bundleID = "bundleId"
             }
 
             public enum FieldsAppInfos: String, Codable, CaseIterable {
@@ -3106,22 +2369,14 @@ extension Paths {
                 case secondarySubcategoryTwo
             }
 
-            public enum FieldsAppPreOrders: String, Codable, CaseIterable {
+            public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
                 case app
-                case appReleaseDate
-                case preOrderAvailableDate
-            }
-
-            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-                case app
-                case builds
-                case platform
-                case version
-            }
-
-            public enum FieldsAppPrices: String, Codable, CaseIterable {
-                case app
-                case priceTier
+                case description
+                case feedbackEmail
+                case locale
+                case marketingURL = "marketingUrl"
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case tvOsPrivacyPolicy
             }
 
             public enum FieldsInAppPurchases: String, Codable, CaseIterable {
@@ -3132,20 +2387,51 @@ extension Paths {
                 case state
             }
 
-            public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
+            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
                 case app
-                case contactEmail
-                case contactFirstName
-                case contactLastName
-                case contactPhone
-                case demoAccountName
-                case demoAccountPassword
-                case demoAccountRequired
-                case notes
+                case builds
+                case platform
+                case version
             }
 
-            public enum FieldsTerritories: String, Codable, CaseIterable {
-                case currency
+            public enum FieldsCiProducts: String, Codable, CaseIterable {
+                case additionalRepositories
+                case app
+                case buildRuns
+                case bundleID = "bundleId"
+                case createdDate
+                case name
+                case primaryRepositories
+                case productType
+                case workflows
+            }
+
+            public enum FieldsAppPrices: String, Codable, CaseIterable {
+                case app
+                case priceTier
+            }
+
+            public enum FieldsAppPreOrders: String, Codable, CaseIterable {
+                case app
+                case appReleaseDate
+                case preOrderAvailableDate
+            }
+
+            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+                case app
+                case betaTesters
+                case builds
+                case createdDate
+                case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
+                case isInternalGroup
+                case name
+                case publicLink
+                case publicLinkEnabled
+                case publicLinkID = "publicLinkId"
+                case publicLinkLimit
+                case publicLinkLimitEnabled
             }
 
             public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
@@ -3156,9 +2442,16 @@ extension Paths {
                 case versionString
             }
 
+            public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
+                case agreementText
+                case app
+                case territories
+            }
+
             public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
                 case ageRatingDeclaration
                 case app
+                case appClipDefaultExperience
                 case appStoreReviewDetail
                 case appStoreState
                 case appStoreVersionLocalizations
@@ -3177,6 +2470,16 @@ extension Paths {
                 case versionString
             }
 
+            public enum FieldsTerritories: String, Codable, CaseIterable {
+                case currency
+            }
+
+            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
+                case deviceType
+                case metricType
+                case platform
+            }
+
             public enum FieldsBuilds: String, Codable, CaseIterable {
                 case app
                 case appEncryptionDeclaration
@@ -3184,13 +2487,17 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -3200,28 +2507,7 @@ extension Paths {
                 case version
             }
 
-            public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
-                case app
-                case description
-                case feedbackEmail
-                case locale
-                case marketingURL = "marketingUrl"
-                case privacyPolicyURL = "privacyPolicyUrl"
-                case tvOsPrivacyPolicy
-            }
-
-            public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
-                case agreementText
-                case app
-            }
-
-            public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
-                case agreementText
-                case app
-                case territories
-            }
-
-            public init(filterAppStoreVersionsAppStoreState: [FilterAppStoreVersionsAppStoreState]? = nil, filterAppStoreVersionsPlatform: [FilterAppStoreVersionsPlatform]? = nil, filterBundleID: [String]? = nil, filterName: [String]? = nil, filterSku: [String]? = nil, filterAppStoreVersions: [String]? = nil, filterID: [String]? = nil, existsGameCenterEnabledVersions: [String]? = nil, sort: [Sort]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppPreOrders: [FieldsAppPreOrders]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppPrices: [FieldsAppPrices]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil, fieldsTerritories: [FieldsTerritories]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil, fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil, limitAppInfos: Int? = nil, limitAppStoreVersions: Int? = nil, limitAvailableTerritories: Int? = nil, limitBetaAppLocalizations: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil, limitGameCenterEnabledVersions: Int? = nil, limitInAppPurchases: Int? = nil, limitPreReleaseVersions: Int? = nil, limitPrices: Int? = nil) {
+            public init(filterAppStoreVersionsAppStoreState: [FilterAppStoreVersionsAppStoreState]? = nil, filterAppStoreVersionsPlatform: [FilterAppStoreVersionsPlatform]? = nil, filterBundleID: [String]? = nil, filterName: [String]? = nil, filterSku: [String]? = nil, filterAppStoreVersions: [String]? = nil, filterID: [String]? = nil, existsGameCenterEnabledVersions: [String]? = nil, sort: [Sort]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil, fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil, fieldsAppClips: [FieldsAppClips]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsCiProducts: [FieldsCiProducts]? = nil, fieldsAppPrices: [FieldsAppPrices]? = nil, fieldsAppPreOrders: [FieldsAppPreOrders]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsTerritories: [FieldsTerritories]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitAppClips: Int? = nil, limitAppInfos: Int? = nil, limitAppStoreVersions: Int? = nil, limitAvailableTerritories: Int? = nil, limitBetaAppLocalizations: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil, limitGameCenterEnabledVersions: Int? = nil, limitInAppPurchases: Int? = nil, limitPreReleaseVersions: Int? = nil, limitPrices: Int? = nil) {
                 self.filterAppStoreVersionsAppStoreState = filterAppStoreVersionsAppStoreState
                 self.filterAppStoreVersionsPlatform = filterAppStoreVersionsPlatform
                 self.filterBundleID = filterBundleID
@@ -3234,21 +2520,24 @@ extension Paths {
                 self.fieldsApps = fieldsApps
                 self.limit = limit
                 self.include = include
-                self.fieldsBetaGroups = fieldsBetaGroups
-                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
-                self.fieldsAppInfos = fieldsAppInfos
-                self.fieldsAppPreOrders = fieldsAppPreOrders
-                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
-                self.fieldsAppPrices = fieldsAppPrices
-                self.fieldsInAppPurchases = fieldsInAppPurchases
-                self.fieldsBetaAppReviewDetails = fieldsBetaAppReviewDetails
-                self.fieldsTerritories = fieldsTerritories
-                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
-                self.fieldsBuilds = fieldsBuilds
-                self.fieldsBetaAppLocalizations = fieldsBetaAppLocalizations
                 self.fieldsBetaLicenseAgreements = fieldsBetaLicenseAgreements
+                self.fieldsBetaAppReviewDetails = fieldsBetaAppReviewDetails
+                self.fieldsAppClips = fieldsAppClips
+                self.fieldsAppInfos = fieldsAppInfos
+                self.fieldsBetaAppLocalizations = fieldsBetaAppLocalizations
+                self.fieldsInAppPurchases = fieldsInAppPurchases
+                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
+                self.fieldsCiProducts = fieldsCiProducts
+                self.fieldsAppPrices = fieldsAppPrices
+                self.fieldsAppPreOrders = fieldsAppPreOrders
+                self.fieldsBetaGroups = fieldsBetaGroups
+                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
                 self.fieldsEndUserLicenseAgreements = fieldsEndUserLicenseAgreements
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsTerritories = fieldsTerritories
+                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
+                self.fieldsBuilds = fieldsBuilds
+                self.limitAppClips = limitAppClips
                 self.limitAppInfos = limitAppInfos
                 self.limitAppStoreVersions = limitAppStoreVersions
                 self.limitAvailableTerritories = limitAvailableTerritories
@@ -3275,21 +2564,24 @@ extension Paths {
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appClips]", limitAppClips)
                 query.addQueryItem("limit[appInfos]", limitAppInfos)
                 query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
                 query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
@@ -3322,21 +2614,24 @@ extension Paths.Apps {
         public struct GetParameters {
             public var fieldsApps: [FieldsApps]?
             public var include: [Include]?
-            public var fieldsBetaGroups: [FieldsBetaGroups]?
-            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
-            public var fieldsAppInfos: [FieldsAppInfos]?
-            public var fieldsAppPreOrders: [FieldsAppPreOrders]?
-            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
-            public var fieldsAppPrices: [FieldsAppPrices]?
-            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
-            public var fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?
-            public var fieldsTerritories: [FieldsTerritories]?
-            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
-            public var fieldsBuilds: [FieldsBuilds]?
-            public var fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?
             public var fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?
+            public var fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?
+            public var fieldsAppClips: [FieldsAppClips]?
+            public var fieldsAppInfos: [FieldsAppInfos]?
+            public var fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?
+            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
+            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
+            public var fieldsCiProducts: [FieldsCiProducts]?
+            public var fieldsAppPrices: [FieldsAppPrices]?
+            public var fieldsAppPreOrders: [FieldsAppPreOrders]?
+            public var fieldsBetaGroups: [FieldsBetaGroups]?
+            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
             public var fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsTerritories: [FieldsTerritories]?
+            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limitAppClips: Int?
             public var limitAppInfos: Int?
             public var limitAppStoreVersions: Int?
             public var limitAvailableTerritories: Int?
@@ -3349,6 +2644,7 @@ extension Paths.Apps {
             public var limitPrices: Int?
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -3360,6 +2656,7 @@ extension Paths.Apps {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -3375,6 +2672,7 @@ extension Paths.Apps {
             }
 
             public enum Include: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableTerritories
@@ -3383,6 +2681,7 @@ extension Paths.Apps {
                 case betaGroups
                 case betaLicenseAgreement
                 case builds
+                case ciProduct
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
                 case inAppPurchases
@@ -3391,25 +2690,28 @@ extension Paths.Apps {
                 case prices
             }
 
-            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+            public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
+                case agreementText
                 case app
-                case betaTesters
-                case builds
-                case createdDate
-                case feedbackEnabled
-                case isInternalGroup
-                case name
-                case publicLink
-                case publicLinkEnabled
-                case publicLinkID = "publicLinkId"
-                case publicLinkLimit
-                case publicLinkLimitEnabled
             }
 
-            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
-                case deviceType
-                case metricType
-                case platform
+            public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
+                case app
+                case contactEmail
+                case contactFirstName
+                case contactLastName
+                case contactPhone
+                case demoAccountName
+                case demoAccountPassword
+                case demoAccountRequired
+                case notes
+            }
+
+            public enum FieldsAppClips: String, Codable, CaseIterable {
+                case app
+                case appClipAdvancedExperiences
+                case appClipDefaultExperiences
+                case bundleID = "bundleId"
             }
 
             public enum FieldsAppInfos: String, Codable, CaseIterable {
@@ -3428,22 +2730,14 @@ extension Paths.Apps {
                 case secondarySubcategoryTwo
             }
 
-            public enum FieldsAppPreOrders: String, Codable, CaseIterable {
+            public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
                 case app
-                case appReleaseDate
-                case preOrderAvailableDate
-            }
-
-            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-                case app
-                case builds
-                case platform
-                case version
-            }
-
-            public enum FieldsAppPrices: String, Codable, CaseIterable {
-                case app
-                case priceTier
+                case description
+                case feedbackEmail
+                case locale
+                case marketingURL = "marketingUrl"
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case tvOsPrivacyPolicy
             }
 
             public enum FieldsInAppPurchases: String, Codable, CaseIterable {
@@ -3454,20 +2748,51 @@ extension Paths.Apps {
                 case state
             }
 
-            public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
+            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
                 case app
-                case contactEmail
-                case contactFirstName
-                case contactLastName
-                case contactPhone
-                case demoAccountName
-                case demoAccountPassword
-                case demoAccountRequired
-                case notes
+                case builds
+                case platform
+                case version
             }
 
-            public enum FieldsTerritories: String, Codable, CaseIterable {
-                case currency
+            public enum FieldsCiProducts: String, Codable, CaseIterable {
+                case additionalRepositories
+                case app
+                case buildRuns
+                case bundleID = "bundleId"
+                case createdDate
+                case name
+                case primaryRepositories
+                case productType
+                case workflows
+            }
+
+            public enum FieldsAppPrices: String, Codable, CaseIterable {
+                case app
+                case priceTier
+            }
+
+            public enum FieldsAppPreOrders: String, Codable, CaseIterable {
+                case app
+                case appReleaseDate
+                case preOrderAvailableDate
+            }
+
+            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+                case app
+                case betaTesters
+                case builds
+                case createdDate
+                case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
+                case isInternalGroup
+                case name
+                case publicLink
+                case publicLinkEnabled
+                case publicLinkID = "publicLinkId"
+                case publicLinkLimit
+                case publicLinkLimitEnabled
             }
 
             public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
@@ -3478,9 +2803,16 @@ extension Paths.Apps {
                 case versionString
             }
 
+            public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
+                case agreementText
+                case app
+                case territories
+            }
+
             public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
                 case ageRatingDeclaration
                 case app
+                case appClipDefaultExperience
                 case appStoreReviewDetail
                 case appStoreState
                 case appStoreVersionLocalizations
@@ -3499,6 +2831,16 @@ extension Paths.Apps {
                 case versionString
             }
 
+            public enum FieldsTerritories: String, Codable, CaseIterable {
+                case currency
+            }
+
+            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
+                case deviceType
+                case metricType
+                case platform
+            }
+
             public enum FieldsBuilds: String, Codable, CaseIterable {
                 case app
                 case appEncryptionDeclaration
@@ -3506,13 +2848,17 @@ extension Paths.Apps {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -3522,45 +2868,27 @@ extension Paths.Apps {
                 case version
             }
 
-            public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
-                case app
-                case description
-                case feedbackEmail
-                case locale
-                case marketingURL = "marketingUrl"
-                case privacyPolicyURL = "privacyPolicyUrl"
-                case tvOsPrivacyPolicy
-            }
-
-            public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
-                case agreementText
-                case app
-            }
-
-            public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
-                case agreementText
-                case app
-                case territories
-            }
-
-            public init(fieldsApps: [FieldsApps]? = nil, include: [Include]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppPreOrders: [FieldsAppPreOrders]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppPrices: [FieldsAppPrices]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil, fieldsTerritories: [FieldsTerritories]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil, fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil, limitAppInfos: Int? = nil, limitAppStoreVersions: Int? = nil, limitAvailableTerritories: Int? = nil, limitBetaAppLocalizations: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil, limitGameCenterEnabledVersions: Int? = nil, limitInAppPurchases: Int? = nil, limitPreReleaseVersions: Int? = nil, limitPrices: Int? = nil) {
+            public init(fieldsApps: [FieldsApps]? = nil, include: [Include]? = nil, fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil, fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil, fieldsAppClips: [FieldsAppClips]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsCiProducts: [FieldsCiProducts]? = nil, fieldsAppPrices: [FieldsAppPrices]? = nil, fieldsAppPreOrders: [FieldsAppPreOrders]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsTerritories: [FieldsTerritories]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitAppClips: Int? = nil, limitAppInfos: Int? = nil, limitAppStoreVersions: Int? = nil, limitAvailableTerritories: Int? = nil, limitBetaAppLocalizations: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil, limitGameCenterEnabledVersions: Int? = nil, limitInAppPurchases: Int? = nil, limitPreReleaseVersions: Int? = nil, limitPrices: Int? = nil) {
                 self.fieldsApps = fieldsApps
                 self.include = include
-                self.fieldsBetaGroups = fieldsBetaGroups
-                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
-                self.fieldsAppInfos = fieldsAppInfos
-                self.fieldsAppPreOrders = fieldsAppPreOrders
-                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
-                self.fieldsAppPrices = fieldsAppPrices
-                self.fieldsInAppPurchases = fieldsInAppPurchases
-                self.fieldsBetaAppReviewDetails = fieldsBetaAppReviewDetails
-                self.fieldsTerritories = fieldsTerritories
-                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
-                self.fieldsBuilds = fieldsBuilds
-                self.fieldsBetaAppLocalizations = fieldsBetaAppLocalizations
                 self.fieldsBetaLicenseAgreements = fieldsBetaLicenseAgreements
+                self.fieldsBetaAppReviewDetails = fieldsBetaAppReviewDetails
+                self.fieldsAppClips = fieldsAppClips
+                self.fieldsAppInfos = fieldsAppInfos
+                self.fieldsBetaAppLocalizations = fieldsBetaAppLocalizations
+                self.fieldsInAppPurchases = fieldsInAppPurchases
+                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
+                self.fieldsCiProducts = fieldsCiProducts
+                self.fieldsAppPrices = fieldsAppPrices
+                self.fieldsAppPreOrders = fieldsAppPreOrders
+                self.fieldsBetaGroups = fieldsBetaGroups
+                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
                 self.fieldsEndUserLicenseAgreements = fieldsEndUserLicenseAgreements
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsTerritories = fieldsTerritories
+                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
+                self.fieldsBuilds = fieldsBuilds
+                self.limitAppClips = limitAppClips
                 self.limitAppInfos = limitAppInfos
                 self.limitAppStoreVersions = limitAppStoreVersions
                 self.limitAvailableTerritories = limitAvailableTerritories
@@ -3577,21 +2905,24 @@ extension Paths.Apps {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appClips]", limitAppClips)
                 query.addQueryItem("limit[appInfos]", limitAppInfos)
                 query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
                 query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
@@ -3612,1032 +2943,104 @@ extension Paths.Apps {
     }
 }
 
-extension Paths.Apps.WithID {
-    public var appInfos: AppInfos {
-        AppInfos(path: path + "/appInfos")
+extension Paths {
+    public static var betaAppClipInvocationLocalizations: BetaAppClipInvocationLocalizations {
+        BetaAppClipInvocationLocalizations(path: "/v1/betaAppClipInvocationLocalizations")
     }
 
-    public struct AppInfos {
-        /// Path: `/v1/apps/{id}/appInfos`
+    public struct BetaAppClipInvocationLocalizations {
+        /// Path: `/v1/betaAppClipInvocationLocalizations`
         public let path: String
 
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfosResponse> {
+        public func post(_ body: AppStoreConnectAPI.BetaAppClipInvocationLocalizationCreateRequest) -> Request<AppStoreConnectAPI.BetaAppClipInvocationLocalizationResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaAppClipInvocationLocalizations {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/betaAppClipInvocationLocalizations/{id}`
+        public let path: String
+
+        public func patch(_ body: AppStoreConnectAPI.BetaAppClipInvocationLocalizationUpdateRequest) -> Request<AppStoreConnectAPI.BetaAppClipInvocationLocalizationResponse> {
+            .patch(path, body: body)
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var betaAppClipInvocations: BetaAppClipInvocations {
+        BetaAppClipInvocations(path: "/v1/betaAppClipInvocations")
+    }
+
+    public struct BetaAppClipInvocations {
+        /// Path: `/v1/betaAppClipInvocations`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.BetaAppClipInvocationCreateRequest) -> Request<AppStoreConnectAPI.BetaAppClipInvocationResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaAppClipInvocations {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/betaAppClipInvocations/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppClipInvocationResponse> {
             .get(path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
-            public var fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?
-            public var fieldsAppInfos: [FieldsAppInfos]?
-            public var fieldsAppCategories: [FieldsAppCategories]?
-            public var fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
+            public var fieldsBetaAppClipInvocations: [FieldsBetaAppClipInvocations]?
             public var include: [Include]?
+            public var limitBetaAppClipInvocationLocalizations: Int?
 
-            public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
-                case alcoholTobaccoOrDrugUseOrReferences
-                case contests
-                case gambling
-                case gamblingAndContests
-                case gamblingSimulated
-                case horrorOrFearThemes
-                case kidsAgeBand
-                case matureOrSuggestiveThemes
-                case medicalOrTreatmentInformation
-                case profanityOrCrudeHumor
-                case seventeenPlus
-                case sexualContentGraphicAndNudity
-                case sexualContentOrNudity
-                case unrestrictedWebAccess
-                case violenceCartoonOrFantasy
-                case violenceRealistic
-                case violenceRealisticProlongedGraphicOrSadistic
-            }
-
-            public enum FieldsAppInfos: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appInfoLocalizations
-                case appStoreAgeRating
-                case appStoreState
-                case brazilAgeRating
-                case kidsAgeBand
-                case primaryCategory
-                case primarySubcategoryOne
-                case primarySubcategoryTwo
-                case secondaryCategory
-                case secondarySubcategoryOne
-                case secondarySubcategoryTwo
-            }
-
-            public enum FieldsAppCategories: String, Codable, CaseIterable {
-                case parent
-                case platforms
-                case subcategories
-            }
-
-            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
-                case appInfo
-                case locale
-                case name
-                case privacyPolicyText
-                case privacyPolicyURL = "privacyPolicyUrl"
-                case subtitle
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
+            public enum FieldsBetaAppClipInvocations: String, Codable, CaseIterable {
+                case betaAppClipInvocationLocalizations
+                case buildBundle
+                case url
             }
 
             public enum Include: String, Codable, CaseIterable {
-                case app
-                case appInfoLocalizations
-                case primaryCategory
-                case primarySubcategoryOne
-                case primarySubcategoryTwo
-                case secondaryCategory
-                case secondarySubcategoryOne
-                case secondarySubcategoryTwo
+                case betaAppClipInvocationLocalizations
             }
 
-            public init(fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppCategories: [FieldsAppCategories]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.fieldsAgeRatingDeclarations = fieldsAgeRatingDeclarations
-                self.fieldsAppInfos = fieldsAppInfos
-                self.fieldsAppCategories = fieldsAppCategories
-                self.fieldsAppInfoLocalizations = fieldsAppInfoLocalizations
-                self.fieldsApps = fieldsApps
-                self.limit = limit
+            public init(fieldsBetaAppClipInvocations: [FieldsBetaAppClipInvocations]? = nil, include: [Include]? = nil, limitBetaAppClipInvocationLocalizations: Int? = nil) {
+                self.fieldsBetaAppClipInvocations = fieldsBetaAppClipInvocations
                 self.include = include
+                self.limitBetaAppClipInvocationLocalizations = limitBetaAppClipInvocationLocalizations
             }
 
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
-                query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
+                query.addQueryItem("fields[betaAppClipInvocations]", fieldsBetaAppClipInvocations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[betaAppClipInvocationLocalizations]", limitBetaAppClipInvocationLocalizations)
                 return query
             }
         }
-    }
-}
 
-extension Paths.Apps.WithID {
-    public var appStoreVersions: AppStoreVersions {
-        AppStoreVersions(path: path + "/appStoreVersions")
-    }
-
-    public struct AppStoreVersions {
-        /// Path: `/v1/apps/{id}/appStoreVersions`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionsResponse> {
-            .get(path, query: parameters?.asQuery)
+        public func patch(_ body: AppStoreConnectAPI.BetaAppClipInvocationUpdateRequest) -> Request<AppStoreConnectAPI.BetaAppClipInvocationResponse> {
+            .patch(path, body: body)
         }
 
-        public struct GetParameters {
-            public var filterAppStoreState: [FilterAppStoreState]?
-            public var filterPlatform: [FilterPlatform]?
-            public var filterVersionString: [String]?
-            public var filterID: [String]?
-            public var fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?
-            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
-            public var fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?
-            public var fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?
-            public var fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?
-            public var fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
-            public var fieldsBuilds: [FieldsBuilds]?
-            public var fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterAppStoreState: String, Codable, CaseIterable {
-                case developerRemovedFromSale = "DEVELOPER_REMOVED_FROM_SALE"
-                case developerRejected = "DEVELOPER_REJECTED"
-                case inReview = "IN_REVIEW"
-                case invalidBinary = "INVALID_BINARY"
-                case metadataRejected = "METADATA_REJECTED"
-                case pendingAppleRelease = "PENDING_APPLE_RELEASE"
-                case pendingContract = "PENDING_CONTRACT"
-                case pendingDeveloperRelease = "PENDING_DEVELOPER_RELEASE"
-                case prepareForSubmission = "PREPARE_FOR_SUBMISSION"
-                case preorderReadyForSale = "PREORDER_READY_FOR_SALE"
-                case processingForAppStore = "PROCESSING_FOR_APP_STORE"
-                case readyForSale = "READY_FOR_SALE"
-                case rejected = "REJECTED"
-                case removedFromSale = "REMOVED_FROM_SALE"
-                case waitingForExportCompliance = "WAITING_FOR_EXPORT_COMPLIANCE"
-                case waitingForReview = "WAITING_FOR_REVIEW"
-                case replacedWithNewVersion = "REPLACED_WITH_NEW_VERSION"
-            }
-
-            public enum FilterPlatform: String, Codable, CaseIterable {
-                case ios = "IOS"
-                case macOs = "MAC_OS"
-                case tvOs = "TV_OS"
-            }
-
-            public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
-                case appStoreVersion
-                case attributesActionWithPreviousAd
-                case attributesAppInstallationToPreviousAd
-                case honorsLimitedAdTracking
-                case servesAds
-            }
-
-            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
-                case appPreviewSets
-                case appScreenshotSets
-                case appStoreVersion
-                case description
-                case keywords
-                case locale
-                case marketingURL = "marketingUrl"
-                case promotionalText
-                case supportURL = "supportUrl"
-                case whatsNew
-            }
-
-            public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
-                case appStoreVersion
-                case assetDeliveryState
-                case fileName
-                case fileSize
-                case sourceFileChecksum
-                case uploadOperations
-                case uploaded
-            }
-
-            public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
-                case appStoreVersion
-                case currentDayNumber
-                case phasedReleaseState
-                case startDate
-                case totalPauseDuration
-            }
-
-            public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
-                case alcoholTobaccoOrDrugUseOrReferences
-                case gamblingAndContests
-                case gamblingSimulated
-                case horrorOrFearThemes
-                case kidsAgeBand
-                case matureOrSuggestiveThemes
-                case medicalOrTreatmentInformation
-                case profanityOrCrudeHumor
-                case sexualContentGraphicAndNudity
-                case sexualContentOrNudity
-                case unrestrictedWebAccess
-                case violenceCartoonOrFantasy
-                case violenceRealistic
-                case violenceRealisticProlongedGraphicOrSadistic
-            }
-
-            public enum FieldsAppStoreReviewDetails: String, Codable, CaseIterable {
-                case appStoreReviewAttachments
-                case appStoreVersion
-                case contactEmail
-                case contactFirstName
-                case contactLastName
-                case contactPhone
-                case demoAccountName
-                case demoAccountPassword
-                case demoAccountRequired
-                case notes
-            }
-
-            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreState
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case copyright
-                case createdDate
-                case downloadable
-                case earliestReleaseDate
-                case idfaDeclaration
-                case platform
-                case releaseType
-                case routingAppCoverage
-                case usesIdfa
-                case versionString
-            }
-
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
-            public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
-                case appStoreVersion
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case idfaDeclaration
-                case routingAppCoverage
-            }
-
-            public init(filterAppStoreState: [FilterAppStoreState]? = nil, filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterID: [String]? = nil, fieldsIdfaDeclarations: [FieldsIdfaDeclarations]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]? = nil, fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]? = nil, fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil, fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterAppStoreState = filterAppStoreState
-                self.filterPlatform = filterPlatform
-                self.filterVersionString = filterVersionString
-                self.filterID = filterID
-                self.fieldsIdfaDeclarations = fieldsIdfaDeclarations
-                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
-                self.fieldsRoutingAppCoverages = fieldsRoutingAppCoverages
-                self.fieldsAppStoreVersionPhasedReleases = fieldsAppStoreVersionPhasedReleases
-                self.fieldsAgeRatingDeclarations = fieldsAgeRatingDeclarations
-                self.fieldsAppStoreReviewDetails = fieldsAppStoreReviewDetails
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
-                self.fieldsBuilds = fieldsBuilds
-                self.fieldsAppStoreVersionSubmissions = fieldsAppStoreVersionSubmissions
-                self.fieldsApps = fieldsApps
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[appStoreState]", filterAppStoreState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var availableTerritories: AvailableTerritories {
-        AvailableTerritories(path: path + "/availableTerritories")
-    }
-
-    public struct AvailableTerritories {
-        /// Path: `/v1/apps/{id}/availableTerritories`
-        public let path: String
-
-        public func get(fieldsTerritories: [FieldsTerritories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.TerritoriesResponse> {
-            .get(path, query: makeGetQuery(fieldsTerritories, limit))
-        }
-
-        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsTerritories: String, Codable, CaseIterable {
-            case currency
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var betaAppLocalizations: BetaAppLocalizations {
-        BetaAppLocalizations(path: path + "/betaAppLocalizations")
-    }
-
-    public struct BetaAppLocalizations {
-        /// Path: `/v1/apps/{id}/betaAppLocalizations`
-        public let path: String
-
-        public func get(fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaAppLocalizationsResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaAppLocalizations, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
-            case app
-            case description
-            case feedbackEmail
-            case locale
-            case marketingURL = "marketingUrl"
-            case privacyPolicyURL = "privacyPolicyUrl"
-            case tvOsPrivacyPolicy
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var betaAppReviewDetail: BetaAppReviewDetail {
-        BetaAppReviewDetail(path: path + "/betaAppReviewDetail")
-    }
-
-    public struct BetaAppReviewDetail {
-        /// Path: `/v1/apps/{id}/betaAppReviewDetail`
-        public let path: String
-
-        public func get(fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewDetailResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaAppReviewDetails))
-        }
-
-        private func makeGetQuery(_ fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
-            case app
-            case contactEmail
-            case contactFirstName
-            case contactLastName
-            case contactPhone
-            case demoAccountName
-            case demoAccountPassword
-            case demoAccountRequired
-            case notes
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var betaGroups: BetaGroups {
-        BetaGroups(path: path + "/betaGroups")
-    }
-
-    public struct BetaGroups {
-        /// Path: `/v1/apps/{id}/betaGroups`
-        public let path: String
-
-        public func get(fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupsResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaGroups, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaGroups: String, Codable, CaseIterable {
-            case app
-            case betaTesters
-            case builds
-            case createdDate
-            case feedbackEnabled
-            case isInternalGroup
-            case name
-            case publicLink
-            case publicLinkEnabled
-            case publicLinkID = "publicLinkId"
-            case publicLinkLimit
-            case publicLinkLimitEnabled
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var betaLicenseAgreement: BetaLicenseAgreement {
-        BetaLicenseAgreement(path: path + "/betaLicenseAgreement")
-    }
-
-    public struct BetaLicenseAgreement {
-        /// Path: `/v1/apps/{id}/betaLicenseAgreement`
-        public let path: String
-
-        public func get(fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil) -> Request<AppStoreConnectAPI.BetaLicenseAgreementResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaLicenseAgreements))
-        }
-
-        private func makeGetQuery(_ fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
-            case agreementText
-            case app
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/apps/{id}/builds`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var endUserLicenseAgreement: EndUserLicenseAgreement {
-        EndUserLicenseAgreement(path: path + "/endUserLicenseAgreement")
-    }
-
-    public struct EndUserLicenseAgreement {
-        /// Path: `/v1/apps/{id}/endUserLicenseAgreement`
-        public let path: String
-
-        public func get(fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil) -> Request<AppStoreConnectAPI.EndUserLicenseAgreementResponse> {
-            .get(path, query: makeGetQuery(fieldsEndUserLicenseAgreements))
-        }
-
-        private func makeGetQuery(_ fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
-            case agreementText
-            case app
-            case territories
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var gameCenterEnabledVersions: GameCenterEnabledVersions {
-        GameCenterEnabledVersions(path: path + "/gameCenterEnabledVersions")
-    }
-
-    public struct GameCenterEnabledVersions {
-        /// Path: `/v1/apps/{id}/gameCenterEnabledVersions`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterPlatform: [FilterPlatform]?
-            public var filterVersionString: [String]?
-            public var filterID: [String]?
-            public var sort: [Sort]?
-            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterPlatform: String, Codable, CaseIterable {
-                case ios = "IOS"
-                case macOs = "MAC_OS"
-                case tvOs = "TV_OS"
-            }
-
-            public enum Sort: String, Codable, CaseIterable {
-                case versionString
-                case minusversionString = "-versionString"
-            }
-
-            public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
-                case app
-                case compatibleVersions
-                case iconAsset
-                case platform
-                case versionString
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case app
-                case compatibleVersions
-            }
-
-            public init(filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterPlatform = filterPlatform
-                self.filterVersionString = filterVersionString
-                self.filterID = filterID
-                self.sort = sort
-                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
-                self.fieldsApps = fieldsApps
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var inAppPurchases: InAppPurchases {
-        InAppPurchases(path: path + "/inAppPurchases")
-    }
-
-    public struct InAppPurchases {
-        /// Path: `/v1/apps/{id}/inAppPurchases`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.InAppPurchasesResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterInAppPurchaseType: [FilterInAppPurchaseType]?
-            public var filterCanBeSubmitted: [String]?
-            public var sort: [Sort]?
-            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterInAppPurchaseType: String, Codable, CaseIterable {
-                case automaticallyRenewableSubscription = "AUTOMATICALLY_RENEWABLE_SUBSCRIPTION"
-                case nonConsumable = "NON_CONSUMABLE"
-                case consumable = "CONSUMABLE"
-                case nonRenewingSubscription = "NON_RENEWING_SUBSCRIPTION"
-                case freeSubscription = "FREE_SUBSCRIPTION"
-            }
-
-            public enum Sort: String, Codable, CaseIterable {
-                case inAppPurchaseType
-                case minusinAppPurchaseType = "-inAppPurchaseType"
-                case productID = "productId"
-                case minusproductID = "-productId"
-                case referenceName
-                case minusreferenceName = "-referenceName"
-            }
-
-            public enum FieldsInAppPurchases: String, Codable, CaseIterable {
-                case apps
-                case inAppPurchaseType
-                case productID = "productId"
-                case referenceName
-                case state
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case apps
-            }
-
-            public init(filterInAppPurchaseType: [FilterInAppPurchaseType]? = nil, filterCanBeSubmitted: [String]? = nil, sort: [Sort]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterInAppPurchaseType = filterInAppPurchaseType
-                self.filterCanBeSubmitted = filterCanBeSubmitted
-                self.sort = sort
-                self.fieldsInAppPurchases = fieldsInAppPurchases
-                self.fieldsApps = fieldsApps
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[inAppPurchaseType]", filterInAppPurchaseType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[canBeSubmitted]", filterCanBeSubmitted?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var perfPowerMetrics: PerfPowerMetrics {
-        PerfPowerMetrics(path: path + "/perfPowerMetrics")
-    }
-
-    public struct PerfPowerMetrics {
-        /// Path: `/v1/apps/{id}/perfPowerMetrics`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterDeviceType: [String]?
-            public var filterMetricType: [FilterMetricType]?
-            public var filterPlatform: [FilterPlatform]?
-
-            public enum FilterMetricType: String, Codable, CaseIterable {
-                case disk = "DISK"
-                case hang = "HANG"
-                case battery = "BATTERY"
-                case launch = "LAUNCH"
-                case memory = "MEMORY"
-                case animation = "ANIMATION"
-                case termination = "TERMINATION"
-            }
-
-            public enum FilterPlatform: String, Codable, CaseIterable {
-                case ios = "IOS"
-            }
-
-            public init(filterDeviceType: [String]? = nil, filterMetricType: [FilterMetricType]? = nil, filterPlatform: [FilterPlatform]? = nil) {
-                self.filterDeviceType = filterDeviceType
-                self.filterMetricType = filterMetricType
-                self.filterPlatform = filterPlatform
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var preOrder: PreOrder {
-        PreOrder(path: path + "/preOrder")
-    }
-
-    public struct PreOrder {
-        /// Path: `/v1/apps/{id}/preOrder`
-        public let path: String
-
-        public func get(fieldsAppPreOrders: [FieldsAppPreOrders]? = nil) -> Request<AppStoreConnectAPI.AppPreOrderResponse> {
-            .get(path, query: makeGetQuery(fieldsAppPreOrders))
-        }
-
-        private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppPreOrders: String, Codable, CaseIterable {
-            case app
-            case appReleaseDate
-            case preOrderAvailableDate
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var preReleaseVersions: PreReleaseVersions {
-        PreReleaseVersions(path: path + "/preReleaseVersions")
-    }
-
-    public struct PreReleaseVersions {
-        /// Path: `/v1/apps/{id}/preReleaseVersions`
-        public let path: String
-
-        public func get(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.PreReleaseVersionsResponse> {
-            .get(path, query: makeGetQuery(fieldsPreReleaseVersions, limit))
-        }
-
-        private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-            case app
-            case builds
-            case platform
-            case version
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var prices: Prices {
-        Prices(path: path + "/prices")
-    }
-
-    public struct Prices {
-        /// Path: `/v1/apps/{id}/prices`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPricesResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var fieldsAppPrices: [FieldsAppPrices]?
-            public var fieldsAppPriceTiers: [FieldsAppPriceTiers]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FieldsAppPrices: String, Codable, CaseIterable {
-                case app
-                case priceTier
-            }
-
-            public enum FieldsAppPriceTiers: String, Codable, CaseIterable {
-                case pricePoints
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case app
-                case priceTier
-            }
-
-            public init(fieldsAppPrices: [FieldsAppPrices]? = nil, fieldsAppPriceTiers: [FieldsAppPriceTiers]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.fieldsAppPrices = fieldsAppPrices
-                self.fieldsAppPriceTiers = fieldsAppPriceTiers
-                self.fieldsApps = fieldsApps
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Apps.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/apps/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.Apps.WithID.Relationships {
-    public var betaTesters: BetaTesters {
-        BetaTesters(path: path + "/betaTesters")
-    }
-
-    public struct BetaTesters {
-        /// Path: `/v1/apps/{id}/relationships/betaTesters`
-        public let path: String
-
-        public func delete(_ body: AppStoreConnectAPI.AppBetaTestersLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
+        public var delete: Request<Void> {
+            .delete(path)
         }
     }
 }
@@ -4678,6 +3081,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -4689,6 +3093,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -4763,6 +3168,7 @@ extension Paths.BetaAppLocalizations {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -4774,6 +3180,7 @@ extension Paths.BetaAppLocalizations {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -4809,53 +3216,6 @@ extension Paths.BetaAppLocalizations {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.BetaAppLocalizations.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/betaAppLocalizations/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
         }
     }
 }
@@ -4897,6 +3257,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -4908,6 +3269,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -4978,6 +3340,7 @@ extension Paths.BetaAppReviewDetails {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -4989,6 +3352,7 @@ extension Paths.BetaAppReviewDetails {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -5024,53 +3388,6 @@ extension Paths.BetaAppReviewDetails {
     }
 }
 
-extension Paths.BetaAppReviewDetails.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/betaAppReviewDetails/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
 extension Paths {
     public static var betaAppReviewSubmissions: BetaAppReviewSubmissions {
         BetaAppReviewSubmissions(path: "/v1/betaAppReviewSubmissions")
@@ -5102,6 +3419,7 @@ extension Paths {
             public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
                 case betaReviewState
                 case build
+                case submittedDate
             }
 
             public enum Include: String, Codable, CaseIterable {
@@ -5115,13 +3433,17 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -5179,6 +3501,7 @@ extension Paths.BetaAppReviewSubmissions {
             public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
                 case betaReviewState
                 case build
+                case submittedDate
             }
 
             public enum Include: String, Codable, CaseIterable {
@@ -5192,13 +3515,17 @@ extension Paths.BetaAppReviewSubmissions {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -5221,50 +3548,6 @@ extension Paths.BetaAppReviewSubmissions {
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
-        }
-    }
-}
-
-extension Paths.BetaAppReviewSubmissions.WithID {
-    public var build: Build {
-        Build(path: path + "/build")
-    }
-
-    public struct Build {
-        /// Path: `/v1/betaAppReviewSubmissions/{id}/build`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
         }
     }
 }
@@ -5307,13 +3590,17 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -5385,13 +3672,17 @@ extension Paths.BetaBuildLocalizations {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -5426,50 +3717,6 @@ extension Paths.BetaBuildLocalizations {
     }
 }
 
-extension Paths.BetaBuildLocalizations.WithID {
-    public var build: Build {
-        Build(path: path + "/build")
-    }
-
-    public struct Build {
-        /// Path: `/v1/betaBuildLocalizations/{id}/build`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
-        }
-    }
-}
-
 extension Paths {
     public static var betaGroups: BetaGroups {
         BetaGroups(path: "/v1/betaGroups")
@@ -5496,9 +3743,9 @@ extension Paths {
             public var fieldsBetaGroups: [FieldsBetaGroups]?
             public var limit: Int?
             public var include: [Include]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsBetaTesters: [FieldsBetaTesters]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
             public var limitBetaTesters: Int?
             public var limitBuilds: Int?
 
@@ -5519,6 +3766,8 @@ extension Paths {
                 case builds
                 case createdDate
                 case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
                 case isInternalGroup
                 case name
                 case publicLink
@@ -5534,29 +3783,6 @@ extension Paths {
                 case builds
             }
 
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsBetaTesters: String, Codable, CaseIterable {
                 case apps
                 case betaGroups
@@ -5568,6 +3794,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -5579,6 +3806,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -5593,7 +3821,34 @@ extension Paths {
                 case sku
             }
 
-            public init(filterIsInternalGroup: [String]? = nil, filterName: [String]? = nil, filterPublicLink: [String]? = nil, filterPublicLinkEnabled: [String]? = nil, filterPublicLinkLimitEnabled: [String]? = nil, filterApp: [String]? = nil, filterBuilds: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsApps: [FieldsApps]? = nil, limitBetaTesters: Int? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public init(filterIsInternalGroup: [String]? = nil, filterName: [String]? = nil, filterPublicLink: [String]? = nil, filterPublicLinkEnabled: [String]? = nil, filterPublicLinkLimitEnabled: [String]? = nil, filterApp: [String]? = nil, filterBuilds: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBetaTesters: Int? = nil, limitBuilds: Int? = nil) {
                 self.filterIsInternalGroup = filterIsInternalGroup
                 self.filterName = filterName
                 self.filterPublicLink = filterPublicLink
@@ -5606,9 +3861,9 @@ extension Paths {
                 self.fieldsBetaGroups = fieldsBetaGroups
                 self.limit = limit
                 self.include = include
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsBetaTesters = fieldsBetaTesters
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
                 self.limitBetaTesters = limitBetaTesters
                 self.limitBuilds = limitBuilds
             }
@@ -5627,9 +3882,9 @@ extension Paths {
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[betaTesters]", limitBetaTesters)
                 query.addQueryItem("limit[builds]", limitBuilds)
                 return query
@@ -5658,9 +3913,9 @@ extension Paths.BetaGroups {
         public struct GetParameters {
             public var fieldsBetaGroups: [FieldsBetaGroups]?
             public var include: [Include]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsBetaTesters: [FieldsBetaTesters]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
             public var limitBetaTesters: Int?
             public var limitBuilds: Int?
 
@@ -5670,6 +3925,8 @@ extension Paths.BetaGroups {
                 case builds
                 case createdDate
                 case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
                 case isInternalGroup
                 case name
                 case publicLink
@@ -5685,29 +3942,6 @@ extension Paths.BetaGroups {
                 case builds
             }
 
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsBetaTesters: String, Codable, CaseIterable {
                 case apps
                 case betaGroups
@@ -5719,6 +3953,7 @@ extension Paths.BetaGroups {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -5730,6 +3965,7 @@ extension Paths.BetaGroups {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -5744,12 +3980,39 @@ extension Paths.BetaGroups {
                 case sku
             }
 
-            public init(fieldsBetaGroups: [FieldsBetaGroups]? = nil, include: [Include]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsApps: [FieldsApps]? = nil, limitBetaTesters: Int? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public init(fieldsBetaGroups: [FieldsBetaGroups]? = nil, include: [Include]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBetaTesters: Int? = nil, limitBuilds: Int? = nil) {
                 self.fieldsBetaGroups = fieldsBetaGroups
                 self.include = include
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsBetaTesters = fieldsBetaTesters
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
                 self.limitBetaTesters = limitBetaTesters
                 self.limitBuilds = limitBuilds
             }
@@ -5758,9 +4021,9 @@ extension Paths.BetaGroups {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[betaTesters]", limitBetaTesters)
                 query.addQueryItem("limit[builds]", limitBuilds)
                 return query
@@ -5773,199 +4036,6 @@ extension Paths.BetaGroups {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.BetaGroups.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/betaGroups/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.BetaGroups.WithID {
-    public var betaTesters: BetaTesters {
-        BetaTesters(path: path + "/betaTesters")
-    }
-
-    public struct BetaTesters {
-        /// Path: `/v1/betaGroups/{id}/betaTesters`
-        public let path: String
-
-        public func get(fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTestersResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaTesters, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaTesters: String, Codable, CaseIterable {
-            case apps
-            case betaGroups
-            case builds
-            case email
-            case firstName
-            case inviteType
-            case lastName
-        }
-    }
-}
-
-extension Paths.BetaGroups.WithID {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/betaGroups/{id}/builds`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
-        }
-    }
-}
-
-extension Paths.BetaGroups.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/betaGroups/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.BetaGroups.WithID.Relationships {
-    public var betaTesters: BetaTesters {
-        BetaTesters(path: path + "/betaTesters")
-    }
-
-    public struct BetaTesters {
-        /// Path: `/v1/betaGroups/{id}/relationships/betaTesters`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupBetaTestersLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.BetaGroupBetaTestersLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BetaGroupBetaTestersLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
-        }
-    }
-}
-
-extension Paths.BetaGroups.WithID.Relationships {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/betaGroups/{id}/relationships/builds`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupBuildsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.BetaGroupBuildsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BetaGroupBuildsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
         }
     }
 }
@@ -6000,6 +4070,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -6011,6 +4082,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -6074,6 +4146,7 @@ extension Paths.BetaLicenseAgreements {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -6085,6 +4158,7 @@ extension Paths.BetaLicenseAgreements {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -6116,53 +4190,6 @@ extension Paths.BetaLicenseAgreements {
 
         public func patch(_ body: AppStoreConnectAPI.BetaLicenseAgreementUpdateRequest) -> Request<AppStoreConnectAPI.BetaLicenseAgreementResponse> {
             .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.BetaLicenseAgreements.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/betaLicenseAgreements/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
         }
     }
 }
@@ -6203,13 +4230,14 @@ extension Paths {
             public var filterApps: [String]?
             public var filterBetaGroups: [String]?
             public var filterBuilds: [String]?
+            public var filterID: [String]?
             public var sort: [Sort]?
             public var fieldsBetaTesters: [FieldsBetaTesters]?
             public var limit: Int?
             public var include: [Include]?
-            public var fieldsBetaGroups: [FieldsBetaGroups]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var fieldsBetaGroups: [FieldsBetaGroups]?
             public var limitApps: Int?
             public var limitBetaGroups: Int?
             public var limitBuilds: Int?
@@ -6246,45 +4274,8 @@ extension Paths {
                 case builds
             }
 
-            public enum FieldsBetaGroups: String, Codable, CaseIterable {
-                case app
-                case betaTesters
-                case builds
-                case createdDate
-                case feedbackEnabled
-                case isInternalGroup
-                case name
-                case publicLink
-                case publicLinkEnabled
-                case publicLinkID = "publicLinkId"
-                case publicLinkLimit
-                case publicLinkLimitEnabled
-            }
-
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -6296,6 +4287,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -6310,7 +4302,51 @@ extension Paths {
                 case sku
             }
 
-            public init(filterEmail: [String]? = nil, filterFirstName: [String]? = nil, filterInviteType: [FilterInviteType]? = nil, filterLastName: [String]? = nil, filterApps: [String]? = nil, filterBetaGroups: [String]? = nil, filterBuilds: [String]? = nil, sort: [Sort]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsApps: [FieldsApps]? = nil, limitApps: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+                case app
+                case betaTesters
+                case builds
+                case createdDate
+                case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
+                case isInternalGroup
+                case name
+                case publicLink
+                case publicLinkEnabled
+                case publicLinkID = "publicLinkId"
+                case publicLinkLimit
+                case publicLinkLimitEnabled
+            }
+
+            public init(filterEmail: [String]? = nil, filterFirstName: [String]? = nil, filterInviteType: [FilterInviteType]? = nil, filterLastName: [String]? = nil, filterApps: [String]? = nil, filterBetaGroups: [String]? = nil, filterBuilds: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, limitApps: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil) {
                 self.filterEmail = filterEmail
                 self.filterFirstName = filterFirstName
                 self.filterInviteType = filterInviteType
@@ -6318,13 +4354,14 @@ extension Paths {
                 self.filterApps = filterApps
                 self.filterBetaGroups = filterBetaGroups
                 self.filterBuilds = filterBuilds
+                self.filterID = filterID
                 self.sort = sort
                 self.fieldsBetaTesters = fieldsBetaTesters
                 self.limit = limit
                 self.include = include
-                self.fieldsBetaGroups = fieldsBetaGroups
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
+                self.fieldsBetaGroups = fieldsBetaGroups
                 self.limitApps = limitApps
                 self.limitBetaGroups = limitBetaGroups
                 self.limitBuilds = limitBuilds
@@ -6339,13 +4376,14 @@ extension Paths {
                 query.addQueryItem("filter[apps]", filterApps?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[betaGroups]", filterBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[apps]", limitApps)
                 query.addQueryItem("limit[betaGroups]", limitBetaGroups)
                 query.addQueryItem("limit[builds]", limitBuilds)
@@ -6375,9 +4413,9 @@ extension Paths.BetaTesters {
         public struct GetParameters {
             public var fieldsBetaTesters: [FieldsBetaTesters]?
             public var include: [Include]?
-            public var fieldsBetaGroups: [FieldsBetaGroups]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var fieldsBetaGroups: [FieldsBetaGroups]?
             public var limitApps: Int?
             public var limitBetaGroups: Int?
             public var limitBuilds: Int?
@@ -6398,45 +4436,8 @@ extension Paths.BetaTesters {
                 case builds
             }
 
-            public enum FieldsBetaGroups: String, Codable, CaseIterable {
-                case app
-                case betaTesters
-                case builds
-                case createdDate
-                case feedbackEnabled
-                case isInternalGroup
-                case name
-                case publicLink
-                case publicLinkEnabled
-                case publicLinkID = "publicLinkId"
-                case publicLinkLimit
-                case publicLinkLimitEnabled
-            }
-
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -6448,6 +4449,7 @@ extension Paths.BetaTesters {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -6462,12 +4464,56 @@ extension Paths.BetaTesters {
                 case sku
             }
 
-            public init(fieldsBetaTesters: [FieldsBetaTesters]? = nil, include: [Include]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsApps: [FieldsApps]? = nil, limitApps: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+                case app
+                case betaTesters
+                case builds
+                case createdDate
+                case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
+                case isInternalGroup
+                case name
+                case publicLink
+                case publicLinkEnabled
+                case publicLinkID = "publicLinkId"
+                case publicLinkLimit
+                case publicLinkLimitEnabled
+            }
+
+            public init(fieldsBetaTesters: [FieldsBetaTesters]? = nil, include: [Include]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, limitApps: Int? = nil, limitBetaGroups: Int? = nil, limitBuilds: Int? = nil) {
                 self.fieldsBetaTesters = fieldsBetaTesters
                 self.include = include
-                self.fieldsBetaGroups = fieldsBetaGroups
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
+                self.fieldsBetaGroups = fieldsBetaGroups
                 self.limitApps = limitApps
                 self.limitBetaGroups = limitBetaGroups
                 self.limitBuilds = limitBuilds
@@ -6477,9 +4523,9 @@ extension Paths.BetaTesters {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[apps]", limitApps)
                 query.addQueryItem("limit[betaGroups]", limitBetaGroups)
                 query.addQueryItem("limit[builds]", limitBuilds)
@@ -6489,230 +4535,6 @@ extension Paths.BetaTesters {
 
         public var delete: Request<Void> {
             .delete(path)
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID {
-    public var apps: Apps {
-        Apps(path: path + "/apps")
-    }
-
-    public struct Apps {
-        /// Path: `/v1/betaTesters/{id}/apps`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppsResponse> {
-            .get(path, query: makeGetQuery(fieldsApps, limit))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID {
-    public var betaGroups: BetaGroups {
-        BetaGroups(path: path + "/betaGroups")
-    }
-
-    public struct BetaGroups {
-        /// Path: `/v1/betaTesters/{id}/betaGroups`
-        public let path: String
-
-        public func get(fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupsResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaGroups, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaGroups: String, Codable, CaseIterable {
-            case app
-            case betaTesters
-            case builds
-            case createdDate
-            case feedbackEnabled
-            case isInternalGroup
-            case name
-            case publicLink
-            case publicLinkEnabled
-            case publicLinkID = "publicLinkId"
-            case publicLinkLimit
-            case publicLinkLimitEnabled
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/betaTesters/{id}/builds`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/betaTesters/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.BetaTesters.WithID.Relationships {
-    public var apps: Apps {
-        Apps(path: path + "/apps")
-    }
-
-    public struct Apps {
-        /// Path: `/v1/betaTesters/{id}/relationships/apps`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterAppsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BetaTesterAppsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID.Relationships {
-    public var betaGroups: BetaGroups {
-        BetaGroups(path: path + "/betaGroups")
-    }
-
-    public struct BetaGroups {
-        /// Path: `/v1/betaTesters/{id}/relationships/betaGroups`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
-        }
-    }
-}
-
-extension Paths.BetaTesters.WithID.Relationships {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/betaTesters/{id}/relationships/builds`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterBuildsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.BetaTesterBuildsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BetaTesterBuildsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
         }
     }
 }
@@ -6756,13 +4578,17 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -6831,13 +4657,17 @@ extension Paths.BuildBetaDetails {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -6864,50 +4694,6 @@ extension Paths.BuildBetaDetails {
 
         public func patch(_ body: AppStoreConnectAPI.BuildBetaDetailUpdateRequest) -> Request<AppStoreConnectAPI.BuildBetaDetailResponse> {
             .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.BuildBetaDetails.WithID {
-    public var build: Build {
-        Build(path: path + "/build")
-    }
-
-    public struct Build {
-        /// Path: `/v1/buildBetaDetails/{id}/build`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
         }
     }
 }
@@ -6942,6 +4728,7 @@ extension Paths {
 
         public struct GetParameters {
             public var filterBetaAppReviewSubmissionBetaReviewState: [FilterBetaAppReviewSubmissionBetaReviewState]?
+            public var filterBuildAudienceType: [FilterBuildAudienceType]?
             public var filterExpired: [String]?
             public var filterPreReleaseVersionPlatform: [FilterPreReleaseVersionPlatform]?
             public var filterPreReleaseVersionVersion: [String]?
@@ -6957,18 +4744,19 @@ extension Paths {
             public var fieldsBuilds: [FieldsBuilds]?
             public var limit: Int?
             public var include: [Include]?
-            public var fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?
-            public var fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?
-            public var fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?
-            public var fieldsBuildIcons: [FieldsBuildIcons]?
-            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
-            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
             public var fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]?
+            public var fieldsBuildIcons: [FieldsBuildIcons]?
+            public var fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?
+            public var fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?
             public var fieldsBetaTesters: [FieldsBetaTesters]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
             public var fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?
+            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
+            public var fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
             public var limitBetaBuildLocalizations: Int?
+            public var limitBuildBundles: Int?
             public var limitIcons: Int?
             public var limitIndividualTesters: Int?
 
@@ -6977,6 +4765,11 @@ extension Paths {
                 case inReview = "IN_REVIEW"
                 case rejected = "REJECTED"
                 case approved = "APPROVED"
+            }
+
+            public enum FilterBuildAudienceType: String, Codable, CaseIterable {
+                case internalOnly = "INTERNAL_ONLY"
+                case appStoreEligible = "APP_STORE_ELIGIBLE"
             }
 
             public enum FilterPreReleaseVersionPlatform: String, Codable, CaseIterable {
@@ -7008,13 +4801,17 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -7031,9 +4828,80 @@ extension Paths {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case buildBetaDetail
+                case buildBundles
                 case icons
                 case individualTesters
                 case preReleaseVersion
+            }
+
+            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
+                case diagnosticType
+                case logs
+                case signature
+                case weight
+            }
+
+            public enum FieldsBuildIcons: String, Codable, CaseIterable {
+                case iconAsset
+                case iconType
+            }
+
+            public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
+                case autoNotifyEnabled
+                case build
+                case externalBuildState
+                case internalBuildState
+            }
+
+            public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
+                case betaReviewState
+                case build
+                case submittedDate
+            }
+
+            public enum FieldsBetaTesters: String, Codable, CaseIterable {
+                case apps
+                case betaGroups
+                case builds
+                case email
+                case firstName
+                case inviteType
+                case lastName
+            }
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
+                case build
+                case locale
+                case whatsNew
+            }
+
+            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
+                case app
+                case builds
+                case platform
+                case version
             }
 
             public enum FieldsAppEncryptionDeclarations: String, Codable, CaseIterable {
@@ -7053,81 +4921,8 @@ extension Paths {
                 case usesEncryption
             }
 
-            public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
-                case betaReviewState
-                case build
-            }
-
-            public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
-                case autoNotifyEnabled
-                case build
-                case externalBuildState
-                case internalBuildState
-            }
-
-            public enum FieldsBuildIcons: String, Codable, CaseIterable {
-                case iconAsset
-                case iconType
-            }
-
-            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
-                case deviceType
-                case metricType
-                case platform
-            }
-
-            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-                case app
-                case builds
-                case platform
-                case version
-            }
-
-            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreState
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case copyright
-                case createdDate
-                case downloadable
-                case earliestReleaseDate
-                case idfaDeclaration
-                case platform
-                case releaseType
-                case routingAppCoverage
-                case usesIdfa
-                case versionString
-            }
-
-            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
-                case diagnosticType
-                case logs
-                case signature
-                case weight
-            }
-
-            public enum FieldsBetaTesters: String, Codable, CaseIterable {
-                case apps
-                case betaGroups
-                case builds
-                case email
-                case firstName
-                case inviteType
-                case lastName
-            }
-
-            public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
-                case build
-                case locale
-                case whatsNew
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -7139,6 +4934,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -7153,8 +4949,15 @@ extension Paths {
                 case sku
             }
 
-            public init(filterBetaAppReviewSubmissionBetaReviewState: [FilterBetaAppReviewSubmissionBetaReviewState]? = nil, filterExpired: [String]? = nil, filterPreReleaseVersionPlatform: [FilterPreReleaseVersionPlatform]? = nil, filterPreReleaseVersionVersion: [String]? = nil, filterProcessingState: [FilterProcessingState]? = nil, filterUsesNonExemptEncryption: [String]? = nil, filterVersion: [String]? = nil, filterApp: [String]? = nil, filterAppStoreVersion: [String]? = nil, filterBetaGroups: [String]? = nil, filterPreReleaseVersion: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil, fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil, fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil, fieldsBuildIcons: [FieldsBuildIcons]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, fieldsApps: [FieldsApps]? = nil, limitBetaBuildLocalizations: Int? = nil, limitIcons: Int? = nil, limitIndividualTesters: Int? = nil) {
+            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
+                case deviceType
+                case metricType
+                case platform
+            }
+
+            public init(filterBetaAppReviewSubmissionBetaReviewState: [FilterBetaAppReviewSubmissionBetaReviewState]? = nil, filterBuildAudienceType: [FilterBuildAudienceType]? = nil, filterExpired: [String]? = nil, filterPreReleaseVersionPlatform: [FilterPreReleaseVersionPlatform]? = nil, filterPreReleaseVersionVersion: [String]? = nil, filterProcessingState: [FilterProcessingState]? = nil, filterUsesNonExemptEncryption: [String]? = nil, filterVersion: [String]? = nil, filterApp: [String]? = nil, filterAppStoreVersion: [String]? = nil, filterBetaGroups: [String]? = nil, filterPreReleaseVersion: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, fieldsBuildIcons: [FieldsBuildIcons]? = nil, fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil, fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, limitBetaBuildLocalizations: Int? = nil, limitBuildBundles: Int? = nil, limitIcons: Int? = nil, limitIndividualTesters: Int? = nil) {
                 self.filterBetaAppReviewSubmissionBetaReviewState = filterBetaAppReviewSubmissionBetaReviewState
+                self.filterBuildAudienceType = filterBuildAudienceType
                 self.filterExpired = filterExpired
                 self.filterPreReleaseVersionPlatform = filterPreReleaseVersionPlatform
                 self.filterPreReleaseVersionVersion = filterPreReleaseVersionVersion
@@ -7170,18 +4973,19 @@ extension Paths {
                 self.fieldsBuilds = fieldsBuilds
                 self.limit = limit
                 self.include = include
-                self.fieldsAppEncryptionDeclarations = fieldsAppEncryptionDeclarations
-                self.fieldsBetaAppReviewSubmissions = fieldsBetaAppReviewSubmissions
-                self.fieldsBuildBetaDetails = fieldsBuildBetaDetails
-                self.fieldsBuildIcons = fieldsBuildIcons
-                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
-                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
                 self.fieldsDiagnosticSignatures = fieldsDiagnosticSignatures
+                self.fieldsBuildIcons = fieldsBuildIcons
+                self.fieldsBuildBetaDetails = fieldsBuildBetaDetails
+                self.fieldsBetaAppReviewSubmissions = fieldsBetaAppReviewSubmissions
                 self.fieldsBetaTesters = fieldsBetaTesters
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
                 self.fieldsBetaBuildLocalizations = fieldsBetaBuildLocalizations
+                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
+                self.fieldsAppEncryptionDeclarations = fieldsAppEncryptionDeclarations
                 self.fieldsApps = fieldsApps
+                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
                 self.limitBetaBuildLocalizations = limitBetaBuildLocalizations
+                self.limitBuildBundles = limitBuildBundles
                 self.limitIcons = limitIcons
                 self.limitIndividualTesters = limitIndividualTesters
             }
@@ -7189,6 +4993,7 @@ extension Paths {
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[betaAppReviewSubmission.betaReviewState]", filterBetaAppReviewSubmissionBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[buildAudienceType]", filterBuildAudienceType?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[expired]", filterExpired?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[preReleaseVersion.platform]", filterPreReleaseVersionPlatform?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[preReleaseVersion.version]", filterPreReleaseVersionVersion?.map(\.asQueryValue).joined(separator: ","))
@@ -7204,18 +5009,19 @@ extension Paths {
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
+                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
                 query.addQueryItem("limit[icons]", limitIcons)
                 query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
                 return query
@@ -7240,18 +5046,19 @@ extension Paths.Builds {
         public struct GetParameters {
             public var fieldsBuilds: [FieldsBuilds]?
             public var include: [Include]?
-            public var fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?
-            public var fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?
-            public var fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?
-            public var fieldsBuildIcons: [FieldsBuildIcons]?
-            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
-            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
-            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
             public var fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]?
+            public var fieldsBuildIcons: [FieldsBuildIcons]?
+            public var fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?
+            public var fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?
             public var fieldsBetaTesters: [FieldsBetaTesters]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
             public var fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?
+            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
+            public var fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]?
             public var limitBetaBuildLocalizations: Int?
+            public var limitBuildBundles: Int?
             public var limitIcons: Int?
             public var limitIndividualTesters: Int?
 
@@ -7262,13 +5069,17 @@ extension Paths.Builds {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case betaGroups
+                case buildAudienceType
                 case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
                 case diagnosticSignatures
                 case expirationDate
                 case expired
                 case iconAssetToken
                 case icons
                 case individualTesters
+                case lsMinimumSystemVersion
                 case minOsVersion
                 case perfPowerMetrics
                 case preReleaseVersion
@@ -7285,9 +5096,80 @@ extension Paths.Builds {
                 case betaAppReviewSubmission
                 case betaBuildLocalizations
                 case buildBetaDetail
+                case buildBundles
                 case icons
                 case individualTesters
                 case preReleaseVersion
+            }
+
+            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
+                case diagnosticType
+                case logs
+                case signature
+                case weight
+            }
+
+            public enum FieldsBuildIcons: String, Codable, CaseIterable {
+                case iconAsset
+                case iconType
+            }
+
+            public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
+                case autoNotifyEnabled
+                case build
+                case externalBuildState
+                case internalBuildState
+            }
+
+            public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
+                case betaReviewState
+                case build
+                case submittedDate
+            }
+
+            public enum FieldsBetaTesters: String, Codable, CaseIterable {
+                case apps
+                case betaGroups
+                case builds
+                case email
+                case firstName
+                case inviteType
+                case lastName
+            }
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
+                case build
+                case locale
+                case whatsNew
+            }
+
+            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
+                case app
+                case builds
+                case platform
+                case version
             }
 
             public enum FieldsAppEncryptionDeclarations: String, Codable, CaseIterable {
@@ -7307,81 +5189,8 @@ extension Paths.Builds {
                 case usesEncryption
             }
 
-            public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
-                case betaReviewState
-                case build
-            }
-
-            public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
-                case autoNotifyEnabled
-                case build
-                case externalBuildState
-                case internalBuildState
-            }
-
-            public enum FieldsBuildIcons: String, Codable, CaseIterable {
-                case iconAsset
-                case iconType
-            }
-
-            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
-                case deviceType
-                case metricType
-                case platform
-            }
-
-            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-                case app
-                case builds
-                case platform
-                case version
-            }
-
-            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-                case ageRatingDeclaration
-                case app
-                case appStoreReviewDetail
-                case appStoreState
-                case appStoreVersionLocalizations
-                case appStoreVersionPhasedRelease
-                case appStoreVersionSubmission
-                case build
-                case copyright
-                case createdDate
-                case downloadable
-                case earliestReleaseDate
-                case idfaDeclaration
-                case platform
-                case releaseType
-                case routingAppCoverage
-                case usesIdfa
-                case versionString
-            }
-
-            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
-                case diagnosticType
-                case logs
-                case signature
-                case weight
-            }
-
-            public enum FieldsBetaTesters: String, Codable, CaseIterable {
-                case apps
-                case betaGroups
-                case builds
-                case email
-                case firstName
-                case inviteType
-                case lastName
-            }
-
-            public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
-                case build
-                case locale
-                case whatsNew
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -7393,6 +5202,7 @@ extension Paths.Builds {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -7407,21 +5217,28 @@ extension Paths.Builds {
                 case sku
             }
 
-            public init(fieldsBuilds: [FieldsBuilds]? = nil, include: [Include]? = nil, fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil, fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil, fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil, fieldsBuildIcons: [FieldsBuildIcons]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, fieldsApps: [FieldsApps]? = nil, limitBetaBuildLocalizations: Int? = nil, limitIcons: Int? = nil, limitIndividualTesters: Int? = nil) {
+            public enum FieldsPerfPowerMetrics: String, Codable, CaseIterable {
+                case deviceType
+                case metricType
+                case platform
+            }
+
+            public init(fieldsBuilds: [FieldsBuilds]? = nil, include: [Include]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, fieldsBuildIcons: [FieldsBuildIcons]? = nil, fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil, fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsPerfPowerMetrics: [FieldsPerfPowerMetrics]? = nil, limitBetaBuildLocalizations: Int? = nil, limitBuildBundles: Int? = nil, limitIcons: Int? = nil, limitIndividualTesters: Int? = nil) {
                 self.fieldsBuilds = fieldsBuilds
                 self.include = include
-                self.fieldsAppEncryptionDeclarations = fieldsAppEncryptionDeclarations
-                self.fieldsBetaAppReviewSubmissions = fieldsBetaAppReviewSubmissions
-                self.fieldsBuildBetaDetails = fieldsBuildBetaDetails
-                self.fieldsBuildIcons = fieldsBuildIcons
-                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
-                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
-                self.fieldsAppStoreVersions = fieldsAppStoreVersions
                 self.fieldsDiagnosticSignatures = fieldsDiagnosticSignatures
+                self.fieldsBuildIcons = fieldsBuildIcons
+                self.fieldsBuildBetaDetails = fieldsBuildBetaDetails
+                self.fieldsBetaAppReviewSubmissions = fieldsBetaAppReviewSubmissions
                 self.fieldsBetaTesters = fieldsBetaTesters
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
                 self.fieldsBetaBuildLocalizations = fieldsBetaBuildLocalizations
+                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
+                self.fieldsAppEncryptionDeclarations = fieldsAppEncryptionDeclarations
                 self.fieldsApps = fieldsApps
+                self.fieldsPerfPowerMetrics = fieldsPerfPowerMetrics
                 self.limitBetaBuildLocalizations = limitBetaBuildLocalizations
+                self.limitBuildBundles = limitBuildBundles
                 self.limitIcons = limitIcons
                 self.limitIndividualTesters = limitIndividualTesters
             }
@@ -7430,18 +5247,19 @@ extension Paths.Builds {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
+                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
                 query.addQueryItem("limit[icons]", limitIcons)
                 query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
                 return query
@@ -7450,475 +5268,6 @@ extension Paths.Builds {
 
         public func patch(_ body: AppStoreConnectAPI.BuildUpdateRequest) -> Request<AppStoreConnectAPI.BuildResponse> {
             .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/builds/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var appEncryptionDeclaration: AppEncryptionDeclaration {
-        AppEncryptionDeclaration(path: path + "/appEncryptionDeclaration")
-    }
-
-    public struct AppEncryptionDeclaration {
-        /// Path: `/v1/builds/{id}/appEncryptionDeclaration`
-        public let path: String
-
-        public func get(fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil) -> Request<AppStoreConnectAPI.AppEncryptionDeclarationResponse> {
-            .get(path, query: makeGetQuery(fieldsAppEncryptionDeclarations))
-        }
-
-        private func makeGetQuery(_ fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppEncryptionDeclarations: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclarationState
-            case availableOnFrenchStore
-            case builds
-            case codeValue
-            case containsProprietaryCryptography
-            case containsThirdPartyCryptography
-            case documentName
-            case documentType
-            case documentURL = "documentUrl"
-            case exempt
-            case platform
-            case uploadedDate
-            case usesEncryption
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var appStoreVersion: AppStoreVersion {
-        AppStoreVersion(path: path + "/appStoreVersion")
-    }
-
-    public struct AppStoreVersion {
-        /// Path: `/v1/builds/{id}/appStoreVersion`
-        public let path: String
-
-        public func get(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionResponse> {
-            .get(path, query: makeGetQuery(fieldsAppStoreVersions))
-        }
-
-        private func makeGetQuery(_ fieldsAppStoreVersions: [FieldsAppStoreVersions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
-            case ageRatingDeclaration
-            case app
-            case appStoreReviewDetail
-            case appStoreState
-            case appStoreVersionLocalizations
-            case appStoreVersionPhasedRelease
-            case appStoreVersionSubmission
-            case build
-            case copyright
-            case createdDate
-            case downloadable
-            case earliestReleaseDate
-            case idfaDeclaration
-            case platform
-            case releaseType
-            case routingAppCoverage
-            case usesIdfa
-            case versionString
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var betaAppReviewSubmission: BetaAppReviewSubmission {
-        BetaAppReviewSubmission(path: path + "/betaAppReviewSubmission")
-    }
-
-    public struct BetaAppReviewSubmission {
-        /// Path: `/v1/builds/{id}/betaAppReviewSubmission`
-        public let path: String
-
-        public func get(fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewSubmissionResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaAppReviewSubmissions))
-        }
-
-        private func makeGetQuery(_ fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
-            case betaReviewState
-            case build
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var betaBuildLocalizations: BetaBuildLocalizations {
-        BetaBuildLocalizations(path: path + "/betaBuildLocalizations")
-    }
-
-    public struct BetaBuildLocalizations {
-        /// Path: `/v1/builds/{id}/betaBuildLocalizations`
-        public let path: String
-
-        public func get(fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaBuildLocalizationsResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaBuildLocalizations, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
-            case build
-            case locale
-            case whatsNew
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var buildBetaDetail: BuildBetaDetail {
-        BuildBetaDetail(path: path + "/buildBetaDetail")
-    }
-
-    public struct BuildBetaDetail {
-        /// Path: `/v1/builds/{id}/buildBetaDetail`
-        public let path: String
-
-        public func get(fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil) -> Request<AppStoreConnectAPI.BuildBetaDetailResponse> {
-            .get(path, query: makeGetQuery(fieldsBuildBetaDetails))
-        }
-
-        private func makeGetQuery(_ fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
-            case autoNotifyEnabled
-            case build
-            case externalBuildState
-            case internalBuildState
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var diagnosticSignatures: DiagnosticSignatures {
-        DiagnosticSignatures(path: path + "/diagnosticSignatures")
-    }
-
-    public struct DiagnosticSignatures {
-        /// Path: `/v1/builds/{id}/diagnosticSignatures`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.DiagnosticSignaturesResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterDiagnosticType: [FilterDiagnosticType]?
-            public var fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]?
-            public var limit: Int?
-
-            public enum FilterDiagnosticType: String, Codable, CaseIterable {
-                case diskWrites = "DISK_WRITES"
-            }
-
-            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
-                case diagnosticType
-                case logs
-                case signature
-                case weight
-            }
-
-            public init(filterDiagnosticType: [FilterDiagnosticType]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, limit: Int? = nil) {
-                self.filterDiagnosticType = filterDiagnosticType
-                self.fieldsDiagnosticSignatures = fieldsDiagnosticSignatures
-                self.limit = limit
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[diagnosticType]", filterDiagnosticType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var icons: Icons {
-        Icons(path: path + "/icons")
-    }
-
-    public struct Icons {
-        /// Path: `/v1/builds/{id}/icons`
-        public let path: String
-
-        public func get(fieldsBuildIcons: [FieldsBuildIcons]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildIconsResponse> {
-            .get(path, query: makeGetQuery(fieldsBuildIcons, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBuildIcons: [FieldsBuildIcons]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBuildIcons: String, Codable, CaseIterable {
-            case iconAsset
-            case iconType
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var individualTesters: IndividualTesters {
-        IndividualTesters(path: path + "/individualTesters")
-    }
-
-    public struct IndividualTesters {
-        /// Path: `/v1/builds/{id}/individualTesters`
-        public let path: String
-
-        public func get(fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTestersResponse> {
-            .get(path, query: makeGetQuery(fieldsBetaTesters, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBetaTesters: String, Codable, CaseIterable {
-            case apps
-            case betaGroups
-            case builds
-            case email
-            case firstName
-            case inviteType
-            case lastName
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var perfPowerMetrics: PerfPowerMetrics {
-        PerfPowerMetrics(path: path + "/perfPowerMetrics")
-    }
-
-    public struct PerfPowerMetrics {
-        /// Path: `/v1/builds/{id}/perfPowerMetrics`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterDeviceType: [String]?
-            public var filterMetricType: [FilterMetricType]?
-            public var filterPlatform: [FilterPlatform]?
-
-            public enum FilterMetricType: String, Codable, CaseIterable {
-                case disk = "DISK"
-                case hang = "HANG"
-                case battery = "BATTERY"
-                case launch = "LAUNCH"
-                case memory = "MEMORY"
-                case animation = "ANIMATION"
-                case termination = "TERMINATION"
-            }
-
-            public enum FilterPlatform: String, Codable, CaseIterable {
-                case ios = "IOS"
-            }
-
-            public init(filterDeviceType: [String]? = nil, filterMetricType: [FilterMetricType]? = nil, filterPlatform: [FilterPlatform]? = nil) {
-                self.filterDeviceType = filterDeviceType
-                self.filterMetricType = filterMetricType
-                self.filterPlatform = filterPlatform
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var preReleaseVersion: PreReleaseVersion {
-        PreReleaseVersion(path: path + "/preReleaseVersion")
-    }
-
-    public struct PreReleaseVersion {
-        /// Path: `/v1/builds/{id}/preReleaseVersion`
-        public let path: String
-
-        public func get(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil) -> Request<AppStoreConnectAPI.PrereleaseVersionResponse> {
-            .get(path, query: makeGetQuery(fieldsPreReleaseVersions))
-        }
-
-        private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
-            case app
-            case builds
-            case platform
-            case version
-        }
-    }
-}
-
-extension Paths.Builds.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/builds/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.Builds.WithID.Relationships {
-    public var appEncryptionDeclaration: AppEncryptionDeclaration {
-        AppEncryptionDeclaration(path: path + "/appEncryptionDeclaration")
-    }
-
-    public struct AppEncryptionDeclaration {
-        /// Path: `/v1/builds/{id}/relationships/appEncryptionDeclaration`
-        public let path: String
-
-        public var get: Request<AppStoreConnectAPI.BuildAppEncryptionDeclarationLinkageResponse> {
-            .get(path)
-        }
-
-        public func patch(_ body: AppStoreConnectAPI.BuildAppEncryptionDeclarationLinkageRequest) -> Request<Void> {
-            .patch(path, body: body)
-        }
-    }
-}
-
-extension Paths.Builds.WithID.Relationships {
-    public var betaGroups: BetaGroups {
-        BetaGroups(path: path + "/betaGroups")
-    }
-
-    public struct BetaGroups {
-        /// Path: `/v1/builds/{id}/relationships/betaGroups`
-        public let path: String
-
-        public func post(_ body: AppStoreConnectAPI.BuildBetaGroupsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BuildBetaGroupsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
-        }
-    }
-}
-
-extension Paths.Builds.WithID.Relationships {
-    public var individualTesters: IndividualTesters {
-        IndividualTesters(path: path + "/individualTesters")
-    }
-
-    public struct IndividualTesters {
-        /// Path: `/v1/builds/{id}/relationships/individualTesters`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildIndividualTestersLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.BuildIndividualTestersLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.BuildIndividualTestersLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
         }
     }
 }
@@ -8041,6 +5390,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -8052,6 +5402,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -8168,6 +5519,7 @@ extension Paths.BundleIDs {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -8179,6 +5531,7 @@ extension Paths.BundleIDs {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -8226,117 +5579,6 @@ extension Paths.BundleIDs {
     }
 }
 
-extension Paths.BundleIDs.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/bundleIds/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.BundleIDs.WithID {
-    public var bundleIDCapabilities: BundleIDCapabilities {
-        BundleIDCapabilities(path: path + "/bundleIdCapabilities")
-    }
-
-    public struct BundleIDCapabilities {
-        /// Path: `/v1/bundleIds/{id}/bundleIdCapabilities`
-        public let path: String
-
-        public func get(fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BundleIDCapabilitiesResponse> {
-            .get(path, query: makeGetQuery(fieldsBundleIDCapabilities, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBundleIDCapabilities: String, Codable, CaseIterable {
-            case bundleID = "bundleId"
-            case capabilityType
-            case settings
-        }
-    }
-}
-
-extension Paths.BundleIDs.WithID {
-    public var profiles: Profiles {
-        Profiles(path: path + "/profiles")
-    }
-
-    public struct Profiles {
-        /// Path: `/v1/bundleIds/{id}/profiles`
-        public let path: String
-
-        public func get(fieldsProfiles: [FieldsProfiles]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.ProfilesResponse> {
-            .get(path, query: makeGetQuery(fieldsProfiles, limit))
-        }
-
-        private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsProfiles: String, Codable, CaseIterable {
-            case bundleID = "bundleId"
-            case certificates
-            case createdDate
-            case devices
-            case expirationDate
-            case name
-            case platform
-            case profileContent
-            case profileState
-            case profileType
-            case uuid
-        }
-    }
-}
-
 extension Paths {
     public static var certificates: Certificates {
         Certificates(path: "/v1/certificates")
@@ -8369,6 +5611,8 @@ extension Paths {
                 case developerIDApplication = "DEVELOPER_ID_APPLICATION"
                 case development = "DEVELOPMENT"
                 case distribution = "DISTRIBUTION"
+                case passTypeID = "PASS_TYPE_ID"
+                case passTypeIDWithNfc = "PASS_TYPE_ID_WITH_NFC"
             }
 
             public enum Sort: String, Codable, CaseIterable {
@@ -8454,6 +5698,1043 @@ extension Paths.Certificates {
 
         public var delete: Request<Void> {
             .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var ciArtifacts: CiArtifacts {
+        CiArtifacts(path: "/v1/ciArtifacts")
+    }
+
+    public struct CiArtifacts {
+        /// Path: `/v1/ciArtifacts`
+        public let path: String
+    }
+}
+
+extension Paths.CiArtifacts {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciArtifacts/{id}`
+        public let path: String
+
+        public func get(fieldsCiArtifacts: [FieldsCiArtifacts]? = nil) -> Request<AppStoreConnectAPI.CiArtifactResponse> {
+            .get(path, query: makeGetQuery(fieldsCiArtifacts))
+        }
+
+        private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsCiArtifacts: String, Codable, CaseIterable {
+            case downloadURL = "downloadUrl"
+            case fileName
+            case fileSize
+            case fileType
+        }
+    }
+}
+
+extension Paths {
+    public static var ciBuildActions: CiBuildActions {
+        CiBuildActions(path: "/v1/ciBuildActions")
+    }
+
+    public struct CiBuildActions {
+        /// Path: `/v1/ciBuildActions`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciBuildActions/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiBuildActionResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiBuildActions: [FieldsCiBuildActions]?
+            public var include: [Include]?
+            public var fieldsCiIssues: [FieldsCiIssues]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsCiTestResults: [FieldsCiTestResults]?
+            public var fieldsCiArtifacts: [FieldsCiArtifacts]?
+
+            public enum FieldsCiBuildActions: String, Codable, CaseIterable {
+                case actionType
+                case artifacts
+                case buildRun
+                case completionStatus
+                case executionProgress
+                case finishedDate
+                case isRequiredToPass
+                case issueCounts
+                case issues
+                case name
+                case startedDate
+                case testResults
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case buildRun
+            }
+
+            public enum FieldsCiIssues: String, Codable, CaseIterable {
+                case category
+                case fileSource
+                case issueType
+                case message
+            }
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsCiTestResults: String, Codable, CaseIterable {
+                case className
+                case destinationTestResults
+                case fileSource
+                case message
+                case name
+                case status
+            }
+
+            public enum FieldsCiArtifacts: String, Codable, CaseIterable {
+                case downloadURL = "downloadUrl"
+                case fileName
+                case fileSize
+                case fileType
+            }
+
+            public init(fieldsCiBuildActions: [FieldsCiBuildActions]? = nil, include: [Include]? = nil, fieldsCiIssues: [FieldsCiIssues]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsCiTestResults: [FieldsCiTestResults]? = nil, fieldsCiArtifacts: [FieldsCiArtifacts]? = nil) {
+                self.fieldsCiBuildActions = fieldsCiBuildActions
+                self.include = include
+                self.fieldsCiIssues = fieldsCiIssues
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsCiTestResults = fieldsCiTestResults
+                self.fieldsCiArtifacts = fieldsCiArtifacts
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths {
+    public static var ciBuildRuns: CiBuildRuns {
+        CiBuildRuns(path: "/v1/ciBuildRuns")
+    }
+
+    public struct CiBuildRuns {
+        /// Path: `/v1/ciBuildRuns`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.CiBuildRunCreateRequest) -> Request<AppStoreConnectAPI.CiBuildRunResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.CiBuildRuns {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciBuildRuns/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiBuildRunResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var include: [Include]?
+            public var fieldsCiBuildActions: [FieldsCiBuildActions]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limitBuilds: Int?
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case builds
+                case destinationBranch
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case workflow
+            }
+
+            public enum FieldsCiBuildActions: String, Codable, CaseIterable {
+                case actionType
+                case artifacts
+                case buildRun
+                case completionStatus
+                case executionProgress
+                case finishedDate
+                case isRequiredToPass
+                case issueCounts
+                case issues
+                case name
+                case startedDate
+                case testResults
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public init(fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, include: [Include]? = nil, fieldsCiBuildActions: [FieldsCiBuildActions]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBuilds: Int? = nil) {
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.include = include
+                self.fieldsCiBuildActions = fieldsCiBuildActions
+                self.fieldsBuilds = fieldsBuilds
+                self.limitBuilds = limitBuilds
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[builds]", limitBuilds)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths {
+    public static var ciIssues: CiIssues {
+        CiIssues(path: "/v1/ciIssues")
+    }
+
+    public struct CiIssues {
+        /// Path: `/v1/ciIssues`
+        public let path: String
+    }
+}
+
+extension Paths.CiIssues {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciIssues/{id}`
+        public let path: String
+
+        public func get(fieldsCiIssues: [FieldsCiIssues]? = nil) -> Request<AppStoreConnectAPI.CiIssueResponse> {
+            .get(path, query: makeGetQuery(fieldsCiIssues))
+        }
+
+        private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsCiIssues: String, Codable, CaseIterable {
+            case category
+            case fileSource
+            case issueType
+            case message
+        }
+    }
+}
+
+extension Paths {
+    public static var ciMacOsVersions: CiMacOsVersions {
+        CiMacOsVersions(path: "/v1/ciMacOsVersions")
+    }
+
+    public struct CiMacOsVersions {
+        /// Path: `/v1/ciMacOsVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiMacOsVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var limit: Int?
+            public var include: [Include]?
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var limitXcodeVersions: Int?
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case xcodeVersions
+            }
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public init(fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, limitXcodeVersions: Int? = nil) {
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.limit = limit
+                self.include = include
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.limitXcodeVersions = limitXcodeVersions
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiMacOsVersions {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciMacOsVersions/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiMacOsVersionResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var include: [Include]?
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var limitXcodeVersions: Int?
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case xcodeVersions
+            }
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public init(fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, include: [Include]? = nil, fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, limitXcodeVersions: Int? = nil) {
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.include = include
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.limitXcodeVersions = limitXcodeVersions
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths {
+    public static var ciProducts: CiProducts {
+        CiProducts(path: "/v1/ciProducts")
+    }
+
+    public struct CiProducts {
+        /// Path: `/v1/ciProducts`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiProductsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterProductType: [FilterProductType]?
+            public var filterApp: [String]?
+            public var fieldsCiProducts: [FieldsCiProducts]?
+            public var limit: Int?
+            public var include: [Include]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsCiWorkflows: [FieldsCiWorkflows]?
+            public var fieldsApps: [FieldsApps]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limitPrimaryRepositories: Int?
+
+            public enum FilterProductType: String, Codable, CaseIterable {
+                case app = "APP"
+                case framework = "FRAMEWORK"
+            }
+
+            public enum FieldsCiProducts: String, Codable, CaseIterable {
+                case additionalRepositories
+                case app
+                case buildRuns
+                case bundleID = "bundleId"
+                case createdDate
+                case name
+                case primaryRepositories
+                case productType
+                case workflows
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case app
+                case bundleID = "bundleId"
+                case primaryRepositories
+            }
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsCiWorkflows: String, Codable, CaseIterable {
+                case actions
+                case branchStartCondition
+                case buildRuns
+                case clean
+                case containerFilePath
+                case description
+                case isEnabled
+                case isLockedForEditing
+                case lastModifiedDate
+                case macOsVersion
+                case name
+                case product
+                case pullRequestStartCondition
+                case repository
+                case scheduledStartCondition
+                case tagStartCondition
+                case xcodeVersion
+            }
+
+            public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
+                case appInfos
+                case appStoreVersions
+                case availableInNewTerritories
+                case availableTerritories
+                case betaAppLocalizations
+                case betaAppReviewDetail
+                case betaGroups
+                case betaLicenseAgreement
+                case betaTesters
+                case builds
+                case bundleID = "bundleId"
+                case ciProduct
+                case contentRightsDeclaration
+                case endUserLicenseAgreement
+                case gameCenterEnabledVersions
+                case inAppPurchases
+                case isOrEverWasMadeForKids
+                case name
+                case perfPowerMetrics
+                case preOrder
+                case preReleaseVersions
+                case prices
+                case primaryLocale
+                case sku
+            }
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(filterProductType: [FilterProductType]? = nil, filterApp: [String]? = nil, fieldsCiProducts: [FieldsCiProducts]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsCiWorkflows: [FieldsCiWorkflows]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limitPrimaryRepositories: Int? = nil) {
+                self.filterProductType = filterProductType
+                self.filterApp = filterApp
+                self.fieldsCiProducts = fieldsCiProducts
+                self.limit = limit
+                self.include = include
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsCiWorkflows = fieldsCiWorkflows
+                self.fieldsApps = fieldsApps
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limitPrimaryRepositories = limitPrimaryRepositories
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[productType]", filterProductType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciProducts/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiProductResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiProducts: [FieldsCiProducts]?
+            public var include: [Include]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsCiWorkflows: [FieldsCiWorkflows]?
+            public var fieldsApps: [FieldsApps]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limitPrimaryRepositories: Int?
+
+            public enum FieldsCiProducts: String, Codable, CaseIterable {
+                case additionalRepositories
+                case app
+                case buildRuns
+                case bundleID = "bundleId"
+                case createdDate
+                case name
+                case primaryRepositories
+                case productType
+                case workflows
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case app
+                case bundleID = "bundleId"
+                case primaryRepositories
+            }
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsCiWorkflows: String, Codable, CaseIterable {
+                case actions
+                case branchStartCondition
+                case buildRuns
+                case clean
+                case containerFilePath
+                case description
+                case isEnabled
+                case isLockedForEditing
+                case lastModifiedDate
+                case macOsVersion
+                case name
+                case product
+                case pullRequestStartCondition
+                case repository
+                case scheduledStartCondition
+                case tagStartCondition
+                case xcodeVersion
+            }
+
+            public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
+                case appInfos
+                case appStoreVersions
+                case availableInNewTerritories
+                case availableTerritories
+                case betaAppLocalizations
+                case betaAppReviewDetail
+                case betaGroups
+                case betaLicenseAgreement
+                case betaTesters
+                case builds
+                case bundleID = "bundleId"
+                case ciProduct
+                case contentRightsDeclaration
+                case endUserLicenseAgreement
+                case gameCenterEnabledVersions
+                case inAppPurchases
+                case isOrEverWasMadeForKids
+                case name
+                case perfPowerMetrics
+                case preOrder
+                case preReleaseVersions
+                case prices
+                case primaryLocale
+                case sku
+            }
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(fieldsCiProducts: [FieldsCiProducts]? = nil, include: [Include]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsCiWorkflows: [FieldsCiWorkflows]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limitPrimaryRepositories: Int? = nil) {
+                self.fieldsCiProducts = fieldsCiProducts
+                self.include = include
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsCiWorkflows = fieldsCiWorkflows
+                self.fieldsApps = fieldsApps
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limitPrimaryRepositories = limitPrimaryRepositories
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
+                return query
+            }
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var ciTestResults: CiTestResults {
+        CiTestResults(path: "/v1/ciTestResults")
+    }
+
+    public struct CiTestResults {
+        /// Path: `/v1/ciTestResults`
+        public let path: String
+    }
+}
+
+extension Paths.CiTestResults {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciTestResults/{id}`
+        public let path: String
+
+        public func get(fieldsCiTestResults: [FieldsCiTestResults]? = nil) -> Request<AppStoreConnectAPI.CiTestResultResponse> {
+            .get(path, query: makeGetQuery(fieldsCiTestResults))
+        }
+
+        private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsCiTestResults: String, Codable, CaseIterable {
+            case className
+            case destinationTestResults
+            case fileSource
+            case message
+            case name
+            case status
+        }
+    }
+}
+
+extension Paths {
+    public static var ciWorkflows: CiWorkflows {
+        CiWorkflows(path: "/v1/ciWorkflows")
+    }
+
+    public struct CiWorkflows {
+        /// Path: `/v1/ciWorkflows`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.CiWorkflowCreateRequest) -> Request<AppStoreConnectAPI.CiWorkflowResponse> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.CiWorkflows {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciWorkflows/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiWorkflowResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiWorkflows: [FieldsCiWorkflows]?
+            public var include: [Include]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+
+            public enum FieldsCiWorkflows: String, Codable, CaseIterable {
+                case actions
+                case branchStartCondition
+                case buildRuns
+                case clean
+                case containerFilePath
+                case description
+                case isEnabled
+                case isLockedForEditing
+                case lastModifiedDate
+                case macOsVersion
+                case name
+                case product
+                case pullRequestStartCondition
+                case repository
+                case scheduledStartCondition
+                case tagStartCondition
+                case xcodeVersion
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case macOsVersion
+                case product
+                case repository
+                case xcodeVersion
+            }
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(fieldsCiWorkflows: [FieldsCiWorkflows]? = nil, include: [Include]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil) {
+                self.fieldsCiWorkflows = fieldsCiWorkflows
+                self.include = include
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsScmRepositories = fieldsScmRepositories
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.CiWorkflowUpdateRequest) -> Request<AppStoreConnectAPI.CiWorkflowResponse> {
+            .patch(path, body: body)
+        }
+
+        public var delete: Request<Void> {
+            .delete(path)
+        }
+    }
+}
+
+extension Paths {
+    public static var ciXcodeVersions: CiXcodeVersions {
+        CiXcodeVersions(path: "/v1/ciXcodeVersions")
+    }
+
+    public struct CiXcodeVersions {
+        /// Path: `/v1/ciXcodeVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiXcodeVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var limit: Int?
+            public var include: [Include]?
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var limitMacOsVersions: Int?
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case macOsVersions
+            }
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public init(fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, limitMacOsVersions: Int? = nil) {
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.limit = limit
+                self.include = include
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.limitMacOsVersions = limitMacOsVersions
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiXcodeVersions {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/ciXcodeVersions/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiXcodeVersionResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var include: [Include]?
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var limitMacOsVersions: Int?
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case macOsVersions
+            }
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public init(fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, include: [Include]? = nil, fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, limitMacOsVersions: Int? = nil) {
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.include = include
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.limitMacOsVersions = limitMacOsVersions
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
+                return query
+            }
         }
     }
 }
@@ -8581,49 +6862,6 @@ extension Paths.Devices {
 }
 
 extension Paths {
-    public static var diagnosticSignatures: DiagnosticSignatures {
-        DiagnosticSignatures(path: "/v1/diagnosticSignatures")
-    }
-
-    public struct DiagnosticSignatures {
-        /// Path: `/v1/diagnosticSignatures`
-        public let path: String
-    }
-}
-
-extension Paths.DiagnosticSignatures {
-    public func id(_ id: String) -> WithID {
-        WithID(path: "\(path)/\(id)")
-    }
-
-    public struct WithID {
-        /// Path: `/v1/diagnosticSignatures/{id}`
-        public let path: String
-    }
-}
-
-extension Paths.DiagnosticSignatures.WithID {
-    public var logs: Logs {
-        Logs(path: path + "/logs")
-    }
-
-    public struct Logs {
-        /// Path: `/v1/diagnosticSignatures/{id}/logs`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.DiagnosticLogsResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-    }
-}
-
-extension Paths {
     public static var endUserLicenseAgreements: EndUserLicenseAgreements {
         EndUserLicenseAgreements(path: "/v1/endUserLicenseAgreements")
     }
@@ -8699,32 +6937,6 @@ extension Paths.EndUserLicenseAgreements {
     }
 }
 
-extension Paths.EndUserLicenseAgreements.WithID {
-    public var territories: Territories {
-        Territories(path: path + "/territories")
-    }
-
-    public struct Territories {
-        /// Path: `/v1/endUserLicenseAgreements/{id}/territories`
-        public let path: String
-
-        public func get(fieldsTerritories: [FieldsTerritories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.TerritoriesResponse> {
-            .get(path, query: makeGetQuery(fieldsTerritories, limit))
-        }
-
-        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsTerritories: String, Codable, CaseIterable {
-            case currency
-        }
-    }
-}
-
 extension Paths {
     public static var financeReports: FinanceReports {
         FinanceReports(path: "/v1/financeReports")
@@ -8769,175 +6981,6 @@ extension Paths {
 }
 
 extension Paths {
-    public static var gameCenterEnabledVersions: GameCenterEnabledVersions {
-        GameCenterEnabledVersions(path: "/v1/gameCenterEnabledVersions")
-    }
-
-    public struct GameCenterEnabledVersions {
-        /// Path: `/v1/gameCenterEnabledVersions`
-        public let path: String
-    }
-}
-
-extension Paths.GameCenterEnabledVersions {
-    public func id(_ id: String) -> WithID {
-        WithID(path: "\(path)/\(id)")
-    }
-
-    public struct WithID {
-        /// Path: `/v1/gameCenterEnabledVersions/{id}`
-        public let path: String
-    }
-}
-
-extension Paths.GameCenterEnabledVersions.WithID {
-    public var compatibleVersions: CompatibleVersions {
-        CompatibleVersions(path: path + "/compatibleVersions")
-    }
-
-    public struct CompatibleVersions {
-        /// Path: `/v1/gameCenterEnabledVersions/{id}/compatibleVersions`
-        public let path: String
-
-        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
-            .get(path, query: parameters?.asQuery)
-        }
-
-        public struct GetParameters {
-            public var filterPlatform: [FilterPlatform]?
-            public var filterVersionString: [String]?
-            public var filterApp: [String]?
-            public var filterID: [String]?
-            public var sort: [Sort]?
-            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
-            public var fieldsApps: [FieldsApps]?
-            public var limit: Int?
-            public var include: [Include]?
-
-            public enum FilterPlatform: String, Codable, CaseIterable {
-                case ios = "IOS"
-                case macOs = "MAC_OS"
-                case tvOs = "TV_OS"
-            }
-
-            public enum Sort: String, Codable, CaseIterable {
-                case versionString
-                case minusversionString = "-versionString"
-            }
-
-            public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
-                case app
-                case compatibleVersions
-                case iconAsset
-                case platform
-                case versionString
-            }
-
-            public enum FieldsApps: String, Codable, CaseIterable {
-                case appInfos
-                case appStoreVersions
-                case availableInNewTerritories
-                case availableTerritories
-                case betaAppLocalizations
-                case betaAppReviewDetail
-                case betaGroups
-                case betaLicenseAgreement
-                case betaTesters
-                case builds
-                case bundleID = "bundleId"
-                case contentRightsDeclaration
-                case endUserLicenseAgreement
-                case gameCenterEnabledVersions
-                case inAppPurchases
-                case isOrEverWasMadeForKids
-                case name
-                case perfPowerMetrics
-                case preOrder
-                case preReleaseVersions
-                case prices
-                case primaryLocale
-                case sku
-            }
-
-            public enum Include: String, Codable, CaseIterable {
-                case app
-                case compatibleVersions
-            }
-
-            public init(filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterApp: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, include: [Include]? = nil) {
-                self.filterPlatform = filterPlatform
-                self.filterVersionString = filterVersionString
-                self.filterApp = filterApp
-                self.filterID = filterID
-                self.sort = sort
-                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
-                self.fieldsApps = fieldsApps
-                self.limit = limit
-                self.include = include
-            }
-
-            public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
-            }
-        }
-    }
-}
-
-extension Paths.GameCenterEnabledVersions.WithID {
-    public var relationships: Relationships {
-        Relationships(path: path + "/relationships")
-    }
-
-    public struct Relationships {
-        /// Path: `/v1/gameCenterEnabledVersions/{id}/relationships`
-        public let path: String
-    }
-}
-
-extension Paths.GameCenterEnabledVersions.WithID.Relationships {
-    public var compatibleVersions: CompatibleVersions {
-        CompatibleVersions(path: path + "/compatibleVersions")
-    }
-
-    public struct CompatibleVersions {
-        /// Path: `/v1/gameCenterEnabledVersions/{id}/relationships/compatibleVersions`
-        public let path: String
-
-        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesResponse> {
-            .get(path, query: makeGetQuery(limit))
-        }
-
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public func post(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
-            .post(path, body: body)
-        }
-
-        public func patch(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
-            .patch(path, body: body)
-        }
-
-        public func delete(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
-            .delete(path, body: body)
-        }
-    }
-}
-
-extension Paths {
     public static var idfaDeclarations: IdfaDeclarations {
         IdfaDeclarations(path: "/v1/idfaDeclarations")
     }
@@ -8946,6 +6989,7 @@ extension Paths {
         /// Path: `/v1/idfaDeclarations`
         public let path: String
 
+        @available(*, deprecated, message: "Deprecated")
         public func post(_ body: AppStoreConnectAPI.IdfaDeclarationCreateRequest) -> Request<AppStoreConnectAPI.IdfaDeclarationResponse> {
             .post(path, body: body)
         }
@@ -8961,10 +7005,12 @@ extension Paths.IdfaDeclarations {
         /// Path: `/v1/idfaDeclarations/{id}`
         public let path: String
 
+        @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: AppStoreConnectAPI.IdfaDeclarationUpdateRequest) -> Request<AppStoreConnectAPI.IdfaDeclarationResponse> {
             .patch(path, body: body)
         }
 
+        @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
             .delete(path)
         }
@@ -9045,6 +7091,7 @@ extension Paths {
         public struct GetParameters {
             public var filterBuildsExpired: [String]?
             public var filterBuildsProcessingState: [FilterBuildsProcessingState]?
+            public var filterBuildsVersion: [String]?
             public var filterPlatform: [FilterPlatform]?
             public var filterVersion: [String]?
             public var filterApp: [String]?
@@ -9053,8 +7100,8 @@ extension Paths {
             public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
             public var limit: Int?
             public var include: [Include]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
             public var limitBuilds: Int?
 
             public enum FilterBuildsProcessingState: String, Codable, CaseIterable {
@@ -9087,30 +7134,8 @@ extension Paths {
                 case builds
             }
 
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -9122,6 +7147,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -9136,9 +7162,37 @@ extension Paths {
                 case sku
             }
 
-            public init(filterBuildsExpired: [String]? = nil, filterBuildsProcessingState: [FilterBuildsProcessingState]? = nil, filterPlatform: [FilterPlatform]? = nil, filterVersion: [String]? = nil, filterApp: [String]? = nil, filterBuilds: [String]? = nil, sort: [Sort]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsApps: [FieldsApps]? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public init(filterBuildsExpired: [String]? = nil, filterBuildsProcessingState: [FilterBuildsProcessingState]? = nil, filterBuildsVersion: [String]? = nil, filterPlatform: [FilterPlatform]? = nil, filterVersion: [String]? = nil, filterApp: [String]? = nil, filterBuilds: [String]? = nil, sort: [Sort]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBuilds: Int? = nil) {
                 self.filterBuildsExpired = filterBuildsExpired
                 self.filterBuildsProcessingState = filterBuildsProcessingState
+                self.filterBuildsVersion = filterBuildsVersion
                 self.filterPlatform = filterPlatform
                 self.filterVersion = filterVersion
                 self.filterApp = filterApp
@@ -9147,8 +7201,8 @@ extension Paths {
                 self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
                 self.limit = limit
                 self.include = include
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
                 self.limitBuilds = limitBuilds
             }
 
@@ -9156,6 +7210,7 @@ extension Paths {
                 var query: [(String, String?)] = []
                 query.addQueryItem("filter[builds.expired]", filterBuildsExpired?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[builds.processingState]", filterBuildsProcessingState?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[builds.version]", filterBuildsVersion?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
@@ -9164,8 +7219,8 @@ extension Paths {
                 query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit", limit)
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
@@ -9189,8 +7244,8 @@ extension Paths.PreReleaseVersions {
         public struct GetParameters {
             public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
             public var include: [Include]?
-            public var fieldsBuilds: [FieldsBuilds]?
             public var fieldsApps: [FieldsApps]?
+            public var fieldsBuilds: [FieldsBuilds]?
             public var limitBuilds: Int?
 
             public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
@@ -9205,30 +7260,8 @@ extension Paths.PreReleaseVersions {
                 case builds
             }
 
-            public enum FieldsBuilds: String, Codable, CaseIterable {
-                case app
-                case appEncryptionDeclaration
-                case appStoreVersion
-                case betaAppReviewSubmission
-                case betaBuildLocalizations
-                case betaGroups
-                case buildBetaDetail
-                case diagnosticSignatures
-                case expirationDate
-                case expired
-                case iconAssetToken
-                case icons
-                case individualTesters
-                case minOsVersion
-                case perfPowerMetrics
-                case preReleaseVersion
-                case processingState
-                case uploadedDate
-                case usesNonExemptEncryption
-                case version
-            }
-
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -9240,6 +7273,7 @@ extension Paths.PreReleaseVersions {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -9254,11 +7288,38 @@ extension Paths.PreReleaseVersions {
                 case sku
             }
 
-            public init(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, include: [Include]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsApps: [FieldsApps]? = nil, limitBuilds: Int? = nil) {
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public init(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, include: [Include]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBuilds: Int? = nil) {
                 self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
                 self.include = include
-                self.fieldsBuilds = fieldsBuilds
                 self.fieldsApps = fieldsApps
+                self.fieldsBuilds = fieldsBuilds
                 self.limitBuilds = limitBuilds
             }
 
@@ -9266,103 +7327,11 @@ extension Paths.PreReleaseVersions {
                 var query: [(String, String?)] = []
                 query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("limit[builds]", limitBuilds)
                 return query
             }
-        }
-    }
-}
-
-extension Paths.PreReleaseVersions.WithID {
-    public var app: App {
-        App(path: path + "/app")
-    }
-
-    public struct App {
-        /// Path: `/v1/preReleaseVersions/{id}/app`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
-            .get(path, query: makeGetQuery(fieldsApps))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
-extension Paths.PreReleaseVersions.WithID {
-    public var builds: Builds {
-        Builds(path: path + "/builds")
-    }
-
-    public struct Builds {
-        /// Path: `/v1/preReleaseVersions/{id}/builds`
-        public let path: String
-
-        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
-            .get(path, query: makeGetQuery(fieldsBuilds, limit))
-        }
-
-        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsBuilds: String, Codable, CaseIterable {
-            case app
-            case appEncryptionDeclaration
-            case appStoreVersion
-            case betaAppReviewSubmission
-            case betaBuildLocalizations
-            case betaGroups
-            case buildBetaDetail
-            case diagnosticSignatures
-            case expirationDate
-            case expired
-            case iconAssetToken
-            case icons
-            case individualTesters
-            case minOsVersion
-            case perfPowerMetrics
-            case preReleaseVersion
-            case processingState
-            case uploadedDate
-            case usesNonExemptEncryption
-            case version
         }
     }
 }
@@ -9622,102 +7591,6 @@ extension Paths.Profiles {
     }
 }
 
-extension Paths.Profiles.WithID {
-    public var bundleID: BundleID {
-        BundleID(path: path + "/bundleId")
-    }
-
-    public struct BundleID {
-        /// Path: `/v1/profiles/{id}/bundleId`
-        public let path: String
-
-        public func get(fieldsBundleIDs: [FieldsBundleIDs]? = nil) -> Request<AppStoreConnectAPI.BundleIDResponse> {
-            .get(path, query: makeGetQuery(fieldsBundleIDs))
-        }
-
-        private func makeGetQuery(_ fieldsBundleIDs: [FieldsBundleIDs]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
-
-        public enum FieldsBundleIDs: String, Codable, CaseIterable {
-            case app
-            case bundleIDCapabilities = "bundleIdCapabilities"
-            case identifier
-            case name
-            case platform
-            case profiles
-            case seedID = "seedId"
-        }
-    }
-}
-
-extension Paths.Profiles.WithID {
-    public var certificates: Certificates {
-        Certificates(path: path + "/certificates")
-    }
-
-    public struct Certificates {
-        /// Path: `/v1/profiles/{id}/certificates`
-        public let path: String
-
-        public func get(fieldsCertificates: [FieldsCertificates]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CertificatesResponse> {
-            .get(path, query: makeGetQuery(fieldsCertificates, limit))
-        }
-
-        private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsCertificates: String, Codable, CaseIterable {
-            case certificateContent
-            case certificateType
-            case csrContent
-            case displayName
-            case expirationDate
-            case name
-            case platform
-            case serialNumber
-        }
-    }
-}
-
-extension Paths.Profiles.WithID {
-    public var devices: Devices {
-        Devices(path: path + "/devices")
-    }
-
-    public struct Devices {
-        /// Path: `/v1/profiles/{id}/devices`
-        public let path: String
-
-        public func get(fieldsDevices: [FieldsDevices]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.DevicesResponse> {
-            .get(path, query: makeGetQuery(fieldsDevices, limit))
-        }
-
-        private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsDevices: String, Codable, CaseIterable {
-            case addedDate
-            case deviceClass
-            case model
-            case name
-            case platform
-            case status
-            case udid
-        }
-    }
-}
-
 extension Paths {
     public static var routingAppCoverages: RoutingAppCoverages {
         RoutingAppCoverages(path: "/v1/routingAppCoverages")
@@ -9808,7 +7681,6 @@ extension Paths {
             public enum FilterReportSubType: String, Codable, CaseIterable {
                 case summary = "SUMMARY"
                 case detailed = "DETAILED"
-                case optIn = "OPT_IN"
             }
 
             public enum FilterReportType: String, Codable, CaseIterable {
@@ -9837,6 +7709,358 @@ extension Paths {
                 query.addQueryItem("filter[reportType]", filterReportType.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[vendorNumber]", filterVendorNumber.map(\.asQueryValue).joined(separator: ","))
                 query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths {
+    public static var scmGitReferences: ScmGitReferences {
+        ScmGitReferences(path: "/v1/scmGitReferences")
+    }
+
+    public struct ScmGitReferences {
+        /// Path: `/v1/scmGitReferences`
+        public let path: String
+    }
+}
+
+extension Paths.ScmGitReferences {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/scmGitReferences/{id}`
+        public let path: String
+
+        public func get(fieldsScmGitReferences: [FieldsScmGitReferences]? = nil, include: [Include]? = nil) -> Request<AppStoreConnectAPI.ScmGitReferenceResponse> {
+            .get(path, query: makeGetQuery(fieldsScmGitReferences, include))
+        }
+
+        private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ include: [Include]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsScmGitReferences: String, Codable, CaseIterable {
+            case canonicalName
+            case isDeleted
+            case kind
+            case name
+            case repository
+        }
+
+        public enum Include: String, Codable, CaseIterable {
+            case repository
+        }
+    }
+}
+
+extension Paths {
+    public static var scmProviders: ScmProviders {
+        ScmProviders(path: "/v1/scmProviders")
+    }
+
+    public struct ScmProviders {
+        /// Path: `/v1/scmProviders`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmProvidersResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsScmProviders: [FieldsScmProviders]?
+            public var limit: Int?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+
+            public enum FieldsScmProviders: String, Codable, CaseIterable {
+                case repositories
+                case scmProviderType
+                case url
+            }
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(fieldsScmProviders: [FieldsScmProviders]? = nil, limit: Int? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil) {
+                self.fieldsScmProviders = fieldsScmProviders
+                self.limit = limit
+                self.fieldsScmRepositories = fieldsScmRepositories
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[scmProviders]", fieldsScmProviders?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.ScmProviders {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/scmProviders/{id}`
+        public let path: String
+
+        public func get(fieldsScmProviders: [FieldsScmProviders]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil) -> Request<AppStoreConnectAPI.ScmProviderResponse> {
+            .get(path, query: makeGetQuery(fieldsScmProviders, fieldsScmRepositories))
+        }
+
+        private func makeGetQuery(_ fieldsScmProviders: [FieldsScmProviders]?, _ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmProviders]", fieldsScmProviders?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsScmProviders: String, Codable, CaseIterable {
+            case repositories
+            case scmProviderType
+            case url
+        }
+
+        public enum FieldsScmRepositories: String, Codable, CaseIterable {
+            case defaultBranch
+            case gitReferences
+            case httpCloneURL = "httpCloneUrl"
+            case lastAccessedDate
+            case ownerName
+            case pullRequests
+            case repositoryName
+            case scmProvider
+            case sshCloneURL = "sshCloneUrl"
+        }
+    }
+}
+
+extension Paths {
+    public static var scmPullRequests: ScmPullRequests {
+        ScmPullRequests(path: "/v1/scmPullRequests")
+    }
+
+    public struct ScmPullRequests {
+        /// Path: `/v1/scmPullRequests`
+        public let path: String
+    }
+}
+
+extension Paths.ScmPullRequests {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/scmPullRequests/{id}`
+        public let path: String
+
+        public func get(fieldsScmPullRequests: [FieldsScmPullRequests]? = nil, include: [Include]? = nil) -> Request<AppStoreConnectAPI.ScmPullRequestResponse> {
+            .get(path, query: makeGetQuery(fieldsScmPullRequests, include))
+        }
+
+        private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ include: [Include]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsScmPullRequests: String, Codable, CaseIterable {
+            case destinationBranchName
+            case destinationRepositoryName
+            case destinationRepositoryOwner
+            case isClosed
+            case isCrossRepository
+            case number
+            case repository
+            case sourceBranchName
+            case sourceRepositoryName
+            case sourceRepositoryOwner
+            case title
+            case webURL = "webUrl"
+        }
+
+        public enum Include: String, Codable, CaseIterable {
+            case repository
+        }
+    }
+}
+
+extension Paths {
+    public static var scmRepositories: ScmRepositories {
+        ScmRepositories(path: "/v1/scmRepositories")
+    }
+
+    public struct ScmRepositories {
+        /// Path: `/v1/scmRepositories`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmRepositoriesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterID: [String]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limit: Int?
+            public var include: [Include]?
+            public var fieldsScmGitReferences: [FieldsScmGitReferences]?
+            public var fieldsScmPullRequests: [FieldsScmPullRequests]?
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case defaultBranch
+                case scmProvider
+            }
+
+            public enum FieldsScmGitReferences: String, Codable, CaseIterable {
+                case canonicalName
+                case isDeleted
+                case kind
+                case name
+                case repository
+            }
+
+            public enum FieldsScmPullRequests: String, Codable, CaseIterable {
+                case destinationBranchName
+                case destinationRepositoryName
+                case destinationRepositoryOwner
+                case isClosed
+                case isCrossRepository
+                case number
+                case repository
+                case sourceBranchName
+                case sourceRepositoryName
+                case sourceRepositoryOwner
+                case title
+                case webURL = "webUrl"
+            }
+
+            public init(filterID: [String]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsScmGitReferences: [FieldsScmGitReferences]? = nil, fieldsScmPullRequests: [FieldsScmPullRequests]? = nil) {
+                self.filterID = filterID
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limit = limit
+                self.include = include
+                self.fieldsScmGitReferences = fieldsScmGitReferences
+                self.fieldsScmPullRequests = fieldsScmPullRequests
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.ScmRepositories {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/scmRepositories/{id}`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmRepositoryResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var include: [Include]?
+            public var fieldsScmGitReferences: [FieldsScmGitReferences]?
+            public var fieldsScmPullRequests: [FieldsScmPullRequests]?
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case defaultBranch
+                case scmProvider
+            }
+
+            public enum FieldsScmGitReferences: String, Codable, CaseIterable {
+                case canonicalName
+                case isDeleted
+                case kind
+                case name
+                case repository
+            }
+
+            public enum FieldsScmPullRequests: String, Codable, CaseIterable {
+                case destinationBranchName
+                case destinationRepositoryName
+                case destinationRepositoryOwner
+                case isClosed
+                case isCrossRepository
+                case number
+                case repository
+                case sourceBranchName
+                case sourceRepositoryName
+                case sourceRepositoryOwner
+                case title
+                case webURL = "webUrl"
+            }
+
+            public init(fieldsScmRepositories: [FieldsScmRepositories]? = nil, include: [Include]? = nil, fieldsScmGitReferences: [FieldsScmGitReferences]? = nil, fieldsScmPullRequests: [FieldsScmPullRequests]? = nil) {
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.include = include
+                self.fieldsScmGitReferences = fieldsScmGitReferences
+                self.fieldsScmPullRequests = fieldsScmPullRequests
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
                 return query
             }
         }
@@ -9896,15 +8120,14 @@ extension Paths {
             public enum FilterRoles: String, Codable, CaseIterable {
                 case admin = "ADMIN"
                 case finance = "FINANCE"
-                case technical = "TECHNICAL"
                 case accountHolder = "ACCOUNT_HOLDER"
-                case readOnly = "READ_ONLY"
                 case sales = "SALES"
                 case marketing = "MARKETING"
                 case appManager = "APP_MANAGER"
                 case developer = "DEVELOPER"
                 case accessToReports = "ACCESS_TO_REPORTS"
                 case customerSupport = "CUSTOMER_SUPPORT"
+                case imageManager = "IMAGE_MANAGER"
                 case createApps = "CREATE_APPS"
                 case cloudManagedDeveloperID = "CLOUD_MANAGED_DEVELOPER_ID"
                 case cloudManagedAppDistribution = "CLOUD_MANAGED_APP_DISTRIBUTION"
@@ -9933,6 +8156,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -9944,6 +8168,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -10026,6 +8251,7 @@ extension Paths.UserInvitations {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -10037,6 +8263,7 @@ extension Paths.UserInvitations {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -10074,54 +8301,6 @@ extension Paths.UserInvitations {
     }
 }
 
-extension Paths.UserInvitations.WithID {
-    public var visibleApps: VisibleApps {
-        VisibleApps(path: path + "/visibleApps")
-    }
-
-    public struct VisibleApps {
-        /// Path: `/v1/userInvitations/{id}/visibleApps`
-        public let path: String
-
-        public func get(fieldsApps: [FieldsApps]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppsResponse> {
-            .get(path, query: makeGetQuery(fieldsApps, limit))
-        }
-
-        private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
-        }
-
-        public enum FieldsApps: String, Codable, CaseIterable {
-            case appInfos
-            case appStoreVersions
-            case availableInNewTerritories
-            case availableTerritories
-            case betaAppLocalizations
-            case betaAppReviewDetail
-            case betaGroups
-            case betaLicenseAgreement
-            case betaTesters
-            case builds
-            case bundleID = "bundleId"
-            case contentRightsDeclaration
-            case endUserLicenseAgreement
-            case gameCenterEnabledVersions
-            case inAppPurchases
-            case isOrEverWasMadeForKids
-            case name
-            case perfPowerMetrics
-            case preOrder
-            case preReleaseVersions
-            case prices
-            case primaryLocale
-            case sku
-        }
-    }
-}
-
 extension Paths {
     public static var users: Users {
         Users(path: "/v1/users")
@@ -10149,15 +8328,14 @@ extension Paths {
             public enum FilterRoles: String, Codable, CaseIterable {
                 case admin = "ADMIN"
                 case finance = "FINANCE"
-                case technical = "TECHNICAL"
                 case accountHolder = "ACCOUNT_HOLDER"
-                case readOnly = "READ_ONLY"
                 case sales = "SALES"
                 case marketing = "MARKETING"
                 case appManager = "APP_MANAGER"
                 case developer = "DEVELOPER"
                 case accessToReports = "ACCESS_TO_REPORTS"
                 case customerSupport = "CUSTOMER_SUPPORT"
+                case imageManager = "IMAGE_MANAGER"
                 case createApps = "CREATE_APPS"
                 case cloudManagedDeveloperID = "CLOUD_MANAGED_DEVELOPER_ID"
                 case cloudManagedAppDistribution = "CLOUD_MANAGED_APP_DISTRIBUTION"
@@ -10185,6 +8363,7 @@ extension Paths {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -10196,6 +8375,7 @@ extension Paths {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -10273,6 +8453,7 @@ extension Paths.Users {
             }
 
             public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
                 case appInfos
                 case appStoreVersions
                 case availableInNewTerritories
@@ -10284,6 +8465,7 @@ extension Paths.Users {
                 case betaTesters
                 case builds
                 case bundleID = "bundleId"
+                case ciProduct
                 case contentRightsDeclaration
                 case endUserLicenseAgreement
                 case gameCenterEnabledVersions
@@ -10321,6 +8503,7038 @@ extension Paths.Users {
 
         public var delete: Request<Void> {
             .delete(path)
+        }
+    }
+}
+
+extension Paths.AppCategories.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appCategories/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppCategories.WithID.Relationships {
+    public var parent: Parent {
+        Parent(path: path + "/parent")
+    }
+
+    public struct Parent {
+        /// Path: `/v1/appCategories/{id}/relationships/parent`
+        public let path: String
+    }
+}
+
+extension Paths.AppCategories.WithID {
+    public var parent: Parent {
+        Parent(path: path + "/parent")
+    }
+
+    public struct Parent {
+        /// Path: `/v1/appCategories/{id}/parent`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppCategories.WithID.Relationships {
+    public var subcategories: Subcategories {
+        Subcategories(path: path + "/subcategories")
+    }
+
+    public struct Subcategories {
+        /// Path: `/v1/appCategories/{id}/relationships/subcategories`
+        public let path: String
+    }
+}
+
+extension Paths.AppCategories.WithID {
+    public var subcategories: Subcategories {
+        Subcategories(path: path + "/subcategories")
+    }
+
+    public struct Subcategories {
+        /// Path: `/v1/appCategories/{id}/subcategories`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppCategoriesResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperienceLocalizations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appClipDefaultExperienceLocalizations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppClipDefaultExperienceLocalizations.WithID.Relationships {
+    public var appClipHeaderImage: AppClipHeaderImage {
+        AppClipHeaderImage(path: path + "/appClipHeaderImage")
+    }
+
+    public struct AppClipHeaderImage {
+        /// Path: `/v1/appClipDefaultExperienceLocalizations/{id}/relationships/appClipHeaderImage`
+        public let path: String
+    }
+}
+
+extension Paths.AppClipDefaultExperienceLocalizations.WithID {
+    public var appClipHeaderImage: AppClipHeaderImage {
+        AppClipHeaderImage(path: path + "/appClipHeaderImage")
+    }
+
+    public struct AppClipHeaderImage {
+        /// Path: `/v1/appClipDefaultExperienceLocalizations/{id}/appClipHeaderImage`
+        public let path: String
+
+        public func get(fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]? = nil) -> Request<AppStoreConnectAPI.AppClipHeaderImageResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipHeaderImages))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipHeaderImages: String, Codable, CaseIterable {
+            case appClipDefaultExperienceLocalization
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case imageAsset
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID.Relationships {
+    public var appClipAppStoreReviewDetail: AppClipAppStoreReviewDetail {
+        AppClipAppStoreReviewDetail(path: path + "/appClipAppStoreReviewDetail")
+    }
+
+    public struct AppClipAppStoreReviewDetail {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/relationships/appClipAppStoreReviewDetail`
+        public let path: String
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID {
+    public var appClipAppStoreReviewDetail: AppClipAppStoreReviewDetail {
+        AppClipAppStoreReviewDetail(path: path + "/appClipAppStoreReviewDetail")
+    }
+
+    public struct AppClipAppStoreReviewDetail {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/appClipAppStoreReviewDetail`
+        public let path: String
+
+        public func get(fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]? = nil) -> Request<AppStoreConnectAPI.AppClipAppStoreReviewDetailResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipAppStoreReviewDetails))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipAppStoreReviewDetails: String, Codable, CaseIterable {
+            case appClipDefaultExperience
+            case invocationURLs = "invocationUrls"
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID.Relationships {
+    public var appClipDefaultExperienceLocalizations: AppClipDefaultExperienceLocalizations {
+        AppClipDefaultExperienceLocalizations(path: path + "/appClipDefaultExperienceLocalizations")
+    }
+
+    public struct AppClipDefaultExperienceLocalizations {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/relationships/appClipDefaultExperienceLocalizations`
+        public let path: String
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID {
+    public var appClipDefaultExperienceLocalizations: AppClipDefaultExperienceLocalizations {
+        AppClipDefaultExperienceLocalizations(path: path + "/appClipDefaultExperienceLocalizations")
+    }
+
+    public struct AppClipDefaultExperienceLocalizations {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/appClipDefaultExperienceLocalizations`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceLocalizationsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterLocale: [String]?
+            public var fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]?
+            public var limit: Int?
+
+            public enum FieldsAppClipDefaultExperienceLocalizations: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+                case locale
+                case subtitle
+            }
+
+            public init(filterLocale: [String]? = nil, fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]? = nil, limit: Int? = nil) {
+                self.filterLocale = filterLocale
+                self.fieldsAppClipDefaultExperienceLocalizations = fieldsAppClipDefaultExperienceLocalizations
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID.Relationships {
+    public var releaseWithAppStoreVersion: ReleaseWithAppStoreVersion {
+        ReleaseWithAppStoreVersion(path: path + "/releaseWithAppStoreVersion")
+    }
+
+    public struct ReleaseWithAppStoreVersion {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/relationships/releaseWithAppStoreVersion`
+        public let path: String
+
+        public var get: Request<AppStoreConnectAPI.AppClipDefaultExperienceReleaseWithAppStoreVersionLinkageResponse> {
+            .get(path)
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppClipDefaultExperienceReleaseWithAppStoreVersionLinkageRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppClipDefaultExperiences.WithID {
+    public var releaseWithAppStoreVersion: ReleaseWithAppStoreVersion {
+        ReleaseWithAppStoreVersion(path: path + "/releaseWithAppStoreVersion")
+    }
+
+    public struct ReleaseWithAppStoreVersion {
+        /// Path: `/v1/appClipDefaultExperiences/{id}/releaseWithAppStoreVersion`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
+            public var limitAppStoreVersionLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
+                case appPreviewSets
+                case appScreenshotSets
+                case appStoreVersion
+                case description
+                case keywords
+                case locale
+                case marketingURL = "marketingUrl"
+                case promotionalText
+                case supportURL = "supportUrl"
+                case whatsNew
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appStoreVersionLocalizations
+            }
+
+            public init(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, limitAppStoreVersionLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
+                self.limitAppStoreVersionLocalizations = limitAppStoreVersionLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppClips.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appClips/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppClips.WithID.Relationships {
+    public var appClipAdvancedExperiences: AppClipAdvancedExperiences {
+        AppClipAdvancedExperiences(path: path + "/appClipAdvancedExperiences")
+    }
+
+    public struct AppClipAdvancedExperiences {
+        /// Path: `/v1/appClips/{id}/relationships/appClipAdvancedExperiences`
+        public let path: String
+    }
+}
+
+extension Paths.AppClips.WithID {
+    public var appClipAdvancedExperiences: AppClipAdvancedExperiences {
+        AppClipAdvancedExperiences(path: path + "/appClipAdvancedExperiences")
+    }
+
+    public struct AppClipAdvancedExperiences {
+        /// Path: `/v1/appClips/{id}/appClipAdvancedExperiences`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipAdvancedExperiencesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterAction: [FilterAction]?
+            public var filterPlaceStatus: [FilterPlaceStatus]?
+            public var filterStatus: [FilterStatus]?
+            public var fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]?
+            public var fieldsAppClipAdvancedExperienceLocalizations: [FieldsAppClipAdvancedExperienceLocalizations]?
+            public var limit: Int?
+            public var limitLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FilterAction: String, Codable, CaseIterable {
+                case `open` = "OPEN"
+                case view = "VIEW"
+                case play = "PLAY"
+            }
+
+            public enum FilterPlaceStatus: String, Codable, CaseIterable {
+                case pending = "PENDING"
+                case matched = "MATCHED"
+                case noMatch = "NO_MATCH"
+            }
+
+            public enum FilterStatus: String, Codable, CaseIterable {
+                case received = "RECEIVED"
+                case deactivated = "DEACTIVATED"
+                case appTransferInProgress = "APP_TRANSFER_IN_PROGRESS"
+            }
+
+            public enum FieldsAppClipAdvancedExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case businessCategory
+                case defaultLanguage
+                case headerImage
+                case isPoweredBy
+                case link
+                case localizations
+                case place
+                case placeStatus
+                case removed
+                case status
+                case version
+            }
+
+            public enum FieldsAppClipAdvancedExperienceLocalizations: String, Codable, CaseIterable {
+                case language
+                case subtitle
+                case title
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case localizations
+            }
+
+            public init(filterAction: [FilterAction]? = nil, filterPlaceStatus: [FilterPlaceStatus]? = nil, filterStatus: [FilterStatus]? = nil, fieldsAppClipAdvancedExperiences: [FieldsAppClipAdvancedExperiences]? = nil, fieldsAppClipAdvancedExperienceLocalizations: [FieldsAppClipAdvancedExperienceLocalizations]? = nil, limit: Int? = nil, limitLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.filterAction = filterAction
+                self.filterPlaceStatus = filterPlaceStatus
+                self.filterStatus = filterStatus
+                self.fieldsAppClipAdvancedExperiences = fieldsAppClipAdvancedExperiences
+                self.fieldsAppClipAdvancedExperienceLocalizations = fieldsAppClipAdvancedExperienceLocalizations
+                self.limit = limit
+                self.limitLocalizations = limitLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[action]", filterAction?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[placeStatus]", filterPlaceStatus?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[status]", filterStatus?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipAdvancedExperienceLocalizations]", fieldsAppClipAdvancedExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[localizations]", limitLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppClips.WithID.Relationships {
+    public var appClipDefaultExperiences: AppClipDefaultExperiences {
+        AppClipDefaultExperiences(path: path + "/appClipDefaultExperiences")
+    }
+
+    public struct AppClipDefaultExperiences {
+        /// Path: `/v1/appClips/{id}/relationships/appClipDefaultExperiences`
+        public let path: String
+    }
+}
+
+extension Paths.AppClips.WithID {
+    public var appClipDefaultExperiences: AppClipDefaultExperiences {
+        AppClipDefaultExperiences(path: path + "/appClipDefaultExperiences")
+    }
+
+    public struct AppClipDefaultExperiences {
+        /// Path: `/v1/appClips/{id}/appClipDefaultExperiences`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipDefaultExperiencesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var existsReleaseWithAppStoreVersion: [String]?
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]?
+            public var limit: Int?
+            public var limitAppClipDefaultExperienceLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public enum FieldsAppClipDefaultExperienceLocalizations: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+                case locale
+                case subtitle
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClipDefaultExperienceLocalizations
+            }
+
+            public init(existsReleaseWithAppStoreVersion: [String]? = nil, fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]? = nil, limit: Int? = nil, limitAppClipDefaultExperienceLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.existsReleaseWithAppStoreVersion = existsReleaseWithAppStoreVersion
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.fieldsAppClipDefaultExperienceLocalizations = fieldsAppClipDefaultExperienceLocalizations
+                self.limit = limit
+                self.limitAppClipDefaultExperienceLocalizations = limitAppClipDefaultExperienceLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("exists[releaseWithAppStoreVersion]", existsReleaseWithAppStoreVersion?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppEncryptionDeclarations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appEncryptionDeclarations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppEncryptionDeclarations.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/appEncryptionDeclarations/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.AppEncryptionDeclarations.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/appEncryptionDeclarations/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.AppEncryptionDeclarations.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/appEncryptionDeclarations/{id}/relationships/builds`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.AppEncryptionDeclarationBuildsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appInfos/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var ageRatingDeclaration: AgeRatingDeclaration {
+        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
+    }
+
+    public struct AgeRatingDeclaration {
+        /// Path: `/v1/appInfos/{id}/relationships/ageRatingDeclaration`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var ageRatingDeclaration: AgeRatingDeclaration {
+        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
+    }
+
+    public struct AgeRatingDeclaration {
+        /// Path: `/v1/appInfos/{id}/ageRatingDeclaration`
+        public let path: String
+
+        public func get(fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil) -> Request<AppStoreConnectAPI.AgeRatingDeclarationResponse> {
+            .get(path, query: makeGetQuery(fieldsAgeRatingDeclarations))
+        }
+
+        private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
+            case alcoholTobaccoOrDrugUseOrReferences
+            case contests
+            case gambling
+            case gamblingAndContests
+            case gamblingSimulated
+            case horrorOrFearThemes
+            case kidsAgeBand
+            case matureOrSuggestiveThemes
+            case medicalOrTreatmentInformation
+            case profanityOrCrudeHumor
+            case seventeenPlus
+            case sexualContentGraphicAndNudity
+            case sexualContentOrNudity
+            case unrestrictedWebAccess
+            case violenceCartoonOrFantasy
+            case violenceRealistic
+            case violenceRealisticProlongedGraphicOrSadistic
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var appInfoLocalizations: AppInfoLocalizations {
+        AppInfoLocalizations(path: path + "/appInfoLocalizations")
+    }
+
+    public struct AppInfoLocalizations {
+        /// Path: `/v1/appInfos/{id}/relationships/appInfoLocalizations`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var appInfoLocalizations: AppInfoLocalizations {
+        AppInfoLocalizations(path: path + "/appInfoLocalizations")
+    }
+
+    public struct AppInfoLocalizations {
+        /// Path: `/v1/appInfos/{id}/appInfoLocalizations`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfoLocalizationsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterLocale: [String]?
+            public var fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?
+            public var limit: Int?
+
+            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
+                case appInfo
+                case locale
+                case name
+                case privacyChoicesURL = "privacyChoicesUrl"
+                case privacyPolicyText
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case subtitle
+            }
+
+            public init(filterLocale: [String]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, limit: Int? = nil) {
+                self.filterLocale = filterLocale
+                self.fieldsAppInfoLocalizations = fieldsAppInfoLocalizations
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var primaryCategory: PrimaryCategory {
+        PrimaryCategory(path: path + "/primaryCategory")
+    }
+
+    public struct PrimaryCategory {
+        /// Path: `/v1/appInfos/{id}/relationships/primaryCategory`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var primaryCategory: PrimaryCategory {
+        PrimaryCategory(path: path + "/primaryCategory")
+    }
+
+    public struct PrimaryCategory {
+        /// Path: `/v1/appInfos/{id}/primaryCategory`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var primarySubcategoryOne: PrimarySubcategoryOne {
+        PrimarySubcategoryOne(path: path + "/primarySubcategoryOne")
+    }
+
+    public struct PrimarySubcategoryOne {
+        /// Path: `/v1/appInfos/{id}/relationships/primarySubcategoryOne`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var primarySubcategoryOne: PrimarySubcategoryOne {
+        PrimarySubcategoryOne(path: path + "/primarySubcategoryOne")
+    }
+
+    public struct PrimarySubcategoryOne {
+        /// Path: `/v1/appInfos/{id}/primarySubcategoryOne`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var primarySubcategoryTwo: PrimarySubcategoryTwo {
+        PrimarySubcategoryTwo(path: path + "/primarySubcategoryTwo")
+    }
+
+    public struct PrimarySubcategoryTwo {
+        /// Path: `/v1/appInfos/{id}/relationships/primarySubcategoryTwo`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var primarySubcategoryTwo: PrimarySubcategoryTwo {
+        PrimarySubcategoryTwo(path: path + "/primarySubcategoryTwo")
+    }
+
+    public struct PrimarySubcategoryTwo {
+        /// Path: `/v1/appInfos/{id}/primarySubcategoryTwo`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var secondaryCategory: SecondaryCategory {
+        SecondaryCategory(path: path + "/secondaryCategory")
+    }
+
+    public struct SecondaryCategory {
+        /// Path: `/v1/appInfos/{id}/relationships/secondaryCategory`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var secondaryCategory: SecondaryCategory {
+        SecondaryCategory(path: path + "/secondaryCategory")
+    }
+
+    public struct SecondaryCategory {
+        /// Path: `/v1/appInfos/{id}/secondaryCategory`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var secondarySubcategoryOne: SecondarySubcategoryOne {
+        SecondarySubcategoryOne(path: path + "/secondarySubcategoryOne")
+    }
+
+    public struct SecondarySubcategoryOne {
+        /// Path: `/v1/appInfos/{id}/relationships/secondarySubcategoryOne`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var secondarySubcategoryOne: SecondarySubcategoryOne {
+        SecondarySubcategoryOne(path: path + "/secondarySubcategoryOne")
+    }
+
+    public struct SecondarySubcategoryOne {
+        /// Path: `/v1/appInfos/{id}/secondarySubcategoryOne`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppInfos.WithID.Relationships {
+    public var secondarySubcategoryTwo: SecondarySubcategoryTwo {
+        SecondarySubcategoryTwo(path: path + "/secondarySubcategoryTwo")
+    }
+
+    public struct SecondarySubcategoryTwo {
+        /// Path: `/v1/appInfos/{id}/relationships/secondarySubcategoryTwo`
+        public let path: String
+    }
+}
+
+extension Paths.AppInfos.WithID {
+    public var secondarySubcategoryTwo: SecondarySubcategoryTwo {
+        SecondarySubcategoryTwo(path: path + "/secondarySubcategoryTwo")
+    }
+
+    public struct SecondarySubcategoryTwo {
+        /// Path: `/v1/appInfos/{id}/secondarySubcategoryTwo`
+        public let path: String
+
+        public func get(fieldsAppCategories: [FieldsAppCategories]? = nil) -> Request<AppStoreConnectAPI.AppCategoryResponse> {
+            .get(path, query: makeGetQuery(fieldsAppCategories))
+        }
+
+        private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppCategories: String, Codable, CaseIterable {
+            case parent
+            case platforms
+            case subcategories
+        }
+    }
+}
+
+extension Paths.AppPreviewSets.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appPreviewSets/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppPreviewSets.WithID.Relationships {
+    public var appPreviews: AppPreviews {
+        AppPreviews(path: path + "/appPreviews")
+    }
+
+    public struct AppPreviews {
+        /// Path: `/v1/appPreviewSets/{id}/relationships/appPreviews`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetAppPreviewsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppPreviewSetAppPreviewsLinkagesRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppPreviewSets.WithID {
+    public var appPreviews: AppPreviews {
+        AppPreviews(path: path + "/appPreviews")
+    }
+
+    public struct AppPreviews {
+        /// Path: `/v1/appPreviewSets/{id}/appPreviews`
+        public let path: String
+
+        public func get(fieldsAppPreviews: [FieldsAppPreviews]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPreviewsResponse> {
+            .get(path, query: makeGetQuery(fieldsAppPreviews, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppPreviews: [FieldsAppPreviews]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppPreviews: String, Codable, CaseIterable {
+            case appPreviewSet
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case mimeType
+            case previewFrameTimeCode
+            case previewImage
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+            case videoURL = "videoUrl"
+        }
+    }
+}
+
+extension Paths.AppPricePoints.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appPricePoints/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppPricePoints.WithID.Relationships {
+    public var territory: Territory {
+        Territory(path: path + "/territory")
+    }
+
+    public struct Territory {
+        /// Path: `/v1/appPricePoints/{id}/relationships/territory`
+        public let path: String
+    }
+}
+
+extension Paths.AppPricePoints.WithID {
+    public var territory: Territory {
+        Territory(path: path + "/territory")
+    }
+
+    public struct Territory {
+        /// Path: `/v1/appPricePoints/{id}/territory`
+        public let path: String
+
+        public func get(fieldsTerritories: [FieldsTerritories]? = nil) -> Request<AppStoreConnectAPI.TerritoryResponse> {
+            .get(path, query: makeGetQuery(fieldsTerritories))
+        }
+
+        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsTerritories: String, Codable, CaseIterable {
+            case currency
+        }
+    }
+}
+
+extension Paths.AppPriceTiers.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appPriceTiers/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppPriceTiers.WithID.Relationships {
+    public var pricePoints: PricePoints {
+        PricePoints(path: path + "/pricePoints")
+    }
+
+    public struct PricePoints {
+        /// Path: `/v1/appPriceTiers/{id}/relationships/pricePoints`
+        public let path: String
+    }
+}
+
+extension Paths.AppPriceTiers.WithID {
+    public var pricePoints: PricePoints {
+        PricePoints(path: path + "/pricePoints")
+    }
+
+    public struct PricePoints {
+        /// Path: `/v1/appPriceTiers/{id}/pricePoints`
+        public let path: String
+
+        public func get(fieldsAppPricePoints: [FieldsAppPricePoints]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPricePointsResponse> {
+            .get(path, query: makeGetQuery(fieldsAppPricePoints, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppPricePoints: [FieldsAppPricePoints]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppPricePoints: String, Codable, CaseIterable {
+            case customerPrice
+            case priceTier
+            case proceeds
+            case territory
+        }
+    }
+}
+
+extension Paths.AppScreenshotSets.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appScreenshotSets/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppScreenshotSets.WithID.Relationships {
+    public var appScreenshots: AppScreenshots {
+        AppScreenshots(path: path + "/appScreenshots")
+    }
+
+    public struct AppScreenshots {
+        /// Path: `/v1/appScreenshotSets/{id}/relationships/appScreenshots`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetAppScreenshotsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppScreenshotSetAppScreenshotsLinkagesRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppScreenshotSets.WithID {
+    public var appScreenshots: AppScreenshots {
+        AppScreenshots(path: path + "/appScreenshots")
+    }
+
+    public struct AppScreenshots {
+        /// Path: `/v1/appScreenshotSets/{id}/appScreenshots`
+        public let path: String
+
+        public func get(fieldsAppScreenshots: [FieldsAppScreenshots]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppScreenshotsResponse> {
+            .get(path, query: makeGetQuery(fieldsAppScreenshots, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppScreenshots: [FieldsAppScreenshots]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppScreenshots: String, Codable, CaseIterable {
+            case appScreenshotSet
+            case assetDeliveryState
+            case assetToken
+            case assetType
+            case fileName
+            case fileSize
+            case imageAsset
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+    }
+}
+
+extension Paths.AppStoreReviewDetails.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appStoreReviewDetails/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreReviewDetails.WithID.Relationships {
+    public var appStoreReviewAttachments: AppStoreReviewAttachments {
+        AppStoreReviewAttachments(path: path + "/appStoreReviewAttachments")
+    }
+
+    public struct AppStoreReviewAttachments {
+        /// Path: `/v1/appStoreReviewDetails/{id}/relationships/appStoreReviewAttachments`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreReviewDetails.WithID {
+    public var appStoreReviewAttachments: AppStoreReviewAttachments {
+        AppStoreReviewAttachments(path: path + "/appStoreReviewAttachments")
+    }
+
+    public struct AppStoreReviewAttachments {
+        /// Path: `/v1/appStoreReviewDetails/{id}/appStoreReviewAttachments`
+        public let path: String
+
+        public func get(fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewAttachmentsResponse> {
+            .get(path, query: makeGetQuery(fieldsAppStoreReviewAttachments, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
+            case appStoreReviewDetail
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+    }
+}
+
+extension Paths.AppStoreVersionLocalizations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appStoreVersionLocalizations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersionLocalizations.WithID.Relationships {
+    public var appPreviewSets: AppPreviewSets {
+        AppPreviewSets(path: path + "/appPreviewSets")
+    }
+
+    public struct AppPreviewSets {
+        /// Path: `/v1/appStoreVersionLocalizations/{id}/relationships/appPreviewSets`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersionLocalizations.WithID {
+    public var appPreviewSets: AppPreviewSets {
+        AppPreviewSets(path: path + "/appPreviewSets")
+    }
+
+    public struct AppPreviewSets {
+        /// Path: `/v1/appStoreVersionLocalizations/{id}/appPreviewSets`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppPreviewSetsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterPreviewType: [FilterPreviewType]?
+            public var fieldsAppPreviews: [FieldsAppPreviews]?
+            public var fieldsAppPreviewSets: [FieldsAppPreviewSets]?
+            public var limit: Int?
+            public var limitAppPreviews: Int?
+            public var include: [Include]?
+
+            public enum FilterPreviewType: String, Codable, CaseIterable {
+                case iphone65 = "IPHONE_65"
+                case iphone58 = "IPHONE_58"
+                case iphone55 = "IPHONE_55"
+                case iphone47 = "IPHONE_47"
+                case iphone40 = "IPHONE_40"
+                case iphone35 = "IPHONE_35"
+                case ipadPro3gen129 = "IPAD_PRO_3GEN_129"
+                case ipadPro3gen11 = "IPAD_PRO_3GEN_11"
+                case ipadPro129 = "IPAD_PRO_129"
+                case ipad105 = "IPAD_105"
+                case ipad97 = "IPAD_97"
+                case desktop = "DESKTOP"
+                case watchSeries4 = "WATCH_SERIES_4"
+                case watchSeries3 = "WATCH_SERIES_3"
+                case appleTv = "APPLE_TV"
+            }
+
+            public enum FieldsAppPreviews: String, Codable, CaseIterable {
+                case appPreviewSet
+                case assetDeliveryState
+                case fileName
+                case fileSize
+                case mimeType
+                case previewFrameTimeCode
+                case previewImage
+                case sourceFileChecksum
+                case uploadOperations
+                case uploaded
+                case videoURL = "videoUrl"
+            }
+
+            public enum FieldsAppPreviewSets: String, Codable, CaseIterable {
+                case appPreviews
+                case appStoreVersionLocalization
+                case previewType
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appPreviews
+            }
+
+            public init(filterPreviewType: [FilterPreviewType]? = nil, fieldsAppPreviews: [FieldsAppPreviews]? = nil, fieldsAppPreviewSets: [FieldsAppPreviewSets]? = nil, limit: Int? = nil, limitAppPreviews: Int? = nil, include: [Include]? = nil) {
+                self.filterPreviewType = filterPreviewType
+                self.fieldsAppPreviews = fieldsAppPreviews
+                self.fieldsAppPreviewSets = fieldsAppPreviewSets
+                self.limit = limit
+                self.limitAppPreviews = limitAppPreviews
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[previewType]", filterPreviewType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appPreviews]", limitAppPreviews)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppStoreVersionLocalizations.WithID.Relationships {
+    public var appScreenshotSets: AppScreenshotSets {
+        AppScreenshotSets(path: path + "/appScreenshotSets")
+    }
+
+    public struct AppScreenshotSets {
+        /// Path: `/v1/appStoreVersionLocalizations/{id}/relationships/appScreenshotSets`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersionLocalizations.WithID {
+    public var appScreenshotSets: AppScreenshotSets {
+        AppScreenshotSets(path: path + "/appScreenshotSets")
+    }
+
+    public struct AppScreenshotSets {
+        /// Path: `/v1/appStoreVersionLocalizations/{id}/appScreenshotSets`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppScreenshotSetsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterScreenshotDisplayType: [FilterScreenshotDisplayType]?
+            public var fieldsAppScreenshotSets: [FieldsAppScreenshotSets]?
+            public var fieldsAppScreenshots: [FieldsAppScreenshots]?
+            public var limit: Int?
+            public var limitAppScreenshots: Int?
+            public var include: [Include]?
+
+            public enum FilterScreenshotDisplayType: String, Codable, CaseIterable {
+                case appIphone65 = "APP_IPHONE_65"
+                case appIphone58 = "APP_IPHONE_58"
+                case appIphone55 = "APP_IPHONE_55"
+                case appIphone47 = "APP_IPHONE_47"
+                case appIphone40 = "APP_IPHONE_40"
+                case appIphone35 = "APP_IPHONE_35"
+                case appIpadPro3gen129 = "APP_IPAD_PRO_3GEN_129"
+                case appIpadPro3gen11 = "APP_IPAD_PRO_3GEN_11"
+                case appIpadPro129 = "APP_IPAD_PRO_129"
+                case appIpad105 = "APP_IPAD_105"
+                case appIpad97 = "APP_IPAD_97"
+                case appDesktop = "APP_DESKTOP"
+                case appWatchSeries7 = "APP_WATCH_SERIES_7"
+                case appWatchSeries4 = "APP_WATCH_SERIES_4"
+                case appWatchSeries3 = "APP_WATCH_SERIES_3"
+                case appAppleTv = "APP_APPLE_TV"
+                case imessageAppIphone65 = "IMESSAGE_APP_IPHONE_65"
+                case imessageAppIphone58 = "IMESSAGE_APP_IPHONE_58"
+                case imessageAppIphone55 = "IMESSAGE_APP_IPHONE_55"
+                case imessageAppIphone47 = "IMESSAGE_APP_IPHONE_47"
+                case imessageAppIphone40 = "IMESSAGE_APP_IPHONE_40"
+                case imessageAppIpadPro3gen129 = "IMESSAGE_APP_IPAD_PRO_3GEN_129"
+                case imessageAppIpadPro3gen11 = "IMESSAGE_APP_IPAD_PRO_3GEN_11"
+                case imessageAppIpadPro129 = "IMESSAGE_APP_IPAD_PRO_129"
+                case imessageAppIpad105 = "IMESSAGE_APP_IPAD_105"
+                case imessageAppIpad97 = "IMESSAGE_APP_IPAD_97"
+            }
+
+            public enum FieldsAppScreenshotSets: String, Codable, CaseIterable {
+                case appScreenshots
+                case appStoreVersionLocalization
+                case screenshotDisplayType
+            }
+
+            public enum FieldsAppScreenshots: String, Codable, CaseIterable {
+                case appScreenshotSet
+                case assetDeliveryState
+                case assetToken
+                case assetType
+                case fileName
+                case fileSize
+                case imageAsset
+                case sourceFileChecksum
+                case uploadOperations
+                case uploaded
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appScreenshots
+            }
+
+            public init(filterScreenshotDisplayType: [FilterScreenshotDisplayType]? = nil, fieldsAppScreenshotSets: [FieldsAppScreenshotSets]? = nil, fieldsAppScreenshots: [FieldsAppScreenshots]? = nil, limit: Int? = nil, limitAppScreenshots: Int? = nil, include: [Include]? = nil) {
+                self.filterScreenshotDisplayType = filterScreenshotDisplayType
+                self.fieldsAppScreenshotSets = fieldsAppScreenshotSets
+                self.fieldsAppScreenshots = fieldsAppScreenshots
+                self.limit = limit
+                self.limitAppScreenshots = limitAppScreenshots
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[screenshotDisplayType]", filterScreenshotDisplayType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appScreenshots]", limitAppScreenshots)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/appStoreVersions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var ageRatingDeclaration: AgeRatingDeclaration {
+        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
+    }
+
+    public struct AgeRatingDeclaration {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/ageRatingDeclaration`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var ageRatingDeclaration: AgeRatingDeclaration {
+        AgeRatingDeclaration(path: path + "/ageRatingDeclaration")
+    }
+
+    public struct AgeRatingDeclaration {
+        /// Path: `/v1/appStoreVersions/{id}/ageRatingDeclaration`
+        public let path: String
+
+        @available(*, deprecated, message: "Deprecated")
+        public func get(fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]? = nil) -> Request<AppStoreConnectAPI.AgeRatingDeclarationResponse> {
+            .get(path, query: makeGetQuery(fieldsAgeRatingDeclarations))
+        }
+
+        private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
+            case alcoholTobaccoOrDrugUseOrReferences
+            case contests
+            case gambling
+            case gamblingAndContests
+            case gamblingSimulated
+            case horrorOrFearThemes
+            case kidsAgeBand
+            case matureOrSuggestiveThemes
+            case medicalOrTreatmentInformation
+            case profanityOrCrudeHumor
+            case seventeenPlus
+            case sexualContentGraphicAndNudity
+            case sexualContentOrNudity
+            case unrestrictedWebAccess
+            case violenceCartoonOrFantasy
+            case violenceRealistic
+            case violenceRealisticProlongedGraphicOrSadistic
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var appClipDefaultExperience: AppClipDefaultExperience {
+        AppClipDefaultExperience(path: path + "/appClipDefaultExperience")
+    }
+
+    public struct AppClipDefaultExperience {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/appClipDefaultExperience`
+        public let path: String
+
+        public var get: Request<AppStoreConnectAPI.AppStoreVersionAppClipDefaultExperienceLinkageResponse> {
+            .get(path)
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppStoreVersionAppClipDefaultExperienceLinkageRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var appClipDefaultExperience: AppClipDefaultExperience {
+        AppClipDefaultExperience(path: path + "/appClipDefaultExperience")
+    }
+
+    public struct AppClipDefaultExperience {
+        /// Path: `/v1/appStoreVersions/{id}/appClipDefaultExperience`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipDefaultExperienceResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]?
+            public var limitAppClipDefaultExperienceLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public enum FieldsAppClipDefaultExperienceLocalizations: String, Codable, CaseIterable {
+                case appClipDefaultExperience
+                case appClipHeaderImage
+                case locale
+                case subtitle
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClipDefaultExperienceLocalizations
+            }
+
+            public init(fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, fieldsAppClipDefaultExperienceLocalizations: [FieldsAppClipDefaultExperienceLocalizations]? = nil, limitAppClipDefaultExperienceLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.fieldsAppClipDefaultExperienceLocalizations = fieldsAppClipDefaultExperienceLocalizations
+                self.limitAppClipDefaultExperienceLocalizations = limitAppClipDefaultExperienceLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var appStoreReviewDetail: AppStoreReviewDetail {
+        AppStoreReviewDetail(path: path + "/appStoreReviewDetail")
+    }
+
+    public struct AppStoreReviewDetail {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/appStoreReviewDetail`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var appStoreReviewDetail: AppStoreReviewDetail {
+        AppStoreReviewDetail(path: path + "/appStoreReviewDetail")
+    }
+
+    public struct AppStoreReviewDetail {
+        /// Path: `/v1/appStoreVersions/{id}/appStoreReviewDetail`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreReviewDetailResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]?
+            public var fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?
+            public var limitAppStoreReviewAttachments: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppStoreReviewDetails: String, Codable, CaseIterable {
+                case appStoreReviewAttachments
+                case appStoreVersion
+                case contactEmail
+                case contactFirstName
+                case contactLastName
+                case contactPhone
+                case demoAccountName
+                case demoAccountPassword
+                case demoAccountRequired
+                case notes
+            }
+
+            public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
+                case appStoreReviewDetail
+                case assetDeliveryState
+                case fileName
+                case fileSize
+                case sourceFileChecksum
+                case uploadOperations
+                case uploaded
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appStoreReviewAttachments
+            }
+
+            public init(fieldsAppStoreReviewDetails: [FieldsAppStoreReviewDetails]? = nil, fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]? = nil, limitAppStoreReviewAttachments: Int? = nil, include: [Include]? = nil) {
+                self.fieldsAppStoreReviewDetails = fieldsAppStoreReviewDetails
+                self.fieldsAppStoreReviewAttachments = fieldsAppStoreReviewAttachments
+                self.limitAppStoreReviewAttachments = limitAppStoreReviewAttachments
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[appStoreReviewAttachments]", limitAppStoreReviewAttachments)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var appStoreVersionLocalizations: AppStoreVersionLocalizations {
+        AppStoreVersionLocalizations(path: path + "/appStoreVersionLocalizations")
+    }
+
+    public struct AppStoreVersionLocalizations {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/appStoreVersionLocalizations`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var appStoreVersionLocalizations: AppStoreVersionLocalizations {
+        AppStoreVersionLocalizations(path: path + "/appStoreVersionLocalizations")
+    }
+
+    public struct AppStoreVersionLocalizations {
+        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionLocalizations`
+        public let path: String
+
+        public func get(fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionLocalizationsResponse> {
+            .get(path, query: makeGetQuery(fieldsAppStoreVersionLocalizations, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
+            case appPreviewSets
+            case appScreenshotSets
+            case appStoreVersion
+            case description
+            case keywords
+            case locale
+            case marketingURL = "marketingUrl"
+            case promotionalText
+            case supportURL = "supportUrl"
+            case whatsNew
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var appStoreVersionPhasedRelease: AppStoreVersionPhasedRelease {
+        AppStoreVersionPhasedRelease(path: path + "/appStoreVersionPhasedRelease")
+    }
+
+    public struct AppStoreVersionPhasedRelease {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/appStoreVersionPhasedRelease`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var appStoreVersionPhasedRelease: AppStoreVersionPhasedRelease {
+        AppStoreVersionPhasedRelease(path: path + "/appStoreVersionPhasedRelease")
+    }
+
+    public struct AppStoreVersionPhasedRelease {
+        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionPhasedRelease`
+        public let path: String
+
+        public func get(fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionPhasedReleaseResponse> {
+            .get(path, query: makeGetQuery(fieldsAppStoreVersionPhasedReleases))
+        }
+
+        private func makeGetQuery(_ fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
+            case appStoreVersion
+            case currentDayNumber
+            case phasedReleaseState
+            case startDate
+            case totalPauseDuration
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var appStoreVersionSubmission: AppStoreVersionSubmission {
+        AppStoreVersionSubmission(path: path + "/appStoreVersionSubmission")
+    }
+
+    public struct AppStoreVersionSubmission {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/appStoreVersionSubmission`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var appStoreVersionSubmission: AppStoreVersionSubmission {
+        AppStoreVersionSubmission(path: path + "/appStoreVersionSubmission")
+    }
+
+    public struct AppStoreVersionSubmission {
+        /// Path: `/v1/appStoreVersions/{id}/appStoreVersionSubmission`
+        public let path: String
+
+        public func get(fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionSubmissionResponse> {
+            .get(path, query: makeGetQuery(fieldsAppStoreVersionSubmissions))
+        }
+
+        private func makeGetQuery(_ fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
+            case appStoreVersion
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/build`
+        public let path: String
+
+        public var get: Request<AppStoreConnectAPI.AppStoreVersionBuildLinkageResponse> {
+            .get(path)
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.AppStoreVersionBuildLinkageRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/appStoreVersions/{id}/build`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var idfaDeclaration: IdfaDeclaration {
+        IdfaDeclaration(path: path + "/idfaDeclaration")
+    }
+
+    public struct IdfaDeclaration {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/idfaDeclaration`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var idfaDeclaration: IdfaDeclaration {
+        IdfaDeclaration(path: path + "/idfaDeclaration")
+    }
+
+    public struct IdfaDeclaration {
+        /// Path: `/v1/appStoreVersions/{id}/idfaDeclaration`
+        public let path: String
+
+        @available(*, deprecated, message: "Deprecated")
+        public func get(fieldsIdfaDeclarations: [FieldsIdfaDeclarations]? = nil) -> Request<AppStoreConnectAPI.IdfaDeclarationResponse> {
+            .get(path, query: makeGetQuery(fieldsIdfaDeclarations))
+        }
+
+        private func makeGetQuery(_ fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
+            case appStoreVersion
+            case attributesActionWithPreviousAd
+            case attributesAppInstallationToPreviousAd
+            case honorsLimitedAdTracking
+            case servesAds
+        }
+    }
+}
+
+extension Paths.AppStoreVersions.WithID.Relationships {
+    public var routingAppCoverage: RoutingAppCoverage {
+        RoutingAppCoverage(path: path + "/routingAppCoverage")
+    }
+
+    public struct RoutingAppCoverage {
+        /// Path: `/v1/appStoreVersions/{id}/relationships/routingAppCoverage`
+        public let path: String
+    }
+}
+
+extension Paths.AppStoreVersions.WithID {
+    public var routingAppCoverage: RoutingAppCoverage {
+        RoutingAppCoverage(path: path + "/routingAppCoverage")
+    }
+
+    public struct RoutingAppCoverage {
+        /// Path: `/v1/appStoreVersions/{id}/routingAppCoverage`
+        public let path: String
+
+        public func get(fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]? = nil) -> Request<AppStoreConnectAPI.RoutingAppCoverageResponse> {
+            .get(path, query: makeGetQuery(fieldsRoutingAppCoverages))
+        }
+
+        private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
+            case appStoreVersion
+            case assetDeliveryState
+            case fileName
+            case fileSize
+            case sourceFileChecksum
+            case uploadOperations
+            case uploaded
+        }
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/apps/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var appClips: AppClips {
+        AppClips(path: path + "/appClips")
+    }
+
+    public struct AppClips {
+        /// Path: `/v1/apps/{id}/relationships/appClips`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var appClips: AppClips {
+        AppClips(path: path + "/appClips")
+    }
+
+    public struct AppClips {
+        /// Path: `/v1/apps/{id}/appClips`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppClipsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterBundleID: [String]?
+            public var fieldsAppClips: [FieldsAppClips]?
+            public var fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]?
+            public var limit: Int?
+            public var limitAppClipDefaultExperiences: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppClips: String, Codable, CaseIterable {
+                case app
+                case appClipAdvancedExperiences
+                case appClipDefaultExperiences
+                case bundleID = "bundleId"
+            }
+
+            public enum FieldsAppClipDefaultExperiences: String, Codable, CaseIterable {
+                case action
+                case appClip
+                case appClipAppStoreReviewDetail
+                case appClipDefaultExperienceLocalizations
+                case appClipDefaultExperienceTemplate
+                case releaseWithAppStoreVersion
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClipDefaultExperiences
+            }
+
+            public init(filterBundleID: [String]? = nil, fieldsAppClips: [FieldsAppClips]? = nil, fieldsAppClipDefaultExperiences: [FieldsAppClipDefaultExperiences]? = nil, limit: Int? = nil, limitAppClipDefaultExperiences: Int? = nil, include: [Include]? = nil) {
+                self.filterBundleID = filterBundleID
+                self.fieldsAppClips = fieldsAppClips
+                self.fieldsAppClipDefaultExperiences = fieldsAppClipDefaultExperiences
+                self.limit = limit
+                self.limitAppClipDefaultExperiences = limitAppClipDefaultExperiences
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[bundleId]", filterBundleID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appClipDefaultExperiences]", limitAppClipDefaultExperiences)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var appInfos: AppInfos {
+        AppInfos(path: path + "/appInfos")
+    }
+
+    public struct AppInfos {
+        /// Path: `/v1/apps/{id}/relationships/appInfos`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var appInfos: AppInfos {
+        AppInfos(path: path + "/appInfos")
+    }
+
+    public struct AppInfos {
+        /// Path: `/v1/apps/{id}/appInfos`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppInfosResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsAppInfos: [FieldsAppInfos]?
+            public var fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?
+            public var limit: Int?
+            public var limitAppInfoLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FieldsAppInfos: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appInfoLocalizations
+                case appStoreAgeRating
+                case appStoreState
+                case brazilAgeRating
+                case kidsAgeBand
+                case primaryCategory
+                case primarySubcategoryOne
+                case primarySubcategoryTwo
+                case secondaryCategory
+                case secondarySubcategoryOne
+                case secondarySubcategoryTwo
+            }
+
+            public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
+                case appInfo
+                case locale
+                case name
+                case privacyChoicesURL = "privacyChoicesUrl"
+                case privacyPolicyText
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case subtitle
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appInfoLocalizations
+            }
+
+            public init(fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]? = nil, limit: Int? = nil, limitAppInfoLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.fieldsAppInfos = fieldsAppInfos
+                self.fieldsAppInfoLocalizations = fieldsAppInfoLocalizations
+                self.limit = limit
+                self.limitAppInfoLocalizations = limitAppInfoLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var appStoreVersions: AppStoreVersions {
+        AppStoreVersions(path: path + "/appStoreVersions")
+    }
+
+    public struct AppStoreVersions {
+        /// Path: `/v1/apps/{id}/relationships/appStoreVersions`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var appStoreVersions: AppStoreVersions {
+        AppStoreVersions(path: path + "/appStoreVersions")
+    }
+
+    public struct AppStoreVersions {
+        /// Path: `/v1/apps/{id}/appStoreVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterAppStoreState: [FilterAppStoreState]?
+            public var filterPlatform: [FilterPlatform]?
+            public var filterVersionString: [String]?
+            public var filterID: [String]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?
+            public var limit: Int?
+            public var limitAppStoreVersionLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FilterAppStoreState: String, Codable, CaseIterable {
+                case developerRemovedFromSale = "DEVELOPER_REMOVED_FROM_SALE"
+                case developerRejected = "DEVELOPER_REJECTED"
+                case inReview = "IN_REVIEW"
+                case invalidBinary = "INVALID_BINARY"
+                case metadataRejected = "METADATA_REJECTED"
+                case pendingAppleRelease = "PENDING_APPLE_RELEASE"
+                case pendingContract = "PENDING_CONTRACT"
+                case pendingDeveloperRelease = "PENDING_DEVELOPER_RELEASE"
+                case prepareForSubmission = "PREPARE_FOR_SUBMISSION"
+                case preorderReadyForSale = "PREORDER_READY_FOR_SALE"
+                case processingForAppStore = "PROCESSING_FOR_APP_STORE"
+                case readyForSale = "READY_FOR_SALE"
+                case rejected = "REJECTED"
+                case removedFromSale = "REMOVED_FROM_SALE"
+                case waitingForExportCompliance = "WAITING_FOR_EXPORT_COMPLIANCE"
+                case waitingForReview = "WAITING_FOR_REVIEW"
+                case replacedWithNewVersion = "REPLACED_WITH_NEW_VERSION"
+            }
+
+            public enum FilterPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+                case macOs = "MAC_OS"
+                case tvOs = "TV_OS"
+            }
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
+                case appPreviewSets
+                case appScreenshotSets
+                case appStoreVersion
+                case description
+                case keywords
+                case locale
+                case marketingURL = "marketingUrl"
+                case promotionalText
+                case supportURL = "supportUrl"
+                case whatsNew
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appStoreVersionLocalizations
+            }
+
+            public init(filterAppStoreState: [FilterAppStoreState]? = nil, filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterID: [String]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]? = nil, limit: Int? = nil, limitAppStoreVersionLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.filterAppStoreState = filterAppStoreState
+                self.filterPlatform = filterPlatform
+                self.filterVersionString = filterVersionString
+                self.filterID = filterID
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsAppStoreVersionLocalizations = fieldsAppStoreVersionLocalizations
+                self.limit = limit
+                self.limitAppStoreVersionLocalizations = limitAppStoreVersionLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[appStoreState]", filterAppStoreState?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var availableTerritories: AvailableTerritories {
+        AvailableTerritories(path: path + "/availableTerritories")
+    }
+
+    public struct AvailableTerritories {
+        /// Path: `/v1/apps/{id}/relationships/availableTerritories`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var availableTerritories: AvailableTerritories {
+        AvailableTerritories(path: path + "/availableTerritories")
+    }
+
+    public struct AvailableTerritories {
+        /// Path: `/v1/apps/{id}/availableTerritories`
+        public let path: String
+
+        public func get(fieldsTerritories: [FieldsTerritories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.TerritoriesResponse> {
+            .get(path, query: makeGetQuery(fieldsTerritories, limit))
+        }
+
+        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsTerritories: String, Codable, CaseIterable {
+            case currency
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var betaAppLocalizations: BetaAppLocalizations {
+        BetaAppLocalizations(path: path + "/betaAppLocalizations")
+    }
+
+    public struct BetaAppLocalizations {
+        /// Path: `/v1/apps/{id}/relationships/betaAppLocalizations`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var betaAppLocalizations: BetaAppLocalizations {
+        BetaAppLocalizations(path: path + "/betaAppLocalizations")
+    }
+
+    public struct BetaAppLocalizations {
+        /// Path: `/v1/apps/{id}/betaAppLocalizations`
+        public let path: String
+
+        public func get(fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaAppLocalizationsResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaAppLocalizations, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
+            case app
+            case description
+            case feedbackEmail
+            case locale
+            case marketingURL = "marketingUrl"
+            case privacyPolicyURL = "privacyPolicyUrl"
+            case tvOsPrivacyPolicy
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var betaAppReviewDetail: BetaAppReviewDetail {
+        BetaAppReviewDetail(path: path + "/betaAppReviewDetail")
+    }
+
+    public struct BetaAppReviewDetail {
+        /// Path: `/v1/apps/{id}/relationships/betaAppReviewDetail`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var betaAppReviewDetail: BetaAppReviewDetail {
+        BetaAppReviewDetail(path: path + "/betaAppReviewDetail")
+    }
+
+    public struct BetaAppReviewDetail {
+        /// Path: `/v1/apps/{id}/betaAppReviewDetail`
+        public let path: String
+
+        public func get(fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewDetailResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaAppReviewDetails))
+        }
+
+        private func makeGetQuery(_ fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
+            case app
+            case contactEmail
+            case contactFirstName
+            case contactLastName
+            case contactPhone
+            case demoAccountName
+            case demoAccountPassword
+            case demoAccountRequired
+            case notes
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var betaGroups: BetaGroups {
+        BetaGroups(path: path + "/betaGroups")
+    }
+
+    public struct BetaGroups {
+        /// Path: `/v1/apps/{id}/relationships/betaGroups`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var betaGroups: BetaGroups {
+        BetaGroups(path: path + "/betaGroups")
+    }
+
+    public struct BetaGroups {
+        /// Path: `/v1/apps/{id}/betaGroups`
+        public let path: String
+
+        public func get(fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupsResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaGroups, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaGroups: String, Codable, CaseIterable {
+            case app
+            case betaTesters
+            case builds
+            case createdDate
+            case feedbackEnabled
+            case hasAccessToAllBuilds
+            case iosBuildsAvailableForAppleSiliconMac
+            case isInternalGroup
+            case name
+            case publicLink
+            case publicLinkEnabled
+            case publicLinkID = "publicLinkId"
+            case publicLinkLimit
+            case publicLinkLimitEnabled
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var betaLicenseAgreement: BetaLicenseAgreement {
+        BetaLicenseAgreement(path: path + "/betaLicenseAgreement")
+    }
+
+    public struct BetaLicenseAgreement {
+        /// Path: `/v1/apps/{id}/relationships/betaLicenseAgreement`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var betaLicenseAgreement: BetaLicenseAgreement {
+        BetaLicenseAgreement(path: path + "/betaLicenseAgreement")
+    }
+
+    public struct BetaLicenseAgreement {
+        /// Path: `/v1/apps/{id}/betaLicenseAgreement`
+        public let path: String
+
+        public func get(fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]? = nil) -> Request<AppStoreConnectAPI.BetaLicenseAgreementResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaLicenseAgreements))
+        }
+
+        private func makeGetQuery(_ fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
+            case agreementText
+            case app
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var betaTesters: BetaTesters {
+        BetaTesters(path: path + "/betaTesters")
+    }
+
+    public struct BetaTesters {
+        /// Path: `/v1/apps/{id}/relationships/betaTesters`
+        public let path: String
+
+        public func delete(_ body: AppStoreConnectAPI.AppBetaTestersLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/apps/{id}/relationships/builds`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/apps/{id}/builds`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var ciProduct: CiProduct {
+        CiProduct(path: path + "/ciProduct")
+    }
+
+    public struct CiProduct {
+        /// Path: `/v1/apps/{id}/relationships/ciProduct`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var ciProduct: CiProduct {
+        CiProduct(path: path + "/ciProduct")
+    }
+
+    public struct CiProduct {
+        /// Path: `/v1/apps/{id}/ciProduct`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiProductResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiProducts: [FieldsCiProducts]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limitPrimaryRepositories: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiProducts: String, Codable, CaseIterable {
+                case additionalRepositories
+                case app
+                case buildRuns
+                case bundleID = "bundleId"
+                case createdDate
+                case name
+                case primaryRepositories
+                case productType
+                case workflows
+            }
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case primaryRepositories
+            }
+
+            public init(fieldsCiProducts: [FieldsCiProducts]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limitPrimaryRepositories: Int? = nil, include: [Include]? = nil) {
+                self.fieldsCiProducts = fieldsCiProducts
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limitPrimaryRepositories = limitPrimaryRepositories
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var endUserLicenseAgreement: EndUserLicenseAgreement {
+        EndUserLicenseAgreement(path: path + "/endUserLicenseAgreement")
+    }
+
+    public struct EndUserLicenseAgreement {
+        /// Path: `/v1/apps/{id}/relationships/endUserLicenseAgreement`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var endUserLicenseAgreement: EndUserLicenseAgreement {
+        EndUserLicenseAgreement(path: path + "/endUserLicenseAgreement")
+    }
+
+    public struct EndUserLicenseAgreement {
+        /// Path: `/v1/apps/{id}/endUserLicenseAgreement`
+        public let path: String
+
+        public func get(fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]? = nil) -> Request<AppStoreConnectAPI.EndUserLicenseAgreementResponse> {
+            .get(path, query: makeGetQuery(fieldsEndUserLicenseAgreements))
+        }
+
+        private func makeGetQuery(_ fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
+            case agreementText
+            case app
+            case territories
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var gameCenterEnabledVersions: GameCenterEnabledVersions {
+        GameCenterEnabledVersions(path: path + "/gameCenterEnabledVersions")
+    }
+
+    public struct GameCenterEnabledVersions {
+        /// Path: `/v1/apps/{id}/relationships/gameCenterEnabledVersions`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var gameCenterEnabledVersions: GameCenterEnabledVersions {
+        GameCenterEnabledVersions(path: path + "/gameCenterEnabledVersions")
+    }
+
+    public struct GameCenterEnabledVersions {
+        /// Path: `/v1/apps/{id}/gameCenterEnabledVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterPlatform: [FilterPlatform]?
+            public var filterVersionString: [String]?
+            public var filterID: [String]?
+            public var sort: [Sort]?
+            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
+            public var limit: Int?
+            public var limitCompatibleVersions: Int?
+            public var include: [Include]?
+
+            public enum FilterPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+                case macOs = "MAC_OS"
+                case tvOs = "TV_OS"
+            }
+
+            public enum Sort: String, Codable, CaseIterable {
+                case versionString
+                case minusversionString = "-versionString"
+            }
+
+            public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
+                case app
+                case compatibleVersions
+                case iconAsset
+                case platform
+                case versionString
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case compatibleVersions
+            }
+
+            public init(filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, limit: Int? = nil, limitCompatibleVersions: Int? = nil, include: [Include]? = nil) {
+                self.filterPlatform = filterPlatform
+                self.filterVersionString = filterVersionString
+                self.filterID = filterID
+                self.sort = sort
+                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
+                self.limit = limit
+                self.limitCompatibleVersions = limitCompatibleVersions
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[compatibleVersions]", limitCompatibleVersions)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var inAppPurchases: InAppPurchases {
+        InAppPurchases(path: path + "/inAppPurchases")
+    }
+
+    public struct InAppPurchases {
+        /// Path: `/v1/apps/{id}/relationships/inAppPurchases`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var inAppPurchases: InAppPurchases {
+        InAppPurchases(path: path + "/inAppPurchases")
+    }
+
+    public struct InAppPurchases {
+        /// Path: `/v1/apps/{id}/inAppPurchases`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.InAppPurchasesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterInAppPurchaseType: [FilterInAppPurchaseType]?
+            public var filterCanBeSubmitted: [String]?
+            public var sort: [Sort]?
+            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
+            public var fieldsApps: [FieldsApps]?
+            public var limit: Int?
+            public var limitApps: Int?
+            public var include: [Include]?
+
+            public enum FilterInAppPurchaseType: String, Codable, CaseIterable {
+                case automaticallyRenewableSubscription = "AUTOMATICALLY_RENEWABLE_SUBSCRIPTION"
+                case nonConsumable = "NON_CONSUMABLE"
+                case consumable = "CONSUMABLE"
+                case nonRenewingSubscription = "NON_RENEWING_SUBSCRIPTION"
+                case freeSubscription = "FREE_SUBSCRIPTION"
+            }
+
+            public enum Sort: String, Codable, CaseIterable {
+                case inAppPurchaseType
+                case minusinAppPurchaseType = "-inAppPurchaseType"
+                case productID = "productId"
+                case minusproductID = "-productId"
+                case referenceName
+                case minusreferenceName = "-referenceName"
+            }
+
+            public enum FieldsInAppPurchases: String, Codable, CaseIterable {
+                case apps
+                case inAppPurchaseType
+                case productID = "productId"
+                case referenceName
+                case state
+            }
+
+            public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
+                case appInfos
+                case appStoreVersions
+                case availableInNewTerritories
+                case availableTerritories
+                case betaAppLocalizations
+                case betaAppReviewDetail
+                case betaGroups
+                case betaLicenseAgreement
+                case betaTesters
+                case builds
+                case bundleID = "bundleId"
+                case ciProduct
+                case contentRightsDeclaration
+                case endUserLicenseAgreement
+                case gameCenterEnabledVersions
+                case inAppPurchases
+                case isOrEverWasMadeForKids
+                case name
+                case perfPowerMetrics
+                case preOrder
+                case preReleaseVersions
+                case prices
+                case primaryLocale
+                case sku
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case apps
+            }
+
+            public init(filterInAppPurchaseType: [FilterInAppPurchaseType]? = nil, filterCanBeSubmitted: [String]? = nil, sort: [Sort]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsApps: [FieldsApps]? = nil, limit: Int? = nil, limitApps: Int? = nil, include: [Include]? = nil) {
+                self.filterInAppPurchaseType = filterInAppPurchaseType
+                self.filterCanBeSubmitted = filterCanBeSubmitted
+                self.sort = sort
+                self.fieldsInAppPurchases = fieldsInAppPurchases
+                self.fieldsApps = fieldsApps
+                self.limit = limit
+                self.limitApps = limitApps
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[inAppPurchaseType]", filterInAppPurchaseType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[canBeSubmitted]", filterCanBeSubmitted?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[apps]", limitApps)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var perfPowerMetrics: PerfPowerMetrics {
+        PerfPowerMetrics(path: path + "/perfPowerMetrics")
+    }
+
+    public struct PerfPowerMetrics {
+        /// Path: `/v1/apps/{id}/relationships/perfPowerMetrics`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var perfPowerMetrics: PerfPowerMetrics {
+        PerfPowerMetrics(path: path + "/perfPowerMetrics")
+    }
+
+    public struct PerfPowerMetrics {
+        /// Path: `/v1/apps/{id}/perfPowerMetrics`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterDeviceType: [String]?
+            public var filterMetricType: [FilterMetricType]?
+            public var filterPlatform: [FilterPlatform]?
+
+            public enum FilterMetricType: String, Codable, CaseIterable {
+                case disk = "DISK"
+                case hang = "HANG"
+                case battery = "BATTERY"
+                case launch = "LAUNCH"
+                case memory = "MEMORY"
+                case animation = "ANIMATION"
+                case termination = "TERMINATION"
+            }
+
+            public enum FilterPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+            }
+
+            public init(filterDeviceType: [String]? = nil, filterMetricType: [FilterMetricType]? = nil, filterPlatform: [FilterPlatform]? = nil) {
+                self.filterDeviceType = filterDeviceType
+                self.filterMetricType = filterMetricType
+                self.filterPlatform = filterPlatform
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var preOrder: PreOrder {
+        PreOrder(path: path + "/preOrder")
+    }
+
+    public struct PreOrder {
+        /// Path: `/v1/apps/{id}/relationships/preOrder`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var preOrder: PreOrder {
+        PreOrder(path: path + "/preOrder")
+    }
+
+    public struct PreOrder {
+        /// Path: `/v1/apps/{id}/preOrder`
+        public let path: String
+
+        public func get(fieldsAppPreOrders: [FieldsAppPreOrders]? = nil) -> Request<AppStoreConnectAPI.AppPreOrderResponse> {
+            .get(path, query: makeGetQuery(fieldsAppPreOrders))
+        }
+
+        private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppPreOrders: String, Codable, CaseIterable {
+            case app
+            case appReleaseDate
+            case preOrderAvailableDate
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var preReleaseVersions: PreReleaseVersions {
+        PreReleaseVersions(path: path + "/preReleaseVersions")
+    }
+
+    public struct PreReleaseVersions {
+        /// Path: `/v1/apps/{id}/relationships/preReleaseVersions`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var preReleaseVersions: PreReleaseVersions {
+        PreReleaseVersions(path: path + "/preReleaseVersions")
+    }
+
+    public struct PreReleaseVersions {
+        /// Path: `/v1/apps/{id}/preReleaseVersions`
+        public let path: String
+
+        public func get(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.PreReleaseVersionsResponse> {
+            .get(path, query: makeGetQuery(fieldsPreReleaseVersions, limit))
+        }
+
+        private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
+            case app
+            case builds
+            case platform
+            case version
+        }
+    }
+}
+
+extension Paths.Apps.WithID.Relationships {
+    public var prices: Prices {
+        Prices(path: path + "/prices")
+    }
+
+    public struct Prices {
+        /// Path: `/v1/apps/{id}/relationships/prices`
+        public let path: String
+    }
+}
+
+extension Paths.Apps.WithID {
+    public var prices: Prices {
+        Prices(path: path + "/prices")
+    }
+
+    public struct Prices {
+        /// Path: `/v1/apps/{id}/prices`
+        public let path: String
+
+        public func get(fieldsAppPrices: [FieldsAppPrices]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppPricesResponse> {
+            .get(path, query: makeGetQuery(fieldsAppPrices, limit))
+        }
+
+        private func makeGetQuery(_ fieldsAppPrices: [FieldsAppPrices]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsAppPrices: String, Codable, CaseIterable {
+            case app
+            case priceTier
+        }
+    }
+}
+
+extension Paths.BetaAppLocalizations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaAppLocalizations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppLocalizations.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaAppLocalizations/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppLocalizations.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaAppLocalizations/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BetaAppReviewDetails.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaAppReviewDetails/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppReviewDetails.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaAppReviewDetails/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppReviewDetails.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaAppReviewDetails/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BetaAppReviewSubmissions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaAppReviewSubmissions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppReviewSubmissions.WithID.Relationships {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/betaAppReviewSubmissions/{id}/relationships/build`
+        public let path: String
+    }
+}
+
+extension Paths.BetaAppReviewSubmissions.WithID {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/betaAppReviewSubmissions/{id}/build`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.BetaBuildLocalizations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaBuildLocalizations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaBuildLocalizations.WithID.Relationships {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/betaBuildLocalizations/{id}/relationships/build`
+        public let path: String
+    }
+}
+
+extension Paths.BetaBuildLocalizations.WithID {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/betaBuildLocalizations/{id}/build`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.BetaGroups.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaGroups/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaGroups.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaGroups/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.BetaGroups.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaGroups/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BetaGroups.WithID.Relationships {
+    public var betaTesters: BetaTesters {
+        BetaTesters(path: path + "/betaTesters")
+    }
+
+    public struct BetaTesters {
+        /// Path: `/v1/betaGroups/{id}/relationships/betaTesters`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupBetaTestersLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.BetaGroupBetaTestersLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BetaGroupBetaTestersLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaGroups.WithID {
+    public var betaTesters: BetaTesters {
+        BetaTesters(path: path + "/betaTesters")
+    }
+
+    public struct BetaTesters {
+        /// Path: `/v1/betaGroups/{id}/betaTesters`
+        public let path: String
+
+        public func get(fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTestersResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaTesters, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaTesters: String, Codable, CaseIterable {
+            case apps
+            case betaGroups
+            case builds
+            case email
+            case firstName
+            case inviteType
+            case lastName
+        }
+    }
+}
+
+extension Paths.BetaGroups.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/betaGroups/{id}/relationships/builds`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupBuildsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.BetaGroupBuildsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BetaGroupBuildsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaGroups.WithID {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/betaGroups/{id}/builds`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.BetaLicenseAgreements.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaLicenseAgreements/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaLicenseAgreements.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaLicenseAgreements/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.BetaLicenseAgreements.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/betaLicenseAgreements/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/betaTesters/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BetaTesters.WithID.Relationships {
+    public var apps: Apps {
+        Apps(path: path + "/apps")
+    }
+
+    public struct Apps {
+        /// Path: `/v1/betaTesters/{id}/relationships/apps`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterAppsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BetaTesterAppsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID {
+    public var apps: Apps {
+        Apps(path: path + "/apps")
+    }
+
+    public struct Apps {
+        /// Path: `/v1/betaTesters/{id}/apps`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppsResponse> {
+            .get(path, query: makeGetQuery(fieldsApps, limit))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID.Relationships {
+    public var betaGroups: BetaGroups {
+        BetaGroups(path: path + "/betaGroups")
+    }
+
+    public struct BetaGroups {
+        /// Path: `/v1/betaTesters/{id}/relationships/betaGroups`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID {
+    public var betaGroups: BetaGroups {
+        BetaGroups(path: path + "/betaGroups")
+    }
+
+    public struct BetaGroups {
+        /// Path: `/v1/betaTesters/{id}/betaGroups`
+        public let path: String
+
+        public func get(fieldsBetaGroups: [FieldsBetaGroups]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaGroupsResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaGroups, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaGroups: String, Codable, CaseIterable {
+            case app
+            case betaTesters
+            case builds
+            case createdDate
+            case feedbackEnabled
+            case hasAccessToAllBuilds
+            case iosBuildsAvailableForAppleSiliconMac
+            case isInternalGroup
+            case name
+            case publicLink
+            case publicLinkEnabled
+            case publicLinkID = "publicLinkId"
+            case publicLinkLimit
+            case publicLinkLimitEnabled
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/betaTesters/{id}/relationships/builds`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTesterBuildsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.BetaTesterBuildsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BetaTesterBuildsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.BetaTesters.WithID {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/betaTesters/{id}/builds`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.BuildBetaDetails.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/buildBetaDetails/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBetaDetails.WithID.Relationships {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/buildBetaDetails/{id}/relationships/build`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBetaDetails.WithID {
+    public var build: Build {
+        Build(path: path + "/build")
+    }
+
+    public struct Build {
+        /// Path: `/v1/buildBetaDetails/{id}/build`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil) -> Request<AppStoreConnectAPI.BuildResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths {
+    public static var buildBundles: BuildBundles {
+        BuildBundles(path: "/v1/buildBundles")
+    }
+
+    public struct BuildBundles {
+        /// Path: `/v1/buildBundles`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/buildBundles/{id}`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/buildBundles/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID.Relationships {
+    public var appClipDomainCacheStatus: AppClipDomainCacheStatus {
+        AppClipDomainCacheStatus(path: path + "/appClipDomainCacheStatus")
+    }
+
+    public struct AppClipDomainCacheStatus {
+        /// Path: `/v1/buildBundles/{id}/relationships/appClipDomainCacheStatus`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID {
+    public var appClipDomainCacheStatus: AppClipDomainCacheStatus {
+        AppClipDomainCacheStatus(path: path + "/appClipDomainCacheStatus")
+    }
+
+    public struct AppClipDomainCacheStatus {
+        /// Path: `/v1/buildBundles/{id}/appClipDomainCacheStatus`
+        public let path: String
+
+        public func get(fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]? = nil) -> Request<AppStoreConnectAPI.AppClipDomainStatusResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipDomainStatuses))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipDomainStatuses]", fieldsAppClipDomainStatuses?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipDomainStatuses: String, Codable, CaseIterable {
+            case domains
+            case lastUpdatedDate
+        }
+    }
+}
+
+extension Paths.BuildBundles.WithID.Relationships {
+    public var appClipDomainDebugStatus: AppClipDomainDebugStatus {
+        AppClipDomainDebugStatus(path: path + "/appClipDomainDebugStatus")
+    }
+
+    public struct AppClipDomainDebugStatus {
+        /// Path: `/v1/buildBundles/{id}/relationships/appClipDomainDebugStatus`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID {
+    public var appClipDomainDebugStatus: AppClipDomainDebugStatus {
+        AppClipDomainDebugStatus(path: path + "/appClipDomainDebugStatus")
+    }
+
+    public struct AppClipDomainDebugStatus {
+        /// Path: `/v1/buildBundles/{id}/appClipDomainDebugStatus`
+        public let path: String
+
+        public func get(fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]? = nil) -> Request<AppStoreConnectAPI.AppClipDomainStatusResponse> {
+            .get(path, query: makeGetQuery(fieldsAppClipDomainStatuses))
+        }
+
+        private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appClipDomainStatuses]", fieldsAppClipDomainStatuses?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppClipDomainStatuses: String, Codable, CaseIterable {
+            case domains
+            case lastUpdatedDate
+        }
+    }
+}
+
+extension Paths.BuildBundles.WithID.Relationships {
+    public var betaAppClipInvocations: BetaAppClipInvocations {
+        BetaAppClipInvocations(path: path + "/betaAppClipInvocations")
+    }
+
+    public struct BetaAppClipInvocations {
+        /// Path: `/v1/buildBundles/{id}/relationships/betaAppClipInvocations`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID {
+    public var betaAppClipInvocations: BetaAppClipInvocations {
+        BetaAppClipInvocations(path: path + "/betaAppClipInvocations")
+    }
+
+    public struct BetaAppClipInvocations {
+        /// Path: `/v1/buildBundles/{id}/betaAppClipInvocations`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BetaAppClipInvocationsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsBetaAppClipInvocations: [FieldsBetaAppClipInvocations]?
+            public var fieldsBetaAppClipInvocationLocalizations: [FieldsBetaAppClipInvocationLocalizations]?
+            public var limit: Int?
+            public var limitBetaAppClipInvocationLocalizations: Int?
+            public var include: [Include]?
+
+            public enum FieldsBetaAppClipInvocations: String, Codable, CaseIterable {
+                case betaAppClipInvocationLocalizations
+                case buildBundle
+                case url
+            }
+
+            public enum FieldsBetaAppClipInvocationLocalizations: String, Codable, CaseIterable {
+                case betaAppClipInvocation
+                case locale
+                case title
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case betaAppClipInvocationLocalizations
+            }
+
+            public init(fieldsBetaAppClipInvocations: [FieldsBetaAppClipInvocations]? = nil, fieldsBetaAppClipInvocationLocalizations: [FieldsBetaAppClipInvocationLocalizations]? = nil, limit: Int? = nil, limitBetaAppClipInvocationLocalizations: Int? = nil, include: [Include]? = nil) {
+                self.fieldsBetaAppClipInvocations = fieldsBetaAppClipInvocations
+                self.fieldsBetaAppClipInvocationLocalizations = fieldsBetaAppClipInvocationLocalizations
+                self.limit = limit
+                self.limitBetaAppClipInvocationLocalizations = limitBetaAppClipInvocationLocalizations
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[betaAppClipInvocations]", fieldsBetaAppClipInvocations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppClipInvocationLocalizations]", fieldsBetaAppClipInvocationLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[betaAppClipInvocationLocalizations]", limitBetaAppClipInvocationLocalizations)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.BuildBundles.WithID.Relationships {
+    public var buildBundleFileSizes: BuildBundleFileSizes {
+        BuildBundleFileSizes(path: path + "/buildBundleFileSizes")
+    }
+
+    public struct BuildBundleFileSizes {
+        /// Path: `/v1/buildBundles/{id}/relationships/buildBundleFileSizes`
+        public let path: String
+    }
+}
+
+extension Paths.BuildBundles.WithID {
+    public var buildBundleFileSizes: BuildBundleFileSizes {
+        BuildBundleFileSizes(path: path + "/buildBundleFileSizes")
+    }
+
+    public struct BuildBundleFileSizes {
+        /// Path: `/v1/buildBundles/{id}/buildBundleFileSizes`
+        public let path: String
+
+        public func get(fieldsBuildBundleFileSizes: [FieldsBuildBundleFileSizes]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildBundleFileSizesResponse> {
+            .get(path, query: makeGetQuery(fieldsBuildBundleFileSizes, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuildBundleFileSizes: [FieldsBuildBundleFileSizes]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[buildBundleFileSizes]", fieldsBuildBundleFileSizes?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuildBundleFileSizes: String, Codable, CaseIterable {
+            case deviceModel
+            case downloadBytes
+            case installBytes
+            case osVersion
+        }
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/builds/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/builds/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/builds/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var appEncryptionDeclaration: AppEncryptionDeclaration {
+        AppEncryptionDeclaration(path: path + "/appEncryptionDeclaration")
+    }
+
+    public struct AppEncryptionDeclaration {
+        /// Path: `/v1/builds/{id}/relationships/appEncryptionDeclaration`
+        public let path: String
+
+        public var get: Request<AppStoreConnectAPI.BuildAppEncryptionDeclarationLinkageResponse> {
+            .get(path)
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.BuildAppEncryptionDeclarationLinkageRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var appEncryptionDeclaration: AppEncryptionDeclaration {
+        AppEncryptionDeclaration(path: path + "/appEncryptionDeclaration")
+    }
+
+    public struct AppEncryptionDeclaration {
+        /// Path: `/v1/builds/{id}/appEncryptionDeclaration`
+        public let path: String
+
+        public func get(fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]? = nil) -> Request<AppStoreConnectAPI.AppEncryptionDeclarationResponse> {
+            .get(path, query: makeGetQuery(fieldsAppEncryptionDeclarations))
+        }
+
+        private func makeGetQuery(_ fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppEncryptionDeclarations: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclarationState
+            case availableOnFrenchStore
+            case builds
+            case codeValue
+            case containsProprietaryCryptography
+            case containsThirdPartyCryptography
+            case documentName
+            case documentType
+            case documentURL = "documentUrl"
+            case exempt
+            case platform
+            case uploadedDate
+            case usesEncryption
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var appStoreVersion: AppStoreVersion {
+        AppStoreVersion(path: path + "/appStoreVersion")
+    }
+
+    public struct AppStoreVersion {
+        /// Path: `/v1/builds/{id}/relationships/appStoreVersion`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var appStoreVersion: AppStoreVersion {
+        AppStoreVersion(path: path + "/appStoreVersion")
+    }
+
+    public struct AppStoreVersion {
+        /// Path: `/v1/builds/{id}/appStoreVersion`
+        public let path: String
+
+        public func get(fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil) -> Request<AppStoreConnectAPI.AppStoreVersionResponse> {
+            .get(path, query: makeGetQuery(fieldsAppStoreVersions))
+        }
+
+        private func makeGetQuery(_ fieldsAppStoreVersions: [FieldsAppStoreVersions]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+            case ageRatingDeclaration
+            case app
+            case appClipDefaultExperience
+            case appStoreReviewDetail
+            case appStoreState
+            case appStoreVersionLocalizations
+            case appStoreVersionPhasedRelease
+            case appStoreVersionSubmission
+            case build
+            case copyright
+            case createdDate
+            case downloadable
+            case earliestReleaseDate
+            case idfaDeclaration
+            case platform
+            case releaseType
+            case routingAppCoverage
+            case usesIdfa
+            case versionString
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var betaAppReviewSubmission: BetaAppReviewSubmission {
+        BetaAppReviewSubmission(path: path + "/betaAppReviewSubmission")
+    }
+
+    public struct BetaAppReviewSubmission {
+        /// Path: `/v1/builds/{id}/relationships/betaAppReviewSubmission`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var betaAppReviewSubmission: BetaAppReviewSubmission {
+        BetaAppReviewSubmission(path: path + "/betaAppReviewSubmission")
+    }
+
+    public struct BetaAppReviewSubmission {
+        /// Path: `/v1/builds/{id}/betaAppReviewSubmission`
+        public let path: String
+
+        public func get(fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]? = nil) -> Request<AppStoreConnectAPI.BetaAppReviewSubmissionResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaAppReviewSubmissions))
+        }
+
+        private func makeGetQuery(_ fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
+            case betaReviewState
+            case build
+            case submittedDate
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var betaBuildLocalizations: BetaBuildLocalizations {
+        BetaBuildLocalizations(path: path + "/betaBuildLocalizations")
+    }
+
+    public struct BetaBuildLocalizations {
+        /// Path: `/v1/builds/{id}/relationships/betaBuildLocalizations`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var betaBuildLocalizations: BetaBuildLocalizations {
+        BetaBuildLocalizations(path: path + "/betaBuildLocalizations")
+    }
+
+    public struct BetaBuildLocalizations {
+        /// Path: `/v1/builds/{id}/betaBuildLocalizations`
+        public let path: String
+
+        public func get(fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaBuildLocalizationsResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaBuildLocalizations, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
+            case build
+            case locale
+            case whatsNew
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var betaGroups: BetaGroups {
+        BetaGroups(path: path + "/betaGroups")
+    }
+
+    public struct BetaGroups {
+        /// Path: `/v1/builds/{id}/relationships/betaGroups`
+        public let path: String
+
+        public func post(_ body: AppStoreConnectAPI.BuildBetaGroupsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BuildBetaGroupsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var buildBetaDetail: BuildBetaDetail {
+        BuildBetaDetail(path: path + "/buildBetaDetail")
+    }
+
+    public struct BuildBetaDetail {
+        /// Path: `/v1/builds/{id}/relationships/buildBetaDetail`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var buildBetaDetail: BuildBetaDetail {
+        BuildBetaDetail(path: path + "/buildBetaDetail")
+    }
+
+    public struct BuildBetaDetail {
+        /// Path: `/v1/builds/{id}/buildBetaDetail`
+        public let path: String
+
+        public func get(fieldsBuildBetaDetails: [FieldsBuildBetaDetails]? = nil) -> Request<AppStoreConnectAPI.BuildBetaDetailResponse> {
+            .get(path, query: makeGetQuery(fieldsBuildBetaDetails))
+        }
+
+        private func makeGetQuery(_ fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
+            case autoNotifyEnabled
+            case build
+            case externalBuildState
+            case internalBuildState
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var diagnosticSignatures: DiagnosticSignatures {
+        DiagnosticSignatures(path: path + "/diagnosticSignatures")
+    }
+
+    public struct DiagnosticSignatures {
+        /// Path: `/v1/builds/{id}/relationships/diagnosticSignatures`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var diagnosticSignatures: DiagnosticSignatures {
+        DiagnosticSignatures(path: path + "/diagnosticSignatures")
+    }
+
+    public struct DiagnosticSignatures {
+        /// Path: `/v1/builds/{id}/diagnosticSignatures`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.DiagnosticSignaturesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterDiagnosticType: [FilterDiagnosticType]?
+            public var fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]?
+            public var limit: Int?
+
+            public enum FilterDiagnosticType: String, Codable, CaseIterable {
+                case diskWrites = "DISK_WRITES"
+            }
+
+            public enum FieldsDiagnosticSignatures: String, Codable, CaseIterable {
+                case diagnosticType
+                case logs
+                case signature
+                case weight
+            }
+
+            public init(filterDiagnosticType: [FilterDiagnosticType]? = nil, fieldsDiagnosticSignatures: [FieldsDiagnosticSignatures]? = nil, limit: Int? = nil) {
+                self.filterDiagnosticType = filterDiagnosticType
+                self.fieldsDiagnosticSignatures = fieldsDiagnosticSignatures
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[diagnosticType]", filterDiagnosticType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var icons: Icons {
+        Icons(path: path + "/icons")
+    }
+
+    public struct Icons {
+        /// Path: `/v1/builds/{id}/relationships/icons`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var icons: Icons {
+        Icons(path: path + "/icons")
+    }
+
+    public struct Icons {
+        /// Path: `/v1/builds/{id}/icons`
+        public let path: String
+
+        public func get(fieldsBuildIcons: [FieldsBuildIcons]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildIconsResponse> {
+            .get(path, query: makeGetQuery(fieldsBuildIcons, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuildIcons: [FieldsBuildIcons]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuildIcons: String, Codable, CaseIterable {
+            case iconAsset
+            case iconType
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var individualTesters: IndividualTesters {
+        IndividualTesters(path: path + "/individualTesters")
+    }
+
+    public struct IndividualTesters {
+        /// Path: `/v1/builds/{id}/relationships/individualTesters`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildIndividualTestersLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.BuildIndividualTestersLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.BuildIndividualTestersLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var individualTesters: IndividualTesters {
+        IndividualTesters(path: path + "/individualTesters")
+    }
+
+    public struct IndividualTesters {
+        /// Path: `/v1/builds/{id}/individualTesters`
+        public let path: String
+
+        public func get(fieldsBetaTesters: [FieldsBetaTesters]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BetaTestersResponse> {
+            .get(path, query: makeGetQuery(fieldsBetaTesters, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBetaTesters: String, Codable, CaseIterable {
+            case apps
+            case betaGroups
+            case builds
+            case email
+            case firstName
+            case inviteType
+            case lastName
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var perfPowerMetrics: PerfPowerMetrics {
+        PerfPowerMetrics(path: path + "/perfPowerMetrics")
+    }
+
+    public struct PerfPowerMetrics {
+        /// Path: `/v1/builds/{id}/relationships/perfPowerMetrics`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var perfPowerMetrics: PerfPowerMetrics {
+        PerfPowerMetrics(path: path + "/perfPowerMetrics")
+    }
+
+    public struct PerfPowerMetrics {
+        /// Path: `/v1/builds/{id}/perfPowerMetrics`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.PerfPowerMetricsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterDeviceType: [String]?
+            public var filterMetricType: [FilterMetricType]?
+            public var filterPlatform: [FilterPlatform]?
+
+            public enum FilterMetricType: String, Codable, CaseIterable {
+                case disk = "DISK"
+                case hang = "HANG"
+                case battery = "BATTERY"
+                case launch = "LAUNCH"
+                case memory = "MEMORY"
+                case animation = "ANIMATION"
+                case termination = "TERMINATION"
+            }
+
+            public enum FilterPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+            }
+
+            public init(filterDeviceType: [String]? = nil, filterMetricType: [FilterMetricType]? = nil, filterPlatform: [FilterPlatform]? = nil) {
+                self.filterDeviceType = filterDeviceType
+                self.filterMetricType = filterMetricType
+                self.filterPlatform = filterPlatform
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.Builds.WithID.Relationships {
+    public var preReleaseVersion: PreReleaseVersion {
+        PreReleaseVersion(path: path + "/preReleaseVersion")
+    }
+
+    public struct PreReleaseVersion {
+        /// Path: `/v1/builds/{id}/relationships/preReleaseVersion`
+        public let path: String
+    }
+}
+
+extension Paths.Builds.WithID {
+    public var preReleaseVersion: PreReleaseVersion {
+        PreReleaseVersion(path: path + "/preReleaseVersion")
+    }
+
+    public struct PreReleaseVersion {
+        /// Path: `/v1/builds/{id}/preReleaseVersion`
+        public let path: String
+
+        public func get(fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil) -> Request<AppStoreConnectAPI.PrereleaseVersionResponse> {
+            .get(path, query: makeGetQuery(fieldsPreReleaseVersions))
+        }
+
+        private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
+            case app
+            case builds
+            case platform
+            case version
+        }
+    }
+}
+
+extension Paths.BundleIDs.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/bundleIds/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.BundleIDs.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/bundleIds/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.BundleIDs.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/bundleIds/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.BundleIDs.WithID.Relationships {
+    public var bundleIDCapabilities: BundleIDCapabilities {
+        BundleIDCapabilities(path: path + "/bundleIdCapabilities")
+    }
+
+    public struct BundleIDCapabilities {
+        /// Path: `/v1/bundleIds/{id}/relationships/bundleIdCapabilities`
+        public let path: String
+    }
+}
+
+extension Paths.BundleIDs.WithID {
+    public var bundleIDCapabilities: BundleIDCapabilities {
+        BundleIDCapabilities(path: path + "/bundleIdCapabilities")
+    }
+
+    public struct BundleIDCapabilities {
+        /// Path: `/v1/bundleIds/{id}/bundleIdCapabilities`
+        public let path: String
+
+        public func get(fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BundleIDCapabilitiesResponse> {
+            .get(path, query: makeGetQuery(fieldsBundleIDCapabilities, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBundleIDCapabilities: String, Codable, CaseIterable {
+            case bundleID = "bundleId"
+            case capabilityType
+            case settings
+        }
+    }
+}
+
+extension Paths.BundleIDs.WithID.Relationships {
+    public var profiles: Profiles {
+        Profiles(path: path + "/profiles")
+    }
+
+    public struct Profiles {
+        /// Path: `/v1/bundleIds/{id}/relationships/profiles`
+        public let path: String
+    }
+}
+
+extension Paths.BundleIDs.WithID {
+    public var profiles: Profiles {
+        Profiles(path: path + "/profiles")
+    }
+
+    public struct Profiles {
+        /// Path: `/v1/bundleIds/{id}/profiles`
+        public let path: String
+
+        public func get(fieldsProfiles: [FieldsProfiles]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.ProfilesResponse> {
+            .get(path, query: makeGetQuery(fieldsProfiles, limit))
+        }
+
+        private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsProfiles: String, Codable, CaseIterable {
+            case bundleID = "bundleId"
+            case certificates
+            case createdDate
+            case devices
+            case expirationDate
+            case name
+            case platform
+            case profileContent
+            case profileState
+            case profileType
+            case uuid
+        }
+    }
+}
+
+extension Paths.CiBuildActions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciBuildActions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions.WithID.Relationships {
+    public var artifacts: Artifacts {
+        Artifacts(path: path + "/artifacts")
+    }
+
+    public struct Artifacts {
+        /// Path: `/v1/ciBuildActions/{id}/relationships/artifacts`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions.WithID {
+    public var artifacts: Artifacts {
+        Artifacts(path: path + "/artifacts")
+    }
+
+    public struct Artifacts {
+        /// Path: `/v1/ciBuildActions/{id}/artifacts`
+        public let path: String
+
+        public func get(fieldsCiArtifacts: [FieldsCiArtifacts]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CiArtifactsResponse> {
+            .get(path, query: makeGetQuery(fieldsCiArtifacts, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCiArtifacts: String, Codable, CaseIterable {
+            case downloadURL = "downloadUrl"
+            case fileName
+            case fileSize
+            case fileType
+        }
+    }
+}
+
+extension Paths.CiBuildActions.WithID.Relationships {
+    public var buildRun: BuildRun {
+        BuildRun(path: path + "/buildRun")
+    }
+
+    public struct BuildRun {
+        /// Path: `/v1/ciBuildActions/{id}/relationships/buildRun`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions.WithID {
+    public var buildRun: BuildRun {
+        BuildRun(path: path + "/buildRun")
+    }
+
+    public struct BuildRun {
+        /// Path: `/v1/ciBuildActions/{id}/buildRun`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiBuildRunResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limitBuilds: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case builds
+            }
+
+            public init(fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limitBuilds: Int? = nil, include: [Include]? = nil) {
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsBuilds = fieldsBuilds
+                self.limitBuilds = limitBuilds
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiBuildActions.WithID.Relationships {
+    public var issues: Issues {
+        Issues(path: path + "/issues")
+    }
+
+    public struct Issues {
+        /// Path: `/v1/ciBuildActions/{id}/relationships/issues`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions.WithID {
+    public var issues: Issues {
+        Issues(path: path + "/issues")
+    }
+
+    public struct Issues {
+        /// Path: `/v1/ciBuildActions/{id}/issues`
+        public let path: String
+
+        public func get(fieldsCiIssues: [FieldsCiIssues]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CiIssuesResponse> {
+            .get(path, query: makeGetQuery(fieldsCiIssues, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCiIssues: String, Codable, CaseIterable {
+            case category
+            case fileSource
+            case issueType
+            case message
+        }
+    }
+}
+
+extension Paths.CiBuildActions.WithID.Relationships {
+    public var testResults: TestResults {
+        TestResults(path: path + "/testResults")
+    }
+
+    public struct TestResults {
+        /// Path: `/v1/ciBuildActions/{id}/relationships/testResults`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildActions.WithID {
+    public var testResults: TestResults {
+        TestResults(path: path + "/testResults")
+    }
+
+    public struct TestResults {
+        /// Path: `/v1/ciBuildActions/{id}/testResults`
+        public let path: String
+
+        public func get(fieldsCiTestResults: [FieldsCiTestResults]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CiTestResultsResponse> {
+            .get(path, query: makeGetQuery(fieldsCiTestResults, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCiTestResults: String, Codable, CaseIterable {
+            case className
+            case destinationTestResults
+            case fileSource
+            case message
+            case name
+            case status
+        }
+    }
+}
+
+extension Paths.CiBuildRuns.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciBuildRuns/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildRuns.WithID.Relationships {
+    public var actions: Actions {
+        Actions(path: path + "/actions")
+    }
+
+    public struct Actions {
+        /// Path: `/v1/ciBuildRuns/{id}/relationships/actions`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildRuns.WithID {
+    public var actions: Actions {
+        Actions(path: path + "/actions")
+    }
+
+    public struct Actions {
+        /// Path: `/v1/ciBuildRuns/{id}/actions`
+        public let path: String
+
+        public func get(fieldsCiBuildActions: [FieldsCiBuildActions]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CiBuildActionsResponse> {
+            .get(path, query: makeGetQuery(fieldsCiBuildActions, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCiBuildActions: [FieldsCiBuildActions]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCiBuildActions: String, Codable, CaseIterable {
+            case actionType
+            case artifacts
+            case buildRun
+            case completionStatus
+            case executionProgress
+            case finishedDate
+            case isRequiredToPass
+            case issueCounts
+            case issues
+            case name
+            case startedDate
+            case testResults
+        }
+    }
+}
+
+extension Paths.CiBuildRuns.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/ciBuildRuns/{id}/relationships/builds`
+        public let path: String
+    }
+}
+
+extension Paths.CiBuildRuns.WithID {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/ciBuildRuns/{id}/builds`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterBetaAppReviewSubmissionBetaReviewState: [FilterBetaAppReviewSubmissionBetaReviewState]?
+            public var filterBuildAudienceType: [FilterBuildAudienceType]?
+            public var filterExpired: [String]?
+            public var filterPreReleaseVersionPlatform: [FilterPreReleaseVersionPlatform]?
+            public var filterPreReleaseVersionVersion: [String]?
+            public var filterProcessingState: [FilterProcessingState]?
+            public var filterUsesNonExemptEncryption: [String]?
+            public var filterVersion: [String]?
+            public var filterApp: [String]?
+            public var filterAppStoreVersion: [String]?
+            public var filterBetaGroups: [String]?
+            public var filterPreReleaseVersion: [String]?
+            public var filterID: [String]?
+            public var sort: [Sort]?
+            public var fieldsBuildBundles: [FieldsBuildBundles]?
+            public var fieldsBuildIcons: [FieldsBuildIcons]?
+            public var fieldsBetaTesters: [FieldsBetaTesters]?
+            public var fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limit: Int?
+            public var limitIndividualTesters: Int?
+            public var limitBetaBuildLocalizations: Int?
+            public var limitIcons: Int?
+            public var limitBuildBundles: Int?
+            public var include: [Include]?
+
+            public enum FilterBetaAppReviewSubmissionBetaReviewState: String, Codable, CaseIterable {
+                case waitingForReview = "WAITING_FOR_REVIEW"
+                case inReview = "IN_REVIEW"
+                case rejected = "REJECTED"
+                case approved = "APPROVED"
+            }
+
+            public enum FilterBuildAudienceType: String, Codable, CaseIterable {
+                case internalOnly = "INTERNAL_ONLY"
+                case appStoreEligible = "APP_STORE_ELIGIBLE"
+            }
+
+            public enum FilterPreReleaseVersionPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+                case macOs = "MAC_OS"
+                case tvOs = "TV_OS"
+            }
+
+            public enum FilterProcessingState: String, Codable, CaseIterable {
+                case processing = "PROCESSING"
+                case failed = "FAILED"
+                case invalid = "INVALID"
+                case valid = "VALID"
+            }
+
+            public enum Sort: String, Codable, CaseIterable {
+                case preReleaseVersion
+                case minuspreReleaseVersion = "-preReleaseVersion"
+                case uploadedDate
+                case minusuploadedDate = "-uploadedDate"
+                case version
+                case minusversion = "-version"
+            }
+
+            public enum FieldsBuildBundles: String, Codable, CaseIterable {
+                case appClipDomainCacheStatus
+                case appClipDomainDebugStatus
+                case betaAppClipInvocations
+                case buildBundleFileSizes
+                case bundleID = "bundleId"
+                case bundleType
+                case dSYMURL = "dSYMUrl"
+                case deviceProtocols
+                case entitlements
+                case fileName
+                case hasOnDemandResources
+                case hasPrerenderedIcon
+                case hasSirikit
+                case includesSymbols
+                case isIosBuildMacAppStoreCompatible
+                case locales
+                case platformBuild
+                case requiredCapabilities
+                case sdkBuild
+                case supportedArchitectures
+                case usesLocationServices
+            }
+
+            public enum FieldsBuildIcons: String, Codable, CaseIterable {
+                case iconAsset
+                case iconType
+            }
+
+            public enum FieldsBetaTesters: String, Codable, CaseIterable {
+                case apps
+                case betaGroups
+                case builds
+                case email
+                case firstName
+                case inviteType
+                case lastName
+            }
+
+            public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
+                case build
+                case locale
+                case whatsNew
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case betaBuildLocalizations
+                case buildBundles
+                case icons
+                case individualTesters
+            }
+
+            public init(filterBetaAppReviewSubmissionBetaReviewState: [FilterBetaAppReviewSubmissionBetaReviewState]? = nil, filterBuildAudienceType: [FilterBuildAudienceType]? = nil, filterExpired: [String]? = nil, filterPreReleaseVersionPlatform: [FilterPreReleaseVersionPlatform]? = nil, filterPreReleaseVersionVersion: [String]? = nil, filterProcessingState: [FilterProcessingState]? = nil, filterUsesNonExemptEncryption: [String]? = nil, filterVersion: [String]? = nil, filterApp: [String]? = nil, filterAppStoreVersion: [String]? = nil, filterBetaGroups: [String]? = nil, filterPreReleaseVersion: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsBuildBundles: [FieldsBuildBundles]? = nil, fieldsBuildIcons: [FieldsBuildIcons]? = nil, fieldsBetaTesters: [FieldsBetaTesters]? = nil, fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil, limitIndividualTesters: Int? = nil, limitBetaBuildLocalizations: Int? = nil, limitIcons: Int? = nil, limitBuildBundles: Int? = nil, include: [Include]? = nil) {
+                self.filterBetaAppReviewSubmissionBetaReviewState = filterBetaAppReviewSubmissionBetaReviewState
+                self.filterBuildAudienceType = filterBuildAudienceType
+                self.filterExpired = filterExpired
+                self.filterPreReleaseVersionPlatform = filterPreReleaseVersionPlatform
+                self.filterPreReleaseVersionVersion = filterPreReleaseVersionVersion
+                self.filterProcessingState = filterProcessingState
+                self.filterUsesNonExemptEncryption = filterUsesNonExemptEncryption
+                self.filterVersion = filterVersion
+                self.filterApp = filterApp
+                self.filterAppStoreVersion = filterAppStoreVersion
+                self.filterBetaGroups = filterBetaGroups
+                self.filterPreReleaseVersion = filterPreReleaseVersion
+                self.filterID = filterID
+                self.sort = sort
+                self.fieldsBuildBundles = fieldsBuildBundles
+                self.fieldsBuildIcons = fieldsBuildIcons
+                self.fieldsBetaTesters = fieldsBetaTesters
+                self.fieldsBetaBuildLocalizations = fieldsBetaBuildLocalizations
+                self.fieldsBuilds = fieldsBuilds
+                self.limit = limit
+                self.limitIndividualTesters = limitIndividualTesters
+                self.limitBetaBuildLocalizations = limitBetaBuildLocalizations
+                self.limitIcons = limitIcons
+                self.limitBuildBundles = limitBuildBundles
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[betaAppReviewSubmission.betaReviewState]", filterBetaAppReviewSubmissionBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[buildAudienceType]", filterBuildAudienceType?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[expired]", filterExpired?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[preReleaseVersion.platform]", filterPreReleaseVersionPlatform?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[preReleaseVersion.version]", filterPreReleaseVersionVersion?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[processingState]", filterProcessingState?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[usesNonExemptEncryption]", filterUsesNonExemptEncryption?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[appStoreVersion]", filterAppStoreVersion?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[betaGroups]", filterBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[preReleaseVersion]", filterPreReleaseVersion?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildBundles]", fieldsBuildBundles?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
+                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
+                query.addQueryItem("limit[icons]", limitIcons)
+                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiMacOsVersions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciMacOsVersions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiMacOsVersions.WithID.Relationships {
+    public var xcodeVersions: XcodeVersions {
+        XcodeVersions(path: path + "/xcodeVersions")
+    }
+
+    public struct XcodeVersions {
+        /// Path: `/v1/ciMacOsVersions/{id}/relationships/xcodeVersions`
+        public let path: String
+    }
+}
+
+extension Paths.CiMacOsVersions.WithID {
+    public var xcodeVersions: XcodeVersions {
+        XcodeVersions(path: path + "/xcodeVersions")
+    }
+
+    public struct XcodeVersions {
+        /// Path: `/v1/ciMacOsVersions/{id}/xcodeVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiXcodeVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var limit: Int?
+            public var limitMacOsVersions: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case macOsVersions
+            }
+
+            public init(fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, limit: Int? = nil, limitMacOsVersions: Int? = nil, include: [Include]? = nil) {
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.limit = limit
+                self.limitMacOsVersions = limitMacOsVersions
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciProducts/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID.Relationships {
+    public var additionalRepositories: AdditionalRepositories {
+        AdditionalRepositories(path: path + "/additionalRepositories")
+    }
+
+    public struct AdditionalRepositories {
+        /// Path: `/v1/ciProducts/{id}/relationships/additionalRepositories`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var additionalRepositories: AdditionalRepositories {
+        AdditionalRepositories(path: path + "/additionalRepositories")
+    }
+
+    public struct AdditionalRepositories {
+        /// Path: `/v1/ciProducts/{id}/additionalRepositories`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmRepositoriesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterID: [String]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limit: Int?
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(filterID: [String]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limit: Int? = nil) {
+                self.filterID = filterID
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/ciProducts/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/ciProducts/{id}/app`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
+            public var fieldsAppClips: [FieldsAppClips]?
+            public var fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?
+            public var fieldsAppInfos: [FieldsAppInfos]?
+            public var fieldsAppStoreVersions: [FieldsAppStoreVersions]?
+            public var fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?
+            public var fieldsInAppPurchases: [FieldsInAppPurchases]?
+            public var fieldsApps: [FieldsApps]?
+            public var fieldsTerritories: [FieldsTerritories]?
+            public var fieldsBetaGroups: [FieldsBetaGroups]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var fieldsAppPrices: [FieldsAppPrices]?
+            public var limitBetaGroups: Int?
+            public var limitAppStoreVersions: Int?
+            public var limitPreReleaseVersions: Int?
+            public var limitBetaAppLocalizations: Int?
+            public var limitBuilds: Int?
+            public var limitAppInfos: Int?
+            public var limitAppClips: Int?
+            public var limitPrices: Int?
+            public var limitAvailableTerritories: Int?
+            public var limitInAppPurchases: Int?
+            public var limitGameCenterEnabledVersions: Int?
+            public var include: [Include]?
+
+            public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
+                case app
+                case compatibleVersions
+                case iconAsset
+                case platform
+                case versionString
+            }
+
+            public enum FieldsAppClips: String, Codable, CaseIterable {
+                case app
+                case appClipAdvancedExperiences
+                case appClipDefaultExperiences
+                case bundleID = "bundleId"
+            }
+
+            public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
+                case app
+                case description
+                case feedbackEmail
+                case locale
+                case marketingURL = "marketingUrl"
+                case privacyPolicyURL = "privacyPolicyUrl"
+                case tvOsPrivacyPolicy
+            }
+
+            public enum FieldsAppInfos: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appInfoLocalizations
+                case appStoreAgeRating
+                case appStoreState
+                case brazilAgeRating
+                case kidsAgeBand
+                case primaryCategory
+                case primarySubcategoryOne
+                case primarySubcategoryTwo
+                case secondaryCategory
+                case secondarySubcategoryOne
+                case secondarySubcategoryTwo
+            }
+
+            public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
+                case ageRatingDeclaration
+                case app
+                case appClipDefaultExperience
+                case appStoreReviewDetail
+                case appStoreState
+                case appStoreVersionLocalizations
+                case appStoreVersionPhasedRelease
+                case appStoreVersionSubmission
+                case build
+                case copyright
+                case createdDate
+                case downloadable
+                case earliestReleaseDate
+                case idfaDeclaration
+                case platform
+                case releaseType
+                case routingAppCoverage
+                case usesIdfa
+                case versionString
+            }
+
+            public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
+                case app
+                case builds
+                case platform
+                case version
+            }
+
+            public enum FieldsInAppPurchases: String, Codable, CaseIterable {
+                case apps
+                case inAppPurchaseType
+                case productID = "productId"
+                case referenceName
+                case state
+            }
+
+            public enum FieldsApps: String, Codable, CaseIterable {
+                case appClips
+                case appInfos
+                case appStoreVersions
+                case availableInNewTerritories
+                case availableTerritories
+                case betaAppLocalizations
+                case betaAppReviewDetail
+                case betaGroups
+                case betaLicenseAgreement
+                case betaTesters
+                case builds
+                case bundleID = "bundleId"
+                case ciProduct
+                case contentRightsDeclaration
+                case endUserLicenseAgreement
+                case gameCenterEnabledVersions
+                case inAppPurchases
+                case isOrEverWasMadeForKids
+                case name
+                case perfPowerMetrics
+                case preOrder
+                case preReleaseVersions
+                case prices
+                case primaryLocale
+                case sku
+            }
+
+            public enum FieldsTerritories: String, Codable, CaseIterable {
+                case currency
+            }
+
+            public enum FieldsBetaGroups: String, Codable, CaseIterable {
+                case app
+                case betaTesters
+                case builds
+                case createdDate
+                case feedbackEnabled
+                case hasAccessToAllBuilds
+                case iosBuildsAvailableForAppleSiliconMac
+                case isInternalGroup
+                case name
+                case publicLink
+                case publicLinkEnabled
+                case publicLinkID = "publicLinkId"
+                case publicLinkLimit
+                case publicLinkLimitEnabled
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum FieldsAppPrices: String, Codable, CaseIterable {
+                case app
+                case priceTier
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case appClips
+                case appInfos
+                case appStoreVersions
+                case availableTerritories
+                case betaAppLocalizations
+                case betaGroups
+                case builds
+                case gameCenterEnabledVersions
+                case inAppPurchases
+                case preReleaseVersions
+                case prices
+            }
+
+            public init(fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, fieldsAppClips: [FieldsAppClips]? = nil, fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]? = nil, fieldsAppInfos: [FieldsAppInfos]? = nil, fieldsAppStoreVersions: [FieldsAppStoreVersions]? = nil, fieldsPreReleaseVersions: [FieldsPreReleaseVersions]? = nil, fieldsInAppPurchases: [FieldsInAppPurchases]? = nil, fieldsApps: [FieldsApps]? = nil, fieldsTerritories: [FieldsTerritories]? = nil, fieldsBetaGroups: [FieldsBetaGroups]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, fieldsAppPrices: [FieldsAppPrices]? = nil, limitBetaGroups: Int? = nil, limitAppStoreVersions: Int? = nil, limitPreReleaseVersions: Int? = nil, limitBetaAppLocalizations: Int? = nil, limitBuilds: Int? = nil, limitAppInfos: Int? = nil, limitAppClips: Int? = nil, limitPrices: Int? = nil, limitAvailableTerritories: Int? = nil, limitInAppPurchases: Int? = nil, limitGameCenterEnabledVersions: Int? = nil, include: [Include]? = nil) {
+                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
+                self.fieldsAppClips = fieldsAppClips
+                self.fieldsBetaAppLocalizations = fieldsBetaAppLocalizations
+                self.fieldsAppInfos = fieldsAppInfos
+                self.fieldsAppStoreVersions = fieldsAppStoreVersions
+                self.fieldsPreReleaseVersions = fieldsPreReleaseVersions
+                self.fieldsInAppPurchases = fieldsInAppPurchases
+                self.fieldsApps = fieldsApps
+                self.fieldsTerritories = fieldsTerritories
+                self.fieldsBetaGroups = fieldsBetaGroups
+                self.fieldsBuilds = fieldsBuilds
+                self.fieldsAppPrices = fieldsAppPrices
+                self.limitBetaGroups = limitBetaGroups
+                self.limitAppStoreVersions = limitAppStoreVersions
+                self.limitPreReleaseVersions = limitPreReleaseVersions
+                self.limitBetaAppLocalizations = limitBetaAppLocalizations
+                self.limitBuilds = limitBuilds
+                self.limitAppInfos = limitAppInfos
+                self.limitAppClips = limitAppClips
+                self.limitPrices = limitPrices
+                self.limitAvailableTerritories = limitAvailableTerritories
+                self.limitInAppPurchases = limitInAppPurchases
+                self.limitGameCenterEnabledVersions = limitGameCenterEnabledVersions
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
+                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
+                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
+                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("limit[appInfos]", limitAppInfos)
+                query.addQueryItem("limit[appClips]", limitAppClips)
+                query.addQueryItem("limit[prices]", limitPrices)
+                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
+                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
+                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts.WithID.Relationships {
+    public var buildRuns: BuildRuns {
+        BuildRuns(path: path + "/buildRuns")
+    }
+
+    public struct BuildRuns {
+        /// Path: `/v1/ciProducts/{id}/relationships/buildRuns`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var buildRuns: BuildRuns {
+        BuildRuns(path: path + "/buildRuns")
+    }
+
+    public struct BuildRuns {
+        /// Path: `/v1/ciProducts/{id}/buildRuns`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiBuildRunsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterBuilds: [String]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limit: Int?
+            public var limitBuilds: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case builds
+            }
+
+            public init(filterBuilds: [String]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil, limitBuilds: Int? = nil, include: [Include]? = nil) {
+                self.filterBuilds = filterBuilds
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsBuilds = fieldsBuilds
+                self.limit = limit
+                self.limitBuilds = limitBuilds
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts.WithID.Relationships {
+    public var primaryRepositories: PrimaryRepositories {
+        PrimaryRepositories(path: path + "/primaryRepositories")
+    }
+
+    public struct PrimaryRepositories {
+        /// Path: `/v1/ciProducts/{id}/relationships/primaryRepositories`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var primaryRepositories: PrimaryRepositories {
+        PrimaryRepositories(path: path + "/primaryRepositories")
+    }
+
+    public struct PrimaryRepositories {
+        /// Path: `/v1/ciProducts/{id}/primaryRepositories`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmRepositoriesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterID: [String]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limit: Int?
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(filterID: [String]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limit: Int? = nil) {
+                self.filterID = filterID
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiProducts.WithID.Relationships {
+    public var workflows: Workflows {
+        Workflows(path: path + "/workflows")
+    }
+
+    public struct Workflows {
+        /// Path: `/v1/ciProducts/{id}/relationships/workflows`
+        public let path: String
+    }
+}
+
+extension Paths.CiProducts.WithID {
+    public var workflows: Workflows {
+        Workflows(path: path + "/workflows")
+    }
+
+    public struct Workflows {
+        /// Path: `/v1/ciProducts/{id}/workflows`
+        public let path: String
+
+        public func get(fieldsCiWorkflows: [FieldsCiWorkflows]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CiWorkflowsResponse> {
+            .get(path, query: makeGetQuery(fieldsCiWorkflows, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCiWorkflows: [FieldsCiWorkflows]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCiWorkflows: String, Codable, CaseIterable {
+            case actions
+            case branchStartCondition
+            case buildRuns
+            case clean
+            case containerFilePath
+            case description
+            case isEnabled
+            case isLockedForEditing
+            case lastModifiedDate
+            case macOsVersion
+            case name
+            case product
+            case pullRequestStartCondition
+            case repository
+            case scheduledStartCondition
+            case tagStartCondition
+            case xcodeVersion
+        }
+    }
+}
+
+extension Paths.CiWorkflows.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciWorkflows/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiWorkflows.WithID.Relationships {
+    public var buildRuns: BuildRuns {
+        BuildRuns(path: path + "/buildRuns")
+    }
+
+    public struct BuildRuns {
+        /// Path: `/v1/ciWorkflows/{id}/relationships/buildRuns`
+        public let path: String
+    }
+}
+
+extension Paths.CiWorkflows.WithID {
+    public var buildRuns: BuildRuns {
+        BuildRuns(path: path + "/buildRuns")
+    }
+
+    public struct BuildRuns {
+        /// Path: `/v1/ciWorkflows/{id}/buildRuns`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiBuildRunsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterBuilds: [String]?
+            public var fieldsCiBuildRuns: [FieldsCiBuildRuns]?
+            public var fieldsBuilds: [FieldsBuilds]?
+            public var limit: Int?
+            public var limitBuilds: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiBuildRuns: String, Codable, CaseIterable {
+                case actions
+                case buildRun
+                case builds
+                case cancelReason
+                case clean
+                case completionStatus
+                case createdDate
+                case destinationBranch
+                case destinationCommit
+                case executionProgress
+                case finishedDate
+                case isPullRequestBuild
+                case issueCounts
+                case number
+                case product
+                case pullRequest
+                case sourceBranchOrTag
+                case sourceCommit
+                case startReason
+                case startedDate
+                case workflow
+            }
+
+            public enum FieldsBuilds: String, Codable, CaseIterable {
+                case app
+                case appEncryptionDeclaration
+                case appStoreVersion
+                case betaAppReviewSubmission
+                case betaBuildLocalizations
+                case betaGroups
+                case buildAudienceType
+                case buildBetaDetail
+                case buildBundles
+                case computedMinMacOsVersion
+                case diagnosticSignatures
+                case expirationDate
+                case expired
+                case iconAssetToken
+                case icons
+                case individualTesters
+                case lsMinimumSystemVersion
+                case minOsVersion
+                case perfPowerMetrics
+                case preReleaseVersion
+                case processingState
+                case uploadedDate
+                case usesNonExemptEncryption
+                case version
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case builds
+            }
+
+            public init(filterBuilds: [String]? = nil, fieldsCiBuildRuns: [FieldsCiBuildRuns]? = nil, fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil, limitBuilds: Int? = nil, include: [Include]? = nil) {
+                self.filterBuilds = filterBuilds
+                self.fieldsCiBuildRuns = fieldsCiBuildRuns
+                self.fieldsBuilds = fieldsBuilds
+                self.limit = limit
+                self.limitBuilds = limitBuilds
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[builds]", limitBuilds)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.CiWorkflows.WithID.Relationships {
+    public var repository: Repository {
+        Repository(path: path + "/repository")
+    }
+
+    public struct Repository {
+        /// Path: `/v1/ciWorkflows/{id}/relationships/repository`
+        public let path: String
+    }
+}
+
+extension Paths.CiWorkflows.WithID {
+    public var repository: Repository {
+        Repository(path: path + "/repository")
+    }
+
+    public struct Repository {
+        /// Path: `/v1/ciWorkflows/{id}/repository`
+        public let path: String
+
+        public func get(fieldsScmRepositories: [FieldsScmRepositories]? = nil) -> Request<AppStoreConnectAPI.ScmRepositoryResponse> {
+            .get(path, query: makeGetQuery(fieldsScmRepositories))
+        }
+
+        private func makeGetQuery(_ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsScmRepositories: String, Codable, CaseIterable {
+            case defaultBranch
+            case gitReferences
+            case httpCloneURL = "httpCloneUrl"
+            case lastAccessedDate
+            case ownerName
+            case pullRequests
+            case repositoryName
+            case scmProvider
+            case sshCloneURL = "sshCloneUrl"
+        }
+    }
+}
+
+extension Paths.CiXcodeVersions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/ciXcodeVersions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.CiXcodeVersions.WithID.Relationships {
+    public var macOsVersions: MacOsVersions {
+        MacOsVersions(path: path + "/macOsVersions")
+    }
+
+    public struct MacOsVersions {
+        /// Path: `/v1/ciXcodeVersions/{id}/relationships/macOsVersions`
+        public let path: String
+    }
+}
+
+extension Paths.CiXcodeVersions.WithID {
+    public var macOsVersions: MacOsVersions {
+        MacOsVersions(path: path + "/macOsVersions")
+    }
+
+    public struct MacOsVersions {
+        /// Path: `/v1/ciXcodeVersions/{id}/macOsVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.CiMacOsVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var fieldsCiXcodeVersions: [FieldsCiXcodeVersions]?
+            public var fieldsCiMacOsVersions: [FieldsCiMacOsVersions]?
+            public var limit: Int?
+            public var limitXcodeVersions: Int?
+            public var include: [Include]?
+
+            public enum FieldsCiXcodeVersions: String, Codable, CaseIterable {
+                case macOsVersions
+                case name
+                case testDestinations
+                case version
+            }
+
+            public enum FieldsCiMacOsVersions: String, Codable, CaseIterable {
+                case name
+                case version
+                case xcodeVersions
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case xcodeVersions
+            }
+
+            public init(fieldsCiXcodeVersions: [FieldsCiXcodeVersions]? = nil, fieldsCiMacOsVersions: [FieldsCiMacOsVersions]? = nil, limit: Int? = nil, limitXcodeVersions: Int? = nil, include: [Include]? = nil) {
+                self.fieldsCiXcodeVersions = fieldsCiXcodeVersions
+                self.fieldsCiMacOsVersions = fieldsCiMacOsVersions
+                self.limit = limit
+                self.limitXcodeVersions = limitXcodeVersions
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths {
+    public static var diagnosticSignatures: DiagnosticSignatures {
+        DiagnosticSignatures(path: "/v1/diagnosticSignatures")
+    }
+
+    public struct DiagnosticSignatures {
+        /// Path: `/v1/diagnosticSignatures`
+        public let path: String
+    }
+}
+
+extension Paths.DiagnosticSignatures {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/diagnosticSignatures/{id}`
+        public let path: String
+    }
+}
+
+extension Paths.DiagnosticSignatures.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/diagnosticSignatures/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.DiagnosticSignatures.WithID.Relationships {
+    public var logs: Logs {
+        Logs(path: path + "/logs")
+    }
+
+    public struct Logs {
+        /// Path: `/v1/diagnosticSignatures/{id}/relationships/logs`
+        public let path: String
+    }
+}
+
+extension Paths.DiagnosticSignatures.WithID {
+    public var logs: Logs {
+        Logs(path: path + "/logs")
+    }
+
+    public struct Logs {
+        /// Path: `/v1/diagnosticSignatures/{id}/logs`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.DiagnosticLogsResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+    }
+}
+
+extension Paths.EndUserLicenseAgreements.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/endUserLicenseAgreements/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.EndUserLicenseAgreements.WithID.Relationships {
+    public var territories: Territories {
+        Territories(path: path + "/territories")
+    }
+
+    public struct Territories {
+        /// Path: `/v1/endUserLicenseAgreements/{id}/relationships/territories`
+        public let path: String
+    }
+}
+
+extension Paths.EndUserLicenseAgreements.WithID {
+    public var territories: Territories {
+        Territories(path: path + "/territories")
+    }
+
+    public struct Territories {
+        /// Path: `/v1/endUserLicenseAgreements/{id}/territories`
+        public let path: String
+
+        public func get(fieldsTerritories: [FieldsTerritories]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.TerritoriesResponse> {
+            .get(path, query: makeGetQuery(fieldsTerritories, limit))
+        }
+
+        private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsTerritories: String, Codable, CaseIterable {
+            case currency
+        }
+    }
+}
+
+extension Paths {
+    public static var gameCenterEnabledVersions: GameCenterEnabledVersions {
+        GameCenterEnabledVersions(path: "/v1/gameCenterEnabledVersions")
+    }
+
+    public struct GameCenterEnabledVersions {
+        /// Path: `/v1/gameCenterEnabledVersions`
+        public let path: String
+    }
+}
+
+extension Paths.GameCenterEnabledVersions {
+    public func id(_ id: String) -> WithID {
+        WithID(path: "\(path)/\(id)")
+    }
+
+    public struct WithID {
+        /// Path: `/v1/gameCenterEnabledVersions/{id}`
+        public let path: String
+    }
+}
+
+extension Paths.GameCenterEnabledVersions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/gameCenterEnabledVersions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.GameCenterEnabledVersions.WithID.Relationships {
+    public var compatibleVersions: CompatibleVersions {
+        CompatibleVersions(path: path + "/compatibleVersions")
+    }
+
+    public struct CompatibleVersions {
+        /// Path: `/v1/gameCenterEnabledVersions/{id}/relationships/compatibleVersions`
+        public let path: String
+
+        public func get(limit: Int? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesResponse> {
+            .get(path, query: makeGetQuery(limit))
+        }
+
+        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public func post(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
+            .post(path, body: body)
+        }
+
+        public func patch(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
+            .patch(path, body: body)
+        }
+
+        public func delete(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
+            .delete(path, body: body)
+        }
+    }
+}
+
+extension Paths.GameCenterEnabledVersions.WithID {
+    public var compatibleVersions: CompatibleVersions {
+        CompatibleVersions(path: path + "/compatibleVersions")
+    }
+
+    public struct CompatibleVersions {
+        /// Path: `/v1/gameCenterEnabledVersions/{id}/compatibleVersions`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.GameCenterEnabledVersionsResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterPlatform: [FilterPlatform]?
+            public var filterVersionString: [String]?
+            public var filterApp: [String]?
+            public var filterID: [String]?
+            public var sort: [Sort]?
+            public var fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]?
+            public var limit: Int?
+            public var limitCompatibleVersions: Int?
+            public var include: [Include]?
+
+            public enum FilterPlatform: String, Codable, CaseIterable {
+                case ios = "IOS"
+                case macOs = "MAC_OS"
+                case tvOs = "TV_OS"
+            }
+
+            public enum Sort: String, Codable, CaseIterable {
+                case versionString
+                case minusversionString = "-versionString"
+            }
+
+            public enum FieldsGameCenterEnabledVersions: String, Codable, CaseIterable {
+                case app
+                case compatibleVersions
+                case iconAsset
+                case platform
+                case versionString
+            }
+
+            public enum Include: String, Codable, CaseIterable {
+                case compatibleVersions
+            }
+
+            public init(filterPlatform: [FilterPlatform]? = nil, filterVersionString: [String]? = nil, filterApp: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsGameCenterEnabledVersions: [FieldsGameCenterEnabledVersions]? = nil, limit: Int? = nil, limitCompatibleVersions: Int? = nil, include: [Include]? = nil) {
+                self.filterPlatform = filterPlatform
+                self.filterVersionString = filterVersionString
+                self.filterApp = filterApp
+                self.filterID = filterID
+                self.sort = sort
+                self.fieldsGameCenterEnabledVersions = fieldsGameCenterEnabledVersions
+                self.limit = limit
+                self.limitCompatibleVersions = limitCompatibleVersions
+                self.include = include
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                query.addQueryItem("limit[compatibleVersions]", limitCompatibleVersions)
+                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.PreReleaseVersions.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/preReleaseVersions/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.PreReleaseVersions.WithID.Relationships {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/preReleaseVersions/{id}/relationships/app`
+        public let path: String
+    }
+}
+
+extension Paths.PreReleaseVersions.WithID {
+    public var app: App {
+        App(path: path + "/app")
+    }
+
+    public struct App {
+        /// Path: `/v1/preReleaseVersions/{id}/app`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil) -> Request<AppStoreConnectAPI.AppResponse> {
+            .get(path, query: makeGetQuery(fieldsApps))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
+        }
+    }
+}
+
+extension Paths.PreReleaseVersions.WithID.Relationships {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/preReleaseVersions/{id}/relationships/builds`
+        public let path: String
+    }
+}
+
+extension Paths.PreReleaseVersions.WithID {
+    public var builds: Builds {
+        Builds(path: path + "/builds")
+    }
+
+    public struct Builds {
+        /// Path: `/v1/preReleaseVersions/{id}/builds`
+        public let path: String
+
+        public func get(fieldsBuilds: [FieldsBuilds]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.BuildsResponse> {
+            .get(path, query: makeGetQuery(fieldsBuilds, limit))
+        }
+
+        private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsBuilds: String, Codable, CaseIterable {
+            case app
+            case appEncryptionDeclaration
+            case appStoreVersion
+            case betaAppReviewSubmission
+            case betaBuildLocalizations
+            case betaGroups
+            case buildAudienceType
+            case buildBetaDetail
+            case buildBundles
+            case computedMinMacOsVersion
+            case diagnosticSignatures
+            case expirationDate
+            case expired
+            case iconAssetToken
+            case icons
+            case individualTesters
+            case lsMinimumSystemVersion
+            case minOsVersion
+            case perfPowerMetrics
+            case preReleaseVersion
+            case processingState
+            case uploadedDate
+            case usesNonExemptEncryption
+            case version
+        }
+    }
+}
+
+extension Paths.Profiles.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/profiles/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.Profiles.WithID.Relationships {
+    public var bundleID: BundleID {
+        BundleID(path: path + "/bundleId")
+    }
+
+    public struct BundleID {
+        /// Path: `/v1/profiles/{id}/relationships/bundleId`
+        public let path: String
+    }
+}
+
+extension Paths.Profiles.WithID {
+    public var bundleID: BundleID {
+        BundleID(path: path + "/bundleId")
+    }
+
+    public struct BundleID {
+        /// Path: `/v1/profiles/{id}/bundleId`
+        public let path: String
+
+        public func get(fieldsBundleIDs: [FieldsBundleIDs]? = nil) -> Request<AppStoreConnectAPI.BundleIDResponse> {
+            .get(path, query: makeGetQuery(fieldsBundleIDs))
+        }
+
+        private func makeGetQuery(_ fieldsBundleIDs: [FieldsBundleIDs]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
+            return query
+        }
+
+        public enum FieldsBundleIDs: String, Codable, CaseIterable {
+            case app
+            case bundleIDCapabilities = "bundleIdCapabilities"
+            case identifier
+            case name
+            case platform
+            case profiles
+            case seedID = "seedId"
+        }
+    }
+}
+
+extension Paths.Profiles.WithID.Relationships {
+    public var certificates: Certificates {
+        Certificates(path: path + "/certificates")
+    }
+
+    public struct Certificates {
+        /// Path: `/v1/profiles/{id}/relationships/certificates`
+        public let path: String
+    }
+}
+
+extension Paths.Profiles.WithID {
+    public var certificates: Certificates {
+        Certificates(path: path + "/certificates")
+    }
+
+    public struct Certificates {
+        /// Path: `/v1/profiles/{id}/certificates`
+        public let path: String
+
+        public func get(fieldsCertificates: [FieldsCertificates]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.CertificatesResponse> {
+            .get(path, query: makeGetQuery(fieldsCertificates, limit))
+        }
+
+        private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsCertificates: String, Codable, CaseIterable {
+            case certificateContent
+            case certificateType
+            case csrContent
+            case displayName
+            case expirationDate
+            case name
+            case platform
+            case serialNumber
+        }
+    }
+}
+
+extension Paths.Profiles.WithID.Relationships {
+    public var devices: Devices {
+        Devices(path: path + "/devices")
+    }
+
+    public struct Devices {
+        /// Path: `/v1/profiles/{id}/relationships/devices`
+        public let path: String
+    }
+}
+
+extension Paths.Profiles.WithID {
+    public var devices: Devices {
+        Devices(path: path + "/devices")
+    }
+
+    public struct Devices {
+        /// Path: `/v1/profiles/{id}/devices`
+        public let path: String
+
+        public func get(fieldsDevices: [FieldsDevices]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.DevicesResponse> {
+            .get(path, query: makeGetQuery(fieldsDevices, limit))
+        }
+
+        private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsDevices: String, Codable, CaseIterable {
+            case addedDate
+            case deviceClass
+            case model
+            case name
+            case platform
+            case status
+            case udid
+        }
+    }
+}
+
+extension Paths.ScmProviders.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/scmProviders/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.ScmProviders.WithID.Relationships {
+    public var repositories: Repositories {
+        Repositories(path: path + "/repositories")
+    }
+
+    public struct Repositories {
+        /// Path: `/v1/scmProviders/{id}/relationships/repositories`
+        public let path: String
+    }
+}
+
+extension Paths.ScmProviders.WithID {
+    public var repositories: Repositories {
+        Repositories(path: path + "/repositories")
+    }
+
+    public struct Repositories {
+        /// Path: `/v1/scmProviders/{id}/repositories`
+        public let path: String
+
+        public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnectAPI.ScmRepositoriesResponse> {
+            .get(path, query: parameters?.asQuery)
+        }
+
+        public struct GetParameters {
+            public var filterID: [String]?
+            public var fieldsScmRepositories: [FieldsScmRepositories]?
+            public var limit: Int?
+
+            public enum FieldsScmRepositories: String, Codable, CaseIterable {
+                case defaultBranch
+                case gitReferences
+                case httpCloneURL = "httpCloneUrl"
+                case lastAccessedDate
+                case ownerName
+                case pullRequests
+                case repositoryName
+                case scmProvider
+                case sshCloneURL = "sshCloneUrl"
+            }
+
+            public init(filterID: [String]? = nil, fieldsScmRepositories: [FieldsScmRepositories]? = nil, limit: Int? = nil) {
+                self.filterID = filterID
+                self.fieldsScmRepositories = fieldsScmRepositories
+                self.limit = limit
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
+                query.addQueryItem("limit", limit)
+                return query
+            }
+        }
+    }
+}
+
+extension Paths.ScmRepositories.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/scmRepositories/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.ScmRepositories.WithID.Relationships {
+    public var gitReferences: GitReferences {
+        GitReferences(path: path + "/gitReferences")
+    }
+
+    public struct GitReferences {
+        /// Path: `/v1/scmRepositories/{id}/relationships/gitReferences`
+        public let path: String
+    }
+}
+
+extension Paths.ScmRepositories.WithID {
+    public var gitReferences: GitReferences {
+        GitReferences(path: path + "/gitReferences")
+    }
+
+    public struct GitReferences {
+        /// Path: `/v1/scmRepositories/{id}/gitReferences`
+        public let path: String
+
+        public func get(fieldsScmGitReferences: [FieldsScmGitReferences]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.ScmGitReferencesResponse> {
+            .get(path, query: makeGetQuery(fieldsScmGitReferences, limit))
+        }
+
+        private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsScmGitReferences: String, Codable, CaseIterable {
+            case canonicalName
+            case isDeleted
+            case kind
+            case name
+            case repository
+        }
+    }
+}
+
+extension Paths.ScmRepositories.WithID.Relationships {
+    public var pullRequests: PullRequests {
+        PullRequests(path: path + "/pullRequests")
+    }
+
+    public struct PullRequests {
+        /// Path: `/v1/scmRepositories/{id}/relationships/pullRequests`
+        public let path: String
+    }
+}
+
+extension Paths.ScmRepositories.WithID {
+    public var pullRequests: PullRequests {
+        PullRequests(path: path + "/pullRequests")
+    }
+
+    public struct PullRequests {
+        /// Path: `/v1/scmRepositories/{id}/pullRequests`
+        public let path: String
+
+        public func get(fieldsScmPullRequests: [FieldsScmPullRequests]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.ScmPullRequestsResponse> {
+            .get(path, query: makeGetQuery(fieldsScmPullRequests, limit))
+        }
+
+        private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsScmPullRequests: String, Codable, CaseIterable {
+            case destinationBranchName
+            case destinationRepositoryName
+            case destinationRepositoryOwner
+            case isClosed
+            case isCrossRepository
+            case number
+            case repository
+            case sourceBranchName
+            case sourceRepositoryName
+            case sourceRepositoryOwner
+            case title
+            case webURL = "webUrl"
+        }
+    }
+}
+
+extension Paths.UserInvitations.WithID {
+    public var relationships: Relationships {
+        Relationships(path: path + "/relationships")
+    }
+
+    public struct Relationships {
+        /// Path: `/v1/userInvitations/{id}/relationships`
+        public let path: String
+    }
+}
+
+extension Paths.UserInvitations.WithID.Relationships {
+    public var visibleApps: VisibleApps {
+        VisibleApps(path: path + "/visibleApps")
+    }
+
+    public struct VisibleApps {
+        /// Path: `/v1/userInvitations/{id}/relationships/visibleApps`
+        public let path: String
+    }
+}
+
+extension Paths.UserInvitations.WithID {
+    public var visibleApps: VisibleApps {
+        VisibleApps(path: path + "/visibleApps")
+    }
+
+    public struct VisibleApps {
+        /// Path: `/v1/userInvitations/{id}/visibleApps`
+        public let path: String
+
+        public func get(fieldsApps: [FieldsApps]? = nil, limit: Int? = nil) -> Request<AppStoreConnectAPI.AppsResponse> {
+            .get(path, query: makeGetQuery(fieldsApps, limit))
+        }
+
+        private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
+            query.addQueryItem("limit", limit)
+            return query
+        }
+
+        public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
+            case appInfos
+            case appStoreVersions
+            case availableInNewTerritories
+            case availableTerritories
+            case betaAppLocalizations
+            case betaAppReviewDetail
+            case betaGroups
+            case betaLicenseAgreement
+            case betaTesters
+            case builds
+            case bundleID = "bundleId"
+            case ciProduct
+            case contentRightsDeclaration
+            case endUserLicenseAgreement
+            case gameCenterEnabledVersions
+            case inAppPurchases
+            case isOrEverWasMadeForKids
+            case name
+            case perfPowerMetrics
+            case preOrder
+            case preReleaseVersions
+            case prices
+            case primaryLocale
+            case sku
         }
     }
 }
@@ -10390,6 +15604,7 @@ extension Paths.Users.WithID {
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
+            case appClips
             case appInfos
             case appStoreVersions
             case availableInNewTerritories
@@ -10401,6 +15616,7 @@ extension Paths.Users.WithID {
             case betaTesters
             case builds
             case bundleID = "bundleId"
+            case ciProduct
             case contentRightsDeclaration
             case endUserLicenseAgreement
             case gameCenterEnabledVersions

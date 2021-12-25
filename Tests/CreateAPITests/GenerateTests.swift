@@ -77,8 +77,6 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "ebay-finances", package: "EbayFinancesAPI")
     }
     
-    // TODO: Update with the latest version (https://developer.apple.com/documentation/appstoreconnectapi)
-    // when duplicated `- $ref: "#/components/schemas/AppCategory"` are fixed
     func testGenerateAppStoreConnect() throws {
         try testSpec(name: "app-store-connect", package: "AppStoreConnectAPI")
     }

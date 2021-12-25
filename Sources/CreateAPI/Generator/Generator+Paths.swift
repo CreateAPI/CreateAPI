@@ -364,7 +364,7 @@ extension Generator {
         // Query parameters
         let query = try operation.parameters.compactMap {
             try makeQueryParameter(for: $0, context: context)
-        }
+        }.removingDuplicates(by: \.name)
         if !query.isEmpty {
             var contents: [String] = []
             contents += [query.map(templates.property).joined(separator: "\n")]
@@ -648,7 +648,7 @@ extension Generator {
             .bmp, .jpg, .tif, .anyImage,
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
-            .rar, .tar, .zip,
+            .rar, .tar, .zip, .other("gzip"),
             .pdf,
             .other("application/octet-stream")
         ]) != nil {
@@ -762,7 +762,7 @@ extension Generator {
             .bmp, .jpg, .tif, .anyImage,
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
-            .rar, .tar, .zip,
+            .rar, .tar, .zip, .other("gzip"),
             .pdf,
             .other("application/octet-stream")
         ]) != nil {
