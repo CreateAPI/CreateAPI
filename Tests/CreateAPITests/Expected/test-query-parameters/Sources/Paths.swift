@@ -7,8 +7,19 @@ import Foundation
 import Get
 
 extension Paths {
-    public static var testPrimitive: TestPrimitive {
-        TestPrimitive(path: "/form/test-primitive")
+    public static var form: Form {
+        Form(path: "/form")
+    }
+
+    public struct Form {
+        /// Path: `/form`
+        public let path: String
+    }
+}
+
+extension Paths.Form {
+    public var testPrimitive: TestPrimitive {
+        TestPrimitive(path: path + "/test-primitive")
     }
 
     public struct TestPrimitive {
@@ -69,9 +80,9 @@ extension Paths {
     }
 }
 
-extension Paths {
-    public static var testArray: TestArray {
-        TestArray(path: "/form/test-array")
+extension Paths.Form {
+    public var testArray: TestArray {
+        TestArray(path: path + "/test-array")
     }
 
     public struct TestArray {
@@ -102,9 +113,9 @@ extension Paths {
     }
 }
 
-extension Paths {
-    public static var testObject: TestObject {
-        TestObject(path: "/form/test-object")
+extension Paths.Form {
+    public var testObject: TestObject {
+        TestObject(path: path + "/test-object")
     }
 
     public struct TestObject {
@@ -147,6 +158,72 @@ extension Paths {
         private func makePostQuery(_ type: `Type`) -> [(String, String?)] {
             var query: [(String, String?)] = []
             query.addQueryItem("type", type.asQuery.asCompactQuery)
+            return query
+        }
+    }
+}
+
+extension Paths {
+    public static var delimeters: Delimeters {
+        Delimeters(path: "/delimeters")
+    }
+
+    public struct Delimeters {
+        /// Path: `/delimeters`
+        public let path: String
+    }
+}
+
+extension Paths.Delimeters {
+    public var testArray: TestArray {
+        TestArray(path: path + "/test-array")
+    }
+
+    public struct TestArray {
+        /// Path: `/delimeters/test-array`
+        public let path: String
+
+        /// Space Delimited Explode False
+        public func get(type: [String]) -> Request<Void> {
+            .get(path, query: makeGetQuery(type))
+        }
+
+        private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("type", type.map(\.asQueryValue).joined(separator: " "))
+            return query
+        }
+
+        /// Pipe Delimited Explode False
+        public func post(type: [String]? = nil) -> Request<Void> {
+            .post(path, query: makePostQuery(type))
+        }
+
+        private func makePostQuery(_ type: [String]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addQueryItem("type", type?.map(\.asQueryValue).joined(separator: "|"))
+            return query
+        }
+
+        /// Space Delimited Explode True
+        public func put(type: [String]) -> Request<Void> {
+            .put(path, query: makePutQuery(type))
+        }
+
+        private func makePutQuery(_ type: [String]) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            type.forEach { query.addQueryItem("type", $0) }
+            return query
+        }
+
+        /// Pipe Delimited Explode True
+        public func patch(type: [String]? = nil) -> Request<Void> {
+            .patch(path, query: makePatchQuery(type))
+        }
+
+        private func makePatchQuery(_ type: [String]?) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            type?.forEach { query.addQueryItem("type", $0) }
             return query
         }
     }

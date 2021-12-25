@@ -119,7 +119,7 @@ final class Templates {
                 if $0.explode {
                     return "\(getter)\(opt).forEach { query.addQueryItem(\"\($0.key)\", $0) }"
                 } else {
-                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \",\"))"
+                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \"\(delimeter(for: $0.style))\"))"
                 }
             } else if $0.isObject {
                 if $0.explode {
@@ -136,6 +136,14 @@ final class Templates {
         \(statements.joined(separator: "\n"))
         return query
         """
+    }
+    
+    private func delimeter(for style: OpenAPI.Parameter.SchemaContext.Style?) -> String {
+        switch style {
+        case .pipeDelimited: return "|"
+        case .spaceDelimited: return " "
+        default: return ","
+        }
     }
     
     /// Example:

@@ -130,3 +130,64 @@ paths:
       responses:
         '200':
           description: Empty response
+  /delimeters/test-array:
+    get:
+      summary: Space Delimited Explode False
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: spaceDelimited
+          explode: false
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
+    post:
+      summary: Pipe Delimited Explode False
+      parameters:
+        - name: type
+          in: query
+          required: false
+          style: pipeDelimited
+          explode: false
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
+    put:
+      summary: Space Delimited Explode True
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: spaceDelimited
+          explode: true # default
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
+    patch:
+      summary: Pipe Delimited Explode True
+      parameters:
+        - name: type
+          in: query
+          required: false
+          style: pipeDelimited
+          explode: true # default
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Empty response
