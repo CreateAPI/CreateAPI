@@ -117,7 +117,7 @@ paths:
           in: query
           required: true
           style: form
-          explode: false # default
+          explode: false
           schema:
             type: object
             properties:
@@ -188,6 +188,26 @@ paths:
             type: array
             items: 
               type: string
+      responses:
+        '200':
+          description: Empty response
+  /deep-object:
+    get:
+      summary: Form Object Explode False
+      parameters:
+        - name: type
+          in: query
+          required: true
+          style: deepObject
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+            required:
+              - id
       responses:
         '200':
           description: Empty response

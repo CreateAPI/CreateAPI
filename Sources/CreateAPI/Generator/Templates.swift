@@ -122,7 +122,9 @@ final class Templates {
                     return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \"\(delimeter(for: $0.style))\"))"
                 }
             } else if $0.isObject {
-                if $0.explode {
+                if $0.style == .deepObject {
+                    return "query.addDeepObject(\"\($0.key)\", \(getter)\(opt).asQuery)"
+                } else if $0.explode {
                     return "query += \(getter)\(opt).asQuery"
                 } else {
                     return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).asQuery.asCompactQuery)"

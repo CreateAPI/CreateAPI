@@ -229,6 +229,45 @@ extension Paths.Delimeters {
     }
 }
 
+extension Paths {
+    public static var deepObject: DeepObject {
+        DeepObject(path: "/deep-object")
+    }
+
+    public struct DeepObject {
+        /// Path: `/deep-object`
+        public let path: String
+
+        /// Form Object Explode False
+        public func get(type: `Type`) -> Request<Void> {
+            .get(path, query: makeGetQuery(type))
+        }
+
+        private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
+            var query: [(String, String?)] = []
+            query.addDeepObject("type", type.asQuery)
+            return query
+        }
+
+        public struct `Type`: Codable {
+            public var id: String
+            public var name: String?
+
+            public init(id: String, name: String? = nil) {
+                self.id = id
+                self.name = name
+            }
+
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
+                query.addQueryItem("id", id)
+                query.addQueryItem("name", name)
+                return query
+            }
+        }
+    }
+}
+
 public enum Paths {}
 
 protocol QueryEncodable {
