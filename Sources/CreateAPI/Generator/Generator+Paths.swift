@@ -362,7 +362,9 @@ extension Generator {
         }
         
         // Query parameters
-        let query = operation.parameters.compactMap { makeQueryParameter(for: $0, context: context) }
+        let query = try operation.parameters.compactMap {
+            try makeQueryParameter(for: $0, context: context)
+        }
         if !query.isEmpty {
             var contents: [String] = []
             contents += [query.map(templates.property).joined(separator: "\n")]
@@ -463,7 +465,7 @@ extension Generator {
     
     // MARK: - Query Parameters
     
-    private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) -> Property? {
+    private func makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         do {
             var context = context
             context.isFormEncoding = true
@@ -473,8 +475,12 @@ extension Generator {
             setNeedsQuery()
             return property
         } catch {
-            print("ERROR: Fail to generate query parameter \(input.description)")
-            return nil
+            if arguments.isStrict {
+                throw GeneratorError("Failed to generate query parametr \(input.description): \(error)")
+            } else {
+                print("ERROR: Fail to generate query parameter \(input.description)")
+                return nil
+            }
         }
     }
     
@@ -557,7 +563,7 @@ extension Generator {
                 }
                 return QueryItemType(type: .userDefined(name: name))
             case .fragment:
-                throw GeneratorError("Unsupported query parameter type: \(parameter)")
+                return QueryItemType("String")
             }
         }
         

@@ -24,6 +24,8 @@ extension Paths {
 
         public struct GetParameters {
             public var sort: String?
+            public var classificationName: [String]?
+            public var classificationID: [String]?
             public var keyword: String?
             public var id: String?
             public var source: Source?
@@ -57,8 +59,10 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
+                self.classificationName = classificationName
+                self.classificationID = classificationID
                 self.keyword = keyword
                 self.id = id
                 self.source = source
@@ -73,6 +77,8 @@ extension Paths {
             public var asQuery: [(String, String?)] {
                 var query: [(String, String?)] = []
                 query.addQueryItem("sort", sort)
+                classificationName?.forEach { query.addQueryItem("classificationName", $0) }
+                classificationID?.forEach { query.addQueryItem("classificationId", $0) }
                 query.addQueryItem("keyword", keyword)
                 query.addQueryItem("id", id)
                 query.addQueryItem("source", source)
@@ -385,6 +391,8 @@ extension Paths {
             public var attractionID: String?
             public var segmentID: String?
             public var segmentName: String?
+            public var classificationName: [String]?
+            public var classificationID: [String]?
             public var marketID: String?
             public var promoterID: String?
             public var dmaID: String?
@@ -445,7 +453,7 @@ extension Paths {
                 case no = " no"
             }
 
-            public init(sort: String? = nil, startDateTime: String? = nil, endDateTime: String? = nil, onsaleStartDateTime: String? = nil, onsaleOnStartDate: String? = nil, onsaleOnAfterStartDate: String? = nil, onsaleEndDateTime: String? = nil, city: String? = nil, countryCode: String? = nil, stateCode: String? = nil, postalCode: String? = nil, venueID: String? = nil, attractionID: String? = nil, segmentID: String? = nil, segmentName: String? = nil, marketID: String? = nil, promoterID: String? = nil, dmaID: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, clientVisibility: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
+            public init(sort: String? = nil, startDateTime: String? = nil, endDateTime: String? = nil, onsaleStartDateTime: String? = nil, onsaleOnStartDate: String? = nil, onsaleOnAfterStartDate: String? = nil, onsaleEndDateTime: String? = nil, city: String? = nil, countryCode: String? = nil, stateCode: String? = nil, postalCode: String? = nil, venueID: String? = nil, attractionID: String? = nil, segmentID: String? = nil, segmentName: String? = nil, classificationName: [String]? = nil, classificationID: [String]? = nil, marketID: String? = nil, promoterID: String? = nil, dmaID: String? = nil, includeTBA: IncludeTBA? = nil, includeTBD: IncludeTBD? = nil, clientVisibility: String? = nil, latlong: String? = nil, radius: String? = nil, unit: Unit? = nil, geoPoint: String? = nil, keyword: String? = nil, id: String? = nil, source: Source? = nil, includeTest: IncludeTest? = nil, page: Double? = nil, size: Double? = nil, locale: String? = nil, includeLicensedContent: IncludeLicensedContent? = nil, includeSpellcheck: IncludeSpellcheck? = nil) {
                 self.sort = sort
                 self.startDateTime = startDateTime
                 self.endDateTime = endDateTime
@@ -461,6 +469,8 @@ extension Paths {
                 self.attractionID = attractionID
                 self.segmentID = segmentID
                 self.segmentName = segmentName
+                self.classificationName = classificationName
+                self.classificationID = classificationID
                 self.marketID = marketID
                 self.promoterID = promoterID
                 self.dmaID = dmaID
@@ -499,6 +509,8 @@ extension Paths {
                 query.addQueryItem("attractionId", attractionID)
                 query.addQueryItem("segmentId", segmentID)
                 query.addQueryItem("segmentName", segmentName)
+                classificationName?.forEach { query.addQueryItem("classificationName", $0) }
+                classificationID?.forEach { query.addQueryItem("classificationId", $0) }
                 query.addQueryItem("marketId", marketID)
                 query.addQueryItem("promoterId", promoterID)
                 query.addQueryItem("dmaId", dmaID)
