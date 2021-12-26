@@ -180,51 +180,7 @@ extension Generator {
         }
         return .builtin("String")
     }
-    
-    // MARK: - Type Identifiers
-    
-    // Returns a type identifier for all types except the ones anonymous types
-    // that require a type declaration to be created first. It works not just
-    // with primitive types, like Int, or String, but with much more complex constructs.
-    func getTypeIdentifier(for schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
-        var context = context
-        context.isInlinableTypeCheck = true
-        switch schema.value {
-        case .boolean: return .builtin("Bool")
-        case .number: return .builtin("Double")
-        case .integer(let info, _):
-            guard options.isUsingIntegersWithPredefinedCapacity else {
-                return .builtin("Int")
-            }
-            switch info.format {
-            case .generic, .other: return .builtin("Int")
-            case .int32: return .builtin("Int32")
-            case .int64: return .builtin("Int64")
-            }
-        case .string(let info, _):
-            guard !isEnum(info) else { return nil }
-            switch info.format {
-            case .dateTime: return .builtin("Date")
-            case .date: if options.isNaiveDateEnabled {
-                setNaiveDateNeeded()
-                return .builtin("NaiveDate")
-            }
-            case .other(let other): if other == "uri" { return .builtin("URL") }
-            default: break
-            }
-            return .builtin("String")
-        case .array, .object, .all, .one, .any, .not:
-            // If any of these constructrs result in a typealias, it can be inlined
-            let declaration = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context)
-            return (declaration as? TypealiasDeclaration)?.type
-        case .reference(let reference, _):
-            return try getReferenceType(reference, context: context)
-        case .fragment:
-            setNeedsAnyJson()
-            return .anyJSON
-        }
-    }
-    
+
     // TODO: This can be dramatically simplified, use makeDeclaration for schema instead
     private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
         switch reference {
@@ -357,13 +313,14 @@ extension Generator {
             setNeedsAnyJson()
             return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
         case .b(let schema):
-            if let type = try getTypeIdentifier(for: schema, context: context) {
-                return AdditionalProperties(type: .dictionary(value: type), info: info)
-            }
-            guard !context.isInlinableTypeCheck else { return nil }
             let nestedTypeName = makeNestedElementTypeName(for: key)
-            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
-            return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
+            let decl = try _makeDeclaration(name: nestedTypeName, schema: schema, context: context)
+            switch decl {
+            case let alias as TypealiasDeclaration:
+                return AdditionalProperties(type: .dictionary(value: alias.type), info: info)
+            default:
+                return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: decl)
+            }
         }
     }
 
@@ -596,18 +553,9 @@ extension Generator {
             }
             return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
         }
-        
-        func makeString(info: JSONSchemaContext) throws -> Property {
-            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
-            switch decl {
-            case let alias as TypealiasDeclaration:
-                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
-            default:
-                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
-            }
-        }
 
-        func makeEntity() throws -> Property {
+        // TOOD: This can be done faster for primitive types (no makeTypeName)
+        func makeSimpleProperty() throws -> Property {
             let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
             switch decl {
             case let alias as TypealiasDeclaration:
@@ -622,6 +570,7 @@ extension Generator {
             // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
             var context = context
+            // TODO: This should be done automatically
             context.isInlinableTypeCheck = true
             let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
             switch decl {
@@ -632,23 +581,9 @@ extension Generator {
             }
         }
         
-        // TOOD: This can be done faster
-        func makeSimpleProperty(schema: JSONSchema) throws -> Property {
-            let decl = try _makeDeclaration(name: TypeName("primitive"), schema: schema, context: context)
-            switch decl {
-            case let alias as TypealiasDeclaration:
-                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
-            default:
-                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
-            }
-        }
-
         switch schema.value {
-        case .number, .boolean, .integer, .fragment: return try makeSimpleProperty(schema: schema)
-        case .string(let info, _): return try makeString(info: info)
-        case .array, .object, .all, .one, .any: return try makeEntity()
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
-        case .not: throw GeneratorError("`not` properties are not supported")
+        default: return try makeSimpleProperty()
         }
     }
 }
