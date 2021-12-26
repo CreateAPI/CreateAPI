@@ -204,6 +204,8 @@ struct EntityDeclaration: Declaration {
 struct AnyDeclaration: Declaration {
     let name: TypeName
     let rawValue: String
+    
+    static let empty = AnyDeclaration(name: TypeName("empty"), rawValue: "")
 }
 
 enum EntityType {

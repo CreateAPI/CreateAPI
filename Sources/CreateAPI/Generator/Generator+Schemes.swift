@@ -241,7 +241,7 @@ extension Generator {
                 // (and we must stop recursion)
                 let type = makeTypeName(name)
                 if context.parents.contains(type) {
-                    return .userDefined(name: type)
+                    return .userDefined(name: type.namespace(context.namespace))
                 }
                 // Check if the schema can be expanded into a type identifier
                 let context = context.adding(type)
@@ -275,6 +275,7 @@ extension Generator {
         if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
             return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
         }
+        guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
         let properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
@@ -444,11 +445,15 @@ extension Generator {
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
-        var types = Array<TypeIdentifier?>(repeating: nil, count: schemas.count)
+        var types = Array<TypeName?>(repeating: nil, count: schemas.count)
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
-            types[index] = try? getTypeIdentifier(for: schema, context: context)
+            if let decl = try? _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context),
+               let alias = decl as? TypealiasDeclaration,
+               alias.nested == nil {
+                types[index] = alias.type.name
+            }
         }
         
         // Generate names for anonymous nested objects
@@ -461,7 +466,7 @@ extension Generator {
             }
             for (index, _) in schemas.enumerated() {
                 if types[index] == nil {
-                    types[index] = .userDefined(name: makeNextGenericName())
+                    types[index] = makeNextGenericName()
                 }
             }
         } else {
@@ -472,7 +477,7 @@ extension Generator {
             }
             for (index, _) in schemas.enumerated() {
                 if types[index] == nil {
-                    types[index] = .userDefined(name: makeNextGenericName())
+                    types[index] = makeNextGenericName()
                 }
             }
         }
@@ -496,28 +501,12 @@ extension Generator {
 
     // MARK: - Typealiases
     
-    #warning("TODO: remove")
     private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try getTypeIdentifier(for: item, context: context) {
-            return TypealiasDeclaration(name: name, type: type.asArray())
-        }
         let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue))
-        let nested = try makeDeclaration(name: itemName.name, schema: item, context: context)
-        return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
-    }
-    
-    private func makeTypealiasArray2(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration {
-        guard let item = details.items else {
-            throw GeneratorError("Missing array item type")
-        }
-        if name.rawValue == "ContentDirectory" {
-            print("here")
-        }
-        let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue))
-        let decl = try makeDeclaration(name: itemName.name, schema: item, context: context)
+        let decl = try _makeDeclaration(name: itemName.name, schema: item, context: context)
         switch decl {
         case let decl as TypealiasDeclaration:
             return TypealiasDeclaration(name: name, type: decl.type.asArray(), nested: decl.nested)
@@ -601,15 +590,23 @@ extension Generator {
         }
         
         func makeString(info: JSONSchemaContext) throws -> Property {
-            if isEnum(info) {
-                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
-                let nested = try makeStringEnum(name: typeName, info: info)
-                return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
+            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
+            switch decl {
+            case let alias as TypealiasDeclaration:
+                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
+            default:
+                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
-            }
-            return property(type: type, info: info)
+            
+//            if isEnum(info) {
+//                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
+//                let nested = try makeStringEnum(name: typeName, info: info)
+//                return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
+//            }
+//            guard let type = try getTypeIdentifier(for: schema, context: context) else {
+//                throw GeneratorError("Failed to generate primitive type for: \(key)")
+//            }
+//            return property(type: type, info: info)
         }
 
         func makeEntity() throws -> Property {
@@ -632,7 +629,16 @@ extension Generator {
             return property(type: type, info: info)
         }
         
-        func makeProperty(schema: JSONSchema) throws -> Property {
+        // TOOD: This can be done faster
+        func makeSimpleProperty(schema: JSONSchema) throws -> Property {
+            let decl = try _makeDeclaration(name: TypeName("primitive"), schema: schema, context: context)
+            switch decl {
+            case let alias as TypealiasDeclaration:
+                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
+            default:
+                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
+            }
+            
             let info = schema.coreContext
             guard let type = try getTypeIdentifier(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
@@ -641,11 +647,11 @@ extension Generator {
         }
 
         switch schema.value {
+        case .number, .boolean, .integer, .fragment: return try makeSimpleProperty(schema: schema)
         case .string(let info, _): return try makeString(info: info)
         case .array, .object, .all, .one, .any: return try makeEntity()
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         case .not: throw GeneratorError("`not` properties are not supported")
-        default: return try makeProperty(schema: schema)
         }
     }
 }
