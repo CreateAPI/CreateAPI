@@ -124,6 +124,7 @@ struct Context {
     /// A special mode where declaration need to exit early if they detect
     /// that that are not resolvable to primitive type identifiers.
     var isInlinableTypeCheck = false
+    var checkedReferences: Set<TypeName> = []
     
     func adding(_ parent: TypeName) -> Context {
         map { $0.parents = $0.parents + [parent] }

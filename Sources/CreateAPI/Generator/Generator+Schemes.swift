@@ -240,11 +240,13 @@ extension Generator {
                 // If there is a cycle, it can't be a primitive value
                 // (and we must stop recursion)
                 let type = makeTypeName(name)
-                if context.parents.contains(type) {
+                // TODO: this should be done using ComponentKeys or in some other way
+                if context.checkedReferences.contains(type) {
                     return .userDefined(name: type.namespace(context.namespace))
                 }
                 // Check if the schema can be expanded into a type identifier
-                let context = context.adding(type)
+                var context = context.adding(type)
+                context.checkedReferences.insert(type)
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key] {
                     let decl = try _makeDeclaration(name: type, schema: schema, context: context)
@@ -384,6 +386,8 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
         
+        guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
+        
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
         let isHashable = properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
@@ -393,6 +397,8 @@ extension Generator {
     }
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
+        guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
+        
         var properties = try makeProperties(for: schemas, context: context)
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -430,6 +436,8 @@ extension Generator {
         if properties.count == 1 {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
+        
+        guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
         
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
@@ -597,16 +605,6 @@ extension Generator {
             default:
                 return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
-            
-//            if isEnum(info) {
-//                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
-//                let nested = try makeStringEnum(name: typeName, info: info)
-//                return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
-//            }
-//            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-//                throw GeneratorError("Failed to generate primitive type for: \(key)")
-//            }
-//            return property(type: type, info: info)
         }
 
         func makeEntity() throws -> Property {
@@ -620,6 +618,14 @@ extension Generator {
         }
         
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
+//            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
+//            switch decl {
+//            case let alias as TypealiasDeclaration:
+//                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
+//            default:
+//                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
+//            }
+            
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
@@ -638,12 +644,6 @@ extension Generator {
             default:
                 return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
-            
-            let info = schema.coreContext
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
-            }
-            return property(type: type, info: info)
         }
 
         switch schema.value {
