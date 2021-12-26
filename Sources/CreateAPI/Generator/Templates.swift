@@ -106,38 +106,39 @@ final class Templates {
     func asQuery(properties: [Property]) -> String {
         """
         \(access)var asQuery: [(String, String?)] {
-        \(asQueryContents(properties: properties).indented)
+        \(asQueryContents(properties.map(asQuery)).indented)
         }
         """
     }
         
-    func asQueryContents(properties: [Property]) -> String {
-        let statements: [String] = properties.map {
-            let getter = ($0.name.rawValue == "query" ? "self." : "") + $0.name.rawValue
-            let opt = $0.isOptional ? "?" : ""
-            if case .array = $0.type {
-                if $0.explode {
-                    return "\(getter)\(opt).forEach { query.addQueryItem(\"\($0.key)\", $0) }"
-                } else {
-                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \"\(delimeter(for: $0.style))\"))"
-                }
-            } else if $0.isObject {
-                if $0.style == .deepObject {
-                    return "query.addDeepObject(\"\($0.key)\", \(getter)\(opt).asQuery)"
-                } else if $0.explode {
-                    return "query += \(getter)\(opt).asQuery"
-                } else {
-                    return "query.addQueryItem(\"\($0.key)\", \(getter)\(opt).asQuery.asCompactQuery)"
-                }
-            } else {
-                return "query.addQueryItem(\"\($0.key)\", \(getter))"
-            }
-        }
-        return """
+    func asQueryContents(_ contents: [String]) -> String {
+        """
         var query: [(String, String?)] = []
-        \(statements.joined(separator: "\n"))
+        \(contents.joined(separator: "\n"))
         return query
         """
+    }
+    
+    private func asQuery(_ property: Property) -> String {
+        let getter = (property.name.rawValue == "query" ? "self." : "") + property.name.rawValue
+        let opt = property.isOptional ? "?" : ""
+        if case .array = property.type {
+            if property.explode {
+                return "\(getter)\(opt).forEach { query.addQueryItem(\"\(property.key)\", $0) }"
+            } else {
+                return "query.addQueryItem(\"\(property.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \"\(delimeter(for: property.style))\"))"
+            }
+        } else if property.isObject {
+            if property.style == .deepObject {
+                return "query.addDeepObject(\"\(property.key)\", \(getter)\(opt).asQuery)"
+            } else if property.explode {
+                return "query += \(getter)\(opt).asQuery"
+            } else {
+                return "query.addQueryItem(\"\(property.key)\", \(getter)\(opt).asQuery.asCompactQuery)"
+            }
+        } else {
+            return "query.addQueryItem(\"\(property.key)\", \(getter))"
+        }
     }
     
     private func delimeter(for style: OpenAPI.Parameter.SchemaContext.Style?) -> String {
@@ -146,6 +147,24 @@ final class Templates {
         case .spaceDelimited: return " "
         default: return ","
         }
+    }
+    
+    func enumAsQuery(properties: [Property]) -> String {
+        let statements: [String] = properties.map {
+            var property = $0
+            property.name = PropertyName("value")
+            return "case .\($0.name)(let value):\n\(asQuery(property).indented)"
+        }
+        let contents = """
+        switch self {
+        \(statements.joined(separator: "\n"))
+        }
+        """
+        return """
+        \(access)var asQuery: [(String, String?)] {
+        \(asQueryContents([contents]).indented)
+        }
+        """
     }
     
     /// Example:
@@ -157,7 +176,7 @@ final class Templates {
         let arguments = properties.map { "_ \($0.name): \($0.type)\($0.isOptional ? "?" : "")" }.joined(separator: ", ")
         return """
         private \(isStatic ? "static " : "" )func \(name)(\(arguments)) -> [(String, String?)] {
-        \(asQueryContents(properties: properties).indented)
+        \(asQueryContents(properties.map(asQuery)).indented)
         }
         """
     }

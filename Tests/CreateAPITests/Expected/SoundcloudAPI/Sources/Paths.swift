@@ -88,13 +88,17 @@ extension Paths.Oauth2 {
             case refreshToken(SoundcloudAPI.RefreshToken)
             case password(SoundcloudAPI.Password)
 
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
+            public var asQuery: [(String, String?)] {
+                var query: [(String, String?)] = []
                 switch self {
-                case .authorizationCode(let value): try container.encode(value)
-                case .refreshToken(let value): try container.encode(value)
-                case .password(let value): try container.encode(value)
+                case .authorizationCode(let value):
+                    query.addQueryItem("authorizationCode", value)
+                case .refreshToken(let value):
+                    query.addQueryItem("refreshToken", value)
+                case .password(let value):
+                    query.addQueryItem("password", value)
                 }
+                return query
             }
         }
     }

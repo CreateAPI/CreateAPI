@@ -40,11 +40,16 @@ extension Generator {
             contents += decl.nested.map(render)
         }
 
-        switch decl.type {
-        case .object:
-            if decl.isForm {
+        if decl.isForm {
+            switch decl.type {
+            case .object, .allOf, .anyOf:
                 contents.append(templates.asQuery(properties: properties))
-            } else {
+            case .oneOf:
+                contents.append(templates.enumAsQuery(properties: properties))
+            }
+        } else {
+            switch decl.type {
+            case .object:
                 if options.entities.isGeneratingCustomCodingKeys {
                     if let keys = templates.codingKeys(for: properties) {
                         contents.append(keys)
@@ -60,39 +65,45 @@ extension Generator {
                         contents.append(templates.encode(properties: properties))
                     }
                 }
-            }
-        case .anyOf:
-            if decl.protocols.isDecodable {
-                contents.append(templates.initFromDecoderAnyOf(properties: properties))
-            }
-            if decl.protocols.isEncodable {
-                contents.append(templates.encodeAnyOf(properties: properties))
-            }
-        case .allOf:
-            var needsValues = false
-            let decoderContents = properties.map {
-                if case .userDefined = $0.type {
-                    return templates.decodeFromDecoder(property: $0)
-                } else {
-                    needsValues = true
-                    return templates.decode(property: $0, isUsingCodingKeys: false)
+            case .anyOf:
+                if decl.protocols.isDecodable {
+                    contents.append(templates.initFromDecoderAnyOf(properties: properties))
                 }
-            }.joined(separator: "\n")
-            if decl.protocols.isDecodable {
-                contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues, isUsingCodingKeys: false))
-            }
-            if decl.protocols.isEncodable {
-                contents.append(templates.encode(properties: properties))
-            }
-        case .oneOf:
-            if decl.protocols.isDecodable {
-                contents.append(templates.initFromDecoderOneOf(properties: properties))
-            }
-            if decl.protocols.isEncodable {
-                contents.append(templates.encodeOneOf(properties: properties))
+                if decl.protocols.isEncodable {
+                    contents.append(templates.encodeAnyOf(properties: properties))
+                }
+            case .allOf:
+                var needsValues = false
+                let decoderContents = properties.map {
+                    if case .userDefined = $0.type {
+                        return templates.decodeFromDecoder(property: $0)
+                    } else {
+                        needsValues = true
+                        return templates.decode(property: $0, isUsingCodingKeys: false)
+                    }
+                }.joined(separator: "\n")
+                if decl.protocols.isDecodable {
+                    contents.append(templates.initFromDecoder(contents: decoderContents, needsValues: needsValues, isUsingCodingKeys: false))
+                }
+                if decl.protocols.isEncodable {
+                    contents.append(templates.encode(properties: properties))
+                }
+            case .oneOf:
+                if decl.protocols.isDecodable {
+                    contents.append(templates.initFromDecoderOneOf(properties: properties))
+                }
+                if decl.protocols.isEncodable {
+                    contents.append(templates.encodeOneOf(properties: properties))
+                }
             }
         }
-
+        
+        // TODO: Refactor
+        var protocols = decl.protocols
+        if decl.isForm {
+            protocols.removeEncodable()
+        }
+        
         let entity: String
         if decl.type == .oneOf {
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
