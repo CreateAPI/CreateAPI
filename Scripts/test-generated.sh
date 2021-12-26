@@ -2,7 +2,5 @@
 
 set -eo pipefail
 
-for dir in ./Tests/CreateAPITests/Expected/*/; do
-    echo "Validating $dir"
-    (cd $dir; swift build)
-done
+cd ./Tests
+xcodebuild build -scheme 'GeneratedPackages' -destination "OS=15.2,name=iPhone 13"  | xcpretty
