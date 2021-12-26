@@ -1,7 +1,6 @@
 .DS_Store
 /.build
 /Packages
-/Tests/CreateAPITests/Expected/*/Package.swift
 /Tests/CreateAPITests/Expected/*/Package.resolved
 /*.xcodeproj
 xcuserdata/
