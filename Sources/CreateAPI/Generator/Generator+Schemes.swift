@@ -618,21 +618,18 @@ extension Generator {
         }
         
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
-//            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
-//            switch decl {
-//            case let alias as TypealiasDeclaration:
-//                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
-//            default:
-//                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
-//            }
-            
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            var context = context
+            context.isInlinableTypeCheck = true
+            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
+            switch decl {
+            case let alias as TypealiasDeclaration:
+                return property(type: alias.type, info: info, nested: alias.nested)
+            default:
+                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
-            return property(type: type, info: info)
         }
         
         // TOOD: This can be done faster
