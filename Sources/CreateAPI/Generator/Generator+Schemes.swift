@@ -106,7 +106,7 @@ extension Generator {
         return makeTypeName(key.rawValue)
     }
 
-    // MARK: - Declaration
+    // MARK: - Declarations
     
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         guard let declaration = try _makeDeclaration(name: name, schema: schema, context: context) else {
@@ -151,265 +151,7 @@ extension Generator {
         }
     }
     
-    // MARK: - Property
-    
-    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
-        let propertyName = makePropertyName(key)
-        
-        func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
-            if !options.rename.properties.isEmpty {
-                let names = context.parents.map { $0.rawValue } + [name.rawValue]
-                for i in names.indices {
-                    if let name = options.rename.properties[names[i...].joined(separator: ".")] {
-                        return PropertyName(name)
-                    }
-                }
-            }
-            if let type = type, options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
-                return name.asBoolean(options)
-            }
-            return name
-        }
-        
-        func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
-            let nullable = info?.nullable ?? false
-            let name = makeName(for: propertyName, type: type)
-            let isOptional = !isRequired || nullable
-            var type = type
-            if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
-                type = type.asPatchParameter()
-            }
-            var defaultValue: String?
-            if options.entities.isAddingDefaultValues {
-                if type.isBool {
-                    defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
-                }
-            }
-            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
-        }
-                
-        // TODO: Reuse 
-        
-        func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
-            // TODO: This should be done using the same apporach as makeSomeOf
-            if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
-                return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
-            }
-            let type = makeTypeName(key)
-            let nested = try makeDeclaration(name: type, schema: schema, context: context)
-            return property(type: .userDefined(name: type), info: info, nested: nested)
-        }
-        
-        func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
-            guard let item = details.items else {
-                throw GeneratorError("Missing array item type")
-            }
-            if let type = try getTypeIdentifier(for: item, context: context) {
-                return property(type: type.asArray(), info: info)
-            }
-            let name = makeNestedArrayTypeName(for: key)
-            let nested = try makeDeclaration(name: name, schema: item, context: context)
-            return property(type: .userDefined(name: name).asArray(), info: info, nested: nested)
-        }
-        
-        func makeString(info: JSONSchemaContext) throws -> Property {
-            if isEnum(info) {
-                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
-                let nested = try makeStringEnum(name: typeName, info: info)
-                return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
-            }
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
-            }
-            return property(type: type, info: info)
-        }
-
-        func makeSomeOf() throws -> Property {
-            if let type = try getTypeIdentifier(for: schema, context: context) {
-                return property(type: type, info: schema.coreContext)
-            }
-            let name = makeTypeName(key)
-            let nested = try makeDeclaration(name: name, schema: schema, context: context)
-            return property(type: .userDefined(name: name), info: schema.coreContext, nested: nested)
-        }
-        
-        func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
-            // TODO: Refactor (changed it to `null` to avoid issue with cycles)
-            // Maybe remove dereferencing entirely?
-            let info = (try? reference.dereferenced(in: spec.components))?.coreContext
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
-            }
-            return property(type: type, info: info)
-        }
-        
-        func makeProperty(schema: JSONSchema) throws -> Property {
-            let info = schema.coreContext
-            guard let type = try getTypeIdentifier(for: schema, context: context) else {
-                throw GeneratorError("Failed to generate primitive type for: \(key)")
-            }
-            return property(type: type, info: info)
-        }
-
-        switch schema.value {
-        case .object(let info, let details): return try makeObject(info: info, details: details)
-        case .array(let info, let details): return try makeArray(info: info, details: details)
-        case .string(let info, _): return try makeString(info: info)
-        case .all, .one, .any: return try makeSomeOf()
-        case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
-        case .not: throw GeneratorError("`not` properties are not supported")
-        default: return try makeProperty(schema: schema)
-        }
-    }
-    
-    // MARK: - Dictionary
-    
-    private struct AdditionalProperties {
-        let type: TypeIdentifier
-        let info: JSONSchemaContext
-        var nested: Declaration?
-    }
-    
-    // Creates a dictionary, e.g. `[String: AnyJSON]`, `[String: [String: String]]`,
-    // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
-    private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
-        var additional = details.additionalProperties
-        if details.properties.isEmpty, options.entities.isAdditionalPropertiesOnByDefault {
-            additional = additional ?? .a(true)
-        }
-        guard let additional = additional else {
-            return nil
-        }
-        switch additional {
-        case .a(let allowed):
-            if !allowed && details.properties.isEmpty {
-                return AdditionalProperties(type: .builtin("Void"), info: info)
-            }
-            if !details.properties.isEmpty {
-                return nil
-            }
-            setNeedsAnyJson()
-            return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
-        case .b(let schema):
-            if let type = try getTypeIdentifier(for: schema, context: context) {
-                return AdditionalProperties(type: .dictionary(value: type), info: info)
-            }
-            let nestedTypeName = makeNestedArrayTypeName(for: key)
-            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
-            return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
-        }
-    }
-    
-    // MARK: - Object
-    
-    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
-        if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
-            return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
-        }
-        let properties = try makeProperties(for: name, object: details, context: context)
-            .filter { !$0.type.isVoid }
-            .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
-        let protocols = getProtocols(for: name, context: context)
-        return EntityDeclaration(name: name, type: .object, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
-    }
-    
-    private func getProtocols(for type: TypeName, context: Context) -> Protocols {
-        var protocols = Protocols(options.entities.protocols)
-        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
-        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
-        if !isDecodable { protocols.removeDecodable() }
-        if !isEncodable { protocols.removeEncodable() }
-        return protocols
-    }
-    
-    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
-        var keys = object.properties.keys
-        if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
-        return try keys.compactMap { key in
-            let schema = object.properties[key]!
-            let isRequired = object.requiredProperties.contains(key)
-            do {
-                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
-            } catch {
-                if arguments.isStrict {
-                    throw error
-                } else {
-                    print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
-                    return nil
-                }
-            }
-        }
-    }
-    
-    private func makeNestedArrayTypeName(for key: String) -> TypeName {
-        if let name = options.rename.collectionElements[key] {
-            return TypeName(name)
-        }
-        let name = makeTypeName(key)
-        // Some know words that the library doesn't handle well
-        if name.rawValue == "Environments" { return TypeName("Environment") }
-        let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
-        if words.last?.singularized() != words.last {
-            let sing = (words.dropLast() + [words.last?.singularized()])
-                .compactMap { $0?.capitalizingFirstLetter() }
-                .joined(separator: "")
-            return makeTypeName(sing) // TODO: refactor
-        }
-        return name.appending("Item")
-    }
-    
-    // MARK: - Typealiases
-    
-    private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration? {
-        guard let item = details.items else {
-            throw GeneratorError("Missing array item type")
-        }
-        if let type = try getTypeIdentifier(for: item, context: context) {
-            return TypealiasDeclaration(name: name, type: type.asArray())
-        }
-        let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
-        let nested = try _makeDeclaration(name: itemName.name, schema: item, context: context)
-        return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
-    }
-    
-    // MARK: - Enums
-    
-    func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
-        let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
-        guard !values.isEmpty else {
-            throw GeneratorError("Enum \"\(name)\" has no values")
-        }
-
-        let caseNames: [PropertyName] = values.map {
-            if !options.rename.enumCases.isEmpty {
-                if let name = options.rename.enumCases["\(name.rawValue).\($0)"] {
-                    return makePropertyName(name)
-                }
-                if let name = options.rename.enumCases[$0] {
-                    return makePropertyName(name)
-                }
-            }
-            let name = sanitizeEnumCaseName($0)
-                .trimmingCharacters(in: .whitespaces)
-            // TODO: Is this expected behavior? Or does it mean "nullable"?
-            return name.isEmpty ? PropertyName("empty") : makePropertyName(name)
-        }
-        let hasDuplicates = values.count != Set(caseNames.map(\.rawValue)).count
-        let cases: [EnumOfStringsDeclaration.Case] = zip(values, caseNames).map { value, name in
-            // TODO: This handles somescenarios but not all,
-            // e.g "reaction+1", "reaction-1" will fail to compile. You can
-            // use `rename.enumCases` to fix these scenarios.
-            let caseName = hasDuplicates ? value : name.rawValue
-            return EnumOfStringsDeclaration.Case(name: caseName, key: value)
-        }
-        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
-    }
-        
-    private func isEnum(_ info: JSONSchemaContext) -> Bool {
-        options.isGeneratingEnums && info.allowedValues != nil
-    }
-    
-    // MARK: - Misc
+    // MARK: - Type Identifiers
     
     // Returns a type identifier for all types except the ones anonymous types
     // that require a type declaration to be created first. It works not just
@@ -505,6 +247,100 @@ extension Generator {
         }
     }
     
+    // MARK: - Object
+    
+    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
+        if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
+            return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
+        }
+        let properties = try makeProperties(for: name, object: details, context: context)
+            .filter { !$0.type.isVoid }
+            .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
+        let protocols = getProtocols(for: name, context: context)
+        return EntityDeclaration(name: name, type: .object, properties: properties, protocols: protocols, metadata: .init(info), isForm: context.isFormEncoding)
+    }
+    
+    private func getProtocols(for type: TypeName, context: Context) -> Protocols {
+        var protocols = Protocols(options.entities.protocols)
+        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
+        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
+        if !isDecodable { protocols.removeDecodable() }
+        if !isEncodable { protocols.removeEncodable() }
+        return protocols
+    }
+    
+    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
+        var keys = object.properties.keys
+        if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
+        return try keys.compactMap { key in
+            let schema = object.properties[key]!
+            let isRequired = object.requiredProperties.contains(key)
+            do {
+                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
+            } catch {
+                if arguments.isStrict {
+                    throw error
+                } else {
+                    print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
+                    return nil
+                }
+            }
+        }
+    }
+    
+    private func makeNestedArrayTypeName(for key: String) -> TypeName {
+        if let name = options.rename.collectionElements[key] {
+            return TypeName(name)
+        }
+        let name = makeTypeName(key)
+        // Some know words that the library doesn't handle well
+        if name.rawValue == "Environments" { return TypeName("Environment") }
+        let words = name.rawValue.trimmingCharacters(in: CharacterSet.ticks).words
+        if words.last?.singularized() != words.last {
+            let sing = (words.dropLast() + [words.last?.singularized()])
+                .compactMap { $0?.capitalizingFirstLetter() }
+                .joined(separator: "")
+            return makeTypeName(sing) // TODO: refactor
+        }
+        return name.appending("Item")
+    }
+    
+    private struct AdditionalProperties {
+        let type: TypeIdentifier
+        let info: JSONSchemaContext
+        var nested: Declaration?
+    }
+    
+    // Creates a dictionary, e.g. `[String: AnyJSON]`, `[String: [String: String]]`,
+    // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
+    private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
+        var additional = details.additionalProperties
+        if details.properties.isEmpty, options.entities.isAdditionalPropertiesOnByDefault {
+            additional = additional ?? .a(true)
+        }
+        guard let additional = additional else {
+            return nil
+        }
+        switch additional {
+        case .a(let allowed):
+            if !allowed && details.properties.isEmpty {
+                return AdditionalProperties(type: .builtin("Void"), info: info)
+            }
+            if !details.properties.isEmpty {
+                return nil
+            }
+            setNeedsAnyJson()
+            return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
+        case .b(let schema):
+            if let type = try getTypeIdentifier(for: schema, context: context) {
+                return AdditionalProperties(type: .dictionary(value: type), info: info)
+            }
+            let nestedTypeName = makeNestedArrayTypeName(for: key)
+            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
+            return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
+        }
+    }
+
     // MARK: - oneOf/anyOf/allOf
     
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
@@ -638,5 +474,165 @@ extension Generator {
         
         // TODO: Find a better way to dismabiguate this (test it on Soundcloud spec)
         return types.map { parameter(for: $0!.description) }.disambiguateDuplicateNames()
+    }
+
+    // MARK: - Typealiases
+    
+    private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration? {
+        guard let item = details.items else {
+            throw GeneratorError("Missing array item type")
+        }
+        if let type = try getTypeIdentifier(for: item, context: context) {
+            return TypealiasDeclaration(name: name, type: type.asArray())
+        }
+        let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
+        let nested = try _makeDeclaration(name: itemName.name, schema: item, context: context)
+        return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
+    }
+    
+    // MARK: - Enums
+    
+    func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
+        let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
+        guard !values.isEmpty else {
+            throw GeneratorError("Enum \"\(name)\" has no values")
+        }
+
+        let caseNames: [PropertyName] = values.map {
+            if !options.rename.enumCases.isEmpty {
+                if let name = options.rename.enumCases["\(name.rawValue).\($0)"] {
+                    return makePropertyName(name)
+                }
+                if let name = options.rename.enumCases[$0] {
+                    return makePropertyName(name)
+                }
+            }
+            let name = sanitizeEnumCaseName($0)
+                .trimmingCharacters(in: .whitespaces)
+            // TODO: Is this expected behavior? Or does it mean "nullable"?
+            return name.isEmpty ? PropertyName("empty") : makePropertyName(name)
+        }
+        let hasDuplicates = values.count != Set(caseNames.map(\.rawValue)).count
+        let cases: [EnumOfStringsDeclaration.Case] = zip(values, caseNames).map { value, name in
+            // TODO: This handles somescenarios but not all,
+            // e.g "reaction+1", "reaction-1" will fail to compile. You can
+            // use `rename.enumCases` to fix these scenarios.
+            let caseName = hasDuplicates ? value : name.rawValue
+            return EnumOfStringsDeclaration.Case(name: caseName, key: value)
+        }
+        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
+    }
+        
+    private func isEnum(_ info: JSONSchemaContext) -> Bool {
+        options.isGeneratingEnums && info.allowedValues != nil
+    }
+    
+    // MARK: - Property
+    
+    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
+        let propertyName = makePropertyName(key)
+        
+        func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
+            if !options.rename.properties.isEmpty {
+                let names = context.parents.map { $0.rawValue } + [name.rawValue]
+                for i in names.indices {
+                    if let name = options.rename.properties[names[i...].joined(separator: ".")] {
+                        return PropertyName(name)
+                    }
+                }
+            }
+            if let type = type, options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
+                return name.asBoolean(options)
+            }
+            return name
+        }
+        
+        func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
+            let nullable = info?.nullable ?? false
+            let name = makeName(for: propertyName, type: type)
+            let isOptional = !isRequired || nullable
+            var type = type
+            if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
+                type = type.asPatchParameter()
+            }
+            var defaultValue: String?
+            if options.entities.isAddingDefaultValues {
+                if type.isBool {
+                    defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
+                }
+            }
+            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
+        }
+
+        func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
+            // TODO: This should be done using the same apporach as makeSomeOf
+            if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
+                return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
+            }
+            let type = makeTypeName(key)
+            let nested = try makeDeclaration(name: type, schema: schema, context: context)
+            return property(type: .userDefined(name: type), info: info, nested: nested)
+        }
+        
+        func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
+            guard let item = details.items else {
+                throw GeneratorError("Missing array item type")
+            }
+            if let type = try getTypeIdentifier(for: item, context: context) {
+                return property(type: type.asArray(), info: info)
+            }
+            let name = makeNestedArrayTypeName(for: key)
+            let nested = try makeDeclaration(name: name, schema: item, context: context)
+            return property(type: .userDefined(name: name).asArray(), info: info, nested: nested)
+        }
+        
+        func makeString(info: JSONSchemaContext) throws -> Property {
+            if isEnum(info) {
+                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
+                let nested = try makeStringEnum(name: typeName, info: info)
+                return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
+            }
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
+            return property(type: type, info: info)
+        }
+
+        func makeSomeOf() throws -> Property {
+            if let type = try getTypeIdentifier(for: schema, context: context) {
+                return property(type: type, info: schema.coreContext)
+            }
+            let name = makeTypeName(key)
+            let nested = try makeDeclaration(name: name, schema: schema, context: context)
+            return property(type: .userDefined(name: name), info: schema.coreContext, nested: nested)
+        }
+        
+        func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
+            // TODO: Refactor (changed it to `null` to avoid issue with cycles)
+            // Maybe remove dereferencing entirely?
+            let info = (try? reference.dereferenced(in: spec.components))?.coreContext
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
+            return property(type: type, info: info)
+        }
+        
+        func makeProperty(schema: JSONSchema) throws -> Property {
+            let info = schema.coreContext
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
+                throw GeneratorError("Failed to generate primitive type for: \(key)")
+            }
+            return property(type: type, info: info)
+        }
+
+        switch schema.value {
+        case .object(let info, let details): return try makeObject(info: info, details: details)
+        case .array(let info, let details): return try makeArray(info: info, details: details)
+        case .string(let info, _): return try makeString(info: info)
+        case .all, .one, .any: return try makeSomeOf()
+        case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
+        case .not: throw GeneratorError("`not` properties are not supported")
+        default: return try makeProperty(schema: schema)
+        }
     }
 }
