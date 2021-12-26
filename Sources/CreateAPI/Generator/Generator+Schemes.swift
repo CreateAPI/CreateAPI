@@ -476,12 +476,16 @@ extension Generator {
             // Note: while dereferencing, it does it recursively.
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
-            if options.isInliningTypealiases,
-               let name = ref.name,
-               let key = OpenAPI.ComponentKey(rawValue: name),
-               let schema = spec.components.schemas[key],
-               let inlined = try getPrimitiveType(for: schema, context: context) {
-                return inlined // Inline simple types
+            if options.isInliningTypealiases, let name = ref.name {
+                // If there is a cycle, it can't be a primitive value
+                if context.parents.contains(makeTypeName(name)) {
+                    return .userDefined(name: makeTypeName(name))
+                }
+                if let key = OpenAPI.ComponentKey(rawValue: name),
+                   let schema = spec.components.schemas[key],
+                   let inlined = try getPrimitiveType(for: schema, context: context) {
+                    return inlined // Inline simple types
+                }
             }
             guard let name = ref.name else {
                 throw GeneratorError("Internal reference name is missing: \(ref)")

@@ -207,7 +207,7 @@ extension Generator {
         let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
-        let context = Context(parents: parents + [type], namespace: arguments.module.rawValue)
+        let context = Context(parents: [], namespace: arguments.module.rawValue)
         let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, style: .rest, context: context)
         let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, operations: operations)
         
