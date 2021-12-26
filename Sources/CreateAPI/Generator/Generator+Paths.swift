@@ -566,7 +566,7 @@ extension Generator {
                 return QueryItemType("String")
             case .object:
                 let type = makeTypeName(parameter.name)
-                let nested = try makeDeclaration(name: type, schema: schema, context: context)
+                let nested = try _makeDeclaration(name: type, schema: schema, context: context)
                 isObject = true
                 return QueryItemType(type: .userDefined(name: type), nested: nested)
             case .array(_, let details):

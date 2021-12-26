@@ -5,8 +5,6 @@
 
 import Foundation
 
-public typealias AccessTokens = [AccessToken]
-
 public struct AccessToken: Codable {
     public var accessToken: String?
     public var accountID: Int?
@@ -28,8 +26,6 @@ public struct AccessToken: Codable {
     }
 }
 
-public typealias AccountMerge = [AccountMergeItem]
-
 public struct AccountMergeItem: Codable {
     public var mergeDate: Int?
     public var newAccountID: Int?
@@ -47,8 +43,6 @@ public struct AccountMergeItem: Codable {
         case oldAccountID = "old_account_id"
     }
 }
-
-public typealias Answers = [Answer]
 
 public struct Answer: Codable {
     public var isAccepted: Bool?
@@ -227,8 +221,6 @@ public struct Answer: Codable {
     }
 }
 
-public typealias Badges = [Badge]
-
 public struct Badge: Codable {
     public var awardCount: Int?
     public var badgeID: Int?
@@ -306,8 +298,6 @@ public struct Badge: Codable {
         case user
     }
 }
-
-public typealias Comments = [Commants]
 
 public struct Commants: Codable {
     public var body: String?
@@ -603,8 +593,6 @@ public struct Error: Codable {
     }
 }
 
-public typealias Errors = [ErrorsItem]
-
 public struct ErrorsItem: Codable {
     public var description: String?
     public var errorID: Int?
@@ -622,8 +610,6 @@ public struct ErrorsItem: Codable {
         case errorName = "error_name"
     }
 }
-
-public typealias Events = [Event]
 
 public struct Event: Codable {
     public var creationDate: Int?
@@ -649,8 +635,6 @@ public struct Event: Codable {
     }
 }
 
-public typealias Filters = [Filter]
-
 public struct Filter: Codable {
     public var filter: String?
     public var filterType: String?
@@ -668,8 +652,6 @@ public struct Filter: Codable {
         case includedFields = "included_fields"
     }
 }
-
-public typealias InboxItems = [InboxItem]
 
 public struct InboxItem: Codable {
     public var answerID: Int?
@@ -923,8 +905,6 @@ public struct InfoObject: Codable {
     }
 }
 
-public typealias NetworkUsers = [NetworkUser]
-
 public struct NetworkUser: Codable {
     public var accountID: Int?
     public var answerCount: Int?
@@ -984,8 +964,6 @@ public struct NetworkUser: Codable {
         case userType = "user_type"
     }
 }
-
-public typealias Notifications = [Notification]
 
 public struct Notification: Codable {
     public var body: String?
@@ -1094,8 +1072,6 @@ public struct Notification: Codable {
         case site
     }
 }
-
-public typealias Posts = [Post]
 
 public struct Post: Codable {
     public var body: String?
@@ -1253,8 +1229,6 @@ public struct Post: Codable {
     }
 }
 
-public typealias Privileges = [Privilege]
-
 public struct Privilege: Codable {
     public var description: String?
     public var reputation: Int?
@@ -1272,8 +1246,6 @@ public struct Privilege: Codable {
         case shortDescription = "short_description"
     }
 }
-
-public typealias QuestionTimelineEvents = [QuestionTimelineEvent]
 
 public struct QuestionTimelineEvent: Codable {
     public var commentID: Int?
@@ -1403,8 +1375,6 @@ public struct QuestionTimelineEvent: Codable {
         case user
     }
 }
-
-public typealias Questions = [Question]
 
 public struct Question: Codable {
     public var acceptedAnswerID: Int?
@@ -1919,8 +1889,6 @@ public struct Question: Codable {
     }
 }
 
-public typealias ReputationChanges = [ReputationChange]
-
 public struct ReputationChange: Codable {
     public var link: String?
     public var onDate: Int?
@@ -1954,8 +1922,6 @@ public struct ReputationChange: Codable {
     }
 }
 
-public typealias ReputationHistory = [ReputationHistoryItem]
-
 public struct ReputationHistoryItem: Codable {
     public var creationDate: Int?
     public var postID: Int?
@@ -1979,8 +1945,6 @@ public struct ReputationHistoryItem: Codable {
         case userID = "user_id"
     }
 }
-
-public typealias ReputationObjects = [ReputationObject]
 
 public struct ReputationObject: Codable {
     public var link: String?
@@ -2014,8 +1978,6 @@ public struct ReputationObject: Codable {
         case voteType = "vote_type"
     }
 }
-
-public typealias Revisions = [Revision]
 
 public struct Revision: Codable {
     public var body: String?
@@ -2137,8 +2099,6 @@ public struct SingleFilter: Codable {
     }
 }
 
-public typealias Sites = [Site]
-
 public struct Site: Codable {
     public var aliases: [AnyJSON]?
     public var apiSiteParameter: String?
@@ -2219,8 +2179,6 @@ public struct Site: Codable {
         case twitterAccount = "twitter_account"
     }
 }
-
-public typealias SuggestedEdits = [SuggestedEdit]
 
 public struct SuggestedEdit: Codable {
     public var approvalDate: Int?
@@ -2309,8 +2267,6 @@ public struct SuggestedEdit: Codable {
     }
 }
 
-public typealias TagScoreObjects = [TagScoreObject]
-
 public struct TagScoreObject: Codable {
     public var postCount: Int?
     public var score: Int?
@@ -2374,8 +2330,6 @@ public struct TagScoreObject: Codable {
     }
 }
 
-public typealias TagSynonyms = [TagSynonym]
-
 public struct TagSynonym: Codable {
     public var appliedCount: Int?
     public var creationDate: Int?
@@ -2399,8 +2353,6 @@ public struct TagSynonym: Codable {
         case toTag = "to_tag"
     }
 }
-
-public typealias TagWikis = [TagWiki]
 
 public struct TagWiki: Codable {
     public var body: String?
@@ -2522,8 +2474,6 @@ public struct TagWiki: Codable {
     }
 }
 
-public typealias Tags = [Tag]
-
 public struct Tag: Codable {
     public var count: Int?
     public var hasSynonyms: Bool?
@@ -2556,8 +2506,6 @@ public struct Tag: Codable {
         case userID = "user_id"
     }
 }
-
-public typealias TopTagObjects = [TopTagObject]
 
 public struct TopTagObject: Codable {
     public var answerCount: Int?
@@ -2691,8 +2639,6 @@ public struct User: Codable {
     }
 }
 
-public typealias UserTimelineObjects = [UserTimelineObject]
-
 public struct UserTimelineObject: Codable {
     public var badgeID: Int?
     public var commentID: Int?
@@ -2734,8 +2680,6 @@ public struct UserTimelineObject: Codable {
         case userID = "user_id"
     }
 }
-
-public typealias Users = [UsersItem]
 
 public struct UsersItem: Codable {
     public var aboutMe: String?
@@ -2841,8 +2785,6 @@ public struct UsersItem: Codable {
         case websiteURL = "website_url"
     }
 }
-
-public typealias WritePermissions = [WritePermission]
 
 public struct WritePermission: Codable {
     public var canAdd: Bool?

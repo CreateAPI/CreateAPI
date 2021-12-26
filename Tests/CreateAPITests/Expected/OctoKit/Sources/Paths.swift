@@ -14475,15 +14475,15 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         }
 
         public enum GetResponse: Decodable {
-            case contentDirectory(OctoKit.ContentDirectory)
+            case contentDirectoryItems([ContentDirectoryItem])
             case contentFile(OctoKit.ContentFile)
             case contentSymlink(OctoKit.ContentSymlink)
             case contentSubmodule(OctoKit.ContentSubmodule)
 
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                if let value = try? container.decode(OctoKit.ContentDirectory.self) {
-                    self = .contentDirectory(value)
+                if let value = try? container.decode([ContentDirectoryItem].self) {
+                    self = .contentDirectoryItems(value)
                 } else if let value = try? container.decode(OctoKit.ContentFile.self) {
                     self = .contentFile(value)
                 } else if let value = try? container.decode(OctoKit.ContentSymlink.self) {
@@ -17404,7 +17404,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             case object1(Object1)
             case strings([String])
             case object2(Object2)
-            case object3([Object3Item])
+            case placeholderItems([PlaceholderItem])
             case string(String)
 
             public struct Object1: Encodable {
@@ -17432,7 +17432,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 }
             }
 
-            public struct Object3Item: Encodable {
+            public struct PlaceholderItem: Encodable {
                 public var name: String
 
                 public init(name: String) {
@@ -17446,7 +17446,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 case .object1(let value): try container.encode(value)
                 case .strings(let value): try container.encode(value)
                 case .object2(let value): try container.encode(value)
-                case .object3(let value): try container.encode(value)
+                case .placeholderItems(let value): try container.encode(value)
                 case .string(let value): try container.encode(value)
                 }
             }
@@ -17465,7 +17465,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             case object1(Object1)
             case strings([String])
             case object2(Object2)
-            case object3([Object3Item])
+            case placeholderItems([PlaceholderItem])
             case string(String)
 
             public struct Object1: Encodable {
@@ -17493,7 +17493,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 }
             }
 
-            public struct Object3Item: Encodable {
+            public struct PlaceholderItem: Encodable {
                 public var name: String
 
                 public init(name: String) {
@@ -17507,7 +17507,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 case .object1(let value): try container.encode(value)
                 case .strings(let value): try container.encode(value)
                 case .object2(let value): try container.encode(value)
-                case .object3(let value): try container.encode(value)
+                case .placeholderItems(let value): try container.encode(value)
                 case .string(let value): try container.encode(value)
                 }
             }
@@ -22291,11 +22291,11 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 }
 
                 public enum Value: Encodable {
-                    case object1(Object1)
-                    case object2([Object2Item])
+                    case object(Object)
+                    case placeholderItems([PlaceholderItem])
                     case string(String)
 
-                    public struct Object1: Encodable {
+                    public struct Object: Encodable {
                         public var isActive: Bool?
                         public var userName: String?
                         public var externalID: String?
@@ -22319,7 +22319,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                         }
                     }
 
-                    public struct Object2Item: Encodable {
+                    public struct PlaceholderItem: Encodable {
                         public var value: String?
                         public var isPrimary: Bool?
 
@@ -22337,8 +22337,8 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     public func encode(to encoder: Encoder) throws {
                         var container = encoder.singleValueContainer()
                         switch self {
-                        case .object1(let value): try container.encode(value)
-                        case .object2(let value): try container.encode(value)
+                        case .object(let value): try container.encode(value)
+                        case .placeholderItems(let value): try container.encode(value)
                         case .string(let value): try container.encode(value)
                         }
                     }

@@ -5,8 +5,6 @@
 
 import Foundation
 
-public typealias DefsPinnedInfo = [String: DefsPinnedInfoItem]
-
 public struct DefsPinnedInfoItem: Codable {
     /// User ID
     public var pinnedBy: String
@@ -171,13 +169,13 @@ public struct ObjsComment: Codable {
     public var id: String?
     public var isIntro: Bool?
     /// Info for a pinned item
-    public var pinnedInfo: DefsPinnedInfo?
+    public var pinnedInfo: [String: DefsPinnedInfoItem]?
     public var pinnedTo: [String]?
     public var reactions: [ObjsReaction]?
     public var timestamp: Int?
     public var user: String?
 
-    public init(comment: String? = nil, created: Int? = nil, id: String? = nil, isIntro: Bool? = nil, pinnedInfo: DefsPinnedInfo? = nil, pinnedTo: [String]? = nil, reactions: [ObjsReaction]? = nil, timestamp: Int? = nil, user: String? = nil) {
+    public init(comment: String? = nil, created: Int? = nil, id: String? = nil, isIntro: Bool? = nil, pinnedInfo: [String: DefsPinnedInfoItem]? = nil, pinnedTo: [String]? = nil, reactions: [ObjsReaction]? = nil, timestamp: Int? = nil, user: String? = nil) {
         self.comment = comment
         self.created = created
         self.id = id
@@ -226,7 +224,7 @@ public struct ObjsFile: Codable {
     public var permalink: URL?
     public var permalinkPublic: URL?
     /// Info for a pinned item
-    public var pinnedInfo: DefsPinnedInfo?
+    public var pinnedInfo: [String: DefsPinnedInfoItem]?
     public var pinnedTo: [String]?
     public var prettyType: String?
     public var isPublicURLShared: Bool?
@@ -260,7 +258,7 @@ public struct ObjsFile: Codable {
     public var user: String?
     public var username: String?
 
-    public init(channels: [String]? = nil, commentsCount: Int? = nil, created: Int? = nil, isDisplayAsBot: Bool? = nil, isEditable: Bool? = nil, externalType: String? = nil, filetype: String? = nil, groups: [String]? = nil, id: String? = nil, imageExifRotation: Int? = nil, ims: [String]? = nil, isExternal: Bool? = nil, isPublic: Bool? = nil, mimetype: String? = nil, mode: String? = nil, name: String? = nil, originalH: Int? = nil, originalW: Int? = nil, permalink: URL? = nil, permalinkPublic: URL? = nil, pinnedInfo: DefsPinnedInfo? = nil, pinnedTo: [String]? = nil, prettyType: String? = nil, isPublicURLShared: Bool? = nil, reactions: [ObjsReaction]? = nil, size: Int? = nil, thumb1024: URL? = nil, thumb1024H: Int? = nil, thumb1024W: Int? = nil, thumb160: URL? = nil, thumb360: URL? = nil, thumb360H: Int? = nil, thumb360W: Int? = nil, thumb480: URL? = nil, thumb480H: Int? = nil, thumb480W: Int? = nil, thumb64: URL? = nil, thumb720: URL? = nil, thumb720H: Int? = nil, thumb720W: Int? = nil, thumb80: URL? = nil, thumb800: URL? = nil, thumb800H: Int? = nil, thumb800W: Int? = nil, thumb960: URL? = nil, thumb960H: Int? = nil, thumb960W: Int? = nil, timestamp: Int? = nil, title: String? = nil, urlPrivate: URL? = nil, urlPrivateDownload: URL? = nil, user: String? = nil, username: String? = nil) {
+    public init(channels: [String]? = nil, commentsCount: Int? = nil, created: Int? = nil, isDisplayAsBot: Bool? = nil, isEditable: Bool? = nil, externalType: String? = nil, filetype: String? = nil, groups: [String]? = nil, id: String? = nil, imageExifRotation: Int? = nil, ims: [String]? = nil, isExternal: Bool? = nil, isPublic: Bool? = nil, mimetype: String? = nil, mode: String? = nil, name: String? = nil, originalH: Int? = nil, originalW: Int? = nil, permalink: URL? = nil, permalinkPublic: URL? = nil, pinnedInfo: [String: DefsPinnedInfoItem]? = nil, pinnedTo: [String]? = nil, prettyType: String? = nil, isPublicURLShared: Bool? = nil, reactions: [ObjsReaction]? = nil, size: Int? = nil, thumb1024: URL? = nil, thumb1024H: Int? = nil, thumb1024W: Int? = nil, thumb160: URL? = nil, thumb360: URL? = nil, thumb360H: Int? = nil, thumb360W: Int? = nil, thumb480: URL? = nil, thumb480H: Int? = nil, thumb480W: Int? = nil, thumb64: URL? = nil, thumb720: URL? = nil, thumb720H: Int? = nil, thumb720W: Int? = nil, thumb80: URL? = nil, thumb800: URL? = nil, thumb800H: Int? = nil, thumb800W: Int? = nil, thumb960: URL? = nil, thumb960H: Int? = nil, thumb960W: Int? = nil, timestamp: Int? = nil, title: String? = nil, urlPrivate: URL? = nil, urlPrivateDownload: URL? = nil, user: String? = nil, username: String? = nil) {
         self.channels = channels
         self.commentsCount = commentsCount
         self.created = created

@@ -130,8 +130,8 @@ extension Generator {
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
         #warning("TODO: inline if nested isnt nil too?")
-        if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
-            return nil
+        if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration {
+            return alias.nested
         }
         return declaration
     }
@@ -226,8 +226,7 @@ extension Generator {
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key] {
                     let decl = try _makeDeclaration(name: type, schema: schema, context: context)
-                    #warning("TODO: relax alias.nested requirement")
-                    if let alias = decl as? TypealiasDeclaration, alias.nested == nil {
+                    if let alias = decl as? TypealiasDeclaration {
                         return alias.type
                     }
                 }
@@ -439,8 +438,7 @@ extension Generator {
             var context = context
             context.isInlinableTypeCheck = true
             if let decl = try? _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context),
-               let alias = decl as? TypealiasDeclaration,
-               alias.nested == nil {
+               let alias = decl as? TypealiasDeclaration {
                 types[index] = alias.type.name
             }
         }

@@ -1653,7 +1653,7 @@ public struct StandingOrderDetails: Codable {
     /// The values contained in the array entries shall all be different and the maximum value of one entry is 12.
     /// This attribute is contained if and only if the frequency equals "MonthlyVariable".
     /// Example: An execution on January, April and October each year is addressed by ["1", "4", "10"].
-    public var monthsOfExecution: MonthsOfExecution?
+    public var monthsOfExecution: [MonthsOfExecutionItem]?
     /// This is multiplying the given frequency resulting the exact frequency,
     /// e.g. Frequency=weekly and multiplicator=3 means every 3 weeks.
     /// Remark: This attribute is rarely supported in the market.
@@ -1673,7 +1673,7 @@ public struct StandingOrderDetails: Codable {
     /// }
     public var limitAmount: Amount?
 
-    public init(startDate: NaiveDate, frequency: FrequencyCode, endDate: NaiveDate? = nil, executionRule: ExecutionRule? = nil, isWithinAMonthFlag: Bool? = nil, monthsOfExecution: MonthsOfExecution? = nil, multiplicator: Int? = nil, dayOfExecution: DayOfExecution? = nil, limitAmount: Amount? = nil) {
+    public init(startDate: NaiveDate, frequency: FrequencyCode, endDate: NaiveDate? = nil, executionRule: ExecutionRule? = nil, isWithinAMonthFlag: Bool? = nil, monthsOfExecution: [MonthsOfExecutionItem]? = nil, multiplicator: Int? = nil, dayOfExecution: DayOfExecution? = nil, limitAmount: Amount? = nil) {
         self.startDate = startDate
         self.frequency = frequency
         self.endDate = endDate
@@ -1767,8 +1767,6 @@ public enum DayOfExecution: String, Codable, CaseIterable {
     case _30 = "30"
     case _31 = "31"
 }
-
-public typealias MonthsOfExecution = [MonthsOfExecutionItem]
 
 public enum MonthsOfExecutionItem: String, Codable, CaseIterable {
     case _1 = "1"

@@ -456,8 +456,6 @@ public struct APIRequest: Codable {
     }
 }
 
-public typealias Patch = [PatchItem]
-
 public struct PatchItem: Codable {
     public var op: Op
     /// An RFC6901 JSON Pointer pointing to the Item document, an Item Attribute, and Item Field by Field ID, or an Item Field Attribute

@@ -12178,8 +12178,6 @@ public struct ContentTree: Codable {
     }
 }
 
-public typealias ContentDirectory = [ContentDirectoryItem]
-
 public struct ContentDirectoryItem: Codable {
     public var type: String
     public var size: Int
@@ -18869,8 +18867,6 @@ public struct ScimUserList: Codable {
     }
 }
 
-public typealias SearchResultTextMatches = [SearchResultTextMatch]
-
 public struct SearchResultTextMatch: Codable {
     public var objectURL: String?
     public var objectType: String?
@@ -18921,9 +18917,9 @@ public struct CodeSearchResultItem: Codable {
     /// Example: ["73..77", "77..78"]
     public var lineNumbers: [String]?
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
 
-    public init(name: String, path: String, sha: String, url: URL, gitURL: URL, htmlURL: URL, repository: MinimalRepository, score: Double, fileSize: Int? = nil, language: String? = nil, lastModifiedAt: Date? = nil, lineNumbers: [String]? = nil, textMatches: SearchResultTextMatches? = nil) {
+    public init(name: String, path: String, sha: String, url: URL, gitURL: URL, htmlURL: URL, repository: MinimalRepository, score: Double, fileSize: Int? = nil, language: String? = nil, lastModifiedAt: Date? = nil, lineNumbers: [String]? = nil, textMatches: [SearchResultTextMatch]? = nil) {
         self.name = name
         self.path = path
         self.sha = sha
@@ -18974,7 +18970,7 @@ public struct CommitSearchResultItem: Codable {
     public var score: Double
     public var nodeID: String
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
 
     public struct Commit: Codable {
         public var author: Author
@@ -19049,7 +19045,7 @@ public struct CommitSearchResultItem: Codable {
         }
     }
 
-    public init(url: URL, sha: String, htmlURL: URL, commentsURL: URL, commit: Commit, author: SimpleUser? = nil, committer: GitUser? = nil, parents: [Parent], repository: MinimalRepository, score: Double, nodeID: String, textMatches: SearchResultTextMatches? = nil) {
+    public init(url: URL, sha: String, htmlURL: URL, commentsURL: URL, commit: Commit, author: SimpleUser? = nil, committer: GitUser? = nil, parents: [Parent], repository: MinimalRepository, score: Double, nodeID: String, textMatches: [SearchResultTextMatch]? = nil) {
         self.url = url
         self.sha = sha
         self.htmlURL = htmlURL
@@ -19107,7 +19103,7 @@ public struct IssueSearchResultItem: Codable {
     public var updatedAt: Date
     public var closedAt: Date?
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
     public var pullRequest: PullRequest?
     public var body: String?
     public var score: Double
@@ -19184,7 +19180,7 @@ public struct IssueSearchResultItem: Codable {
         }
     }
 
-    public init(url: URL, repositoryURL: URL, labelsURL: String, commentsURL: URL, eventsURL: URL, htmlURL: URL, id: Int, nodeID: String, number: Int, title: String, isLocked: Bool, activeLockReason: String? = nil, assignees: [SimpleUser]? = nil, user: SimpleUser? = nil, labels: [Label], state: String, assignee: SimpleUser? = nil, milestone: Milestone? = nil, comments: Int, createdAt: Date, updatedAt: Date, closedAt: Date? = nil, textMatches: SearchResultTextMatches? = nil, pullRequest: PullRequest? = nil, body: String? = nil, score: Double, authorAssociation: AuthorAssociation, isDraft: Bool? = nil, repository: Repository? = nil, bodyHTML: String? = nil, bodyText: String? = nil, timelineURL: URL? = nil, performedViaGithubApp: Integration? = nil, reactions: ReactionRollup? = nil) {
+    public init(url: URL, repositoryURL: URL, labelsURL: String, commentsURL: URL, eventsURL: URL, htmlURL: URL, id: Int, nodeID: String, number: Int, title: String, isLocked: Bool, activeLockReason: String? = nil, assignees: [SimpleUser]? = nil, user: SimpleUser? = nil, labels: [Label], state: String, assignee: SimpleUser? = nil, milestone: Milestone? = nil, comments: Int, createdAt: Date, updatedAt: Date, closedAt: Date? = nil, textMatches: [SearchResultTextMatch]? = nil, pullRequest: PullRequest? = nil, body: String? = nil, score: Double, authorAssociation: AuthorAssociation, isDraft: Bool? = nil, repository: Repository? = nil, bodyHTML: String? = nil, bodyText: String? = nil, timelineURL: URL? = nil, performedViaGithubApp: Integration? = nil, reactions: ReactionRollup? = nil) {
         self.url = url
         self.repositoryURL = repositoryURL
         self.labelsURL = labelsURL
@@ -19269,9 +19265,9 @@ public struct LabelSearchResultItem: Codable {
     public var description: String?
     public var score: Double
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
 
-    public init(id: Int, nodeID: String, url: URL, name: String, color: String, isDefault: Bool, description: String? = nil, score: Double, textMatches: SearchResultTextMatches? = nil) {
+    public init(id: Int, nodeID: String, url: URL, name: String, color: String, isDefault: Bool, description: String? = nil, score: Double, textMatches: [SearchResultTextMatch]? = nil) {
         self.id = id
         self.nodeID = nodeID
         self.url = url
@@ -19380,7 +19376,7 @@ public struct RepoSearchResultItem: Codable {
     public var license: LicenseSimple?
     public var permissions: Permissions?
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
     public var tempCloneToken: String?
     public var allowMergeCommit: Bool?
     public var allowSquashMerge: Bool?
@@ -19414,7 +19410,7 @@ public struct RepoSearchResultItem: Codable {
         }
     }
 
-    public init(id: Int, nodeID: String, name: String, fullName: String, owner: SimpleUser? = nil, isPrivate: Bool, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, createdAt: Date, updatedAt: Date, pushedAt: Date, homepage: URL? = nil, size: Int, stargazersCount: Int, watchersCount: Int, language: String? = nil, forksCount: Int, openIssuesCount: Int, masterBranch: String? = nil, defaultBranch: String, score: Double, forksURL: URL, keysURL: String, collaboratorsURL: String, teamsURL: URL, hooksURL: URL, issueEventsURL: String, eventsURL: URL, assigneesURL: String, branchesURL: String, tagsURL: URL, blobsURL: String, gitTagsURL: String, gitRefsURL: String, treesURL: String, statusesURL: String, languagesURL: URL, stargazersURL: URL, contributorsURL: URL, subscribersURL: URL, subscriptionURL: URL, commitsURL: String, gitCommitsURL: String, commentsURL: String, issueCommentURL: String, contentsURL: String, compareURL: String, mergesURL: URL, archiveURL: String, downloadsURL: URL, issuesURL: String, pullsURL: String, milestonesURL: String, notificationsURL: String, labelsURL: String, releasesURL: String, deploymentsURL: URL, gitURL: String, sshURL: String, cloneURL: String, svnURL: URL, forks: Int, openIssues: Int, watchers: Int, topics: [String]? = nil, mirrorURL: URL? = nil, hasIssues: Bool, hasProjects: Bool, hasPages: Bool, hasWiki: Bool, hasDownloads: Bool, isArchived: Bool, isDisabled: Bool, visibility: String? = nil, license: LicenseSimple? = nil, permissions: Permissions? = nil, textMatches: SearchResultTextMatches? = nil, tempCloneToken: String? = nil, allowMergeCommit: Bool? = nil, allowSquashMerge: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowForking: Bool? = nil, isTemplate: Bool? = nil) {
+    public init(id: Int, nodeID: String, name: String, fullName: String, owner: SimpleUser? = nil, isPrivate: Bool, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, createdAt: Date, updatedAt: Date, pushedAt: Date, homepage: URL? = nil, size: Int, stargazersCount: Int, watchersCount: Int, language: String? = nil, forksCount: Int, openIssuesCount: Int, masterBranch: String? = nil, defaultBranch: String, score: Double, forksURL: URL, keysURL: String, collaboratorsURL: String, teamsURL: URL, hooksURL: URL, issueEventsURL: String, eventsURL: URL, assigneesURL: String, branchesURL: String, tagsURL: URL, blobsURL: String, gitTagsURL: String, gitRefsURL: String, treesURL: String, statusesURL: String, languagesURL: URL, stargazersURL: URL, contributorsURL: URL, subscribersURL: URL, subscriptionURL: URL, commitsURL: String, gitCommitsURL: String, commentsURL: String, issueCommentURL: String, contentsURL: String, compareURL: String, mergesURL: URL, archiveURL: String, downloadsURL: URL, issuesURL: String, pullsURL: String, milestonesURL: String, notificationsURL: String, labelsURL: String, releasesURL: String, deploymentsURL: URL, gitURL: String, sshURL: String, cloneURL: String, svnURL: URL, forks: Int, openIssues: Int, watchers: Int, topics: [String]? = nil, mirrorURL: URL? = nil, hasIssues: Bool, hasProjects: Bool, hasPages: Bool, hasWiki: Bool, hasDownloads: Bool, isArchived: Bool, isDisabled: Bool, visibility: String? = nil, license: LicenseSimple? = nil, permissions: Permissions? = nil, textMatches: [SearchResultTextMatch]? = nil, tempCloneToken: String? = nil, allowMergeCommit: Bool? = nil, allowSquashMerge: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowForking: Bool? = nil, isTemplate: Bool? = nil) {
         self.id = id
         self.nodeID = nodeID
         self.name = name
@@ -19610,7 +19606,7 @@ public struct TopicSearchResultItem: Codable {
     public var repositoryCount: Int?
     public var logoURL: URL?
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
     public var related: [RelatedItem]?
     public var aliases: [Alias]?
 
@@ -19680,7 +19676,7 @@ public struct TopicSearchResultItem: Codable {
         }
     }
 
-    public init(name: String, displayName: String? = nil, shortDescription: String? = nil, description: String? = nil, createdBy: String? = nil, released: String? = nil, createdAt: Date, updatedAt: Date, isFeatured: Bool, isCurated: Bool, score: Double, repositoryCount: Int? = nil, logoURL: URL? = nil, textMatches: SearchResultTextMatches? = nil, related: [RelatedItem]? = nil, aliases: [Alias]? = nil) {
+    public init(name: String, displayName: String? = nil, shortDescription: String? = nil, description: String? = nil, createdBy: String? = nil, released: String? = nil, createdAt: Date, updatedAt: Date, isFeatured: Bool, isCurated: Bool, score: Double, repositoryCount: Int? = nil, logoURL: URL? = nil, textMatches: [SearchResultTextMatch]? = nil, related: [RelatedItem]? = nil, aliases: [Alias]? = nil) {
         self.name = name
         self.displayName = displayName
         self.shortDescription = shortDescription
@@ -19751,12 +19747,12 @@ public struct UserSearchResultItem: Codable {
     public var isSiteAdmin: Bool
     public var isHireable: Bool?
     /// Search Result Text Matches
-    public var textMatches: SearchResultTextMatches?
+    public var textMatches: [SearchResultTextMatch]?
     public var blog: String?
     public var company: String?
     public var suspendedAt: Date?
 
-    public init(login: String, id: Int, nodeID: String, avatarURL: URL, gravatarID: String? = nil, url: URL, htmlURL: URL, followersURL: URL, subscriptionsURL: URL, organizationsURL: URL, reposURL: URL, receivedEventsURL: URL, type: String, score: Double, followingURL: String, gistsURL: String, starredURL: String, eventsURL: String, publicRepos: Int? = nil, publicGists: Int? = nil, followers: Int? = nil, following: Int? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, name: String? = nil, bio: String? = nil, email: String? = nil, location: String? = nil, isSiteAdmin: Bool, isHireable: Bool? = nil, textMatches: SearchResultTextMatches? = nil, blog: String? = nil, company: String? = nil, suspendedAt: Date? = nil) {
+    public init(login: String, id: Int, nodeID: String, avatarURL: URL, gravatarID: String? = nil, url: URL, htmlURL: URL, followersURL: URL, subscriptionsURL: URL, organizationsURL: URL, reposURL: URL, receivedEventsURL: URL, type: String, score: Double, followingURL: String, gistsURL: String, starredURL: String, eventsURL: String, publicRepos: Int? = nil, publicGists: Int? = nil, followers: Int? = nil, following: Int? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, name: String? = nil, bio: String? = nil, email: String? = nil, location: String? = nil, isSiteAdmin: Bool, isHireable: Bool? = nil, textMatches: [SearchResultTextMatch]? = nil, blog: String? = nil, company: String? = nil, suspendedAt: Date? = nil) {
         self.login = login
         self.id = id
         self.nodeID = nodeID

@@ -520,13 +520,13 @@ public struct UserObject: Codable {
     /// The URL which defines this resource.
     public var url: String?
     /// The perission groups to which the user belngs.
-    public var groups: [GroupObject]?
+    public var groups: [[GroupObjectItem]]?
     /// The user type
     public var type: String?
     /// The Crucible-generated identifier for the user.
     public var id: Int?
 
-    public init(firstName: String? = nil, lastName: String? = nil, clientID: String? = nil, tags: [String]? = nil, userName: String? = nil, categorizationName: String? = nil, contentDomains: [String]? = nil, isCaptain: Bool? = nil, url: String? = nil, groups: [GroupObject]? = nil, type: String? = nil, id: Int? = nil) {
+    public init(firstName: String? = nil, lastName: String? = nil, clientID: String? = nil, tags: [String]? = nil, userName: String? = nil, categorizationName: String? = nil, contentDomains: [String]? = nil, isCaptain: Bool? = nil, url: String? = nil, groups: [[GroupObjectItem]]? = nil, type: String? = nil, id: Int? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.clientID = clientID
@@ -582,7 +582,7 @@ public struct UserExaminerObject: Codable {
     /// The URL which defines this resource.
     public var url: String?
     /// The perission groups to which the user belngs.
-    public var groups: [GroupObject]?
+    public var groups: [[GroupObjectItem]]?
     /// Current roles the user is associated with. Roles can be Administrator, Examiner or Role Player.
     public var activeRoles: [String]?
     /// Any role the user has ever been associated with.
@@ -590,7 +590,7 @@ public struct UserExaminerObject: Codable {
     /// The Crucible-generated identifier for the user.
     public var id: Int?
 
-    public init(firstName: String? = nil, lastName: String? = nil, clientID: String? = nil, tags: [String]? = nil, userName: String? = nil, categorizationName: String? = nil, stackAssignments: [StackAssignmentUserObject]? = nil, contentDomains: [String]? = nil, isCaptain: Bool? = nil, url: String? = nil, groups: [GroupObject]? = nil, activeRoles: [String]? = nil, allRoles: [String]? = nil, id: Int? = nil) {
+    public init(firstName: String? = nil, lastName: String? = nil, clientID: String? = nil, tags: [String]? = nil, userName: String? = nil, categorizationName: String? = nil, stackAssignments: [StackAssignmentUserObject]? = nil, contentDomains: [String]? = nil, isCaptain: Bool? = nil, url: String? = nil, groups: [[GroupObjectItem]]? = nil, activeRoles: [String]? = nil, allRoles: [String]? = nil, id: Int? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.clientID = clientID
@@ -1144,8 +1144,6 @@ public struct StackAssignmentUserObject: Codable {
         case id
     }
 }
-
-public typealias GroupObject = [GroupObjectItem]
 
 public enum GroupObjectItem: Codable, Hashable {
     case int(Int)
