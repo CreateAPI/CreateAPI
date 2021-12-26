@@ -590,8 +590,8 @@ final class Templates {
                 append((name, value))
             }
             
-            mutating func addDeepObject(_ name: String, _ query: [(String, String?)]) {
-                for (key, value) in query {
+            mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
+                for (key, value) in query ?? [] {
                     addQueryItem(\("\"\\(name)[\\(key)]\""), value)
                 }
             }

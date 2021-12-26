@@ -122,6 +122,7 @@
 		0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F452777B596008D32A4 /* TwilioAPI */; };
 		0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F472777B596008D32A4 /* TwitterAPI */; };
 		0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F492777B596008D32A4 /* WikimediaAPI */; };
+		0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C69E09C2779316100A46D93 /* SoundcloudAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,6 +185,7 @@
 		0C612E9E2777B570008D32A4 /* JiraAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JiraAPI; path = CreateAPITests/Expected/JiraAPI; sourceTree = "<group>"; };
 		0C612E9F2777B570008D32A4 /* CircleCIAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircleCIAPI; path = CreateAPITests/Expected/CircleCIAPI; sourceTree = "<group>"; };
 		0C612EA02777B570008D32A4 /* OnePasswordAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OnePasswordAPI; path = CreateAPITests/Expected/OnePasswordAPI; sourceTree = "<group>"; };
+		0C69E09B2779315800A46D93 /* SoundcloudAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SoundcloudAPI; path = CreateAPITests/Expected/SoundcloudAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,6 +245,7 @@
 				0C612EEC2777B594008D32A4 /* edgecases-default in Frameworks */,
 				0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */,
 				0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */,
+				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
@@ -309,6 +312,7 @@
 				0C612E702777B56E008D32A4 /* SpotifyAPI */,
 				0C612E982777B56F008D32A4 /* SquareAPI */,
 				0C612E9B2777B570008D32A4 /* StackExchangeAPI */,
+				0C69E09B2779315800A46D93 /* SoundcloudAPI */,
 				0C612E7F2777B56E008D32A4 /* TelegramBotPI */,
 				0C612E8C2777B56F008D32A4 /* test-query-parameters */,
 				0C612E942777B56F008D32A4 /* TicketmasterAPI */,
@@ -422,6 +426,7 @@
 				0C612F472777B596008D32A4 /* TwitterAPI */,
 				0C612F492777B596008D32A4 /* WikimediaAPI */,
 				0C5EE19A277909B100C94994 /* BitbucketAPI */,
+				0C69E09C2779316100A46D93 /* SoundcloudAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -966,6 +971,10 @@
 		0C612F492777B596008D32A4 /* WikimediaAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WikimediaAPI;
+		};
+		0C69E09C2779316100A46D93 /* SoundcloudAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SoundcloudAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

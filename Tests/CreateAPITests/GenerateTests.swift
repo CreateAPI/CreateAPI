@@ -134,8 +134,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "slack", package: "SlackAPI")
     }
     
-    // TODO: Add support for query-encoding objects and uncomment
-    func _testSoundcloud() throws {
+    func testSoundcloud() throws {
         try testSpec(name: "soundcloud", package: "SoundcloudAPI")
     }
     
