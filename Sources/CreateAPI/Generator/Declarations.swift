@@ -157,6 +157,19 @@ protocol Declaration {
     var name: TypeName { get }
 }
 
+extension Declaration {
+    // If it's a typealias, return an unwrapped type identifier
+    func getTypeIdentifier() -> TypeIdentifier? {
+        switch self {
+        case let alias as TypealiasDeclaration:
+            // TODO: What about nested typeliaes?
+            return alias.nested == nil ? alias.type : nil
+        default:
+            return nil
+        }
+    }
+}
+
 struct EnumOfStringsDeclaration: Declaration {
     let name: TypeName
     let cases: [Case]

@@ -109,9 +109,7 @@ extension Generator {
     // MARK: - Declarations
     
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
-        guard let declaration = try _makeDeclaration(name: name, schema: schema, context: context) else {
-            return nil
-        }
+        let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
         #warning("TODO: inline if nested isnt nil too?")
         if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration, alias.nested == nil {
             return nil
@@ -120,14 +118,21 @@ extension Generator {
     }
     
     /// Recursively a type declaration: struct, class, enum, typealias, etc.
-    func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
+    func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration {
         let context = context.adding(name)
         switch schema.value {
-        case .boolean, .number, .integer:
-            return nil // Always inline
+        case .boolean:
+            return TypealiasDeclaration(name: name, type: .builtin("Bool"))
+        case .number:
+            return TypealiasDeclaration(name: name, type: .builtin("Double"))
+        case .integer(let info, _):
+            return TypealiasDeclaration(name: name, type: getIntegerType(for: info))
         case .string(let info, _):
-            guard isEnum(info) else { return nil } // Always inline
-            return try makeStringEnum(name: name, info: info)
+            if isEnum(info) {
+                return try makeStringEnum(name: name, info: info)
+            } else {
+                return TypealiasDeclaration(name: name, type: getStringType(for: info))
+            }
         case .object(let info, let details):
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
@@ -144,11 +149,36 @@ extension Generator {
             guard let ref = info.name, !ref.isEmpty else {
                 throw GeneratorError("Reference name is missing")
             }
-            return TypealiasDeclaration(name: name, type: .userDefined(name: makeTypeName(ref)))
+            let type = try getReferenceType(info, context: context)
+            return TypealiasDeclaration(name: name, type: type)
         case .fragment:
             setNeedsAnyJson()
             return TypealiasDeclaration(name: name, type: .anyJSON)
         }
+    }
+    
+    private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
+        guard options.isUsingIntegersWithPredefinedCapacity else {
+            return .builtin("Int")
+        }
+        switch info.format {
+        case .generic, .other: return .builtin("Int")
+        case .int32: return .builtin("Int32")
+        case .int64: return .builtin("Int64")
+        }
+    }
+    
+    private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> TypeIdentifier {
+        switch info.format {
+        case .dateTime: return .builtin("Date")
+        case .date: if options.isNaiveDateEnabled {
+            setNaiveDateNeeded()
+            return .builtin("NaiveDate")
+        }
+        case .other(let other): if other == "uri" { return .builtin("URL") }
+        default: break
+        }
+        return .builtin("String")
     }
     
     // MARK: - Type Identifiers
@@ -195,6 +225,7 @@ extension Generator {
         }
     }
     
+    // TODO: This can be dramatically simplified, use makeDeclaration for schema instead
     private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
         switch reference {
         case .internal(let ref):
@@ -237,11 +268,10 @@ extension Generator {
     
     // MARK: - Object
     
-    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration? {
+    private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration {
         if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
             return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
         }
-        guard !context.isInlinableTypeCheck else { return nil }
         let properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
@@ -333,7 +363,7 @@ extension Generator {
 
     // MARK: - oneOf/anyOf/allOf
     
-    private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
+    private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let properties: [Property] = try makeProperties(for: schemas, context: context).map {
             // TODO: Generalize this and add better naming for nested types.
             // E.g. enum of strings should become "StringValue", not "Object"
@@ -350,8 +380,6 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
         
-        guard !context.isInlinableTypeCheck else { return nil }
-    
         var protocols = getProtocols(for: name, context: context)
         let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
         let isHashable = properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
@@ -360,8 +388,7 @@ extension Generator {
         return EntityDeclaration(name: name, type: .oneOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
-    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
-        guard !context.isInlinableTypeCheck else { return nil }
+    private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         var properties = try makeProperties(for: schemas, context: context)
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -371,7 +398,7 @@ extension Generator {
         return EntityDeclaration(name: name, type: .anyOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
     
-    private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
+    private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let types = makeTypeNames(for: schemas, context: context)
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
             switch schema.value {
@@ -400,8 +427,6 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: properties[0].type)
         }
         
-        guard !context.isInlinableTypeCheck else { return nil }
-
         let protocols = getProtocols(for: name, context: context)
         return EntityDeclaration(name: name, type: .allOf, properties: properties, protocols: protocols, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding)
     }
@@ -468,17 +493,34 @@ extension Generator {
 
     // MARK: - Typealiases
     
-    private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration? {
+    #warning("TODO: remove")
+    private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
         if let type = try getTypeIdentifier(for: item, context: context) {
             return TypealiasDeclaration(name: name, type: type.asArray())
         }
-        guard !context.isInlinableTypeCheck else { return nil }
-        let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
+        let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue))
         let nested = try makeDeclaration(name: itemName.name, schema: item, context: context)
         return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
+    }
+    
+    private func makeTypealiasArray2(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration {
+        guard let item = details.items else {
+            throw GeneratorError("Missing array item type")
+        }
+        if name.rawValue == "ContentDirectory" {
+            print("here")
+        }
+        let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue))
+        let decl = try makeDeclaration(name: itemName.name, schema: item, context: context)
+        switch decl {
+        case let decl as TypealiasDeclaration:
+            return TypealiasDeclaration(name: name, type: decl.type.asArray(), nested: decl.nested)
+        default:
+            return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: decl)
+        }
     }
     
     // MARK: - Enums
@@ -554,19 +596,6 @@ extension Generator {
             }
             return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
         }
-
-        // TODO: This should be implemented the same way as other entities
-        func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
-            guard let item = details.items else {
-                throw GeneratorError("Missing array item type")
-            }
-            if let type = try getTypeIdentifier(for: item, context: context) {
-                return property(type: type.asArray(), info: info)
-            }
-            let name = makeNestedElementTypeName(for: key)
-            let nested = try makeDeclaration(name: name, schema: item, context: context)
-            return property(type: .userDefined(name: name).asArray(), info: info, nested: nested)
-        }
         
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
@@ -581,12 +610,13 @@ extension Generator {
         }
 
         func makeEntity() throws -> Property {
-            if let type = try getTypeIdentifier(for: schema, context: context) {
-                return property(type: type, info: schema.coreContext)
+            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
+            switch decl {
+            case let alias as TypealiasDeclaration:
+                return property(type: alias.type, info: schema.coreContext, nested: alias.nested)
+            default:
+                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
-            let name = makeTypeName(key)
-            let nested = try makeDeclaration(name: name, schema: schema, context: context)
-            return property(type: .userDefined(name: name), info: schema.coreContext, nested: nested)
         }
         
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
@@ -608,9 +638,8 @@ extension Generator {
         }
 
         switch schema.value {
-        case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
-        case .object, .all, .one, .any: return try makeEntity()
+        case .array, .object, .all, .one, .any: return try makeEntity()
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         case .not: throw GeneratorError("`not` properties are not supported")
         default: return try makeProperty(schema: schema)
