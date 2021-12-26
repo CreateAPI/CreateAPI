@@ -419,11 +419,11 @@ public struct Tweet: Codable {
     /// Specifies the type of attachments (if any) present in this Tweet.
     public struct Attachments: Codable {
         /// A list of Media Keys for each one of the media attachments (if media are attached).
-        public var mediaKeys: [String]?
+        public var mediaKeys: [MediaKey]?
         /// A list of poll IDs (if polls are attached).
-        public var pollIDs: [String]?
+        public var pollIDs: [PollID]?
 
-        public init(mediaKeys: [String]? = nil, pollIDs: [String]? = nil) {
+        public init(mediaKeys: [MediaKey]? = nil, pollIDs: [PollID]? = nil) {
             self.mediaKeys = mediaKeys
             self.pollIDs = pollIDs
         }
@@ -1591,7 +1591,7 @@ public struct TweetWithheld: Codable {
     /// Indicates if the content is being withheld for on the basis of copyright infringement.
     public var isCopyright: Bool
     /// Provides a list of countries where this content is not available.
-    public var countryCodes: [String]
+    public var countryCodes: [CountryCode]
     /// Indicates whether the content being withheld is the `tweet` or a `user`.
     public var scope: Scope?
 
@@ -1601,7 +1601,7 @@ public struct TweetWithheld: Codable {
         case user
     }
 
-    public init(isCopyright: Bool, countryCodes: [String], scope: Scope? = nil) {
+    public init(isCopyright: Bool, countryCodes: [CountryCode], scope: Scope? = nil) {
         self.isCopyright = isCopyright
         self.countryCodes = countryCodes
         self.scope = scope
@@ -1617,7 +1617,7 @@ public struct TweetWithheld: Codable {
 /// Indicates withholding details for [withheld content](https://help.twitter.com/en/rules-and-policies/tweet-withheld-by-country).
 public struct UserWithheld: Codable {
     /// Provides a list of countries where this content is not available.
-    public var countryCodes: [String]
+    public var countryCodes: [CountryCode]
     /// Indicates that the content being withheld is a `user`.
     public var scope: Scope?
 
@@ -1626,7 +1626,7 @@ public struct UserWithheld: Codable {
         case user
     }
 
-    public init(countryCodes: [String], scope: Scope? = nil) {
+    public init(countryCodes: [CountryCode], scope: Scope? = nil) {
         self.countryCodes = countryCodes
         self.scope = scope
     }

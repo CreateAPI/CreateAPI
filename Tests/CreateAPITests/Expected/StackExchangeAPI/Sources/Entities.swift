@@ -5,9 +5,9 @@
 
 import Foundation
 
-public typealias AccessTokens = [AccessTokensItem]
+public typealias AccessTokens = [AccessToken]
 
-public struct AccessTokensItem: Codable {
+public struct AccessToken: Codable {
     public var accessToken: String?
     public var accountID: Int?
     public var expiresOnDate: Int?
@@ -48,9 +48,9 @@ public struct AccountMergeItem: Codable {
     }
 }
 
-public typealias Answers = [AnswersItem]
+public typealias Answers = [Answer]
 
-public struct AnswersItem: Codable {
+public struct Answer: Codable {
     public var isAccepted: Bool?
     public var answerID: Int?
     public var awardedBountyAmount: Int?
@@ -227,9 +227,9 @@ public struct AnswersItem: Codable {
     }
 }
 
-public typealias Badges = [BadgesItem]
+public typealias Badges = [Badge]
 
-public struct BadgesItem: Codable {
+public struct Badge: Codable {
     public var awardCount: Int?
     public var badgeID: Int?
     public var badgeType: String?
@@ -307,9 +307,9 @@ public struct BadgesItem: Codable {
     }
 }
 
-public typealias Comments = [CommentsItem]
+public typealias Comments = [Commants]
 
-public struct CommentsItem: Codable {
+public struct Commants: Codable {
     public var body: String?
     public var bodyMarkdown: String?
     public var canFlag: Bool?
@@ -603,9 +603,9 @@ public struct Error: Codable {
     }
 }
 
-public typealias Errors = [ErrorsItem]
+public typealias Errors = [Error]
 
-public struct ErrorsItem: Codable {
+public struct Error: Codable {
     public var description: String?
     public var errorID: Int?
     public var errorName: String?
@@ -623,9 +623,9 @@ public struct ErrorsItem: Codable {
     }
 }
 
-public typealias Events = [EventsItem]
+public typealias Events = [Event]
 
-public struct EventsItem: Codable {
+public struct Event: Codable {
     public var creationDate: Int?
     public var eventType: String?
     public var excerpt: String?
@@ -649,9 +649,9 @@ public struct EventsItem: Codable {
     }
 }
 
-public typealias Filters = [FiltersItem]
+public typealias Filters = [Filter]
 
-public struct FiltersItem: Codable {
+public struct Filter: Codable {
     public var filter: String?
     public var filterType: String?
     public var includedFields: [AnyJSON]?
@@ -669,9 +669,9 @@ public struct FiltersItem: Codable {
     }
 }
 
-public typealias InboxItems = [InboxItemsItem]
+public typealias InboxItems = [InboxItem]
 
-public struct InboxItemsItem: Codable {
+public struct InboxItem: Codable {
     public var answerID: Int?
     public var body: String?
     public var commentID: Int?
@@ -923,9 +923,9 @@ public struct InfoObject: Codable {
     }
 }
 
-public typealias NetworkUsers = [NetworkUsersItem]
+public typealias NetworkUsers = [NetworkUser]
 
-public struct NetworkUsersItem: Codable {
+public struct NetworkUser: Codable {
     public var accountID: Int?
     public var answerCount: Int?
     public var badgeCounts: BadgeCounts?
@@ -985,9 +985,9 @@ public struct NetworkUsersItem: Codable {
     }
 }
 
-public typealias Notifications = [NotificationsItem]
+public typealias Notifications = [Notification]
 
-public struct NotificationsItem: Codable {
+public struct Notification: Codable {
     public var body: String?
     public var creationDate: Int?
     public var isUnread: Bool?
@@ -1095,9 +1095,9 @@ public struct NotificationsItem: Codable {
     }
 }
 
-public typealias Posts = [PostsItem]
+public typealias Posts = [Post]
 
-public struct PostsItem: Codable {
+public struct Post: Codable {
     public var body: String?
     public var bodyMarkdown: String?
     public var commentCount: Int?
@@ -1253,9 +1253,9 @@ public struct PostsItem: Codable {
     }
 }
 
-public typealias Privileges = [PrivilegesItem]
+public typealias Privileges = [Privilege]
 
-public struct PrivilegesItem: Codable {
+public struct Privilege: Codable {
     public var description: String?
     public var reputation: Int?
     public var shortDescription: String?
@@ -1273,9 +1273,9 @@ public struct PrivilegesItem: Codable {
     }
 }
 
-public typealias QuestionTimelineEvents = [QuestionTimelineEventsItem]
+public typealias QuestionTimelineEvents = [QuestionTimelineEvent]
 
-public struct QuestionTimelineEventsItem: Codable {
+public struct QuestionTimelineEvent: Codable {
     public var commentID: Int?
     public var creationDate: Int?
     public var downVoteCount: Int?
@@ -1404,9 +1404,9 @@ public struct QuestionTimelineEventsItem: Codable {
     }
 }
 
-public typealias Questions = [QuestionsItem]
+public typealias Questions = [Question]
 
-public struct QuestionsItem: Codable {
+public struct Question: Codable {
     public var acceptedAnswerID: Int?
     public var answerCount: Int?
     public var answers: [AnyJSON]?
@@ -1919,9 +1919,9 @@ public struct QuestionsItem: Codable {
     }
 }
 
-public typealias ReputationChanges = [ReputationChangesItem]
+public typealias ReputationChanges = [ReputationChange]
 
-public struct ReputationChangesItem: Codable {
+public struct ReputationChange: Codable {
     public var link: String?
     public var onDate: Int?
     public var postID: Int?
@@ -1980,9 +1980,9 @@ public struct ReputationHistoryItem: Codable {
     }
 }
 
-public typealias ReputationObjects = [ReputationObjectsItem]
+public typealias ReputationObjects = [ReputationObject]
 
-public struct ReputationObjectsItem: Codable {
+public struct ReputationObject: Codable {
     public var link: String?
     public var onDate: Int?
     public var postID: Int?
@@ -2015,9 +2015,9 @@ public struct ReputationObjectsItem: Codable {
     }
 }
 
-public typealias Revisions = [RevisionsItem]
+public typealias Revisions = [Revision]
 
-public struct RevisionsItem: Codable {
+public struct Revision: Codable {
     public var body: String?
     public var comment: String?
     public var creationDate: Int?
@@ -2137,9 +2137,9 @@ public struct SingleFilter: Codable {
     }
 }
 
-public typealias Sites = [SitesItem]
+public typealias Sites = [Site]
 
-public struct SitesItem: Codable {
+public struct Site: Codable {
     public var aliases: [AnyJSON]?
     public var apiSiteParameter: String?
     public var audience: String?
@@ -2220,9 +2220,9 @@ public struct SitesItem: Codable {
     }
 }
 
-public typealias SuggestedEdits = [SuggestedEditsItem]
+public typealias SuggestedEdits = [SuggestedEdit]
 
-public struct SuggestedEditsItem: Codable {
+public struct SuggestedEdit: Codable {
     public var approvalDate: Int?
     public var body: String?
     public var comment: String?
@@ -2309,9 +2309,9 @@ public struct SuggestedEditsItem: Codable {
     }
 }
 
-public typealias TagScoreObjects = [TagScoreObjectsItem]
+public typealias TagScoreObjects = [TagScoreObject]
 
-public struct TagScoreObjectsItem: Codable {
+public struct TagScoreObject: Codable {
     public var postCount: Int?
     public var score: Int?
     public var user: User?
@@ -2374,9 +2374,9 @@ public struct TagScoreObjectsItem: Codable {
     }
 }
 
-public typealias TagSynonyms = [TagSynonymsItem]
+public typealias TagSynonyms = [TagSynonym]
 
-public struct TagSynonymsItem: Codable {
+public struct TagSynonym: Codable {
     public var appliedCount: Int?
     public var creationDate: Int?
     public var fromTag: String?
@@ -2400,9 +2400,9 @@ public struct TagSynonymsItem: Codable {
     }
 }
 
-public typealias TagWikis = [TagWikisItem]
+public typealias TagWikis = [TagWiki]
 
-public struct TagWikisItem: Codable {
+public struct TagWiki: Codable {
     public var body: String?
     public var bodyLastEditDate: Int?
     public var excerpt: String?
@@ -2522,9 +2522,9 @@ public struct TagWikisItem: Codable {
     }
 }
 
-public typealias Tags = [TagsItem]
+public typealias Tags = [Tag]
 
-public struct TagsItem: Codable {
+public struct Tag: Codable {
     public var count: Int?
     public var hasSynonyms: Bool?
     public var isModeratorOnly: Bool?
@@ -2557,9 +2557,9 @@ public struct TagsItem: Codable {
     }
 }
 
-public typealias TopTagObjects = [TopTagObjectsItem]
+public typealias TopTagObjects = [TopTagObject]
 
-public struct TopTagObjectsItem: Codable {
+public struct TopTagObject: Codable {
     public var answerCount: Int?
     public var answerScore: Int?
     public var questionCount: Int?
@@ -2691,9 +2691,9 @@ public struct User: Codable {
     }
 }
 
-public typealias UserTimelineObjects = [UserTimelineObjectsItem]
+public typealias UserTimelineObjects = [UserTimelineObject]
 
-public struct UserTimelineObjectsItem: Codable {
+public struct UserTimelineObject: Codable {
     public var badgeID: Int?
     public var commentID: Int?
     public var creationDate: Int?
@@ -2735,9 +2735,9 @@ public struct UserTimelineObjectsItem: Codable {
     }
 }
 
-public typealias Users = [UsersItem]
+public typealias Users = [User]
 
-public struct UsersItem: Codable {
+public struct User: Codable {
     public var aboutMe: String?
     public var acceptRate: Int?
     public var accountID: Int?
@@ -2842,9 +2842,9 @@ public struct UsersItem: Codable {
     }
 }
 
-public typealias WritePermissions = [WritePermissionsItem]
+public typealias WritePermissions = [WritePermission]
 
-public struct WritePermissionsItem: Codable {
+public struct WritePermission: Codable {
     public var canAdd: Bool?
     public var canDelete: Bool?
     public var canEdit: Bool?

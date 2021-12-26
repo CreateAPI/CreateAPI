@@ -651,16 +651,14 @@ public struct Capitalization: Codable {
 
 public struct MapTest: Codable {
     public var mapMapOfString: [String: [String: String]]?
-    public var mapOfEnumString: MapOfEnumString?
-
-    public typealias MapOfEnumString = [String: MapOfEnumStringItem]
+    public var mapOfEnumString: [String: MapOfEnumStringItem]?
 
     public enum MapOfEnumStringItem: String, Codable, CaseIterable {
         case upper = "UPPER"
         case lower
     }
 
-    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: MapOfEnumString? = nil) {
+    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
         self.mapMapOfString = mapMapOfString
         self.mapOfEnumString = mapOfEnumString
     }
@@ -668,7 +666,7 @@ public struct MapTest: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.mapMapOfString = try values.decodeIfPresent([String: [String: String]].self, forKey: "map_map_of_string")
-        self.mapOfEnumString = try values.decodeIfPresent(MapOfEnumString.self, forKey: "map_of_enum_string")
+        self.mapOfEnumString = try values.decodeIfPresent([String: MapOfEnumStringItem].self, forKey: "map_of_enum_string")
     }
 
     public func encode(to encoder: Encoder) throws {

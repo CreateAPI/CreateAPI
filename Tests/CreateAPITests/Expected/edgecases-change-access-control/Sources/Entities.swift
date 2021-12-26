@@ -422,16 +422,14 @@ enum EnumClass: String, Codable, CaseIterable {
 
  struct MapTest: Codable {
     var mapMapOfString: [String: [String: String]]?
-    var mapOfEnumString: MapOfEnumString?
-
-    typealias MapOfEnumString = [String: MapOfEnumStringItem]
+    var mapOfEnumString: [String: MapOfEnumStringItem]?
 
     enum MapOfEnumStringItem: String, Codable, CaseIterable {
         case upper = "UPPER"
         case lower
     }
 
-    init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: MapOfEnumString? = nil) {
+    init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
         self.mapMapOfString = mapMapOfString
         self.mapOfEnumString = mapOfEnumString
     }

@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import NaiveDate
 import Get
 
 extension Paths {
@@ -13475,6 +13476,12 @@ extension Int32: QueryEncodable {
 }
 
 extension Int64: QueryEncodable {
+    var asQueryValue: String {
+        String(self)
+    }
+}
+
+extension NaiveDate: QueryEncodable {
     var asQueryValue: String {
         String(self)
     }

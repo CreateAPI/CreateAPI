@@ -123,16 +123,16 @@ public struct Pet: Codable {
     public var photoURLs: [String]
     public var tags: [Tag]?
     /// Pet status in the store
-    public var state: State?
+    public var state: Status?
 
     /// Pet status in the store
-    public enum State: String, Codable, CaseIterable {
+    public enum Status: String, Codable, CaseIterable {
         case available
         case pending
         case sold
     }
 
-    public init(identifier: Int? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, state: State? = nil) {
+    public init(identifier: Int? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, state: Status? = nil) {
         self.identifier = identifier
         self.category = category
         self.name = name
@@ -443,16 +443,14 @@ public struct Capitalization: Codable {
 
 public struct MapTest: Codable {
     public var mapMapOfString: [String: [String: String]]?
-    public var mapOfEnumString: MapOfEnumString?
-
-    public typealias MapOfEnumString = [String: MapOfEnumStringItem]
+    public var mapOfEnumString: [String: MapOfEnumStringItem]?
 
     public enum MapOfEnumStringItem: String, Codable, CaseIterable {
         case upper = "UPPER"
         case lower
     }
 
-    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: MapOfEnumString? = nil) {
+    public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
         self.mapMapOfString = mapMapOfString
         self.mapOfEnumString = mapOfEnumString
     }

@@ -1277,11 +1277,11 @@ extension Paths {
             /// Media information being attached to created Tweet. This is mutually exclusive from Quote Tweet Id and Poll.
             public struct Media: Encodable {
                 /// A list of Media Ids to be attached to a created Tweet.
-                public var mediaIDs: [String]?
+                public var mediaIDs: [TwitterAPI.MediaID]?
                 /// A list of User Ids to be tagged in the media for created Tweet.
                 public var taggedUserIDs: [String]?
 
-                public init(mediaIDs: [String]? = nil, taggedUserIDs: [String]? = nil) {
+                public init(mediaIDs: [TwitterAPI.MediaID]? = nil, taggedUserIDs: [String]? = nil) {
                     self.mediaIDs = mediaIDs
                     self.taggedUserIDs = taggedUserIDs
                 }
