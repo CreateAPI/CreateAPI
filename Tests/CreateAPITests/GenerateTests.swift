@@ -88,10 +88,7 @@ final class GenerateTests: GenerateBaseTests {
     func testJira() throws {
         try testSpec(name: "jira", package: "JiraAPI")
     }
-    
-    // TODO: Can we automatically resolve these conflicts?
-    // - "/repositories/{workspace}/{repo_slug}/pipelines-config/
-    // - "/repositories/{workspace}/{repo_slug}/pipelines_config/
+
     func testBitbucket() throws {
         try testSpec(name: "bitbucket", package: "BitbucketAPI")
     }

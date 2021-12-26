@@ -7191,7 +7191,7 @@ extension Paths.Snippets.WithWorkspace.WithEncodedID.WithRevision {
         /// unspecified as Git does not track this, making it hard for
         /// Bitbucket to reliably determine this.
         public func get(path: String? = nil) -> Request<Void> {
-            .get(path, query: makeGetQuery(path))
+            .get(self.path, query: makeGetQuery(path))
         }
 
         private func makeGetQuery(_ path: String?) -> [(String, String?)] {

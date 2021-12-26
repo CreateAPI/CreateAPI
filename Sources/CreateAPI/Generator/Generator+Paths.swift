@@ -336,6 +336,7 @@ extension Generator {
         var nested: [Declaration] = []
         var parameters: [String] = []
         var call: [String] = []
+        var containsParameterNamedPath = false
         
         func makeNestedTypeName(_ appending: String) -> TypeName {
             switch style {
@@ -393,6 +394,9 @@ extension Generator {
             if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold, (style == .rest || query.allSatisfy { $0.nested == nil }) {
                 for item in query {
                     parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
+                    if item.name.rawValue == "path" {
+                        containsParameterNamedPath = true
+                    }
                 }
                 let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
                 let initName = "make\(makeNestedTypeName("Query"))"
@@ -456,7 +460,12 @@ extension Generator {
                 }
             }
         }
-        
+
+        // TODO: refactor
+        if containsParameterNamedPath && call.first == "path" {
+            call[0] = "self.path"
+        }
+
         // Finally, generate the output
         var contents = ".\(method)(\(call.joined(separator: ", ")))"
         if options.paths.isAddingOperationIds, !operationId.isEmpty {
