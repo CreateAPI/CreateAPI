@@ -412,7 +412,9 @@ extension Generator {
     
     // MARK: - Misc
     
-    // Anything that's not an object or a reference.
+    // Returns a value if the schema produces a type identifier and doesn't
+    // require a type declaration. It works not just with primitive types, like
+    // Int, or String, but with much more complex constructs.
     func getPrimitiveType(for schema: JSONSchema, context: Context) throws -> MyType? {
         var context = context
         context.isInlinableTypeCheck = true
