@@ -5,15 +5,15 @@
 import Foundation
 import OpenAPIKit30
 
-indirect enum MyType: CustomStringConvertible, Hashable {
+indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     // One of the primitive types: `String`, `Bool`, `Int`, `Date`, `Void` etc
     case builtin(name: TypeName)
     // Custom type generated from the OpenAPI spec
     case userDefined(name: TypeName)
     // Array
-    case array(element: MyType)
+    case array(element: TypeIdentifier)
     // Dictionary
-    case dictionary(key: MyType, value: MyType)
+    case dictionary(key: TypeIdentifier, value: TypeIdentifier)
 
     // MARK: Helpers
     
@@ -30,11 +30,11 @@ indirect enum MyType: CustomStringConvertible, Hashable {
         return nil
     }
     
-    func asArray() -> MyType {
+    func asArray() -> TypeIdentifier {
         .array(element: self)
     }
     
-    func asPatchParameter() -> MyType {
+    func asPatchParameter() -> TypeIdentifier {
         .userDefined(name: TypeName("\(self)?")) // TODO: Refactor
     }
     
@@ -42,7 +42,7 @@ indirect enum MyType: CustomStringConvertible, Hashable {
         TypeName(description)
     }
     
-    var elementType: MyType {
+    var elementType: TypeIdentifier {
         switch self {
         case .builtin, .userDefined: return self
         case .array(let element): return element.elementType
@@ -62,15 +62,15 @@ indirect enum MyType: CustomStringConvertible, Hashable {
 
     // MARK: Factory
     
-    static func builtin(_ name: String) -> MyType {
+    static func builtin(_ name: String) -> TypeIdentifier {
         .builtin(name: TypeName(name))
     }
     
-    static func dictionary(value: MyType) -> MyType {
+    static func dictionary(value: TypeIdentifier) -> TypeIdentifier {
         .dictionary(key: .builtin("String"), value: value)
     }
     
-    static var anyJSON: MyType {
+    static var anyJSON: TypeIdentifier {
         .userDefined(name: TypeName("AnyJSON"))
     }
     
@@ -137,7 +137,7 @@ struct Property {
     // Example: "files"
     var name: PropertyName
     // Example: "[File]"
-    var type: MyType
+    var type: TypeIdentifier
     var isOptional: Bool
     // Key in the JSON
     var key: String
@@ -182,7 +182,7 @@ struct EntityDeclaration: Declaration {
     }
     
     // Returns `true` if the type is nested inside the entity declaration.
-    func isNested(_ type: MyType) -> Bool {
+    func isNested(_ type: TypeIdentifier) -> Bool {
         guard case .userDefined(let name) = type else { return false }
         return nested.contains { $0.name == name }
     }
@@ -202,7 +202,7 @@ enum EntityType {
 
 struct TypealiasDeclaration: Declaration {
     let name: TypeName
-    var type: MyType
+    var type: TypeIdentifier
     var nested: Declaration?
 }
 

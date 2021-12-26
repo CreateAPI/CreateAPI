@@ -53,7 +53,7 @@ final class Generator {
         lock.sync { isHTTPHeadersDependencyNeeded = true }
     }
     
-    func setNeedsEncodable(for type: MyType) {
+    func setNeedsEncodable(for type: TypeIdentifier) {
         guard case .userDefined(let name) = type else { return }
         lock.sync { needsEncodable.insert(name) }
     }

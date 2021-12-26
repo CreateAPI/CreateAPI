@@ -7,7 +7,6 @@ import Foundation
 import GrammaticalNumber
 import AppKit
 
-// TODO: Pass info to oneOf, anyOf
 // TODO: Add Read-Only and Write-Only Properties support
 // TODO: stirng with format "binary"?
 // TODO: Add an option to add to namespace to all generated entities
@@ -41,7 +40,7 @@ extension Generator {
         concurrentPerform(on: schemas, parallel: arguments.isParallel) { index, item in
             let (key, schema) = schemas[index]
             
-            guard let name = makeTypeNameFor(key: key), !options.entities.skip.contains(name.rawValue) else {
+            guard let name = getTypeName(for: key), !options.entities.skip.contains(name.rawValue) else {
                 if arguments.isVerbose {
                     print("Skipping generation for \(key.rawValue)")
                 }
@@ -82,7 +81,7 @@ extension Generator {
     }
     
     /// Return `nil` to skip generation.
-    private func makeTypeNameFor(key: OpenAPI.ComponentKey) -> TypeName? {
+    private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
         if arguments.vendor == "github" {
             // This makes sense only for the GitHub API spec where types like
             // `simple-user` and `nullable-simple-user` exist which are duplicate
@@ -157,7 +156,7 @@ extension Generator {
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
         let propertyName = makePropertyName(key)
         
-        func makeName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
+        func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
             if !options.rename.properties.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
@@ -172,7 +171,7 @@ extension Generator {
             return name
         }
         
-        func property(type: MyType, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
+        func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             let nullable = info?.nullable ?? false
             let name = makeName(for: propertyName, type: type)
             let isOptional = !isRequired || nullable
@@ -205,7 +204,7 @@ extension Generator {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            if let type = try getPrimitiveType(for: item, context: context) {
+            if let type = try getTypeIdentifier(for: item, context: context) {
                 return property(type: type.asArray(), info: info)
             }
             let name = makeNestedArrayTypeName(for: key)
@@ -219,14 +218,14 @@ extension Generator {
                 let nested = try makeStringEnum(name: typeName, info: info)
                 return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
             }
-            guard let type = try getPrimitiveType(for: schema, context: context) else {
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
             return property(type: type, info: info)
         }
 
         func makeSomeOf() throws -> Property {
-            if let type = try getPrimitiveType(for: schema, context: context) {
+            if let type = try getTypeIdentifier(for: schema, context: context) {
                 return property(type: type, info: schema.coreContext)
             }
             let name = makeTypeName(key)
@@ -238,7 +237,7 @@ extension Generator {
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
-            guard let type = try getPrimitiveType(for: schema, context: context) else {
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
             return property(type: type, info: info)
@@ -246,7 +245,7 @@ extension Generator {
         
         func makeProperty(schema: JSONSchema) throws -> Property {
             let info = schema.coreContext
-            guard let type = try getPrimitiveType(for: schema, context: context) else {
+            guard let type = try getTypeIdentifier(for: schema, context: context) else {
                 throw GeneratorError("Failed to generate primitive type for: \(key)")
             }
             return property(type: type, info: info)
@@ -266,7 +265,7 @@ extension Generator {
     // MARK: - Dictionary
     
     private struct AdditionalProperties {
-        let type: MyType
+        let type: TypeIdentifier
         let info: JSONSchemaContext
         var nested: Declaration?
     }
@@ -292,7 +291,7 @@ extension Generator {
             setNeedsAnyJson()
             return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
         case .b(let schema):
-            if let type = try getPrimitiveType(for: schema, context: context) {
+            if let type = try getTypeIdentifier(for: schema, context: context) {
                 return AdditionalProperties(type: .dictionary(value: type), info: info)
             }
             let nestedTypeName = makeNestedArrayTypeName(for: key)
@@ -365,10 +364,10 @@ extension Generator {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
-        if let type = try getPrimitiveType(for: item, context: context) {
+        if let type = try getTypeIdentifier(for: item, context: context) {
             return TypealiasDeclaration(name: name, type: type.asArray())
         }
-        let itemName = MyType.userDefined(name: name.appending("Item"))
+        let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
         let nested = try _makeDeclaration(name: itemName.name, schema: item, context: context)
         return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
     }
@@ -412,10 +411,10 @@ extension Generator {
     
     // MARK: - Misc
     
-    // Returns a value if the schema produces a type identifier and doesn't
-    // require a type declaration. It works not just with primitive types, like
-    // Int, or String, but with much more complex constructs.
-    func getPrimitiveType(for schema: JSONSchema, context: Context) throws -> MyType? {
+    // Returns a type identifier for all types except the ones anonymous types
+    // that require a type declaration to be created first. It works not just
+    // with primitive types, like Int, or String, but with much more complex constructs.
+    func getTypeIdentifier(for schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
         var context = context
         context.isInlinableTypeCheck = true
         switch schema.value {
@@ -452,7 +451,7 @@ extension Generator {
             guard let items = details.items else {
                 throw GeneratorError("Missing array item type")
             }
-            return try getPrimitiveType(for: items, context: context)?.asArray()
+            return try getTypeIdentifier(for: items, context: context)?.asArray()
         case .all, .one, .any, .not:
             if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context) as? TypealiasDeclaration, alias.nested == nil {
                 return alias.type
@@ -466,7 +465,7 @@ extension Generator {
         }
     }
     
-    private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> MyType {
+    private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
         switch reference {
         case .internal(let ref):
             if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
@@ -483,10 +482,11 @@ extension Generator {
                 if context.parents.contains(type) {
                     return .userDefined(name: type)
                 }
+                // Check if the schema can be expanded into a type identifier
                 let context = context.adding(type)
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key],
-                   let inlined = try getPrimitiveType(for: schema, context: context) {
+                   let inlined = try getTypeIdentifier(for: schema, context: context) {
                     return inlined // Inline simple types
                 }
             }
@@ -590,11 +590,11 @@ extension Generator {
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
-        var types = Array<MyType?>(repeating: nil, count: schemas.count)
+        var types = Array<TypeIdentifier?>(repeating: nil, count: schemas.count)
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
-            types[index] = try? getPrimitiveType(for: schema, context: context)
+            types[index] = try? getTypeIdentifier(for: schema, context: context)
         }
         
         // Generate names for anonymous nested objects

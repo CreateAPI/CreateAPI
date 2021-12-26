@@ -493,10 +493,10 @@ extension Generator {
         let schema = try schemaContext.schema.unwrapped(in: spec)
         
         struct QueryItemType {
-            var type: MyType
+            var type: TypeIdentifier
             var nested: Declaration?
             
-            init(type: MyType, nested: Declaration? = nil) {
+            init(type: TypeIdentifier, nested: Declaration? = nil) {
                 self.type = type
                 self.nested = nested
             }
@@ -571,7 +571,7 @@ extension Generator {
             return nil
         }
         
-        func getPropertyName(for name: PropertyName, type: MyType) -> PropertyName {
+        func getPropertyName(for name: PropertyName, type: TypeIdentifier) -> PropertyName {
             if let name = options.rename.parameters[name.rawValue] {
                 return PropertyName(name)
             }
