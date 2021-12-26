@@ -603,9 +603,9 @@ public struct Error: Codable {
     }
 }
 
-public typealias Errors = [Error]
+public typealias Errors = [ErrorsItem]
 
-public struct Error: Codable {
+public struct ErrorsItem: Codable {
     public var description: String?
     public var errorID: Int?
     public var errorName: String?
@@ -2735,9 +2735,9 @@ public struct UserTimelineObject: Codable {
     }
 }
 
-public typealias Users = [User]
+public typealias Users = [UsersItem]
 
-public struct User: Codable {
+public struct UsersItem: Codable {
     public var aboutMe: String?
     public var acceptRate: Int?
     public var accountID: Int?

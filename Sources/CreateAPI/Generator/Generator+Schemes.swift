@@ -289,7 +289,7 @@ extension Generator {
         }
     }
     
-    private func makeNestedElementTypeName(for key: String) -> TypeName {
+    private func makeNestedElementTypeName(for key: String, context: Context) -> TypeName {
         if let name = options.rename.collectionElements[key] {
             return TypeName(name)
         }
@@ -301,7 +301,9 @@ extension Generator {
             let sing = (words.dropLast() + [words.last?.singularized()])
                 .compactMap { $0?.capitalizingFirstLetter() }
                 .joined(separator: "")
-            return makeTypeName(sing) // TODO: refactor
+            if context.parents.count > 1 || !topLevelTypes.contains(TypeName(sing)) {
+                return makeTypeName(sing) // TODO: refactor
+            }
         }
         return name.appending("Item")
     }
@@ -333,7 +335,7 @@ extension Generator {
             setNeedsAnyJson()
             return AdditionalProperties(type: .dictionary(value: .anyJSON), info: info)
         case .b(let schema):
-            let nestedTypeName = makeNestedElementTypeName(for: key)
+            let nestedTypeName = makeNestedElementTypeName(for: key, context: context)
             let decl = try _makeDeclaration(name: nestedTypeName, schema: schema, context: context)
             switch decl {
             case let alias as TypealiasDeclaration:
@@ -492,7 +494,7 @@ extension Generator {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
         }
-        let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue))
+        let itemName = TypeIdentifier.userDefined(name: makeNestedElementTypeName(for: name.rawValue, context: context))
         let decl = try _makeDeclaration(name: itemName.name, schema: item, context: context)
         switch decl {
         case let decl as TypealiasDeclaration:
