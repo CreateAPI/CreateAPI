@@ -312,6 +312,11 @@ extension Generator {
     
     private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String {
         let operationId = getOperationId(for: operation)
+        #warning("TEMP")
+        if operationId == "repos/get-content" {
+            print("here")
+        }
+        
         if style == .operations, operationId.isEmpty {
             throw GeneratorError("OperationId is invalid or missing")
         }

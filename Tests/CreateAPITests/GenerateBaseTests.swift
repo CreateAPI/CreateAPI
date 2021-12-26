@@ -21,12 +21,14 @@ class GenerateBaseTests: XCTestCase {
         temp.remove()
     }
     
+    #warning("TEMP")
     func testSpec(name: String, package: String? = nil, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: name),
             "--output", temp.url.path,
             "--strict",
+            "--single-threaded",
             "--package", package ?? name,
             "--config", self.config(config, ext: "yml")
         ])

@@ -246,9 +246,12 @@ extension Generator {
                 // Check if the schema can be expanded into a type identifier
                 let context = context.adding(type)
                 if let key = OpenAPI.ComponentKey(rawValue: name),
-                   let schema = spec.components.schemas[key],
-                   let inlined = try getTypeIdentifier(for: schema, context: context) {
-                    return inlined // Inline simple types
+                   let schema = spec.components.schemas[key] {
+                    let decl = try _makeDeclaration(name: type, schema: schema, context: context)
+                    #warning("TODO: relax alias.nested requirement")
+                    if let alias = decl as? TypealiasDeclaration, alias.nested == nil {
+                        return alias.type
+                    }
                 }
             }
             guard let name = ref.name else {
