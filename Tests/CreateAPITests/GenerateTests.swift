@@ -15,7 +15,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "edgecases", package: "edgecases-default")
     }
     
-    func testGenerateGitHub() throws {
+    func testGitHub() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "github"),
@@ -41,47 +41,47 @@ final class GenerateTests: GenerateBaseTests {
         try compare(package: "OctoKit")
     }
     
-    func testGenerateGoogleBooks() throws {
+    func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }
     
-    func testGenerateTomTom() throws {
+    func testTomTom() throws {
         try testSpec(name: "tomtom", package: "TomTomAPI")
     }
     
-    func testGeneratePostman() throws {
+    func testPostman() throws {
         try testSpec(name: "postman", package: "PostmanAPI")
     }
     
-    func testGenerateSimpleCart() throws {
+    func testSimpleCart() throws {
         try testSpec(name: "simplecart", package: "SimpleCartAPI")
     }
     
-    func testGenerateTwitter() throws {
+    func testTwitter() throws {
         try testSpec(name: "twitter", package: "TwitterAPI")
     }
     
-    func testGenerateOnePasswordConnect() throws {
+    func testOnePasswordConnect() throws {
         try testSpec(name: "onepassword", package: "OnePasswordAPI")
     }
     
-    func testGenerateAuthentiq() throws {
+    func testAuthentiq() throws {
         try testSpec(name: "authentiq", package: "AuthentiqAPI")
     }
     
-    func testGeneratePlatform() throws {
+    func testPlatform() throws {
         try testSpec(name: "platform", package: "PlatformAPI")
     }
     
-    func testGenerateEbayFinances() throws {
+    func testEbayFinances() throws {
         try testSpec(name: "ebay-finances", package: "EbayFinancesAPI")
     }
     
-    func testGenerateAppStoreConnect() throws {
+    func testAppStoreConnect() throws {
         try testSpec(name: "app-store-connect", package: "AppStoreConnectAPI")
     }
     
-    func testGenerateAsana() throws {
+    func testAsana() throws {
         try testSpec(name: "asana", package: "AsanaAPI")
     }
     
@@ -92,7 +92,7 @@ final class GenerateTests: GenerateBaseTests {
     // TODO: Can we automatically resolve these conflicts?
     // - "/repositories/{workspace}/{repo_slug}/pipelines-config/
     // - "/repositories/{workspace}/{repo_slug}/pipelines_config/
-    func testGenerateBitbucket() throws {
+    func testBitbucket() throws {
         try testSpec(name: "bitbucket", package: "BitbucketAPI")
     }
     
