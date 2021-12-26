@@ -3763,11 +3763,11 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Pipelines.WithPipelineUU
 }
 
 extension Paths.Repositories.WithWorkspace.WithRepoSlug {
-    public var pipelinesConfig: PipelinesConfig {
-        PipelinesConfig(path: path + "/pipelines_config")
+    public var pipelinesConfig2: PipelinesConfig2 {
+        PipelinesConfig2(path: path + "/pipelines_config")
     }
 
-    public struct PipelinesConfig {
+    public struct PipelinesConfig2 {
         /// Path: `/repositories/{workspace}/{repo_slug}/pipelines_config`
         public let path: String
 

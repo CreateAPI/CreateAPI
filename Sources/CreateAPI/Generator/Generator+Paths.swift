@@ -70,7 +70,8 @@ extension Generator {
     
     // Generate code for the given (sub)path.
     private struct JobRest: Job {
-        let lastComponent: String
+        let type: TypeName
+        let component: String
         let path: OpenAPI.Path // Can be sub-path too
         let components: [String]
         var isSubpath: Bool
@@ -90,6 +91,7 @@ extension Generator {
         // Generate jobs
         var jobs: [JobRest] = []
         var encountered = Set<OpenAPI.Path>()
+        var generatedNames: [String: Int] = [:]
         for path in spec.paths {
             guard !options.paths.skip.contains(path.key.rawValue) else {
                 continue
@@ -107,7 +109,24 @@ extension Generator {
                 guard !encountered.contains(subpath) else { continue }
                 encountered.insert(subpath)
 
-                let job = JobRest(lastComponent: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
+                // TODO: Refator (add componenet to handle type name like this
+                // Handles the scenario with paths that result in a conflicting names, e.g.
+                // - /repositories/{repo_slug}/pipelines_config
+                // - /repositories/{repo_slug}/pipelines-config
+                // (from Bitbucket spec)
+                var types = subpath.components.map(makePathName)
+                let typesKey = types.map(\.rawValue).joined(separator: ".")
+                if let count = generatedNames[typesKey] {
+                    // TODO: Handle more than just one conflict
+                    if let last = types.popLast() {
+                        types.append(last.appending("\(count + 1)"))
+                    }
+                    generatedNames[typesKey] = count + 1
+                } else {
+                    generatedNames[typesKey] = 1
+                }
+                
+                let job = JobRest(type: types.last!, component: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
                 jobs.append(job)
             }
         }
@@ -200,20 +219,18 @@ extension Generator {
     // MARK: - Paths (Rest)
     
     private func makePath(job: JobRest) throws -> String {
-        let component = job.lastComponent
-        let parameterName = getPathParameterName(from: component)
-        let type = makePathName(for: component)
+        let parameterName = getPathParameterName(from: job.component)
     
         let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
         let context = Context(parents: [], namespace: arguments.module.rawValue)
         let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, style: .rest, context: context)
-        let generatedType = templates.pathEntity(name: type.rawValue, subpath: job.path.rawValue, operations: operations)
+        let generatedType = templates.pathEntity(name: job.type.rawValue, subpath: job.path.rawValue, operations: operations)
         
         let parameter = try parameterName.map { try getPathParameter(item: job.item, name: $0) }
-        let path = job.isTopLevel ? job.path.rawValue : "/\(component)"
-        return templates.pathExtension(of: extensionOf, component: component.isEmpty ? "root" : component, type: type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
+        let path = job.isTopLevel ? job.path.rawValue : "/\(job.component)"
+        return templates.pathExtension(of: extensionOf, component: job.component.isEmpty ? "root" : job.component, type: job.type, isTopLevel: job.isTopLevel, path: path, parameter: parameter, contents: generatedType)
     }
     
     private func makePathName(for component: String) -> TypeName {

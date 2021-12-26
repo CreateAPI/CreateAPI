@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5EE19A277909B100C94994 /* BitbucketAPI */; };
 		0C612EA12777B570008D32A4 /* SimpleCartAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E672777B56E008D32A4 /* SimpleCartAPI */; };
 		0C612EA22777B570008D32A4 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E682777B56E008D32A4 /* petstore-single-threaded */; };
 		0C612EA32777B570008D32A4 /* petstore-base-class in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E692777B56E008D32A4 /* petstore-base-class */; };
@@ -235,6 +236,7 @@
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
 				0C612F282777B595008D32A4 /* petstore-some-entities-as-structs in Frameworks */,
+				0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */,
 				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
 				0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */,
 				0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */,
@@ -419,6 +421,7 @@
 				0C612F452777B596008D32A4 /* TwilioAPI */,
 				0C612F472777B596008D32A4 /* TwitterAPI */,
 				0C612F492777B596008D32A4 /* WikimediaAPI */,
+				0C5EE19A277909B100C94994 /* BitbucketAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -736,6 +739,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0C5EE19A277909B100C94994 /* BitbucketAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BitbucketAPI;
+		};
 		0C612EDB2777B594008D32A4 /* AppStoreConnectAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppStoreConnectAPI;
