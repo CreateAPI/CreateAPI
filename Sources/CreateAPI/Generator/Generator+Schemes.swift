@@ -122,6 +122,7 @@ extension Generator {
     
     /// Recursively a type declaration: struct, class, enum, typealias, etc.
     func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
+        let context = context.adding(name)
         switch schema.value {
         case .boolean, .number, .integer:
             return nil // Always inline
@@ -156,7 +157,7 @@ extension Generator {
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
         let propertyName = makePropertyName(key)
         
-        func makeChildPropertyName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
+        func makeName(for name: PropertyName, type: MyType? = nil) -> PropertyName {
             if !options.rename.properties.isEmpty {
                 let names = context.parents.map { $0.rawValue } + [name.rawValue]
                 for i in names.indices {
@@ -173,7 +174,7 @@ extension Generator {
         
         func property(type: MyType, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             let nullable = info?.nullable ?? false
-            let name = makeChildPropertyName(for: propertyName, type: type)
+            let name = makeName(for: propertyName, type: type)
             let isOptional = !isRequired || nullable
             var type = type
             if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
@@ -214,7 +215,7 @@ extension Generator {
         
         func makeString(info: JSONSchemaContext) throws -> Property {
             if isEnum(info) {
-                let typeName = makeTypeName(makeChildPropertyName(for: propertyName, type: nil).rawValue)
+                let typeName = makeTypeName(makeName(for: propertyName, type: nil).rawValue)
                 let nested = try makeStringEnum(name: typeName, info: info)
                 return property(type: .userDefined(name: typeName), info: schema.coreContext, nested: nested)
             }
@@ -306,7 +307,6 @@ extension Generator {
         if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
             return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
         }
-        let context = context.adding(name)
         let properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
@@ -499,7 +499,6 @@ extension Generator {
     // MARK: - oneOf/anyOf/allOf
     
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
-        let context = context.adding(name)
         let properties: [Property] = try makeProperties(for: schemas, context: context).map {
             // TODO: Generalize this and add better naming for nested types.
             // E.g. enum of strings should become "StringValue", not "Object"
@@ -528,8 +527,6 @@ extension Generator {
     
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
         guard !context.isInlinableTypeCheck else { return nil }
-        
-        let context = context.adding(name)
         var properties = try makeProperties(for: schemas, context: context)
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -541,8 +538,6 @@ extension Generator {
     
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration? {
         let types = makeTypeNames(for: schemas, context: context)
-        let context = context.adding(name)
-
         let properties: [Property] = try zip(types, schemas).flatMap { type, schema -> [Property] in
             switch schema.value {
             case .object(_, let details):
