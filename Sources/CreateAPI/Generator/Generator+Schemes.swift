@@ -203,6 +203,7 @@ extension Generator {
                 // Check if the schema can be expanded into a type identifier
                 var context = context.adding(type)
                 context.checkedReferences.insert(type)
+                context.isInlinableTypeCheck = true
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key] {
                     let decl = try _makeDeclaration(name: type, schema: schema, context: context)
@@ -414,6 +415,8 @@ extension Generator {
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
+            var context = context
+            context.isInlinableTypeCheck = true
             if let decl = try? _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context),
                let alias = decl as? TypealiasDeclaration,
                alias.nested == nil {
