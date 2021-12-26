@@ -22,6 +22,7 @@ final class Generator {
     var isQueryNeeded = false
     var isNaiveDateNeeded = false
     var needsEncodable = Set<TypeName>()
+    var topLevelTypes = Set<TypeName>()
     let lock = NSLock()
     
     private var startTime: CFAbsoluteTime?
@@ -114,6 +115,7 @@ struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
 }
 
 // TODO: Move props to bit array
+// TODO: Make a reference type or CoW
 struct Context {
     var parents: [TypeName]
     var namespace: String? // TODO: Refactor how namespaces are added

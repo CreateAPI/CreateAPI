@@ -33,30 +33,23 @@ extension Generator {
     }
     
     private func _schemas() throws -> GeneratorOutput {
-        let schemas = Array(spec.components.schemas)
-        var generated = Array<Result<GeneratedFile, Error>?>(repeating: nil, count: schemas.count)
-        let context = Context(parents: [])
+        let jobs = makeJobs()
+        var generated = Array<Result<GeneratedFile, Error>?>(repeating: nil, count: jobs.count)
+        topLevelTypes = Set(jobs.map(\.name))
         let lock = NSLock()
-        concurrentPerform(on: schemas, parallel: arguments.isParallel) { index, item in
-            let (key, schema) = schemas[index]
-            
-            guard let name = getTypeName(for: key), !options.entities.skip.contains(name.rawValue) else {
-                if arguments.isVerbose {
-                    print("Skipping generation for \(key.rawValue)")
-                }
-                return
-            }
+        concurrentPerform(on: jobs, parallel: arguments.isParallel) { index, job in
+            let job = jobs[index]
 
             do {
-                if let entry = try makeDeclaration(name: name, schema: schema, context: context) {
-                    let file = GeneratedFile(name: name.rawValue, contents: render(entry))
+                if let entry = try makeDeclaration(job: job) {
+                    let file = GeneratedFile(name: job.name.rawValue, contents: render(entry))
                     lock.sync { generated[index] = .success(file) }
                 }
             } catch {
                 if arguments.isStrict {
                     lock.sync { generated[index] = .failure(error) }
                 } else {
-                    print("ERROR: Failed to generate entity for \(key.rawValue): \(error)")
+                    print("ERROR: Failed to generate entity for \(job.name.rawValue): \(error)")
                 }
             }
         }
@@ -66,6 +59,27 @@ extension Generator {
             files: try generated.compactMap { $0 }.map { try $0.get() },
             extensions: makeExtensions()
         )
+    }
+    
+    private func makeJobs() -> [Job] {
+        var jobs: [Job] = []
+        for (key, schema) in spec.components.schemas {
+            guard let name = getTypeName(for: key),
+                  !options.entities.skip.contains(name.rawValue) else {
+                if arguments.isVerbose {
+                    print("Skipping generation for \(key.rawValue)")
+                }
+                continue
+            }
+            let job = Job(name: name, schema: schema)
+            jobs.append(job)
+        }
+        return jobs
+    }
+    
+    private struct Job {
+        let name: TypeName
+        let schema: JSONSchema
     }
     
     private func makeExtensions() -> GeneratedFile? {
@@ -107,6 +121,11 @@ extension Generator {
     }
 
     // MARK: - Declarations
+    
+    private func makeDeclaration(job: Job) throws -> Declaration? {
+        let context = Context(parents: [])
+        return try makeDeclaration(name: job.name, schema: job.schema, context: context)
+    }
     
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
