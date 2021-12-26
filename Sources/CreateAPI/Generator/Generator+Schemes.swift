@@ -183,18 +183,8 @@ extension Generator {
             default: break
             }
             return .builtin("String")
-        case .object(let info, let details):
-            // TODO: Use _makeDeclaration
-            if let dictionary = try makeDictionary(key: "placeholder", info: info, details: details, context: context), dictionary.nested == nil {
-                return dictionary.type
-            }
-            return nil
-        case .array(_, let details):
-            guard let items = details.items else {
-                throw GeneratorError("Missing array item type")
-            }
-            return try getTypeIdentifier(for: items, context: context)?.asArray()
-        case .all, .one, .any, .not:
+        case .array, .object, .all, .one, .any, .not:
+            // TODO: Remove `nested` check
             if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context) as? TypealiasDeclaration, alias.nested == nil {
                 return alias.type
             }
@@ -253,6 +243,7 @@ extension Generator {
         if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
             return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
         }
+        guard !context.isInlinableTypeCheck else { return nil }
         let properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
@@ -288,7 +279,7 @@ extension Generator {
         }
     }
     
-    private func makeNestedArrayTypeName(for key: String) -> TypeName {
+    private func makeNestedElementTypeName(for key: String) -> TypeName {
         if let name = options.rename.collectionElements[key] {
             return TypeName(name)
         }
@@ -335,8 +326,9 @@ extension Generator {
             if let type = try getTypeIdentifier(for: schema, context: context) {
                 return AdditionalProperties(type: .dictionary(value: type), info: info)
             }
-            let nestedTypeName = makeNestedArrayTypeName(for: key)
-            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
+            guard !context.isInlinableTypeCheck else { return nil }
+            let nestedTypeName = makeNestedElementTypeName(for: key)
+            let nested = try _makeDeclaration(name: nestedTypeName, schema: schema, context: context)
             return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
         }
     }
@@ -485,6 +477,7 @@ extension Generator {
         if let type = try getTypeIdentifier(for: item, context: context) {
             return TypealiasDeclaration(name: name, type: type.asArray())
         }
+        guard !context.isInlinableTypeCheck else { return nil }
         let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
         let nested = try _makeDeclaration(name: itemName.name, schema: item, context: context)
         return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
@@ -570,7 +563,7 @@ extension Generator {
                 return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
             }
             let type = makeTypeName(key)
-            let nested = try makeDeclaration(name: type, schema: schema, context: context)
+            let nested = try _makeDeclaration(name: type, schema: schema, context: context)
             return property(type: .userDefined(name: type), info: info, nested: nested)
         }
         
@@ -581,8 +574,8 @@ extension Generator {
             if let type = try getTypeIdentifier(for: item, context: context) {
                 return property(type: type.asArray(), info: info)
             }
-            let name = makeNestedArrayTypeName(for: key)
-            let nested = try makeDeclaration(name: name, schema: item, context: context)
+            let name = makeNestedElementTypeName(for: key)
+            let nested = try _makeDeclaration(name: name, schema: item, context: context)
             return property(type: .userDefined(name: name).asArray(), info: info, nested: nested)
         }
         
@@ -603,7 +596,7 @@ extension Generator {
                 return property(type: type, info: schema.coreContext)
             }
             let name = makeTypeName(key)
-            let nested = try makeDeclaration(name: name, schema: schema, context: context)
+            let nested = try _makeDeclaration(name: name, schema: schema, context: context)
             return property(type: .userDefined(name: name), info: schema.coreContext, nested: nested)
         }
         

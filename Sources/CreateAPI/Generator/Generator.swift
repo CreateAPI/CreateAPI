@@ -121,6 +121,8 @@ struct Context {
     var isEncodableNeeded = true
     var isPatch = false
     var isFormEncoding = false
+    /// A special mode where declaration need to exit early if they detect
+    /// that that are not resolvable to primitive type identifiers.
     var isInlinableTypeCheck = false
     
     func adding(_ parent: TypeName) -> Context {

@@ -317,7 +317,6 @@
 				0C612E9C2777B570008D32A4 /* TwilioAPI */,
 				0C612E742777B56E008D32A4 /* TwitterAPI */,
 				0C612E6C2777B56E008D32A4 /* WikimediaAPI */,
-				0C612E612777B55A008D32A4 /* GeneratedPackages */,
 				0C612DB82777B098008D32A4 /* Products */,
 				0C612DEA2777B0AC008D32A4 /* Frameworks */,
 			);
@@ -336,13 +335,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0C612E612777B55A008D32A4 /* GeneratedPackages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GeneratedPackages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -21,7 +21,6 @@ class GenerateBaseTests: XCTestCase {
         temp.remove()
     }
     
-    
     func testSpec(name: String, package: String? = nil, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
