@@ -478,9 +478,12 @@ extension Generator {
             // `Pet` to an `.object`, not a `.reference`.
             if options.isInliningTypealiases, let name = ref.name {
                 // If there is a cycle, it can't be a primitive value
-                if context.parents.contains(makeTypeName(name)) {
-                    return .userDefined(name: makeTypeName(name))
+                // (and we must stop recursion)
+                let type = makeTypeName(name)
+                if context.parents.contains(type) {
+                    return .userDefined(name: type)
                 }
+                let context = context.adding(type)
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key],
                    let inlined = try getPrimitiveType(for: schema, context: context) {

@@ -92,7 +92,7 @@ final class GenerateTests: GenerateBaseTests {
     // TODO: Can we automatically resolve these conflicts?
     // - "/repositories/{workspace}/{repo_slug}/pipelines-config/
     // - "/repositories/{workspace}/{repo_slug}/pipelines_config/
-    func _testGenerateBitbucket() throws {
+    func testGenerateBitbucket() throws {
         try testSpec(name: "bitbucket", package: "BitbucketAPI")
     }
     

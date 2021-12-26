@@ -121,6 +121,7 @@
 		0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F452777B596008D32A4 /* TwilioAPI */; };
 		0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F472777B596008D32A4 /* TwitterAPI */; };
 		0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F492777B596008D32A4 /* WikimediaAPI */; };
+		0C84E3972778122500609E4A /* BitbucketAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C84E3962778122500609E4A /* BitbucketAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		0C612E9E2777B570008D32A4 /* JiraAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JiraAPI; path = CreateAPITests/Expected/JiraAPI; sourceTree = "<group>"; };
 		0C612E9F2777B570008D32A4 /* CircleCIAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircleCIAPI; path = CreateAPITests/Expected/CircleCIAPI; sourceTree = "<group>"; };
 		0C612EA02777B570008D32A4 /* OnePasswordAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OnePasswordAPI; path = CreateAPITests/Expected/OnePasswordAPI; sourceTree = "<group>"; };
+		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
 				0C612F282777B595008D32A4 /* petstore-some-entities-as-structs in Frameworks */,
+				0C84E3972778122500609E4A /* BitbucketAPI in Frameworks */,
 				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
 				0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */,
 				0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */,
@@ -258,6 +261,7 @@
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
+				0C84E3952778121D00609E4A /* BitbucketAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
@@ -425,6 +429,7 @@
 				0C612F452777B596008D32A4 /* TwilioAPI */,
 				0C612F472777B596008D32A4 /* TwitterAPI */,
 				0C612F492777B596008D32A4 /* WikimediaAPI */,
+				0C84E3962778122500609E4A /* BitbucketAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -965,6 +970,10 @@
 		0C612F492777B596008D32A4 /* WikimediaAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WikimediaAPI;
+		};
+		0C84E3962778122500609E4A /* BitbucketAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BitbucketAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
