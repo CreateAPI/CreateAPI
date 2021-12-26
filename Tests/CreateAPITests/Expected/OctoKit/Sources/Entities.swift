@@ -3385,7 +3385,7 @@ public struct BaseGist: Codable {
     public var gitPullURL: URL
     public var gitPushURL: URL
     public var htmlURL: URL
-    public var files: [String: File]
+    public var files: Files
     public var isPublic: Bool
     public var createdAt: Date
     public var updatedAt: Date
@@ -3399,6 +3399,8 @@ public struct BaseGist: Codable {
     public var isTruncated: Bool?
     public var forks: [AnyJSON]?
     public var history: [AnyJSON]?
+
+    public typealias Files = [String: File]
 
     public struct File: Codable {
         public var filename: String?
@@ -3424,7 +3426,7 @@ public struct BaseGist: Codable {
         }
     }
 
-    public init(url: URL, forksURL: URL, commitsURL: URL, id: String, nodeID: String, gitPullURL: URL, gitPushURL: URL, htmlURL: URL, files: [String: File], isPublic: Bool, createdAt: Date, updatedAt: Date, description: String? = nil, comments: Int, user: SimpleUser? = nil, commentsURL: URL, owner: SimpleUser? = nil, isTruncated: Bool? = nil, forks: [AnyJSON]? = nil, history: [AnyJSON]? = nil) {
+    public init(url: URL, forksURL: URL, commitsURL: URL, id: String, nodeID: String, gitPullURL: URL, gitPushURL: URL, htmlURL: URL, files: Files, isPublic: Bool, createdAt: Date, updatedAt: Date, description: String? = nil, comments: Int, user: SimpleUser? = nil, commentsURL: URL, owner: SimpleUser? = nil, isTruncated: Bool? = nil, forks: [AnyJSON]? = nil, history: [AnyJSON]? = nil) {
         self.url = url
         self.forksURL = forksURL
         self.commitsURL = commitsURL
@@ -3670,7 +3672,7 @@ public struct GistSimple: Codable {
     public var gitPullURL: String?
     public var gitPushURL: String?
     public var htmlURL: String?
-    public var files: [String: File]?
+    public var files: Files?
     public var isPublic: Bool?
     public var createdAt: String?
     public var updatedAt: String?
@@ -3717,7 +3719,7 @@ public struct GistSimple: Codable {
         public var gitPullURL: URL
         public var gitPushURL: URL
         public var htmlURL: URL
-        public var files: [String: File]
+        public var files: Files
         public var isPublic: Bool
         public var createdAt: Date
         public var updatedAt: Date
@@ -3731,6 +3733,8 @@ public struct GistSimple: Codable {
         public var isTruncated: Bool?
         public var forks: [AnyJSON]?
         public var history: [AnyJSON]?
+
+        public typealias Files = [String: File]
 
         public struct File: Codable {
             public var filename: String?
@@ -3756,7 +3760,7 @@ public struct GistSimple: Codable {
             }
         }
 
-        public init(url: URL, forksURL: URL, commitsURL: URL, id: String, nodeID: String, gitPullURL: URL, gitPushURL: URL, htmlURL: URL, files: [String: File], isPublic: Bool, createdAt: Date, updatedAt: Date, description: String? = nil, comments: Int, user: SimpleUser? = nil, commentsURL: URL, owner: SimpleUser? = nil, isTruncated: Bool? = nil, forks: [AnyJSON]? = nil, history: [AnyJSON]? = nil) {
+        public init(url: URL, forksURL: URL, commitsURL: URL, id: String, nodeID: String, gitPullURL: URL, gitPushURL: URL, htmlURL: URL, files: Files, isPublic: Bool, createdAt: Date, updatedAt: Date, description: String? = nil, comments: Int, user: SimpleUser? = nil, commentsURL: URL, owner: SimpleUser? = nil, isTruncated: Bool? = nil, forks: [AnyJSON]? = nil, history: [AnyJSON]? = nil) {
             self.url = url
             self.forksURL = forksURL
             self.commitsURL = commitsURL
@@ -3803,6 +3807,8 @@ public struct GistSimple: Codable {
         }
     }
 
+    public typealias Files = [String: File]
+
     public struct File: Codable {
         public var filename: String?
         public var type: String?
@@ -3833,7 +3839,7 @@ public struct GistSimple: Codable {
         }
     }
 
-    public init(forks: [Fork]? = nil, history: [GistHistory]? = nil, forkOf: ForkOf? = nil, url: String? = nil, forksURL: String? = nil, commitsURL: String? = nil, id: String? = nil, nodeID: String? = nil, gitPullURL: String? = nil, gitPushURL: String? = nil, htmlURL: String? = nil, files: [String: File]? = nil, isPublic: Bool? = nil, createdAt: String? = nil, updatedAt: String? = nil, description: String? = nil, comments: Int? = nil, user: String? = nil, commentsURL: String? = nil, owner: SimpleUser? = nil, isTruncated: Bool? = nil) {
+    public init(forks: [Fork]? = nil, history: [GistHistory]? = nil, forkOf: ForkOf? = nil, url: String? = nil, forksURL: String? = nil, commitsURL: String? = nil, id: String? = nil, nodeID: String? = nil, gitPullURL: String? = nil, gitPushURL: String? = nil, htmlURL: String? = nil, files: Files? = nil, isPublic: Bool? = nil, createdAt: String? = nil, updatedAt: String? = nil, description: String? = nil, comments: Int? = nil, user: String? = nil, commentsURL: String? = nil, owner: SimpleUser? = nil, isTruncated: Bool? = nil) {
         self.forks = forks
         self.history = history
         self.forkOf = forkOf

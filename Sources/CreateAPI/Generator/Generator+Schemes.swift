@@ -184,11 +184,9 @@ extension Generator {
             }
             return .builtin("String")
         case .array, .object, .all, .one, .any, .not:
-            // TODO: Remove `nested` check
-            if let alias = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context) as? TypealiasDeclaration, alias.nested == nil {
-                return alias.type
-            }
-            return nil
+            // If any of these constructrs result in a typealias, it can be inlined
+            let declaration = try _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context)
+            return (declaration as? TypealiasDeclaration)?.type
         case .reference(let reference, _):
             return try getReferenceType(reference, context: context)
         case .fragment:
@@ -328,7 +326,7 @@ extension Generator {
             }
             guard !context.isInlinableTypeCheck else { return nil }
             let nestedTypeName = makeNestedElementTypeName(for: key)
-            let nested = try _makeDeclaration(name: nestedTypeName, schema: schema, context: context)
+            let nested = try makeDeclaration(name: nestedTypeName, schema: schema, context: context)
             return AdditionalProperties(type: .dictionary(value: .userDefined(name: nestedTypeName)), info: info, nested: nested)
         }
     }
@@ -479,7 +477,7 @@ extension Generator {
         }
         guard !context.isInlinableTypeCheck else { return nil }
         let itemName = TypeIdentifier.userDefined(name: name.appending("Item"))
-        let nested = try _makeDeclaration(name: itemName.name, schema: item, context: context)
+        let nested = try makeDeclaration(name: itemName.name, schema: item, context: context)
         return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: nested)
     }
     
@@ -557,16 +555,7 @@ extension Generator {
             return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
         }
 
-        func makeObject(info: JSONSchemaContext, details: JSONSchema.ObjectContext) throws -> Property {
-            // TODO: This should be done using the same apporach as makeSomeOf
-            if let dictionary = try makeDictionary(key: key, info: info, details: details, context: context) {
-                return property(type: dictionary.type, info: dictionary.info, nested: dictionary.nested)
-            }
-            let type = makeTypeName(key)
-            let nested = try _makeDeclaration(name: type, schema: schema, context: context)
-            return property(type: .userDefined(name: type), info: info, nested: nested)
-        }
-        
+        // TODO: This should be implemented the same way as other entities
         func makeArray(info: JSONSchemaContext, details: JSONSchema.ArrayContext) throws -> Property {
             guard let item = details.items else {
                 throw GeneratorError("Missing array item type")
@@ -575,7 +564,7 @@ extension Generator {
                 return property(type: type.asArray(), info: info)
             }
             let name = makeNestedElementTypeName(for: key)
-            let nested = try _makeDeclaration(name: name, schema: item, context: context)
+            let nested = try makeDeclaration(name: name, schema: item, context: context)
             return property(type: .userDefined(name: name).asArray(), info: info, nested: nested)
         }
         
@@ -591,12 +580,12 @@ extension Generator {
             return property(type: type, info: info)
         }
 
-        func makeSomeOf() throws -> Property {
+        func makeEntity() throws -> Property {
             if let type = try getTypeIdentifier(for: schema, context: context) {
                 return property(type: type, info: schema.coreContext)
             }
             let name = makeTypeName(key)
-            let nested = try _makeDeclaration(name: name, schema: schema, context: context)
+            let nested = try makeDeclaration(name: name, schema: schema, context: context)
             return property(type: .userDefined(name: name), info: schema.coreContext, nested: nested)
         }
         
@@ -619,10 +608,9 @@ extension Generator {
         }
 
         switch schema.value {
-        case .object(let info, let details): return try makeObject(info: info, details: details)
         case .array(let info, let details): return try makeArray(info: info, details: details)
         case .string(let info, _): return try makeString(info: info)
-        case .all, .one, .any: return try makeSomeOf()
+        case .object, .all, .one, .any: return try makeEntity()
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         case .not: throw GeneratorError("`not` properties are not supported")
         default: return try makeProperty(schema: schema)

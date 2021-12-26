@@ -2379,8 +2379,10 @@ extension Paths {
             ///     "content" : "puts \"Hello, World!\""
             ///   }
             /// }
-            public var files: [String: File]
+            public var files: Files
             public var `public`: Public?
+
+            public typealias Files = [String: File]
 
             public struct File: Encodable {
                 /// Content of the file
@@ -2410,7 +2412,7 @@ extension Paths {
                 }
             }
 
-            public init(description: String? = nil, files: [String: File], `public`: Public? = nil) {
+            public init(description: String? = nil, files: Files, `public`: Public? = nil) {
                 self.description = description
                 self.files = files
                 self.public = `public`
@@ -2555,7 +2557,9 @@ extension Paths.Gists {
             ///     "filename" : "goodbye.rb"
             ///   }
             /// }
-            public var files: [String: File]?
+            public var files: Files?
+
+            public typealias Files = [String: File]
 
             public struct File: Encodable {
                 /// The new content of the file
@@ -2569,7 +2573,7 @@ extension Paths.Gists {
                 }
             }
 
-            public init(description: String? = nil, files: [String: File]? = nil) {
+            public init(description: String? = nil, files: Files? = nil) {
                 self.description = description
                 self.files = files
             }

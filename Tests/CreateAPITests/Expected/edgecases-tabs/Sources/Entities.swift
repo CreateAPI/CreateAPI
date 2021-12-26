@@ -422,14 +422,16 @@ public struct Capitalization: Codable {
 
 public struct MapTest: Codable {
 	public var mapMapOfString: [String: [String: String]]?
-	public var mapOfEnumString: [String: MapOfEnumStringItem]?
+	public var mapOfEnumString: MapOfEnumString?
+
+	public typealias MapOfEnumString = [String: MapOfEnumStringItem]
 
 	public enum MapOfEnumStringItem: String, Codable, CaseIterable {
 		case upper = "UPPER"
 		case lower
 	}
 
-	public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: [String: MapOfEnumStringItem]? = nil) {
+	public init(mapMapOfString: [String: [String: String]]? = nil, mapOfEnumString: MapOfEnumString? = nil) {
 		self.mapMapOfString = mapMapOfString
 		self.mapOfEnumString = mapOfEnumString
 	}
