@@ -24,6 +24,12 @@ let package = Package(
                 .product(name: "FileWatcher", package: "FileWatcher")
             ]
         ),
-        .testTarget(name: "CreateAPITests", dependencies: ["CreateAPI"], resources: [.copy("Expected"), .copy("Specs")])
+        .testTarget(
+            name: "CreateAPITests",
+            dependencies: [
+                "CreateAPI"
+            ],
+            resources: [.copy("Expected"), .copy("Specs")]
+        )
     ]
 )

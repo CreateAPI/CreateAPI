@@ -8,37 +8,37 @@ import XCTest
 final class QueryEncoderTests: XCTestCase {
     // MARK: Style: Form, Explode: True
     
-    func testStyleFormExplodeTruePrimitive() {
+    func testStyleFormExplodeTruePrimitive() throws {
         // GIVEN
         let id = 5
         
         // THEN
-        var query: [(String, String?)] = []
-        query.addQueryItem("id", id)
-        
+        let encoder = URLQueryEncoder()
+        let query = try encoder.encode(["id": id])
+
         // THEN
         XCTAssertEqual(query.asQuery(), "id=5")
     }
 
-    func testStyleFormExplodeTrueArray() {
+    func testStyleFormExplodeTrueArray() throws {
         // GIVEN
         let ids = [3, 4, 5]
         
         // WHEN
-        var query: [(String, String?)] = []
-        ids.forEach { query.addQueryItem("id", $0) }
+        let encoder = URLQueryEncoder()
+        let query = try encoder.encode(["id": ids])
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3&id=4&id=5")
     }
     
-    func testStyleFormExplodeTrueObject() {
+    func testStyleFormExplodeTrueObject() throws {
         // GIVEN
         let user = User(role: "admin", name: "kean")
         
         // WHEN
-        var query: [(String, String?)] = []
-        query += user.asQuery
+        let encoder = URLQueryEncoder()
+        let query = try encoder.encode(user)
         
         // THEN
         XCTAssertEqual(query.asQuery(), "role=admin&name=kean")
@@ -46,25 +46,28 @@ final class QueryEncoderTests: XCTestCase {
     
     // MARK: Style: Form, Explode: False
     
-    func testStyleFormExplodeFalsePrimitive() {
+    func testStyleFormExplodeFalsePrimitive() throws {
         // GIVEN
         let id = 5
         
         // THEN
-        var query: [(String, String?)] = []
-        query.addQueryItem("id", id)
+        let encoder = URLQueryEncoder(explode: false)
+        let query = try encoder.encode(["id": id])
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=5")
     }
 
-    func testStyleFormExplodeFalseArray() {
+    func testStyleFormExplodeFalseArray() throws {
         // GIVEN
         let ids = [3, 4, 5]
         
         // WHEN
-        var query: [(String, String?)] = []
-        query.addQueryItem("id", ids.map(\.asQueryValue).joined(separator: ","))
+        let encoder = URLQueryEncoder(explode: false)
+        let query = try encoder.encode(["id": ids])
+        
+//        var query: [(String, String?)] = []
+//        query.addQueryItem("id", ids.map(\.asQueryValue).joined(separator: ","))
         
         // THEN
         XCTAssertEqual(query.asQuery(), "id=3,4,5")
@@ -158,7 +161,7 @@ final class QueryEncoderTests: XCTestCase {
     }
 }
 
-struct User {
+struct User: Encodable {
     var role: String
     var name: String
     
@@ -217,5 +220,15 @@ extension Array where Element == (String, String?) {
     // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
     var asCompactQuery: String {
         flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
+    }
+}
+
+// MARK:
+
+extension Array where Element == URLQueryItem {
+    func asQuery() -> String? {
+        var components = URLComponents()
+        components.queryItems = self
+        return components.percentEncodedQuery
     }
 }
